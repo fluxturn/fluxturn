@@ -57,23 +57,6 @@ const Landing = () => {
 
       {/* FAQ Section */}
       <FAQSection />
-
-      {/* TEMPORARY TEST SECTION - Remove after testing */}
-      <div style={{
-        background: 'linear-gradient(135deg, #ff6b6b, #ffa502)',
-        padding: '40px 20px',
-        textAlign: 'center' as const,
-      }}>
-        <h2 style={{ fontSize: '28px', fontWeight: 'bold', color: '#fff', marginBottom: '12px' }}>
-          Test Section - Frontend is Working!
-        </h2>
-        <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.9)', marginBottom: '8px' }}>
-          If you can see this, the landing page is rendering correctly.
-        </p>
-        <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.7)' }}>
-          Timestamp: {new Date().toISOString()} | Remove this section before production.
-        </p>
-      </div>
     </div>
   );
 };
