@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <a href="https://docs.fluxturn.com">दस्तावेज़ीकरण</a> |
+  <a href="https://github.com/fluxturn/fluxturn/wiki">दस्तावेज़ीकरण</a> |
   <a href="#quick-start">त्वरित शुरुआत</a> |
   <a href="https://discord.gg/fluxturn">Discord</a> |
   <a href="CONTRIBUTING.md">योगदान</a>
@@ -184,7 +184,7 @@ FluxTurn में योगदान देने वाले सभी अद
 
 <p align="center">
   <a href="https://fluxturn.com">वेबसाइट</a> |
-  <a href="https://docs.fluxturn.com">दस्तावेज़</a> |
+  <a href="https://github.com/fluxturn/fluxturn/wiki">दस्तावेज़</a> |
   <a href="https://discord.gg/fluxturn">Discord</a> |
   <a href="https://twitter.com/fluxturn">Twitter</a>
 </p>

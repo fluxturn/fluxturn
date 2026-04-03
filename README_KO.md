@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <a href="https://docs.fluxturn.com">문서</a> |
+  <a href="https://github.com/fluxturn/fluxturn/wiki">문서</a> |
   <a href="#quick-start">빠른 시작</a> |
   <a href="https://discord.gg/fluxturn">Discord</a> |
   <a href="CONTRIBUTING.md">기여하기</a>
@@ -184,7 +184,7 @@ FluxTurn에 기여해주신 모든 훌륭한 분들께 감사드립니다! 🎉
 
 <p align="center">
   <a href="https://fluxturn.com">웹사이트</a> |
-  <a href="https://docs.fluxturn.com">문서</a> |
+  <a href="https://github.com/fluxturn/fluxturn/wiki">문서</a> |
   <a href="https://discord.gg/fluxturn">Discord</a> |
   <a href="https://twitter.com/fluxturn">Twitter</a>
 </p>

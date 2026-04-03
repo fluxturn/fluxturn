@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <a href="https://docs.fluxturn.com">Документация</a> |
+  <a href="https://github.com/fluxturn/fluxturn/wiki">Документация</a> |
   <a href="#quick-start">Быстрый Старт</a> |
   <a href="https://discord.gg/fluxturn">Discord</a> |
   <a href="CONTRIBUTING.md">Вклад</a>
@@ -184,7 +184,7 @@ FluxTurn поддерживает 17 языков через i18next:
 
 <p align="center">
   <a href="https://fluxturn.com">Веб-сайт</a> |
-  <a href="https://docs.fluxturn.com">Документация</a> |
+  <a href="https://github.com/fluxturn/fluxturn/wiki">Документация</a> |
   <a href="https://discord.gg/fluxturn">Discord</a> |
   <a href="https://twitter.com/fluxturn">Twitter</a>
 </p>

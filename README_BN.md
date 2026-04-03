@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <a href="https://docs.fluxturn.com">ডকুমেন্টেশন</a> |
+  <a href="https://github.com/fluxturn/fluxturn/wiki">ডকুমেন্টেশন</a> |
   <a href="#quick-start">দ্রুত শুরু</a> |
   <a href="https://discord.gg/fluxturn">Discord</a> |
   <a href="CONTRIBUTING.md">অবদান</a>
@@ -184,7 +184,7 @@ FluxTurn-এ অবদান রাখা সকল অসাধারণ মা
 
 <p align="center">
   <a href="https://fluxturn.com">ওয়েবসাইট</a> |
-  <a href="https://docs.fluxturn.com">ডক্স</a> |
+  <a href="https://github.com/fluxturn/fluxturn/wiki">ডক্স</a> |
   <a href="https://discord.gg/fluxturn">Discord</a> |
   <a href="https://twitter.com/fluxturn">Twitter</a>
 </p>

@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <a href="https://docs.fluxturn.com">Dokumentation</a> |
+  <a href="https://github.com/fluxturn/fluxturn/wiki">Dokumentation</a> |
   <a href="#quick-start">Schnellstart</a> |
   <a href="https://discord.gg/fluxturn">Discord</a> |
   <a href="CONTRIBUTING.md">Mitwirken</a>
@@ -184,7 +184,7 @@ Erstellt mit [NestJS](https://nestjs.com), [React](https://react.dev), [ReactFlo
 
 <p align="center">
   <a href="https://fluxturn.com">Website</a> |
-  <a href="https://docs.fluxturn.com">Dokumentation</a> |
+  <a href="https://github.com/fluxturn/fluxturn/wiki">Dokumentation</a> |
   <a href="https://discord.gg/fluxturn">Discord</a> |
   <a href="https://twitter.com/fluxturn">Twitter</a>
 </p>

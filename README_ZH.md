@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <a href="https://docs.fluxturn.com">文档</a> |
+  <a href="https://github.com/fluxturn/fluxturn/wiki">文档</a> |
   <a href="#quick-start">快速开始</a> |
   <a href="https://discord.gg/fluxturn">Discord</a> |
   <a href="CONTRIBUTING.md">贡献</a>
@@ -184,7 +184,7 @@ FluxTurn通过i18next支持17种语言：
 
 <p align="center">
   <a href="https://fluxturn.com">网站</a> |
-  <a href="https://docs.fluxturn.com">文档</a> |
+  <a href="https://github.com/fluxturn/fluxturn/wiki">文档</a> |
   <a href="https://discord.gg/fluxturn">Discord</a> |
   <a href="https://twitter.com/fluxturn">Twitter</a>
 </p>

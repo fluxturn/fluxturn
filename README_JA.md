@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <a href="https://docs.fluxturn.com">ドキュメント</a> |
+  <a href="https://github.com/fluxturn/fluxturn/wiki">ドキュメント</a> |
   <a href="#quick-start">クイックスタート</a> |
   <a href="https://discord.gg/fluxturn">Discord</a> |
   <a href="CONTRIBUTING.md">コントリビュート</a>
@@ -184,7 +184,7 @@ FluxTurnに貢献してくださったすべての素晴らしい方々に感謝
 
 <p align="center">
   <a href="https://fluxturn.com">ウェブサイト</a> |
-  <a href="https://docs.fluxturn.com">ドキュメント</a> |
+  <a href="https://github.com/fluxturn/fluxturn/wiki">ドキュメント</a> |
   <a href="https://discord.gg/fluxturn">Discord</a> |
   <a href="https://twitter.com/fluxturn">Twitter</a>
 </p>
