@@ -821,6 +821,36 @@ export const ProjectDashboardReal: React.FC = () => {
           </div>
         </GlassCard>
       </motion.div>
+
+      {/* TEMPORARY TEST SECTION - Remove after testing */}
+      <motion.div variants={itemVariants}>
+        <GlassCard hover={false}>
+          <div className="space-y-4">
+            <h3 className="text-sm font-bold text-yellow-400 uppercase tracking-wider">Test Section (Temporary)</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+                <p className="text-sm text-white/80 font-medium mb-2">Project ID</p>
+                <code className="text-xs text-cyan-400 break-all">{projectId}</code>
+              </div>
+              <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+                <p className="text-sm text-white/80 font-medium mb-2">Organization</p>
+                <code className="text-xs text-cyan-400 break-all">{currentOrganization?.id || 'N/A'}</code>
+              </div>
+              <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+                <p className="text-sm text-white/80 font-medium mb-2">Workflows Loaded</p>
+                <code className="text-xs text-cyan-400">{workflowStats.total} total ({workflowStats.active} active, {workflowStats.paused} paused)</code>
+              </div>
+              <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+                <p className="text-sm text-white/80 font-medium mb-2">Executions Loaded</p>
+                <code className="text-xs text-cyan-400">{executionStats.total} total | Recent: {recentExecutions.length}</code>
+              </div>
+            </div>
+            <div className="p-4 rounded-lg bg-yellow-500/10 border border-yellow-500/20">
+              <p className="text-xs text-yellow-400">This section is for testing/debugging purposes only. Remove before production.</p>
+            </div>
+          </div>
+        </GlassCard>
+      </motion.div>
     </motion.div>
   )
 }
