@@ -32,7 +32,9 @@
   <a href="./README_FR.md">Français</a> |
   <a href="./README_DE.md">Deutsch</a> |
   <a href="./README_PT-BR.md">Português</a> |
-  <a href="./README_RU.md">Русский</a>
+  <a href="./README_RU.md">Русский</a> |
+  <a href="./README_HI.md">हिन्दी</a> |
+  <a href="./README_BN.md">বাংলা</a>
 </p>
 
 ---
