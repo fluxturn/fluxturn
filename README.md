@@ -1,4 +1,10 @@
 <p align="center">
+  <a href="https://fluxturn.com">
+    <img src="frontend/public/fluxturn_1.png" alt="FluxTurn" width="600">
+  </a>
+</p>
+
+<p align="center">
   <h1 align="center">FluxTurn</h1>
   <p align="center">
     <strong>Open-source AI-powered workflow automation platform</strong>
@@ -17,7 +23,7 @@
 </p>
 
 <p align="center">
-  <a href="https://docs.fluxturn.com">Documentation</a> |
+  <a href="https://github.com/fluxturn/fluxturn/wiki">Documentation</a> |
   <a href="#quick-start">Quick Start</a> |
   <a href="https://discord.gg/fluxturn">Discord</a> |
   <a href="CONTRIBUTING.md">Contributing</a>
@@ -32,7 +38,9 @@
   <a href="./README_FR.md">Français</a> |
   <a href="./README_DE.md">Deutsch</a> |
   <a href="./README_PT-BR.md">Português</a> |
-  <a href="./README_RU.md">Русский</a>
+  <a href="./README_RU.md">Русский</a> |
+  <a href="./README_HI.md">हिन्दी</a> |
+  <a href="./README_BN.md">বাংলা</a>
 </p>
 
 ---
@@ -53,6 +61,8 @@ FluxTurn is an open-source workflow automation platform that lets you connect ap
 
 ### Docker (Recommended)
 
+Run these commands from the project root:
+
 ```bash
 git clone https://github.com/fluxturn/fluxturn.git
 cd fluxturn
@@ -61,7 +71,7 @@ cp backend/.env.example backend/.env
 docker compose up -d
 ```
 
-Access the app at `http://localhost:5173` and the API at `http://localhost:5005`.
+That's it! Access the app at `http://localhost:5173` and the API at `http://localhost:5005`.
 
 ### Manual Setup
 
@@ -152,6 +162,16 @@ We welcome contributions! See our [Contributing Guide](CONTRIBUTING.md) to get s
 - Improve documentation
 - Add translations
 
+## Contributors
+
+Thank you to all the amazing people who have contributed to FluxTurn! 🎉
+
+<a href="https://github.com/fluxturn/fluxturn/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=fluxturn/fluxturn" />
+</a>
+
+Want to see your face here? Check out our [Contributing Guide](CONTRIBUTING.md) and start contributing today!
+
 ## Community
 
 - [Discord](https://discord.gg/fluxturn) -- Chat with the team and community
@@ -170,7 +190,7 @@ Built with [NestJS](https://nestjs.com), [React](https://react.dev), [ReactFlow]
 
 <p align="center">
   <a href="https://fluxturn.com">Website</a> |
-  <a href="https://docs.fluxturn.com">Docs</a> |
+  <a href="https://github.com/fluxturn/fluxturn/wiki">Docs</a> |
   <a href="https://discord.gg/fluxturn">Discord</a> |
   <a href="https://twitter.com/fluxturn">Twitter</a>
 </p>

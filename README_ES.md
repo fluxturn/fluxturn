@@ -1,11 +1,32 @@
 <p align="center">
+  <a href="https://fluxturn.com">
+    <img src="frontend/public/fluxturn_1.png" alt="FluxTurn" width="600">
+  </a>
+</p>
+
+<p align="center">
   <h1 align="center">FluxTurn</h1>
   <p align="center">
-    <strong>Plataforma de automatizacion de flujos de trabajo impulsada por IA de codigo abierto</strong>
+    <strong>Plataforma de automatización de flujos de trabajo de código abierto impulsada por IA</strong>
   </p>
   <p align="center">
-    Construye, automatiza y orquesta flujos de trabajo con lenguaje natural y un editor visual.
+    Construye, automatiza y orquesta flujos de trabajo con lenguaje natural y un constructor visual.
   </p>
+</p>
+
+<p align="center">
+  <a href="https://github.com/fluxturn/fluxturn/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="License"></a>
+  <a href="https://github.com/fluxturn/fluxturn/stargazers"><img src="https://img.shields.io/github/stars/fluxturn/fluxturn?style=social" alt="GitHub Stars"></a>
+  <a href="https://github.com/fluxturn/fluxturn/issues"><img src="https://img.shields.io/github/issues/fluxturn/fluxturn" alt="Issues"></a>
+  <a href="https://github.com/fluxturn/fluxturn/pulls"><img src="https://img.shields.io/github/issues-pr/fluxturn/fluxturn" alt="Pull Requests"></a>
+  <a href="https://discord.gg/fluxturn"><img src="https://img.shields.io/discord/YOUR_DISCORD_ID?label=Discord&logo=discord&logoColor=white" alt="Discord"></a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/fluxturn/fluxturn/wiki">Documentación</a> |
+  <a href="#quick-start">Inicio Rápido</a> |
+  <a href="https://discord.gg/fluxturn">Discord</a> |
+  <a href="CONTRIBUTING.md">Contribuir</a>
 </p>
 
 <p align="center">
@@ -15,45 +36,161 @@
   <a href="./README_KO.md">한국어</a> |
   <a href="./README_ES.md">Español</a> |
   <a href="./README_FR.md">Français</a> |
-  <a href="./README_DE.md">Deutsch</a>
+  <a href="./README_DE.md">Deutsch</a> |
+  <a href="./README_PT-BR.md">Português</a> |
+  <a href="./README_RU.md">Русский</a> |
+  <a href="./README_HI.md">हिन्दी</a> |
+  <a href="./README_BN.md">বাংলা</a>
 </p>
 
 ---
 
-## Que es FluxTurn?
+## ¿Qué es FluxTurn?
 
-FluxTurn es una plataforma de automatizacion de flujos de trabajo de codigo abierto que te permite conectar aplicaciones, automatizar procesos y construir flujos de trabajo impulsados por IA, todo a traves de un editor visual o lenguaje natural.
+FluxTurn es una plataforma de automatización de flujos de trabajo de código abierto que te permite conectar aplicaciones, automatizar procesos y construir flujos de trabajo impulsados por IA, todo a través de un constructor visual o lenguaje natural.
 
-## Caracteristicas principales
+**Capacidades clave:**
 
-- **Editor visual de flujos de trabajo** - Construye automatizaciones complejas con arrastrar y soltar
-- **Generacion de flujos de trabajo con IA** - Describe lo que necesitas en lenguaje natural y la IA genera el flujo
-- **Mas de 80 conectores** - CRM, marketing, IA/ML, herramientas de comunicacion y mas
-- **Auto-hospedaje** - Despliega facilmente con `docker compose up`
-- **Ejecucion en tiempo real** - Monitoreo en tiempo real con WebSocket
-- **Codigo personalizado** - Soporte para ejecucion de JavaScript/Python
+- **Generación de Flujos de Trabajo con IA** -- Describe lo que quieres en español sencillo, obtén un flujo de trabajo funcional
+- **Constructor Visual de Flujos de Trabajo** -- Interfaz de arrastrar y soltar impulsada por ReactFlow
+- **Más de 80 Conectores** -- Slack, Gmail, Shopify, HubSpot, Jira, Stripe, OpenAI, y muchos más
+- **Ejecución en Tiempo Real** -- Observa los flujos de trabajo ejecutarse con registros detallados y monitoreo
+- **Auto-alojado** -- Ejecuta en tu propia infraestructura con Docker
 
-## Inicio rapido
+## Inicio Rápido
+
+### Docker (Recomendado)
+
+Ejecuta estos comandos desde la raíz del proyecto:
 
 ```bash
 git clone https://github.com/fluxturn/fluxturn.git
 cd fluxturn
-docker compose --env-file .env.docker up
+cp backend/.env.example backend/.env
+# Edita backend/.env con tus credenciales de base de datos y secreto JWT
+docker compose up -d
 ```
 
-Frontend: http://localhost:5185
-API Backend: http://localhost:5005
+¡Eso es todo! Accede a la aplicación en `http://localhost:5173` y a la API en `http://localhost:5005`.
 
-## Documentacion
+### Configuración Manual
 
-Para mas detalles, consulta el [README en ingles](./README.md).
+**Requisitos previos:** Node.js 18+, PostgreSQL 14+, Redis 7+
+
+```bash
+# Clonar
+git clone https://github.com/fluxturn/fluxturn.git
+cd fluxturn
+
+# Backend
+cd backend
+cp .env.example .env    # Edita .env con tu configuración
+npm install
+npm run start:dev
+
+# Frontend (en una nueva terminal)
+cd frontend
+cp .env.example .env
+npm install
+npm run dev
+```
+
+## Arquitectura
+
+```
+                    +------------------+
+                    |    Frontend      |  React 19 + Vite + Tailwind
+                    |  (Port 5173)     |  Visual Workflow Builder
+                    +--------+---------+  AI Chat Interface
+                             |
+                             v
+                    +------------------+
+                    |    Backend       |  NestJS + TypeScript
+                    |  (Port 5005)     |  REST API + WebSocket
+                    +--------+---------+  Workflow Engine
+                             |
+              +--------------+--------------+
+              |              |              |
+              v              v              v
+        +-----------+  +---------+  +----------+
+        | PostgreSQL |  |  Redis  |  |  Qdrant  |
+        | (Database) |  | (Cache) |  | (Vector) |
+        +-----------+  +---------+  +----------+
+```
+
+**Frontend** (`/frontend`) -- React 19, Vite, TailwindCSS, ReactFlow, i18next, CodeMirror
+
+**Backend** (`/backend`) -- NestJS, PostgreSQL (raw SQL), Redis, Socket.IO, LangChain, más de 80 conectores
+
+## Conectores
+
+FluxTurn incluye más de 80 conectores en estas categorías:
+
+| Categoría | Conectores |
+|----------|-----------|
+| **Comunicación** | Slack, Gmail, Outlook, Telegram, Discord, Twilio, SendGrid, Microsoft Teams |
+| **CRM y Ventas** | HubSpot, Salesforce, Pipedrive, Zoho CRM, Airtable |
+| **Comercio Electrónico** | Shopify, Stripe, PayPal, WooCommerce, Paddle, Gumroad |
+| **Gestión de Proyectos** | Jira, Asana, Trello, Notion, Linear, ClickUp |
+| **Redes Sociales** | Twitter/X, Facebook, Instagram, TikTok, LinkedIn, Pinterest |
+| **IA y ML** | OpenAI, Anthropic, Google AI, AWS Bedrock, Ollama, Replicate |
+| **Analítica** | PostHog, Mixpanel, Segment, Grafana, Metabase, Splunk |
+| **Almacenamiento** | Google Drive, Dropbox, AWS S3, PostgreSQL, Snowflake, Supabase |
+| **Soporte** | Zendesk, Intercom, ServiceNow, PagerDuty, Sentry |
+| **Finanzas** | QuickBooks, Plaid, Chargebee, Wise |
+| **Marketing** | Mailchimp, Klaviyo, Facebook Ads |
+| **CMS** | WordPress, Contentful, Ghost, Medium, Webflow |
+
+[Ver todos los conectores &rarr;](docs/connectors.md)
+
+## i18n
+
+FluxTurn soporta 17 idiomas a través de i18next:
+
+- Inglés, Japonés, Chino, Coreano, Español, Francés, Alemán, Italiano, Ruso, Portugués (BR), Holandés, Polaco, Ucraniano, Vietnamita, Indonesio, Árabe, Hindi
+
+¿Quieres añadir un nuevo idioma? Consulta la [guía de traducción](docs/contributing/translations.md).
+
+## Contribuir
+
+¡Damos la bienvenida a las contribuciones! Consulta nuestra [Guía de Contribución](CONTRIBUTING.md) para comenzar.
+
+**Formas de contribuir:**
+- Reporta errores o solicita funcionalidades a través de [GitHub Issues](https://github.com/fluxturn/fluxturn/issues)
+- Envía pull requests para correcciones de errores o nuevas funcionalidades
+- Añade nuevos conectores (consulta la [Guía de Desarrollo de Conectores](docs/guides/connector-development.md))
+- Mejora la documentación
+- Añade traducciones
+
+## Contribuidores
+
+¡Gracias a todas las personas increíbles que han contribuido a FluxTurn! 🎉
+
+<a href="https://github.com/fluxturn/fluxturn/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=fluxturn/fluxturn" />
+</a>
+
+¿Quieres ver tu rostro aquí? ¡Consulta nuestra [Guía de Contribución](CONTRIBUTING.md) y comienza a contribuir hoy!
 
 ## Comunidad
 
-- [Discord](https://discord.gg/fluxturn)
-- [GitHub Issues](https://github.com/fluxturn/fluxturn/issues)
-- [GitHub Discussions](https://github.com/fluxturn/fluxturn/discussions)
+- [Discord](https://discord.gg/fluxturn) -- Chatea con el equipo y la comunidad
+- [GitHub Discussions](https://github.com/fluxturn/fluxturn/discussions) -- Haz preguntas, comparte ideas
+- [Twitter/X](https://twitter.com/fluxturn) -- Síguenos para actualizaciones
 
 ## Licencia
 
-[Apache License 2.0](LICENSE)
+Este proyecto está licenciado bajo la [Licencia Apache 2.0](LICENSE).
+
+## Agradecimientos
+
+Construido con [NestJS](https://nestjs.com), [React](https://react.dev), [ReactFlow](https://reactflow.dev), [TypeScript](https://typescriptlang.org), y [i18next](https://i18next.com).
+
+---
+
+<p align="center">
+  <a href="https://fluxturn.com">Sitio Web</a> |
+  <a href="https://github.com/fluxturn/fluxturn/wiki">Documentación</a> |
+  <a href="https://discord.gg/fluxturn">Discord</a> |
+  <a href="https://twitter.com/fluxturn">Twitter</a>
+</p>
