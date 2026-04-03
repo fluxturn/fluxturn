@@ -1,0 +1,127 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-300000000040",
+  "name": "Google Forms Response to Calendar Event",
+  "description": "Create Google Calendar events from Google Forms meeting or appointment requests",
+  "category": "forms",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "List Form Responses",
+          "config": {
+            "formId": "{{form_id}}"
+          },
+          "category": "action",
+          "connector": "google_forms",
+          "connectorType": "google_forms",
+          "connectorDisplayName": "Google Forms",
+          "description": "Get all responses from the form",
+          "action": "responses_list",
+          "actionId": "responses_list",
+          "actionName": "List Responses"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Create Calendar Event",
+          "config": {
+            "calendarId": "primary",
+            "summary": "{{event_title}}",
+            "description": "Form Submission Details:\n\n{{node_2.output.responses}}",
+            "startDateTime": "{{event_start}}",
+            "endDateTime": "{{event_end}}",
+            "attendees": "{{attendee_email}}"
+          },
+          "category": "action",
+          "connector": "google_calendar",
+          "connectorType": "google_calendar",
+          "connectorDisplayName": "Google Calendar",
+          "description": "Create calendar event from form",
+          "action": "create_event",
+          "actionId": "create_event",
+          "actionName": "Create Event"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [],
+  "conditions": [],
+  "variables": [
+    {
+      "name": "form_id",
+      "type": "string",
+      "description": "Google Form ID"
+    },
+    {
+      "name": "event_title",
+      "type": "string",
+      "description": "Title for the calendar event"
+    },
+    {
+      "name": "event_start",
+      "type": "string",
+      "description": "Event start datetime (ISO 8601)"
+    },
+    {
+      "name": "event_end",
+      "type": "string",
+      "description": "Event end datetime (ISO 8601)"
+    },
+    {
+      "name": "attendee_email",
+      "type": "string",
+      "description": "Email of attendee to invite"
+    }
+  ],
+  "outputs": [],
+  "required_connectors": ["google_forms", "google_calendar"],
+  "tags": ["forms", "google-forms", "google-calendar", "events", "scheduling", "meetings"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "Create Google Calendar events from Google Forms responses",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create Google Calendar event when a Google Forms response is submitted"
+}

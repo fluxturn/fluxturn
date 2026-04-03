@@ -1,0 +1,158 @@
+{
+  "id": "2a9fa622-8bec-413d-9e2f-7e860d719919",
+  "name": "API Usage Monitoring",
+  "description": "Monitor API usage via Google Analytics and alert team in Slack when requested. Nodes: Slack Mention Trigger, Google Analytics Report Action, Slack Message Action",
+  "category": "developer",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "at-sign",
+          "label": "When Bot Mentioned",
+          "config": {
+            "resolveIds": false
+          },
+          "trigger": "app_mention",
+          "category": "trigger",
+          "connector": "slack",
+          "eventType": "app_mention",
+          "triggerId": "app_mention",
+          "description": "Triggered when bot is mentioned in Slack",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 300,
+          "y": 200
+        },
+        "data": {
+          "icon": "bar-chart",
+          "label": "Get API Usage Report",
+          "action": "get_ga4_report",
+          "config": {
+            "propertyId": "{{ga4_property_id}}",
+            "dateRange": "last7days",
+            "metrics": [
+              "activeUsers",
+              "sessions"
+            ],
+            "dimensions": [
+              "date"
+            ],
+            "simple": true
+          },
+          "actionId": "get_ga4_report",
+          "category": "action",
+          "connector": "google_analytics",
+          "actionName": "Get GA4 Report",
+          "description": "Get API usage data from Google Analytics",
+          "connectorType": "google_analytics",
+          "connectorDisplayName": "Google Analytics"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 540,
+          "y": 200
+        },
+        "data": {
+          "icon": "message-square",
+          "label": "Send Usage Report",
+          "action": "send_message",
+          "config": {
+            "channelId": "={{$json.channel}}",
+            "text": "API Usage Report:\nActive Users: {{activeUsers}}\nSessions: {{sessions}}",
+            "threadTs": "={{$json.ts}}"
+          },
+          "actionId": "send_message",
+          "category": "action",
+          "connector": "slack",
+          "actionName": "Send Message",
+          "description": "Send usage report to Slack",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "slack",
+        "triggerId": "app_mention"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_analytics",
+    "slack"
+  ],
+  "tags": [
+    "developer",
+    "automation",
+    "google_analytics",
+    "slack"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow monitors API usage via Google Analytics when team mentions the bot in Slack, retrieves usage report, and sends it back to Slack",
+    "created_from": "template_generator",
+    "updated_to_use_valid_connectors": true
+  },
+  "ai_prompt": "Create a workflow that responds to Slack mentions by fetching API usage data from Google Analytics and sending a formatted report back to the Slack channel"
+}

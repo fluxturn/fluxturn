@@ -1,0 +1,98 @@
+{
+  "id": "b219ac9c-fb94-40c4-9644-37e5cd50283d",
+  "name": "Shopify Daily Sales Report Email",
+  "description": "Send daily sales report via email with order summary",
+  "category": "ecommerce",
+  "difficulty": "intermediate",
+  "estimatedSetupTime": "15 min",
+  "requiredConnectors": ["shopify", "gmail"],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "schedule_trigger_1",
+        "type": "SCHEDULE_TRIGGER",
+        "position": { "x": 100, "y": 100 },
+        "data": {
+          "label": "Daily at 9 AM",
+          "category": "trigger",
+          "description": "Run daily at 9 AM",
+          "config": {
+            "cron": "0 9 * * *"
+          },
+          "outputSchema": {
+            "timestamp": { "type": "string" }
+          }
+        }
+      },
+      {
+        "id": "shopify_action_1",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 400, "y": 100 },
+        "data": {
+          "label": "Get Today's Orders",
+          "connector": "shopify",
+          "actionId": "get_all_orders",
+          "icon": "list",
+          "category": "action",
+          "description": "Retrieve today's orders",
+          "config": {
+            "status": "any",
+            "createdAtMin": "={{new Date(Date.now() - 24*60*60*1000).toISOString()}}",
+            "limit": 250
+          },
+          "inputSchema": {
+            "status": { "type": "string", "label": "Status" },
+            "createdAtMin": { "type": "string", "label": "Created After" },
+            "limit": { "type": "number", "label": "Limit" }
+          },
+          "outputSchema": {
+            "orders": { "type": "array" }
+          }
+        }
+      },
+      {
+        "id": "gmail_action_1",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 700, "y": 100 },
+        "data": {
+          "label": "Send Report Email",
+          "connector": "gmail",
+          "actionId": "send_email",
+          "icon": "mail",
+          "category": "action",
+          "description": "Send daily sales report",
+          "config": {
+            "to": "{{manager_email}}",
+            "subject": "Daily Sales Report - {{new Date().toLocaleDateString()}}",
+            "body": "Daily Sales Summary\n\nTotal Orders: {{$json.orders.length}}\nTotal Revenue: ${{$json.orders.reduce((sum, o) => sum + parseFloat(o.total_price), 0).toFixed(2)}}\n\nTop selling items and order details attached."
+          },
+          "inputSchema": {
+            "to": { "type": "string", "required": true, "label": "To" },
+            "subject": { "type": "string", "required": true, "label": "Subject" },
+            "body": { "type": "string", "required": true, "label": "Body" }
+          },
+          "outputSchema": {
+            "messageId": { "type": "string" }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1",
+        "source": "schedule_trigger_1",
+        "target": "shopify_action_1",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e2",
+        "source": "shopify_action_1",
+        "target": "gmail_action_1",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

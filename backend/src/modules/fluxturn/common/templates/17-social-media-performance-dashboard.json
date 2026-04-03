@@ -1,0 +1,163 @@
+{
+  "id": "eaed6bb1-1071-476e-a5ca-4f8f16c235ca",
+  "name": "Social Media Performance Dashboard",
+  "description": "Daily report of Twitter, LinkedIn, and Facebook stats",
+  "category": "social",
+  "difficulty": "intermediate",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": [
+    "twitter",
+    "linkedin",
+    "facebook_graph",
+    "google_sheets"
+  ],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_17_1",
+        "type": "MANUAL_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 100
+        },
+        "data": {
+          "label": "Daily 9 AM",
+          "category": "trigger",
+          "config": {
+            "cronExpression": "0 9 * * *"
+          },
+          "description": "Manually trigger this workflow",
+          "icon": "play",
+          "configSchema": {},
+          "outputSchema": {
+            "timestamp": {
+              "type": "string",
+              "description": "Execution timestamp"
+            }
+          },
+          "inputSchema": {}
+        }
+      },
+      {
+        "id": "node_17_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "label": "Twitter Stats",
+          "category": "action",
+          "config": {},
+          "connector": "twitter",
+          "actionId": "create_tweet",
+          "action": "create_tweet",
+          "actionName": "Create Tweet",
+          "description": "Post a tweet",
+          "icon": "twitter",
+          "connectorType": "twitter",
+          "connectorDisplayName": "Twitter",
+          "inputSchema": {
+            "text": {
+              "type": "string",
+              "required": true,
+              "label": "Tweet Text"
+            }
+          },
+          "configSchema": {
+            "text": {
+              "type": "string",
+              "required": true,
+              "label": "Tweet Text"
+            }
+          },
+          "outputSchema": {
+            "tweetId": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_17_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 700,
+          "y": 100
+        },
+        "data": {
+          "label": "Update Dashboard",
+          "category": "action",
+          "config": {
+            "spreadsheetId": "{{your_sheet_id}}",
+            "values": "={{$json}}"
+          },
+          "connector": "google_sheets",
+          "actionId": "append_row",
+          "action": "append_row",
+          "actionName": "Append Row",
+          "description": "Append a row to a Google Sheet",
+          "icon": "table",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets",
+          "inputSchema": {
+            "spreadsheetId": {
+              "type": "string",
+              "required": true,
+              "label": "Spreadsheet ID"
+            },
+            "sheetName": {
+              "type": "string",
+              "label": "Sheet Name",
+              "default": "Sheet1"
+            },
+            "values": {
+              "type": "object",
+              "required": true,
+              "label": "Values"
+            }
+          },
+          "configSchema": {
+            "spreadsheetId": {
+              "type": "string",
+              "required": true,
+              "label": "Spreadsheet ID"
+            },
+            "sheetName": {
+              "type": "string",
+              "label": "Sheet Name",
+              "default": "Sheet1"
+            },
+            "values": {
+              "type": "object",
+              "required": true,
+              "label": "Values"
+            }
+          },
+          "outputSchema": {
+            "rowNumber": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_1",
+        "source": "node_17_1",
+        "target": "node_17_2",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_2",
+        "source": "node_17_2",
+        "target": "node_17_3",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

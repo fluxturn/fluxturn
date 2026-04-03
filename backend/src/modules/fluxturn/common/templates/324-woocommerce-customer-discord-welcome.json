@@ -1,0 +1,120 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-300000000024",
+  "name": "WooCommerce Customer Discord Welcome",
+  "description": "Create WooCommerce customer and send welcome message to Discord",
+  "category": "ecommerce",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Create Customer",
+          "config": {
+            "email": "{{customer_email}}",
+            "firstName": "{{customer_first_name}}",
+            "lastName": "{{customer_last_name}}"
+          },
+          "category": "action",
+          "connector": "woocommerce",
+          "connectorType": "woocommerce",
+          "connectorDisplayName": "WooCommerce",
+          "description": "Create new customer in WooCommerce",
+          "action": "create_customer",
+          "actionId": "create_customer",
+          "actionName": "Create Customer"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Send Discord Message",
+          "config": {
+            "channelId": "{{discord_channel_id}}",
+            "content": "Welcome new customer!\n\nName: {{customer_first_name}} {{customer_last_name}}\nEmail: {{customer_email}}\nCustomer ID: {{node_2.output.id}}\n\nLet's give them a warm welcome!"
+          },
+          "category": "action",
+          "connector": "discord",
+          "connectorType": "discord",
+          "connectorDisplayName": "Discord",
+          "description": "Send welcome message to Discord",
+          "action": "send_message",
+          "actionId": "send_message",
+          "actionName": "Send Message"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [],
+  "conditions": [],
+  "variables": [
+    {
+      "name": "customer_email",
+      "type": "string",
+      "description": "Customer email address"
+    },
+    {
+      "name": "customer_first_name",
+      "type": "string",
+      "description": "Customer first name"
+    },
+    {
+      "name": "customer_last_name",
+      "type": "string",
+      "description": "Customer last name"
+    },
+    {
+      "name": "discord_channel_id",
+      "type": "string",
+      "description": "Discord channel ID"
+    }
+  ],
+  "outputs": [],
+  "required_connectors": ["woocommerce", "discord"],
+  "tags": ["ecommerce", "woocommerce", "discord", "customers", "welcome"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "Create WooCommerce customer and welcome via Discord",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create WooCommerce customer and send Discord welcome message"
+}

@@ -1,0 +1,107 @@
+{
+  "id": "6ee5b2ef-eddd-4790-9201-cd32c4f334bb",
+  "name": "ClickUp Task Sync to Trello",
+  "description": "Keep ClickUp and Trello boards synchronized. Nodes: ClickUp Trigger, Trello Action",
+  "category": "project_management",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Task Created",
+          "config": {},
+          "category": "trigger",
+          "connector": "clickup",
+          "connectorType": "clickup",
+          "connectorDisplayName": "Clickup",
+          "description": "Triggered on new task",
+          "trigger": "task_created",
+          "triggerId": "task_created",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Card",
+          "config": {
+            "listId": "{{list_id}}",
+            "name": "{{trigger.name}}",
+            "desc": "{{trigger.description}}"
+          },
+          "category": "action",
+          "connector": "trello",
+          "connectorType": "trello",
+          "connectorDisplayName": "Trello",
+          "description": "Create Trello card",
+          "action": "create_card",
+          "actionId": "create_card",
+          "actionName": "Create Card"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "clickup",
+        "triggerId": "task_created"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "clickup",
+    "trello"
+  ],
+  "tags": [
+    "project_management",
+    "automation",
+    "clickup",
+    "trello",
+    "sync"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow keep clickup and trello boards synchronized. nodes: clickup trigger, trello action using clickup, trello",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"task sync\" that triggers on ClickUp task creation and creates Trello card"
+}

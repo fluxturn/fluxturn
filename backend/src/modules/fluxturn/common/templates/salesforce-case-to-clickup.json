@@ -1,0 +1,124 @@
+{
+  "id": "1ee6bf53-4f49-4701-9b34-2cce265ee02e",
+  "name": "Salesforce Case to ClickUp Task",
+  "description": "Create ClickUp tasks from Salesforce support cases. Nodes: Salesforce Trigger, ClickUp Action",
+  "category": "project_management",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Case Created",
+          "config": {},
+          "category": "trigger",
+          "connector": "salesforce",
+          "connectorType": "salesforce",
+          "connectorDisplayName": "Salesforce",
+          "description": "Triggered on new case",
+          "trigger": "case_created",
+          "triggerId": "case_created",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Support Task",
+          "category": "action",
+          "connector": "clickup",
+          "connectorType": "clickup",
+          "connectorDisplayName": "ClickUp",
+          "description": "Create ClickUp task",
+          "actionId": "task_create",
+          "actionName": "Create Support Task",
+          "actionParams": {
+            "listId": "{{$trigger.listId}}",
+            "name": "Support: {{$trigger.Subject}}",
+            "description": "Case #{{$trigger.CaseNumber}}\nContact: {{$trigger.Contact.Name}}\n\n{{$trigger.Description}}",
+            "priority": 1,
+            "status": "to do"
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [
+    {
+      "id": "node_2",
+      "type": "CONNECTOR_ACTION",
+      "config": {
+        "connector": "clickup",
+        "actionId": "task_create",
+        "actionParams": {
+          "listId": "{{$trigger.listId}}",
+          "name": "Support: {{$trigger.Subject}}",
+          "description": "Case #{{$trigger.CaseNumber}}\nContact: {{$trigger.Contact.Name}}\n\n{{$trigger.Description}}",
+          "priority": 1,
+          "status": "to do"
+        }
+      }
+    }
+  ],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "salesforce",
+        "triggerId": "case_created"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "salesforce",
+    "clickup"
+  ],
+  "tags": [
+    "project_management",
+    "automation",
+    "salesforce",
+    "clickup",
+    "support"
+  ],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow create clickup tasks from salesforce support cases. nodes: salesforce trigger, clickup action using salesforce, clickup",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"case to task\" that triggers on Salesforce case creation and creates ClickUp task"
+}

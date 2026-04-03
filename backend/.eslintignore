@@ -1,0 +1,15 @@
+# Dependencies
+node_modules
+dist
+coverage
+.vscode
+.idea
+
+# Build outputs
+*.log
+*.tmp
+.cache
+
+# Test files
+*.spec.ts
+*.test.ts

@@ -1,0 +1,150 @@
+{
+  "id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c09",
+  "name": "ClickUp Tasks to MySQL",
+  "description": "Archive ClickUp tasks to MySQL database. Nodes: ClickUp Trigger (task created), MySQL Action (insert row), Gmail Action (confirm)",
+  "category": "project_management",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Task",
+          "config": {},
+          "trigger": "task_created",
+          "category": "trigger",
+          "connector": "clickup",
+          "eventType": "webhook",
+          "triggerId": "task_created",
+          "description": "Triggered when new ClickUp task created",
+          "connectorType": "clickup",
+          "connectorDisplayName": "ClickUp"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Archive Task",
+          "action": "insert_rows",
+          "config": {
+            "table": "tasks",
+            "dataMode": "autoMapInputData"
+          },
+          "actionId": "insert_rows",
+          "category": "action",
+          "connector": "mysql",
+          "actionName": "Insert Row",
+          "description": "Insert task into MySQL",
+          "connectorType": "mysql",
+          "connectorDisplayName": "MySQL"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Send Confirmation",
+          "action": "send_message",
+          "config": {
+            "to": "{{assignee_email}}",
+            "subject": "Task Created",
+            "body": "{{task_details}}"
+          },
+          "actionId": "send_message",
+          "category": "action",
+          "connector": "gmail",
+          "actionName": "Send Email",
+          "description": "Send task confirmation email",
+          "connectorType": "gmail",
+          "connectorDisplayName": "Gmail"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#14b8a6",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#14b8a6",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "clickup",
+        "triggerId": "task_created"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "clickup",
+    "mysql",
+    "gmail"
+  ],
+  "tags": [
+    "project_management",
+    "automation",
+    "clickup",
+    "mysql",
+    "gmail",
+    "tasks"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow archives ClickUp tasks to MySQL and sends confirmation emails",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow that captures ClickUp tasks, stores them in MySQL database, and sends confirmation emails"
+}

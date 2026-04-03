@@ -1,0 +1,106 @@
+{
+  "id": "ad4f3164-3259-49b0-93cb-ddc087dd8f8e",
+  "name": "GitHub PR Review Request to Email",
+  "description": "Automatically github pr review request to email. Nodes: GitHub Trigger, SMTP Action",
+  "category": "collaboration",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Pull Request Review Requested",
+          "config": {},
+          "trigger": "pull_request_review_requested",
+          "category": "trigger",
+          "connector": "github",
+          "eventType": "polling",
+          "triggerId": "pull_request_review_requested",
+          "description": "Triggered when pull request review requested",
+          "connectorType": "github",
+          "connectorDisplayName": "GitHub"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Send Email",
+          "action": "send_email",
+          "config": {
+            "to": "{{recipient_email}}",
+            "subject": "{{email_subject}}",
+            "body": "{{email_body}}"
+          },
+          "actionId": "send_email",
+          "category": "action",
+          "connector": "smtp",
+          "actionName": "Send Email",
+          "description": "Send Email",
+          "connectorType": "smtp",
+          "connectorDisplayName": "SMTP"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "github",
+        "triggerId": "pull_request_review_requested"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "github",
+    "smtp"
+  ],
+  "tags": [
+    "collaboration",
+    "automation",
+    "github",
+    "smtp"
+  ],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow github pr review request to email using github, smtp",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"github pr review request to email\" that triggers when triggered when pull request review requested and then Send Email via SMTP"
+}

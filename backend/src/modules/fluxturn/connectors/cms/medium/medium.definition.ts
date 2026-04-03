@@ -1,0 +1,270 @@
+import { ConnectorDefinition } from '../../shared';
+
+export const MEDIUM_CONNECTOR: ConnectorDefinition = {
+  name: 'medium',
+  display_name: 'Medium',
+  category: 'cms',
+  description: 'Publish and manage posts on Medium',
+  auth_type: 'access_token',
+  verified: false,
+
+  auth_fields: [
+    {
+      key: 'accessToken',
+      label: 'Access Token',
+      type: 'password',
+      required: true,
+      placeholder: 'Enter your Medium access token',
+      description: 'Your Medium integration token',
+      helpUrl: 'https://medium.com/me/settings',
+      helpText: 'How to get your access token',
+    },
+  ],
+
+  endpoints: {
+    base_url: 'https://api.medium.com/v1',
+    me: '/me',
+    users: '/users/{userId}',
+    publications: '/users/{userId}/publications',
+    posts: '/users/{userId}/posts',
+    publication_posts: '/publications/{publicationId}/posts',
+  },
+
+  webhook_support: false,
+
+  rate_limits: {
+    requests_per_second: 10,
+  },
+
+  supported_actions: [
+    // Post Actions
+    {
+      id: 'create_post',
+      name: 'Create Post',
+      description: 'Create a new post on Medium',
+      category: 'Post',
+      icon: 'edit',
+      verified: false,
+      api: {
+        endpoint: '/users/{userId}/posts',
+        method: 'POST',
+        baseUrl: 'https://api.medium.com/v1',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Accept-Charset': 'utf-8',
+          'Authorization': 'Bearer {accessToken}',
+        },
+        paramMapping: {
+          title: 'title',
+          content: 'content',
+          contentFormat: 'contentFormat',
+          tags: 'tags',
+          canonicalUrl: 'canonicalUrl',
+          publishStatus: 'publishStatus',
+          license: 'license',
+          notifyFollowers: 'notifyFollowers',
+        },
+      },
+      inputSchema: {
+        publication: {
+          type: 'boolean',
+          required: false,
+          label: 'Post to Publication',
+          description: 'Whether you are posting for a publication',
+          default: false,
+          aiControlled: false,
+        },
+        publicationId: {
+          type: 'string',
+          required: false,
+          label: 'Publication ID',
+          description: 'The publication ID to post to (required if posting to publication)',
+          aiControlled: false,
+          displayOptions: {
+            show: {
+              publication: [true],
+            },
+          },
+        },
+        title: {
+          type: 'string',
+          required: true,
+          label: 'Title',
+          placeholder: 'My Open Source Contribution',
+          description: 'Title of the post. Max Length: 100 characters',
+          maxLength: 100,
+          aiControlled: true,
+          aiDescription: 'The title of the Medium post. Should be compelling and accurately reflect the content.',
+        },
+        contentFormat: {
+          type: 'select',
+          required: true,
+          label: 'Content Format',
+          description: 'The format of the content to be posted',
+          aiControlled: false,
+          options: [
+            { label: 'HTML', value: 'html' },
+            { label: 'Markdown', value: 'markdown' },
+          ],
+        },
+        content: {
+          type: 'string',
+          required: true,
+          label: 'Content',
+          inputType: 'textarea',
+          placeholder: 'My open source contribution',
+          description: 'The body of the post, in valid semantic HTML or Markdown',
+          aiControlled: true,
+          aiDescription: 'The main body content of the Medium post. Should be well-structured and engaging.',
+        },
+        canonicalUrl: {
+          type: 'string',
+          required: false,
+          label: 'Canonical URL',
+          inputType: 'url',
+          description: 'The original home of this content, if it was originally published elsewhere',
+          aiControlled: false,
+        },
+        tags: {
+          type: 'string',
+          required: false,
+          label: 'Tags',
+          placeholder: 'open-source,mlh,fellowship',
+          description: 'Comma-separated tags for post classification. Max allowed: 5. Max tag length: 25 characters',
+          aiControlled: true,
+          aiDescription: 'Comma-separated tags for categorizing the post. Choose relevant tags that help readers discover the content.',
+        },
+        publishStatus: {
+          type: 'select',
+          required: false,
+          label: 'Publish Status',
+          description: 'The status of the post',
+          default: 'public',
+          aiControlled: false,
+          options: [
+            { label: 'Public', value: 'public' },
+            { label: 'Draft', value: 'draft' },
+            { label: 'Unlisted', value: 'unlisted' },
+          ],
+        },
+        license: {
+          type: 'select',
+          required: false,
+          label: 'License',
+          description: 'License of the post',
+          default: 'all-rights-reserved',
+          aiControlled: false,
+          options: [
+            { label: 'All Rights Reserved', value: 'all-rights-reserved' },
+            { label: 'CC-40-BY', value: 'cc-40-by' },
+            { label: 'CC-40-BY-NC', value: 'cc-40-by-nc' },
+            { label: 'CC-40-BY-NC-ND', value: 'cc-40-by-nc-nd' },
+            { label: 'CC-40-BY-NC-SA', value: 'cc-40-by-nc-sa' },
+            { label: 'CC-40-BY-ND', value: 'cc-40-by-nd' },
+            { label: 'CC-40-BY-SA', value: 'cc-40-by-sa' },
+            { label: 'CC-40-ZERO', value: 'cc-40-zero' },
+            { label: 'Public Domain', value: 'public-domain' },
+          ],
+        },
+        notifyFollowers: {
+          type: 'boolean',
+          required: false,
+          label: 'Notify Followers',
+          description: 'Whether to notify followers that the user has published',
+          default: false,
+          aiControlled: false,
+        },
+      },
+      outputSchema: {
+        id: { type: 'string', description: 'Post ID' },
+        title: { type: 'string' },
+        authorId: { type: 'string' },
+        url: { type: 'string' },
+        canonicalUrl: { type: 'string' },
+        publishStatus: { type: 'string' },
+        publishedAt: { type: 'string' },
+        license: { type: 'string' },
+        licenseUrl: { type: 'string' },
+        tags: { type: 'array' },
+      },
+    },
+    // Publication Actions
+    {
+      id: 'get_all_publications',
+      name: 'Get All Publications',
+      description: 'Get all publications for the authenticated user',
+      category: 'Publication',
+      icon: 'folder',
+      verified: false,
+      api: {
+        endpoint: '/users/{userId}/publications',
+        method: 'GET',
+        baseUrl: 'https://api.medium.com/v1',
+        headers: {
+          'Accept': 'application/json',
+          'Accept-Charset': 'utf-8',
+          'Authorization': 'Bearer {accessToken}',
+        },
+      },
+      inputSchema: {
+        returnAll: {
+          type: 'boolean',
+          required: false,
+          label: 'Return All',
+          description: 'Whether to return all results or only up to a given limit',
+          default: false,
+        },
+        limit: {
+          type: 'number',
+          required: false,
+          label: 'Limit',
+          description: 'Max number of results to return',
+          default: 100,
+          min: 1,
+          max: 200,
+          displayOptions: {
+            show: {
+              returnAll: [false],
+            },
+          },
+        },
+      },
+      outputSchema: {
+        publications: {
+          type: 'array',
+          description: 'List of publications',
+        },
+      },
+    },
+    // User Actions
+    {
+      id: 'get_user',
+      name: 'Get User',
+      description: 'Get authenticated user information',
+      category: 'User',
+      icon: 'user',
+      verified: false,
+      api: {
+        endpoint: '/me',
+        method: 'GET',
+        baseUrl: 'https://api.medium.com/v1',
+        headers: {
+          'Accept': 'application/json',
+          'Accept-Charset': 'utf-8',
+          'Authorization': 'Bearer {accessToken}',
+        },
+      },
+      inputSchema: {},
+      outputSchema: {
+        id: { type: 'string', description: 'User ID' },
+        username: { type: 'string' },
+        name: { type: 'string' },
+        url: { type: 'string' },
+        imageUrl: { type: 'string' },
+      },
+    },
+  ],
+
+  supported_triggers: [],
+};

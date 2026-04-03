@@ -1,0 +1,107 @@
+{
+  "id": "091e2d67-0fb0-49ad-88b1-f339a76395cd",
+  "name": "Google Forms to Trello Card",
+  "description": "Create Trello cards from form submissions for project tracking. Nodes: Google Forms Trigger, Trello Action",
+  "category": "project_management",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Response",
+          "config": {},
+          "category": "trigger",
+          "connector": "google_forms",
+          "connectorType": "google_forms",
+          "connectorDisplayName": "Google Forms",
+          "description": "Triggered on form submission",
+          "trigger": "new_response",
+          "triggerId": "new_response",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Card",
+          "config": {
+            "listId": "{{list_id}}",
+            "name": "{{trigger.responses.title}}",
+            "desc": "{{trigger.summary}}"
+          },
+          "category": "action",
+          "connector": "trello",
+          "connectorType": "trello",
+          "connectorDisplayName": "Trello",
+          "description": "Create card in Trello",
+          "action": "create_card",
+          "actionId": "create_card",
+          "actionName": "Create Card"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_forms",
+        "triggerId": "new_response"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_forms",
+    "trello"
+  ],
+  "tags": [
+    "project_management",
+    "automation",
+    "google_forms",
+    "trello",
+    "cards"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow create trello cards from form submissions for project tracking. nodes: google forms trigger, trello action using google_forms, trello",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"form to card\" that triggers on Google Forms response and creates Trello card"
+}

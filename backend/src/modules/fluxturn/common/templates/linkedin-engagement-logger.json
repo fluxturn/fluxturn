@@ -1,0 +1,150 @@
+{
+  "id": "aba89233-f0b7-49f1-9ae5-27d7474c24f1",
+  "name": "LinkedIn Engagement Logger",
+  "description": "Automatically linkedin engagement logger. Nodes: LinkedIn Trigger, Google Analytics Action, Google Sheets Action",
+  "category": "analytics",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Post Published",
+          "config": {},
+          "trigger": "new_post_published",
+          "category": "trigger",
+          "connector": "linkedin",
+          "eventType": "polling",
+          "triggerId": "new_post_published",
+          "description": "Triggered when new post published",
+          "connectorType": "linkedin",
+          "connectorDisplayName": "LinkedIn"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Track Event",
+          "action": "track_event",
+          "config": {},
+          "actionId": "track_event",
+          "category": "action",
+          "connector": "google_analytics",
+          "actionName": "Track Event",
+          "description": "Track Event",
+          "connectorType": "google_analytics",
+          "connectorDisplayName": "Google Analytics"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Log Data",
+          "action": "append_row",
+          "config": {
+            "spreadsheetId": "{{spreadsheet_id}}",
+            "sheetName": "Sheet1",
+            "values": [
+              [
+                "{{data}}"
+              ]
+            ]
+          },
+          "actionId": "append_row",
+          "category": "action",
+          "connector": "google_sheets",
+          "actionName": "Log Data",
+          "description": "Log Data",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#14b8a6",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#14b8a6",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "linkedin",
+        "triggerId": "new_post_published"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "linkedin",
+    "google_analytics",
+    "google_sheets"
+  ],
+  "tags": [
+    "analytics",
+    "automation",
+    "linkedin",
+    "google_analytics",
+    "google_sheets"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow linkedin engagement logger using linkedin, google_analytics, google_sheets",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"linkedin engagement logger\" that triggers when triggered when new post published and then Track Event via Google Analytics, Log Data via Google Sheets"
+}

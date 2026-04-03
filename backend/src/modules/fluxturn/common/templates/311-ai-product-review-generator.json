@@ -1,0 +1,126 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-300000000011",
+  "name": "AI Product Review Generator",
+  "description": "Generate AI-powered product reviews and publish to WordPress",
+  "category": "content",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Chat Completion",
+          "config": {
+            "model": "gpt-3.5-turbo",
+            "messages": [
+              {
+                "role": "system",
+                "content": "You are an expert product reviewer. Write detailed, honest, and helpful product reviews that include pros, cons, features, and a final verdict. Use HTML formatting with proper headings."
+              },
+              {
+                "role": "user",
+                "content": "Write a comprehensive product review for: {{product_name}}. Category: {{category}}. Key features: {{features}}. Include pros, cons, and a rating out of 5 stars."
+              }
+            ],
+            "temperature": 0.7,
+            "maxTokens": 1500
+          },
+          "category": "action",
+          "connector": "openai",
+          "connectorType": "openai",
+          "connectorDisplayName": "OpenAI",
+          "description": "Generate product review using GPT",
+          "action": "chat_complete",
+          "actionId": "chat_complete",
+          "actionName": "Chat Completion"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Create Post",
+          "config": {
+            "title": "Review: {{product_name}}",
+            "content": "{{node_2.output.choices[0].message.content}}",
+            "status": "draft"
+          },
+          "category": "action",
+          "connector": "wordpress",
+          "connectorType": "wordpress",
+          "connectorDisplayName": "WordPress",
+          "description": "Publish review to WordPress",
+          "action": "create_post",
+          "actionId": "create_post",
+          "actionName": "Create Post"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [],
+  "conditions": [],
+  "variables": [
+    {
+      "name": "product_name",
+      "type": "string",
+      "description": "Name of the product to review"
+    },
+    {
+      "name": "category",
+      "type": "string",
+      "description": "Product category (e.g., Electronics, Software)"
+    },
+    {
+      "name": "features",
+      "type": "string",
+      "description": "Key product features (comma-separated)"
+    }
+  ],
+  "outputs": [],
+  "required_connectors": ["openai", "wordpress"],
+  "tags": ["ai", "content", "review", "wordpress", "openai"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "Generate AI product reviews and publish to WordPress",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Generate a product review using OpenAI and publish to WordPress"
+}

@@ -1,0 +1,110 @@
+{
+  "id": "5a72a65c-3178-4826-bd97-6671d3be5884",
+  "name": "Reading List Manager",
+  "description": "Automatically reading list manager. Nodes: Twitter Trigger, Google Sheets Action",
+  "category": "productivity",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Liked Tweet with Article",
+          "config": {},
+          "trigger": "liked_tweet_with_article",
+          "category": "trigger",
+          "connector": "twitter",
+          "eventType": "polling",
+          "triggerId": "liked_tweet_with_article",
+          "description": "Triggered when liked tweet with article",
+          "connectorType": "twitter",
+          "connectorDisplayName": "Twitter"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Add to Reading List",
+          "action": "append_row",
+          "config": {
+            "spreadsheetId": "{{spreadsheet_id}}",
+            "sheetName": "Sheet1",
+            "values": [
+              [
+                "{{data}}"
+              ]
+            ]
+          },
+          "actionId": "append_row",
+          "category": "action",
+          "connector": "google_sheets",
+          "actionName": "Add to Reading List",
+          "description": "Add to Reading List",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "twitter",
+        "triggerId": "liked_tweet_with_article"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "twitter",
+    "google_sheets"
+  ],
+  "tags": [
+    "productivity",
+    "automation",
+    "twitter",
+    "google_sheets"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow reading list manager using twitter, google_sheets",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"reading list manager\" that triggers when triggered when liked tweet with article and then Add to Reading List via Google Sheets"
+}

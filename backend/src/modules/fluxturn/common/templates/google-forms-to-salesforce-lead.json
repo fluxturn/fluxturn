@@ -1,0 +1,108 @@
+{
+  "id": "53bb2302-e8f3-4655-9721-be435f7c0bf9",
+  "name": "Google Forms to Salesforce Lead",
+  "description": "Create Salesforce leads from form submissions automatically. Nodes: Google Forms Trigger, Salesforce Action",
+  "category": "sales",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Form Submitted",
+          "config": {},
+          "category": "trigger",
+          "connector": "google_forms",
+          "connectorType": "google_forms",
+          "connectorDisplayName": "Google Forms",
+          "description": "Triggered on new form response",
+          "trigger": "new_response",
+          "triggerId": "new_response",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Lead",
+          "config": {
+            "firstName": "{{trigger.responses.first_name}}",
+            "lastName": "{{trigger.responses.last_name}}",
+            "email": "{{trigger.respondent_email}}",
+            "company": "{{trigger.responses.company}}"
+          },
+          "category": "action",
+          "connector": "salesforce",
+          "connectorType": "salesforce",
+          "connectorDisplayName": "Salesforce",
+          "description": "Create lead in Salesforce",
+          "action": "create_lead",
+          "actionId": "create_lead",
+          "actionName": "Create Lead"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_forms",
+        "triggerId": "new_response"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_forms",
+    "salesforce"
+  ],
+  "tags": [
+    "sales",
+    "automation",
+    "google_forms",
+    "salesforce",
+    "leads"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow create salesforce leads from form submissions automatically. nodes: google forms trigger, salesforce action using google_forms, salesforce",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"lead generation from form\" that triggers on Google Forms submission and creates Salesforce lead"
+}

@@ -1,0 +1,105 @@
+{
+  "id": "d436d92c-0819-4275-8ea1-9af11e30b00b",
+  "name": "Email to Slack Channel Forward",
+  "description": "Automatically email to slack channel forward. Nodes: IMAP Trigger, Slack Action",
+  "category": "collaboration",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Email Received",
+          "config": {},
+          "trigger": "new_email",
+          "category": "trigger",
+          "connector": "imap",
+          "eventType": "polling",
+          "triggerId": "new_email",
+          "description": "Triggered when new email received",
+          "connectorType": "imap",
+          "connectorDisplayName": "IMAP"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Post Message",
+          "action": "send_message",
+          "config": {
+            "channel": "{{channel_id}}",
+            "text": "{{message}}"
+          },
+          "actionId": "send_message",
+          "category": "action",
+          "connector": "slack",
+          "actionName": "Post Message",
+          "description": "Post Message",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "imap",
+        "triggerId": "new_email"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "imap",
+    "slack"
+  ],
+  "tags": [
+    "collaboration",
+    "automation",
+    "imap",
+    "slack"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow email to slack channel forward using imap, slack",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"email to slack channel forward\" that triggers when triggered when new email received and then Post Message via Slack"
+}

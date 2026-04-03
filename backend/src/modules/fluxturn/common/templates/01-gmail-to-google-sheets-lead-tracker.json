@@ -1,0 +1,271 @@
+{
+  "id": "9eb2c2a4-9891-4421-8671-aaa5b158621a",
+  "name": "Gmail to Google Sheets Lead Tracker",
+  "description": "Automatically log leads from Gmail emails with specific labels to Google Sheets for easy tracking and analysis.",
+  "category": "communication",
+  "difficulty": "beginner",
+  "estimatedSetupTime": "5 min",
+  "requiredConnectors": [
+    "gmail",
+    "google_sheets"
+  ],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "gmail_trigger_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 100
+        },
+        "data": {
+          "label": "New Gmail with Label",
+          "connector": "gmail",
+          "triggerId": "email_received",
+          "icon": "mail",
+          "category": "trigger",
+          "description": "Triggers when a new email is received",
+          "config": {
+            "labelName": "Leads",
+            "pollInterval": 300
+          },
+          "trigger": "email_received",
+          "triggerName": "Email Received",
+          "eventType": "polling",
+          "connectorType": "gmail",
+          "connectorDisplayName": "Gmail",
+          "webhookRequired": false,
+          "inputSchema": {
+            "labelName": {
+              "type": "string",
+              "label": "Label Name",
+              "description": "Gmail label to monitor"
+            },
+            "pollInterval": {
+              "type": "number",
+              "label": "Poll Interval (seconds)",
+              "default": 300
+            }
+          },
+          "configSchema": {
+            "labelName": {
+              "type": "string",
+              "label": "Label Name",
+              "description": "Gmail label to monitor"
+            },
+            "pollInterval": {
+              "type": "number",
+              "label": "Poll Interval (seconds)",
+              "default": 300
+            }
+          },
+          "outputSchema": {
+            "from": {
+              "type": "string",
+              "description": "Sender email"
+            },
+            "subject": {
+              "type": "string",
+              "description": "Email subject"
+            },
+            "body": {
+              "type": "string",
+              "description": "Email body"
+            },
+            "snippet": {
+              "type": "string",
+              "description": "Email snippet"
+            }
+          }
+        }
+      },
+      {
+        "id": "set_parse_1",
+        "type": "SET",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "label": "Map Email Fields",
+          "icon": "edit",
+          "category": "utility",
+          "description": "Map and transform email fields (no code required)",
+          "config": {
+            "mode": "manual",
+            "fieldsToSet": [
+              {
+                "name": "email",
+                "value": "={{$json.from.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}/)[0]}}"
+              },
+              {
+                "name": "name",
+                "value": "={{$json.from.split('<')[0].trim()}}"
+              },
+              {
+                "name": "subject",
+                "value": "={{$json.subject}}"
+              },
+              {
+                "name": "message",
+                "value": "={{($json.body || $json.snippet).substring(0, 500)}}"
+              },
+              {
+                "name": "receivedDate",
+                "value": "={{$json.receivedDate || new Date().toISOString()}}"
+              },
+              {
+                "name": "source",
+                "value": "Gmail"
+              }
+            ],
+            "includeOtherFields": false
+          },
+          "configSchema": {
+            "mode": {
+              "type": "select",
+              "label": "Mode",
+              "options": [
+                {
+                  "label": "Manual Mapping",
+                  "value": "manual"
+                },
+                {
+                  "label": "JSON",
+                  "value": "json"
+                }
+              ],
+              "default": "manual",
+              "description": "How to set fields"
+            },
+            "fieldsToSet": {
+              "type": "array",
+              "label": "Fields to Set",
+              "description": "Fields to add or modify"
+            },
+            "includeOtherFields": {
+              "type": "boolean",
+              "label": "Include Other Fields",
+              "default": false,
+              "description": "Include fields from input that are not being set"
+            }
+          },
+          "inputSchema": {
+            "input": {
+              "type": "object",
+              "required": false,
+              "description": "Input data from previous node"
+            }
+          },
+          "outputSchema": {
+            "name": {
+              "type": "string",
+              "description": "Contact name (extracted)"
+            },
+            "email": {
+              "type": "string",
+              "description": "Email address (extracted)"
+            },
+            "subject": {
+              "type": "string",
+              "description": "Email subject"
+            },
+            "message": {
+              "type": "string",
+              "description": "Email message (truncated to 500 chars)"
+            },
+            "receivedDate": {
+              "type": "string",
+              "description": "When the email was received"
+            },
+            "source": {
+              "type": "string",
+              "description": "Source (Gmail)"
+            }
+          }
+        }
+      },
+      {
+        "id": "sheets_append_1",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 700,
+          "y": 100
+        },
+        "data": {
+          "label": "Add to Leads Sheet",
+          "connector": "google_sheets",
+          "actionId": "append_row",
+          "icon": "table",
+          "category": "action",
+          "description": "Append a row to a Google Sheet",
+          "config": {
+            "spreadsheetId": "{{your_spreadsheet_id}}",
+            "sheetName": "Leads",
+            "values": "={{$json}}"
+          },
+          "action": "append_row",
+          "actionName": "Append Row",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets",
+          "inputSchema": {
+            "spreadsheetId": {
+              "type": "string",
+              "required": true,
+              "label": "Spreadsheet ID"
+            },
+            "sheetName": {
+              "type": "string",
+              "label": "Sheet Name",
+              "default": "Sheet1"
+            },
+            "values": {
+              "type": "object",
+              "required": true,
+              "label": "Values"
+            }
+          },
+          "configSchema": {
+            "spreadsheetId": {
+              "type": "string",
+              "required": true,
+              "label": "Spreadsheet ID"
+            },
+            "sheetName": {
+              "type": "string",
+              "label": "Sheet Name",
+              "default": "Sheet1"
+            },
+            "values": {
+              "type": "object",
+              "required": true,
+              "label": "Values"
+            }
+          },
+          "outputSchema": {
+            "rowNumber": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1",
+        "source": "gmail_trigger_1",
+        "target": "set_parse_1",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e2",
+        "source": "set_parse_1",
+        "target": "sheets_append_1",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": true
+}

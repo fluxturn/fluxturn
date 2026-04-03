@@ -1,0 +1,154 @@
+{
+  "id": "d973b311-b935-4536-bb56-ad282d322797",
+  "name": "Social Media Engagement Follow-Up",
+  "description": "Automatically social media engagement follow-up. Nodes: LinkedIn Trigger, Google Sheets Action, SMTP Action",
+  "category": "marketing",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Comment on Post",
+          "config": {},
+          "trigger": "new_comment_on_post",
+          "category": "trigger",
+          "connector": "linkedin",
+          "eventType": "polling",
+          "triggerId": "new_comment_on_post",
+          "description": "Triggered when new comment on post",
+          "connectorType": "linkedin",
+          "connectorDisplayName": "LinkedIn"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Log Engagement",
+          "action": "append_row",
+          "config": {
+            "spreadsheetId": "{{spreadsheet_id}}",
+            "sheetName": "Sheet1",
+            "values": [
+              [
+                "{{data}}"
+              ]
+            ]
+          },
+          "actionId": "append_row",
+          "category": "action",
+          "connector": "google_sheets",
+          "actionName": "Log Engagement",
+          "description": "Log Engagement",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Send Thank You",
+          "action": "send_email",
+          "config": {
+            "to": "{{recipient_email}}",
+            "subject": "{{email_subject}}",
+            "body": "{{email_body}}"
+          },
+          "actionId": "send_email",
+          "category": "action",
+          "connector": "smtp",
+          "actionName": "Send Thank You",
+          "description": "Send Thank You",
+          "connectorType": "smtp",
+          "connectorDisplayName": "SMTP"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#14b8a6",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#14b8a6",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "linkedin",
+        "triggerId": "new_comment_on_post"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "linkedin",
+    "google_sheets",
+    "smtp"
+  ],
+  "tags": [
+    "marketing",
+    "automation",
+    "linkedin",
+    "google_sheets",
+    "smtp"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow social media engagement follow-up using linkedin, google_sheets, smtp",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"social media engagement follow-up\" that triggers when triggered when new comment on post and then Log Engagement via Google Sheets, Send Thank You via SMTP"
+}

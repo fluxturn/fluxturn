@@ -1,0 +1,107 @@
+{
+  "id": "27ee93a8-a6ec-4338-b8a3-9bc7182dc683",
+  "name": "Zoom Meeting to Salesforce Activity",
+  "description": "Log Zoom calls as CRM activities. Nodes: Zoom Trigger, Salesforce Action",
+  "category": "sales",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Meeting Ended",
+          "config": {},
+          "trigger": "meeting_ended",
+          "category": "trigger",
+          "connector": "zoom",
+          "eventType": "webhook",
+          "triggerId": "meeting_ended",
+          "description": "Triggered when meeting ends",
+          "connectorType": "zoom",
+          "connectorDisplayName": "Zoom"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Log Activity",
+          "action": "create_task",
+          "config": {
+            "Subject": "Zoom Call: {{trigger.topic}}",
+            "Description": "Duration: {{trigger.duration}} minutes\nParticipants: {{trigger.participants_count}}",
+            "Status": "Completed"
+          },
+          "actionId": "create_task",
+          "category": "action",
+          "connector": "salesforce",
+          "actionName": "Create Task",
+          "description": "Create Salesforce task",
+          "connectorType": "salesforce",
+          "connectorDisplayName": "Salesforce"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "zoom",
+        "triggerId": "meeting_ended"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "zoom",
+    "salesforce"
+  ],
+  "tags": [
+    "sales",
+    "automation",
+    "zoom",
+    "salesforce",
+    "crm"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow log zoom calls as crm activities. nodes: zoom trigger, salesforce action using zoom, salesforce",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"zoom meeting to salesforce activity\" that log zoom calls as crm activities. nodes: zoom trigger, salesforce action"
+}

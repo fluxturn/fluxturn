@@ -1,0 +1,77 @@
+{
+  "id": "274afdc5-a1a8-4955-a203-3685bd057f3d",
+  "name": "Shopify Orders to MySQL Database",
+  "description": "Store Shopify orders in a MySQL database for analytics",
+  "category": "ecommerce",
+  "difficulty": "intermediate",
+  "estimatedSetupTime": "15 min",
+  "requiredConnectors": ["shopify", "mysql"],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "shopify_trigger_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": { "x": 100, "y": 100 },
+        "data": {
+          "label": "New Shopify Order",
+          "connector": "shopify",
+          "triggerId": "order_created",
+          "icon": "shopping-cart",
+          "category": "trigger",
+          "description": "Triggers when a new order is created",
+          "config": {},
+          "outputSchema": {
+            "id": { "type": "string" },
+            "order_number": { "type": "string" },
+            "customer": { "type": "object" },
+            "total_price": { "type": "string" }
+          }
+        }
+      },
+      {
+        "id": "mysql_action_1",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 450, "y": 100 },
+        "data": {
+          "label": "Insert Order to MySQL",
+          "connector": "mysql",
+          "actionId": "insert_rows",
+          "icon": "database",
+          "category": "action",
+          "description": "Insert order data into MySQL table",
+          "config": {
+            "table": "shopify_orders",
+            "columns": ["order_id", "order_number", "customer_email", "customer_name", "total_price", "financial_status", "created_at"],
+            "values": [
+              "={{$json.id}}",
+              "={{$json.order_number}}",
+              "={{$json.customer.email}}",
+              "={{$json.customer.first_name}} {{$json.customer.last_name}}",
+              "={{$json.total_price}}",
+              "={{$json.financial_status}}",
+              "={{$json.created_at}}"
+            ]
+          },
+          "inputSchema": {
+            "table": { "type": "string", "required": true, "label": "Table Name" },
+            "columns": { "type": "array", "required": true, "label": "Columns" },
+            "values": { "type": "array", "required": true, "label": "Values" }
+          },
+          "outputSchema": {
+            "insertId": { "type": "number" }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1",
+        "source": "shopify_trigger_1",
+        "target": "mysql_action_1",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

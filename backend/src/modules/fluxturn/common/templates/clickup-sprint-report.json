@@ -1,0 +1,151 @@
+{
+  "id": "b36997f3-56c5-4141-868b-d94c372f5156",
+  "name": "ClickUp Weekly Sprint Report",
+  "description": "Generate weekly sprint reports and email to team. Nodes: Schedule Trigger, ClickUp Action, Gmail Action",
+  "category": "analytics",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Weekly",
+          "config": {
+            "cron": "0 17 * * 5"
+          },
+          "category": "trigger",
+          "connector": "schedule",
+          "connectorType": "schedule",
+          "connectorDisplayName": "Schedule",
+          "description": "Runs Friday at 5 PM",
+          "trigger": "schedule",
+          "triggerId": "schedule",
+          "eventType": "cron"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Get Sprint Data",
+          "config": {
+            "spaceId": "{{space_id}}",
+            "period": "this_week"
+          },
+          "category": "action",
+          "connector": "clickup",
+          "connectorType": "clickup",
+          "connectorDisplayName": "Clickup",
+          "description": "Fetch sprint statistics",
+          "action": "get_sprint_stats",
+          "actionId": "get_sprint_stats",
+          "actionName": "Get Sprint Data"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Email Report",
+          "config": {
+            "to": "{{team_email}}",
+            "subject": "Weekly Sprint Report",
+            "body": "Completed: {{node_2.output.completed}}\nIn Progress: {{node_2.output.in_progress}}"
+          },
+          "category": "action",
+          "connector": "gmail",
+          "connectorType": "gmail",
+          "connectorDisplayName": "Gmail",
+          "description": "Send sprint report",
+          "action": "send_email",
+          "actionId": "send_email",
+          "actionName": "Email Report"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "schedule",
+        "triggerId": "schedule"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "schedule",
+    "clickup",
+    "gmail"
+  ],
+  "tags": [
+    "analytics",
+    "automation",
+    "clickup",
+    "gmail",
+    "reporting"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow generate weekly sprint reports and email to team. nodes: schedule trigger, clickup action, gmail action using schedule, clickup, gmail",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"sprint reporting\" that runs weekly, gets ClickUp stats, and emails report"
+}

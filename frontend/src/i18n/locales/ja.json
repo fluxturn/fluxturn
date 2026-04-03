@@ -1,0 +1,1197 @@
+{
+  "nav": {
+    "features": "機能",
+    "tutorials": "チュートリアル",
+    "templates": "テンプレート",
+    "capabilities": "性能",
+    "useCases": "活用事例",
+    "whyFluxTurn": "なぜFluxTurn？",
+    "pricing": "料金",
+    "documents": "ドキュメント",
+    "blog": "ブログ",
+    "login": "ログイン",
+    "getStarted": "始める",
+    "dashboard": "ダッシュボード",
+    "admin": "管理者"
+  },
+  "hero": {
+    "badge": "ノーコードワークフロー自動化プラットフォーム",
+    "title1": "ワークフローを",
+    "title2": "数分で",
+    "title3": "自動化",
+    "subtitle": "アプリを接続し、ワークフローを自動化し、強力なノーコードプラットフォームでビジネスプロセスを効率化します。技術スキルは不要です。",
+    "cta": "無料トライアルを開始",
+    "workflowRunning": "自動化ワークフロー実行中",
+    "personas": {
+      "marketing": "マーケティング",
+      "marketingTitle": "メールキャンペーンを自動化",
+      "sales": "営業",
+      "salesTitle": "リードをCRMに自動同期",
+      "hr": "人事",
+      "hrTitle": "新入社員のオンボーディング",
+      "aiTools": "AIツール",
+      "aiToolsTitle": "AIでリクエストを処理"
+    },
+    "workflow": {
+      "formSubmit": "フォーム送信",
+      "website": "ウェブサイト",
+      "addToList": "リストに追加",
+      "sendEmail": "メール送信",
+      "email": "メール",
+      "trackEvent": "イベント追跡",
+      "analytics": "分析",
+      "newLead": "新規リード",
+      "webForm": "Webフォーム",
+      "enrichData": "データ補完",
+      "addToCRM": "CRMに追加",
+      "notifySales": "営業に通知",
+      "newEmployee": "新入社員",
+      "hrSystem": "人事システム",
+      "createEmail": "メール作成",
+      "setupSlack": "Slack設定",
+      "addToPayroll": "給与に追加",
+      "sendWelcome": "歓迎送信",
+      "userRequest": "ユーザーリクエスト",
+      "processAI": "AI処理",
+      "executeTask": "タスク実行",
+      "sendResult": "結果送信"
+    }
+  },
+  "powerful": {
+    "badge": "パワフルでシンプル",
+    "title": "",
+    "titleHighlight": "AIと自動化",
+    "titleEnd": "をビジネスに導入",
+    "subtitle": "高額な開発者も不要。何ヶ月ものトレーニングも不要。初日から機能する強力な自動化だけ。",
+    "stats": {
+      "setupTime": "5分",
+      "setupTimeLabel": "平均セットアップ時間",
+      "integrations": "120+",
+      "integrationsLabel": "連携数",
+      "uptime": "99.9%",
+      "uptimeLabel": "稼働率"
+    },
+    "cta": "無料で構築を始める",
+    "cards": {
+      "lightning": {
+        "title": "瞬時セットアップ",
+        "description": "既製テンプレートとドラッグ＆ドロップインターフェース。コード不要で数分で自動化を開始。"
+      },
+      "ai": {
+        "title": "AI統合内蔵",
+        "description": "OpenAI、Claude、その他のAIモデルをワンクリックで接続。APIの煩わしさなし。"
+      },
+      "security": {
+        "title": "企業レベルセキュリティ",
+        "description": "SOC2準拠のエンドツーエンド暗号化。セルフホストまたは安全なクラウドを使用。"
+      }
+    }
+  },
+  "aiPromptBuilder": {
+    "badge": "AI搭載",
+    "heading": "何を自動化したいですか？",
+    "subtitle": "プロンプトを入力して、AIワークフローを数秒でデプロイ",
+    "placeholder": "自動化したいことを説明してください...",
+    "generate": "生成",
+    "generating": "生成中...",
+    "tryThese": "こちらをお試しください：",
+    "loginMessage": "AIワークフローを生成するにはサインインしてください",
+    "helperText": "Enterキーで生成、またはボタンをクリック",
+    "videoTitle": "AIワークフロー生成",
+    "cards": {
+      "naturalLanguage": "自然言語入力",
+      "noCode": "ノーコード構築",
+      "aiGeneration": "AI生成",
+      "integrations": "120+連携"
+    },
+    "suggestions": {
+      "gmail": {
+        "title": "Gmailでメールを送信",
+        "description": "Gmailに必要なすべてのフィールドが利用可能なトリガーフォームを作成し、Gmailに送信"
+      },
+      "translate": {
+        "title": "受信メッセージを翻訳",
+        "description": "メッセージを自動的にお好みの言語に変換"
+      },
+      "priceAlert": {
+        "title": "価格が下がったら通知",
+        "description": "商品を追跡し、目標価格に達したら通知"
+      },
+      "emailSummary": {
+        "title": "毎日新しいメールを要約",
+        "description": "毎朝、受信トレイのハイライトを簡潔にダイジェスト"
+      },
+      "supportDraft": {
+        "title": "サポートチケットへの返信を下書き",
+        "description": "顧客からの問い合わせに対する役立つ返信下書きを生成"
+      },
+      "crmUpdate": {
+        "title": "フォーム入力からCRMを更新",
+        "description": "手動入力なしで新しいリードをCRMに追加"
+      },
+      "slackTasks": {
+        "title": "Slackメッセージからタスクを作成",
+        "description": "リアクションやコマンド一つでSlackメッセージをタスクに変換"
+      }
+    },
+    "errors": {
+      "emptyPrompt": "プロンプトを入力してください",
+      "creationFailed": "ワークフローの作成に失敗しました",
+      "noOrganization": "組織が見つかりません",
+      "noProject": "プロジェクトが見つかりません。先にプロジェクトを作成してください。"
+    }
+  },
+  "video": {
+    "badge": "実際に見る",
+    "title": "ビジュアルでワークフロー構築",
+    "subtitle": "直感的なドラッグ＆ドロップエディターでアプリを接続し、強力な自動化を作成する方法をご覧ください",
+    "editor": "FluxTurnワークフローエディター",
+    "connected": "接続済み",
+    "dragDrop": "ドラッグ＆ドロップインターフェース"
+  },
+  "buildYourWay": {
+    "interactive": {
+      "title": "ビジュアルエディターを",
+      "titleHighlight": "体験する",
+      "subtitle": "ノードをドラッグして接続し、ワークフロー構築の簡単さを体験してください",
+      "addNodes": "ノードを追加",
+      "dragHint": "ノードをキャンバスにドラッグ",
+      "canvasHint": "ノードをここにドラッグして接続",
+      "startBuilding": "本格的なワークフローを作成開始",
+      "feature1": {
+        "title": "ドラッグ＆ドロップ",
+        "desc": "サイドバーからキャンバスにノードをドラッグするだけ"
+      },
+      "feature2": {
+        "title": "ビジュアル接続",
+        "desc": "ハンドルからハンドルへドラッグしてノードを接続"
+      },
+      "feature3": {
+        "title": "即座にデプロイ",
+        "desc": "ワンクリックでワークフローをデプロイ"
+      }
+    }
+  },
+  "templates": {
+    "badge": "300以上のテンプレート",
+    "title": "",
+    "titleHighlight": "既製テンプレート",
+    "subtitle": "ワークフローテンプレートを閲覧。クリックしてカスタマイズするだけ。",
+    "clickToPreview": "テンプレートをクリックしてワークフローをプレビュー",
+    "useForFree": "無料で使用",
+    "useTemplate": "このテンプレートを使用",
+    "creating": "作成中...",
+    "browseAll": "すべてのテンプレートを閲覧",
+    "browseHint": "300以上のすぐに使える自動化テンプレートを探索",
+    "verified": "認証済み",
+    "users": "ユーザー",
+    "popular": "人気",
+    "steps": "ステップ",
+    "integrations": "連携サービス",
+    "workflowPreview": "ワークフロープレビュー",
+    "previewNotAvailable": "プレビューは利用できません",
+    "viewDetails": "詳細はテンプレート詳細ページをご覧ください",
+    "loginMessage": "このテンプレートを使用するにはログインしてください",
+    "errors": {
+      "noOrganization": "組織が見つかりません",
+      "noProject": "プロジェクトが見つかりません",
+      "creationFailed": "ワークフローの作成に失敗しました"
+    },
+    "success": {
+      "created": "テンプレートからワークフローを作成しました"
+    }
+  },
+  "aiAgent": {
+    "badge": "AI搭載自動化",
+    "title": "",
+    "titleHighlight": "AIエージェントノード",
+    "subtitle": "考え、判断し、実行する強力なノード。あらゆるツールを接続して、AIにロジックを任せましょう。",
+    "canvasCaption": "AIエージェントが入力を受け取り、適切なツールを選択して自動実行します",
+    "feature1Title": "あらゆるツールを1つのノードで",
+    "feature1Desc": "Gmail、Slack、Notionなど120以上のコネクタをAIツールとして接続",
+    "feature2Title": "AIが判断",
+    "feature2Desc": "エージェントが入力を分析し、適切なツールを自動選択",
+    "feature3Title": "あなたがコントロール",
+    "feature3Desc": "最大イテレーション、システムプロンプト、利用可能なツールを設定",
+    "cta": "AIエージェントを試す",
+    "ctaHint": "クレジットカード不要 • 無料プランあり",
+    "creating": "作成中...",
+    "loginMessage": "AIエージェントを試すにはログインしてください",
+    "errors": {
+      "noOrganization": "組織が見つかりません",
+      "noProject": "プロジェクトが見つかりません",
+      "creationFailed": "ワークフローの作成に失敗しました"
+    },
+    "success": {
+      "created": "AIエージェントワークフローを作成しました"
+    }
+  },
+  "templatesPage": {
+    "title": "ワークフロー",
+    "titleHighlight": "テンプレート",
+    "subtitle": "すぐに使えるワークフローテンプレートのライブラリを閲覧できます。テンプレートをクリックして無料でご利用ください。",
+    "searchPlaceholder": "テンプレートを検索...",
+    "showingCount": "表示中",
+    "of": "/",
+    "template": "件のテンプレート",
+    "templates": "件のテンプレート",
+    "loading": "テンプレートを読み込み中...",
+    "loadFailed": "テンプレートの読み込みに失敗しました",
+    "retry": "再試行",
+    "noResults": "テンプレートが見つかりません",
+    "noResultsHint": "検索条件やフィルターを調整してみてください",
+    "clearFilters": "フィルターをクリア",
+    "uses": "回使用",
+    "useTemplate": "テンプレートを使用",
+    "loadMore": "さらに読み込む",
+    "verified": "認証済み",
+    "steps": "ステップ",
+    "users": "ユーザー",
+    "integrations": "連携サービス",
+    "creating": "作成中...",
+    "useThisTemplate": "このテンプレートを使用",
+    "previewNotAvailable": "プレビューは利用できません",
+    "previewHint": "「このテンプレートを使用」をクリックして開始",
+    "workflowPreview": "ワークフロープレビュー",
+    "all": "すべて"
+  },
+  "features": {
+    "title": "ワークフローを強化：",
+    "titleExplore": "",
+    "titleHighlight": "オールインワン",
+    "titleEnd": "プラットフォームを探索。",
+    "subtitle": "ワークフローを自動化し、テクノロジースタック全体を接続するために必要なすべて",
+    "cta": "機能を探索",
+    "bento": {
+      "ai-workflow": {
+        "title": "AIワークフロー生成",
+        "description": "自然言語で説明するだけ。AIが数秒でワークフロー全体を構築します。"
+      },
+      "visual-builder": {
+        "title": "ビジュアルビルダー",
+        "description": "ドラッグ＆ドロップでワークフロー作成"
+      },
+      "ai-agent": {
+        "title": "AIエージェント",
+        "description": "考え、実行するインテリジェントな自動化"
+      },
+      "integrations": {
+        "title": "連携",
+        "description": "お気に入りのアプリを接続"
+      },
+      "custom-code": {
+        "title": "カスタムコード",
+        "description": "JavaScript、Python、または任意の言語"
+      }
+    },
+    "items": {
+      "visualBuilder": {
+        "title": "ビジュアルワークフロービルダー",
+        "description": "直感的なドラッグ＆ドロップインターフェースで複雑な自動化ワークフローを構築。コーディング不要。"
+      },
+      "conditionalLogic": {
+        "title": "条件ロジック",
+        "description": "if/else条件、ループ、決定木で高度な分岐ワークフローを作成。"
+      },
+      "customCode": {
+        "title": "カスタムコード実行",
+        "description": "最大限の柔軟性のために、ワークフロー内でJavaScript、Python、または任意のコードを直接実行。"
+      },
+      "cloudHosted": {
+        "title": "クラウド＆セルフホスト",
+        "description": "クラウドインフラにデプロイするか、完全な制御のために自社サーバーでセルフホスト。"
+      },
+      "security": {
+        "title": "企業レベルセキュリティ",
+        "description": "銀行レベルの暗号化、SOC2準拠、きめ細かいアクセス制御でデータを安全に保護。"
+      },
+      "realtime": {
+        "title": "リアルタイム実行",
+        "description": "リアルタイム監視と詳細な実行ログを備えた超高速ワークフロー実行。"
+      }
+    }
+  },
+  "integrations": {
+    "title": "すべてを接続",
+    "subtitle": "お気に入りのアプリとサービスとの120以上の既製連携",
+    "hoverHint": "ホバーで一時停止 • 120以上の連携が利用可能"
+  },
+  "useCases": {
+    "title": "",
+    "titleHighlight": "あらゆる用途",
+    "subtitle": "マーケティング自動化から複雑なデータパイプラインまで",
+    "viewAll": "すべての活用事例を見る",
+    "items": {
+      "marketing": {
+        "title": "マーケティング自動化",
+        "description": "メールキャンペーン、SNS投稿、リードナーチャリングワークフローを自動化。",
+        "stats": "10倍速いキャンペーン",
+        "category": "マーケティング"
+      },
+      "api": {
+        "title": "API連携",
+        "description": "複数のAPIとサービスを接続し、プラットフォーム間でシームレスなデータフローを作成。",
+        "stats": "120以上の連携",
+        "category": "IT & DevOps"
+      },
+      "data": {
+        "title": "データ処理",
+        "description": "複数のソースからデータをリアルタイムで変換、集約、分析。",
+        "stats": "数百万件のレコード",
+        "category": "データ＆分析"
+      },
+      "ai": {
+        "title": "AI＆機械学習",
+        "description": "AIモデルとMLパイプラインを自動化ワークフローに統合。",
+        "stats": "AI搭載ワークフロー",
+        "category": "AI & ML"
+      }
+    }
+  },
+  "whyFluxTurn": {
+    "title": "なぜ",
+    "subtitle": "複雑なプロセスをシンプルで効率的なワークフローに変換",
+    "efficiency": "効率",
+    "status": {
+      "complex": "複雑なプロセス",
+      "optimized": "FluxTurnで最適化"
+    },
+    "stats": {
+      "nodes": "ノード数:",
+      "time": "セットアップ時間:"
+    },
+    "analyzing": "ワークフローの複雑さを分析中...",
+    "cta": "シンプル化を始める"
+  },
+  "pricing": {
+    "badge": "シンプルな料金",
+    "title": "",
+    "titleHighlight": "最適なプラン",
+    "subtitle": "無料で始めて、成長に合わせてスケール。隠れた料金なし。",
+    "monthly": "月額",
+    "yearly": "年額",
+    "twoMonthsFree": "2ヶ月無料",
+    "perMonth": "月額",
+    "forever": "永久",
+    "year": "年",
+    "viewFullDetails": "料金詳細を見る",
+    "mostPopular": "最も人気",
+    "plans": {
+      "free": {
+        "name": "無料",
+        "description": "個人に最適",
+        "features": [
+          "1,000実行/月",
+          "20アクティブワークフロー",
+          "コミュニティサポート",
+          "基本連携"
+        ],
+        "cta": "無料で始める"
+      },
+      "starter": {
+        "name": "スターター",
+        "description": "小規模チーム向け",
+        "features": [
+          "10,000実行/月",
+          "50アクティブワークフロー",
+          "メールサポート",
+          "全連携"
+        ],
+        "cta": "無料トライアル開始"
+      },
+      "professional": {
+        "name": "プロフェッショナル",
+        "description": "成長チーム向け",
+        "features": [
+          "50,000実行/月",
+          "無制限ワークフロー",
+          "優先サポート",
+          "SSO認証"
+        ],
+        "cta": "無料トライアル開始"
+      },
+      "enterprise": {
+        "name": "エンタープライズ",
+        "description": "大規模組織向け",
+        "features": [
+          "200,000実行/月",
+          "専任サポート",
+          "99.9% SLA",
+          "オンプレミスオプション"
+        ],
+        "cta": "営業に問い合わせ"
+      }
+    }
+  },
+  "blog": {
+    "title": "ブログ最新記事",
+    "subtitle": "最新の自動化インサイト、ヒント、成功事例をお届けします",
+    "featured": "注目",
+    "minRead": "分で読める",
+    "by": "著者：",
+    "readMore": "続きを読む",
+    "viewAllPosts": "すべての投稿を見る"
+  },
+  "blogPage": {
+    "title": "ブログ",
+    "subtitle": "ワークフロー自動化と成長に関するインサイト",
+    "newPost": "新規投稿",
+    "myPosts": "マイ投稿",
+    "search": {
+      "placeholder": "記事を検索..."
+    },
+    "browse": {
+      "title": "閲覧",
+      "latest": "最新",
+      "popular": "人気",
+      "featured": "注目",
+      "allPosts": "すべての投稿"
+    },
+    "categories": {
+      "title": "カテゴリー",
+      "all": "すべてのカテゴリー"
+    },
+    "loading": "読み込み中...",
+    "error": {
+      "loadFailed": "投稿の読み込みに失敗しました",
+      "tryAgain": "再試行"
+    },
+    "empty": {
+      "title": "記事が見つかりません",
+      "subtitle": "後ほど新しいコンテンツをご確認ください！"
+    },
+    "pagination": {
+      "previous": "前へ",
+      "next": "次へ"
+    },
+    "post": {
+      "backToBlog": "ブログに戻る",
+      "notFound": {
+        "title": "投稿が見つかりません",
+        "message": "お探しのブログ投稿は存在しません。"
+      },
+      "minRead": "分で読める",
+      "views": "閲覧",
+      "by": "著者：",
+      "featured": "注目",
+      "edit": "編集",
+      "delete": "削除",
+      "deleteConfirm": "この投稿を削除してもよろしいですか？この操作は取り消せません。",
+      "signInToRate": "評価するにはログインしてください"
+    },
+    "comments": {
+      "title": "コメント",
+      "comment": "件のコメント",
+      "comments": "件のコメント",
+      "placeholder": "コメントを入力...",
+      "signInPrompt": "してコメントを残す",
+      "signIn": "ログイン",
+      "noComments": "まだコメントはありません。最初のコメントを投稿しましょう！",
+      "reply": "返信",
+      "replying": "返信中...",
+      "submit": "送信",
+      "cancel": "キャンセル"
+    },
+    "card": {
+      "minRead": "分で読める",
+      "by": "著者："
+    }
+  },
+  "comparison": {
+    "badge": "プラットフォーム比較",
+    "title": "なぜ選ぶ",
+    "subtitle": "FluxTurnと他のワークフロー自動化プラットフォームを比較",
+    "getStarted": "無料で始める",
+    "footnote": "※ セルフホスト版。価格と機能は変更される場合があります。2025年1月更新。",
+    "categories": {
+      "corefeatures": "コア機能",
+      "deployment": "デプロイメント",
+      "pricing": "料金",
+      "integrations": "連携",
+      "performance": "パフォーマンス",
+      "collaboration": "コラボレーション"
+    },
+    "features": {
+      "visualBuilder": "ビジュアルワークフロービルダー",
+      "aiWorkflowGeneration": "AIワークフロー生成",
+      "naturalLanguagePrompts": "自然言語プロンプト",
+      "customCodeSupport": "カスタムコードサポート",
+      "selfHosting": "セルフホスティング",
+      "cloudHosted": "クラウドホスティング",
+      "freeWorkflows": "無料ワークフロー数",
+      "freeOperations": "無料実行数",
+      "startingPrice": "開始価格",
+      "integrations": "連携数",
+      "apiAccess": "APIアクセス",
+      "webhooks": "Webhook",
+      "realtimeExecution": "リアルタイム実行",
+      "errorHandling": "エラー処理",
+      "teamCollaboration": "チームコラボレーション",
+      "versionHistory": "バージョン履歴"
+    }
+  },
+  "faq": {
+    "badge": "ご質問は？",
+    "title": "よくある質問",
+    "subtitle": "FluxTurnについて知っておくべきすべてのこと。お探しのものが見つからない場合は、お気軽にサポートチームまでお問い合わせください。",
+    "items": {
+      "whatIs": {
+        "question": "FluxTurnとは何ですか？どのように動作しますか？",
+        "answer": "FluxTurnは、コーディング不要でアプリを接続し、繰り返しタスクを自動化できる強力なワークフロー自動化プラットフォームです。ビジュアルのドラッグ＆ドロップビルダーを使用して、イベント、スケジュール、または手動アクティベーションに基づいて自動的にトリガーされるワークフローを作成できます。アプリを接続し、ロジックを定義するだけで、FluxTurnが残りを処理します。"
+      },
+      "codingSkills": {
+        "question": "FluxTurnを使用するのにコーディングスキルは必要ですか？",
+        "answer": "コーディングスキルは不要です！FluxTurnは、ノードをドラッグ＆ドロップして接続し、シンプルなフォームでアクションを設定できる直感的なビジュアルワークフロービルダーを備えています。ただし、上級ユーザー向けに、最大限の柔軟性のためにワークフロー内でカスタムJavaScriptおよびPythonコードの実行もサポートしています。"
+      },
+      "integrations": {
+        "question": "どのアプリやサービスと接続できますか？",
+        "answer": "FluxTurnは、Gmail、Slack、Googleスプレッドシート、Telegram、Discord、Stripe、Shopify、OpenAI、PostgreSQLやMongoDBなどのデータベースなど、100以上の人気アプリと統合されています。ユーザーリクエストに基づいて常に新しい統合を追加しています。"
+      },
+      "freePlan": {
+        "question": "無料プランはありますか？",
+        "answer": "はい！月間最大500回のワークフロー実行、すべての統合へのアクセス、無制限のワークフロー作成機能を含む寛大な無料プランを提供しています。個人プロジェクトや自動化を始める小規模チームに最適です。"
+      },
+      "selfHost": {
+        "question": "FluxTurnを自社サーバーにセルフホストできますか？",
+        "answer": "もちろんです！FluxTurnはクラウドホストとセルフホストの両方のオプションを提供しています。セルフホストソリューションでは、データとインフラストラクチャを完全に制御できます。厳格なコンプライアンス要件を持つ企業や、独自のデプロイメントを管理したいチームに最適です。"
+      },
+      "security": {
+        "question": "FluxTurnでのデータセキュリティはどうなっていますか？",
+        "answer": "セキュリティは私たちの最優先事項です。保存中のすべてのデータに銀行レベルのAES-256暗号化を使用し、転送中のデータにはTLS 1.3を使用しています。認証情報は暗号化され、プレーンテキストで保存されることはありません。また、エンタープライズ顧客向けにSOC2準拠、ロールベースのアクセス制御、監査ログも提供しています。"
+      },
+      "failedWorkflow": {
+        "question": "ワークフローが失敗した場合はどうなりますか？",
+        "answer": "FluxTurnは包括的なエラー処理と監視を提供します。ワークフローが失敗すると、メールまたはお好みのチャンネルで即座に通知を受け取ります。詳細な実行ログにより、問題を迅速に特定して修正できます。また、重要なワークフローに対して自動リトライとフォールバックアクションを設定することもできます。"
+      },
+      "aiWorkflows": {
+        "question": "ワークフローでAIを使用できますか？",
+        "answer": "はい！FluxTurnにはOpenAI、Anthropic、その他の主要なAIプロバイダーを利用した組み込みAI機能があります。AIを使用してコンテンツを生成、データを分析、意思決定、情報を分類など、さまざまなことができます。AIエージェントノードにより、どのワークフローにもインテリジェンスを簡単に追加できます。"
+      }
+    }
+  },
+  "footer": {
+    "description": "包括的なバックエンドプラットフォームで強力なアプリケーションを構築。必要なすべてが一か所に。",
+    "sections": {
+      "product": "製品",
+      "developers": "開発者",
+      "company": "会社",
+      "legal": "法的情報"
+    },
+    "links": {
+      "features": "機能",
+      "visualBuilders": "ビジュアルビルダー",
+      "aiPlatform": "AIプラットフォーム",
+      "integrations": "連携",
+      "pricing": "料金",
+      "documentation": "ドキュメント",
+      "tutorials": "チュートリアル",
+      "apiReference": "APIリファレンス",
+      "examples": "サンプル",
+      "support": "サポート",
+      "privacy": "プライバシー",
+      "terms": "利用規約",
+      "security": "セキュリティ"
+    },
+    "newsletter": {
+      "title": "最新情報を入手",
+      "description": "新機能と製品リリースの最新情報をお届けします。",
+      "placeholder": "メールアドレスを入力",
+      "subscribe": "購読",
+      "subscribing": "登録中..."
+    },
+    "copyright": "© {{year}} Info Inlet. 全著作権所有。",
+    "builtWith": "作成者：",
+    "byTeam": "Info Inletチーム",
+    "docs": "ドキュメント"
+  },
+  "language": {
+    "en": "英語",
+    "ja": "日本語",
+    "zh": "中国語",
+    "ko": "韓国語",
+    "es": "スペイン語",
+    "fr": "フランス語",
+    "de": "ドイツ語",
+    "it": "イタリア語",
+    "ru": "ロシア語",
+    "pt-BR": "ポルトガル語（ブラジル）",
+    "nl": "オランダ語",
+    "pl": "ポーランド語",
+    "uk": "ウクライナ語",
+    "vi": "ベトナム語",
+    "id": "インドネシア語",
+    "ar": "アラビア語",
+    "hi": "ヒンディー語"
+  },
+  "featuresPage": {
+    "badge": "パワフルな機能",
+    "title": "自動化に必要な",
+    "titleHighlight": "すべて",
+    "subtitle": "FluxTurnを最新チーム向けの最も柔軟なワークフロー自動化プラットフォームにする強力な機能をご覧ください。",
+    "cta": "無料トライアルを開始",
+    "viewDocs": "ドキュメントを見る",
+    "stats": {
+      "workflows": "無制限ワークフロー",
+      "workflowsValue": "構築",
+      "integrations": "連携",
+      "codeSupport": "コードサポート",
+      "security": "セキュリティ"
+    },
+    "coreFeatures": {
+      "title": "コア機能",
+      "subtitle": "FluxTurnを際立たせる強力な機能をご覧ください"
+    },
+    "features": {
+      "visualBuilder": {
+        "title": "ビジュアルワークフロービルダー",
+        "desc": "コード不要で複雑な自動化ワークフローを構築するドラッグ＆ドロップインターフェース。"
+      },
+      "conditionalLogic": {
+        "title": "条件ロジック",
+        "desc": "if/else条件、ループ、決定木で分岐ワークフローを作成。"
+      },
+      "customCode": {
+        "title": "カスタムコード",
+        "desc": "最大限の柔軟性のためにJavaScriptまたはPythonコードを実行。"
+      },
+      "integrations": {
+        "title": "120以上の連携",
+        "desc": "お気に入りのアプリとサービスにすぐに接続。"
+      },
+      "realtime": {
+        "title": "リアルタイム実行",
+        "desc": "リアルタイム監視付きの超高速ワークフロー実行。"
+      },
+      "security": {
+        "title": "企業レベルセキュリティ",
+        "desc": "銀行レベルの暗号化、SOC2準拠、きめ細かいアクセス制御。"
+      },
+      "deployment": {
+        "title": "クラウド＆セルフホスト",
+        "desc": "クラウドにデプロイするか、自社インフラでセルフホスト。"
+      },
+      "scheduling": {
+        "title": "高度なスケジューリング",
+        "desc": "特定の時間または間隔でワークフローを実行するようスケジュール。"
+      },
+      "templates": {
+        "title": "300以上のテンプレート",
+        "desc": "一般的な用途向けの既製ワークフローテンプレートですぐに開始。"
+      }
+    },
+    "ctaSection": {
+      "title": "始める準備はできましたか？",
+      "subtitle": "FluxTurnで今日からワークフローの自動化を始めましょう。クレジットカード不要。",
+      "cta": "無料トライアルを開始",
+      "viewPricing": "料金を見る"
+    },
+    "visualSection": {
+      "badge": "ビジュアルワークフローエディター",
+      "title": "自動化を",
+      "titleHighlight": "ドラッグ＆ドロップで構築",
+      "subtitle": "強力な自動化ワークフローを視覚的に作成。ノードを接続し、アクションを設定し、直感的なビジュアルエディターでデプロイ。",
+      "videoTitle": "FluxTurn ビジュアルワークフローエディター",
+      "floatingBadge": "ドラッグ＆ドロップ",
+      "cta": "ビジュアルエディターを試す",
+      "features": {
+        "dragDrop": {
+          "title": "直感的なドラッグ＆ドロップ",
+          "desc": "ノードをキャンバスにドラッグして接続するだけでワークフローを構築。コーディング経験不要。"
+        },
+        "integrations": {
+          "title": "120以上の既製連携",
+          "desc": "お気に入りのアプリに即座に接続。Gmail、Slack、Notion、Stripeなど数百以上がすぐに使用可能。"
+        },
+        "realtime": {
+          "title": "リアルタイムテスト",
+          "desc": "実際のデータでワークフローを即座にテスト。結果をすぐに確認し、詳細なログでデバッグ。"
+        },
+        "preview": {
+          "title": "ライブプレビュー",
+          "desc": "ワークフローの実行をリアルタイムで確認。データフローを視覚化し、デプロイ前に問題を発見。"
+        }
+      }
+    },
+    "aiSection": {
+      "badge": "AI搭載の自動化",
+      "title": "AIアシスタントで",
+      "titleHighlight": "ワークフロー構築",
+      "subtitle": "自動化したいことを自然な言葉で説明するだけで、AIがワークフローを構築します。AIとチャットしてリアルタイムでワークフローを修正、最適化、デバッグできます。",
+      "videoTitle": "FluxTurn AIワークフロービルダー",
+      "floatingBadge": "コーディング不要",
+      "cta": "AIビルダーを試す",
+      "features": {
+        "naturalLanguage": {
+          "title": "自然言語入力",
+          "desc": "自動化したいことを自然な言葉で説明するだけ。AIが意図を理解し、ワークフローを自動作成します。"
+        },
+        "aiChat": {
+          "title": "AIチャットアシスタント",
+          "desc": "AIとチャットしてワークフローを修正したり、質問したり、改善のためのリアルタイム提案を受けられます。"
+        },
+        "instantGeneration": {
+          "title": "即座にワークフロー生成",
+          "desc": "数秒でワークフローが完成。AIが適切な連携を自動選択し、設定します。"
+        },
+        "smartSuggestions": {
+          "title": "スマート提案",
+          "desc": "構築中に最適化、エラー処理、ベストプラクティスのインテリジェントな提案を受けられます。"
+        }
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "おかえりなさい",
+      "subtitle": "アカウントにログインしてください",
+      "inviteMessage": "招待を承認するにはログインしてください",
+      "email": "メールアドレス",
+      "emailPlaceholder": "メールアドレスを入力",
+      "password": "パスワード",
+      "passwordPlaceholder": "パスワードを入力",
+      "rememberMe": "ログイン状態を保持",
+      "forgotPassword": "パスワードを忘れた方",
+      "signIn": "ログイン",
+      "signingIn": "ログイン中...",
+      "noAccount": "アカウントをお持ちでない方",
+      "signUp": "新規登録",
+      "orContinueWith": "または以下でログイン",
+      "termsAgreement": "ログインすることで、以下に同意したことになります",
+      "termsOfService": "利用規約",
+      "and": "と",
+      "privacyPolicy": "プライバシーポリシー"
+    },
+    "register": {
+      "title": "アカウント作成",
+      "subtitle": "FluxTurnを始めましょう",
+      "name": "氏名",
+      "namePlaceholder": "氏名を入力",
+      "passwordRequirements": {
+        "minLength": "8文字以上",
+        "uppercase": "大文字",
+        "lowercase": "小文字",
+        "number": "数字",
+        "special": "特殊文字"
+      },
+      "email": "メールアドレス",
+      "emailPlaceholder": "メールアドレスを入力",
+      "password": "パスワード",
+      "passwordPlaceholder": "パスワードを作成",
+      "confirmPassword": "パスワード確認",
+      "confirmPasswordPlaceholder": "パスワードを確認",
+      "passwordStrength": "パスワード強度：",
+      "weak": "弱い",
+      "fair": "普通",
+      "good": "良好",
+      "strong": "強い",
+      "missing": "不足：",
+      "passwordsMatch": "パスワードが一致しました",
+      "passwordsNoMatch": "パスワードが一致しません",
+      "agreeToTerms": "以下に同意します",
+      "termsOfService": "利用規約",
+      "and": "と",
+      "privacyPolicy": "プライバシーポリシー",
+      "createAccount": "アカウント作成",
+      "creating": "作成中...",
+      "haveAccount": "すでにアカウントをお持ちの方",
+      "signIn": "ログイン",
+      "orContinueWith": "または以下で登録"
+    },
+    "forgotPassword": {
+      "title": "パスワードをお忘れですか？",
+      "subtitle": "ご安心ください、リセット手順をお送りします",
+      "email": "メールアドレス",
+      "emailPlaceholder": "メールアドレスを入力",
+      "sendLink": "リセットメールを送信",
+      "sending": "送信中...",
+      "backToLogin": "ログインに戻る",
+      "successTitle": "メールを確認してください",
+      "successMessage": "パスワードリセットリンクを送信しました：",
+      "successHint": "メールが届かない場合は、迷惑メールフォルダを確認するか、再送信してください。",
+      "resendEmail": "メールを再送信",
+      "resending": "再送信中..."
+    },
+    "resetPassword": {
+      "title": "新しいパスワードを設定",
+      "subtitle": "新しいパスワードを入力してください",
+      "invalidTitle": "無効なリセットリンク",
+      "invalidMessage": "このパスワードリセットリンクは無効または期限切れです。",
+      "requestNewLink": "新しいリンクをリクエスト",
+      "newPassword": "新しいパスワード",
+      "newPasswordPlaceholder": "新しいパスワードを入力",
+      "confirmPassword": "パスワード確認",
+      "confirmPasswordPlaceholder": "新しいパスワードを確認",
+      "passwordStrength": "パスワード強度：",
+      "passwordsMatch": "パスワードが一致しました",
+      "passwordsNoMatch": "パスワードが一致しません",
+      "reset": "パスワードを更新",
+      "resetting": "パスワードを更新中...",
+      "successTitle": "パスワードが更新されました",
+      "successMessage": "パスワードが正常に更新されました。新しいパスワードでログインできます。",
+      "continueToLogin": "ログインに進む",
+      "validating": "リセットリンクを検証中...",
+      "backToLogin": "ログインに戻る"
+    },
+    "verifyEmail": {
+      "title": "メールを確認してください",
+      "subtitle": "確認リンクを送信しました：",
+      "instruction": "メール内のリンクをクリックしてアカウントを確認してください",
+      "checkEmail": "メールを確認してください",
+      "expireNote": "確認リンクは24時間で期限切れになります",
+      "noEmailHint": "メールが届かない場合は、迷惑メールフォルダを確認するか、再送信してください。",
+      "resendEmail": "メールを再送信",
+      "sending": "送信中...",
+      "verifyingTitle": "メールを確認中",
+      "verifyingMessage": "メールアドレスを確認しています...",
+      "successTitle": "メール確認完了！",
+      "successMessage": "メールアドレスが正常に確認されました。すべての機能にアクセスできます。",
+      "goToDashboard": "ダッシュボードへ",
+      "signIn": "ログイン",
+      "failedTitle": "確認に失敗しました",
+      "failedMessage": "確認リンクが無効または期限切れです。新しい確認メールをリクエストしてください。",
+      "sendNewEmail": "新しい確認メールを送信",
+      "backToLogin": "ログインに戻る",
+      "emailSentTitle": "メール送信完了！",
+      "emailSentMessage": "新しい確認メールを送信しました：",
+      "emailSentHint": "受信トレイを確認し、確認リンクをクリックしてください",
+      "spamHint": "見つからない場合は、迷惑メールフォルダを確認してください。",
+      "resendAgain": "再送信",
+      "waitBeforeResend": "再送信まで{{countdown}}秒お待ちください",
+      "welcome": "開発の未来へようこそ",
+      "verifyToStart": "メールを確認して開始してください",
+      "needHelp": "お困りですか？",
+      "supportTeam": "サポートチームにお問い合わせください"
+    },
+    "authSuccess": {
+      "title": "認証成功！",
+      "message": "正常にログインしました。ダッシュボードにリダイレクトしています..."
+    },
+    "authError": {
+      "title": "認証に失敗しました",
+      "redirectMessage": "数秒後にログインページにリダイレクトされます...",
+      "returnToLogin": "ログインに戻る",
+      "troubleHelp": "お困りですか？以下のオプションをお試しください：",
+      "createAccount": "アカウント作成",
+      "resetPassword": "パスワードリセット"
+    },
+    "oauth": {
+      "google": "Googleで続ける",
+      "github": "GitHubで続ける",
+      "apple": "Appleで続ける",
+      "connecting": "接続中...",
+      "processing": "OAuth認証を処理中...",
+      "success": "成功！",
+      "successMessage": "正常に接続されました！リダイレクト中...",
+      "error": "エラー",
+      "closeWindow": "ウィンドウを閉じる"
+    },
+    "errors": {
+      "invalidCredentials": "メールアドレスまたはパスワードが無効です",
+      "emailRequired": "メールアドレスは必須です",
+      "passwordRequired": "パスワードは必須です",
+      "nameRequired": "氏名は必須です",
+      "passwordMismatch": "パスワードが一致しません",
+      "weakPassword": "パスワードは8文字以上必要です",
+      "invalidEmail": "有効なメールアドレスを入力してください",
+      "accountExists": "このメールアドレスのアカウントは既に存在します",
+      "loginFailed": "ログインに失敗しました。認証情報を確認して再試行してください。",
+      "registrationFailed": "登録に失敗しました。再試行してください。",
+      "missingOAuthParams": "必要なOAuthパラメータがありません",
+      "invalidOAuthState": "無効なOAuth状態 - セキュリティの問題の可能性があります",
+      "missingCredentialId": "認証IDがありません"
+    },
+    "branding": {
+      "welcomeBack": "おかえり",
+      "back": "なさい",
+      "joinFluxTurn": "参加する",
+      "fluxTurn": "FluxTurn",
+      "tagline": "ノーコードプラットフォームで強力なワークフロー自動化を構築。120以上のアプリを即座に接続。",
+      "feature1": "120以上の既製連携",
+      "feature2": "ビジュアルドラッグ＆ドロップワークフロービルダー",
+      "feature3": "AI搭載の自動化提案",
+      "feature4": "企業レベルのセキュリティ",
+      "testimonial": "FluxTurnはチームの働き方を完全に変革しました。繰り返しタスクの80％を自動化できました！",
+      "powerUser": "パワーユーザー",
+      "premiumMember": "プレミアム会員"
+    },
+    "common": {
+      "email": "メールアドレス",
+      "password": "パスワード",
+      "submit": "送信",
+      "cancel": "キャンセル",
+      "loading": "読み込み中...",
+      "or": "または"
+    }
+  },
+  "common": {
+    "save": "保存",
+    "cancel": "キャンセル",
+    "delete": "削除",
+    "edit": "編集",
+    "create": "作成",
+    "update": "更新",
+    "close": "閉じる",
+    "confirm": "確認",
+    "back": "戻る",
+    "next": "次へ",
+    "search": "検索",
+    "filter": "フィルター",
+    "loading": "読み込み中...",
+    "saving": "保存中...",
+    "deleting": "削除中...",
+    "noResults": "結果が見つかりません",
+    "error": "エラーが発生しました",
+    "success": "成功",
+    "required": "必須",
+    "optional": "任意",
+    "actions": "アクション",
+    "status": "ステータス",
+    "active": "有効",
+    "inactive": "無効",
+    "enabled": "有効",
+    "disabled": "無効",
+    "name": "名前",
+    "description": "説明",
+    "createdAt": "作成日",
+    "updatedAt": "更新日",
+    "copy": "コピー",
+    "copied": "コピーしました！",
+    "download": "ダウンロード",
+    "upload": "アップロード",
+    "refresh": "更新",
+    "retry": "再試行",
+    "learnMore": "詳しく見る",
+    "viewAll": "すべて表示",
+    "showMore": "もっと見る",
+    "showLess": "折りたたむ",
+    "yes": "はい",
+    "no": "いいえ",
+    "or": "または",
+    "and": "と"
+  },
+  "dashboard": {
+    "title": "ダッシュボード",
+    "welcome": "おかえりなさい",
+    "overview": "概要",
+    "recentWorkflows": "最近のワークフロー",
+    "recentActivity": "最近のアクティビティ",
+    "quickActions": "クイックアクション",
+    "createWorkflow": "ワークフローを作成",
+    "viewAllWorkflows": "すべてのワークフローを表示",
+    "noWorkflows": "ワークフローがまだありません",
+    "noWorkflowsHint": "最初のワークフローを作成して始めましょう",
+    "stats": {
+      "totalWorkflows": "合計ワークフロー数",
+      "activeWorkflows": "有効なワークフロー",
+      "totalExecutions": "合計実行数",
+      "successRate": "成功率"
+    }
+  },
+  "workflow": {
+    "title": "ワークフロー",
+    "create": "ワークフローを作成",
+    "createNew": "新しいワークフローを作成",
+    "builder": "ワークフロービルダー",
+    "name": "ワークフロー名",
+    "namePlaceholder": "ワークフロー名を入力",
+    "description": "説明",
+    "descriptionPlaceholder": "このワークフローの機能を説明してください",
+    "status": {
+      "active": "有効",
+      "inactive": "無効",
+      "draft": "下書き",
+      "running": "実行中",
+      "completed": "完了",
+      "failed": "失敗",
+      "paused": "一時停止"
+    },
+    "actions": {
+      "run": "実行",
+      "stop": "停止",
+      "duplicate": "複製",
+      "export": "エクスポート",
+      "delete": "削除",
+      "activate": "有効にする",
+      "deactivate": "無効にする"
+    },
+    "nodes": {
+      "addNode": "ノードを追加",
+      "configure": "設定",
+      "delete": "ノードを削除",
+      "duplicate": "ノードを複製",
+      "trigger": "トリガー",
+      "action": "アクション",
+      "condition": "条件",
+      "loop": "ループ",
+      "delay": "遅延",
+      "code": "コード",
+      "aiAgent": "AIエージェント",
+      "webhook": "Webhook",
+      "schedule": "スケジュール",
+      "manual": "手動トリガー"
+    },
+    "execution": {
+      "title": "実行ログ",
+      "running": "実行中...",
+      "completed": "完了",
+      "failed": "失敗",
+      "duration": "所要時間",
+      "startedAt": "開始時刻",
+      "input": "入力",
+      "output": "出力",
+      "error": "エラー",
+      "noExecutions": "まだ実行がありません",
+      "viewDetails": "詳細を表示"
+    },
+    "canvas": {
+      "zoomIn": "ズームイン",
+      "zoomOut": "ズームアウト",
+      "fitView": "画面に合わせる",
+      "undo": "元に戻す",
+      "redo": "やり直す",
+      "save": "保存",
+      "deploy": "デプロイ"
+    },
+    "errors": {
+      "saveFailed": "ワークフローの保存に失敗しました",
+      "loadFailed": "ワークフローの読み込みに失敗しました",
+      "executionFailed": "ワークフローの実行に失敗しました",
+      "invalidConfig": "無効な設定です"
+    }
+  },
+  "credentials": {
+    "title": "認証情報",
+    "add": "認証情報を追加",
+    "edit": "認証情報を編集",
+    "name": "認証情報名",
+    "namePlaceholder": "マイ認証情報",
+    "type": "認証タイプ",
+    "test": "接続テスト",
+    "testing": "テスト中...",
+    "testSuccess": "接続成功",
+    "testFailed": "接続失敗",
+    "save": "認証情報を保存",
+    "delete": "認証情報を削除",
+    "deleteConfirm": "この認証情報を削除しますか？使用中のワークフローが動作しなくなります。",
+    "noCredentials": "認証情報がまだありません",
+    "noCredentialsHint": "アプリを接続するために認証情報を追加してください",
+    "lastTested": "最終テスト",
+    "connected": "接続済み",
+    "disconnected": "切断",
+    "expires": "有効期限",
+    "reconnect": "再接続"
+  },
+  "organization": {
+    "title": "組織",
+    "create": "組織を作成",
+    "settings": "組織設定",
+    "name": "組織名",
+    "namePlaceholder": "マイ組織",
+    "members": {
+      "title": "メンバー",
+      "invite": "メンバーを招待",
+      "inviteByEmail": "メールで招待",
+      "emailPlaceholder": "colleague@company.com",
+      "role": "ロール",
+      "roles": {
+        "owner": "オーナー",
+        "admin": "管理者",
+        "member": "メンバー",
+        "viewer": "閲覧者"
+      },
+      "remove": "メンバーを削除",
+      "removeConfirm": "このメンバーを削除しますか？",
+      "pending": "保留中",
+      "active": "アクティブ"
+    },
+    "billing": {
+      "title": "請求",
+      "currentPlan": "現在のプラン",
+      "usage": "使用状況",
+      "invoices": "請求書",
+      "upgrade": "プランをアップグレード",
+      "downgrade": "ダウングレード",
+      "cancel": "サブスクリプションをキャンセル",
+      "paymentMethod": "支払い方法",
+      "addPayment": "支払い方法を追加",
+      "nextBilling": "次回請求日",
+      "executions": "実行回数",
+      "executionsUsed": "{{used}} / {{limit}} 使用済み",
+      "workflows": "ワークフロー",
+      "workflowsUsed": "{{used}} / {{limit}} 使用済み"
+    },
+    "integrations": {
+      "title": "統合",
+      "connected": "接続済み",
+      "available": "利用可能",
+      "connect": "接続",
+      "disconnect": "切断",
+      "configure": "設定",
+      "lastSync": "最終同期"
+    }
+  },
+  "project": {
+    "title": "プロジェクト",
+    "create": "プロジェクトを作成",
+    "settings": "プロジェクト設定",
+    "name": "プロジェクト名",
+    "namePlaceholder": "マイプロジェクト",
+    "description": "説明",
+    "descriptionPlaceholder": "このプロジェクトの目的は？",
+    "workflows": "ワークフロー",
+    "credentials": "認証情報",
+    "members": "メンバー",
+    "noProjects": "プロジェクトがまだありません",
+    "noProjectsHint": "ワークフローを整理するためにプロジェクトを作成してください"
+  },
+  "settings": {
+    "title": "設定",
+    "account": {
+      "title": "アカウント設定",
+      "profile": "プロフィール",
+      "email": "メールアドレス",
+      "name": "表示名",
+      "avatar": "プロフィール画像",
+      "changeAvatar": "変更",
+      "removeAvatar": "削除",
+      "timezone": "タイムゾーン",
+      "language": "言語",
+      "notifications": "通知",
+      "emailNotifications": "メール通知",
+      "pushNotifications": "プッシュ通知",
+      "workflowAlerts": "ワークフローアラート"
+    },
+    "security": {
+      "title": "セキュリティ",
+      "changePassword": "パスワードを変更",
+      "currentPassword": "現在のパスワード",
+      "newPassword": "新しいパスワード",
+      "confirmPassword": "パスワードを確認",
+      "twoFactor": "二要素認証",
+      "enable2FA": "2FAを有効にする",
+      "disable2FA": "2FAを無効にする",
+      "sessions": "アクティブセッション",
+      "revokeSession": "取り消し",
+      "revokeAll": "すべてのセッションを取り消し"
+    },
+    "apiKeys": {
+      "title": "APIキー",
+      "create": "APIキーを作成",
+      "name": "キー名",
+      "namePlaceholder": "マイAPIキー",
+      "permissions": "権限",
+      "expires": "有効期限",
+      "never": "無期限",
+      "revoke": "取り消し",
+      "revokeConfirm": "本当によろしいですか？この操作は取り消せません。",
+      "noKeys": "APIキーがまだありません",
+      "copyWarning": "このキーを今コピーしてください。再度表示することはできません。"
+    },
+    "danger": {
+      "title": "危険ゾーン",
+      "deleteAccount": "アカウントを削除",
+      "deleteAccountWarning": "アカウントと関連するすべてのデータが完全に削除されます。この操作は取り消せません。",
+      "typeToConfirm": "確認のためメールアドレスを入力してください"
+    }
+  }
+}

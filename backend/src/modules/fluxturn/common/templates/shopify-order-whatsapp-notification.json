@@ -1,0 +1,66 @@
+{
+  "id": "c12a3624-38b7-4e7f-b386-b95197b46ce6",
+  "name": "Shopify Order WhatsApp Notification",
+  "description": "Send WhatsApp notifications for new Shopify orders",
+  "category": "ecommerce",
+  "difficulty": "beginner",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": ["shopify", "whatsapp"],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "shopify_trigger_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": { "x": 100, "y": 100 },
+        "data": {
+          "label": "New Shopify Order",
+          "connector": "shopify",
+          "triggerId": "order_created",
+          "icon": "shopping-cart",
+          "category": "trigger",
+          "description": "Triggers when a new order is created",
+          "config": {},
+          "outputSchema": {
+            "order_number": { "type": "string" },
+            "customer": { "type": "object" },
+            "total_price": { "type": "string" }
+          }
+        }
+      },
+      {
+        "id": "whatsapp_action_1",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 450, "y": 100 },
+        "data": {
+          "label": "Send WhatsApp Message",
+          "connector": "whatsapp",
+          "actionId": "send_message",
+          "icon": "message-circle",
+          "category": "action",
+          "description": "Send order notification via WhatsApp",
+          "config": {
+            "to": "{{store_owner_phone}}",
+            "message": "🛒 New Order Alert!\n\nOrder #{{$json.order_number}}\nCustomer: {{$json.customer.first_name}} {{$json.customer.last_name}}\nTotal: ${{$json.total_price}}\nItems: {{$json.line_items.length}}\n\nCheck Shopify for details."
+          },
+          "inputSchema": {
+            "to": { "type": "string", "required": true, "label": "Phone Number" },
+            "message": { "type": "string", "required": true, "label": "Message" }
+          },
+          "outputSchema": {
+            "messageId": { "type": "string" }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1",
+        "source": "shopify_trigger_1",
+        "target": "whatsapp_action_1",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

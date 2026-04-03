@@ -1,0 +1,1233 @@
+{
+  "id": "d9707503-287f-4a9b-aea5-b1863e68f706",
+  "name": "Reddit Community Manager",
+  "description": "Monitor subreddits, respond to mentions, and engage with community.",
+  "category": "social_media",
+  "canvas": {
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "xy-edge__node_3source-1-reddit_post_create_1762429185758target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_3",
+        "target": "reddit_post_create_1762429185758",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__reddit_post_create_1762429185758source-1-google_sheets_append_row_1762429216083target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "reddit_post_create_1762429185758",
+        "target": "google_sheets_append_row_1762429216083",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "node_1",
+        "data": {
+          "icon": "connector",
+          "label": "When Brand Mentioned on Reddit",
+          "config": {},
+          "trigger": "new_comment",
+          "category": "trigger",
+          "connector": "reddit",
+          "eventType": "comment",
+          "triggerId": "new_comment",
+          "description": "Triggers when a new comment is posted in a subreddit (polling)",
+          "inputSchema": {
+            "subreddit": {
+              "type": "string",
+              "label": "Subreddit",
+              "required": true,
+              "description": "The subreddit to monitor (without r/)",
+              "placeholder": "AskReddit"
+            },
+            "pollingInterval": {
+              "type": "number",
+              "label": "Polling Interval (minutes)",
+              "default": 5,
+              "maximum": 60,
+              "minimum": 1,
+              "description": "How often to check for new comments"
+            }
+          },
+          "triggerName": "New Comment in Subreddit",
+          "configSchema": {
+            "subreddit": {
+              "type": "string",
+              "label": "Subreddit",
+              "required": true,
+              "description": "The subreddit to monitor (without r/)",
+              "placeholder": "AskReddit"
+            },
+            "pollingInterval": {
+              "type": "number",
+              "label": "Polling Interval (minutes)",
+              "default": 5,
+              "maximum": 60,
+              "minimum": 1,
+              "description": "How often to check for new comments"
+            }
+          },
+          "outputSchema": {
+            "body": {
+              "type": "string",
+              "description": "Comment text"
+            },
+            "score": {
+              "type": "number",
+              "description": "Comment score"
+            },
+            "author": {
+              "type": "string",
+              "description": "Comment author username"
+            },
+            "postId": {
+              "type": "string",
+              "description": "Parent post ID"
+            },
+            "commentId": {
+              "type": "string",
+              "description": "Comment ID"
+            },
+            "permalink": {
+              "type": "string",
+              "description": "Reddit permalink"
+            },
+            "subreddit": {
+              "type": "string",
+              "description": "Subreddit name"
+            },
+            "createdUtc": {
+              "type": "number",
+              "description": "Creation timestamp"
+            }
+          },
+          "connectorType": "reddit",
+          "webhookRequired": false,
+          "connectorDisplayName": "Reddit"
+        },
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 200
+        }
+      },
+      {
+        "id": "node_2",
+        "data": {
+          "icon": "connector",
+          "label": "Analyze Context with OpenAI",
+          "action": "chat_complete",
+          "config": {
+            "model": "gpt-4",
+            "messages": [
+              {
+                "role": "user",
+                "content": "{{node_1.comment.body}}"
+              }
+            ]
+          },
+          "actionId": "chat_complete",
+          "category": "action",
+          "connector": "openai",
+          "actionName": "Chat Completion",
+          "description": "Create a chat completion using GPT models (gpt-4, gpt-3.5-turbo, etc.)",
+          "inputSchema": {
+            "n": {
+              "max": 10,
+              "min": 1,
+              "type": "number",
+              "label": "Number of Completions",
+              "default": 1,
+              "description": "How many completions to generate"
+            },
+            "topP": {
+              "max": 1,
+              "min": 0,
+              "step": 0.1,
+              "type": "number",
+              "label": "Top P",
+              "default": 1,
+              "description": "Nucleus sampling parameter (0-1)"
+            },
+            "model": {
+              "type": "select",
+              "label": "Model",
+              "default": "gpt-3.5-turbo",
+              "options": [
+                {
+                  "label": "GPT-4 Turbo",
+                  "value": "gpt-4-turbo-preview"
+                },
+                {
+                  "label": "GPT-4",
+                  "value": "gpt-4"
+                },
+                {
+                  "label": "GPT-3.5 Turbo",
+                  "value": "gpt-3.5-turbo"
+                },
+                {
+                  "label": "GPT-3.5 Turbo 16K",
+                  "value": "gpt-3.5-turbo-16k"
+                }
+              ],
+              "required": true,
+              "description": "The model to use for chat completion"
+            },
+            "messages": {
+              "type": "array",
+              "label": "Messages",
+              "required": true,
+              "itemSchema": {
+                "role": {
+                  "type": "select",
+                  "label": "Role",
+                  "default": "user",
+                  "options": [
+                    {
+                      "label": "System",
+                      "value": "system"
+                    },
+                    {
+                      "label": "User",
+                      "value": "user"
+                    },
+                    {
+                      "label": "Assistant",
+                      "value": "assistant"
+                    }
+                  ],
+                  "required": true
+                },
+                "content": {
+                  "type": "string",
+                  "label": "Content",
+                  "required": true,
+                  "inputType": "textarea",
+                  "placeholder": "Enter message content..."
+                }
+              },
+              "description": "Array of message objects for the conversation"
+            },
+            "maxTokens": {
+              "max": 32768,
+              "min": 1,
+              "type": "number",
+              "label": "Max Tokens",
+              "default": 16,
+              "description": "Maximum number of tokens to generate"
+            },
+            "temperature": {
+              "max": 2,
+              "min": 0,
+              "step": 0.1,
+              "type": "number",
+              "label": "Temperature",
+              "default": 1,
+              "description": "Controls randomness (0-2). Lower is more deterministic"
+            },
+            "presencePenalty": {
+              "max": 2,
+              "min": -2,
+              "step": 0.1,
+              "type": "number",
+              "label": "Presence Penalty",
+              "default": 0,
+              "description": "Encourage new topics (-2 to 2)"
+            },
+            "frequencyPenalty": {
+              "max": 2,
+              "min": -2,
+              "step": 0.1,
+              "type": "number",
+              "label": "Frequency Penalty",
+              "default": 0,
+              "description": "Penalize repeated tokens (-2 to 2)"
+            }
+          },
+          "configSchema": {
+            "n": {
+              "max": 10,
+              "min": 1,
+              "type": "number",
+              "label": "Number of Completions",
+              "default": 1,
+              "description": "How many completions to generate"
+            },
+            "topP": {
+              "max": 1,
+              "min": 0,
+              "step": 0.1,
+              "type": "number",
+              "label": "Top P",
+              "default": 1,
+              "description": "Nucleus sampling parameter (0-1)"
+            },
+            "model": {
+              "type": "select",
+              "label": "Model",
+              "default": "gpt-3.5-turbo",
+              "options": [
+                {
+                  "label": "GPT-4 Turbo",
+                  "value": "gpt-4-turbo-preview"
+                },
+                {
+                  "label": "GPT-4",
+                  "value": "gpt-4"
+                },
+                {
+                  "label": "GPT-3.5 Turbo",
+                  "value": "gpt-3.5-turbo"
+                },
+                {
+                  "label": "GPT-3.5 Turbo 16K",
+                  "value": "gpt-3.5-turbo-16k"
+                }
+              ],
+              "required": true,
+              "description": "The model to use for chat completion"
+            },
+            "messages": {
+              "type": "array",
+              "label": "Messages",
+              "required": true,
+              "itemSchema": {
+                "role": {
+                  "type": "select",
+                  "label": "Role",
+                  "default": "user",
+                  "options": [
+                    {
+                      "label": "System",
+                      "value": "system"
+                    },
+                    {
+                      "label": "User",
+                      "value": "user"
+                    },
+                    {
+                      "label": "Assistant",
+                      "value": "assistant"
+                    }
+                  ],
+                  "required": true
+                },
+                "content": {
+                  "type": "string",
+                  "label": "Content",
+                  "required": true,
+                  "inputType": "textarea",
+                  "placeholder": "Enter message content..."
+                }
+              },
+              "description": "Array of message objects for the conversation"
+            },
+            "maxTokens": {
+              "max": 32768,
+              "min": 1,
+              "type": "number",
+              "label": "Max Tokens",
+              "default": 16,
+              "description": "Maximum number of tokens to generate"
+            },
+            "temperature": {
+              "max": 2,
+              "min": 0,
+              "step": 0.1,
+              "type": "number",
+              "label": "Temperature",
+              "default": 1,
+              "description": "Controls randomness (0-2). Lower is more deterministic"
+            },
+            "presencePenalty": {
+              "max": 2,
+              "min": -2,
+              "step": 0.1,
+              "type": "number",
+              "label": "Presence Penalty",
+              "default": 0,
+              "description": "Encourage new topics (-2 to 2)"
+            },
+            "frequencyPenalty": {
+              "max": 2,
+              "min": -2,
+              "step": 0.1,
+              "type": "number",
+              "label": "Frequency Penalty",
+              "default": 0,
+              "description": "Penalize repeated tokens (-2 to 2)"
+            }
+          },
+          "connectorType": "openai",
+          "connectorDisplayName": "OpenAI"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 330,
+          "y": 375
+        }
+      },
+      {
+        "id": "node_3",
+        "data": {
+          "icon": "connector",
+          "label": "Alert Community Manager on Slack",
+          "action": "send_message",
+          "config": {
+            "text": "Alert! Brand mentioned: {{node_1.comment.body}}",
+            "channel": "#community"
+          },
+          "actionId": "send_message",
+          "category": "action",
+          "connector": "slack",
+          "actionName": "Send Message",
+          "description": "Send a message to a Slack channel or direct message to a user",
+          "inputSchema": {
+            "text": {
+              "type": "string",
+              "label": "Message Text",
+              "helpText": "You can use *bold*, _italic_, ~strikethrough~, `code`, and ```code blocks```",
+              "required": true,
+              "inputType": "textarea",
+              "description": "The text content of your message (supports Slack markdown formatting)",
+              "placeholder": "Enter your message here..."
+            },
+            "threadTs": {
+              "type": "string",
+              "label": "Reply in Thread (Optional)",
+              "helpText": "Leave empty to send as a new message. Use output from previous message node to reply in thread.",
+              "description": "To reply in a thread, provide the timestamp of the parent message",
+              "placeholder": "1234567890.123456"
+            },
+            "channelId": {
+              "type": "string",
+              "label": "Channel or User ID",
+              "helpText": "Right-click on a channel in Slack → View channel details → Copy channel ID",
+              "required": true,
+              "description": "The ID of the channel (starts with C) or user (starts with U) to send the message to",
+              "placeholder": "C01234ABCDE or U01234ABCDE"
+            }
+          },
+          "configSchema": {
+            "text": {
+              "type": "string",
+              "label": "Message Text",
+              "helpText": "You can use *bold*, _italic_, ~strikethrough~, `code`, and ```code blocks```",
+              "required": true,
+              "inputType": "textarea",
+              "description": "The text content of your message (supports Slack markdown formatting)",
+              "placeholder": "Enter your message here..."
+            },
+            "threadTs": {
+              "type": "string",
+              "label": "Reply in Thread (Optional)",
+              "helpText": "Leave empty to send as a new message. Use output from previous message node to reply in thread.",
+              "description": "To reply in a thread, provide the timestamp of the parent message",
+              "placeholder": "1234567890.123456"
+            },
+            "channelId": {
+              "type": "string",
+              "label": "Channel or User ID",
+              "helpText": "Right-click on a channel in Slack → View channel details → Copy channel ID",
+              "required": true,
+              "description": "The ID of the channel (starts with C) or user (starts with U) to send the message to",
+              "placeholder": "C01234ABCDE or U01234ABCDE"
+            }
+          },
+          "outputSchema": {
+            "ok": {
+              "type": "boolean",
+              "description": "Whether the message was sent successfully"
+            },
+            "ts": {
+              "type": "string",
+              "description": "Message timestamp (use this to reply in thread or update/delete message)"
+            },
+            "channel": {
+              "type": "string",
+              "description": "The channel ID where message was sent"
+            }
+          },
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 630,
+          "y": 195
+        }
+      },
+      {
+        "id": "reddit_post_create_1762429185758",
+        "data": {
+          "icon": "Plus",
+          "label": "Create Post",
+          "actionId": "post_create",
+          "description": "Submit a new post to a subreddit",
+          "inputSchema": {
+            "url": {
+              "type": "string",
+              "label": "URL",
+              "format": "url",
+              "description": "URL for link posts",
+              "displayCondition": {
+                "kind": "link"
+              }
+            },
+            "kind": {
+              "type": "select",
+              "label": "Post Type",
+              "default": "self",
+              "options": [
+                {
+                  "label": "Text Post",
+                  "value": "self"
+                },
+                {
+                  "label": "Link Post",
+                  "value": "link"
+                },
+                {
+                  "label": "Image Post",
+                  "value": "image"
+                }
+              ],
+              "required": true,
+              "description": "Type of post to create"
+            },
+            "text": {
+              "type": "text",
+              "label": "Text Content",
+              "description": "Text content for self posts (supports markdown)",
+              "displayCondition": {
+                "kind": "self"
+              }
+            },
+            "title": {
+              "type": "string",
+              "label": "Title",
+              "required": true,
+              "maxLength": 300,
+              "description": "Post title (max 300 characters)"
+            },
+            "subreddit": {
+              "type": "string",
+              "label": "Subreddit",
+              "required": true,
+              "description": "The subreddit to post to (without r/)",
+              "placeholder": "AskReddit"
+            },
+            "sendReplies": {
+              "type": "boolean",
+              "label": "Send Replies",
+              "default": true,
+              "description": "Receive notifications for replies"
+            }
+          },
+          "connectorType": "reddit"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 975,
+          "y": 375
+        }
+      },
+      {
+        "id": "google_sheets_append_row_1762429216083",
+        "data": {
+          "icon": "Zap",
+          "label": "Append Row",
+          "actionId": "append_row",
+          "description": "Add a new row to the end of a sheet",
+          "inputSchema": {
+            "values": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "label": "Values",
+              "required": true,
+              "description": "Row data as array of values"
+            },
+            "sheetName": {
+              "type": "string",
+              "label": "Sheet Name",
+              "default": "Sheet1",
+              "required": true,
+              "description": "Name of the sheet tab",
+              "loadOptionsResource": "sheets",
+              "loadOptionsDependsOn": [
+                "spreadsheetId"
+              ],
+              "loadOptionsDescription": "Fetch sheets from selected spreadsheet"
+            },
+            "spreadsheetId": {
+              "type": "string",
+              "label": "Spreadsheet ID",
+              "required": true,
+              "description": "The ID of the spreadsheet",
+              "placeholder": "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms",
+              "loadOptionsResource": "spreadsheets",
+              "loadOptionsDescription": "Fetch spreadsheets from Google Drive"
+            },
+            "valueInputOption": {
+              "type": "select",
+              "label": "Value Input Option",
+              "default": "USER_ENTERED",
+              "options": [
+                {
+                  "label": "User Entered (Formatted)",
+                  "value": "USER_ENTERED"
+                },
+                {
+                  "label": "Raw",
+                  "value": "RAW"
+                }
+              ]
+            }
+          },
+          "connectorType": "google_sheets"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1230,
+          "y": 210
+        }
+      }
+    ]
+  },
+  "steps": [
+    {
+      "id": "node_2",
+      "action": "chat_complete",
+      "params": {
+        "icon": "connector",
+        "label": "Analyze Context with OpenAI",
+        "action": "chat_complete",
+        "config": {
+          "model": "gpt-4",
+          "messages": [
+            {
+              "role": "user",
+              "content": "{{node_1.comment.body}}"
+            }
+          ]
+        },
+        "actionId": "chat_complete",
+        "category": "action",
+        "connector": "openai",
+        "actionName": "Chat Completion",
+        "description": "Create a chat completion using GPT models (gpt-4, gpt-3.5-turbo, etc.)",
+        "inputSchema": {
+          "n": {
+            "max": 10,
+            "min": 1,
+            "type": "number",
+            "label": "Number of Completions",
+            "default": 1,
+            "description": "How many completions to generate"
+          },
+          "topP": {
+            "max": 1,
+            "min": 0,
+            "step": 0.1,
+            "type": "number",
+            "label": "Top P",
+            "default": 1,
+            "description": "Nucleus sampling parameter (0-1)"
+          },
+          "model": {
+            "type": "select",
+            "label": "Model",
+            "default": "gpt-3.5-turbo",
+            "options": [
+              {
+                "label": "GPT-4 Turbo",
+                "value": "gpt-4-turbo-preview"
+              },
+              {
+                "label": "GPT-4",
+                "value": "gpt-4"
+              },
+              {
+                "label": "GPT-3.5 Turbo",
+                "value": "gpt-3.5-turbo"
+              },
+              {
+                "label": "GPT-3.5 Turbo 16K",
+                "value": "gpt-3.5-turbo-16k"
+              }
+            ],
+            "required": true,
+            "description": "The model to use for chat completion"
+          },
+          "messages": {
+            "type": "array",
+            "label": "Messages",
+            "required": true,
+            "itemSchema": {
+              "role": {
+                "type": "select",
+                "label": "Role",
+                "default": "user",
+                "options": [
+                  {
+                    "label": "System",
+                    "value": "system"
+                  },
+                  {
+                    "label": "User",
+                    "value": "user"
+                  },
+                  {
+                    "label": "Assistant",
+                    "value": "assistant"
+                  }
+                ],
+                "required": true
+              },
+              "content": {
+                "type": "string",
+                "label": "Content",
+                "required": true,
+                "inputType": "textarea",
+                "placeholder": "Enter message content..."
+              }
+            },
+            "description": "Array of message objects for the conversation"
+          },
+          "maxTokens": {
+            "max": 32768,
+            "min": 1,
+            "type": "number",
+            "label": "Max Tokens",
+            "default": 16,
+            "description": "Maximum number of tokens to generate"
+          },
+          "temperature": {
+            "max": 2,
+            "min": 0,
+            "step": 0.1,
+            "type": "number",
+            "label": "Temperature",
+            "default": 1,
+            "description": "Controls randomness (0-2). Lower is more deterministic"
+          },
+          "presencePenalty": {
+            "max": 2,
+            "min": -2,
+            "step": 0.1,
+            "type": "number",
+            "label": "Presence Penalty",
+            "default": 0,
+            "description": "Encourage new topics (-2 to 2)"
+          },
+          "frequencyPenalty": {
+            "max": 2,
+            "min": -2,
+            "step": 0.1,
+            "type": "number",
+            "label": "Frequency Penalty",
+            "default": 0,
+            "description": "Penalize repeated tokens (-2 to 2)"
+          }
+        },
+        "configSchema": {
+          "n": {
+            "max": 10,
+            "min": 1,
+            "type": "number",
+            "label": "Number of Completions",
+            "default": 1,
+            "description": "How many completions to generate"
+          },
+          "topP": {
+            "max": 1,
+            "min": 0,
+            "step": 0.1,
+            "type": "number",
+            "label": "Top P",
+            "default": 1,
+            "description": "Nucleus sampling parameter (0-1)"
+          },
+          "model": {
+            "type": "select",
+            "label": "Model",
+            "default": "gpt-3.5-turbo",
+            "options": [
+              {
+                "label": "GPT-4 Turbo",
+                "value": "gpt-4-turbo-preview"
+              },
+              {
+                "label": "GPT-4",
+                "value": "gpt-4"
+              },
+              {
+                "label": "GPT-3.5 Turbo",
+                "value": "gpt-3.5-turbo"
+              },
+              {
+                "label": "GPT-3.5 Turbo 16K",
+                "value": "gpt-3.5-turbo-16k"
+              }
+            ],
+            "required": true,
+            "description": "The model to use for chat completion"
+          },
+          "messages": {
+            "type": "array",
+            "label": "Messages",
+            "required": true,
+            "itemSchema": {
+              "role": {
+                "type": "select",
+                "label": "Role",
+                "default": "user",
+                "options": [
+                  {
+                    "label": "System",
+                    "value": "system"
+                  },
+                  {
+                    "label": "User",
+                    "value": "user"
+                  },
+                  {
+                    "label": "Assistant",
+                    "value": "assistant"
+                  }
+                ],
+                "required": true
+              },
+              "content": {
+                "type": "string",
+                "label": "Content",
+                "required": true,
+                "inputType": "textarea",
+                "placeholder": "Enter message content..."
+              }
+            },
+            "description": "Array of message objects for the conversation"
+          },
+          "maxTokens": {
+            "max": 32768,
+            "min": 1,
+            "type": "number",
+            "label": "Max Tokens",
+            "default": 16,
+            "description": "Maximum number of tokens to generate"
+          },
+          "temperature": {
+            "max": 2,
+            "min": 0,
+            "step": 0.1,
+            "type": "number",
+            "label": "Temperature",
+            "default": 1,
+            "description": "Controls randomness (0-2). Lower is more deterministic"
+          },
+          "presencePenalty": {
+            "max": 2,
+            "min": -2,
+            "step": 0.1,
+            "type": "number",
+            "label": "Presence Penalty",
+            "default": 0,
+            "description": "Encourage new topics (-2 to 2)"
+          },
+          "frequencyPenalty": {
+            "max": 2,
+            "min": -2,
+            "step": 0.1,
+            "type": "number",
+            "label": "Frequency Penalty",
+            "default": 0,
+            "description": "Penalize repeated tokens (-2 to 2)"
+          }
+        },
+        "connectorType": "openai",
+        "connectorDisplayName": "OpenAI"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "node_3",
+      "action": "send_message",
+      "params": {
+        "icon": "connector",
+        "label": "Alert Community Manager on Slack",
+        "action": "send_message",
+        "config": {
+          "text": "Alert! Brand mentioned: {{node_1.comment.body}}",
+          "channel": "#community"
+        },
+        "actionId": "send_message",
+        "category": "action",
+        "connector": "slack",
+        "actionName": "Send Message",
+        "description": "Send a message to a Slack channel or direct message to a user",
+        "inputSchema": {
+          "text": {
+            "type": "string",
+            "label": "Message Text",
+            "helpText": "You can use *bold*, _italic_, ~strikethrough~, `code`, and ```code blocks```",
+            "required": true,
+            "inputType": "textarea",
+            "description": "The text content of your message (supports Slack markdown formatting)",
+            "placeholder": "Enter your message here..."
+          },
+          "threadTs": {
+            "type": "string",
+            "label": "Reply in Thread (Optional)",
+            "helpText": "Leave empty to send as a new message. Use output from previous message node to reply in thread.",
+            "description": "To reply in a thread, provide the timestamp of the parent message",
+            "placeholder": "1234567890.123456"
+          },
+          "channelId": {
+            "type": "string",
+            "label": "Channel or User ID",
+            "helpText": "Right-click on a channel in Slack → View channel details → Copy channel ID",
+            "required": true,
+            "description": "The ID of the channel (starts with C) or user (starts with U) to send the message to",
+            "placeholder": "C01234ABCDE or U01234ABCDE"
+          }
+        },
+        "configSchema": {
+          "text": {
+            "type": "string",
+            "label": "Message Text",
+            "helpText": "You can use *bold*, _italic_, ~strikethrough~, `code`, and ```code blocks```",
+            "required": true,
+            "inputType": "textarea",
+            "description": "The text content of your message (supports Slack markdown formatting)",
+            "placeholder": "Enter your message here..."
+          },
+          "threadTs": {
+            "type": "string",
+            "label": "Reply in Thread (Optional)",
+            "helpText": "Leave empty to send as a new message. Use output from previous message node to reply in thread.",
+            "description": "To reply in a thread, provide the timestamp of the parent message",
+            "placeholder": "1234567890.123456"
+          },
+          "channelId": {
+            "type": "string",
+            "label": "Channel or User ID",
+            "helpText": "Right-click on a channel in Slack → View channel details → Copy channel ID",
+            "required": true,
+            "description": "The ID of the channel (starts with C) or user (starts with U) to send the message to",
+            "placeholder": "C01234ABCDE or U01234ABCDE"
+          }
+        },
+        "outputSchema": {
+          "ok": {
+            "type": "boolean",
+            "description": "Whether the message was sent successfully"
+          },
+          "ts": {
+            "type": "string",
+            "description": "Message timestamp (use this to reply in thread or update/delete message)"
+          },
+          "channel": {
+            "type": "string",
+            "description": "The channel ID where message was sent"
+          }
+        },
+        "connectorType": "slack",
+        "connectorDisplayName": "Slack"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "reddit_post_create_1762429185758",
+      "action": "execute",
+      "params": {
+        "icon": "Plus",
+        "label": "Create Post",
+        "actionId": "post_create",
+        "description": "Submit a new post to a subreddit",
+        "inputSchema": {
+          "url": {
+            "type": "string",
+            "label": "URL",
+            "format": "url",
+            "description": "URL for link posts",
+            "displayCondition": {
+              "kind": "link"
+            }
+          },
+          "kind": {
+            "type": "select",
+            "label": "Post Type",
+            "default": "self",
+            "options": [
+              {
+                "label": "Text Post",
+                "value": "self"
+              },
+              {
+                "label": "Link Post",
+                "value": "link"
+              },
+              {
+                "label": "Image Post",
+                "value": "image"
+              }
+            ],
+            "required": true,
+            "description": "Type of post to create"
+          },
+          "text": {
+            "type": "text",
+            "label": "Text Content",
+            "description": "Text content for self posts (supports markdown)",
+            "displayCondition": {
+              "kind": "self"
+            }
+          },
+          "title": {
+            "type": "string",
+            "label": "Title",
+            "required": true,
+            "maxLength": 300,
+            "description": "Post title (max 300 characters)"
+          },
+          "subreddit": {
+            "type": "string",
+            "label": "Subreddit",
+            "required": true,
+            "description": "The subreddit to post to (without r/)",
+            "placeholder": "AskReddit"
+          },
+          "sendReplies": {
+            "type": "boolean",
+            "label": "Send Replies",
+            "default": true,
+            "description": "Receive notifications for replies"
+          }
+        },
+        "connectorType": "reddit"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "google_sheets_append_row_1762429216083",
+      "action": "execute",
+      "params": {
+        "icon": "Zap",
+        "label": "Append Row",
+        "actionId": "append_row",
+        "description": "Add a new row to the end of a sheet",
+        "inputSchema": {
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "label": "Values",
+            "required": true,
+            "description": "Row data as array of values"
+          },
+          "sheetName": {
+            "type": "string",
+            "label": "Sheet Name",
+            "default": "Sheet1",
+            "required": true,
+            "description": "Name of the sheet tab",
+            "loadOptionsResource": "sheets",
+            "loadOptionsDependsOn": [
+              "spreadsheetId"
+            ],
+            "loadOptionsDescription": "Fetch sheets from selected spreadsheet"
+          },
+          "spreadsheetId": {
+            "type": "string",
+            "label": "Spreadsheet ID",
+            "required": true,
+            "description": "The ID of the spreadsheet",
+            "placeholder": "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms",
+            "loadOptionsResource": "spreadsheets",
+            "loadOptionsDescription": "Fetch spreadsheets from Google Drive"
+          },
+          "valueInputOption": {
+            "type": "select",
+            "label": "Value Input Option",
+            "default": "USER_ENTERED",
+            "options": [
+              {
+                "label": "User Entered (Formatted)",
+                "value": "USER_ENTERED"
+              },
+              {
+                "label": "Raw",
+                "value": "RAW"
+              }
+            ]
+          }
+        },
+        "connectorType": "google_sheets"
+      },
+      "connector": "CONNECTOR_ACTION"
+    }
+  ],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "icon": "connector",
+        "label": "When Brand Mentioned on Reddit",
+        "config": {},
+        "trigger": "new_comment",
+        "category": "trigger",
+        "connector": "reddit",
+        "eventType": "comment",
+        "triggerId": "new_comment",
+        "description": "Triggers when a new comment is posted in a subreddit (polling)",
+        "inputSchema": {
+          "subreddit": {
+            "type": "string",
+            "label": "Subreddit",
+            "required": true,
+            "description": "The subreddit to monitor (without r/)",
+            "placeholder": "AskReddit"
+          },
+          "pollingInterval": {
+            "type": "number",
+            "label": "Polling Interval (minutes)",
+            "default": 5,
+            "maximum": 60,
+            "minimum": 1,
+            "description": "How often to check for new comments"
+          }
+        },
+        "triggerName": "New Comment in Subreddit",
+        "configSchema": {
+          "subreddit": {
+            "type": "string",
+            "label": "Subreddit",
+            "required": true,
+            "description": "The subreddit to monitor (without r/)",
+            "placeholder": "AskReddit"
+          },
+          "pollingInterval": {
+            "type": "number",
+            "label": "Polling Interval (minutes)",
+            "default": 5,
+            "maximum": 60,
+            "minimum": 1,
+            "description": "How often to check for new comments"
+          }
+        },
+        "outputSchema": {
+          "body": {
+            "type": "string",
+            "description": "Comment text"
+          },
+          "score": {
+            "type": "number",
+            "description": "Comment score"
+          },
+          "author": {
+            "type": "string",
+            "description": "Comment author username"
+          },
+          "postId": {
+            "type": "string",
+            "description": "Parent post ID"
+          },
+          "commentId": {
+            "type": "string",
+            "description": "Comment ID"
+          },
+          "permalink": {
+            "type": "string",
+            "description": "Reddit permalink"
+          },
+          "subreddit": {
+            "type": "string",
+            "description": "Subreddit name"
+          },
+          "createdUtc": {
+            "type": "number",
+            "description": "Creation timestamp"
+          }
+        },
+        "connectorType": "reddit",
+        "webhookRequired": false,
+        "connectorDisplayName": "Reddit"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "CONNECTOR_ACTION"
+  ],
+  "tags": [],
+  "verified": false,
+  "is_public": true,
+  "metadata": {},
+  "ai_prompt": "You need a Reddit Trigger to detect brand mentions, then use OpenAI to analyze the context and Slack to alert the community manager. This workflow involves 5 nodes in total.\n\nWorkflow steps:\n1. Trigger: Reddit (when brand mentioned)\n2. Action: Analyze context with OpenAI, alert on Slack, respond on Reddit, and track on Google Sheets"
+}

@@ -1,0 +1,110 @@
+{
+  "id": "e016d9fa-fb7e-43a8-bccb-e67466764942",
+  "name": "GitHub Issue to Google Sheets Tracker",
+  "description": "Automatically github issue to google sheets tracker. Nodes: GitHub Trigger, Google Sheets Action",
+  "category": "project_management",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Issue",
+          "config": {},
+          "trigger": "new_issue",
+          "category": "trigger",
+          "connector": "github",
+          "eventType": "polling",
+          "triggerId": "new_issue",
+          "description": "Triggered when new issue",
+          "connectorType": "github",
+          "connectorDisplayName": "GitHub"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Add Row",
+          "action": "append_row",
+          "config": {
+            "spreadsheetId": "{{spreadsheet_id}}",
+            "sheetName": "Sheet1",
+            "values": [
+              [
+                "{{data}}"
+              ]
+            ]
+          },
+          "actionId": "append_row",
+          "category": "action",
+          "connector": "google_sheets",
+          "actionName": "Add Row",
+          "description": "Add Row",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "github",
+        "triggerId": "new_issue"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "github",
+    "google_sheets"
+  ],
+  "tags": [
+    "project_management",
+    "automation",
+    "github",
+    "google_sheets"
+  ],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow github issue to google sheets tracker using github, google_sheets",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"github issue to google sheets tracker\" that triggers when triggered when new issue and then Add Row via Google Sheets"
+}

@@ -1,0 +1,179 @@
+{
+  "id": "f58e1825-639e-48f6-b843-77eb2e16d122",
+  "name": "Slack Message to Task",
+  "description": "Convert starred Slack messages into Notion tasks",
+  "category": "communication",
+  "difficulty": "beginner",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": [
+    "slack",
+    "notion"
+  ],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_08_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 100
+        },
+        "data": {
+          "label": "Message Starred",
+          "category": "trigger",
+          "config": {
+            "reaction": "star"
+          },
+          "connector": "slack",
+          "triggerId": "message_received",
+          "trigger": "message_received",
+          "triggerName": "Message Received",
+          "description": "Triggers when a message is received",
+          "eventType": "webhook",
+          "icon": "message-circle",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack",
+          "webhookRequired": false,
+          "outputSchema": {
+            "channel": {
+              "type": "string"
+            },
+            "user": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            }
+          },
+          "inputSchema": {
+            "channel": {
+              "type": "string",
+              "label": "Channel",
+              "description": "Slack channel to monitor"
+            }
+          },
+          "configSchema": {
+            "channel": {
+              "type": "string",
+              "label": "Channel",
+              "description": "Slack channel to monitor"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_08_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "label": "Create Task",
+          "category": "action",
+          "config": {
+            "databaseId": "{{your_database_id}}",
+            "properties": {
+              "Name": "={{$json.message.text}}",
+              "Status": "To Do"
+            }
+          },
+          "connector": "notion",
+          "actionId": "create_page",
+          "inputSchema": {
+            "data": {
+              "type": "object",
+              "label": "Data",
+              "description": "Action input data"
+            }
+          },
+          "configSchema": {
+            "data": {
+              "type": "object",
+              "label": "Data",
+              "description": "Action input data"
+            }
+          },
+          "outputSchema": {
+            "result": {
+              "type": "object",
+              "description": "Action result"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_08_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 700,
+          "y": 100
+        },
+        "data": {
+          "label": "Confirm",
+          "category": "action",
+          "config": {
+            "channel": "={{$json.channel}}",
+            "message": "✅ Task created in Notion"
+          },
+          "connector": "slack",
+          "actionId": "send_message",
+          "action": "send_message",
+          "actionName": "Send Message",
+          "description": "Send a message to a Slack channel",
+          "icon": "send",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack",
+          "inputSchema": {
+            "channel": {
+              "type": "string",
+              "required": true,
+              "label": "Channel"
+            },
+            "message": {
+              "type": "string",
+              "required": true,
+              "label": "Message",
+              "inputType": "textarea"
+            }
+          },
+          "configSchema": {
+            "channel": {
+              "type": "string",
+              "required": true,
+              "label": "Channel"
+            },
+            "message": {
+              "type": "string",
+              "required": true,
+              "label": "Message",
+              "inputType": "textarea"
+            }
+          },
+          "outputSchema": {
+            "messageId": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_1",
+        "source": "node_08_1",
+        "target": "node_08_2",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_2",
+        "source": "node_08_2",
+        "target": "node_08_3",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

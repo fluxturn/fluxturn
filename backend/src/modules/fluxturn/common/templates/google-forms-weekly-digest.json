@@ -1,0 +1,151 @@
+{
+  "id": "ef83b6f8-1ec4-48d8-8197-aba5ade6abc3",
+  "name": "Google Forms Weekly Digest Report",
+  "description": "Compile weekly form responses into summary report. Nodes: Schedule Trigger, Google Forms Action, Gmail Action",
+  "category": "analytics",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Weekly Schedule",
+          "config": {
+            "cron": "0 9 * * 1"
+          },
+          "category": "trigger",
+          "connector": "schedule",
+          "connectorType": "schedule",
+          "connectorDisplayName": "Schedule",
+          "description": "Triggered every Monday at 9 AM",
+          "trigger": "schedule",
+          "triggerId": "schedule",
+          "eventType": "cron"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Get Responses",
+          "config": {
+            "formId": "{{form_id}}",
+            "filter": "last_7_days"
+          },
+          "category": "action",
+          "connector": "google_forms",
+          "connectorType": "google_forms",
+          "connectorDisplayName": "Google Forms",
+          "description": "Fetch week responses",
+          "action": "list_responses",
+          "actionId": "list_responses",
+          "actionName": "Get Responses"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Email Digest",
+          "config": {
+            "to": "{{team_email}}",
+            "subject": "Weekly Form Responses Digest",
+            "body": "Total responses this week: {{node_2.output.count}}\n\n{{node_2.output.summary}}"
+          },
+          "category": "action",
+          "connector": "gmail",
+          "connectorType": "gmail",
+          "connectorDisplayName": "Gmail",
+          "description": "Send weekly report",
+          "action": "send_email",
+          "actionId": "send_email",
+          "actionName": "Email Digest"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "schedule",
+        "triggerId": "schedule"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "schedule",
+    "google_forms",
+    "gmail"
+  ],
+  "tags": [
+    "analytics",
+    "automation",
+    "google_forms",
+    "gmail",
+    "reporting"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow compile weekly form responses into summary report. nodes: schedule trigger, google forms action, gmail action using schedule, google_forms, gmail",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"weekly form digest\" that runs weekly, fetches Google Forms responses, and emails summary"
+}

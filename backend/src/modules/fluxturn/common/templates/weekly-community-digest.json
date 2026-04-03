@@ -1,0 +1,110 @@
+{
+  "id": "82138d82-2d63-4be1-872a-19f7ca896698",
+  "name": "Weekly Community Digest",
+  "description": "Automatically create and send weekly community digest to Discord. Nodes: Schedule Trigger, Discord Action (Send Message)",
+  "category": "community",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Weekly",
+          "config": {
+            "dayOfWeek": 1,
+            "hour": 9,
+            "minute": 0,
+            "timezone": "UTC"
+          },
+          "trigger": "weekly",
+          "category": "trigger",
+          "connector": "schedule",
+          "eventType": "schedule",
+          "triggerId": "weekly",
+          "description": "Triggers every week on Monday at 9:00 AM",
+          "connectorType": "schedule",
+          "connectorDisplayName": "Schedule"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Send Digest",
+          "action": "message_send",
+          "config": {
+            "channelId": "{{channel_id}}",
+            "content": "📊 **Weekly Community Digest**\n\nHere's your weekly community summary!\n\n{{digest_message}}"
+          },
+          "actionId": "message_send",
+          "category": "action",
+          "connector": "discord",
+          "actionName": "Send Message",
+          "description": "Send the weekly digest message to Discord channel",
+          "connectorType": "discord",
+          "connectorDisplayName": "Discord"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "schedule",
+        "triggerId": "weekly"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "schedule",
+    "discord"
+  ],
+  "tags": [
+    "community",
+    "automation",
+    "schedule",
+    "discord"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow sends weekly community digest using schedule trigger and discord message",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"weekly community digest\" that triggers weekly via Schedule and sends a digest message to a Discord channel using Send Message action"
+}

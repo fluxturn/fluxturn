@@ -1,0 +1,108 @@
+{
+  "action": "list_repositories",
+  "baseUrl": "https://api.bitbucket.org/2.0",
+  "testCases": [
+    {
+      "name": "executes list_repositories successfully",
+      "input": {
+        "workspace": "test-workspace"
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/repositories/test-workspace",
+        "status": 200,
+        "response": {
+          "pagelen": 10,
+          "page": 1,
+          "size": 2,
+          "values": [
+            {
+              "uuid": "{repo-uuid-1}",
+              "full_name": "test-workspace/repo-1",
+              "name": "repo-1",
+              "slug": "repo-1",
+              "description": "First repository",
+              "is_private": false,
+              "created_on": "2024-01-01T00:00:00.000000+00:00",
+              "updated_on": "2024-01-15T00:00:00.000000+00:00",
+              "mainbranch": {
+                "type": "branch",
+                "name": "main"
+              }
+            },
+            {
+              "uuid": "{repo-uuid-2}",
+              "full_name": "test-workspace/repo-2",
+              "name": "repo-2",
+              "slug": "repo-2",
+              "description": "Second repository",
+              "is_private": true,
+              "created_on": "2024-01-02T00:00:00.000000+00:00",
+              "updated_on": "2024-01-16T00:00:00.000000+00:00",
+              "mainbranch": {
+                "type": "branch",
+                "name": "master"
+              }
+            }
+          ]
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": [
+          {
+            "uuid": "{repo-uuid-1}",
+            "full_name": "test-workspace/repo-1",
+            "name": "repo-1"
+          },
+          {
+            "uuid": "{repo-uuid-2}",
+            "full_name": "test-workspace/repo-2",
+            "name": "repo-2"
+          }
+        ]
+      }
+    },
+    {
+      "name": "handles empty repository list",
+      "input": {
+        "workspace": "empty-workspace"
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/repositories/empty-workspace",
+        "status": 200,
+        "response": {
+          "pagelen": 10,
+          "page": 1,
+          "size": 0,
+          "values": []
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": []
+      }
+    },
+    {
+      "name": "handles error for list_repositories with 404",
+      "input": {
+        "workspace": "non-existent-workspace"
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/repositories/non-existent-workspace",
+        "status": 404,
+        "response": {
+          "type": "error",
+          "error": {
+            "message": "Workspace not found"
+          }
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    }
+  ]
+}

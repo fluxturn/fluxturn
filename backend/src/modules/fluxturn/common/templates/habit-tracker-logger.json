@@ -1,0 +1,102 @@
+{
+  "id": "02855507-aace-44ff-b349-1e73bcd7f4e5",
+  "name": "Habit Tracker Logger",
+  "description": "Automatically habit tracker logger. Nodes: Google Sheets Trigger, Google Analytics Action",
+  "category": "productivity",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Daily Check-In",
+          "config": {},
+          "trigger": "row_added",
+          "category": "trigger",
+          "connector": "google_sheets",
+          "eventType": "polling",
+          "triggerId": "row_added",
+          "description": "Triggered when daily check-in",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Track Progress",
+          "action": "track_progress",
+          "config": {},
+          "actionId": "track_progress",
+          "category": "action",
+          "connector": "google_analytics",
+          "actionName": "Track Progress",
+          "description": "Track Progress",
+          "connectorType": "google_analytics",
+          "connectorDisplayName": "Google Analytics"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_sheets",
+        "triggerId": "row_added"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_sheets",
+    "google_analytics"
+  ],
+  "tags": [
+    "productivity",
+    "automation",
+    "google_sheets",
+    "google_analytics"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow habit tracker logger using google_sheets, google_analytics",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"habit tracker logger\" that triggers when triggered when daily check-in and then Track Progress via Google Analytics"
+}

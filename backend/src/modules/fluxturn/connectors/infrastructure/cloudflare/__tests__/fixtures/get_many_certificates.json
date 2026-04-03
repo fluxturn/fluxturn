@@ -1,0 +1,117 @@
+{
+  "action": "get_many_certificates",
+  "baseUrl": "https://api.cloudflare.com/client/v4",
+  "testCases": [
+    {
+      "name": "retrieves multiple certificates with limit",
+      "input": {
+        "zoneId": "023e105f4ecef8ad9ca31a8372d0c353",
+        "returnAll": false,
+        "limit": 2
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/zones/023e105f4ecef8ad9ca31a8372d0c353/origin_tls_client_auth",
+        "query": {
+          "per_page": 2
+        },
+        "status": 200,
+        "response": {
+          "success": true,
+          "errors": [],
+          "messages": [],
+          "result": [
+            {
+              "id": "328578533",
+              "certificate": "-----BEGIN CERTIFICATE-----\n...",
+              "expires_on": "2025-12-31",
+              "uploaded_on": "2024-01-01",
+              "status": "active"
+            },
+            {
+              "id": "328578534",
+              "certificate": "-----BEGIN CERTIFICATE-----\n...",
+              "expires_on": "2025-11-30",
+              "uploaded_on": "2024-01-15",
+              "status": "active"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": [
+          {
+            "id": "328578533",
+            "status": "active"
+          },
+          {
+            "id": "328578534",
+            "status": "active"
+          }
+        ]
+      }
+    },
+    {
+      "name": "retrieves all certificates when returnAll is true",
+      "input": {
+        "zoneId": "023e105f4ecef8ad9ca31a8372d0c353",
+        "returnAll": true
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/zones/023e105f4ecef8ad9ca31a8372d0c353/origin_tls_client_auth",
+        "status": 200,
+        "response": {
+          "success": true,
+          "errors": [],
+          "messages": [],
+          "result": [
+            {
+              "id": "328578533",
+              "certificate": "-----BEGIN CERTIFICATE-----\n...",
+              "expires_on": "2025-12-31",
+              "uploaded_on": "2024-01-01",
+              "status": "active"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": [
+          {
+            "id": "328578533",
+            "status": "active"
+          }
+        ]
+      }
+    },
+    {
+      "name": "handles empty results",
+      "input": {
+        "zoneId": "023e105f4ecef8ad9ca31a8372d0c353",
+        "returnAll": false,
+        "limit": 50
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/zones/023e105f4ecef8ad9ca31a8372d0c353/origin_tls_client_auth",
+        "query": {
+          "per_page": 50
+        },
+        "status": 200,
+        "response": {
+          "success": true,
+          "errors": [],
+          "messages": [],
+          "result": []
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-300000000030",
+  "name": "WooCommerce Coupon Email Announcement",
+  "description": "Create WooCommerce discount coupon and send email announcement",
+  "category": "ecommerce",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Create Coupon",
+          "config": {
+            "code": "{{coupon_code}}",
+            "type": "{{discount_type}}",
+            "value": "{{discount_value}}",
+            "description": "{{coupon_description}}"
+          },
+          "category": "action",
+          "connector": "woocommerce",
+          "connectorType": "woocommerce",
+          "connectorDisplayName": "WooCommerce",
+          "description": "Create discount coupon in WooCommerce",
+          "action": "create_coupon",
+          "actionId": "create_coupon",
+          "actionName": "Create Coupon"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Send Announcement",
+          "config": {
+            "to": "{{recipient_email}}",
+            "subject": "Exclusive Discount: Use Code {{coupon_code}}!",
+            "body": "Hi there!\n\nWe have a special offer just for you!\n\nUse coupon code: {{coupon_code}}\nDiscount: {{discount_value}}% OFF\n\n{{coupon_description}}\n\nHurry, this offer won't last forever!\n\nShop now and save!\n\nBest regards,\nYour Store Team"
+          },
+          "category": "action",
+          "connector": "gmail",
+          "connectorType": "gmail",
+          "connectorDisplayName": "Gmail",
+          "description": "Send coupon announcement email",
+          "action": "send_email",
+          "actionId": "send_email",
+          "actionName": "Send Email"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [],
+  "conditions": [],
+  "variables": [
+    {
+      "name": "coupon_code",
+      "type": "string",
+      "description": "Unique coupon code (e.g., SAVE20)"
+    },
+    {
+      "name": "discount_type",
+      "type": "string",
+      "description": "Discount type (percentage or fixed_amount)"
+    },
+    {
+      "name": "discount_value",
+      "type": "string",
+      "description": "Discount value (e.g., 20 for 20%)"
+    },
+    {
+      "name": "coupon_description",
+      "type": "string",
+      "description": "Description of the coupon offer"
+    },
+    {
+      "name": "recipient_email",
+      "type": "string",
+      "description": "Email address to send announcement"
+    }
+  ],
+  "outputs": [],
+  "required_connectors": ["woocommerce", "gmail"],
+  "tags": ["ecommerce", "woocommerce", "gmail", "coupons", "marketing", "promotion"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "Create WooCommerce coupon and send email announcement",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create WooCommerce discount coupon and announce via email"
+}

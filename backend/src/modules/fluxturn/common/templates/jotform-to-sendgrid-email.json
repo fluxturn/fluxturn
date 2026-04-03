@@ -1,0 +1,107 @@
+{
+  "id": "fc827535-72df-4ad9-80b5-c4e802ba0cbe",
+  "name": "Jotform Auto-Response Email",
+  "description": "Send automatic confirmation emails to Jotform respondents. Nodes: Jotform Trigger, SendGrid Action",
+  "category": "communication",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Form Submitted",
+          "config": {},
+          "category": "trigger",
+          "connector": "jotform",
+          "connectorType": "jotform",
+          "connectorDisplayName": "Jotform",
+          "description": "Triggered on submission",
+          "trigger": "new_submission",
+          "triggerId": "new_submission",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Send Confirmation",
+          "config": {
+            "to": "{{form.email}}",
+            "subject": "Thank you for your submission",
+            "html": "<p>Thank you {{form.name}} for submitting the form!</p>"
+          },
+          "category": "action",
+          "connector": "sendgrid",
+          "connectorType": "sendgrid",
+          "connectorDisplayName": "Sendgrid",
+          "description": "Send email via SendGrid",
+          "action": "send_email",
+          "actionId": "send_email",
+          "actionName": "Send Confirmation"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "jotform",
+        "triggerId": "new_submission"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "jotform",
+    "sendgrid"
+  ],
+  "tags": [
+    "communication",
+    "automation",
+    "jotform",
+    "sendgrid",
+    "email"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow send automatic confirmation emails to jotform respondents. nodes: jotform trigger, sendgrid action using jotform, sendgrid",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"form auto-response\" that triggers on Jotform submission and sends confirmation email"
+}

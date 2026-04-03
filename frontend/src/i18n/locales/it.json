@@ -1,0 +1,1187 @@
+{
+  "nav": {
+    "features": "Funzionalita",
+    "tutorials": "Tutorial",
+    "templates": "Modelli",
+    "capabilities": "Capacita",
+    "useCases": "Casi d'uso",
+    "whyFluxTurn": "Perche FluxTurn",
+    "pricing": "Prezzi",
+    "documents": "Documenti",
+    "blog": "Blog",
+    "login": "Accedi",
+    "getStarted": "Inizia ora",
+    "dashboard": "Pannello",
+    "admin": "Admin"
+  },
+  "hero": {
+    "badge": "Piattaforma di automazione dei workflow senza codice",
+    "title1": "Automatizza il tuo",
+    "title2": "workflow in",
+    "title3": "minuti",
+    "subtitle": "Collega le tue applicazioni, automatizza i workflow e ottimizza i processi aziendali con la nostra potente piattaforma senza codice. Nessuna competenza tecnica richiesta.",
+    "cta": "Inizia la prova gratuita",
+    "workflowRunning": "Workflow automatizzato in esecuzione",
+    "personas": {
+      "marketing": "Marketing",
+      "marketingTitle": "Automatizza le campagne email",
+      "sales": "Vendite",
+      "salesTitle": "Sincronizza i lead con il CRM automaticamente",
+      "hr": "Risorse Umane",
+      "hrTitle": "Onboarding nuovi dipendenti",
+      "aiTools": "Strumenti AI",
+      "aiToolsTitle": "Elabora richieste con l'AI"
+    },
+    "workflow": {
+      "formSubmit": "Invio modulo",
+      "website": "Sito web",
+      "addToList": "Aggiungi alla lista",
+      "sendEmail": "Invia email",
+      "email": "Email",
+      "trackEvent": "Traccia evento",
+      "analytics": "Analisi",
+      "newLead": "Nuovo lead",
+      "webForm": "Modulo web",
+      "enrichData": "Arricchisci dati",
+      "addToCRM": "Aggiungi al CRM",
+      "notifySales": "Notifica vendite",
+      "newEmployee": "Nuovo dipendente",
+      "hrSystem": "Sistema HR",
+      "createEmail": "Crea email",
+      "setupSlack": "Configura Slack",
+      "addToPayroll": "Aggiungi al libro paga",
+      "sendWelcome": "Invia benvenuto",
+      "userRequest": "Richiesta utente",
+      "processAI": "Elabora AI",
+      "executeTask": "Esegui attivita",
+      "sendResult": "Invia risultato"
+    }
+  },
+  "powerful": {
+    "badge": "Potente e semplice",
+    "title": "Metti l'",
+    "titleHighlight": "AI e l'automazione",
+    "titleEnd": "al servizio del tuo business",
+    "subtitle": "Nessun sviluppatore costoso. Nessun mese di formazione. Solo automazione potente che funziona dal primo giorno.",
+    "stats": {
+      "setupTime": "5 min",
+      "setupTimeLabel": "Tempo medio di configurazione",
+      "integrations": "120+",
+      "integrationsLabel": "Integrazioni",
+      "uptime": "99.9%",
+      "uptimeLabel": "Uptime"
+    },
+    "cta": "Inizia a costruire gratis",
+    "cards": {
+      "lightning": {
+        "title": "Configurazione rapidissima",
+        "description": "Modelli predefiniti e interfaccia drag and drop. Inizia ad automatizzare in pochi minuti senza codice."
+      },
+      "ai": {
+        "title": "Integrazione AI integrata",
+        "description": "Collega OpenAI, Claude e altri modelli AI con un clic. Nessuna complicazione con le API."
+      },
+      "security": {
+        "title": "Sicurezza enterprise",
+        "description": "Conformita SOC2 con crittografia end-to-end. Self-hosting o il nostro cloud sicuro."
+      }
+    }
+  },
+  "aiPromptBuilder": {
+    "badge": "Basato su AI",
+    "heading": "Cosa vuoi automatizzare?",
+    "subtitle": "Descrivi, esegui e distribuisci workflow con l'AI in pochi secondi",
+    "placeholder": "Descrivi cosa vuoi automatizzare...",
+    "generate": "Genera",
+    "generating": "Generazione in corso...",
+    "tryThese": "Prova uno di questi:",
+    "loginMessage": "Accedi per generare il tuo workflow con l'AI",
+    "helperText": "Premi Invio per generare o clicca il pulsante",
+    "videoTitle": "Generazione workflow con AI",
+    "cards": {
+      "naturalLanguage": "Linguaggio naturale",
+      "noCode": "Costruttore senza codice",
+      "aiGeneration": "Generazione con AI",
+      "integrations": "120+ integrazioni"
+    },
+    "suggestions": {
+      "gmail": {
+        "title": "Invia un'email con Gmail",
+        "description": "Crea un modulo di attivazione con tutti i campi necessari per Gmail e invialo"
+      },
+      "translate": {
+        "title": "Traduci i messaggi in arrivo",
+        "description": "Converti automaticamente i messaggi nella tua lingua preferita"
+      },
+      "priceAlert": {
+        "title": "Avvisami quando i prezzi scendono",
+        "description": "Monitora i prodotti e ricevi notifiche quando raggiungono il tuo prezzo obiettivo"
+      },
+      "emailSummary": {
+        "title": "Riassumi le mie email quotidianamente",
+        "description": "Ricevi un riepilogo rapido dei punti salienti della tua casella ogni mattina"
+      },
+      "supportDraft": {
+        "title": "Redigi risposte ai ticket di supporto",
+        "description": "Genera bozze di risposte utili per le richieste dei clienti"
+      },
+      "crmUpdate": {
+        "title": "Aggiorna il CRM dai moduli",
+        "description": "Aggiungi nuovi lead al tuo CRM senza inserimento manuale"
+      },
+      "slackTasks": {
+        "title": "Crea attivita dai messaggi Slack",
+        "description": "Converti i messaggi Slack in attivita con una reazione o comando"
+      }
+    },
+    "errors": {
+      "emptyPrompt": "Per favore, inserisci un messaggio",
+      "creationFailed": "Errore nella creazione del workflow",
+      "noOrganization": "Nessuna organizzazione trovata",
+      "noProject": "Nessun progetto trovato. Per favore, creane uno prima."
+    }
+  },
+  "video": {
+    "badge": "Guardalo in azione",
+    "title": "Costruisci workflow visivamente",
+    "subtitle": "Guarda quanto e facile collegare app e creare automazioni potenti con il nostro intuitivo editor drag and drop",
+    "editor": "Editor workflow FluxTurn",
+    "connected": "Connesso",
+    "dragDrop": "Interfaccia drag and drop"
+  },
+  "buildYourWay": {
+    "interactive": {
+      "title": "Prova l'",
+      "titleHighlight": "Editor visuale",
+      "subtitle": "Trascina i nodi, collegali e scopri quanto e facile costruire workflow",
+      "addNodes": "Aggiungi nodi",
+      "dragHint": "Trascina i nodi nell'area di lavoro",
+      "canvasHint": "Trascina i nodi qui e collegali",
+      "startBuilding": "Inizia a costruire workflow reali",
+      "feature1": {
+        "title": "Drag and drop",
+        "desc": "Trascina semplicemente i nodi dalla barra laterale nell'area di lavoro"
+      },
+      "feature2": {
+        "title": "Connessioni visuali",
+        "desc": "Collega i nodi trascinando da un connettore all'altro"
+      },
+      "feature3": {
+        "title": "Distribuzione istantanea",
+        "desc": "Distribuisci il tuo workflow con un solo clic"
+      }
+    }
+  },
+  "templates": {
+    "badge": "300+ modelli",
+    "title": "Inizia con un",
+    "titleHighlight": "modello pronto all'uso",
+    "subtitle": "Esplora i modelli di workflow. Basta cliccare e personalizzare.",
+    "clickToPreview": "Clicca su qualsiasi modello per vedere l'anteprima del workflow",
+    "useForFree": "Usa gratis",
+    "useTemplate": "Usa questo modello",
+    "creating": "Creazione in corso...",
+    "browseAll": "Esplora tutti i modelli",
+    "browseHint": "Esplora 300+ modelli di automazione pronti all'uso",
+    "verified": "Verificato",
+    "users": "Utenti",
+    "popular": "Popolare",
+    "steps": "Passaggi",
+    "integrations": "Integrazioni",
+    "workflowPreview": "Anteprima workflow",
+    "previewNotAvailable": "Anteprima non disponibile",
+    "viewDetails": "Vedi i dettagli del modello per maggiori informazioni",
+    "loginMessage": "Accedi per usare questo modello",
+    "errors": {
+      "noOrganization": "Nessuna organizzazione trovata",
+      "noProject": "Nessun progetto trovato",
+      "creationFailed": "Errore nella creazione del workflow"
+    },
+    "success": {
+      "created": "Workflow creato dal modello"
+    }
+  },
+  "aiAgent": {
+    "badge": "Automazione con AI",
+    "title": "Scopri il",
+    "titleHighlight": "Nodo agente AI",
+    "subtitle": "Un nodo potente che pensa, decide e agisce. Collega qualsiasi strumento e lascia che l'AI gestisca la logica.",
+    "canvasCaption": "L'agente AI riceve l'input, seleziona lo strumento corretto ed esegue automaticamente",
+    "feature1Title": "Qualsiasi strumento, un nodo",
+    "feature1Desc": "Collega Gmail, Slack, Notion o qualsiasi dei 120+ connettori come strumenti AI",
+    "feature2Title": "L'AI decide",
+    "feature2Desc": "L'agente analizza l'input e sceglie lo strumento corretto automaticamente",
+    "feature3Title": "Tu mantieni il controllo",
+    "feature3Desc": "Configura iterazioni massime, prompt di sistema e strumenti disponibili",
+    "cta": "Prova l'agente AI",
+    "ctaHint": "Nessuna carta di credito richiesta. Piano gratuito disponibile",
+    "creating": "Creazione in corso...",
+    "loginMessage": "Accedi per provare l'agente AI",
+    "errors": {
+      "noOrganization": "Nessuna organizzazione trovata",
+      "noProject": "Nessun progetto trovato",
+      "creationFailed": "Errore nella creazione del workflow"
+    },
+    "success": {
+      "created": "Workflow dell'agente AI creato"
+    }
+  },
+  "templatesPage": {
+    "title": "Modelli di",
+    "titleHighlight": "workflow",
+    "subtitle": "Esplora la nostra libreria di modelli di workflow pronti all'uso. Clicca su qualsiasi modello per usarlo gratis.",
+    "searchPlaceholder": "Cerca modelli...",
+    "showingCount": "Visualizzati",
+    "of": "di",
+    "template": "modello",
+    "templates": "modelli",
+    "loading": "Caricamento modelli...",
+    "loadFailed": "Errore nel caricamento dei modelli",
+    "retry": "Riprova",
+    "noResults": "Nessun modello trovato",
+    "noResultsHint": "Prova a modificare la ricerca o i filtri",
+    "clearFilters": "Cancella filtri",
+    "uses": "utilizzi",
+    "useTemplate": "Usa modello",
+    "loadMore": "Carica altri modelli",
+    "verified": "Verificato",
+    "steps": "Passaggi",
+    "users": "Utenti",
+    "integrations": "Integrazioni",
+    "creating": "Creazione in corso...",
+    "useThisTemplate": "Usa questo modello",
+    "previewNotAvailable": "Anteprima non disponibile",
+    "previewHint": "Clicca su \"Usa questo modello\" per iniziare",
+    "workflowPreview": "Anteprima workflow",
+    "all": "Tutti"
+  },
+  "features": {
+    "title": "Potenzia il tuo workflow:",
+    "titleExplore": "esplora",
+    "titleHighlight": "la piattaforma",
+    "titleEnd": "tutto in uno.",
+    "subtitle": "Tutto cio di cui hai bisogno per automatizzare i workflow e collegare tutta la tua infrastruttura tecnologica",
+    "cta": "Esplora funzionalita",
+    "bento": {
+      "ai-workflow": {
+        "title": "Generazione workflow con AI",
+        "description": "Descrivi cio che vuoi in linguaggio semplice. L'AI costruisce l'intero workflow in pochi secondi."
+      },
+      "visual-builder": {
+        "title": "Costruttore visuale",
+        "description": "Creazione di workflow con drag and drop"
+      },
+      "ai-agent": {
+        "title": "Agente AI",
+        "description": "Automazione intelligente che pensa e agisce"
+      },
+      "integrations": {
+        "title": "Integrazioni",
+        "description": "Collega tutte le tue app preferite"
+      },
+      "custom-code": {
+        "title": "Codice personalizzato",
+        "description": "JavaScript, Python o qualsiasi linguaggio"
+      }
+    },
+    "items": {
+      "visualBuilder": {
+        "title": "Costruttore visuale di workflow",
+        "description": "Costruisci flussi di automazione complessi con la nostra intuitiva interfaccia drag and drop. Nessun codice necessario."
+      },
+      "conditionalLogic": {
+        "title": "Logica condizionale",
+        "description": "Crea workflow sofisticati con ramificazioni usando condizioni if/else, cicli e alberi decisionali."
+      },
+      "customCode": {
+        "title": "Esecuzione di codice personalizzato",
+        "description": "Esegui codice JavaScript, Python o qualsiasi altro direttamente nei tuoi workflow per la massima flessibilita."
+      },
+      "cloudHosted": {
+        "title": "Cloud e self-hosting",
+        "description": "Distribuisci sulla nostra infrastruttura cloud o in self-hosting sui tuoi server per il controllo totale."
+      },
+      "security": {
+        "title": "Sicurezza enterprise",
+        "description": "Crittografia di livello bancario, conformita SOC2 e controlli di accesso granulari per mantenere i tuoi dati al sicuro."
+      },
+      "realtime": {
+        "title": "Esecuzione in tempo reale",
+        "description": "Esecuzione rapidissima dei workflow con monitoraggio in tempo reale e log di esecuzione dettagliati."
+      }
+    }
+  },
+  "integrations": {
+    "title": "Collega tutto",
+    "subtitle": "120+ integrazioni predefinite con le tue app e servizi preferiti",
+    "hoverHint": "Passa il mouse per mettere in pausa. 120+ integrazioni disponibili"
+  },
+  "useCases": {
+    "title": "Fatto per",
+    "titleHighlight": "ogni caso d'uso",
+    "subtitle": "Dall'automazione del marketing alle pipeline di dati complesse",
+    "viewAll": "Vedi tutti i casi d'uso",
+    "items": {
+      "marketing": {
+        "title": "Automazione marketing",
+        "description": "Automatizza campagne email, post sui social media e workflow di acquisizione lead.",
+        "stats": "CAMPAGNE 10X PIU VELOCI",
+        "category": "Marketing"
+      },
+      "api": {
+        "title": "Integrazione API",
+        "description": "Collega multiple API e servizi per creare flussi di dati fluidi tra le piattaforme.",
+        "stats": "120+ INTEGRAZIONI",
+        "category": "IT e DevOps"
+      },
+      "data": {
+        "title": "Elaborazione dati",
+        "description": "Trasforma, aggrega e analizza dati da piu fonti in tempo reale.",
+        "stats": "MILIONI DI RECORD",
+        "category": "Dati e analisi"
+      },
+      "ai": {
+        "title": "AI e Machine Learning",
+        "description": "Integra modelli AI e pipeline ML nei tuoi workflow di automazione.",
+        "stats": "WORKFLOW BASATI SU AI",
+        "category": "AI e ML"
+      }
+    }
+  },
+  "whyFluxTurn": {
+    "title": "Perche",
+    "subtitle": "Trasforma processi complessi in workflow semplici ed efficienti",
+    "efficiency": "Efficienza",
+    "status": {
+      "complex": "Processo complesso",
+      "optimized": "Ottimizzato con FluxTurn"
+    },
+    "stats": {
+      "nodes": "Nodi:",
+      "time": "Tempo di configurazione:"
+    },
+    "analyzing": "Analisi della complessita del workflow...",
+    "cta": "Inizia a semplificare"
+  },
+  "pricing": {
+    "badge": "Prezzi semplici",
+    "title": "Scegli il tuo",
+    "titleHighlight": "piano perfetto",
+    "subtitle": "Inizia gratis e scala man mano che cresci. Nessun costo nascosto.",
+    "monthly": "Mensile",
+    "yearly": "Annuale",
+    "twoMonthsFree": "2 mesi gratis",
+    "perMonth": "al mese",
+    "forever": "per sempre",
+    "year": "anno",
+    "viewFullDetails": "Vedi dettagli completi dei prezzi",
+    "mostPopular": "Piu popolare",
+    "plans": {
+      "free": {
+        "name": "Gratuito",
+        "description": "Perfetto per singoli utenti",
+        "features": [
+          "1.000 esecuzioni/mese",
+          "20 workflow attivi",
+          "Supporto community",
+          "Integrazioni base"
+        ],
+        "cta": "Inizia gratis"
+      },
+      "starter": {
+        "name": "Starter",
+        "description": "Per piccoli team",
+        "features": [
+          "10.000 esecuzioni/mese",
+          "50 workflow attivi",
+          "Supporto via email",
+          "Tutte le integrazioni"
+        ],
+        "cta": "Inizia la prova gratuita"
+      },
+      "professional": {
+        "name": "Professional",
+        "description": "Per team in crescita",
+        "features": [
+          "50.000 esecuzioni/mese",
+          "Workflow illimitati",
+          "Supporto prioritario",
+          "Autenticazione SSO"
+        ],
+        "cta": "Inizia la prova gratuita"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "Per grandi organizzazioni",
+        "features": [
+          "200.000 esecuzioni/mese",
+          "Supporto dedicato",
+          "SLA del 99.9%",
+          "Opzione on-premise"
+        ],
+        "cta": "Contatta le vendite"
+      }
+    }
+  },
+  "blog": {
+    "title": "Le ultime dal nostro blog",
+    "subtitle": "Resta aggiornato con le ultime idee sull'automazione, consigli e storie di successo",
+    "featured": "In evidenza",
+    "minRead": "min di lettura",
+    "by": "Di",
+    "readMore": "Leggi di piu",
+    "viewAllPosts": "Vedi tutti gli articoli"
+  },
+  "blogPage": {
+    "title": "Blog",
+    "subtitle": "Idee sull'automazione dei workflow e la crescita",
+    "newPost": "Nuovo articolo",
+    "myPosts": "I miei articoli",
+    "search": {
+      "placeholder": "Cerca articoli..."
+    },
+    "browse": {
+      "title": "Esplora",
+      "latest": "Recenti",
+      "popular": "Popolari",
+      "featured": "In evidenza",
+      "allPosts": "Tutti gli articoli"
+    },
+    "categories": {
+      "title": "Categorie",
+      "all": "Tutte le categorie"
+    },
+    "loading": "Caricamento...",
+    "error": {
+      "loadFailed": "Errore nel caricamento degli articoli",
+      "tryAgain": "Riprova"
+    },
+    "empty": {
+      "title": "Nessun articolo trovato",
+      "subtitle": "Torna piu tardi per nuovi contenuti!"
+    },
+    "pagination": {
+      "previous": "Precedente",
+      "next": "Successivo"
+    },
+    "post": {
+      "backToBlog": "Torna al blog",
+      "notFound": {
+        "title": "Articolo non trovato",
+        "message": "L'articolo che cerchi non esiste."
+      },
+      "minRead": "min di lettura",
+      "views": "visualizzazioni",
+      "by": "Di",
+      "featured": "In evidenza",
+      "edit": "Modifica",
+      "delete": "Elimina",
+      "deleteConfirm": "Sei sicuro di voler eliminare questo articolo? Questa azione non puo essere annullata.",
+      "signInToRate": "Accedi per valutare questo articolo"
+    },
+    "comments": {
+      "title": "Commenti",
+      "comment": "commento",
+      "comments": "commenti",
+      "placeholder": "Condividi le tue idee...",
+      "signInPrompt": "per lasciare un commento.",
+      "signIn": "Accedi",
+      "noComments": "Ancora nessun commento. Sii il primo a commentare!",
+      "reply": "Rispondi",
+      "replying": "Risposta in corso...",
+      "submit": "Invia",
+      "cancel": "Annulla"
+    },
+    "card": {
+      "minRead": "min di lettura",
+      "by": "Di"
+    }
+  },
+  "comparison": {
+    "badge": "Confronta piattaforme",
+    "title": "Perche scegliere",
+    "subtitle": "Guarda come FluxTurn si confronta con altre piattaforme di automazione dei workflow",
+    "getStarted": "Inizia gratis",
+    "footnote": "* Versione self-hosted. I prezzi e le funzionalita possono variare. Ultimo aggiornamento: gennaio 2025.",
+    "categories": {
+      "corefeatures": "Funzionalita principali",
+      "deployment": "Distribuzione",
+      "pricing": "Prezzi",
+      "integrations": "Integrazioni",
+      "performance": "Prestazioni",
+      "collaboration": "Collaborazione"
+    },
+    "features": {
+      "visualBuilder": "Costruttore visuale di workflow",
+      "aiWorkflowGeneration": "Generazione workflow con AI",
+      "naturalLanguagePrompts": "Prompt in linguaggio naturale",
+      "customCodeSupport": "Supporto codice personalizzato",
+      "selfHosting": "Opzione self-hosting",
+      "cloudHosted": "Hosting cloud",
+      "freeWorkflows": "Workflow gratuiti",
+      "freeOperations": "Operazioni gratuite",
+      "startingPrice": "Prezzo iniziale",
+      "integrations": "Integrazioni",
+      "apiAccess": "Accesso API",
+      "webhooks": "Webhook",
+      "realtimeExecution": "Esecuzione in tempo reale",
+      "errorHandling": "Gestione errori",
+      "teamCollaboration": "Collaborazione team",
+      "versionHistory": "Cronologia versioni"
+    }
+  },
+  "faq": {
+    "badge": "Hai domande?",
+    "title": "Domande frequenti",
+    "subtitle": "Tutto cio che devi sapere su FluxTurn. Non trovi quello che cerchi? Non esitare a contattare il nostro team di supporto.",
+    "items": {
+      "whatIs": {
+        "question": "Cos'e FluxTurn e come funziona?",
+        "answer": "FluxTurn e una potente piattaforma di automazione dei workflow che ti permette di collegare le tue applicazioni e automatizzare le attivita ripetitive senza programmare. Usando il nostro costruttore visuale drag and drop, puoi creare workflow che si attivano automaticamente tramite eventi, pianificazioni o attivazione manuale. Collega semplicemente le tue app, definisci la logica e lascia che FluxTurn faccia il resto."
+      },
+      "codingSkills": {
+        "question": "Devo saper programmare per usare FluxTurn?",
+        "answer": "Non sono necessarie competenze di programmazione! FluxTurn dispone di un costruttore visuale intuitivo dove puoi trascinare e rilasciare nodi, collegarli e configurare azioni tramite semplici moduli. Tuttavia, per utenti avanzati, supportiamo anche l'esecuzione di codice personalizzato in JavaScript e Python all'interno dei workflow per la massima flessibilita."
+      },
+      "integrations": {
+        "question": "Quali app e servizi posso collegare?",
+        "answer": "FluxTurn si integra con oltre 100 applicazioni popolari tra cui Gmail, Slack, Google Sheets, Telegram, Discord, Stripe, Shopify, OpenAI, database come PostgreSQL e MongoDB, e molte altre. Aggiungiamo costantemente nuove integrazioni in base alle richieste degli utenti."
+      },
+      "freePlan": {
+        "question": "C'e un piano gratuito disponibile?",
+        "answer": "Si! Offriamo un generoso piano gratuito che include fino a 500 esecuzioni di workflow al mese, accesso a tutte le integrazioni e la possibilita di creare workflow illimitati. E perfetto per progetti personali e piccoli team che iniziano con l'automazione."
+      },
+      "selfHost": {
+        "question": "Posso fare il self-hosting di FluxTurn sui miei server?",
+        "answer": "Assolutamente! FluxTurn offre opzioni di hosting cloud e self-hosting. La nostra soluzione self-hosted ti da il controllo totale sui tuoi dati e infrastruttura. E ideale per aziende con requisiti di conformita rigorosi o team che preferiscono gestire il proprio deployment."
+      },
+      "security": {
+        "question": "Quanto sono sicuri i miei dati con FluxTurn?",
+        "answer": "La sicurezza e la nostra massima priorita. Utilizziamo crittografia AES-256 di livello bancario per tutti i dati a riposo e TLS 1.3 per i dati in transito. Le tue credenziali sono crittografate e mai archiviate in testo semplice. Offriamo anche conformita SOC2, controlli di accesso basati su ruoli e log di audit per i clienti enterprise."
+      },
+      "failedWorkflow": {
+        "question": "Cosa succede se un workflow fallisce?",
+        "answer": "FluxTurn fornisce gestione completa degli errori e monitoraggio. Quando un workflow fallisce, riceverai notifiche istantanee via email o il tuo canale preferito. I nostri log di esecuzione dettagliati ti aiutano a identificare e correggere i problemi rapidamente. Puoi anche configurare tentativi automatici e azioni di fallback per workflow critici."
+      },
+      "aiWorkflows": {
+        "question": "Posso usare l'AI nei miei workflow?",
+        "answer": "Si! FluxTurn ha capacita AI integrate alimentate da OpenAI, Anthropic e altri fornitori leader di AI. Puoi usare l'AI per generare contenuti, analizzare dati, prendere decisioni, classificare informazioni e molto altro. I nostri nodi agente AI rendono facile aggiungere intelligenza a qualsiasi workflow."
+      }
+    }
+  },
+  "footer": {
+    "description": "Costruisci applicazioni potenti con la nostra piattaforma backend completa. Tutto cio di cui hai bisogno in un unico posto.",
+    "sections": {
+      "product": "Prodotto",
+      "developers": "Sviluppatori",
+      "company": "Azienda",
+      "legal": "Legale"
+    },
+    "links": {
+      "features": "Funzionalita",
+      "visualBuilders": "Costruttori visuali",
+      "aiPlatform": "Piattaforma AI",
+      "integrations": "Integrazioni",
+      "pricing": "Prezzi",
+      "documentation": "Documentazione",
+      "tutorials": "Tutorial",
+      "apiReference": "Riferimento API",
+      "examples": "Esempi",
+      "support": "Supporto",
+      "privacy": "Privacy",
+      "terms": "Termini",
+      "security": "Sicurezza"
+    },
+    "newsletter": {
+      "title": "Resta aggiornato",
+      "description": "Ricevi le ultime novita su nuove funzionalita e rilasci.",
+      "placeholder": "Inserisci la tua email",
+      "subscribe": "Iscriviti",
+      "subscribing": "Iscrizione in corso..."
+    },
+    "copyright": "© {{year}} Info Inlet. Tutti i diritti riservati.",
+    "builtWith": "Fatto con",
+    "byTeam": "dal team di Info Inlet",
+    "docs": "Docs"
+  },
+  "language": {
+    "en": "Inglese",
+    "ja": "Giapponese",
+    "zh": "Cinese",
+    "ko": "Coreano",
+    "es": "Spagnolo",
+    "fr": "Francese",
+    "de": "Tedesco"
+  },
+  "featuresPage": {
+    "badge": "Funzionalita potenti",
+    "title": "Tutto cio di cui hai bisogno per",
+    "titleHighlight": "automatizzare",
+    "subtitle": "Scopri le potenti funzionalita che rendono FluxTurn la piattaforma di automazione dei workflow piu flessibile per i team moderni.",
+    "cta": "Inizia la prova gratuita",
+    "viewDocs": "Vedi documentazione",
+    "stats": {
+      "workflows": "Workflow illimitati",
+      "workflowsValue": "Costruisci",
+      "integrations": "Integrazioni",
+      "codeSupport": "Supporto codice",
+      "security": "Sicurezza"
+    },
+    "coreFeatures": {
+      "title": "Funzionalita principali",
+      "subtitle": "Esplora le potenti capacita che distinguono FluxTurn"
+    },
+    "features": {
+      "visualBuilder": {
+        "title": "Costruttore visuale di workflow",
+        "desc": "Interfaccia drag and drop per costruire flussi di automazione complessi senza codice."
+      },
+      "conditionalLogic": {
+        "title": "Logica condizionale",
+        "desc": "Crea workflow con ramificazioni usando condizioni if/else, cicli e alberi decisionali."
+      },
+      "customCode": {
+        "title": "Codice personalizzato",
+        "desc": "Esegui codice JavaScript o Python per la massima flessibilita."
+      },
+      "integrations": {
+        "title": "120+ integrazioni",
+        "desc": "Collegati con tutte le tue app e servizi preferiti immediatamente."
+      },
+      "realtime": {
+        "title": "Esecuzione in tempo reale",
+        "desc": "Esecuzione rapidissima dei workflow con monitoraggio in tempo reale."
+      },
+      "security": {
+        "title": "Sicurezza enterprise",
+        "desc": "Crittografia di livello bancario, conformita SOC2 e controlli di accesso granulari."
+      },
+      "deployment": {
+        "title": "Cloud e self-hosting",
+        "desc": "Distribuisci sul nostro cloud o in self-hosting sulla tua infrastruttura."
+      },
+      "scheduling": {
+        "title": "Pianificazione avanzata",
+        "desc": "Pianifica i workflow per l'esecuzione in orari o intervalli specifici."
+      },
+      "templates": {
+        "title": "300+ modelli",
+        "desc": "Inizia rapidamente con modelli predefiniti per casi d'uso comuni."
+      }
+    },
+    "ctaSection": {
+      "title": "Pronto per iniziare?",
+      "subtitle": "Inizia ad automatizzare i tuoi workflow oggi con FluxTurn. Nessuna carta di credito.",
+      "cta": "Inizia la prova gratuita",
+      "viewPricing": "Vedi prezzi"
+    },
+    "visualSection": {
+      "badge": "Editor visuale di workflow",
+      "title": "Costruisci automazioni con",
+      "titleHighlight": "drag and drop",
+      "subtitle": "Crea potenti workflow di automazione visivamente. Collega nodi, configura azioni e distribuisci le tue automazioni con il nostro intuitivo editor visuale.",
+      "videoTitle": "Editor visuale workflow FluxTurn",
+      "floatingBadge": "Drag and drop",
+      "cta": "Prova l'editor visuale",
+      "features": {
+        "dragDrop": {
+          "title": "Drag and drop intuitivo",
+          "desc": "Trascina semplicemente i nodi nell'area di lavoro e collegali per costruire il tuo workflow. Nessuna esperienza di programmazione necessaria."
+        },
+        "integrations": {
+          "title": "120+ integrazioni predefinite",
+          "desc": "Collegati con le tue app preferite istantaneamente. Gmail, Slack, Notion, Stripe e centinaia di altre pronte all'uso."
+        },
+        "realtime": {
+          "title": "Test in tempo reale",
+          "desc": "Testa i tuoi workflow istantaneamente con dati reali. Vedi i risultati immediatamente e fai debug con log dettagliati."
+        },
+        "preview": {
+          "title": "Anteprima dal vivo",
+          "desc": "Osserva il tuo workflow in esecuzione in tempo reale. Visualizza il flusso dei dati e individua problemi prima della distribuzione."
+        }
+      }
+    },
+    "aiSection": {
+      "badge": "Automazione con AI",
+      "title": "Costruisci workflow con",
+      "titleHighlight": "assistente AI",
+      "subtitle": "Descrivi cio che vuoi automatizzare in linguaggio naturale e lascia che la nostra AI costruisca il workflow per te. Chatta con l'AI per modificare, ottimizzare e fare debug dei tuoi workflow in tempo reale.",
+      "videoTitle": "Costruttore workflow con AI FluxTurn",
+      "floatingBadge": "Nessun codice necessario",
+      "cta": "Prova il costruttore AI",
+      "features": {
+        "naturalLanguage": {
+          "title": "Input in linguaggio naturale",
+          "desc": "Descrivi la tua automazione in linguaggio semplice. La nostra AI capisce la tua intenzione e crea il workflow automaticamente."
+        },
+        "aiChat": {
+          "title": "Assistente chat AI",
+          "desc": "Chatta con l'AI per modificare i tuoi workflow, fare domande e ottenere suggerimenti di miglioramento in tempo reale."
+        },
+        "instantGeneration": {
+          "title": "Generazione istantanea dei workflow",
+          "desc": "Guarda il tuo workflow prendere vita in pochi secondi. L'AI seleziona automaticamente le integrazioni corrette e le configura."
+        },
+        "smartSuggestions": {
+          "title": "Suggerimenti intelligenti",
+          "desc": "Ottieni raccomandazioni intelligenti per ottimizzazione, gestione errori e best practice mentre costruisci."
+        }
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Bentornato",
+      "subtitle": "Inserisci le tue credenziali per accedere al tuo account",
+      "inviteMessage": "Per favore accedi per accettare il tuo invito",
+      "email": "Email",
+      "emailPlaceholder": "Inserisci la tua email",
+      "password": "Password",
+      "passwordPlaceholder": "Inserisci la tua password",
+      "rememberMe": "Ricordami",
+      "forgotPassword": "Password dimenticata?",
+      "signIn": "Accedi",
+      "signingIn": "Accesso in corso...",
+      "noAccount": "Non hai un account?",
+      "signUp": "Registrati",
+      "orContinueWith": "Oppure continua con",
+      "termsAgreement": "Accedendo, accetti i nostri",
+      "termsOfService": "Termini di servizio",
+      "and": "e",
+      "privacyPolicy": "Informativa sulla privacy"
+    },
+    "register": {
+      "title": "Crea account",
+      "subtitle": "Registrati per iniziare con FluxTurn",
+      "name": "Nome completo",
+      "namePlaceholder": "Inserisci il tuo nome completo",
+      "passwordRequirements": {
+        "minLength": "8+ caratteri",
+        "uppercase": "lettera maiuscola",
+        "lowercase": "lettera minuscola",
+        "number": "numero",
+        "special": "carattere speciale"
+      },
+      "email": "Email",
+      "emailPlaceholder": "Inserisci la tua email",
+      "password": "Password",
+      "passwordPlaceholder": "Crea una password",
+      "confirmPassword": "Conferma password",
+      "confirmPasswordPlaceholder": "Conferma la tua password",
+      "passwordStrength": "Robustezza password:",
+      "weak": "Debole",
+      "fair": "Discreta",
+      "good": "Buona",
+      "strong": "Forte",
+      "missing": "Mancante:",
+      "passwordsMatch": "Le password coincidono",
+      "passwordsNoMatch": "Le password non coincidono",
+      "agreeToTerms": "Accetto i",
+      "termsOfService": "Termini di servizio",
+      "and": "e",
+      "privacyPolicy": "Informativa sulla privacy",
+      "createAccount": "Crea account",
+      "creating": "Creazione account...",
+      "haveAccount": "Hai gia un account?",
+      "signIn": "Accedi",
+      "orContinueWith": "Oppure continua con"
+    },
+    "forgotPassword": {
+      "title": "Password dimenticata?",
+      "subtitle": "Non preoccuparti, ti invieremo le istruzioni per il ripristino",
+      "email": "Email",
+      "emailPlaceholder": "Inserisci la tua email",
+      "sendLink": "Invia email di ripristino",
+      "sending": "Invio in corso...",
+      "backToLogin": "Torna al login",
+      "successTitle": "Controlla la tua email",
+      "successMessage": "Abbiamo inviato un link di ripristino a:",
+      "successHint": "Non hai ricevuto l'email? Controlla la cartella spam o riprova.",
+      "resendEmail": "Reinvia email",
+      "resending": "Reinvio in corso..."
+    },
+    "resetPassword": {
+      "title": "Imposta nuova password",
+      "subtitle": "Inserisci la tua nuova password qui sotto",
+      "invalidTitle": "Link di ripristino non valido",
+      "invalidMessage": "Questo link di ripristino non e valido o e scaduto.",
+      "requestNewLink": "Richiedi nuovo link",
+      "newPassword": "Nuova password",
+      "newPasswordPlaceholder": "Inserisci la tua nuova password",
+      "confirmPassword": "Conferma password",
+      "confirmPasswordPlaceholder": "Conferma la tua nuova password",
+      "passwordStrength": "Robustezza password:",
+      "passwordsMatch": "Le password coincidono",
+      "passwordsNoMatch": "Le password non coincidono",
+      "reset": "Aggiorna password",
+      "resetting": "Aggiornamento password...",
+      "successTitle": "Password aggiornata",
+      "successMessage": "La tua password e stata aggiornata con successo. Ora puoi accedere con la tua nuova password.",
+      "continueToLogin": "Continua al login",
+      "validating": "Validazione link di ripristino...",
+      "backToLogin": "Torna al login"
+    },
+    "verifyEmail": {
+      "title": "Verifica la tua email",
+      "subtitle": "Abbiamo inviato un link di verifica a:",
+      "instruction": "Clicca sul link nella tua email per verificare il tuo account",
+      "checkEmail": "Controlla la tua email",
+      "expireNote": "Il link di verifica scadra tra 24 ore",
+      "noEmailHint": "Non hai ricevuto l'email? Controlla la cartella spam o reinviala.",
+      "resendEmail": "Reinvia email",
+      "sending": "Invio in corso...",
+      "verifyingTitle": "Verifica email",
+      "verifyingMessage": "Attendi mentre verifichiamo il tuo indirizzo email...",
+      "successTitle": "Email verificata!",
+      "successMessage": "La tua email e stata verificata con successo. Ora puoi accedere a tutte le funzionalita del tuo account.",
+      "goToDashboard": "Vai al pannello",
+      "signIn": "Accedi",
+      "failedTitle": "Verifica fallita",
+      "failedMessage": "Il link di verifica non e valido o e scaduto. Per favore richiedi una nuova email di verifica.",
+      "sendNewEmail": "Invia nuova email di verifica",
+      "backToLogin": "Torna al login",
+      "emailSentTitle": "Email inviata!",
+      "emailSentMessage": "Abbiamo inviato una nuova email di verifica a:",
+      "emailSentHint": "Controlla la tua casella e clicca sul link di verifica",
+      "spamHint": "Non la vedi ancora? Controlla la cartella spam.",
+      "resendAgain": "Reinvia di nuovo",
+      "waitBeforeResend": "Attendi {{countdown}}s prima di reinviare",
+      "welcome": "Benvenuto nel futuro dello sviluppo",
+      "verifyToStart": "Verifica la tua email per iniziare",
+      "needHelp": "Hai bisogno di aiuto? Contatta il nostro",
+      "supportTeam": "team di supporto"
+    },
+    "authSuccess": {
+      "title": "Autenticazione riuscita!",
+      "message": "Hai effettuato l'accesso con successo. Reindirizzamento al tuo pannello..."
+    },
+    "authError": {
+      "title": "Autenticazione fallita",
+      "redirectMessage": "Verrai reindirizzato alla pagina di login tra pochi secondi...",
+      "returnToLogin": "Torna al login",
+      "troubleHelp": "Hai problemi? Prova queste opzioni:",
+      "createAccount": "Crea account",
+      "resetPassword": "Ripristina password"
+    },
+    "oauth": {
+      "google": "Continua con Google",
+      "github": "Continua con GitHub",
+      "apple": "Continua con Apple",
+      "connecting": "Connessione in corso...",
+      "processing": "Elaborazione callback OAuth...",
+      "success": "Successo!",
+      "successMessage": "Connesso con successo! Reindirizzamento...",
+      "error": "Errore",
+      "closeWindow": "Chiudi finestra"
+    },
+    "errors": {
+      "invalidCredentials": "Email o password non validi",
+      "emailRequired": "L'email e obbligatoria",
+      "passwordRequired": "La password e obbligatoria",
+      "nameRequired": "Il nome e obbligatorio",
+      "passwordMismatch": "Le password non coincidono",
+      "weakPassword": "La password deve avere almeno 8 caratteri",
+      "invalidEmail": "Per favore inserisci un'email valida",
+      "accountExists": "Esiste gia un account con questa email",
+      "loginFailed": "Accesso fallito. Per favore controlla le tue credenziali e riprova.",
+      "registrationFailed": "Registrazione fallita. Per favore riprova.",
+      "missingOAuthParams": "Parametri OAuth richiesti mancanti",
+      "invalidOAuthState": "Stato OAuth non valido - possibile problema di sicurezza",
+      "missingCredentialId": "ID credenziale mancante"
+    },
+    "branding": {
+      "welcomeBack": "Bentornato",
+      "back": "di nuovo",
+      "joinFluxTurn": "Unisciti a",
+      "fluxTurn": "FluxTurn",
+      "tagline": "Costruisci potenti automazioni di workflow con la nostra piattaforma senza codice. Collega 120+ app istantaneamente.",
+      "feature1": "120+ integrazioni predefinite",
+      "feature2": "Costruttore visuale di workflow drag and drop",
+      "feature3": "Suggerimenti di automazione con AI",
+      "feature4": "Sicurezza di livello enterprise",
+      "testimonial": "FluxTurn ha completamente trasformato il modo in cui lavora il nostro team. Abbiamo automatizzato l'80% delle nostre attivita ripetitive!",
+      "powerUser": "Utente avanzato",
+      "premiumMember": "Membro premium"
+    },
+    "common": {
+      "email": "Email",
+      "password": "Password",
+      "submit": "Invia",
+      "cancel": "Annulla",
+      "loading": "Caricamento...",
+      "or": "o"
+    }
+  },
+  "common": {
+    "save": "Salva",
+    "cancel": "Annulla",
+    "delete": "Elimina",
+    "edit": "Modifica",
+    "create": "Crea",
+    "update": "Aggiorna",
+    "close": "Chiudi",
+    "confirm": "Conferma",
+    "back": "Indietro",
+    "next": "Avanti",
+    "search": "Cerca",
+    "filter": "Filtra",
+    "loading": "Caricamento...",
+    "saving": "Salvataggio...",
+    "deleting": "Eliminazione...",
+    "noResults": "Nessun risultato trovato",
+    "error": "Qualcosa e andato storto",
+    "success": "Successo",
+    "required": "Obbligatorio",
+    "optional": "Facoltativo",
+    "actions": "Azioni",
+    "status": "Stato",
+    "active": "Attivo",
+    "inactive": "Inattivo",
+    "enabled": "Abilitato",
+    "disabled": "Disabilitato",
+    "name": "Nome",
+    "description": "Descrizione",
+    "createdAt": "Creato",
+    "updatedAt": "Aggiornato",
+    "copy": "Copia",
+    "copied": "Copiato!",
+    "download": "Scarica",
+    "upload": "Carica",
+    "refresh": "Aggiorna",
+    "retry": "Riprova",
+    "learnMore": "Scopri di piu",
+    "viewAll": "Vedi tutto",
+    "showMore": "Mostra di piu",
+    "showLess": "Mostra di meno",
+    "yes": "Si",
+    "no": "No",
+    "or": "o",
+    "and": "e"
+  },
+  "dashboard": {
+    "title": "Pannello",
+    "welcome": "Bentornato",
+    "overview": "Panoramica",
+    "recentWorkflows": "Workflow recenti",
+    "recentActivity": "Attivita recenti",
+    "quickActions": "Azioni rapide",
+    "createWorkflow": "Crea workflow",
+    "viewAllWorkflows": "Vedi tutti i workflow",
+    "noWorkflows": "Ancora nessun workflow",
+    "noWorkflowsHint": "Crea il tuo primo workflow per iniziare",
+    "stats": {
+      "totalWorkflows": "Workflow totali",
+      "activeWorkflows": "Workflow attivi",
+      "totalExecutions": "Esecuzioni totali",
+      "successRate": "Tasso di successo"
+    }
+  },
+  "workflow": {
+    "title": "Workflow",
+    "create": "Crea workflow",
+    "createNew": "Crea nuovo workflow",
+    "builder": "Costruttore di workflow",
+    "name": "Nome del workflow",
+    "namePlaceholder": "Inserisci il nome del workflow",
+    "description": "Descrizione",
+    "descriptionPlaceholder": "Descrivi cosa fa questo workflow",
+    "status": {
+      "active": "Attivo",
+      "inactive": "Inattivo",
+      "draft": "Bozza",
+      "running": "In esecuzione",
+      "completed": "Completato",
+      "failed": "Fallito",
+      "paused": "In pausa"
+    },
+    "actions": {
+      "run": "Esegui",
+      "stop": "Ferma",
+      "duplicate": "Duplica",
+      "export": "Esporta",
+      "delete": "Elimina",
+      "activate": "Attiva",
+      "deactivate": "Disattiva"
+    },
+    "nodes": {
+      "addNode": "Aggiungi nodo",
+      "configure": "Configura",
+      "delete": "Elimina nodo",
+      "duplicate": "Duplica nodo",
+      "trigger": "Trigger",
+      "action": "Azione",
+      "condition": "Condizione",
+      "loop": "Ciclo",
+      "delay": "Ritardo",
+      "code": "Codice",
+      "aiAgent": "Agente AI",
+      "webhook": "Webhook",
+      "schedule": "Pianificazione",
+      "manual": "Trigger manuale"
+    },
+    "execution": {
+      "title": "Log di esecuzione",
+      "running": "In esecuzione...",
+      "completed": "Completato",
+      "failed": "Fallito",
+      "duration": "Durata",
+      "startedAt": "Iniziato alle",
+      "input": "Input",
+      "output": "Output",
+      "error": "Errore",
+      "noExecutions": "Ancora nessuna esecuzione",
+      "viewDetails": "Vedi dettagli"
+    },
+    "canvas": {
+      "zoomIn": "Ingrandisci",
+      "zoomOut": "Rimpicciolisci",
+      "fitView": "Adatta alla vista",
+      "undo": "Annulla",
+      "redo": "Ripeti",
+      "save": "Salva",
+      "deploy": "Distribuisci"
+    },
+    "errors": {
+      "saveFailed": "Errore nel salvataggio del workflow",
+      "loadFailed": "Errore nel caricamento del workflow",
+      "executionFailed": "L'esecuzione del workflow e fallita",
+      "invalidConfig": "Configurazione non valida"
+    }
+  },
+  "credentials": {
+    "title": "Credenziali",
+    "add": "Aggiungi credenziale",
+    "edit": "Modifica credenziale",
+    "name": "Nome credenziale",
+    "namePlaceholder": "La mia credenziale",
+    "type": "Tipo di credenziale",
+    "test": "Testa connessione",
+    "testing": "Test in corso...",
+    "testSuccess": "Connessione riuscita",
+    "testFailed": "Connessione fallita",
+    "save": "Salva credenziale",
+    "delete": "Elimina credenziale",
+    "deleteConfirm": "Sei sicuro di voler eliminare questa credenziale? I workflow che la utilizzano smetteranno di funzionare.",
+    "noCredentials": "Ancora nessuna credenziale",
+    "noCredentialsHint": "Aggiungi credenziali per collegare le tue applicazioni",
+    "lastTested": "Ultimo test",
+    "connected": "Connesso",
+    "disconnected": "Disconnesso",
+    "expires": "Scade",
+    "reconnect": "Riconnetti"
+  },
+  "organization": {
+    "title": "Organizzazione",
+    "create": "Crea organizzazione",
+    "settings": "Impostazioni organizzazione",
+    "name": "Nome organizzazione",
+    "namePlaceholder": "La mia organizzazione",
+    "members": {
+      "title": "Membri",
+      "invite": "Invita membro",
+      "inviteByEmail": "Invita via email",
+      "emailPlaceholder": "colleague@company.com",
+      "role": "Ruolo",
+      "roles": {
+        "owner": "Proprietario",
+        "admin": "Amministratore",
+        "member": "Membro",
+        "viewer": "Visualizzatore"
+      },
+      "remove": "Rimuovi membro",
+      "removeConfirm": "Sei sicuro di voler rimuovere questo membro?",
+      "pending": "In attesa",
+      "active": "Attivo"
+    },
+    "billing": {
+      "title": "Fatturazione",
+      "currentPlan": "Piano attuale",
+      "usage": "Utilizzo",
+      "invoices": "Fatture",
+      "upgrade": "Aggiorna piano",
+      "downgrade": "Riduci piano",
+      "cancel": "Annulla abbonamento",
+      "paymentMethod": "Metodo di pagamento",
+      "addPayment": "Aggiungi metodo di pagamento",
+      "nextBilling": "Prossima data di fatturazione",
+      "executions": "Esecuzioni",
+      "executionsUsed": "{{used}} di {{limit}} utilizzati",
+      "workflows": "Workflow",
+      "workflowsUsed": "{{used}} di {{limit}} utilizzati"
+    },
+    "integrations": {
+      "title": "Integrazioni",
+      "connected": "Connesso",
+      "available": "Disponibile",
+      "connect": "Connetti",
+      "disconnect": "Disconnetti",
+      "configure": "Configura",
+      "lastSync": "Ultima sincronizzazione"
+    }
+  },
+  "project": {
+    "title": "Progetto",
+    "create": "Crea progetto",
+    "settings": "Impostazioni progetto",
+    "name": "Nome progetto",
+    "namePlaceholder": "Il mio progetto",
+    "description": "Descrizione",
+    "descriptionPlaceholder": "A cosa serve questo progetto?",
+    "workflows": "Workflow",
+    "credentials": "Credenziali",
+    "members": "Membri",
+    "noProjects": "Ancora nessun progetto",
+    "noProjectsHint": "Crea un progetto per organizzare i tuoi workflow"
+  },
+  "settings": {
+    "title": "Impostazioni",
+    "account": {
+      "title": "Impostazioni account",
+      "profile": "Profilo",
+      "email": "Indirizzo email",
+      "name": "Nome visualizzato",
+      "avatar": "Foto profilo",
+      "changeAvatar": "Cambia",
+      "removeAvatar": "Rimuovi",
+      "timezone": "Fuso orario",
+      "language": "Lingua",
+      "notifications": "Notifiche",
+      "emailNotifications": "Notifiche email",
+      "pushNotifications": "Notifiche push",
+      "workflowAlerts": "Avvisi workflow"
+    },
+    "security": {
+      "title": "Sicurezza",
+      "changePassword": "Cambia password",
+      "currentPassword": "Password attuale",
+      "newPassword": "Nuova password",
+      "confirmPassword": "Conferma password",
+      "twoFactor": "Autenticazione a due fattori",
+      "enable2FA": "Attiva 2FA",
+      "disable2FA": "Disattiva 2FA",
+      "sessions": "Sessioni attive",
+      "revokeSession": "Revoca",
+      "revokeAll": "Revoca tutte le sessioni"
+    },
+    "apiKeys": {
+      "title": "Chiavi API",
+      "create": "Crea chiave API",
+      "name": "Nome chiave",
+      "namePlaceholder": "La mia chiave API",
+      "permissions": "Permessi",
+      "expires": "Scade",
+      "never": "Mai",
+      "revoke": "Revoca",
+      "revokeConfirm": "Sei sicuro? Questa azione non puo essere annullata.",
+      "noKeys": "Ancora nessuna chiave API",
+      "copyWarning": "Copia questa chiave ora. Non potrai vederla di nuovo."
+    },
+    "danger": {
+      "title": "Zona di pericolo",
+      "deleteAccount": "Elimina account",
+      "deleteAccountWarning": "Questo eliminera permanentemente il tuo account e tutti i dati associati. Questa azione non puo essere annullata.",
+      "typeToConfirm": "Digita la tua email per confermare"
+    }
+  }
+}

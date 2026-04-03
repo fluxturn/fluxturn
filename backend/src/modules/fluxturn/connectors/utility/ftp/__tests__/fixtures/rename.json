@@ -1,0 +1,78 @@
+{
+  "action": "rename",
+  "baseUrl": "",
+  "testCases": [
+    {
+      "name": "should rename a file successfully",
+      "input": {
+        "oldPath": "/public/old-file.txt",
+        "newPath": "/public/new-file.txt",
+        "createDirectories": false,
+        "timeout": 10000
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/rename",
+        "status": 200,
+        "response": {}
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "success": true,
+          "message": "File renamed successfully",
+          "oldPath": "/public/old-file.txt",
+          "newPath": "/public/new-file.txt"
+        }
+      }
+    },
+    {
+      "name": "should move a file to different directory",
+      "input": {
+        "oldPath": "/public/file.txt",
+        "newPath": "/private/file.txt",
+        "createDirectories": false,
+        "timeout": 10000
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/rename",
+        "status": 200,
+        "response": {}
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "success": true,
+          "message": "File renamed successfully",
+          "oldPath": "/public/file.txt",
+          "newPath": "/private/file.txt"
+        }
+      }
+    },
+    {
+      "name": "should rename with directory creation",
+      "input": {
+        "oldPath": "/public/file.txt",
+        "newPath": "/new-folder/subfolder/file.txt",
+        "createDirectories": true,
+        "timeout": 10000
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/rename",
+        "status": 200,
+        "response": {}
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "success": true,
+          "message": "File renamed successfully",
+          "oldPath": "/public/file.txt",
+          "newPath": "/new-folder/subfolder/file.txt"
+        }
+      }
+    }
+  ]
+}

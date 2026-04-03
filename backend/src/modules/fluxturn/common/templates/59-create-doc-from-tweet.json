@@ -1,0 +1,97 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-100000000009",
+  "name": "Create Doc from Tweet Search",
+  "description": "Search tweets and create a Google Doc with results. Nodes: Manual Trigger, Twitter Action, Google Docs Action",
+  "category": "social",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Search Tweets",
+          "config": {
+            "query": "{{search_query}}",
+            "maxResults": 10
+          },
+          "category": "action",
+          "connector": "twitter",
+          "connectorType": "twitter",
+          "connectorDisplayName": "Twitter/X",
+          "description": "Search for tweets from the last seven days",
+          "action": "search_tweets",
+          "actionId": "search_tweets",
+          "actionName": "Search Tweets"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Create Document",
+          "config": {
+            "title": "Tweet Search Report - {{search_query}}"
+          },
+          "category": "action",
+          "connector": "google_docs",
+          "connectorType": "google_docs",
+          "connectorDisplayName": "Google Docs",
+          "description": "Create a new Google Docs document",
+          "action": "create_document",
+          "actionId": "create_document",
+          "actionName": "Create Document"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [{ "id": "node_1", "type": "MANUAL_TRIGGER", "config": {} }],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": ["twitter", "google_docs"],
+  "tags": ["social", "automation", "twitter", "google_docs", "reporting"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow searches tweets and creates a Google Doc report using manual trigger, twitter, google_docs",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow to search tweets and create a Google Doc with results"
+}

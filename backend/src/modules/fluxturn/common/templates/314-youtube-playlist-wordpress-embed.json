@@ -1,0 +1,116 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-300000000014",
+  "name": "YouTube Playlist to WordPress",
+  "description": "Get YouTube playlist details and create a WordPress post with embedded videos",
+  "category": "content",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Get Playlist",
+          "config": {
+            "playlistId": "{{playlist_id}}",
+            "part": ["snippet", "contentDetails"],
+            "maxResults": 10
+          },
+          "category": "action",
+          "connector": "youtube",
+          "connectorType": "youtube",
+          "connectorDisplayName": "YouTube",
+          "description": "Fetch playlist details from YouTube",
+          "action": "playlist_get",
+          "actionId": "playlist_get",
+          "actionName": "Get Playlist"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Create Post",
+          "config": {
+            "title": "Video Collection: {{playlist_title}}",
+            "content": "<h2>{{playlist_title}}</h2>\n<p>{{playlist_description}}</p>\n<p>Watch the full playlist on YouTube:</p>\n<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/videoseries?list={{playlist_id}}\" frameborder=\"0\" allowfullscreen></iframe>",
+            "status": "draft"
+          },
+          "category": "action",
+          "connector": "wordpress",
+          "connectorType": "wordpress",
+          "connectorDisplayName": "WordPress",
+          "description": "Create post with embedded playlist",
+          "action": "create_post",
+          "actionId": "create_post",
+          "actionName": "Create Post"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [],
+  "conditions": [],
+  "variables": [
+    {
+      "name": "playlist_id",
+      "type": "string",
+      "description": "The YouTube playlist ID"
+    },
+    {
+      "name": "playlist_title",
+      "type": "string",
+      "description": "Title for the blog post"
+    },
+    {
+      "name": "playlist_description",
+      "type": "string",
+      "description": "Description for the blog post"
+    }
+  ],
+  "outputs": [],
+  "required_connectors": ["youtube", "wordpress"],
+  "tags": ["youtube", "wordpress", "content", "video", "embed"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "Embed YouTube playlist in WordPress post",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Get YouTube playlist and create WordPress post with embedded videos"
+}

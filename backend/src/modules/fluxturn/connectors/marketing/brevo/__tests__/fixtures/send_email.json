@@ -1,0 +1,93 @@
+{
+  "action": "send_transactional_email",
+  "baseUrl": "https://api.brevo.com/v3",
+  "testCases": [
+    {
+      "name": "sends transactional email successfully",
+      "input": {
+        "sender": { "name": "Test Sender", "email": "sender@example.com" },
+        "to": [{ "email": "recipient@example.com", "name": "Recipient" }],
+        "subject": "Test Email",
+        "htmlContent": "<p>Hello World</p>"
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/smtp/email",
+        "status": 201,
+        "response": {
+          "messageId": "<202301011234.abc123@smtp-relay.brevo.com>"
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "messageId": "<202301011234.abc123@smtp-relay.brevo.com>"
+        }
+      }
+    },
+    {
+      "name": "sends email with template",
+      "input": {
+        "templateId": 123,
+        "to": [{ "email": "user@example.com" }],
+        "params": { "firstName": "John", "orderNumber": "12345" }
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/smtp/email",
+        "status": 201,
+        "response": {
+          "messageId": "<template-email-456@smtp-relay.brevo.com>"
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "messageId": "<template-email-456@smtp-relay.brevo.com>"
+        }
+      }
+    },
+    {
+      "name": "handles unauthorized error",
+      "input": {
+        "sender": { "email": "sender@example.com" },
+        "to": [{ "email": "recipient@example.com" }],
+        "subject": "Test",
+        "htmlContent": "<p>Test</p>"
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/smtp/email",
+        "status": 401,
+        "response": {
+          "code": "unauthorized",
+          "message": "Invalid API key"
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    },
+    {
+      "name": "handles rate limit error",
+      "input": {
+        "sender": { "email": "sender@example.com" },
+        "to": [{ "email": "recipient@example.com" }],
+        "subject": "Test",
+        "htmlContent": "<p>Test</p>"
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/smtp/email",
+        "status": 429,
+        "response": {
+          "code": "rate_limit",
+          "message": "Rate limit exceeded"
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    }
+  ]
+}

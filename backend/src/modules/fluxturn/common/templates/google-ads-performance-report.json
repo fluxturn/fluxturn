@@ -1,0 +1,150 @@
+{
+  "id": "eb30db9b-7a25-4fc0-89d9-42c278cf678e",
+  "name": "Google Ads Daily Performance Report",
+  "description": "Send daily Google Ads performance summary to Slack. Nodes: Schedule Trigger, Google Ads Action, Slack Action",
+  "category": "analytics",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Daily Report",
+          "config": {
+            "cron": "0 9 * * *"
+          },
+          "category": "trigger",
+          "connector": "schedule",
+          "connectorType": "schedule",
+          "connectorDisplayName": "Schedule",
+          "description": "Runs daily at 9 AM",
+          "trigger": "schedule",
+          "triggerId": "schedule",
+          "eventType": "cron"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Get Campaign Stats",
+          "config": {
+            "accountId": "{{account_id}}",
+            "dateRange": "yesterday"
+          },
+          "category": "action",
+          "connector": "google_ads",
+          "connectorType": "google_ads",
+          "connectorDisplayName": "Google Ads",
+          "description": "Fetch campaign statistics",
+          "action": "get_campaign_stats",
+          "actionId": "get_campaign_stats",
+          "actionName": "Get Campaign Stats"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Post Report",
+          "config": {
+            "channel": "{{channel_id}}",
+            "text": "📊 Google Ads Daily Report:\nImpressions: {{node_2.output.impressions}}\nClicks: {{node_2.output.clicks}}\nCost: ${{node_2.output.cost}}"
+          },
+          "category": "action",
+          "connector": "slack",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack",
+          "description": "Post to Slack",
+          "action": "send_message",
+          "actionId": "send_message",
+          "actionName": "Post Report"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "schedule",
+        "triggerId": "schedule"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "schedule",
+    "google_ads",
+    "slack"
+  ],
+  "tags": [
+    "analytics",
+    "automation",
+    "google_ads",
+    "slack",
+    "reporting"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow send daily google ads performance summary to slack. nodes: schedule trigger, google ads action, slack action using schedule, google_ads, slack",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"daily ads report\" that runs daily, gets Google Ads stats, and posts to Slack"
+}

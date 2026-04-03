@@ -1,0 +1,105 @@
+{
+  "id": "d05c0699-dba2-48e7-8c47-928bc33a2590",
+  "name": "Code Review Reminder",
+  "description": "Automatically code review reminder. Nodes: GitHub Trigger, Telegram Action",
+  "category": "developer",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "PR Open for 24 Hours",
+          "config": {},
+          "trigger": "pr_open_for_24_hours",
+          "category": "trigger",
+          "connector": "github",
+          "eventType": "polling",
+          "triggerId": "pr_open_for_24_hours",
+          "description": "Triggered when pr open for 24 hours",
+          "connectorType": "github",
+          "connectorDisplayName": "GitHub"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Send Reminder",
+          "action": "send_message",
+          "config": {
+            "chatId": "{{chat_id}}",
+            "text": "{{text}}"
+          },
+          "actionId": "send_message",
+          "category": "action",
+          "connector": "telegram",
+          "actionName": "Send Reminder",
+          "description": "Send Reminder",
+          "connectorType": "telegram",
+          "connectorDisplayName": "Telegram"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "github",
+        "triggerId": "pr_open_for_24_hours"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "github",
+    "telegram"
+  ],
+  "tags": [
+    "developer",
+    "automation",
+    "github",
+    "telegram"
+  ],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow code review reminder using github, telegram",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"code review reminder\" that triggers when triggered when pr open for 24 hours and then Send Reminder via Telegram"
+}

@@ -1,0 +1,107 @@
+{
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567812",
+  "name": "OpenAI Email Sentiment Analyzer",
+  "description": "Analyze sentiment and tone of incoming emails using AI. Nodes: Gmail Trigger, OpenAI Action, Google Sheets Action",
+  "category": "ai",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Email Received",
+          "config": {},
+          "trigger": "email_received",
+          "category": "trigger",
+          "connector": "gmail",
+          "eventType": "polling",
+          "triggerId": "email_received",
+          "description": "Triggered when a new email is received",
+          "connectorType": "gmail",
+          "connectorDisplayName": "Gmail"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Chat Completion",
+          "action": "chat_complete",
+          "config": {
+            "model": "gpt-3.5-turbo",
+            "messages": "{{messages}}"
+          },
+          "actionId": "chat_complete",
+          "category": "action",
+          "connector": "openai",
+          "actionName": "Chat Completion",
+          "description": "Analyze email sentiment",
+          "connectorType": "openai",
+          "connectorDisplayName": "OpenAI"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Append Row",
+          "action": "append_row",
+          "config": {},
+          "actionId": "append_row",
+          "category": "action",
+          "connector": "google_sheets",
+          "actionName": "Append Row",
+          "description": "Log sentiment analysis",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#14b8a6", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#14b8a6", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": { "connector": "gmail", "triggerId": "email_received" }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": ["gmail", "openai", "google_sheets"],
+  "tags": ["ai", "automation", "gmail", "openai", "sentiment", "google_sheets"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow analyzes email sentiment using OpenAI and logs to Google Sheets",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"OpenAI email sentiment analyzer\" that triggers on emails, analyzes sentiment with AI, and logs results to Google Sheets"
+}

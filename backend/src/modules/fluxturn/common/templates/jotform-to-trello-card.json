@@ -1,0 +1,107 @@
+{
+  "id": "46039f77-67dc-4cd5-a3c7-ca995172c444",
+  "name": "Jotform Submission to Trello Card",
+  "description": "Convert Jotform submissions into Trello cards. Nodes: Jotform Trigger, Trello Action",
+  "category": "project_management",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Form Submitted",
+          "config": {},
+          "category": "trigger",
+          "connector": "jotform",
+          "connectorType": "jotform",
+          "connectorDisplayName": "Jotform",
+          "description": "Triggered on submission",
+          "trigger": "new_submission",
+          "triggerId": "new_submission",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Card",
+          "config": {
+            "listId": "{{list_id}}",
+            "name": "Request: {{form.title}}",
+            "desc": "{{form.description}}\n\nSubmitted by: {{form.name}}"
+          },
+          "category": "action",
+          "connector": "trello",
+          "connectorType": "trello",
+          "connectorDisplayName": "Trello",
+          "description": "Create Trello card",
+          "action": "create_card",
+          "actionId": "create_card",
+          "actionName": "Create Card"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "jotform",
+        "triggerId": "new_submission"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "jotform",
+    "trello"
+  ],
+  "tags": [
+    "project_management",
+    "automation",
+    "jotform",
+    "trello",
+    "cards"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow convert jotform submissions into trello cards. nodes: jotform trigger, trello action using jotform, trello",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"form to card\" that triggers on Jotform submission and creates Trello card"
+}

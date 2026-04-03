@@ -1,0 +1,74 @@
+{
+  "action": "delete",
+  "baseUrl": "",
+  "testCases": [
+    {
+      "name": "should delete a file successfully",
+      "input": {
+        "path": "/public/test-file.txt",
+        "folder": false,
+        "timeout": 10000
+      },
+      "mock": {
+        "method": "DELETE",
+        "path": "/public/test-file.txt",
+        "status": 200,
+        "response": {}
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "success": true,
+          "message": "File deleted successfully",
+          "path": "/public/test-file.txt"
+        }
+      }
+    },
+    {
+      "name": "should delete a folder successfully",
+      "input": {
+        "path": "/public/test-folder",
+        "folder": true,
+        "recursive": false,
+        "timeout": 10000
+      },
+      "mock": {
+        "method": "DELETE",
+        "path": "/public/test-folder",
+        "status": 200,
+        "response": {}
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "success": true,
+          "message": "Folder deleted successfully",
+          "path": "/public/test-folder"
+        }
+      }
+    },
+    {
+      "name": "should delete a folder recursively",
+      "input": {
+        "path": "/public/test-folder",
+        "folder": true,
+        "recursive": true,
+        "timeout": 10000
+      },
+      "mock": {
+        "method": "DELETE",
+        "path": "/public/test-folder",
+        "status": 200,
+        "response": {}
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "success": true,
+          "message": "Folder deleted successfully",
+          "path": "/public/test-folder"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "id": "70d16a67-ae83-4c59-bd6b-5b4b1e647c73",
+  "name": "Instagram to Multi-Platform",
+  "description": "Cross-post Instagram content to other platforms",
+  "category": "social",
+  "difficulty": "intermediate",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": [
+    "facebook_graph",
+    "twitter",
+    "linkedin"
+  ],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_18_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 100
+        },
+        "data": {
+          "label": "New Instagram Post",
+          "category": "trigger",
+          "config": {},
+          "connector": "facebook_graph",
+          "triggerId": "media_published",
+          "inputSchema": {},
+          "configSchema": {},
+          "outputSchema": {}
+        }
+      },
+      {
+        "id": "node_18_2",
+        "type": "RUN_CODE",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "label": "Format Content",
+          "category": "utility",
+          "config": {
+            "code": "return { text: $json.caption, imageUrl: $json.media_url };"
+          },
+          "configSchema": {
+            "code": {
+              "type": "string",
+              "label": "JavaScript Code",
+              "inputType": "textarea",
+              "required": true,
+              "description": "JavaScript code to execute"
+            }
+          },
+          "inputSchema": {
+            "input": {
+              "type": "object",
+              "required": false
+            }
+          },
+          "outputSchema": {
+            "output": {
+              "type": "object",
+              "description": "Code execution result"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_18_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 700,
+          "y": 100
+        },
+        "data": {
+          "label": "Tweet",
+          "category": "action",
+          "config": {
+            "text": "={{$json.text}}"
+          },
+          "connector": "twitter",
+          "actionId": "create_tweet",
+          "action": "create_tweet",
+          "actionName": "Create Tweet",
+          "description": "Post a tweet",
+          "icon": "twitter",
+          "connectorType": "twitter",
+          "connectorDisplayName": "Twitter",
+          "inputSchema": {
+            "text": {
+              "type": "string",
+              "required": true,
+              "label": "Tweet Text"
+            }
+          },
+          "configSchema": {
+            "text": {
+              "type": "string",
+              "required": true,
+              "label": "Tweet Text"
+            }
+          },
+          "outputSchema": {
+            "tweetId": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_1",
+        "source": "node_18_1",
+        "target": "node_18_2",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_2",
+        "source": "node_18_2",
+        "target": "node_18_3",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

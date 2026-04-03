@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation
+    url: https://docs.fluxturn.com
+    about: Check the documentation before opening an issue
+  - name: Discord Community
+    url: https://discord.gg/fluxturn
+    about: Ask questions and get help from the community
+  - name: GitHub Discussions
+    url: https://github.com/fluxturn/fluxturn/discussions
+    about: Share ideas and discuss with the community

@@ -1,0 +1,107 @@
+{
+  "id": "99932bec-8bc8-4e56-a3c2-34c6c2ef3a66",
+  "name": "Salesforce Opportunity Won Celebration Email",
+  "description": "Send congratulatory emails when deals are won. Nodes: Salesforce Trigger, Gmail Action",
+  "category": "sales",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Opportunity Won",
+          "config": {},
+          "category": "trigger",
+          "connector": "salesforce",
+          "connectorType": "salesforce",
+          "connectorDisplayName": "Salesforce",
+          "description": "Triggered when opportunity is won",
+          "trigger": "opportunity_won",
+          "triggerId": "opportunity_won",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Send Celebration",
+          "config": {
+            "to": "{{trigger.Owner.Email}}",
+            "subject": "🎉 Deal Won: {{trigger.Name}}",
+            "body": "Congratulations on closing {{trigger.Name}}!\nAmount: ${{trigger.Amount}}"
+          },
+          "category": "action",
+          "connector": "gmail",
+          "connectorType": "gmail",
+          "connectorDisplayName": "Gmail",
+          "description": "Send celebration email",
+          "action": "send_email",
+          "actionId": "send_email",
+          "actionName": "Send Celebration"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "salesforce",
+        "triggerId": "opportunity_won"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "salesforce",
+    "gmail"
+  ],
+  "tags": [
+    "sales",
+    "automation",
+    "salesforce",
+    "gmail",
+    "opportunities"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow send congratulatory emails when deals are won. nodes: salesforce trigger, gmail action using salesforce, gmail",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"deal won celebration\" that triggers on Salesforce opportunity win and sends email"
+}

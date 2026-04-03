@@ -1,0 +1,108 @@
+{
+  "id": "954c0474-9aa6-40d8-b62b-612641949eb5",
+  "name": "Google Forms to Calendar Event",
+  "description": "Create calendar events from form responses automatically. Nodes: Google Forms Trigger, Google Calendar Action",
+  "category": "productivity",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Response Received",
+          "config": {},
+          "category": "trigger",
+          "connector": "google_forms",
+          "connectorType": "google_forms",
+          "connectorDisplayName": "Google Forms",
+          "description": "Triggered on form submission",
+          "trigger": "new_response",
+          "triggerId": "new_response",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Event",
+          "config": {
+            "calendarId": "primary",
+            "summary": "{{trigger.responses.event_title}}",
+            "start": "{{trigger.responses.event_date}}",
+            "duration": 60
+          },
+          "category": "action",
+          "connector": "google_calendar",
+          "connectorType": "google_calendar",
+          "connectorDisplayName": "Google Calendar",
+          "description": "Create Google Calendar event",
+          "action": "create_event",
+          "actionId": "create_event",
+          "actionName": "Create Event"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_forms",
+        "triggerId": "new_response"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_forms",
+    "google_calendar"
+  ],
+  "tags": [
+    "productivity",
+    "automation",
+    "google_forms",
+    "google_calendar",
+    "events"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow create calendar events from form responses automatically. nodes: google forms trigger, google calendar action using google_forms, google_calendar",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"form to event\" that triggers on Google Forms response and creates calendar event"
+}

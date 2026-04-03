@@ -1,0 +1,264 @@
+{
+  "id": "f01c15d4-d208-4513-bcff-e41f072a329a",
+  "name": "Smart Support Bot",
+  "description": "AI-powered customer support via Telegram/WhatsApp",
+  "category": "ai",
+  "difficulty": "advanced",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": [
+    "telegram",
+    "openai",
+    "airtable"
+  ],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_45_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 100
+        },
+        "data": {
+          "label": "New Message",
+          "category": "trigger",
+          "config": {},
+          "connector": "telegram",
+          "triggerId": "new_message",
+          "trigger": "new_message",
+          "triggerName": "New Message",
+          "description": "Triggers when a new message is received",
+          "eventType": "webhook",
+          "icon": "message-circle",
+          "connectorType": "telegram",
+          "connectorDisplayName": "Telegram",
+          "webhookRequired": true,
+          "outputSchema": {
+            "chat": {
+              "type": "object"
+            },
+            "from": {
+              "type": "object"
+            },
+            "text": {
+              "type": "string"
+            }
+          },
+          "inputSchema": {},
+          "configSchema": {}
+        }
+      },
+      {
+        "id": "node_45_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "label": "Generate Response",
+          "category": "action",
+          "config": {
+            "model": "gpt-4",
+            "messages": [
+              {
+                "role": "system",
+                "content": "You are a helpful support agent"
+              },
+              {
+                "role": "user",
+                "content": "{{$json.text}}"
+              }
+            ]
+          },
+          "connector": "openai",
+          "actionId": "chat_completion",
+          "action": "create_chat_completion",
+          "actionName": "Create Chat Completion",
+          "description": "Generate text using OpenAI",
+          "icon": "brain",
+          "connectorType": "openai",
+          "connectorDisplayName": "Openai",
+          "inputSchema": {
+            "model": {
+              "type": "string",
+              "required": true,
+              "label": "Model",
+              "default": "gpt-4"
+            },
+            "messages": {
+              "type": "array",
+              "required": true,
+              "label": "Messages"
+            }
+          },
+          "configSchema": {
+            "model": {
+              "type": "string",
+              "required": true,
+              "label": "Model",
+              "default": "gpt-4"
+            },
+            "messages": {
+              "type": "array",
+              "required": true,
+              "label": "Messages"
+            }
+          },
+          "outputSchema": {
+            "choices": {
+              "type": "array",
+              "description": "AI responses"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_45_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 700,
+          "y": 100
+        },
+        "data": {
+          "label": "Reply",
+          "category": "action",
+          "config": {
+            "chatId": "={{$json.chat.id}}",
+            "text": "={{$node[\"Generate Response\"].json.choices[0].message.content}}"
+          },
+          "connector": "telegram",
+          "actionId": "send_message",
+          "action": "send_message",
+          "actionName": "Send Message",
+          "description": "Send a message to a Telegram chat",
+          "icon": "send",
+          "connectorType": "telegram",
+          "connectorDisplayName": "Telegram",
+          "inputSchema": {
+            "chatId": {
+              "type": "string",
+              "required": true,
+              "label": "Chat ID"
+            },
+            "text": {
+              "type": "string",
+              "required": true,
+              "label": "Message",
+              "inputType": "textarea"
+            }
+          },
+          "configSchema": {
+            "chatId": {
+              "type": "string",
+              "required": true,
+              "label": "Chat ID"
+            },
+            "text": {
+              "type": "string",
+              "required": true,
+              "label": "Message",
+              "inputType": "textarea"
+            }
+          },
+          "outputSchema": {
+            "messageId": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_45_4",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1000,
+          "y": 100
+        },
+        "data": {
+          "label": "Log Conversation",
+          "category": "action",
+          "config": {
+            "baseId": "{{your_base_id}}",
+            "tableId": "Support",
+            "fields": "={{$json}}"
+          },
+          "connector": "airtable",
+          "actionId": "create_record",
+          "action": "create_record",
+          "actionName": "Create Record",
+          "description": "Create a new record in Airtable",
+          "icon": "plus",
+          "connectorType": "airtable",
+          "connectorDisplayName": "Airtable",
+          "inputSchema": {
+            "baseId": {
+              "type": "string",
+              "required": true,
+              "label": "Base ID"
+            },
+            "tableId": {
+              "type": "string",
+              "required": true,
+              "label": "Table ID"
+            },
+            "fields": {
+              "type": "object",
+              "required": true,
+              "label": "Fields"
+            }
+          },
+          "configSchema": {
+            "baseId": {
+              "type": "string",
+              "required": true,
+              "label": "Base ID"
+            },
+            "tableId": {
+              "type": "string",
+              "required": true,
+              "label": "Table ID"
+            },
+            "fields": {
+              "type": "object",
+              "required": true,
+              "label": "Fields"
+            }
+          },
+          "outputSchema": {
+            "id": {
+              "type": "string"
+            },
+            "fields": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_1",
+        "source": "node_45_1",
+        "target": "node_45_2",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_2",
+        "source": "node_45_2",
+        "target": "node_45_3",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_3",
+        "source": "node_45_3",
+        "target": "node_45_4",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

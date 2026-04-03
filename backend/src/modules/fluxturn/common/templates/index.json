@@ -1,0 +1,1785 @@
+{
+  "version": "2.0.0",
+  "totalTemplates": 254,
+  "lastUpdated": "2025-12-04T10:00:00.000Z",
+  "templates": [
+    {
+      "filename": "26-abandoned-cart-recovery.json",
+      "id": "f6b19a64-acb4-4b59-a3c1-5ed64a278607",
+      "name": "Abandoned Cart Recovery",
+      "description": "Send reminder emails for abandoned Shopify carts",
+      "category": "sales"
+    },
+    {
+      "filename": "60-add-user-to-list-from-sheets.json",
+      "id": "a1b2c3d4-e5f6-4789-abcd-100000000010",
+      "name": "Add Twitter Users to List from Sheets",
+      "description": "Add Twitter users to a list using IDs from Google Sheets. Nodes: Manual Trigger, Google Sheets Action, Twitter Action",
+      "category": "social"
+    },
+    {
+      "filename": "56-bulk-retweet-from-sheets.json",
+      "id": "a1b2c3d4-e5f6-4789-abcd-100000000006",
+      "name": "Bulk Retweet from Sheets",
+      "description": "Retweet tweets using IDs from Google Sheets. Nodes: Manual Trigger, Google Sheets Action, Twitter Action",
+      "category": "social"
+    },
+    {
+      "filename": "70-clear-sheets-and-log-docs.json",
+      "id": "a1b2c3d4-e5f6-4789-abcd-100000000020",
+      "name": "Clear Sheets Range and Log to Docs",
+      "description": "Clear a range in Google Sheets and log the action to Google Docs. Nodes: Manual Trigger, Google Sheets Action, Google Docs Action",
+      "category": "productivity"
+    },
+    {
+      "filename": "59-create-doc-from-tweet.json",
+      "id": "a1b2c3d4-e5f6-4789-abcd-100000000009",
+      "name": "Create Doc from Tweet Search",
+      "description": "Search tweets and create a Google Doc with results. Nodes: Manual Trigger, Twitter Action, Google Docs Action",
+      "category": "social"
+    },
+    {
+      "filename": "69-create-doc-from-sheets.json",
+      "id": "a1b2c3d4-e5f6-4789-abcd-100000000019",
+      "name": "Create Document from Sheets Data",
+      "description": "Get data from Sheets and create a new Google Doc. Nodes: Manual Trigger, Google Sheets Action, Google Docs Action",
+      "category": "productivity"
+    },
+    {
+      "filename": "63-create-spreadsheet-from-docs.json",
+      "id": "a1b2c3d4-e5f6-4789-abcd-100000000013",
+      "name": "Create Spreadsheet from Docs",
+      "description": "Get Google Docs content and create a new spreadsheet. Nodes: Manual Trigger, Google Docs Action, Google Sheets Action",
+      "category": "productivity"
+    },
+    {
+      "filename": "68-delete-tweet-log-sheets.json",
+      "id": "a1b2c3d4-e5f6-4789-abcd-100000000018",
+      "name": "Delete Tweet and Log to Sheets",
+      "description": "Delete a tweet and log the deletion to Google Sheets. Nodes: Manual Trigger, Twitter Action, Google Sheets Action",
+      "category": "social"
+    },
+    {
+      "filename": "62-docs-to-sheets-export.json",
+      "id": "a1b2c3d4-e5f6-4789-abcd-100000000012",
+      "name": "Google Docs to Sheets Export",
+      "description": "Get content from Google Docs and save to Google Sheets. Nodes: Manual Trigger, Google Docs Action, Google Sheets Action",
+      "category": "productivity"
+    },
+    {
+      "filename": "54-google-docs-to-tweet.json",
+      "id": "a1b2c3d4-e5f6-4789-abcd-100000000004",
+      "name": "Google Docs to Tweet",
+      "description": "Get content from Google Docs and post as a tweet. Nodes: Manual Trigger, Google Docs Action, Twitter Action",
+      "category": "social"
+    },
+    {
+      "filename": "61-sheets-to-docs-sync.json",
+      "id": "a1b2c3d4-e5f6-4789-abcd-100000000011",
+      "name": "Google Sheets to Docs Sync",
+      "description": "Get data from Google Sheets and append to Google Docs. Nodes: Manual Trigger, Google Sheets Action, Google Docs Action",
+      "category": "productivity"
+    },
+    {
+      "filename": "66-insert-text-from-sheets.json",
+      "id": "a1b2c3d4-e5f6-4789-abcd-100000000016",
+      "name": "Insert Text in Docs from Sheets",
+      "description": "Get text from Sheets and insert at specific position in Google Docs. Nodes: Manual Trigger, Google Sheets Action, Google Docs Action",
+      "category": "productivity"
+    },
+    {
+      "filename": "57-like-tweets-from-sheets.json",
+      "id": "a1b2c3d4-e5f6-4789-abcd-100000000007",
+      "name": "Like Tweets from Sheets",
+      "description": "Like tweets using IDs from Google Sheets. Nodes: Manual Trigger, Google Sheets Action, Twitter Action",
+      "category": "social"
+    },
+    {
+      "filename": "65-replace-text-in-docs.json",
+      "id": "a1b2c3d4-e5f6-4789-abcd-100000000015",
+      "name": "Replace Text in Docs from Sheets",
+      "description": "Get replacement values from Sheets and replace text in Google Docs. Nodes: Manual Trigger, Google Sheets Action, Google Docs Action",
+      "category": "productivity"
+    },
+    {
+      "filename": "51-tweet-from-sheets.json",
+      "id": "a1b2c3d4-e5f6-4789-abcd-100000000001",
+      "name": "Tweet from Google Sheets",
+      "description": "Post tweets from your Google Sheets content. Nodes: Manual Trigger, Google Sheets Action, Twitter Action",
+      "category": "social"
+    },
+    {
+      "filename": "53-tweet-to-google-docs.json",
+      "id": "a1b2c3d4-e5f6-4789-abcd-100000000003",
+      "name": "Tweet Search to Google Docs",
+      "description": "Search tweets and append results to a Google Doc. Nodes: Manual Trigger, Twitter Action, Google Docs Action",
+      "category": "social"
+    },
+    {
+      "filename": "58-twitter-dm-logger.json",
+      "id": "a1b2c3d4-e5f6-4789-abcd-100000000008",
+      "name": "Twitter DM and Log",
+      "description": "Send a Twitter DM and log it to Google Sheets. Nodes: Manual Trigger, Twitter Action, Google Sheets Action",
+      "category": "social"
+    },
+    {
+      "filename": "52-twitter-search-to-sheets.json",
+      "id": "a1b2c3d4-e5f6-4789-abcd-100000000002",
+      "name": "Twitter Search to Sheets",
+      "description": "Search tweets and save results to Google Sheets. Nodes: Manual Trigger, Twitter Action, Google Sheets Action",
+      "category": "social"
+    },
+    {
+      "filename": "64-twitter-user-to-docs.json",
+      "id": "a1b2c3d4-e5f6-4789-abcd-100000000014",
+      "name": "Twitter User Info to Docs",
+      "description": "Get Twitter user info and append to Google Docs. Nodes: Manual Trigger, Twitter Action, Google Docs Action",
+      "category": "social"
+    },
+    {
+      "filename": "55-twitter-user-to-sheets.json",
+      "id": "a1b2c3d4-e5f6-4789-abcd-100000000005",
+      "name": "Twitter User Info to Sheets",
+      "description": "Get Twitter user information and save to Google Sheets. Nodes: Manual Trigger, Twitter Action, Google Sheets Action",
+      "category": "social"
+    },
+    {
+      "filename": "67-update-sheets-from-docs.json",
+      "id": "a1b2c3d4-e5f6-4789-abcd-100000000017",
+      "name": "Update Sheets from Docs",
+      "description": "Get document content and update specific row in Google Sheets. Nodes: Manual Trigger, Google Docs Action, Google Sheets Action",
+      "category": "productivity"
+    },
+    {
+      "filename": "ai-blog-post-generator-from-research.json",
+      "id": "d4eb2c89-6bad-4e30-b9d7-eaa92fe70a4e",
+      "name": "AI Blog Post Generator from Research",
+      "description": "Turn saved links into full blog posts automatically",
+      "category": "education"
+    },
+    {
+      "filename": "44-ai-caption-generator.json",
+      "id": "109e8b38-4410-40e2-9314-24d20f51b926",
+      "name": "AI Caption Generator",
+      "description": "Generate AI-powered captions for social posts",
+      "category": "ai"
+    },
+    {
+      "filename": "41-ai-content-generator.json",
+      "id": "d90f01a9-b5f3-4f6d-b0ca-602eea4fb021",
+      "name": "AI Content Generator",
+      "description": "Generate content ideas and save to Notion",
+      "category": "ai"
+    },
+    {
+      "filename": "11-ai-social-media-scheduler.json",
+      "id": "cdfc8993-0048-4cfd-ad05-496b2f682ed7",
+      "name": "AI Social Media Scheduler",
+      "description": "Generate and post AI content to Twitter, LinkedIn, and Facebook",
+      "category": "social"
+    },
+    {
+      "filename": "ai-powered-multi-social-media-post-automation.json",
+      "id": "effeb0ba-72da-4810-a613-91d729a25961",
+      "name": "AI-Powered Multi-Social Media Post Automation",
+      "description": "Automate your entire social media content pipeline - from trend discovery to publication. This workflow monitors Google Trends, selects high-potential topics, creates human-like content using advanced AI, and publishes across multiple social platforms with built-in tracking.",
+      "category": "social_media"
+    },
+    {
+      "filename": "ai-powered-support-customer-complaint-system.json",
+      "id": "a6924949-869c-4d9c-a1cb-6c59ff67399b",
+      "name": "AI-Powered Support Customer complaint System",
+      "description": "Automatically categorize incoming complain emails, generate AI responses, and track in database and reply email",
+      "category": "monitoring"
+    },
+    {
+      "filename": "24-airtable-crm-nurture-campaign.json",
+      "id": "ca3b6790-2d3d-4e07-9ac8-bd9af1bb52ea",
+      "name": "Airtable CRM Nurture Campaign",
+      "description": "Auto-add qualified leads to email nurture sequence",
+      "category": "sales"
+    },
+    {
+      "filename": "34-airtable-to-sheets-reporter.json",
+      "id": "d5e8205a-2781-41df-ac0e-ed3be51339f0",
+      "name": "Airtable to Sheets Reporter",
+      "description": "Export Airtable records to Google Sheets daily",
+      "category": "data"
+    },
+    {
+      "filename": "api-usage-monitoring.json",
+      "id": "2a9fa622-8bec-413d-9e2f-7e860d719919",
+      "name": "API Usage Monitoring",
+      "description": "Monitor API usage via Google Analytics and alert team in Slack when requested. Nodes: Slack Mention Trigger, Google Analytics Report Action, Slack Message Action",
+      "category": "developer"
+    },
+    {
+      "filename": "automated-social-posting-schedule.json",
+      "id": "4c5d0182-81f4-4f7d-aadd-aa0a22cba1b6",
+      "name": "Automated Social Posting Schedule",
+      "description": "Queue and publish social content on schedule across platforms.",
+      "category": "social_media"
+    },
+    {
+      "filename": "blog-idea-to-draft.json",
+      "id": "23d14825-e061-4933-a0ea-93cac175da85",
+      "name": "Blog Idea to Draft",
+      "description": "Transform blog ideas into complete drafts automatically. Nodes: Google Sheets Trigger (new row), OpenAI Action (generate outline), Google Docs Action (create document)",
+      "category": "ai_automation"
+    },
+    {
+      "filename": "blog-post-to-multi-platform-share.json",
+      "id": "d12d82e6-38c0-4faa-8633-e53c3785d97d",
+      "name": "Blog Post to Multi-Platform Share",
+      "description": "Share blog posts across multiple social platforms automatically. Nodes: Google Docs Trigger (new document), LinkedIn Action (create post), Twitter Action (create tweet)",
+      "category": "social_media"
+    },
+    {
+      "filename": "bug-report-to-github.json",
+      "id": "5ab9383e-493b-4457-9918-88b49f0410ad",
+      "name": "Bug Report to GitHub",
+      "description": "Convert bug report emails into GitHub issues automatically. Nodes: IMAP Trigger (bug report email), GitHub Action (create issue)",
+      "category": "support"
+    },
+    {
+      "filename": "build-failure-alert.json",
+      "id": "21a5f85f-a559-425d-b429-fff9ebae6d8b",
+      "name": "Build Failure Alert",
+      "description": "Alert team when code is pushed to repository. Nodes: GitHub Trigger (on push), Discord Action (send message), SMTP Action (email developer)",
+      "category": "developer"
+    },
+    {
+      "filename": "calendar-event-to-github-issue.json",
+      "id": "62f9bff9-6a18-4e54-8d03-cfdc2e5a5872",
+      "name": "Calendar Event to GitHub Issue",
+      "description": "Automatically calendar event to github issue. Nodes: Google Calendar Trigger, GitHub Action",
+      "category": "project_management"
+    },
+    {
+      "filename": "calendar-event-to-slack-reminder.json",
+      "id": "8e5fcd97-0fc6-4291-bd7c-f727a774ab9c",
+      "name": "Calendar Event to Slack Reminder",
+      "description": "Automatically calendar event to slack reminder. Nodes: Google Calendar Trigger, Slack Action",
+      "category": "collaboration"
+    },
+    {
+      "filename": "campaign-performance-alert.json",
+      "id": "8089c427-7007-4dc6-b5c3-f2817aae20ef",
+      "name": "Campaign Performance Alert",
+      "description": "Automatically campaign performance alert. Nodes: Google Analytics Trigger, Slack Action",
+      "category": "marketing"
+    },
+    {
+      "filename": "clickup-task-completed-to-sheets.json",
+      "id": "7cac6655-e177-4c40-b993-8aa4d5331350",
+      "name": "ClickUp Completed Tasks to Google Sheets",
+      "description": "Log completed tasks to Google Sheets for reporting. Nodes: ClickUp Trigger, Google Sheets Action",
+      "category": "analytics"
+    },
+    {
+      "filename": "clickup-high-priority-alert.json",
+      "id": "dae8245f-b9b5-4656-9ab5-2c3212992a29",
+      "name": "ClickUp High Priority Task Alert",
+      "description": "Immediate alerts for high-priority task creation. Nodes: ClickUp Trigger, Slack Action",
+      "category": "project_management"
+    },
+    {
+      "filename": "clickup-task-created-to-slack.json",
+      "id": "53c8f4bc-b270-42cf-9fe6-b68bb723bf4b",
+      "name": "ClickUp New Task Alert to Slack",
+      "description": "Get notified in Slack when new ClickUp tasks are created. Nodes: ClickUp Trigger, Slack Action",
+      "category": "project_management"
+    },
+    {
+      "filename": "clickup-overdue-tasks-alert.json",
+      "id": "2e6dd048-e218-44b8-b097-a49ac95c0a9c",
+      "name": "ClickUp Overdue Tasks Alert",
+      "description": "Daily alert for overdue tasks to keep projects on track. Nodes: Schedule Trigger, ClickUp Action, Slack Action",
+      "category": "project_management"
+    },
+    {
+      "filename": "clickup-task-assignment-notification.json",
+      "id": "104d0d2c-3136-4fe2-b2b5-9fb9625e37b0",
+      "name": "ClickUp Task Assignment Notification",
+      "description": "Notify users when tasks are assigned to them. Nodes: ClickUp Trigger, Gmail Action",
+      "category": "project_management"
+    },
+    {
+      "filename": "clickup-task-comment-to-slack.json",
+      "id": "7a2f21c6-5419-4e1d-a9cd-195dd529ef33",
+      "name": "ClickUp Task Comment to Slack",
+      "description": "Sync task comments to Slack for better team communication. Nodes: ClickUp Trigger, Slack Action",
+      "category": "collaboration"
+    },
+    {
+      "filename": "clickup-task-due-reminder.json",
+      "id": "6d25a84d-1aad-4d6b-940d-05284a5d0acc",
+      "name": "ClickUp Task Due Date Reminder",
+      "description": "Send reminders for upcoming task deadlines. Nodes: Schedule Trigger, ClickUp Action, Slack Action",
+      "category": "project_management"
+    },
+    {
+      "filename": "clickup-task-status-update.json",
+      "id": "581b2ac6-3780-4a1c-b7e1-6e0f6fc5a7eb",
+      "name": "ClickUp Task Status Change Notification",
+      "description": "Track task status changes and notify stakeholders. Nodes: ClickUp Trigger, Gmail Action",
+      "category": "project_management"
+    },
+    {
+      "filename": "clickup-task-to-trello.json",
+      "id": "6ee5b2ef-eddd-4790-9201-cd32c4f334bb",
+      "name": "ClickUp Task Sync to Trello",
+      "description": "Keep ClickUp and Trello boards synchronized. Nodes: ClickUp Trigger, Trello Action",
+      "category": "project_management"
+    },
+    {
+      "filename": "clickup-task-to-calendar.json",
+      "id": "a3c67560-ce9b-408b-addc-cca1fed035fd",
+      "name": "ClickUp Task to Google Calendar Event",
+      "description": "Sync ClickUp tasks with Google Calendar automatically. Nodes: ClickUp Trigger, Google Calendar Action",
+      "category": "productivity"
+    },
+    {
+      "filename": "mysql-clickup-tasks.json",
+      "id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c09",
+      "name": "ClickUp Tasks to MySQL",
+      "description": "Archive ClickUp tasks to MySQL database. Nodes: ClickUp Trigger (task created), MySQL Action (insert row), Gmail Action (confirm)",
+      "category": "project_management"
+    },
+    {
+      "filename": "clickup-time-tracking-report.json",
+      "id": "243a888a-0f15-47b9-ad8e-5dc6386037ec",
+      "name": "ClickUp Time Tracking Report",
+      "description": "Weekly time tracking summary sent to email. Nodes: Schedule Trigger, ClickUp Action, Gmail Action",
+      "category": "analytics"
+    },
+    {
+      "filename": "clickup-sprint-report.json",
+      "id": "b36997f3-56c5-4141-868b-d94c372f5156",
+      "name": "ClickUp Weekly Sprint Report",
+      "description": "Generate weekly sprint reports and email to team. Nodes: Schedule Trigger, ClickUp Action, Gmail Action",
+      "category": "analytics"
+    },
+    {
+      "filename": "code-documentation-generator.json",
+      "id": "cd482de6-8e4c-48e7-8a99-bb2e296c77ff",
+      "name": "Code Documentation Generator",
+      "description": "Automatically generate and update code documentation using AI when files change in your GitHub repository",
+      "category": "developer"
+    },
+    {
+      "filename": "47-code-review-helper.json",
+      "id": "52aa9bd6-2fc2-4b12-899f-5e15076361c3",
+      "name": "Code Review Helper",
+      "description": "AI-powered code review for GitHub pull requests",
+      "category": "ai"
+    },
+    {
+      "filename": "code-review-reminder.json",
+      "id": "d05c0699-dba2-48e7-8c47-928bc33a2590",
+      "name": "Code Review Reminder",
+      "description": "Automatically code review reminder. Nodes: GitHub Trigger, Telegram Action",
+      "category": "developer"
+    },
+    {
+      "filename": "community-engagement-tracker.json",
+      "id": "c2b50f62-db1b-4dfb-870e-28a4b78eb88f",
+      "name": "Community Engagement Tracker",
+      "description": "Automatically community engagement tracker. Nodes: Discord Trigger, Google Sheets Action",
+      "category": "community"
+    },
+    {
+      "filename": "40-competitor-price-tracker.json",
+      "id": "273f8715-ed79-443c-a29d-5ddc4d82aec6",
+      "name": "Competitor Price Tracker",
+      "description": "Monitor competitor pricing and alert on changes",
+      "category": "analytics"
+    },
+    {
+      "filename": "comprehensive-project-kickoff.json",
+      "id": "a9a37a8e-0f06-49b6-a658-9d241f4518d0",
+      "name": "Comprehensive Project Kickoff Automation",
+      "description": "Complete project setup across multiple platforms. Nodes: Jotform Trigger, Salesforce Action, ClickUp Action, Zoom Action",
+      "category": "project_management"
+    },
+    {
+      "filename": "content-promotion-scheduler.json",
+      "id": "26bba2ce-13b3-41f0-9918-56cff7e500ec",
+      "name": "Content Promotion Scheduler",
+      "description": "Automatically content promotion scheduler. Nodes: Google Docs Trigger, LinkedIn Action, Twitter Action",
+      "category": "marketing"
+    },
+    {
+      "filename": "contract-expiry-reminder.json",
+      "id": "f8fab5cb-d62c-4733-8c67-2f34ea897051",
+      "name": "Contract Expiry Reminder",
+      "description": "Automatically contract expiry reminder. Nodes: Google Calendar Trigger, SMTP Action",
+      "category": "sales"
+    },
+    {
+      "filename": "contract-signing-notification.json",
+      "id": "c16137a6-b066-4ff8-9655-6da1f8beb39f",
+      "name": "Contract Signing Notification",
+      "description": "Automatically contract signing notification. Nodes: Google Drive Trigger, SMTP Action",
+      "category": "document_management"
+    },
+    {
+      "filename": "customer-feedback-collection.json",
+      "id": "b8eb7481-5cdb-4d86-ae70-b94ea9c7e62c",
+      "name": "Customer Feedback Collection",
+      "description": "Automatically customer feedback collection. Nodes: Google Calendar Trigger, SMTP Action",
+      "category": "support"
+    },
+    {
+      "filename": "28-customer-feedback-collector.json",
+      "id": "2763b297-2c72-4823-9426-a928bffd29cc",
+      "name": "Customer Feedback Collector",
+      "description": "Send feedback forms after order delivery",
+      "category": "sales"
+    },
+    {
+      "filename": "daily-task-planner.json",
+      "id": "50b17be3-10ad-4760-9299-d46e90d4e688",
+      "name": "Daily Task Planner",
+      "description": "Automatically daily task planner. Nodes: Google Calendar Trigger, ChatGPT Action, SMTP Action",
+      "category": "productivity"
+    },
+    {
+      "filename": "daily-zoom-meeting-list.json",
+      "id": "84826387-6f24-48f5-8b6e-521aa5ae7b72",
+      "name": "Daily Zoom Meeting List",
+      "description": "Daily meeting agenda posted to Slack. Nodes: Schedule Trigger, Zoom Action, Slack Action",
+      "category": "productivity"
+    },
+    {
+      "filename": "49-data-enrichment.json",
+      "id": "1a4112c3-8519-4860-88e1-f5b390d2ce68",
+      "name": "Data Enrichment",
+      "description": "Enrich Airtable contacts with AI-generated insights",
+      "category": "ai"
+    },
+    {
+      "filename": "32-database-backup-automation.json",
+      "id": "470122e7-3e0a-4327-85a4-ebdd48b57522",
+      "name": "Database Backup Automation",
+      "description": "Automated daily database backups to Google Drive",
+      "category": "data"
+    },
+    {
+      "filename": "29-deal-won-celebration.json",
+      "id": "f2388b3c-ae4c-41d7-b7fc-7b3a92408383",
+      "name": "Deal Won Celebration",
+      "description": "Celebrate closed deals with team notifications",
+      "category": "sales"
+    },
+    {
+      "filename": "dependency-update-tracker.json",
+      "id": "dc89aab0-409c-4d32-9a75-a23a4d5fd406",
+      "name": "Dependency Update Tracker",
+      "description": "Automatically dependency update tracker. Nodes: GitHub Trigger, Google Sheets Action, Discord Action",
+      "category": "developer"
+    },
+    {
+      "filename": "deployment-notification.json",
+      "id": "02896544-c56d-4141-9017-86198cf0f887",
+      "name": "Deployment Notification",
+      "description": "Automatically deployment notification. Nodes: GitHub Trigger, Slack Action, Twitter Action",
+      "category": "developer"
+    },
+    {
+      "filename": "discord-announcement-to-slack.json",
+      "id": "d37f02b5-db6e-480d-8ff8-f45711b87908",
+      "name": "Discord Announcement to Slack",
+      "description": "Automatically discord announcement to slack. Nodes: Discord Trigger, Slack Action",
+      "category": "collaboration"
+    },
+    {
+      "filename": "07-discord-community-onboarding.json",
+      "id": "0fce2b2f-c2af-46dc-aaaf-41d4fea283a2",
+      "name": "Discord Community Onboarding",
+      "description": "Welcome new Discord members and log to database",
+      "category": "communication"
+    },
+    {
+      "filename": "discord-task-assignment.json",
+      "id": "16f92374-a544-4eaf-b2ae-6eafff06e25b",
+      "name": "Discord Task Assignment",
+      "description": "Automatically discord task assignment. Nodes: Discord Trigger, Google Sheets Action, SMTP Action",
+      "category": "project_management"
+    },
+    {
+      "filename": "discord-welcome-message.json",
+      "id": "73f6b68e-92d5-4f35-a0f4-4e9ef1c00618",
+      "name": "Discord Welcome Message",
+      "description": "Automatically discord welcome message. Nodes: Discord Trigger, Discord Action",
+      "category": "community"
+    },
+    {
+      "filename": "docs-to-pdf-backup.json",
+      "id": "53f8f7c1-159b-4f1b-a031-a83f2001e2c9",
+      "name": "Docs to PDF Backup",
+      "description": "Automatically docs to pdf backup. Nodes: Google Docs Trigger, Google Drive Action",
+      "category": "document_management"
+    },
+    {
+      "filename": "46-document-summarizer.json",
+      "id": "878bfb69-6965-4bfd-b014-548c769eb678",
+      "name": "Document Summarizer",
+      "description": "Summarize Google Drive documents with AI",
+      "category": "ai"
+    },
+    {
+      "filename": "e-commerce-order-fulfillment.json",
+      "id": "0944fe21-5c78-4a50-b254-f809dc79e0e3",
+      "name": "E-commerce Order Fulfillment",
+      "description": "Process Shopify orders from payment to shipping notification.",
+      "category": "other"
+    },
+    {
+      "filename": "email-attachment-to-drive.json",
+      "id": "0d467c44-cbcc-4da6-83f6-b49ecec209e6",
+      "name": "Email Attachment to Drive",
+      "description": "Automatically email attachment to drive. Nodes: IMAP Trigger, Google Drive Action",
+      "category": "document_management"
+    },
+    {
+      "filename": "email-campaign-tracker.json",
+      "id": "63388c90-a1bb-491c-8f1e-3a1dc0727bf5",
+      "name": "Email Campaign Tracker",
+      "description": "Track email campaigns and analyze performance with AI insights.",
+      "category": "other"
+    },
+    {
+      "filename": "42-email-classifier.json",
+      "id": "5ff65e7b-895f-424a-a81c-9f084136e612",
+      "name": "Email Classifier",
+      "description": "Classify Gmail emails with AI and apply labels",
+      "category": "ai"
+    },
+    {
+      "filename": "email-digest-intelligence.json",
+      "id": "5733b727-1c8e-4d12-8d6c-2ebb996f4214",
+      "name": "Email Digest Intelligence",
+      "description": "AI summarizes your important emails into a daily brief",
+      "category": "monitoring"
+    },
+    {
+      "filename": "email-inbox-zero-helper.json",
+      "id": "ba945f95-9381-45f5-acf0-923513586128",
+      "name": "Email Inbox Zero Helper",
+      "description": "Automatically find and archive old emails at end of day. Nodes: Google Calendar Trigger, Gmail Search, Gmail Archive",
+      "category": "productivity"
+    },
+    {
+      "filename": "email-response-auto-draft.json",
+      "id": "3d58550b-49b7-403d-ae16-a4b33daca917",
+      "name": "Email Response Auto-Draft",
+      "description": "Automatically email response auto-draft. Nodes: IMAP Trigger, ChatGPT Action, SMTP Action",
+      "category": "email"
+    },
+    {
+      "filename": "email-to-ai-summary-in-docs.json",
+      "id": "29953e0d-796c-4174-b49e-88676e604153",
+      "name": "Email to AI Summary in Docs",
+      "description": "Automatically email to ai summary in docs. Nodes: IMAP Trigger, ChatGPT Action, Google Docs Action",
+      "category": "ai_automation"
+    },
+    {
+      "filename": "email-to-google-sheets-logger.json",
+      "id": "934ef913-5a4b-4c6b-82ff-de9fe96ec205",
+      "name": "Email to Google Sheets Logger",
+      "description": "Automatically email to google sheets logger. Nodes: IMAP Trigger, Google Sheets Action",
+      "category": "email"
+    },
+    {
+      "filename": "email-to-slack-channel-forward.json",
+      "id": "d436d92c-0819-4275-8ea1-9af11e30b00b",
+      "name": "Email to Slack Channel Forward",
+      "description": "Automatically email to slack channel forward. Nodes: IMAP Trigger, Slack Action",
+      "category": "collaboration"
+    },
+    {
+      "filename": "02-email-to-slack-notification.json",
+      "id": "92b7ae8d-afa4-4c2f-94be-f845da7dbddc",
+      "name": "Email to Slack Notification",
+      "description": "Forward important Gmail emails to Slack channel for team visibility",
+      "category": "communication"
+    },
+    {
+      "filename": "employee-feedback-collection.json",
+      "id": "e5957f32-c695-4ba8-8bd8-a9da8b0334b8",
+      "name": "Employee Feedback Collection",
+      "description": "Automatically employee feedback collection. Nodes: Google Calendar Trigger, SMTP Action",
+      "category": "hr"
+    },
+    {
+      "filename": "event-announcement-multi-channel.json",
+      "id": "e9299c3e-913e-46f1-a327-03e84f045d8f",
+      "name": "Event Announcement Multi-Channel",
+      "description": "Automatically event announcement multi-channel. Nodes: Google Calendar Trigger, Discord Action, Twitter Action, LinkedIn Action",
+      "category": "community"
+    },
+    {
+      "filename": "event-registration-confirmation.json",
+      "id": "c3d4bf75-000d-497e-a8cd-9a5f6e237bbd",
+      "name": "Event Registration Confirmation",
+      "description": "Automatically event registration confirmation. Nodes: Google Sheets Trigger, SMTP Action, Google Calendar Action",
+      "category": "marketing"
+    },
+    {
+      "filename": "16-facebook-lead-ads-to-crm.json",
+      "id": "4d8b914c-0b82-426c-ad53-815cbb6935c2",
+      "name": "Facebook Lead Ads to CRM",
+      "description": "Capture Facebook lead ads and save to Airtable CRM",
+      "category": "social"
+    },
+    {
+      "filename": "faq-auto-responder.json",
+      "id": "6faea192-8784-47aa-af79-6ec1b4c9d96a",
+      "name": "FAQ Auto-Responder",
+      "description": "Automatically faq auto-responder. Nodes: IMAP Trigger, ChatGPT Action, SMTP Action",
+      "category": "support"
+    },
+    {
+      "filename": "follow-up-reminder.json",
+      "id": "f6eef051-e1b8-4ddf-8da2-c7a08db83cff",
+      "name": "Follow-Up Reminder",
+      "description": "Automatically follow-up reminder. Nodes: Google Calendar Trigger, SMTP Action",
+      "category": "sales"
+    },
+    {
+      "filename": "form-submission-to-sheet.json",
+      "id": "221274bf-c0ef-43ef-a67c-c287f00f0479",
+      "name": "Form Submission to Sheet",
+      "description": "Automatically form submission to sheet. Nodes: IMAP Trigger, Google Sheets Action",
+      "category": "analytics"
+    },
+    {
+      "filename": "mysql-form-to-database.json",
+      "id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c01",
+      "name": "Form Submissions to MySQL",
+      "description": "Automatically save form submissions to MySQL database. Nodes: Jotform Trigger (new submission), MySQL Action (insert row)",
+      "category": "database"
+    },
+    {
+      "filename": "get-user-data-automatically.json",
+      "id": "b93a3c53-008a-49e9-a8cf-6cee9146ed0d",
+      "name": "Get User Data Automatically",
+      "description": "Every two hours, get new users from database then add these user in google sheet and give message in slacks with new users using parallel processing",
+      "category": "business"
+    },
+    {
+      "filename": "37-github-activity-logger.json",
+      "id": "b20fa0fd-5af9-485d-8fbf-1ecaab275de5",
+      "name": "GitHub Activity Logger",
+      "description": "Log GitHub repository activity to sheets",
+      "category": "data"
+    },
+    {
+      "filename": "github-contributor-recognition.json",
+      "id": "5d486b7a-8ab5-4825-876f-e8bf9c1479a7",
+      "name": "GitHub Contributor Recognition",
+      "description": "Automatically github contributor recognition. Nodes: GitHub Trigger, Twitter Action, Discord Action",
+      "category": "community"
+    },
+    {
+      "filename": "github-issue-to-discord-alert.json",
+      "id": "8dd3f4e2-b533-4f78-be80-e43703ecaba6",
+      "name": "GitHub Issue to Discord Alert",
+      "description": "Automatically github issue to discord alert. Nodes: GitHub Trigger, Discord Action",
+      "category": "collaboration"
+    },
+    {
+      "filename": "github-issue-to-google-sheets-tracker.json",
+      "id": "e016d9fa-fb7e-43a8-bccb-e67466764942",
+      "name": "GitHub Issue to Google Sheets Tracker",
+      "description": "Automatically github issue to google sheets tracker. Nodes: GitHub Trigger, Google Sheets Action",
+      "category": "project_management"
+    },
+    {
+      "filename": "mysql-github-issues.json",
+      "id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c06",
+      "name": "GitHub Issues to MySQL Tracker",
+      "description": "Track GitHub issues in MySQL database. Nodes: GitHub Trigger (new issue), MySQL Action (insert row), Discord Action (notify team)",
+      "category": "development"
+    },
+    {
+      "filename": "github-pr-review-request-to-email.json",
+      "id": "ad4f3164-3259-49b0-93cb-ddc087dd8f8e",
+      "name": "GitHub PR Review Request to Email",
+      "description": "Automatically github pr review request to email. Nodes: GitHub Trigger, SMTP Action",
+      "category": "collaboration"
+    },
+    {
+      "filename": "github-project-board-update.json",
+      "id": "99858732-fbf1-4b0b-8608-bb4b0b9840a2",
+      "name": "GitHub Project Board Update",
+      "description": "Automatically github project board update. Nodes: GitHub Trigger, Google Sheets Action, Slack Action",
+      "category": "project_management"
+    },
+    {
+      "filename": "github-readme-auto-generator.json",
+      "id": "f8a59e00-b097-4cd2-9370-8b57475497e2",
+      "name": "GitHub README Auto-Generator",
+      "description": "Automatically github readme auto-generator. Nodes: GitHub Trigger, ChatGPT Action, GitHub Action",
+      "category": "ai_automation"
+    },
+    {
+      "filename": "github-release-to-twitter-announcement.json",
+      "id": "e6db3e11-837a-4b95-9a01-df206cea821d",
+      "name": "GitHub Release to Twitter Announcement",
+      "description": "Automatically github release to twitter announcement. Nodes: GitHub Trigger, ChatGPT Action, Twitter Action",
+      "category": "social_media"
+    },
+    {
+      "filename": "github-stats-to-google-sheets.json",
+      "id": "79ddd5e3-a3f1-4b69-927e-f9112432d781",
+      "name": "GitHub Stats to Google Sheets",
+      "description": "Automatically github stats to google sheets. Nodes: Google Calendar Trigger, GitHub Action, Google Sheets Action",
+      "category": "analytics"
+    },
+    {
+      "filename": "github-wiki-to-google-docs-sync.json",
+      "id": "fd0db9a3-9b5d-4f2c-8477-06330e639850",
+      "name": "GitHub Wiki to Google Docs Sync",
+      "description": "Automatically github wiki to google docs sync. Nodes: GitHub Trigger, Google Docs Action",
+      "category": "document_management"
+    },
+    {
+      "filename": "09-gmail-attachment-backup.json",
+      "id": "c293dee0-70b8-436d-9e77-7a9b8e15c9f2",
+      "name": "Gmail Attachment Backup",
+      "description": "Save Gmail attachments to Google Drive automatically",
+      "category": "communication"
+    },
+    {
+      "filename": "03-gmail-auto-reply-with-ai.json",
+      "id": "10ebe1d0-6d8b-4377-8f22-40afc4133fad",
+      "name": "Gmail Auto-Reply with AI",
+      "description": "Use AI to generate and send automatic email responses",
+      "category": "communication"
+    },
+    {
+      "filename": "gmail-to-clickup-task.json",
+      "id": "34dd88d5-7c34-4705-81d9-b7c122ff2283",
+      "name": "Gmail Email to ClickUp Task",
+      "description": "Create ClickUp tasks from important emails automatically. Nodes: Gmail Trigger, ClickUp Action",
+      "category": "productivity"
+    },
+    {
+      "filename": "01-gmail-to-google-sheets-lead-tracker.json",
+      "id": "9eb2c2a4-9891-4421-8671-aaa5b158621a",
+      "name": "Gmail to Google Sheets Lead Tracker",
+      "description": "Automatically log leads from Gmail emails with specific labels to Google Sheets for easy tracking and analysis.",
+      "category": "communication"
+    },
+    {
+      "filename": "google-ads-budget-alert.json",
+      "id": "6aed9a9e-5b77-456d-92f5-f378922f4d4d",
+      "name": "Google Ads Budget Alert",
+      "description": "Get notified when ad campaign budget reaches threshold. Nodes: Google Ads Trigger, Gmail Action",
+      "category": "marketing"
+    },
+    {
+      "filename": "google-ads-performance-report.json",
+      "id": "eb30db9b-7a25-4fc0-89d9-42c278cf678e",
+      "name": "Google Ads Daily Performance Report",
+      "description": "Send daily Google Ads performance summary to Slack. Nodes: Schedule Trigger, Google Ads Action, Slack Action",
+      "category": "analytics"
+    },
+    {
+      "filename": "google-ads-lead-to-salesforce.json",
+      "id": "56bb1d9a-bff5-4dcb-a2bb-a556382bd9df",
+      "name": "Google Ads Lead to Salesforce",
+      "description": "Create Salesforce leads from Google Ads conversions automatically. Nodes: Google Ads Trigger, Salesforce Action",
+      "category": "marketing"
+    },
+    {
+      "filename": "mysql-calendar-events.json",
+      "id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c07",
+      "name": "Google Calendar Events to MySQL",
+      "description": "Store Google Calendar events in MySQL database. Nodes: Google Calendar Trigger (new event), MySQL Action (insert row), Slack Action (announce event)",
+      "category": "productivity"
+    },
+    {
+      "filename": "google-form-bug-report-to-clickup.json",
+      "id": "cb0e9df5-8ad3-4b3f-a591-43173f045329",
+      "name": "Google Form Bug Report to ClickUp",
+      "description": "Create bug tracking tasks from form. Nodes: Google Forms Trigger, ClickUp Action",
+      "category": "development"
+    },
+    {
+      "filename": "google-form-event-registration.json",
+      "id": "d0f114e1-5929-40ff-bd9f-8e0b919d06c5",
+      "name": "Google Form Event Registration",
+      "description": "Add event registrations to calendar. Nodes: Google Forms Trigger, Google Calendar Action",
+      "category": "events"
+    },
+    {
+      "filename": "google-form-lead-to-salesforce.json",
+      "id": "b233d515-3ff6-4f1e-82d9-7f9d8fcea5a8",
+      "name": "Google Form Lead to Salesforce",
+      "description": "Auto-create CRM leads from contact forms. Nodes: Google Forms Trigger, Salesforce Action",
+      "category": "sales"
+    },
+    {
+      "filename": "google-form-nps-tracker.json",
+      "id": "2528a5ed-c446-47a7-86c0-8f4abca23990",
+      "name": "Google Form NPS Tracker",
+      "description": "Track Net Promoter Score over time. Nodes: Google Forms Trigger, Google Sheets Action",
+      "category": "analytics"
+    },
+    {
+      "filename": "google-form-response-alerts.json",
+      "id": "a99a89c9-71b3-414b-b457-f35baf3122ea",
+      "name": "Google Form Response Alerts",
+      "description": "Team notifications for critical form submissions. Nodes: Google Forms Trigger, Slack Action",
+      "category": "collaboration"
+    },
+    {
+      "filename": "google-form-survey-results-to-slack.json",
+      "id": "7bec2fbf-b8f9-4a68-a54c-ecb45c2a5bdd",
+      "name": "Google Form Survey Results to Slack",
+      "description": "Share survey responses with team. Nodes: Google Forms Trigger, Slack Action",
+      "category": "analytics"
+    },
+    {
+      "filename": "google-form-to-airtable-record.json",
+      "id": "f8d423e9-7b87-46ae-8888-f0d66e8cf389",
+      "name": "Google Form to Airtable Record",
+      "description": "Store form responses in Airtable database. Nodes: Google Forms Trigger, Airtable Action",
+      "category": "database"
+    },
+    {
+      "filename": "google-form-to-clickup-task.json",
+      "id": "4cbb953e-877b-4941-885b-b3ff3875f665",
+      "name": "Google Form to ClickUp Task Creator",
+      "description": "Convert form responses into project tasks. Nodes: Google Forms Trigger, ClickUp Action",
+      "category": "productivity"
+    },
+    {
+      "filename": "google-form-to-email-thank-you.json",
+      "id": "4c7dccd4-64d9-4191-a4e1-7f7ff8bc92c3",
+      "name": "Google Form to Email Thank You",
+      "description": "Send automated thank you emails. Nodes: Google Forms Trigger, Gmail Action",
+      "category": "communication"
+    },
+    {
+      "filename": "google-form-to-google-sheets-logger.json",
+      "id": "d000aa52-624a-44b4-a1f8-8b3bdbfbd9bc",
+      "name": "Google Form to Google Sheets Logger",
+      "description": "Log all form submissions to spreadsheet. Nodes: Google Forms Trigger, Google Sheets Action",
+      "category": "analytics"
+    },
+    {
+      "filename": "google-form-to-hubspot-contact.json",
+      "id": "6c9b7d1e-16e3-4f5d-9378-d1faf5bbc3b0",
+      "name": "Google Form to HubSpot Contact",
+      "description": "Add leads to marketing automation. Nodes: Google Forms Trigger, HubSpot Action",
+      "category": "marketing"
+    },
+    {
+      "filename": "google-form-to-salesforce-contact.json",
+      "id": "06d0522d-d9fa-4220-b1f5-8adc327abe23",
+      "name": "Google Form to Salesforce Contact",
+      "description": "Add form respondents to CRM. Nodes: Google Forms Trigger, Salesforce Action",
+      "category": "crm"
+    },
+    {
+      "filename": "google-forms-duplicate-check.json",
+      "id": "b5982d43-73c5-4e96-94fa-88e86fbd5a16",
+      "name": "Google Forms Duplicate Response Filter",
+      "description": "Check for duplicate form submissions and alert. Nodes: Google Forms Trigger, Google Sheets Action, Slack Action",
+      "category": "productivity"
+    },
+    {
+      "filename": "google-forms-to-gmail.json",
+      "id": "2e359f54-ee41-48be-b0bf-fa4008da9fba",
+      "name": "Google Forms Email Confirmation",
+      "description": "Send personalized email confirmations to form respondents. Nodes: Google Forms Trigger, Gmail Action",
+      "category": "communication"
+    },
+    {
+      "filename": "google-forms-priority-alert.json",
+      "id": "2f811f06-3c71-4e0a-b8ee-d98500f67926",
+      "name": "Google Forms Priority Response Alert",
+      "description": "Send urgent notifications for high-priority form submissions. Nodes: Google Forms Trigger, Gmail Action",
+      "category": "communication"
+    },
+    {
+      "filename": "google-forms-to-slack-notification.json",
+      "id": "9b2638af-ca1c-43f0-9f92-1086939e2240",
+      "name": "Google Forms Response Alert to Slack",
+      "description": "Get instant Slack notifications for new form submissions. Nodes: Google Forms Trigger, Slack Action",
+      "category": "communication"
+    },
+    {
+      "filename": "google-forms-response-counter.json",
+      "id": "6206ecdc-6060-4f12-8926-87158f52ed14",
+      "name": "Google Forms Response Counter Dashboard",
+      "description": "Track form response counts and update dashboard. Nodes: Google Forms Trigger, Google Sheets Action, Slack Action",
+      "category": "analytics"
+    },
+    {
+      "filename": "google-forms-response-to-sheets.json",
+      "id": "da64add0-a08f-460a-b91d-6104bf12f1b2",
+      "name": "Google Forms Response to Sheets",
+      "description": "Automatically log form responses to Google Sheets for analysis. Nodes: Google Forms Trigger, Google Sheets Action",
+      "category": "productivity"
+    },
+    {
+      "filename": "google-forms-to-airtable.json",
+      "id": "aee217c8-b728-4eb5-8851-22f097418ddc",
+      "name": "Google Forms to Airtable Record",
+      "description": "Sync form responses to Airtable database automatically. Nodes: Google Forms Trigger, Airtable Action",
+      "category": "productivity"
+    },
+    {
+      "filename": "google-forms-to-calendar-event.json",
+      "id": "954c0474-9aa6-40d8-b62b-612641949eb5",
+      "name": "Google Forms to Calendar Event",
+      "description": "Create calendar events from form responses automatically. Nodes: Google Forms Trigger, Google Calendar Action",
+      "category": "productivity"
+    },
+    {
+      "filename": "google-forms-to-clickup-task.json",
+      "id": "9465526c-3e3a-48a2-b98f-5c720492f1e3",
+      "name": "Google Forms to ClickUp Task",
+      "description": "Convert form submissions into ClickUp tasks for tracking. Nodes: Google Forms Trigger, ClickUp Action",
+      "category": "project_management"
+    },
+    {
+      "filename": "google-forms-to-salesforce-lead.json",
+      "id": "53bb2302-e8f3-4655-9721-be435f7c0bf9",
+      "name": "Google Forms to Salesforce Lead",
+      "description": "Create Salesforce leads from form submissions automatically. Nodes: Google Forms Trigger, Salesforce Action",
+      "category": "sales"
+    },
+    {
+      "filename": "google-forms-to-trello-card.json",
+      "id": "091e2d67-0fb0-49ad-88b1-f339a76395cd",
+      "name": "Google Forms to Trello Card",
+      "description": "Create Trello cards from form submissions for project tracking. Nodes: Google Forms Trigger, Trello Action",
+      "category": "project_management"
+    },
+    {
+      "filename": "google-forms-weekly-digest.json",
+      "id": "ef83b6f8-1ec4-48d8-8197-aba5ade6abc3",
+      "name": "Google Forms Weekly Digest Report",
+      "description": "Compile weekly form responses into summary report. Nodes: Schedule Trigger, Google Forms Action, Gmail Action",
+      "category": "analytics"
+    },
+    {
+      "filename": "33-google-sheets-to-database-sync.json",
+      "id": "320e8e5b-f32f-4c59-95d0-8ae30139e990",
+      "name": "Google Sheets to Database Sync",
+      "description": "Sync Google Sheets data to PostgreSQL database",
+      "category": "data"
+    },
+    {
+      "filename": "mysql-sheets-sync.json",
+      "id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c03",
+      "name": "Google Sheets to MySQL Sync",
+      "description": "Sync Google Sheets data to MySQL database. Nodes: Google Sheets Trigger (new row), MySQL Action (insert or update)",
+      "category": "database"
+    },
+    {
+      "filename": "habit-tracker-logger.json",
+      "id": "02855507-aace-44ff-b349-1e73bcd7f4e5",
+      "name": "Habit Tracker Logger",
+      "description": "Automatically habit tracker logger. Nodes: Google Sheets Trigger, Google Analytics Action",
+      "category": "productivity"
+    },
+    {
+      "filename": "influencer-outreach-tracker.json",
+      "id": "8eb015e0-80b2-4a8d-a057-2c9ac7facdf0",
+      "name": "Influencer Outreach Tracker",
+      "description": "Automatically influencer outreach tracker. Nodes: Twitter Trigger, Google Sheets Action",
+      "category": "marketing"
+    },
+    {
+      "filename": "infoinlet-content-creation.json",
+      "id": "27fdc25b-bcbb-4ac3-8ca2-05dc05001bd5",
+      "name": "Infoinlet Content Creation",
+      "description": "Content Creation using Open Ai and formatted and then save to database",
+      "category": "content"
+    },
+    {
+      "filename": "infoinlet-schedule-posting.json",
+      "id": "c6a377fc-b9bf-45cc-9e77-7f8ae03efe69",
+      "name": "Infoinlet schedule posting",
+      "description": "Schedule post to facebook, twitter, linkedin",
+      "category": "social_media"
+    },
+    {
+      "filename": "18-instagram-to-multi-platform.json",
+      "id": "70d16a67-ae83-4c59-bd6b-5b4b1e647c73",
+      "name": "Instagram to Multi-Platform",
+      "description": "Cross-post Instagram content to other platforms",
+      "category": "social"
+    },
+    {
+      "filename": "interview-scheduler.json",
+      "id": "d86107b9-827c-4680-8e23-8963d3bfc3bf",
+      "name": "Interview Scheduler",
+      "description": "Automatically interview scheduler. Nodes: Google Sheets Trigger, Google Calendar Action, SMTP Action",
+      "category": "hr"
+    },
+    {
+      "filename": "35-inventory-tracker.json",
+      "id": "3d944497-8e71-4212-867e-49269fe1d99c",
+      "name": "Inventory Tracker",
+      "description": "Monitor Shopify inventory and alert on low stock",
+      "category": "data"
+    },
+    {
+      "filename": "27-invoice-payment-reminder.json",
+      "id": "45aa5fff-bc08-4891-99f7-6648cb415621",
+      "name": "Invoice Payment Reminder",
+      "description": "Auto-send reminders for overdue Stripe invoices",
+      "category": "sales"
+    },
+    {
+      "filename": "job-application-tracker.json",
+      "id": "62df1bd7-c213-4178-883d-0e4bc83dd71a",
+      "name": "Job Application Tracker",
+      "description": "Automatically job application tracker. Nodes: IMAP Trigger, Google Sheets Action, SMTP Action",
+      "category": "hr"
+    },
+    {
+      "filename": "jotform-to-sendgrid-email.json",
+      "id": "fc827535-72df-4ad9-80b5-c4e802ba0cbe",
+      "name": "Jotform Auto-Response Email",
+      "description": "Send automatic confirmation emails to Jotform respondents. Nodes: Jotform Trigger, SendGrid Action",
+      "category": "communication"
+    },
+    {
+      "filename": "21-jotform-lead-to-crm-pipeline.json",
+      "id": "a3c3660b-01a0-4ee0-a0fc-6dba59818d59",
+      "name": "Jotform Lead to CRM Pipeline",
+      "description": "Capture Jotform submissions and route to sales team",
+      "category": "sales"
+    },
+    {
+      "filename": "jotform-payment-to-slack.json",
+      "id": "0aa8f4f8-a4e6-4599-8e09-550f1f7685d5",
+      "name": "Jotform Payment Notification to Slack",
+      "description": "Get notified in Slack when payments are received via Jotform. Nodes: Jotform Trigger, Slack Action",
+      "category": "sales"
+    },
+    {
+      "filename": "jotform-to-google-sheets.json",
+      "id": "6fded047-4f3b-42ba-aa89-f92979d36cfc",
+      "name": "Jotform Responses to Google Sheets",
+      "description": "Automatically log Jotform submissions to Google Sheets. Nodes: Jotform Trigger, Google Sheets Action",
+      "category": "productivity"
+    },
+    {
+      "filename": "jotform-to-slack-alert.json",
+      "id": "c4d229f8-e447-479d-9fd3-d665d62031bb",
+      "name": "Jotform Submission Alert to Slack",
+      "description": "Get instant Slack notifications for new Jotform submissions. Nodes: Jotform Trigger, Slack Action",
+      "category": "communication"
+    },
+    {
+      "filename": "jotform-to-clickup-task.json",
+      "id": "ab1648c1-c940-4943-b7d4-7a72ca69fae4",
+      "name": "Jotform Submission to ClickUp Task",
+      "description": "Convert form submissions into actionable ClickUp tasks. Nodes: Jotform Trigger, ClickUp Action",
+      "category": "project_management"
+    },
+    {
+      "filename": "jotform-to-salesforce-contact.json",
+      "id": "389b939b-cfc7-4cf2-834a-1c3e6f9fe25f",
+      "name": "Jotform Submission to Salesforce Contact",
+      "description": "Create Salesforce contacts from Jotform submissions. Nodes: Jotform Trigger, Salesforce Action",
+      "category": "sales"
+    },
+    {
+      "filename": "jotform-to-trello-card.json",
+      "id": "46039f77-67dc-4cd5-a3c7-ca995172c444",
+      "name": "Jotform Submission to Trello Card",
+      "description": "Convert Jotform submissions into Trello cards. Nodes: Jotform Trigger, Trello Action",
+      "category": "project_management"
+    },
+    {
+      "filename": "jotform-to-airtable.json",
+      "id": "1dc10860-b98d-41e4-96fc-2e731208acab",
+      "name": "Jotform to Airtable Database",
+      "description": "Sync Jotform submissions to Airtable for organization. Nodes: Jotform Trigger, Airtable Action",
+      "category": "productivity"
+    },
+    {
+      "filename": "jotform-weekly-summary.json",
+      "id": "1a57943f-737f-4560-9745-6f98e6cc0a04",
+      "name": "Jotform Weekly Submission Summary",
+      "description": "Send weekly summary of Jotform submissions via email. Nodes: Schedule Trigger, Jotform Action, Gmail Action",
+      "category": "analytics"
+    },
+    {
+      "filename": "lead-capture-to-follow-up.json",
+      "id": "983d3f0d-b864-4d63-8378-95f7dd3e563a",
+      "name": "Lead Capture to Follow-Up",
+      "description": "Automatically lead capture to follow-up. Nodes: Google Sheets Trigger, SMTP Action, Google Calendar Action",
+      "category": "marketing"
+    },
+    {
+      "filename": "lead-qualification-scorer.json",
+      "id": "ced68e36-b116-4ee6-89fd-ed29f5b8a5db",
+      "name": "Lead Qualification Scorer",
+      "description": "Automatically lead qualification scorer. Nodes: Google Sheets Trigger, ChatGPT Action, SMTP Action",
+      "category": "sales"
+    },
+    {
+      "filename": "30-lead-score-calculator.json",
+      "id": "6ba73e1e-2fee-46bf-a139-37cb003f5cfc",
+      "name": "Lead Score Calculator",
+      "description": "Auto-calculate and update lead scores in Airtable",
+      "category": "sales"
+    },
+    {
+      "filename": "learning-content-curator.json",
+      "id": "f4040dcf-bd68-427e-809c-405e9e12d625",
+      "name": "Learning Content Curator",
+      "description": "AI creates personalized learning paths from saved content",
+      "category": "other"
+    },
+    {
+      "filename": "linkedin-article-to-google-docs-backup.json",
+      "id": "d768f704-e2cd-453e-9d30-55620e1baebb",
+      "name": "LinkedIn Article to Google Docs Backup",
+      "description": "Automatically linkedin article to google docs backup. Nodes: LinkedIn Trigger, Google Docs Action, Google Drive Action",
+      "category": "social_media"
+    },
+    {
+      "filename": "linkedin-engagement-logger.json",
+      "id": "aba89233-f0b7-49f1-9ae5-27d7474c24f1",
+      "name": "LinkedIn Engagement Logger",
+      "description": "Automatically linkedin engagement logger. Nodes: LinkedIn Trigger, Google Analytics Action, Google Sheets Action",
+      "category": "analytics"
+    },
+    {
+      "filename": "14-linkedin-lead-capture.json",
+      "id": "d62c6bb6-966e-4bc6-8e8e-2ad73ddb6c77",
+      "name": "LinkedIn Lead Capture",
+      "description": "Capture LinkedIn post commenters as leads in Airtable",
+      "category": "social"
+    },
+    {
+      "filename": "linkedin-post-ai-enhancement.json",
+      "id": "03f4025c-6b53-42ce-80de-2403fe42ab8a",
+      "name": "LinkedIn Post AI Enhancement",
+      "description": "Automatically linkedin post ai enhancement. Nodes: Google Docs Trigger, ChatGPT Action, LinkedIn Action",
+      "category": "ai_automation"
+    },
+    {
+      "filename": "linkedin-post-idea-generator.json",
+      "id": "43806622-124c-46be-b483-7ba12f60e23a",
+      "name": "LinkedIn Post Idea Generator",
+      "description": "Get daily AI-generated post ideas based on your niche",
+      "category": "personal"
+    },
+    {
+      "filename": "meeting-notes-distribution.json",
+      "id": "b11b09c8-1560-4b1f-bf3e-9bdef074e9e3",
+      "name": "Meeting Notes Distribution",
+      "description": "Automatically meeting notes distribution. Nodes: Google Docs Trigger, SMTP Action, Slack Action",
+      "category": "document_management"
+    },
+    {
+      "filename": "43-meeting-notes-generator.json",
+      "id": "fa5b3397-1447-404f-9763-4bd33de10b3f",
+      "name": "Meeting Notes Generator",
+      "description": "Generate AI meeting notes and save to Google Docs",
+      "category": "ai"
+    },
+    {
+      "filename": "meeting-notes-to-google-docs.json",
+      "id": "98bd9772-68d1-4913-8f88-1df077669d12",
+      "name": "Meeting Notes to Google Docs",
+      "description": "Automatically meeting notes to google docs. Nodes: Google Calendar Trigger, ChatGPT Action, Google Docs Action",
+      "category": "collaboration"
+    },
+    {
+      "filename": "meeting-prep-assistant.json",
+      "id": "eed7948e-f3db-43c0-9840-c10288ffea8b",
+      "name": "Meeting Prep Assistant",
+      "description": "Automatically meeting prep assistant. Nodes: Google Calendar Trigger, ChatGPT Action, SMTP Action",
+      "category": "productivity"
+    },
+    {
+      "filename": "multi-channel-content-distribution.json",
+      "id": "db4cf5a1-8805-446c-96bc-c4c157879b7c",
+      "name": "Multi-Channel Content Distribution",
+      "description": "Publish content across Twitter, LinkedIn, Facebook simultaneously and track analytics of engagement",
+      "category": "other"
+    },
+    {
+      "filename": "10-multi-channel-support-aggregator.json",
+      "id": "8f719339-e25c-45c9-be1a-637543ee68d0",
+      "name": "Multi-Channel Support Aggregator",
+      "description": "Centralize support messages from Gmail, Slack, and Telegram",
+      "category": "communication"
+    },
+    {
+      "filename": "48-multi-language-translator.json",
+      "id": "ce6c44a7-6c89-41f2-90e4-8491243cbae6",
+      "name": "Multi-Language Translator",
+      "description": "Auto-translate content across multiple languages",
+      "category": "ai"
+    },
+    {
+      "filename": "multi-platform-lead-enrichment.json",
+      "id": "e0336dcd-bb1e-470f-a43b-90c3ea46a536",
+      "name": "Multi-Platform Lead Enrichment Pipeline",
+      "description": "Enrich leads from forms through Salesforce to Slack. Nodes: Google Forms Trigger, Salesforce Action, Slack Action",
+      "category": "sales"
+    },
+    {
+      "filename": "mysql-telegram-alerts.json",
+      "id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c04",
+      "name": "MySQL Database Alerts to Telegram",
+      "description": "Send Telegram alerts when new database records are created. Nodes: MySQL Trigger (new row), Telegram Action (send message)",
+      "category": "database"
+    },
+    {
+      "filename": "mysql-slack-notifications.json",
+      "id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c02",
+      "name": "MySQL New Records to Slack",
+      "description": "Send Slack notifications when new records are added to MySQL. Nodes: MySQL Trigger (new row), Slack Action (send message)",
+      "category": "database"
+    },
+    {
+      "filename": "mysql-dropbox-backup.json",
+      "id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c10",
+      "name": "MySQL Query Results to Dropbox",
+      "description": "Export MySQL query results and backup to Dropbox. Nodes: MySQL Trigger (new row), MySQL Action (select), Google Sheets Action (append), Dropbox Action (upload)",
+      "category": "database"
+    },
+    {
+      "filename": "new-contact-to-email-welcome.json",
+      "id": "926b6b14-c955-4848-99a1-04e0b3297727",
+      "name": "New Contact to Email Welcome",
+      "description": "Automatically new contact to email welcome. Nodes: Google Sheets Trigger, SMTP Action",
+      "category": "email"
+    },
+    {
+      "filename": "new-employee-onboarding.json",
+      "id": "4a5e28d9-8df9-4bb7-ae14-6ccc29ae425c",
+      "name": "New Employee Onboarding",
+      "description": "Automatically new employee onboarding. Nodes: Google Sheets Trigger, SMTP Action, Google Calendar Action",
+      "category": "hr"
+    },
+    {
+      "filename": "salesforce-opportunity-to-zoom-meeting.json",
+      "id": "d4e5f6a7-b8c9-4012-d4e5-f6a7b8c90123",
+      "name": "New Salesforce Opportunity Creates Zoom Meeting",
+      "description": "Auto-schedule kickoff calls for new sales opportunities. Nodes: Salesforce Trigger, Zoom Action",
+      "category": "sales"
+    },
+    {
+      "filename": "newsletter-signup-confirmation.json",
+      "id": "2e9574cd-dec2-4306-93c4-e017e7186e76",
+      "name": "Newsletter Signup Confirmation",
+      "description": "Automatically newsletter signup confirmation. Nodes: Google Sheets Trigger, SMTP Action",
+      "category": "email"
+    },
+    {
+      "filename": "linkedin-post-to-twitter-cross-post.json",
+      "id": "eb655d2a-f5b9-412c-a70b-6e2b7ab80551",
+      "name": "Post to LinkedIn and Twitter",
+      "description": "Manually trigger workflow to post the same content to both LinkedIn and Twitter. Nodes: Manual Trigger, LinkedIn Action, Twitter Action",
+      "category": "social_media"
+    },
+    {
+      "filename": "proposal-auto-send.json",
+      "id": "70a13216-7e86-40ab-b7dd-0cae3c29c200",
+      "name": "Proposal Auto-Send",
+      "description": "Automatically proposal auto-send. Nodes: Google Sheets Trigger, Google Docs Action, SMTP Action",
+      "category": "sales"
+    },
+    {
+      "filename": "reading-list-manager.json",
+      "id": "5a72a65c-3178-4826-bd97-6671d3be5884",
+      "name": "Reading List Manager",
+      "description": "Automatically reading list manager. Nodes: Twitter Trigger, Google Sheets Action",
+      "category": "productivity"
+    },
+    {
+      "filename": "reddit-community-manager.json",
+      "id": "d9707503-287f-4a9b-aea5-b1863e68f706",
+      "name": "Reddit Community Manager",
+      "description": "Monitor subreddits, respond to mentions, and engage with community.",
+      "category": "social_media"
+    },
+    {
+      "filename": "15-reddit-content-repurposer.json",
+      "id": "8f206276-83ee-4276-ab69-0ef0beb12bde",
+      "name": "Reddit Content Repurposer",
+      "description": "Find top Reddit posts and share on Twitter/LinkedIn",
+      "category": "social"
+    },
+    {
+      "filename": "review-analysis.json",
+      "id": "31b216c0-5fdd-4df8-9e9c-9f1515f3a920",
+      "name": "Review Analysis",
+      "description": "When user review on a content, webhook trigger. The review save into mysql database review table. Check the review if it is less than 3 , review is saved to alart table. And automatically notice it in telegram. And user forward this notice in whatsapp",
+      "category": "content"
+    },
+    {
+      "filename": "25-sales-meeting-scheduler.json",
+      "id": "a51d9acd-18b9-4657-a928-93fe63554b7e",
+      "name": "Sales Meeting Scheduler",
+      "description": "Auto-schedule meetings for qualified leads",
+      "category": "sales"
+    },
+    {
+      "filename": "sales-report-generator.json",
+      "id": "f48037c3-939b-41fc-abf8-c67bfb8f8c84",
+      "name": "Sales Report Generator",
+      "description": "Automatically sales report generator. Nodes: Google Calendar Trigger, Google Sheets Action, Google Docs Action",
+      "category": "sales"
+    },
+    {
+      "filename": "salesforce-account-update-notification.json",
+      "id": "1594269b-6e07-4729-810b-b0e3ba2b1748",
+      "name": "Salesforce Account Update Notification",
+      "description": "Get notified when important account fields are updated. Nodes: Salesforce Trigger, Gmail Action",
+      "category": "sales"
+    },
+    {
+      "filename": "salesforce-case-to-clickup.json",
+      "id": "1ee6bf53-4f49-4701-9b34-2cce265ee02e",
+      "name": "Salesforce Case to ClickUp Task",
+      "description": "Create ClickUp tasks from Salesforce support cases. Nodes: Salesforce Trigger, ClickUp Action",
+      "category": "project_management"
+    },
+    {
+      "filename": "salesforce-lead-nurture-sequence.json",
+      "id": "55a7a2dc-4f86-48ce-a712-3d01fd43d0aa",
+      "name": "Salesforce Lead Nurture Email Sequence",
+      "description": "Start automated email nurture when new leads are created. Nodes: Salesforce Trigger, SendGrid Action",
+      "category": "marketing"
+    },
+    {
+      "filename": "salesforce-contact-to-sheets.json",
+      "id": "2b919cd6-0019-42ae-b08c-3c1893f15ec0",
+      "name": "Salesforce New Contact to Google Sheets",
+      "description": "Log new Salesforce contacts to Google Sheets for tracking. Nodes: Salesforce Trigger, Google Sheets Action",
+      "category": "sales"
+    },
+    {
+      "filename": "salesforce-lead-to-slack.json",
+      "id": "c623cea1-009c-4b0f-bb49-ed9dcd73431e",
+      "name": "Salesforce New Lead Alert to Slack",
+      "description": "Get instant Slack notifications for new Salesforce leads. Nodes: Salesforce Trigger, Slack Action",
+      "category": "sales"
+    },
+    {
+      "filename": "salesforce-opportunity-stage-alert.json",
+      "id": "cde0ebcc-68a2-4c65-80ef-54d0cfd7fbf8",
+      "name": "Salesforce Opportunity Stage Change Alert",
+      "description": "Track opportunity progress with stage change notifications. Nodes: Salesforce Trigger, Slack Action",
+      "category": "sales"
+    },
+    {
+      "filename": "salesforce-deal-to-clickup.json",
+      "id": "e2f229d4-d6ff-4056-8367-8ba629ccc918",
+      "name": "Salesforce Opportunity to ClickUp Project",
+      "description": "Create ClickUp projects from Salesforce opportunities. Nodes: Salesforce Trigger, ClickUp Action",
+      "category": "sales"
+    },
+    {
+      "filename": "salesforce-opportunity-won-email.json",
+      "id": "99932bec-8bc8-4e56-a3c2-34c6c2ef3a66",
+      "name": "Salesforce Opportunity Won Celebration Email",
+      "description": "Send congratulatory emails when deals are won. Nodes: Salesforce Trigger, Gmail Action",
+      "category": "sales"
+    },
+    {
+      "filename": "salesforce-task-completion-log.json",
+      "id": "a0ace5ae-d39a-4279-83f7-870c29d7e27d",
+      "name": "Salesforce Task Completion Logger",
+      "description": "Log completed Salesforce tasks to Google Sheets for reporting. Nodes: Salesforce Trigger, Google Sheets Action",
+      "category": "analytics"
+    },
+    {
+      "filename": "04-sendgrid-campaign-tracker.json",
+      "id": "57104caa-0ec7-4cca-9d25-5c53f460be22",
+      "name": "SendGrid Campaign Tracker",
+      "description": "Track SendGrid email campaigns and log performance metrics",
+      "category": "communication"
+    },
+    {
+      "filename": "shared-drive-organization.json",
+      "id": "602bd36a-60ec-4381-bb2b-e2485321e7c5",
+      "name": "Shared Drive Organization",
+      "description": "Automatically shared drive organization. Nodes: Google Drive Trigger, Google Drive Action",
+      "category": "document_management"
+    },
+    {
+      "filename": "23-shopify-order-fulfillment.json",
+      "id": "54c5ce64-1ab9-4a4d-b07e-aa5e41b16a93",
+      "name": "Shopify Order Fulfillment",
+      "description": "Process Shopify orders and notify warehouse",
+      "category": "sales"
+    },
+    {
+      "filename": "slack-message-to-email-forward.json",
+      "id": "53cdd82c-72cd-4550-b186-2d973a515c1f",
+      "name": "Slack Message to Email Forward",
+      "description": "Automatically slack message to email forward. Nodes: Slack Trigger, SMTP Action",
+      "category": "collaboration"
+    },
+    {
+      "filename": "08-slack-message-to-task.json",
+      "id": "f58e1825-639e-48f6-b843-77eb2e16d122",
+      "name": "Slack Message to Task",
+      "description": "Convert starred Slack messages into Notion tasks",
+      "category": "communication"
+    },
+    {
+      "filename": "slack-task-to-google-sheets.json",
+      "id": "db1c2d59-0328-43db-b521-b7d5dee9d864",
+      "name": "Slack Task to Google Sheets",
+      "description": "Automatically slack task to google sheets. Nodes: Slack Trigger, Google Sheets Action",
+      "category": "project_management"
+    },
+    {
+      "filename": "smart-social-media-cross-poster.json",
+      "id": "10fc7380-f867-48b5-8257-62b3903fb473",
+      "name": "Smart Social Media Cross-Poster",
+      "description": "Automatically rewrite and optimize your content for different platforms using AI with Split and Merge nodes for parallel posting",
+      "category": "social_media"
+    },
+    {
+      "filename": "45-smart-support-bot.json",
+      "id": "f01c15d4-d208-4513-bcff-e41f072a329a",
+      "name": "Smart Support Bot",
+      "description": "AI-powered customer support via Telegram/WhatsApp",
+      "category": "ai"
+    },
+    {
+      "filename": "social-media-caption-generator.json",
+      "id": "2cbc5a98-4980-4138-bfc3-fa366639d074",
+      "name": "Social Media Caption Generator",
+      "description": "Automatically social media caption generator. Nodes: Google Drive Trigger, ChatGPT Action, Twitter Action",
+      "category": "ai_automation"
+    },
+    {
+      "filename": "social-media-engagement-follow-up.json",
+      "id": "d973b311-b935-4536-bb56-ad282d322797",
+      "name": "Social Media Engagement Follow-Up",
+      "description": "Automatically social media engagement follow-up. Nodes: LinkedIn Trigger, Google Sheets Action, SMTP Action",
+      "category": "marketing"
+    },
+    {
+      "filename": "50-social-media-listening.json",
+      "id": "1e67b7d4-18df-48fc-8c49-75af10f6b044",
+      "name": "Social Media Listening",
+      "description": "Monitor social platforms and analyze sentiment with AI",
+      "category": "ai"
+    },
+    {
+      "filename": "social-media-monitoring.json",
+      "id": "dbb31019-bab5-463f-8783-1aa88bd9db3e",
+      "name": "Social Media Monitoring",
+      "description": "Monitor brand mentions across social platforms and analyze sentiment",
+      "category": "other"
+    },
+    {
+      "filename": "17-social-media-performance-dashboard.json",
+      "id": "eaed6bb1-1071-476e-a5ca-4f8f16c235ca",
+      "name": "Social Media Performance Dashboard",
+      "description": "Daily report of Twitter, LinkedIn, and Facebook stats",
+      "category": "social"
+    },
+    {
+      "filename": "social-media-report-generator.json",
+      "id": "92f21103-c9aa-4b5e-9f9d-18463f3734e9",
+      "name": "Social Media Report Generator",
+      "description": "Automatically social media report generator. Nodes: Google Calendar Trigger, Google Sheets Action, Google Docs Action",
+      "category": "analytics"
+    },
+    {
+      "filename": "22-stripe-payment-to-customer-db.json",
+      "id": "9b3bb356-3125-41e0-8ae6-d1c2ba94fb46",
+      "name": "Stripe Payment to Customer DB",
+      "description": "Auto-update customer database on successful payments",
+      "category": "sales"
+    },
+    {
+      "filename": "mysql-stripe-orders.json",
+      "id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c05",
+      "name": "Stripe Payments to MySQL",
+      "description": "Save Stripe payment records to MySQL database. Nodes: Stripe Trigger (payment succeeded), MySQL Action (insert row), Gmail Action (send receipt)",
+      "category": "ecommerce"
+    },
+    {
+      "filename": "support-ticket-auto-response.json",
+      "id": "88e1acfc-1c34-4e54-b695-1be3dc88ef15",
+      "name": "Support Ticket Auto-Response",
+      "description": "Automatically support ticket auto-response. Nodes: IMAP Trigger, ChatGPT Action, SMTP Action",
+      "category": "email"
+    },
+    {
+      "filename": "support-ticket-creation.json",
+      "id": "bb0577a1-de7c-4f92-96d0-295c19acfec9",
+      "name": "Support Ticket Creation",
+      "description": "Automatically support ticket creation. Nodes: IMAP Trigger, Google Sheets Action, Slack Action",
+      "category": "support"
+    },
+    {
+      "filename": "support-ticket-resolution-notice.json",
+      "id": "65b10a04-7948-4325-95fe-afbda7fc4df8",
+      "name": "Support Ticket Resolution Notice",
+      "description": "Automatically support ticket resolution notice. Nodes: Google Sheets Trigger, SMTP Action",
+      "category": "support"
+    },
+    {
+      "filename": "38-survey-response-analyzer.json",
+      "id": "32805fb9-e956-4a7a-86f7-6b5052c0eb3e",
+      "name": "Survey Response Analyzer",
+      "description": "Analyze Jotform survey responses with AI",
+      "category": "analytics"
+    },
+    {
+      "filename": "team-birthday-reminder.json",
+      "id": "7d70dfe0-b4ff-4cc6-be9e-dafb4acefd87",
+      "name": "Team Birthday Reminder",
+      "description": "Automatically team birthday reminder. Nodes: Google Calendar Trigger, Slack Action",
+      "category": "hr"
+    },
+    {
+      "filename": "05-telegram-to-email-forwarder.json",
+      "id": "6444a255-f982-4cf2-a13b-062fbabe8482",
+      "name": "Telegram to Email Forwarder",
+      "description": "Forward Telegram messages to email for archiving",
+      "category": "communication"
+    },
+    {
+      "filename": "tweet-thread-generator.json",
+      "id": "41849c48-9fd9-44a6-ba79-f28862e2ddfe",
+      "name": "Tweet Thread Generator",
+      "description": "Automatically tweet thread generator. Nodes: Google Sheets Trigger, ChatGPT Action, Twitter Action",
+      "category": "ai_automation"
+    },
+    {
+      "filename": "tweet-to-slack-notification.json",
+      "id": "f11dd6ae-8087-4a66-89f9-06ac126e1a34",
+      "name": "Tweet to Slack Notification",
+      "description": "Automatically tweet to slack notification. Nodes: Twitter Trigger, Slack Action",
+      "category": "social_media"
+    },
+    {
+      "filename": "13-twitter-engagement-monitor.json",
+      "id": "e835cf4c-f506-4bfb-9458-65256fb77c7e",
+      "name": "Twitter Engagement Monitor",
+      "description": "Track Twitter mentions and replies in Google Sheets",
+      "category": "social"
+    },
+    {
+      "filename": "twitter-metrics-tracker.json",
+      "id": "8b2301ac-9603-4733-b49d-b6471952a1dc",
+      "name": "Twitter Metrics Tracker",
+      "description": "Automatically twitter metrics tracker. Nodes: Google Calendar Trigger, Twitter Action, Google Sheets Action",
+      "category": "analytics"
+    },
+    {
+      "filename": "19-twitter-trend-alerter.json",
+      "id": "094eff4e-d4d0-4f53-8df7-4af940d6bd8c",
+      "name": "Twitter Trend Alerter",
+      "description": "Monitor Twitter trends and alert team via Slack",
+      "category": "social"
+    },
+    {
+      "filename": "39-uptime-monitor.json",
+      "id": "8abf21ca-4d98-43cb-af5d-710a19281d7f",
+      "name": "Uptime Monitor",
+      "description": "Monitor website uptime and alert on failures",
+      "category": "data"
+    },
+    {
+      "filename": "31-website-analytics-report.json",
+      "id": "39bbe447-c201-46cb-a9bd-1bdd99ec4f75",
+      "name": "Website Analytics Report",
+      "description": "Daily website analytics summary to Google Sheets and Slack",
+      "category": "analytics"
+    },
+    {
+      "filename": "website-analytics-to-slack.json",
+      "id": "47e5adb9-b248-4012-8d1a-d8eaba5fb601",
+      "name": "Website Analytics to Slack",
+      "description": "Automatically website analytics to slack. Nodes: Google Analytics Trigger, Slack Action",
+      "category": "analytics"
+    },
+    {
+      "filename": "weekly-community-digest.json",
+      "id": "82138d82-2d63-4be1-872a-19f7ca896698",
+      "name": "Weekly Community Digest",
+      "description": "Automatically create and send weekly community digest to Discord. Nodes: Schedule Trigger, Discord Action (Send Message)",
+      "category": "community"
+    },
+    {
+      "filename": "weekly-digest-email.json",
+      "id": "f80dd08e-1c95-4a52-ad6b-c3e47a6ccbed",
+      "name": "Weekly Digest Email",
+      "description": "Automatically weekly digest email. Nodes: Google Calendar Trigger, Google Sheets Action, SMTP Action",
+      "category": "email"
+    },
+    {
+      "filename": "weekly-review-generator.json",
+      "id": "8f095006-f48b-445b-a3ab-afc0e0c787b9",
+      "name": "Weekly Review Generator",
+      "description": "Automatically weekly review generator. Nodes: Google Calendar Trigger, Google Sheets Action, Google Docs Action",
+      "category": "productivity"
+    },
+    {
+      "filename": "weekly-team-report.json",
+      "id": "65595811-ca20-43af-ba6a-0b012e2fd839",
+      "name": "Weekly Team Report",
+      "description": "Automatically weekly team report. Nodes: Google Calendar Trigger, Google Sheets Action, SMTP Action",
+      "category": "project_management"
+    },
+    {
+      "filename": "06-whatsapp-to-team-notification.json",
+      "id": "df4bce38-3e5f-4d94-a6db-03e319bf9929",
+      "name": "WhatsApp to Team Notification",
+      "description": "Forward WhatsApp messages to Slack and log to Google Sheets",
+      "category": "communication"
+    },
+    {
+      "filename": "mysql-woocommerce-orders.json",
+      "id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c08",
+      "name": "WooCommerce Orders to MySQL",
+      "description": "Sync WooCommerce orders to MySQL database. Nodes: WooCommerce Trigger (new order), MySQL Action (insert row), Telegram Action (notify)",
+      "category": "ecommerce"
+    },
+    {
+      "filename": "36-youtube-analytics-dashboard.json",
+      "id": "661d32e0-fa27-41ac-a27f-ae2301a2b5ee",
+      "name": "YouTube Analytics Dashboard",
+      "description": "Track YouTube channel performance metrics",
+      "category": "analytics"
+    },
+    {
+      "filename": "20-youtube-comment-responder.json",
+      "id": "bb370358-0c59-4c30-b8b8-e32290169011",
+      "name": "YouTube Comment Responder",
+      "description": "Auto-respond to YouTube comments with AI",
+      "category": "social"
+    },
+    {
+      "filename": "12-youtube-to-social-cross-poster.json",
+      "id": "0e36467f-382b-4c17-8880-35e3926c87ed",
+      "name": "YouTube to Social Cross-Poster",
+      "description": "Share new YouTube videos across Twitter, LinkedIn, and Facebook",
+      "category": "social"
+    },
+    {
+      "filename": "youtube-video-publisher.json",
+      "id": "01338c11-303f-4c87-97ec-7ccbfe04677e",
+      "name": "YouTube Video Publisher",
+      "description": "Automatically upload videos from Google Drive to YouTube when a new video file is added",
+      "category": "productivity"
+    },
+    {
+      "filename": "zoom-cloud-recording-email.json",
+      "id": "a7b8c9d0-e1f2-4345-a7b8-c9d0e1f23456",
+      "name": "Zoom Cloud Recording Email Notification",
+      "description": "Email participants when cloud recording becomes available. Nodes: Zoom Trigger, SendGrid Action",
+      "category": "collaboration"
+    },
+    {
+      "filename": "zoom-meeting-ended-summary.json",
+      "id": "1c02a200-b669-4c9e-83ca-14c053d69fa4",
+      "name": "Zoom Meeting Ended Summary",
+      "description": "Send meeting summary emails. Nodes: Zoom Trigger, Gmail Action",
+      "category": "communication"
+    },
+    {
+      "filename": "zoom-meeting-no-show-alert.json",
+      "id": "2bf501e1-ef67-4d93-802f-8ad1351518e8",
+      "name": "Zoom Meeting No-Show Alert",
+      "description": "Alert team about meeting no-shows. Nodes: Zoom Trigger, Slack Action",
+      "category": "sales"
+    },
+    {
+      "filename": "zoom-meeting-reminder-to-slack.json",
+      "id": "b2c3d4e5-f6a7-4890-b2c3-d4e5f6a78901",
+      "name": "Zoom Meeting Reminder to Slack",
+      "description": "Daily digest of upcoming Zoom meetings posted to Slack channel. Nodes: Schedule Trigger, Zoom Action, Slack Action",
+      "category": "collaboration"
+    },
+    {
+      "filename": "zoom-meeting-scheduler-from-form.json",
+      "id": "a1b2c3d4-e5f6-4789-a1b2-c3d4e5f67890",
+      "name": "Zoom Meeting Scheduler from Form Submission",
+      "description": "Automatically create Zoom meetings when someone submits a meeting request form. Nodes: Jotform Trigger, Zoom Action",
+      "category": "productivity"
+    },
+    {
+      "filename": "zoom-meeting-started-notification.json",
+      "id": "e5f6a7b8-c9d0-4123-e5f6-a7b8c9d01234",
+      "name": "Zoom Meeting Started Notification",
+      "description": "Notify team channel when important meetings start. Nodes: Zoom Trigger, Slack Action",
+      "category": "collaboration"
+    },
+    {
+      "filename": "zoom-meeting-to-calendar-event.json",
+      "id": "e1f708cb-2584-4c8b-aaf3-968da591b774",
+      "name": "Zoom Meeting to Calendar Event",
+      "description": "Sync Zoom meetings to Google Calendar. Nodes: Zoom Trigger, Google Calendar Action",
+      "category": "productivity"
+    },
+    {
+      "filename": "zoom-meeting-to-salesforce-activity.json",
+      "id": "27ee93a8-a6ec-4338-b8a3-9bc7182dc683",
+      "name": "Zoom Meeting to Salesforce Activity",
+      "description": "Log Zoom calls as CRM activities. Nodes: Zoom Trigger, Salesforce Action",
+      "category": "sales"
+    },
+    {
+      "filename": "zoom-participant-count-alert.json",
+      "id": "f6a7b8c9-d0e1-4234-f6a7-b8c9d0e12345",
+      "name": "Zoom Participant Count Alert",
+      "description": "Get notified when meeting attendance reaches threshold. Nodes: Zoom Trigger, Condition, Slack Action",
+      "category": "collaboration"
+    },
+    {
+      "filename": "zoom-participant-joined-alert.json",
+      "id": "069950ea-f352-4b4b-b636-7df61d393922",
+      "name": "Zoom Participant Joined Alert",
+      "description": "Alert when VIP participants join. Nodes: Zoom Trigger, Slack Action",
+      "category": "collaboration"
+    },
+    {
+      "filename": "zoom-recording-ready-notification.json",
+      "id": "e12f2051-fa0b-4d23-a563-a8377f3c7bea",
+      "name": "Zoom Recording Ready Notification",
+      "description": "Notify attendees when recording is available. Nodes: Zoom Trigger, Gmail Action",
+      "category": "communication"
+    },
+    {
+      "filename": "zoom-recording-to-google-drive.json",
+      "id": "c3d4e5f6-a7b8-4901-c3d4-e5f6a7b89012",
+      "name": "Zoom Recording to Google Drive",
+      "description": "Auto-backup Zoom recordings to Google Drive for archival and compliance. Nodes: Zoom Trigger, Google Drive Action",
+      "category": "productivity"
+    },
+    {
+      "filename": "zoom-webinar-registration-to-sheets.json",
+      "id": "83a1143a-5fcd-4b76-b4e3-b9523d82225d",
+      "name": "Zoom Webinar Registration to Google Sheets",
+      "description": "Track webinar registrations in spreadsheet. Nodes: Zoom Trigger, Google Sheets Action",
+      "category": "analytics"
+    },
+    {
+      "filename": "zoom-webinar-to-clickup-task.json",
+      "id": "94f39cee-4e61-4d55-88f2-bcfc6437ca9f",
+      "name": "Zoom Webinar to ClickUp Task",
+      "description": "Create follow-up tasks for webinars. Nodes: Zoom Trigger, ClickUp Action",
+      "category": "project_management"
+    }
+  ]
+}

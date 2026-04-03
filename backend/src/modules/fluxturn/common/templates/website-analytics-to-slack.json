@@ -1,0 +1,105 @@
+{
+  "id": "47e5adb9-b248-4012-8d1a-d8eaba5fb601",
+  "name": "Website Analytics to Slack",
+  "description": "Automatically website analytics to slack. Nodes: Google Analytics Trigger, Slack Action",
+  "category": "analytics",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Daily Summary",
+          "config": {},
+          "trigger": "daily_summary",
+          "category": "trigger",
+          "connector": "google_analytics",
+          "eventType": "polling",
+          "triggerId": "daily_summary",
+          "description": "Triggered when daily summary",
+          "connectorType": "google_analytics",
+          "connectorDisplayName": "Google Analytics"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Post Report",
+          "action": "send_message",
+          "config": {
+            "channel": "{{channel_id}}",
+            "text": "{{text}}"
+          },
+          "actionId": "send_message",
+          "category": "action",
+          "connector": "slack",
+          "actionName": "Post Report",
+          "description": "Post Report",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_analytics",
+        "triggerId": "daily_summary"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_analytics",
+    "slack"
+  ],
+  "tags": [
+    "analytics",
+    "automation",
+    "google_analytics",
+    "slack"
+  ],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow website analytics to slack using google_analytics, slack",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"website analytics to slack\" that triggers when triggered when daily summary and then Post Report via Slack"
+}

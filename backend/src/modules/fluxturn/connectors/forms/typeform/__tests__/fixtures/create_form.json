@@ -1,0 +1,78 @@
+{
+  "action": "create_form",
+  "baseUrl": "https://api.typeform.com",
+  "testCases": [
+    {
+      "name": "creates form successfully",
+      "input": {
+        "title": "Customer Survey",
+        "fields": [
+          {
+            "type": "short_text",
+            "title": "What is your name?",
+            "ref": "name_field"
+          }
+        ]
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/forms",
+        "status": 201,
+        "response": {
+          "id": "form-123",
+          "title": "Customer Survey",
+          "_links": {
+            "display": "https://example.typeform.com/to/form-123"
+          }
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "id": "form-123",
+          "title": "Customer Survey"
+        }
+      }
+    },
+    {
+      "name": "creates form with settings",
+      "input": {
+        "title": "Feedback Form",
+        "settings": {
+          "is_public": true,
+          "show_progress_bar": true
+        }
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/forms",
+        "status": 201,
+        "response": {
+          "id": "form-456",
+          "title": "Feedback Form"
+        }
+      },
+      "expected": {
+        "success": true
+      }
+    },
+    {
+      "name": "handles validation error",
+      "input": {
+        "title": ""
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/forms",
+        "status": 400,
+        "response": {
+          "code": "VALIDATION_ERROR",
+          "description": "Title is required"
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    }
+  ]
+}

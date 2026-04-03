@@ -1,0 +1,116 @@
+{
+  "id": "470122e7-3e0a-4327-85a4-ebdd48b57522",
+  "name": "Database Backup Automation",
+  "description": "Automated daily database backups to Google Drive",
+  "category": "data",
+  "difficulty": "advanced",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": [
+    "postgresql",
+    "google_drive"
+  ],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_32_1",
+        "type": "MANUAL_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 100
+        },
+        "data": {
+          "label": "Daily 2 AM",
+          "category": "trigger",
+          "config": {
+            "cronExpression": "0 2 * * *"
+          },
+          "description": "Manually trigger this workflow",
+          "icon": "play",
+          "configSchema": {},
+          "outputSchema": {
+            "timestamp": {
+              "type": "string",
+              "description": "Execution timestamp"
+            }
+          },
+          "inputSchema": {}
+        }
+      },
+      {
+        "id": "node_32_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "label": "Create Backup",
+          "category": "action",
+          "config": {
+            "database": "{{db_name}}"
+          },
+          "connector": "postgresql",
+          "actionId": "backup_database",
+          "inputSchema": {},
+          "configSchema": {},
+          "outputSchema": {}
+        }
+      },
+      {
+        "id": "node_32_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 700,
+          "y": 100
+        },
+        "data": {
+          "label": "Upload to Drive",
+          "category": "action",
+          "config": {
+            "folderId": "{{backup_folder_id}}",
+            "file": "={{$json.backupFile}}"
+          },
+          "connector": "google_drive",
+          "actionId": "upload_file",
+          "inputSchema": {
+            "data": {
+              "type": "object",
+              "label": "Data",
+              "description": "Action input data"
+            }
+          },
+          "configSchema": {
+            "data": {
+              "type": "object",
+              "label": "Data",
+              "description": "Action input data"
+            }
+          },
+          "outputSchema": {
+            "result": {
+              "type": "object",
+              "description": "Action result"
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_1",
+        "source": "node_32_1",
+        "target": "node_32_2",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_2",
+        "source": "node_32_2",
+        "target": "node_32_3",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

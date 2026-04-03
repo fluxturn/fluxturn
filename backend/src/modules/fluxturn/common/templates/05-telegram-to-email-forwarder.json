@@ -1,0 +1,129 @@
+{
+  "id": "6444a255-f982-4cf2-a13b-062fbabe8482",
+  "name": "Telegram to Email Forwarder",
+  "description": "Forward Telegram messages to email for archiving",
+  "category": "communication",
+  "difficulty": "beginner",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": [
+    "telegram",
+    "gmail"
+  ],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_05_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 100
+        },
+        "data": {
+          "label": "New Telegram Message",
+          "category": "trigger",
+          "config": {},
+          "connector": "telegram",
+          "triggerId": "new_message",
+          "trigger": "new_message",
+          "triggerName": "New Message",
+          "description": "Triggers when a new message is received",
+          "eventType": "webhook",
+          "icon": "message-circle",
+          "connectorType": "telegram",
+          "connectorDisplayName": "Telegram",
+          "webhookRequired": true,
+          "outputSchema": {
+            "chat": {
+              "type": "object"
+            },
+            "from": {
+              "type": "object"
+            },
+            "text": {
+              "type": "string"
+            }
+          },
+          "inputSchema": {},
+          "configSchema": {}
+        }
+      },
+      {
+        "id": "node_05_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "label": "Forward to Email",
+          "category": "action",
+          "config": {
+            "to": "archive@company.com",
+            "subject": "Telegram: {{$json.from.username}}",
+            "message": "{{$json.text}}"
+          },
+          "connector": "gmail",
+          "actionId": "send_email",
+          "action": "send_email",
+          "actionName": "Send Email",
+          "description": "Send an email via Gmail",
+          "icon": "send",
+          "connectorType": "gmail",
+          "connectorDisplayName": "Gmail",
+          "inputSchema": {
+            "to": {
+              "type": "string",
+              "required": true,
+              "label": "To"
+            },
+            "subject": {
+              "type": "string",
+              "required": true,
+              "label": "Subject"
+            },
+            "message": {
+              "type": "string",
+              "required": true,
+              "label": "Message",
+              "inputType": "textarea"
+            }
+          },
+          "configSchema": {
+            "to": {
+              "type": "string",
+              "required": true,
+              "label": "To"
+            },
+            "subject": {
+              "type": "string",
+              "required": true,
+              "label": "Subject"
+            },
+            "message": {
+              "type": "string",
+              "required": true,
+              "label": "Message",
+              "inputType": "textarea"
+            }
+          },
+          "outputSchema": {
+            "messageId": {
+              "type": "string",
+              "description": "Sent message ID"
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_1",
+        "source": "node_05_1",
+        "target": "node_05_2",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

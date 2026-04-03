@@ -1,0 +1,107 @@
+{
+  "id": "55a7a2dc-4f86-48ce-a712-3d01fd43d0aa",
+  "name": "Salesforce Lead Nurture Email Sequence",
+  "description": "Start automated email nurture when new leads are created. Nodes: Salesforce Trigger, SendGrid Action",
+  "category": "marketing",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Lead",
+          "config": {},
+          "category": "trigger",
+          "connector": "salesforce",
+          "connectorType": "salesforce",
+          "connectorDisplayName": "Salesforce",
+          "description": "Triggered on lead creation",
+          "trigger": "lead_created",
+          "triggerId": "lead_created",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Send Welcome Email",
+          "config": {
+            "to": "{{trigger.Email}}",
+            "subject": "Welcome {{trigger.FirstName}}!",
+            "html": "<p>Thank you for your interest in our products!</p>"
+          },
+          "category": "action",
+          "connector": "sendgrid",
+          "connectorType": "sendgrid",
+          "connectorDisplayName": "Sendgrid",
+          "description": "Send welcome email",
+          "action": "send_email",
+          "actionId": "send_email",
+          "actionName": "Send Welcome Email"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "salesforce",
+        "triggerId": "lead_created"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "salesforce",
+    "sendgrid"
+  ],
+  "tags": [
+    "marketing",
+    "automation",
+    "salesforce",
+    "sendgrid",
+    "leads"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow start automated email nurture when new leads are created. nodes: salesforce trigger, sendgrid action using salesforce, sendgrid",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"lead nurture\" that triggers on Salesforce lead creation and sends welcome email"
+}

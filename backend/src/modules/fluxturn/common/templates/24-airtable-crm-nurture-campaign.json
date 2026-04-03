@@ -1,0 +1,155 @@
+{
+  "id": "ca3b6790-2d3d-4e07-9ac8-bd9af1bb52ea",
+  "name": "Airtable CRM Nurture Campaign",
+  "description": "Auto-add qualified leads to email nurture sequence",
+  "category": "sales",
+  "difficulty": "intermediate",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": [
+    "airtable",
+    "sendgrid"
+  ],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_24_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 100
+        },
+        "data": {
+          "label": "New Contact",
+          "category": "trigger",
+          "config": {
+            "tableId": "Contacts"
+          },
+          "connector": "airtable",
+          "triggerId": "record_created",
+          "trigger": "record_created",
+          "triggerName": "Record Created",
+          "description": "Triggers when a record is created",
+          "eventType": "polling",
+          "icon": "plus-circle",
+          "connectorType": "airtable",
+          "connectorDisplayName": "Airtable",
+          "webhookRequired": false,
+          "inputSchema": {
+            "tableId": {
+              "type": "string",
+              "required": true,
+              "label": "Table ID"
+            }
+          },
+          "configSchema": {
+            "tableId": {
+              "type": "string",
+              "required": true,
+              "label": "Table ID"
+            }
+          },
+          "outputSchema": {
+            "id": {
+              "type": "string"
+            },
+            "fields": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_24_2",
+        "type": "RUN_CODE",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "label": "Check Status",
+          "category": "utility",
+          "config": {
+            "condition": "$json.fields.Status === \"Nurture\"",
+            "code": "// Your code here\nreturn $json;"
+          },
+          "configSchema": {
+            "code": {
+              "type": "string",
+              "label": "JavaScript Code",
+              "inputType": "textarea",
+              "required": true,
+              "description": "JavaScript code to execute"
+            }
+          },
+          "inputSchema": {
+            "input": {
+              "type": "object",
+              "required": false
+            }
+          },
+          "outputSchema": {
+            "output": {
+              "type": "object",
+              "description": "Code execution result"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_24_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 700,
+          "y": 100
+        },
+        "data": {
+          "label": "Add to Campaign",
+          "category": "action",
+          "config": {
+            "listId": "{{nurture_list}}",
+            "email": "={{$json.fields.Email}}"
+          },
+          "connector": "sendgrid",
+          "actionId": "add_to_list",
+          "inputSchema": {
+            "data": {
+              "type": "object",
+              "label": "Data",
+              "description": "Action input data"
+            }
+          },
+          "configSchema": {
+            "data": {
+              "type": "object",
+              "label": "Data",
+              "description": "Action input data"
+            }
+          },
+          "outputSchema": {
+            "result": {
+              "type": "object",
+              "description": "Action result"
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_1",
+        "source": "node_24_1",
+        "target": "node_24_2",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_2",
+        "source": "node_24_2",
+        "target": "node_24_3",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

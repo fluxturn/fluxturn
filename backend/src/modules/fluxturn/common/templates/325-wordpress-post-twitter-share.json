@@ -1,0 +1,109 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-300000000025",
+  "name": "WordPress Post Twitter Share",
+  "description": "Create WordPress post and share it on Twitter automatically",
+  "category": "cms",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Create Post",
+          "config": {
+            "title": "{{post_title}}",
+            "content": "{{post_content}}",
+            "status": "publish"
+          },
+          "category": "action",
+          "connector": "wordpress",
+          "connectorType": "wordpress",
+          "connectorDisplayName": "WordPress",
+          "description": "Create and publish WordPress post",
+          "action": "create_post",
+          "actionId": "create_post",
+          "actionName": "Create Post"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Create Tweet",
+          "config": {
+            "text": "New blog post: {{post_title}}\n\nRead more: {{node_2.output.link}}\n\n#Blog #NewPost"
+          },
+          "category": "action",
+          "connector": "twitter",
+          "connectorType": "twitter",
+          "connectorDisplayName": "Twitter/X",
+          "description": "Share post on Twitter",
+          "action": "create_tweet",
+          "actionId": "create_tweet",
+          "actionName": "Create Tweet"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [],
+  "conditions": [],
+  "variables": [
+    {
+      "name": "post_title",
+      "type": "string",
+      "description": "Title of the blog post"
+    },
+    {
+      "name": "post_content",
+      "type": "string",
+      "description": "Content of the blog post (HTML)"
+    }
+  ],
+  "outputs": [],
+  "required_connectors": ["wordpress", "twitter"],
+  "tags": ["cms", "wordpress", "twitter", "social", "blog", "sharing"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "Create WordPress post and share on Twitter",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create WordPress blog post and automatically share it on Twitter"
+}

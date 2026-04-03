@@ -1,0 +1,1187 @@
+{
+  "nav": {
+    "features": "Recursos",
+    "tutorials": "Tutoriais",
+    "templates": "Modelos",
+    "capabilities": "Capacidades",
+    "useCases": "Casos de uso",
+    "whyFluxTurn": "Por que FluxTurn",
+    "pricing": "Precos",
+    "documents": "Documentos",
+    "blog": "Blog",
+    "login": "Entrar",
+    "getStarted": "Comecar",
+    "dashboard": "Painel",
+    "admin": "Admin"
+  },
+  "hero": {
+    "badge": "Plataforma de automacao de fluxos sem codigo",
+    "title1": "Automatize seu",
+    "title2": "fluxo de trabalho em",
+    "title3": "minutos",
+    "subtitle": "Conecte seus aplicativos, automatize fluxos de trabalho e otimize seus processos de negocio com nossa poderosa plataforma sem codigo. Nenhuma habilidade tecnica necessaria.",
+    "cta": "Comecar teste gratuito",
+    "workflowRunning": "Fluxo de trabalho automatizado em execucao",
+    "personas": {
+      "marketing": "Marketing",
+      "marketingTitle": "Automatize campanhas de email",
+      "sales": "Vendas",
+      "salesTitle": "Sincronize leads com CRM automaticamente",
+      "hr": "RH",
+      "hrTitle": "Integre novos funcionarios",
+      "aiTools": "Ferramentas de IA",
+      "aiToolsTitle": "Processe solicitacoes com IA"
+    },
+    "workflow": {
+      "formSubmit": "Envio de formulario",
+      "website": "Site",
+      "addToList": "Adicionar a lista",
+      "sendEmail": "Enviar email",
+      "email": "Email",
+      "trackEvent": "Rastrear evento",
+      "analytics": "Analiticos",
+      "newLead": "Novo lead",
+      "webForm": "Formulario web",
+      "enrichData": "Enriquecer dados",
+      "addToCRM": "Adicionar ao CRM",
+      "notifySales": "Notificar vendas",
+      "newEmployee": "Novo funcionario",
+      "hrSystem": "Sistema RH",
+      "createEmail": "Criar email",
+      "setupSlack": "Configurar Slack",
+      "addToPayroll": "Adicionar a folha de pagamento",
+      "sendWelcome": "Enviar boas-vindas",
+      "userRequest": "Solicitacao do usuario",
+      "processAI": "Processar IA",
+      "executeTask": "Executar tarefa",
+      "sendResult": "Enviar resultado"
+    }
+  },
+  "powerful": {
+    "badge": "Poderoso e simples",
+    "title": "Coloque a",
+    "titleHighlight": "IA e automacao",
+    "titleEnd": "para trabalhar no seu negocio",
+    "subtitle": "Sem desenvolvedores caros. Sem meses de treinamento. Apenas automacao poderosa que funciona desde o primeiro dia.",
+    "stats": {
+      "setupTime": "5 min",
+      "setupTimeLabel": "Tempo medio de configuracao",
+      "integrations": "120+",
+      "integrationsLabel": "Integracoes",
+      "uptime": "99.9%",
+      "uptimeLabel": "Tempo ativo"
+    },
+    "cta": "Comece a construir gratis",
+    "cards": {
+      "lightning": {
+        "title": "Configuracao ultrarapida",
+        "description": "Modelos predefinidos e interface de arrastar e soltar. Comece a automatizar em minutos sem codigo."
+      },
+      "ai": {
+        "title": "Integracao de IA incorporada",
+        "description": "Conecte OpenAI, Claude e outros modelos de IA com um clique. Sem complicacoes com APIs."
+      },
+      "security": {
+        "title": "Seguranca empresarial",
+        "description": "Conformidade SOC2 com criptografia de ponta a ponta. Auto-hospede ou use nosso cloud seguro."
+      }
+    }
+  },
+  "aiPromptBuilder": {
+    "badge": "Impulsionado por IA",
+    "heading": "O que voce quer automatizar?",
+    "subtitle": "Descreva, execute e implante fluxos de trabalho com IA em segundos",
+    "placeholder": "Descreva o que voce quer automatizar...",
+    "generate": "Gerar",
+    "generating": "Gerando...",
+    "tryThese": "Experimente um destes:",
+    "loginMessage": "Faca login para gerar seu fluxo de trabalho com IA",
+    "helperText": "Pressione Enter para gerar ou clique no botao",
+    "videoTitle": "Geracao de fluxos com IA",
+    "cards": {
+      "naturalLanguage": "Linguagem natural",
+      "noCode": "Construtor sem codigo",
+      "aiGeneration": "Geracao com IA",
+      "integrations": "120+ integracoes"
+    },
+    "suggestions": {
+      "gmail": {
+        "title": "Enviar um email com Gmail",
+        "description": "Crie um formulario de ativacao com todos os campos necessarios para Gmail e envie"
+      },
+      "translate": {
+        "title": "Traduzir mensagens recebidas",
+        "description": "Converta automaticamente as mensagens para o seu idioma preferido"
+      },
+      "priceAlert": {
+        "title": "Avise-me quando os precos caem",
+        "description": "Rastreie produtos e receba notificacoes quando atingirem seu preco-alvo"
+      },
+      "emailSummary": {
+        "title": "Resuma meus emails diariamente",
+        "description": "Receba um resumo rapido dos destaques da sua caixa de entrada toda manha"
+      },
+      "supportDraft": {
+        "title": "Elabore respostas para tickets de suporte",
+        "description": "Gere rascunhos de respostas uteis para consultas de clientes"
+      },
+      "crmUpdate": {
+        "title": "Atualize o CRM a partir de formularios",
+        "description": "Adicione novos leads ao seu CRM sem entrada manual"
+      },
+      "slackTasks": {
+        "title": "Crie tarefas a partir de mensagens do Slack",
+        "description": "Converta mensagens do Slack em tarefas com uma reacao ou comando"
+      }
+    },
+    "errors": {
+      "emptyPrompt": "Por favor, insira uma mensagem",
+      "creationFailed": "Erro ao criar o fluxo de trabalho",
+      "noOrganization": "Nenhuma organizacao encontrada",
+      "noProject": "Nenhum projeto encontrado. Por favor, crie um primeiro."
+    }
+  },
+  "video": {
+    "badge": "Veja em acao",
+    "title": "Construa fluxos visualmente",
+    "subtitle": "Veja como e facil conectar aplicativos e criar automacoes poderosas com nosso editor intuitivo de arrastar e soltar",
+    "editor": "Editor de fluxos FluxTurn",
+    "connected": "Conectado",
+    "dragDrop": "Interface arrastar e soltar"
+  },
+  "buildYourWay": {
+    "interactive": {
+      "title": "Experimente o",
+      "titleHighlight": "Editor visual",
+      "subtitle": "Arraste nos, conecte-os e descubra como e facil construir fluxos de trabalho",
+      "addNodes": "Adicionar nos",
+      "dragHint": "Arraste nos para o canvas",
+      "canvasHint": "Arraste nos aqui e conecte-os",
+      "startBuilding": "Comece a construir fluxos reais",
+      "feature1": {
+        "title": "Arrastar e soltar",
+        "desc": "Simplesmente arraste os nos da barra lateral para o canvas"
+      },
+      "feature2": {
+        "title": "Conexoes visuais",
+        "desc": "Conecte nos arrastando de um conector a outro"
+      },
+      "feature3": {
+        "title": "Implantacao instantanea",
+        "desc": "Implante seu fluxo de trabalho com um unico clique"
+      }
+    }
+  },
+  "templates": {
+    "badge": "300+ modelos",
+    "title": "Comece com um",
+    "titleHighlight": "modelo pronto para usar",
+    "subtitle": "Explore modelos de fluxos. Basta clicar e personalizar.",
+    "clickToPreview": "Clique em qualquer modelo para pre-visualizar o fluxo",
+    "useForFree": "Usar gratis",
+    "useTemplate": "Usar este modelo",
+    "creating": "Criando...",
+    "browseAll": "Ver todos os modelos",
+    "browseHint": "Explore 300+ modelos de automacao prontos para usar",
+    "verified": "Verificado",
+    "users": "Usuarios",
+    "popular": "Popular",
+    "steps": "Etapas",
+    "integrations": "Integracoes",
+    "workflowPreview": "Pre-visualizacao do fluxo",
+    "previewNotAvailable": "Pre-visualizacao indisponivel",
+    "viewDetails": "Ver detalhes do modelo para mais informacoes",
+    "loginMessage": "Faca login para usar este modelo",
+    "errors": {
+      "noOrganization": "Nenhuma organizacao encontrada",
+      "noProject": "Nenhum projeto encontrado",
+      "creationFailed": "Erro ao criar o fluxo de trabalho"
+    },
+    "success": {
+      "created": "Fluxo de trabalho criado a partir do modelo"
+    }
+  },
+  "aiAgent": {
+    "badge": "Automacao com IA",
+    "title": "Conheca o",
+    "titleHighlight": "No agente de IA",
+    "subtitle": "Um no poderoso que pensa, decide e age. Conecte qualquer ferramenta e deixe a IA cuidar da logica.",
+    "canvasCaption": "O agente de IA recebe a entrada, seleciona a ferramenta correta e executa automaticamente",
+    "feature1Title": "Qualquer ferramenta, um no",
+    "feature1Desc": "Conecte Gmail, Slack, Notion ou qualquer um dos 120+ conectores como ferramentas de IA",
+    "feature2Title": "A IA decide",
+    "feature2Desc": "O agente analisa a entrada e escolhe a ferramenta correta automaticamente",
+    "feature3Title": "Voce mantem o controle",
+    "feature3Desc": "Configure iteracoes maximas, prompts do sistema e ferramentas disponiveis",
+    "cta": "Experimentar agente de IA",
+    "ctaHint": "Sem cartao de credito necessario. Plano gratuito disponivel",
+    "creating": "Criando...",
+    "loginMessage": "Faca login para experimentar o agente de IA",
+    "errors": {
+      "noOrganization": "Nenhuma organizacao encontrada",
+      "noProject": "Nenhum projeto encontrado",
+      "creationFailed": "Erro ao criar o fluxo de trabalho"
+    },
+    "success": {
+      "created": "Fluxo de trabalho do agente de IA criado"
+    }
+  },
+  "templatesPage": {
+    "title": "Modelos de",
+    "titleHighlight": "fluxos de trabalho",
+    "subtitle": "Explore nossa biblioteca de modelos de fluxos prontos para usar. Clique em qualquer modelo para usa-lo gratis.",
+    "searchPlaceholder": "Buscar modelos...",
+    "showingCount": "Mostrando",
+    "of": "de",
+    "template": "modelo",
+    "templates": "modelos",
+    "loading": "Carregando modelos...",
+    "loadFailed": "Erro ao carregar modelos",
+    "retry": "Tentar novamente",
+    "noResults": "Nenhum modelo encontrado",
+    "noResultsHint": "Tente ajustar sua busca ou filtros",
+    "clearFilters": "Limpar filtros",
+    "uses": "usos",
+    "useTemplate": "Usar modelo",
+    "loadMore": "Carregar mais modelos",
+    "verified": "Verificado",
+    "steps": "Etapas",
+    "users": "Usuarios",
+    "integrations": "Integracoes",
+    "creating": "Criando...",
+    "useThisTemplate": "Usar este modelo",
+    "previewNotAvailable": "Pre-visualizacao indisponivel",
+    "previewHint": "Clique em \"Usar este modelo\" para comecar",
+    "workflowPreview": "Pre-visualizacao do fluxo",
+    "all": "Todos"
+  },
+  "features": {
+    "title": "Potencialize seu fluxo de trabalho:",
+    "titleExplore": "explore",
+    "titleHighlight": "a plataforma",
+    "titleEnd": "tudo em um.",
+    "subtitle": "Tudo o que voce precisa para automatizar fluxos de trabalho e conectar toda a sua infraestrutura tecnologica",
+    "cta": "Explorar recursos",
+    "bento": {
+      "ai-workflow": {
+        "title": "Geracao de fluxos com IA",
+        "description": "Descreva o que voce quer em linguagem simples. A IA constroi todo o fluxo em segundos."
+      },
+      "visual-builder": {
+        "title": "Construtor visual",
+        "description": "Criacao de fluxos com arrastar e soltar"
+      },
+      "ai-agent": {
+        "title": "Agente de IA",
+        "description": "Automacao inteligente que pensa e age"
+      },
+      "integrations": {
+        "title": "Integracoes",
+        "description": "Conecte todos os seus aplicativos favoritos"
+      },
+      "custom-code": {
+        "title": "Codigo personalizado",
+        "description": "JavaScript, Python ou qualquer linguagem"
+      }
+    },
+    "items": {
+      "visualBuilder": {
+        "title": "Construtor visual de fluxos",
+        "description": "Construa fluxos de automacao complexos com nossa interface intuitiva de arrastar e soltar. Sem codigo necessario."
+      },
+      "conditionalLogic": {
+        "title": "Logica condicional",
+        "description": "Crie fluxos sofisticados com ramificacoes usando condicoes if/else, loops e arvores de decisao."
+      },
+      "customCode": {
+        "title": "Execucao de codigo personalizado",
+        "description": "Execute codigo JavaScript, Python ou qualquer outro diretamente em seus fluxos para maxima flexibilidade."
+      },
+      "cloudHosted": {
+        "title": "Cloud e auto-hospedagem",
+        "description": "Implante em nossa infraestrutura cloud ou auto-hospede em seus proprios servidores para controle total."
+      },
+      "security": {
+        "title": "Seguranca empresarial",
+        "description": "Criptografia de nivel bancario, conformidade SOC2 e controles de acesso granulares para manter seus dados seguros."
+      },
+      "realtime": {
+        "title": "Execucao em tempo real",
+        "description": "Execucao ultrarapida de fluxos com monitoramento em tempo real e registros detalhados de execucao."
+      }
+    }
+  },
+  "integrations": {
+    "title": "Conecte tudo",
+    "subtitle": "120+ integracoes predefinidas com seus aplicativos e servicos favoritos",
+    "hoverHint": "Passe o cursor para pausar. 120+ integracoes disponiveis"
+  },
+  "useCases": {
+    "title": "Feito para",
+    "titleHighlight": "cada caso de uso",
+    "subtitle": "Da automacao de marketing a pipelines de dados complexos",
+    "viewAll": "Ver todos os casos de uso",
+    "items": {
+      "marketing": {
+        "title": "Automacao de marketing",
+        "description": "Automatize campanhas de email, publicacoes em redes sociais e fluxos de captacao de leads.",
+        "stats": "CAMPANHAS 10X MAIS RAPIDAS",
+        "category": "Marketing"
+      },
+      "api": {
+        "title": "Integracao de APIs",
+        "description": "Conecte multiplas APIs e servicos para criar fluxos de dados fluidos entre plataformas.",
+        "stats": "120+ INTEGRACOES",
+        "category": "TI e DevOps"
+      },
+      "data": {
+        "title": "Processamento de dados",
+        "description": "Transforme, agregue e analise dados de multiplas fontes em tempo real.",
+        "stats": "MILHOES DE REGISTROS",
+        "category": "Dados e analiticos"
+      },
+      "ai": {
+        "title": "IA e Machine Learning",
+        "description": "Integre modelos de IA e pipelines de ML em seus fluxos de automacao.",
+        "stats": "FLUXOS IMPULSIONADOS POR IA",
+        "category": "IA e ML"
+      }
+    }
+  },
+  "whyFluxTurn": {
+    "title": "Por que",
+    "subtitle": "Transforme processos complexos em fluxos de trabalho simples e eficientes",
+    "efficiency": "Eficiencia",
+    "status": {
+      "complex": "Processo complexo",
+      "optimized": "Otimizado com FluxTurn"
+    },
+    "stats": {
+      "nodes": "Nos:",
+      "time": "Tempo de configuracao:"
+    },
+    "analyzing": "Analisando complexidade do fluxo...",
+    "cta": "Comecar a simplificar"
+  },
+  "pricing": {
+    "badge": "Precos simples",
+    "title": "Escolha seu",
+    "titleHighlight": "plano perfeito",
+    "subtitle": "Comece gratis e escale conforme voce cresce. Sem custos ocultos.",
+    "monthly": "Mensal",
+    "yearly": "Anual",
+    "twoMonthsFree": "2 meses gratis",
+    "perMonth": "por mes",
+    "forever": "para sempre",
+    "year": "ano",
+    "viewFullDetails": "Ver detalhes completos de precos",
+    "mostPopular": "Mais popular",
+    "plans": {
+      "free": {
+        "name": "Gratuito",
+        "description": "Perfeito para individuais",
+        "features": [
+          "1.000 execucoes/mes",
+          "20 fluxos ativos",
+          "Suporte da comunidade",
+          "Integracoes basicas"
+        ],
+        "cta": "Comecar gratis"
+      },
+      "starter": {
+        "name": "Starter",
+        "description": "Para equipes pequenas",
+        "features": [
+          "10.000 execucoes/mes",
+          "50 fluxos ativos",
+          "Suporte por email",
+          "Todas as integracoes"
+        ],
+        "cta": "Comecar teste gratuito"
+      },
+      "professional": {
+        "name": "Profissional",
+        "description": "Para equipes em crescimento",
+        "features": [
+          "50.000 execucoes/mes",
+          "Fluxos ilimitados",
+          "Suporte prioritario",
+          "Autenticacao SSO"
+        ],
+        "cta": "Comecar teste gratuito"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "Para grandes organizacoes",
+        "features": [
+          "200.000 execucoes/mes",
+          "Suporte dedicado",
+          "SLA de 99.9%",
+          "Opcao on-premise"
+        ],
+        "cta": "Falar com vendas"
+      }
+    }
+  },
+  "blog": {
+    "title": "As ultimas do nosso blog",
+    "subtitle": "Fique por dentro das ultimas ideias sobre automacao, dicas e historias de sucesso",
+    "featured": "Destaque",
+    "minRead": "min de leitura",
+    "by": "Por",
+    "readMore": "Leia mais",
+    "viewAllPosts": "Ver todas as publicacoes"
+  },
+  "blogPage": {
+    "title": "Blog",
+    "subtitle": "Ideias sobre automacao de fluxos e crescimento",
+    "newPost": "Nova publicacao",
+    "myPosts": "Minhas publicacoes",
+    "search": {
+      "placeholder": "Buscar artigos..."
+    },
+    "browse": {
+      "title": "Explorar",
+      "latest": "Recentes",
+      "popular": "Populares",
+      "featured": "Destaques",
+      "allPosts": "Todas as publicacoes"
+    },
+    "categories": {
+      "title": "Categorias",
+      "all": "Todas as categorias"
+    },
+    "loading": "Carregando...",
+    "error": {
+      "loadFailed": "Erro ao carregar publicacoes",
+      "tryAgain": "Tentar novamente"
+    },
+    "empty": {
+      "title": "Nenhum artigo encontrado",
+      "subtitle": "Volte mais tarde para ver novo conteudo!"
+    },
+    "pagination": {
+      "previous": "Anterior",
+      "next": "Proximo"
+    },
+    "post": {
+      "backToBlog": "Voltar ao blog",
+      "notFound": {
+        "title": "Publicacao nao encontrada",
+        "message": "A publicacao que voce procura nao existe."
+      },
+      "minRead": "min de leitura",
+      "views": "visualizacoes",
+      "by": "Por",
+      "featured": "Destaque",
+      "edit": "Editar",
+      "delete": "Excluir",
+      "deleteConfirm": "Tem certeza de que deseja excluir esta publicacao? Esta acao nao pode ser desfeita.",
+      "signInToRate": "Faca login para avaliar esta publicacao"
+    },
+    "comments": {
+      "title": "Comentarios",
+      "comment": "comentario",
+      "comments": "comentarios",
+      "placeholder": "Compartilhe suas ideias...",
+      "signInPrompt": "para deixar um comentario.",
+      "signIn": "Faca login",
+      "noComments": "Ainda sem comentarios. Seja o primeiro a comentar!",
+      "reply": "Responder",
+      "replying": "Respondendo...",
+      "submit": "Enviar",
+      "cancel": "Cancelar"
+    },
+    "card": {
+      "minRead": "min de leitura",
+      "by": "Por"
+    }
+  },
+  "comparison": {
+    "badge": "Comparar plataformas",
+    "title": "Por que escolher",
+    "subtitle": "Veja como FluxTurn se compara com outras plataformas de automacao de fluxos",
+    "getStarted": "Comecar gratis",
+    "footnote": "* Versao auto-hospedada. Precos e recursos podem variar. Ultima atualizacao: janeiro 2025.",
+    "categories": {
+      "corefeatures": "Recursos principais",
+      "deployment": "Implantacao",
+      "pricing": "Precos",
+      "integrations": "Integracoes",
+      "performance": "Desempenho",
+      "collaboration": "Colaboracao"
+    },
+    "features": {
+      "visualBuilder": "Construtor visual de fluxos",
+      "aiWorkflowGeneration": "Geracao de fluxos com IA",
+      "naturalLanguagePrompts": "Prompts em linguagem natural",
+      "customCodeSupport": "Suporte a codigo personalizado",
+      "selfHosting": "Opcao de auto-hospedagem",
+      "cloudHosted": "Hospedagem na nuvem",
+      "freeWorkflows": "Fluxos gratuitos",
+      "freeOperations": "Operacoes gratuitas",
+      "startingPrice": "Preco inicial",
+      "integrations": "Integracoes",
+      "apiAccess": "Acesso a API",
+      "webhooks": "Webhooks",
+      "realtimeExecution": "Execucao em tempo real",
+      "errorHandling": "Tratamento de erros",
+      "teamCollaboration": "Colaboracao em equipe",
+      "versionHistory": "Historico de versoes"
+    }
+  },
+  "faq": {
+    "badge": "Tem perguntas?",
+    "title": "Perguntas frequentes",
+    "subtitle": "Tudo o que voce precisa saber sobre FluxTurn. Nao encontrou o que procura? Nao hesite em contatar nossa equipe de suporte.",
+    "items": {
+      "whatIs": {
+        "question": "O que e FluxTurn e como funciona?",
+        "answer": "FluxTurn e uma poderosa plataforma de automacao de fluxos de trabalho que permite conectar seus aplicativos e automatizar tarefas repetitivas sem programar. Usando nosso construtor visual de arrastar e soltar, voce pode criar fluxos que sao ativados automaticamente por eventos, agendamentos ou ativacao manual. Basta conectar seus apps, definir sua logica e deixar o FluxTurn cuidar do resto."
+      },
+      "codingSkills": {
+        "question": "Preciso saber programar para usar o FluxTurn?",
+        "answer": "Nenhuma habilidade de programacao e necessaria! O FluxTurn possui um construtor visual intuitivo onde voce pode arrastar e soltar nos, conecta-los e configurar acoes atraves de formularios simples. No entanto, para usuarios avancados, tambem suportamos a execucao de codigo personalizado em JavaScript e Python dentro dos fluxos para maxima flexibilidade."
+      },
+      "integrations": {
+        "question": "Quais aplicativos e servicos posso conectar?",
+        "answer": "O FluxTurn se integra com mais de 100 aplicativos populares incluindo Gmail, Slack, Google Sheets, Telegram, Discord, Stripe, Shopify, OpenAI, bancos de dados como PostgreSQL e MongoDB, e muitos mais. Estamos constantemente adicionando novas integracoes com base nas solicitacoes dos usuarios."
+      },
+      "freePlan": {
+        "question": "Existe um plano gratuito disponivel?",
+        "answer": "Sim! Oferecemos um generoso plano gratuito que inclui ate 500 execucoes de fluxos por mes, acesso a todas as integracoes e a possibilidade de criar fluxos ilimitados. E perfeito para projetos pessoais e equipes pequenas que estao comecando com automacao."
+      },
+      "selfHost": {
+        "question": "Posso auto-hospedar o FluxTurn em meus proprios servidores?",
+        "answer": "Com certeza! O FluxTurn oferece opcoes de hospedagem na nuvem e auto-hospedagem. Nossa solucao auto-hospedada oferece controle total sobre seus dados e infraestrutura. E ideal para empresas com requisitos rigorosos de conformidade ou equipes que preferem gerenciar sua propria implantacao."
+      },
+      "security": {
+        "question": "Quao seguros estao meus dados com o FluxTurn?",
+        "answer": "A seguranca e nossa maxima prioridade. Usamos criptografia AES-256 de nivel bancario para todos os dados em repouso e TLS 1.3 para dados em transito. Suas credenciais sao criptografadas e nunca armazenadas em texto simples. Tambem oferecemos conformidade SOC2, controles de acesso baseados em funcoes e registros de auditoria para clientes empresariais."
+      },
+      "failedWorkflow": {
+        "question": "O que acontece se um fluxo de trabalho falhar?",
+        "answer": "O FluxTurn fornece tratamento abrangente de erros e monitoramento. Quando um fluxo falha, voce recebera notificacoes instantaneas por email ou seu canal preferido. Nossos registros detalhados de execucao ajudam a identificar e corrigir problemas rapidamente. Voce tambem pode configurar tentativas automaticas e acoes de fallback para fluxos criticos."
+      },
+      "aiWorkflows": {
+        "question": "Posso usar IA em meus fluxos de trabalho?",
+        "answer": "Sim! O FluxTurn tem capacidades de IA integradas impulsionadas por OpenAI, Anthropic e outros provedores lideres de IA. Voce pode usar IA para gerar conteudo, analisar dados, tomar decisoes, classificar informacoes e muito mais. Nossos nos de agente de IA facilitam adicionar inteligencia a qualquer fluxo de trabalho."
+      }
+    }
+  },
+  "footer": {
+    "description": "Construa aplicacoes poderosas com nossa plataforma backend abrangente. Tudo o que voce precisa em um so lugar.",
+    "sections": {
+      "product": "Produto",
+      "developers": "Desenvolvedores",
+      "company": "Empresa",
+      "legal": "Legal"
+    },
+    "links": {
+      "features": "Recursos",
+      "visualBuilders": "Construtores visuais",
+      "aiPlatform": "Plataforma de IA",
+      "integrations": "Integracoes",
+      "pricing": "Precos",
+      "documentation": "Documentacao",
+      "tutorials": "Tutoriais",
+      "apiReference": "Referencia de API",
+      "examples": "Exemplos",
+      "support": "Suporte",
+      "privacy": "Privacidade",
+      "terms": "Termos",
+      "security": "Seguranca"
+    },
+    "newsletter": {
+      "title": "Fique atualizado",
+      "description": "Receba as ultimas novidades sobre novos recursos e lancamentos.",
+      "placeholder": "Insira seu email",
+      "subscribe": "Inscrever-se",
+      "subscribing": "Inscrevendo..."
+    },
+    "copyright": "\u00a9 {{year}} Info Inlet. Todos os direitos reservados.",
+    "builtWith": "Feito com",
+    "byTeam": "pela equipe da Info Inlet",
+    "docs": "Docs"
+  },
+  "language": {
+    "en": "Ingles",
+    "ja": "Japones",
+    "zh": "Chines",
+    "ko": "Coreano",
+    "es": "Espanhol",
+    "fr": "Frances",
+    "de": "Alemao"
+  },
+  "featuresPage": {
+    "badge": "Recursos poderosos",
+    "title": "Tudo o que voce precisa para",
+    "titleHighlight": "automatizar",
+    "subtitle": "Descubra os recursos poderosos que fazem do FluxTurn a plataforma de automacao de fluxos mais flexivel para equipes modernas.",
+    "cta": "Comecar teste gratuito",
+    "viewDocs": "Ver documentacao",
+    "stats": {
+      "workflows": "Fluxos ilimitados",
+      "workflowsValue": "Construir",
+      "integrations": "Integracoes",
+      "codeSupport": "Suporte a codigo",
+      "security": "Seguranca"
+    },
+    "coreFeatures": {
+      "title": "Recursos principais",
+      "subtitle": "Explore as poderosas capacidades que diferenciam o FluxTurn"
+    },
+    "features": {
+      "visualBuilder": {
+        "title": "Construtor visual de fluxos",
+        "desc": "Interface de arrastar e soltar para construir fluxos de automacao complexos sem codigo."
+      },
+      "conditionalLogic": {
+        "title": "Logica condicional",
+        "desc": "Crie fluxos com ramificacoes usando condicoes if/else, loops e arvores de decisao."
+      },
+      "customCode": {
+        "title": "Codigo personalizado",
+        "desc": "Execute codigo JavaScript ou Python para maxima flexibilidade."
+      },
+      "integrations": {
+        "title": "120+ integracoes",
+        "desc": "Conecte-se com todos os seus aplicativos e servicos favoritos de forma imediata."
+      },
+      "realtime": {
+        "title": "Execucao em tempo real",
+        "desc": "Execucao ultrarapida de fluxos com monitoramento em tempo real."
+      },
+      "security": {
+        "title": "Seguranca empresarial",
+        "desc": "Criptografia de nivel bancario, conformidade SOC2 e controles de acesso granulares."
+      },
+      "deployment": {
+        "title": "Cloud e auto-hospedagem",
+        "desc": "Implante em nosso cloud ou auto-hospede em sua propria infraestrutura."
+      },
+      "scheduling": {
+        "title": "Agendamento avancado",
+        "desc": "Agende fluxos para executar em horarios ou intervalos especificos."
+      },
+      "templates": {
+        "title": "300+ modelos",
+        "desc": "Comece rapidamente com modelos predefinidos para casos de uso comuns."
+      }
+    },
+    "ctaSection": {
+      "title": "Pronto para comecar?",
+      "subtitle": "Comece a automatizar seus fluxos hoje com FluxTurn. Sem cartao de credito.",
+      "cta": "Comecar teste gratuito",
+      "viewPricing": "Ver precos"
+    },
+    "visualSection": {
+      "badge": "Editor visual de fluxos",
+      "title": "Construa automacoes com",
+      "titleHighlight": "arrastar e soltar",
+      "subtitle": "Crie automacoes poderosas visualmente. Conecte nos, configure acoes e implante suas automacoes com nosso intuitivo editor visual.",
+      "videoTitle": "Editor visual de fluxos FluxTurn",
+      "floatingBadge": "Arrastar e soltar",
+      "cta": "Experimentar editor visual",
+      "features": {
+        "dragDrop": {
+          "title": "Arrastar e soltar intuitivo",
+          "desc": "Simplesmente arraste nos para o canvas e conecte-os para construir seu fluxo. Sem experiencia em programacao necessaria."
+        },
+        "integrations": {
+          "title": "120+ integracoes predefinidas",
+          "desc": "Conecte-se com seus apps favoritos instantaneamente. Gmail, Slack, Notion, Stripe e centenas mais prontos para usar."
+        },
+        "realtime": {
+          "title": "Testes em tempo real",
+          "desc": "Teste seus fluxos instantaneamente com dados reais. Veja resultados imediatamente e depure com registros detalhados."
+        },
+        "preview": {
+          "title": "Pre-visualizacao ao vivo",
+          "desc": "Observe seu fluxo executar em tempo real. Visualize o fluxo de dados e detecte problemas antes da implantacao."
+        }
+      }
+    },
+    "aiSection": {
+      "badge": "Automacao com IA",
+      "title": "Construa fluxos com",
+      "titleHighlight": "assistente de IA",
+      "subtitle": "Descreva o que voce quer automatizar em linguagem natural e deixe nossa IA construir o fluxo para voce. Converse com a IA para modificar, otimizar e depurar seus fluxos em tempo real.",
+      "videoTitle": "Construtor de fluxos com IA FluxTurn",
+      "floatingBadge": "Sem codigo necessario",
+      "cta": "Experimentar construtor de IA",
+      "features": {
+        "naturalLanguage": {
+          "title": "Entrada em linguagem natural",
+          "desc": "Descreva sua automacao em linguagem simples. Nossa IA entende sua intencao e cria o fluxo automaticamente."
+        },
+        "aiChat": {
+          "title": "Assistente de chat com IA",
+          "desc": "Converse com a IA para modificar seus fluxos, fazer perguntas e obter sugestoes de melhoria em tempo real."
+        },
+        "instantGeneration": {
+          "title": "Geracao instantanea de fluxos",
+          "desc": "Veja seu fluxo ganhar vida em segundos. A IA seleciona automaticamente as integracoes corretas e as configura."
+        },
+        "smartSuggestions": {
+          "title": "Sugestoes inteligentes",
+          "desc": "Receba recomendacoes inteligentes para otimizacao, tratamento de erros e melhores praticas enquanto constroi."
+        }
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Bem-vindo de volta",
+      "subtitle": "Insira suas credenciais para acessar sua conta",
+      "inviteMessage": "Por favor faca login para aceitar seu convite",
+      "email": "Email",
+      "emailPlaceholder": "Insira seu email",
+      "password": "Senha",
+      "passwordPlaceholder": "Insira sua senha",
+      "rememberMe": "Lembrar de mim",
+      "forgotPassword": "Esqueceu sua senha?",
+      "signIn": "Entrar",
+      "signingIn": "Entrando...",
+      "noAccount": "Nao tem uma conta?",
+      "signUp": "Cadastre-se",
+      "orContinueWith": "Ou continue com",
+      "termsAgreement": "Ao entrar, voce concorda com nossos",
+      "termsOfService": "Termos de servico",
+      "and": "e",
+      "privacyPolicy": "Politica de privacidade"
+    },
+    "register": {
+      "title": "Criar conta",
+      "subtitle": "Cadastre-se para comecar com FluxTurn",
+      "name": "Nome completo",
+      "namePlaceholder": "Insira seu nome completo",
+      "passwordRequirements": {
+        "minLength": "8+ caracteres",
+        "uppercase": "letra maiuscula",
+        "lowercase": "letra minuscula",
+        "number": "numero",
+        "special": "caractere especial"
+      },
+      "email": "Email",
+      "emailPlaceholder": "Insira seu email",
+      "password": "Senha",
+      "passwordPlaceholder": "Crie uma senha",
+      "confirmPassword": "Confirmar senha",
+      "confirmPasswordPlaceholder": "Confirme sua senha",
+      "passwordStrength": "Forca da senha:",
+      "weak": "Fraca",
+      "fair": "Razoavel",
+      "good": "Boa",
+      "strong": "Forte",
+      "missing": "Faltando:",
+      "passwordsMatch": "As senhas coincidem",
+      "passwordsNoMatch": "As senhas nao coincidem",
+      "agreeToTerms": "Concordo com os",
+      "termsOfService": "Termos de servico",
+      "and": "e",
+      "privacyPolicy": "Politica de privacidade",
+      "createAccount": "Criar conta",
+      "creating": "Criando conta...",
+      "haveAccount": "Ja tem uma conta?",
+      "signIn": "Entrar",
+      "orContinueWith": "Ou continue com"
+    },
+    "forgotPassword": {
+      "title": "Esqueceu sua senha?",
+      "subtitle": "Nao se preocupe, enviaremos instrucoes de redefinicao",
+      "email": "Email",
+      "emailPlaceholder": "Insira seu email",
+      "sendLink": "Enviar email de redefinicao",
+      "sending": "Enviando...",
+      "backToLogin": "Voltar ao login",
+      "successTitle": "Verifique seu email",
+      "successMessage": "Enviamos um link de redefinicao para:",
+      "successHint": "Nao recebeu o email? Verifique sua pasta de spam ou tente novamente.",
+      "resendEmail": "Reenviar email",
+      "resending": "Reenviando..."
+    },
+    "resetPassword": {
+      "title": "Definir nova senha",
+      "subtitle": "Insira sua nova senha abaixo",
+      "invalidTitle": "Link de redefinicao invalido",
+      "invalidMessage": "Este link de redefinicao e invalido ou expirou.",
+      "requestNewLink": "Solicitar novo link",
+      "newPassword": "Nova senha",
+      "newPasswordPlaceholder": "Insira sua nova senha",
+      "confirmPassword": "Confirmar senha",
+      "confirmPasswordPlaceholder": "Confirme sua nova senha",
+      "passwordStrength": "Forca da senha:",
+      "passwordsMatch": "As senhas coincidem",
+      "passwordsNoMatch": "As senhas nao coincidem",
+      "reset": "Atualizar senha",
+      "resetting": "Atualizando senha...",
+      "successTitle": "Senha atualizada",
+      "successMessage": "Sua senha foi atualizada com sucesso. Agora voce pode entrar com sua nova senha.",
+      "continueToLogin": "Continuar para o login",
+      "validating": "Validando link de redefinicao...",
+      "backToLogin": "Voltar ao login"
+    },
+    "verifyEmail": {
+      "title": "Verifique seu email",
+      "subtitle": "Enviamos um link de verificacao para:",
+      "instruction": "Clique no link do seu email para verificar sua conta",
+      "checkEmail": "Verifique seu email",
+      "expireNote": "O link de verificacao expirara em 24 horas",
+      "noEmailHint": "Nao recebeu o email? Verifique sua pasta de spam ou reenvie.",
+      "resendEmail": "Reenviar email",
+      "sending": "Enviando...",
+      "verifyingTitle": "Verificando email",
+      "verifyingMessage": "Aguarde enquanto verificamos seu endereco de email...",
+      "successTitle": "Email verificado!",
+      "successMessage": "Seu email foi verificado com sucesso. Agora voce pode acessar todos os recursos da sua conta.",
+      "goToDashboard": "Ir para o painel",
+      "signIn": "Entrar",
+      "failedTitle": "Verificacao falhou",
+      "failedMessage": "O link de verificacao e invalido ou expirou. Por favor, solicite um novo email de verificacao.",
+      "sendNewEmail": "Enviar novo email de verificacao",
+      "backToLogin": "Voltar ao login",
+      "emailSentTitle": "Email enviado!",
+      "emailSentMessage": "Enviamos um novo email de verificacao para:",
+      "emailSentHint": "Verifique sua caixa de entrada e clique no link de verificacao",
+      "spamHint": "Ainda nao viu? Verifique sua pasta de spam.",
+      "resendAgain": "Reenviar novamente",
+      "waitBeforeResend": "Aguarde {{countdown}}s antes de reenviar",
+      "welcome": "Bem-vindo ao futuro do desenvolvimento",
+      "verifyToStart": "Verifique seu email para comecar",
+      "needHelp": "Precisa de ajuda? Entre em contato com nossa",
+      "supportTeam": "equipe de suporte"
+    },
+    "authSuccess": {
+      "title": "Autenticacao bem-sucedida!",
+      "message": "Voce entrou com sucesso. Redirecionando para seu painel..."
+    },
+    "authError": {
+      "title": "Autenticacao falhou",
+      "redirectMessage": "Voce sera redirecionado para a pagina de login em alguns segundos...",
+      "returnToLogin": "Voltar ao login",
+      "troubleHelp": "Tendo problemas? Tente estas opcoes:",
+      "createAccount": "Criar conta",
+      "resetPassword": "Redefinir senha"
+    },
+    "oauth": {
+      "google": "Continuar com Google",
+      "github": "Continuar com GitHub",
+      "apple": "Continuar com Apple",
+      "connecting": "Conectando...",
+      "processing": "Processando callback OAuth...",
+      "success": "Sucesso!",
+      "successMessage": "Conectado com sucesso! Redirecionando...",
+      "error": "Erro",
+      "closeWindow": "Fechar janela"
+    },
+    "errors": {
+      "invalidCredentials": "Email ou senha invalidos",
+      "emailRequired": "O email e obrigatorio",
+      "passwordRequired": "A senha e obrigatoria",
+      "nameRequired": "O nome e obrigatorio",
+      "passwordMismatch": "As senhas nao coincidem",
+      "weakPassword": "A senha deve ter pelo menos 8 caracteres",
+      "invalidEmail": "Por favor insira um email valido",
+      "accountExists": "Ja existe uma conta com este email",
+      "loginFailed": "Falha no login. Por favor verifique suas credenciais e tente novamente.",
+      "registrationFailed": "Falha no cadastro. Por favor tente novamente.",
+      "missingOAuthParams": "Faltam parametros OAuth obrigatorios",
+      "invalidOAuthState": "Estado OAuth invalido - possivel problema de seguranca",
+      "missingCredentialId": "Falta o ID da credencial"
+    },
+    "branding": {
+      "welcomeBack": "Bem-vindo",
+      "back": "de volta",
+      "joinFluxTurn": "Junte-se ao",
+      "fluxTurn": "FluxTurn",
+      "tagline": "Construa automacoes poderosas com nossa plataforma sem codigo. Conecte 120+ apps instantaneamente.",
+      "feature1": "120+ integracoes predefinidas",
+      "feature2": "Construtor visual de fluxos com arrastar e soltar",
+      "feature3": "Sugestoes de automacao com IA",
+      "feature4": "Seguranca de nivel empresarial",
+      "testimonial": "FluxTurn transformou completamente como nossa equipe trabalha. Automatizamos 80% das nossas tarefas repetitivas!",
+      "powerUser": "Usuario avancado",
+      "premiumMember": "Membro premium"
+    },
+    "common": {
+      "email": "Email",
+      "password": "Senha",
+      "submit": "Enviar",
+      "cancel": "Cancelar",
+      "loading": "Carregando...",
+      "or": "ou"
+    }
+  },
+  "common": {
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "delete": "Excluir",
+    "edit": "Editar",
+    "create": "Criar",
+    "update": "Atualizar",
+    "close": "Fechar",
+    "confirm": "Confirmar",
+    "back": "Voltar",
+    "next": "Proximo",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "loading": "Carregando...",
+    "saving": "Salvando...",
+    "deleting": "Excluindo...",
+    "noResults": "Nenhum resultado encontrado",
+    "error": "Algo deu errado",
+    "success": "Sucesso",
+    "required": "Obrigatorio",
+    "optional": "Opcional",
+    "actions": "Acoes",
+    "status": "Status",
+    "active": "Ativo",
+    "inactive": "Inativo",
+    "enabled": "Habilitado",
+    "disabled": "Desabilitado",
+    "name": "Nome",
+    "description": "Descricao",
+    "createdAt": "Criado",
+    "updatedAt": "Atualizado",
+    "copy": "Copiar",
+    "copied": "Copiado!",
+    "download": "Baixar",
+    "upload": "Enviar",
+    "refresh": "Atualizar",
+    "retry": "Tentar novamente",
+    "learnMore": "Saiba mais",
+    "viewAll": "Ver tudo",
+    "showMore": "Mostrar mais",
+    "showLess": "Mostrar menos",
+    "yes": "Sim",
+    "no": "Nao",
+    "or": "ou",
+    "and": "e"
+  },
+  "dashboard": {
+    "title": "Painel",
+    "welcome": "Bem-vindo de volta",
+    "overview": "Visao geral",
+    "recentWorkflows": "Fluxos recentes",
+    "recentActivity": "Atividade recente",
+    "quickActions": "Acoes rapidas",
+    "createWorkflow": "Criar fluxo",
+    "viewAllWorkflows": "Ver todos os fluxos",
+    "noWorkflows": "Ainda sem fluxos",
+    "noWorkflowsHint": "Crie seu primeiro fluxo de trabalho para comecar",
+    "stats": {
+      "totalWorkflows": "Total de fluxos",
+      "activeWorkflows": "Fluxos ativos",
+      "totalExecutions": "Total de execucoes",
+      "successRate": "Taxa de sucesso"
+    }
+  },
+  "workflow": {
+    "title": "Fluxos de trabalho",
+    "create": "Criar fluxo",
+    "createNew": "Criar novo fluxo",
+    "builder": "Construtor de fluxos",
+    "name": "Nome do fluxo",
+    "namePlaceholder": "Insira o nome do fluxo",
+    "description": "Descricao",
+    "descriptionPlaceholder": "Descreva o que este fluxo faz",
+    "status": {
+      "active": "Ativo",
+      "inactive": "Inativo",
+      "draft": "Rascunho",
+      "running": "Em execucao",
+      "completed": "Concluido",
+      "failed": "Falhou",
+      "paused": "Pausado"
+    },
+    "actions": {
+      "run": "Executar",
+      "stop": "Parar",
+      "duplicate": "Duplicar",
+      "export": "Exportar",
+      "delete": "Excluir",
+      "activate": "Ativar",
+      "deactivate": "Desativar"
+    },
+    "nodes": {
+      "addNode": "Adicionar no",
+      "configure": "Configurar",
+      "delete": "Excluir no",
+      "duplicate": "Duplicar no",
+      "trigger": "Gatilho",
+      "action": "Acao",
+      "condition": "Condicao",
+      "loop": "Loop",
+      "delay": "Atraso",
+      "code": "Codigo",
+      "aiAgent": "Agente de IA",
+      "webhook": "Webhook",
+      "schedule": "Agendamento",
+      "manual": "Gatilho manual"
+    },
+    "execution": {
+      "title": "Registro de execucao",
+      "running": "Executando...",
+      "completed": "Concluido",
+      "failed": "Falhou",
+      "duration": "Duracao",
+      "startedAt": "Iniciado em",
+      "input": "Entrada",
+      "output": "Saida",
+      "error": "Erro",
+      "noExecutions": "Ainda sem execucoes",
+      "viewDetails": "Ver detalhes"
+    },
+    "canvas": {
+      "zoomIn": "Ampliar",
+      "zoomOut": "Reduzir",
+      "fitView": "Ajustar visualizacao",
+      "undo": "Desfazer",
+      "redo": "Refazer",
+      "save": "Salvar",
+      "deploy": "Implantar"
+    },
+    "errors": {
+      "saveFailed": "Erro ao salvar o fluxo",
+      "loadFailed": "Erro ao carregar o fluxo",
+      "executionFailed": "A execucao do fluxo falhou",
+      "invalidConfig": "Configuracao invalida"
+    }
+  },
+  "credentials": {
+    "title": "Credenciais",
+    "add": "Adicionar credencial",
+    "edit": "Editar credencial",
+    "name": "Nome da credencial",
+    "namePlaceholder": "Minha credencial",
+    "type": "Tipo de credencial",
+    "test": "Testar conexao",
+    "testing": "Testando...",
+    "testSuccess": "Conexao bem-sucedida",
+    "testFailed": "Conexao falhou",
+    "save": "Salvar credencial",
+    "delete": "Excluir credencial",
+    "deleteConfirm": "Tem certeza de que deseja excluir esta credencial? Os fluxos que a utilizam deixarao de funcionar.",
+    "noCredentials": "Ainda sem credenciais",
+    "noCredentialsHint": "Adicione credenciais para conectar seus aplicativos",
+    "lastTested": "Ultimo teste",
+    "connected": "Conectado",
+    "disconnected": "Desconectado",
+    "expires": "Expira",
+    "reconnect": "Reconectar"
+  },
+  "organization": {
+    "title": "Organizacao",
+    "create": "Criar organizacao",
+    "settings": "Configuracoes da organizacao",
+    "name": "Nome da organizacao",
+    "namePlaceholder": "Minha organizacao",
+    "members": {
+      "title": "Membros",
+      "invite": "Convidar membro",
+      "inviteByEmail": "Convidar por email",
+      "emailPlaceholder": "colega@empresa.com",
+      "role": "Funcao",
+      "roles": {
+        "owner": "Proprietario",
+        "admin": "Administrador",
+        "member": "Membro",
+        "viewer": "Visualizador"
+      },
+      "remove": "Remover membro",
+      "removeConfirm": "Tem certeza de que deseja remover este membro?",
+      "pending": "Pendente",
+      "active": "Ativo"
+    },
+    "billing": {
+      "title": "Faturamento",
+      "currentPlan": "Plano atual",
+      "usage": "Uso",
+      "invoices": "Faturas",
+      "upgrade": "Fazer upgrade",
+      "downgrade": "Fazer downgrade",
+      "cancel": "Cancelar assinatura",
+      "paymentMethod": "Metodo de pagamento",
+      "addPayment": "Adicionar metodo de pagamento",
+      "nextBilling": "Proxima data de faturamento",
+      "executions": "Execucoes",
+      "executionsUsed": "{{used}} de {{limit}} usados",
+      "workflows": "Fluxos de trabalho",
+      "workflowsUsed": "{{used}} de {{limit}} usados"
+    },
+    "integrations": {
+      "title": "Integracoes",
+      "connected": "Conectado",
+      "available": "Disponivel",
+      "connect": "Conectar",
+      "disconnect": "Desconectar",
+      "configure": "Configurar",
+      "lastSync": "Ultima sincronizacao"
+    }
+  },
+  "project": {
+    "title": "Projeto",
+    "create": "Criar projeto",
+    "settings": "Configuracoes do projeto",
+    "name": "Nome do projeto",
+    "namePlaceholder": "Meu projeto",
+    "description": "Descricao",
+    "descriptionPlaceholder": "Para que e este projeto?",
+    "workflows": "Fluxos de trabalho",
+    "credentials": "Credenciais",
+    "members": "Membros",
+    "noProjects": "Ainda sem projetos",
+    "noProjectsHint": "Crie um projeto para organizar seus fluxos"
+  },
+  "settings": {
+    "title": "Configuracoes",
+    "account": {
+      "title": "Configuracoes da conta",
+      "profile": "Perfil",
+      "email": "Endereco de email",
+      "name": "Nome de exibicao",
+      "avatar": "Foto de perfil",
+      "changeAvatar": "Alterar",
+      "removeAvatar": "Remover",
+      "timezone": "Fuso horario",
+      "language": "Idioma",
+      "notifications": "Notificacoes",
+      "emailNotifications": "Notificacoes por email",
+      "pushNotifications": "Notificacoes push",
+      "workflowAlerts": "Alertas de fluxos"
+    },
+    "security": {
+      "title": "Seguranca",
+      "changePassword": "Alterar senha",
+      "currentPassword": "Senha atual",
+      "newPassword": "Nova senha",
+      "confirmPassword": "Confirmar senha",
+      "twoFactor": "Autenticacao de dois fatores",
+      "enable2FA": "Ativar 2FA",
+      "disable2FA": "Desativar 2FA",
+      "sessions": "Sessoes ativas",
+      "revokeSession": "Revogar",
+      "revokeAll": "Revogar todas as sessoes"
+    },
+    "apiKeys": {
+      "title": "Chaves de API",
+      "create": "Criar chave de API",
+      "name": "Nome da chave",
+      "namePlaceholder": "Minha chave de API",
+      "permissions": "Permissoes",
+      "expires": "Expira",
+      "never": "Nunca",
+      "revoke": "Revogar",
+      "revokeConfirm": "Tem certeza? Esta acao nao pode ser desfeita.",
+      "noKeys": "Ainda sem chaves de API",
+      "copyWarning": "Copie esta chave agora. Voce nao podera ve-la novamente."
+    },
+    "danger": {
+      "title": "Zona de perigo",
+      "deleteAccount": "Excluir conta",
+      "deleteAccountWarning": "Isso excluira permanentemente sua conta e todos os dados associados. Esta acao nao pode ser desfeita.",
+      "typeToConfirm": "Digite seu email para confirmar"
+    }
+  }
+}

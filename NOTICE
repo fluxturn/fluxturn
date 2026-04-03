@@ -1,0 +1,32 @@
+FluxTurn
+Copyright 2025 FluxTurn Contributors
+
+This product includes software developed by the FluxTurn open-source community.
+
+Licensed under the Apache License, Version 2.0.
+
+This project uses the following open-source components:
+
+Frontend:
+  - React (MIT License) - https://reactjs.org
+  - Vite (MIT License) - https://vitejs.dev
+  - ReactFlow / @xyflow/react (MIT License) - https://reactflow.dev
+  - Tailwind CSS (MIT License) - https://tailwindcss.com
+  - Radix UI (MIT License) - https://radix-ui.com
+  - i18next (MIT License) - https://i18next.com
+  - Framer Motion (MIT License) - https://framer.com/motion
+  - CodeMirror (MIT License) - https://codemirror.net
+  - Lucide Icons (ISC License) - https://lucide.dev
+  - Recharts (MIT License) - https://recharts.org
+
+Backend:
+  - NestJS (MIT License) - https://nestjs.com
+  - TypeScript (Apache-2.0 License) - https://typescriptlang.org
+  - PostgreSQL driver (pg) (MIT License) - https://node-postgres.com
+  - Socket.IO (MIT License) - https://socket.io
+  - Passport.js (MIT License) - https://passportjs.org
+  - LangChain (MIT License) - https://langchain.com
+  - Bull / BullMQ (MIT License) - https://docs.bullmq.io
+
+For the full list of dependencies, see the package.json files in
+the frontend/ and backend/ directories.

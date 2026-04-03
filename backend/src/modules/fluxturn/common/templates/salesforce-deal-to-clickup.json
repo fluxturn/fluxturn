@@ -1,0 +1,120 @@
+{
+  "id": "e2f229d4-d6ff-4056-8367-8ba629ccc918",
+  "name": "Salesforce Opportunity to ClickUp Project",
+  "description": "Create ClickUp projects from Salesforce opportunities. Nodes: Salesforce Trigger, ClickUp Action",
+  "category": "sales",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Deal Won",
+          "config": {},
+          "category": "trigger",
+          "connector": "salesforce",
+          "connectorType": "salesforce",
+          "connectorDisplayName": "Salesforce",
+          "description": "Triggered on opportunity win",
+          "trigger": "opportunity_won",
+          "triggerId": "opportunity_won",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Project",
+          "category": "action",
+          "connector": "clickup",
+          "connectorType": "clickup",
+          "connectorDisplayName": "ClickUp",
+          "description": "Create ClickUp project",
+          "actionId": "list_create",
+          "actionName": "Create Project",
+          "actionParams": {
+            "folderId": "{{$trigger.folderId}}",
+            "name": "Project: {{$trigger.Name}}",
+            "content": "Amount: {{$trigger.Amount}}\nClose Date: {{$trigger.CloseDate}}"
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [
+    {
+      "id": "node_2",
+      "type": "CONNECTOR_ACTION",
+      "config": {
+        "connector": "clickup",
+        "actionId": "list_create",
+        "actionParams": {
+          "folderId": "{{$trigger.folderId}}",
+          "name": "Project: {{$trigger.Name}}",
+          "content": "Amount: {{$trigger.Amount}}\nClose Date: {{$trigger.CloseDate}}"
+        }
+      }
+    }
+  ],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "salesforce",
+        "triggerId": "opportunity_won"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "salesforce",
+    "clickup"
+  ],
+  "tags": [
+    "sales",
+    "automation",
+    "salesforce",
+    "clickup",
+    "projects"
+  ],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow create clickup projects from salesforce opportunities. nodes: salesforce trigger, clickup action using salesforce, clickup",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"deal to project\" that triggers on Salesforce opportunity win and creates ClickUp project"
+}

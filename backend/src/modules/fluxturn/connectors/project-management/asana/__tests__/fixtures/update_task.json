@@ -1,0 +1,83 @@
+{
+  "action": "update_task",
+  "baseUrl": "https://app.asana.com/api/1.0",
+  "testCases": [
+    {
+      "name": "updates task successfully",
+      "input": {
+        "taskId": "task-123456",
+        "title": "Updated task title",
+        "description": "Updated description"
+      },
+      "mock": {
+        "method": "PUT",
+        "path": "/tasks/task-123456",
+        "status": 200,
+        "response": {
+          "data": {
+            "gid": "task-123456",
+            "name": "Updated task title",
+            "notes": "Updated description",
+            "permalink_url": "https://app.asana.com/0/project/task-123456",
+            "completed": false
+          }
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "id": "task-123456"
+        }
+      }
+    },
+    {
+      "name": "marks task as completed",
+      "input": {
+        "taskId": "task-789012",
+        "completed": true
+      },
+      "mock": {
+        "method": "PUT",
+        "path": "/tasks/task-789012",
+        "status": 200,
+        "response": {
+          "data": {
+            "gid": "task-789012",
+            "name": "Existing task",
+            "completed": true,
+            "permalink_url": "https://app.asana.com/0/project/task-789012"
+          }
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "id": "task-789012"
+        }
+      }
+    },
+    {
+      "name": "handles task not found error",
+      "input": {
+        "taskId": "nonexistent-task",
+        "title": "Will not update"
+      },
+      "mock": {
+        "method": "PUT",
+        "path": "/tasks/nonexistent-task",
+        "status": 404,
+        "response": {
+          "errors": [
+            {
+              "message": "task: Unknown object: nonexistent-task",
+              "help": "For more information on API status codes, see https://developers.asana.com/docs"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    }
+  ]
+}

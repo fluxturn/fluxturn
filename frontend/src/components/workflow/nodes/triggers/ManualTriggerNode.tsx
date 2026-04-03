@@ -1,0 +1,31 @@
+import { type NodeProps } from "@xyflow/react";
+import { memo } from "react";
+import { BaseTriggerNode } from "../../base/BaseTriggerNode";
+import { MousePointerClick } from "lucide-react";
+
+interface ManualTriggerNodeData {
+  label?: string;
+  [key: string]: unknown;
+}
+
+export const ManualTriggerNode = memo((props: NodeProps) => {
+  const { data } = props;
+
+  const handleOpenSettings = () => {
+    // No-op: parent's handleNodeClick will handle opening the config modal
+  };
+
+  return (
+    <BaseTriggerNode
+      {...props}
+      icon={MousePointerClick}
+      name="Manual Trigger"
+      description="Click to execute"
+      status={(data as any).status || 'initial'}
+      onSettings={handleOpenSettings}
+      onDoubleClick={handleOpenSettings}
+    />
+  );
+});
+
+ManualTriggerNode.displayName = "ManualTriggerNode";

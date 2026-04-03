@@ -1,0 +1,1447 @@
+{
+  "id": "5733b727-1c8e-4d12-8d6c-2ebb996f4214",
+  "name": "Email Digest Intelligence",
+  "description": "AI summarizes your important emails into a daily brief",
+  "category": "monitoring",
+  "canvas": {
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_3",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_3",
+        "target": "node_4",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ],
+    "nodes": [
+      {
+        "id": "node_1",
+        "data": {
+          "icon": "connector",
+          "label": "New Unread Important Email Received",
+          "config": {},
+          "trigger": "email_received",
+          "category": "trigger",
+          "connector": "gmail",
+          "eventType": "message",
+          "triggerId": "email_received",
+          "description": "Triggered when a new email is received (polling mode)",
+          "inputSchema": {
+            "sender": {
+              "type": "string",
+              "label": "From",
+              "required": false,
+              "description": "Filter by sender email address (e.g., user@example.com)",
+              "placeholder": "sender@example.com"
+            },
+            "simple": {
+              "type": "boolean",
+              "label": "Simple Mode",
+              "default": true,
+              "required": false,
+              "description": "Return simplified message data (metadata only, faster)"
+            },
+            "labelIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "label": "Labels",
+              "required": false,
+              "description": "Filter by Gmail label IDs (e.g., INBOX, IMPORTANT)"
+            },
+            "readStatus": {
+              "type": "select",
+              "label": "Read Status",
+              "default": "all",
+              "options": [
+                {
+                  "label": "All emails",
+                  "value": "all"
+                },
+                {
+                  "label": "Unread only",
+                  "value": "unread"
+                },
+                {
+                  "label": "Read only",
+                  "value": "read"
+                }
+              ],
+              "required": false,
+              "description": "Filter by read status"
+            },
+            "searchQuery": {
+              "type": "string",
+              "label": "Search Query",
+              "required": false,
+              "description": "Custom Gmail search query (uses Gmail search syntax)",
+              "placeholder": "subject:important OR from:boss@company.com"
+            },
+            "pollingInterval": {
+              "type": "select",
+              "label": "Polling Interval",
+              "default": "5",
+              "options": [
+                {
+                  "label": "Every minute",
+                  "value": "1"
+                },
+                {
+                  "label": "Every 5 minutes",
+                  "value": "5"
+                },
+                {
+                  "label": "Every 15 minutes",
+                  "value": "15"
+                },
+                {
+                  "label": "Every 30 minutes",
+                  "value": "30"
+                },
+                {
+                  "label": "Every hour",
+                  "value": "60"
+                }
+              ],
+              "required": false,
+              "description": "How often to check for new emails"
+            },
+            "includeSpamTrash": {
+              "type": "boolean",
+              "label": "Include Spam/Trash",
+              "default": false,
+              "required": false,
+              "description": "Include emails from Spam and Trash folders"
+            }
+          },
+          "triggerName": "Email Received",
+          "configSchema": {
+            "sender": {
+              "type": "string",
+              "label": "From",
+              "required": false,
+              "description": "Filter by sender email address (e.g., user@example.com)",
+              "placeholder": "sender@example.com"
+            },
+            "simple": {
+              "type": "boolean",
+              "label": "Simple Mode",
+              "default": true,
+              "required": false,
+              "description": "Return simplified message data (metadata only, faster)"
+            },
+            "labelIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "label": "Labels",
+              "required": false,
+              "description": "Filter by Gmail label IDs (e.g., INBOX, IMPORTANT)"
+            },
+            "readStatus": {
+              "type": "select",
+              "label": "Read Status",
+              "default": "all",
+              "options": [
+                {
+                  "label": "All emails",
+                  "value": "all"
+                },
+                {
+                  "label": "Unread only",
+                  "value": "unread"
+                },
+                {
+                  "label": "Read only",
+                  "value": "read"
+                }
+              ],
+              "required": false,
+              "description": "Filter by read status"
+            },
+            "searchQuery": {
+              "type": "string",
+              "label": "Search Query",
+              "required": false,
+              "description": "Custom Gmail search query (uses Gmail search syntax)",
+              "placeholder": "subject:important OR from:boss@company.com"
+            },
+            "pollingInterval": {
+              "type": "select",
+              "label": "Polling Interval",
+              "default": "5",
+              "options": [
+                {
+                  "label": "Every minute",
+                  "value": "1"
+                },
+                {
+                  "label": "Every 5 minutes",
+                  "value": "5"
+                },
+                {
+                  "label": "Every 15 minutes",
+                  "value": "15"
+                },
+                {
+                  "label": "Every 30 minutes",
+                  "value": "30"
+                },
+                {
+                  "label": "Every hour",
+                  "value": "60"
+                }
+              ],
+              "required": false,
+              "description": "How often to check for new emails"
+            },
+            "includeSpamTrash": {
+              "type": "boolean",
+              "label": "Include Spam/Trash",
+              "default": false,
+              "required": false,
+              "description": "Include emails from Spam and Trash folders"
+            }
+          },
+          "outputSchema": {
+            "cc": {
+              "type": "string",
+              "description": "CC email addresses"
+            },
+            "to": {
+              "type": "string",
+              "description": "Recipient email addresses"
+            },
+            "bcc": {
+              "type": "string",
+              "description": "BCC email addresses"
+            },
+            "date": {
+              "type": "string",
+              "description": "Email date"
+            },
+            "from": {
+              "type": "string",
+              "description": "Sender email address"
+            },
+            "headers": {
+              "type": "object",
+              "description": "Email headers"
+            },
+            "payload": {
+              "type": "object",
+              "description": "Full email payload (if simple=false)"
+            },
+            "snippet": {
+              "type": "string",
+              "description": "Email preview text"
+            },
+            "subject": {
+              "type": "string",
+              "description": "Email subject"
+            },
+            "labelIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Gmail labels"
+            },
+            "threadId": {
+              "type": "string",
+              "description": "Thread ID"
+            },
+            "messageId": {
+              "type": "string",
+              "description": "Message ID"
+            },
+            "internalDate": {
+              "type": "string",
+              "description": "Internal Gmail timestamp"
+            }
+          },
+          "connectorType": "gmail",
+          "webhookRequired": false,
+          "connectorDisplayName": "Gmail"
+        },
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": -30
+        }
+      },
+      {
+        "id": "node_2",
+        "data": {
+          "icon": "connector",
+          "label": "Summarize Email with OpenAI",
+          "action": "chat_complete",
+          "config": {
+            "model": "gpt-4",
+            "messages": [
+              {
+                "role": "user",
+                "content": "Summarize this email: {{node_1.email.body}}"
+              }
+            ]
+          },
+          "actionId": "chat_complete",
+          "category": "action",
+          "connector": "openai",
+          "actionName": "Chat Completion",
+          "description": "Create a chat completion using GPT models (gpt-4, gpt-3.5-turbo, etc.)",
+          "inputSchema": {
+            "n": {
+              "max": 10,
+              "min": 1,
+              "type": "number",
+              "label": "Number of Completions",
+              "default": 1,
+              "description": "How many completions to generate"
+            },
+            "topP": {
+              "max": 1,
+              "min": 0,
+              "step": 0.1,
+              "type": "number",
+              "label": "Top P",
+              "default": 1,
+              "description": "Nucleus sampling parameter (0-1)"
+            },
+            "model": {
+              "type": "select",
+              "label": "Model",
+              "default": "gpt-3.5-turbo",
+              "options": [
+                {
+                  "label": "GPT-4 Turbo",
+                  "value": "gpt-4-turbo-preview"
+                },
+                {
+                  "label": "GPT-4",
+                  "value": "gpt-4"
+                },
+                {
+                  "label": "GPT-3.5 Turbo",
+                  "value": "gpt-3.5-turbo"
+                },
+                {
+                  "label": "GPT-3.5 Turbo 16K",
+                  "value": "gpt-3.5-turbo-16k"
+                }
+              ],
+              "required": true,
+              "description": "The model to use for chat completion"
+            },
+            "messages": {
+              "type": "array",
+              "label": "Messages",
+              "required": true,
+              "itemSchema": {
+                "role": {
+                  "type": "select",
+                  "label": "Role",
+                  "default": "user",
+                  "options": [
+                    {
+                      "label": "System",
+                      "value": "system"
+                    },
+                    {
+                      "label": "User",
+                      "value": "user"
+                    },
+                    {
+                      "label": "Assistant",
+                      "value": "assistant"
+                    }
+                  ],
+                  "required": true
+                },
+                "content": {
+                  "type": "string",
+                  "label": "Content",
+                  "required": true,
+                  "inputType": "textarea",
+                  "placeholder": "Enter message content..."
+                }
+              },
+              "description": "Array of message objects for the conversation"
+            },
+            "maxTokens": {
+              "max": 32768,
+              "min": 1,
+              "type": "number",
+              "label": "Max Tokens",
+              "default": 16,
+              "description": "Maximum number of tokens to generate"
+            },
+            "temperature": {
+              "max": 2,
+              "min": 0,
+              "step": 0.1,
+              "type": "number",
+              "label": "Temperature",
+              "default": 1,
+              "description": "Controls randomness (0-2). Lower is more deterministic"
+            },
+            "presencePenalty": {
+              "max": 2,
+              "min": -2,
+              "step": 0.1,
+              "type": "number",
+              "label": "Presence Penalty",
+              "default": 0,
+              "description": "Encourage new topics (-2 to 2)"
+            },
+            "frequencyPenalty": {
+              "max": 2,
+              "min": -2,
+              "step": 0.1,
+              "type": "number",
+              "label": "Frequency Penalty",
+              "default": 0,
+              "description": "Penalize repeated tokens (-2 to 2)"
+            }
+          },
+          "configSchema": {
+            "n": {
+              "max": 10,
+              "min": 1,
+              "type": "number",
+              "label": "Number of Completions",
+              "default": 1,
+              "description": "How many completions to generate"
+            },
+            "topP": {
+              "max": 1,
+              "min": 0,
+              "step": 0.1,
+              "type": "number",
+              "label": "Top P",
+              "default": 1,
+              "description": "Nucleus sampling parameter (0-1)"
+            },
+            "model": {
+              "type": "select",
+              "label": "Model",
+              "default": "gpt-3.5-turbo",
+              "options": [
+                {
+                  "label": "GPT-4 Turbo",
+                  "value": "gpt-4-turbo-preview"
+                },
+                {
+                  "label": "GPT-4",
+                  "value": "gpt-4"
+                },
+                {
+                  "label": "GPT-3.5 Turbo",
+                  "value": "gpt-3.5-turbo"
+                },
+                {
+                  "label": "GPT-3.5 Turbo 16K",
+                  "value": "gpt-3.5-turbo-16k"
+                }
+              ],
+              "required": true,
+              "description": "The model to use for chat completion"
+            },
+            "messages": {
+              "type": "array",
+              "label": "Messages",
+              "required": true,
+              "itemSchema": {
+                "role": {
+                  "type": "select",
+                  "label": "Role",
+                  "default": "user",
+                  "options": [
+                    {
+                      "label": "System",
+                      "value": "system"
+                    },
+                    {
+                      "label": "User",
+                      "value": "user"
+                    },
+                    {
+                      "label": "Assistant",
+                      "value": "assistant"
+                    }
+                  ],
+                  "required": true
+                },
+                "content": {
+                  "type": "string",
+                  "label": "Content",
+                  "required": true,
+                  "inputType": "textarea",
+                  "placeholder": "Enter message content..."
+                }
+              },
+              "description": "Array of message objects for the conversation"
+            },
+            "maxTokens": {
+              "max": 32768,
+              "min": 1,
+              "type": "number",
+              "label": "Max Tokens",
+              "default": 16,
+              "description": "Maximum number of tokens to generate"
+            },
+            "temperature": {
+              "max": 2,
+              "min": 0,
+              "step": 0.1,
+              "type": "number",
+              "label": "Temperature",
+              "default": 1,
+              "description": "Controls randomness (0-2). Lower is more deterministic"
+            },
+            "presencePenalty": {
+              "max": 2,
+              "min": -2,
+              "step": 0.1,
+              "type": "number",
+              "label": "Presence Penalty",
+              "default": 0,
+              "description": "Encourage new topics (-2 to 2)"
+            },
+            "frequencyPenalty": {
+              "max": 2,
+              "min": -2,
+              "step": 0.1,
+              "type": "number",
+              "label": "Frequency Penalty",
+              "default": 0,
+              "description": "Penalize repeated tokens (-2 to 2)"
+            }
+          },
+          "connectorType": "openai",
+          "connectorDisplayName": "OpenAI"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 435,
+          "y": 90
+        }
+      },
+      {
+        "id": "node_3",
+        "data": {
+          "icon": "connector",
+          "label": "Send Summary to Telegram",
+          "action": "send_message",
+          "config": {
+            "text": "{{node_2.response}}",
+            "chat_id": "YOUR_CHAT_ID"
+          },
+          "actionId": "send_message",
+          "category": "action",
+          "connector": "telegram",
+          "actionName": "Send Message",
+          "description": "Send a text message to a Telegram chat",
+          "inputSchema": {
+            "text": {
+              "type": "string",
+              "label": "Message Text",
+              "required": true,
+              "inputType": "textarea",
+              "description": "Text of the message to be sent (1-4096 characters)"
+            },
+            "chatId": {
+              "type": "string",
+              "label": "Chat ID",
+              "required": true,
+              "description": "Unique identifier for the target chat or username",
+              "placeholder": "@username or -123456789"
+            },
+            "parseMode": {
+              "type": "select",
+              "label": "Parse Mode",
+              "default": "none",
+              "options": [
+                {
+                  "label": "Plain Text",
+                  "value": "none"
+                },
+                {
+                  "label": "Markdown",
+                  "value": "Markdown"
+                },
+                {
+                  "label": "HTML",
+                  "value": "HTML"
+                }
+              ],
+              "description": "How to parse entities in the message"
+            },
+            "disableNotification": {
+              "type": "boolean",
+              "label": "Silent Message",
+              "default": false,
+              "description": "Send message silently without notification"
+            }
+          },
+          "configSchema": {
+            "text": {
+              "type": "string",
+              "label": "Message Text",
+              "required": true,
+              "inputType": "textarea",
+              "description": "Text of the message to be sent (1-4096 characters)"
+            },
+            "chatId": {
+              "type": "string",
+              "label": "Chat ID",
+              "required": true,
+              "description": "Unique identifier for the target chat or username",
+              "placeholder": "@username or -123456789"
+            },
+            "parseMode": {
+              "type": "select",
+              "label": "Parse Mode",
+              "default": "none",
+              "options": [
+                {
+                  "label": "Plain Text",
+                  "value": "none"
+                },
+                {
+                  "label": "Markdown",
+                  "value": "Markdown"
+                },
+                {
+                  "label": "HTML",
+                  "value": "HTML"
+                }
+              ],
+              "description": "How to parse entities in the message"
+            },
+            "disableNotification": {
+              "type": "boolean",
+              "label": "Silent Message",
+              "default": false,
+              "description": "Send message silently without notification"
+            }
+          },
+          "connectorType": "telegram",
+          "connectorDisplayName": "Telegram"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 735,
+          "y": 240
+        }
+      },
+      {
+        "id": "node_4",
+        "data": {
+          "icon": "connector",
+          "label": "Archive Summary in Google Docs",
+          "action": "append_text",
+          "config": {
+            "text": "{{node_2.response}}",
+            "document_id": "YOUR_DOCUMENT_ID"
+          },
+          "actionId": "append_text",
+          "category": "action",
+          "connector": "google_docs",
+          "actionName": "Append Text",
+          "description": "Append text to the end of a document",
+          "inputSchema": {
+            "text": {
+              "type": "string",
+              "label": "Text",
+              "required": true,
+              "inputType": "textarea",
+              "description": "Content to add at the end of the document",
+              "placeholder": "Text to append to the document"
+            },
+            "documentId": {
+              "type": "string",
+              "label": "Document ID",
+              "required": true,
+              "description": "ID of the document",
+              "placeholder": "1abc2def3ghiJKLmnop4qrs"
+            }
+          },
+          "configSchema": {
+            "text": {
+              "type": "string",
+              "label": "Text",
+              "required": true,
+              "inputType": "textarea",
+              "description": "Content to add at the end of the document",
+              "placeholder": "Text to append to the document"
+            },
+            "documentId": {
+              "type": "string",
+              "label": "Document ID",
+              "required": true,
+              "description": "ID of the document",
+              "placeholder": "1abc2def3ghiJKLmnop4qrs"
+            }
+          },
+          "outputSchema": {
+            "replies": {
+              "type": "array",
+              "description": "Batch update replies"
+            },
+            "documentId": {
+              "type": "string",
+              "description": "Document ID"
+            }
+          },
+          "connectorType": "google_docs",
+          "connectorDisplayName": "Google Docs"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1080,
+          "y": 150
+        }
+      }
+    ]
+  },
+  "steps": [
+    {
+      "id": "node_2",
+      "action": "chat_complete",
+      "params": {
+        "icon": "connector",
+        "label": "Summarize Email with OpenAI",
+        "action": "chat_complete",
+        "config": {
+          "model": "gpt-4",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Summarize this email: {{node_1.email.body}}"
+            }
+          ]
+        },
+        "actionId": "chat_complete",
+        "category": "action",
+        "connector": "openai",
+        "actionName": "Chat Completion",
+        "description": "Create a chat completion using GPT models (gpt-4, gpt-3.5-turbo, etc.)",
+        "inputSchema": {
+          "n": {
+            "max": 10,
+            "min": 1,
+            "type": "number",
+            "label": "Number of Completions",
+            "default": 1,
+            "description": "How many completions to generate"
+          },
+          "topP": {
+            "max": 1,
+            "min": 0,
+            "step": 0.1,
+            "type": "number",
+            "label": "Top P",
+            "default": 1,
+            "description": "Nucleus sampling parameter (0-1)"
+          },
+          "model": {
+            "type": "select",
+            "label": "Model",
+            "default": "gpt-3.5-turbo",
+            "options": [
+              {
+                "label": "GPT-4 Turbo",
+                "value": "gpt-4-turbo-preview"
+              },
+              {
+                "label": "GPT-4",
+                "value": "gpt-4"
+              },
+              {
+                "label": "GPT-3.5 Turbo",
+                "value": "gpt-3.5-turbo"
+              },
+              {
+                "label": "GPT-3.5 Turbo 16K",
+                "value": "gpt-3.5-turbo-16k"
+              }
+            ],
+            "required": true,
+            "description": "The model to use for chat completion"
+          },
+          "messages": {
+            "type": "array",
+            "label": "Messages",
+            "required": true,
+            "itemSchema": {
+              "role": {
+                "type": "select",
+                "label": "Role",
+                "default": "user",
+                "options": [
+                  {
+                    "label": "System",
+                    "value": "system"
+                  },
+                  {
+                    "label": "User",
+                    "value": "user"
+                  },
+                  {
+                    "label": "Assistant",
+                    "value": "assistant"
+                  }
+                ],
+                "required": true
+              },
+              "content": {
+                "type": "string",
+                "label": "Content",
+                "required": true,
+                "inputType": "textarea",
+                "placeholder": "Enter message content..."
+              }
+            },
+            "description": "Array of message objects for the conversation"
+          },
+          "maxTokens": {
+            "max": 32768,
+            "min": 1,
+            "type": "number",
+            "label": "Max Tokens",
+            "default": 16,
+            "description": "Maximum number of tokens to generate"
+          },
+          "temperature": {
+            "max": 2,
+            "min": 0,
+            "step": 0.1,
+            "type": "number",
+            "label": "Temperature",
+            "default": 1,
+            "description": "Controls randomness (0-2). Lower is more deterministic"
+          },
+          "presencePenalty": {
+            "max": 2,
+            "min": -2,
+            "step": 0.1,
+            "type": "number",
+            "label": "Presence Penalty",
+            "default": 0,
+            "description": "Encourage new topics (-2 to 2)"
+          },
+          "frequencyPenalty": {
+            "max": 2,
+            "min": -2,
+            "step": 0.1,
+            "type": "number",
+            "label": "Frequency Penalty",
+            "default": 0,
+            "description": "Penalize repeated tokens (-2 to 2)"
+          }
+        },
+        "configSchema": {
+          "n": {
+            "max": 10,
+            "min": 1,
+            "type": "number",
+            "label": "Number of Completions",
+            "default": 1,
+            "description": "How many completions to generate"
+          },
+          "topP": {
+            "max": 1,
+            "min": 0,
+            "step": 0.1,
+            "type": "number",
+            "label": "Top P",
+            "default": 1,
+            "description": "Nucleus sampling parameter (0-1)"
+          },
+          "model": {
+            "type": "select",
+            "label": "Model",
+            "default": "gpt-3.5-turbo",
+            "options": [
+              {
+                "label": "GPT-4 Turbo",
+                "value": "gpt-4-turbo-preview"
+              },
+              {
+                "label": "GPT-4",
+                "value": "gpt-4"
+              },
+              {
+                "label": "GPT-3.5 Turbo",
+                "value": "gpt-3.5-turbo"
+              },
+              {
+                "label": "GPT-3.5 Turbo 16K",
+                "value": "gpt-3.5-turbo-16k"
+              }
+            ],
+            "required": true,
+            "description": "The model to use for chat completion"
+          },
+          "messages": {
+            "type": "array",
+            "label": "Messages",
+            "required": true,
+            "itemSchema": {
+              "role": {
+                "type": "select",
+                "label": "Role",
+                "default": "user",
+                "options": [
+                  {
+                    "label": "System",
+                    "value": "system"
+                  },
+                  {
+                    "label": "User",
+                    "value": "user"
+                  },
+                  {
+                    "label": "Assistant",
+                    "value": "assistant"
+                  }
+                ],
+                "required": true
+              },
+              "content": {
+                "type": "string",
+                "label": "Content",
+                "required": true,
+                "inputType": "textarea",
+                "placeholder": "Enter message content..."
+              }
+            },
+            "description": "Array of message objects for the conversation"
+          },
+          "maxTokens": {
+            "max": 32768,
+            "min": 1,
+            "type": "number",
+            "label": "Max Tokens",
+            "default": 16,
+            "description": "Maximum number of tokens to generate"
+          },
+          "temperature": {
+            "max": 2,
+            "min": 0,
+            "step": 0.1,
+            "type": "number",
+            "label": "Temperature",
+            "default": 1,
+            "description": "Controls randomness (0-2). Lower is more deterministic"
+          },
+          "presencePenalty": {
+            "max": 2,
+            "min": -2,
+            "step": 0.1,
+            "type": "number",
+            "label": "Presence Penalty",
+            "default": 0,
+            "description": "Encourage new topics (-2 to 2)"
+          },
+          "frequencyPenalty": {
+            "max": 2,
+            "min": -2,
+            "step": 0.1,
+            "type": "number",
+            "label": "Frequency Penalty",
+            "default": 0,
+            "description": "Penalize repeated tokens (-2 to 2)"
+          }
+        },
+        "connectorType": "openai",
+        "connectorDisplayName": "OpenAI"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "node_3",
+      "action": "send_message",
+      "params": {
+        "icon": "connector",
+        "label": "Send Summary to Telegram",
+        "action": "send_message",
+        "config": {
+          "text": "{{node_2.response}}",
+          "chat_id": "YOUR_CHAT_ID"
+        },
+        "actionId": "send_message",
+        "category": "action",
+        "connector": "telegram",
+        "actionName": "Send Message",
+        "description": "Send a text message to a Telegram chat",
+        "inputSchema": {
+          "text": {
+            "type": "string",
+            "label": "Message Text",
+            "required": true,
+            "inputType": "textarea",
+            "description": "Text of the message to be sent (1-4096 characters)"
+          },
+          "chatId": {
+            "type": "string",
+            "label": "Chat ID",
+            "required": true,
+            "description": "Unique identifier for the target chat or username",
+            "placeholder": "@username or -123456789"
+          },
+          "parseMode": {
+            "type": "select",
+            "label": "Parse Mode",
+            "default": "none",
+            "options": [
+              {
+                "label": "Plain Text",
+                "value": "none"
+              },
+              {
+                "label": "Markdown",
+                "value": "Markdown"
+              },
+              {
+                "label": "HTML",
+                "value": "HTML"
+              }
+            ],
+            "description": "How to parse entities in the message"
+          },
+          "disableNotification": {
+            "type": "boolean",
+            "label": "Silent Message",
+            "default": false,
+            "description": "Send message silently without notification"
+          }
+        },
+        "configSchema": {
+          "text": {
+            "type": "string",
+            "label": "Message Text",
+            "required": true,
+            "inputType": "textarea",
+            "description": "Text of the message to be sent (1-4096 characters)"
+          },
+          "chatId": {
+            "type": "string",
+            "label": "Chat ID",
+            "required": true,
+            "description": "Unique identifier for the target chat or username",
+            "placeholder": "@username or -123456789"
+          },
+          "parseMode": {
+            "type": "select",
+            "label": "Parse Mode",
+            "default": "none",
+            "options": [
+              {
+                "label": "Plain Text",
+                "value": "none"
+              },
+              {
+                "label": "Markdown",
+                "value": "Markdown"
+              },
+              {
+                "label": "HTML",
+                "value": "HTML"
+              }
+            ],
+            "description": "How to parse entities in the message"
+          },
+          "disableNotification": {
+            "type": "boolean",
+            "label": "Silent Message",
+            "default": false,
+            "description": "Send message silently without notification"
+          }
+        },
+        "connectorType": "telegram",
+        "connectorDisplayName": "Telegram"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "node_4",
+      "action": "append_text",
+      "params": {
+        "icon": "connector",
+        "label": "Archive Summary in Google Docs",
+        "action": "append_text",
+        "config": {
+          "text": "{{node_2.response}}",
+          "document_id": "YOUR_DOCUMENT_ID"
+        },
+        "actionId": "append_text",
+        "category": "action",
+        "connector": "google_docs",
+        "actionName": "Append Text",
+        "description": "Append text to the end of a document",
+        "inputSchema": {
+          "text": {
+            "type": "string",
+            "label": "Text",
+            "required": true,
+            "inputType": "textarea",
+            "description": "Content to add at the end of the document",
+            "placeholder": "Text to append to the document"
+          },
+          "documentId": {
+            "type": "string",
+            "label": "Document ID",
+            "required": true,
+            "description": "ID of the document",
+            "placeholder": "1abc2def3ghiJKLmnop4qrs"
+          }
+        },
+        "configSchema": {
+          "text": {
+            "type": "string",
+            "label": "Text",
+            "required": true,
+            "inputType": "textarea",
+            "description": "Content to add at the end of the document",
+            "placeholder": "Text to append to the document"
+          },
+          "documentId": {
+            "type": "string",
+            "label": "Document ID",
+            "required": true,
+            "description": "ID of the document",
+            "placeholder": "1abc2def3ghiJKLmnop4qrs"
+          }
+        },
+        "outputSchema": {
+          "replies": {
+            "type": "array",
+            "description": "Batch update replies"
+          },
+          "documentId": {
+            "type": "string",
+            "description": "Document ID"
+          }
+        },
+        "connectorType": "google_docs",
+        "connectorDisplayName": "Google Docs"
+      },
+      "connector": "CONNECTOR_ACTION"
+    }
+  ],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "icon": "connector",
+        "label": "New Unread Important Email Received",
+        "config": {},
+        "trigger": "email_received",
+        "category": "trigger",
+        "connector": "gmail",
+        "eventType": "message",
+        "triggerId": "email_received",
+        "description": "Triggered when a new email is received (polling mode)",
+        "inputSchema": {
+          "sender": {
+            "type": "string",
+            "label": "From",
+            "required": false,
+            "description": "Filter by sender email address (e.g., user@example.com)",
+            "placeholder": "sender@example.com"
+          },
+          "simple": {
+            "type": "boolean",
+            "label": "Simple Mode",
+            "default": true,
+            "required": false,
+            "description": "Return simplified message data (metadata only, faster)"
+          },
+          "labelIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "label": "Labels",
+            "required": false,
+            "description": "Filter by Gmail label IDs (e.g., INBOX, IMPORTANT)"
+          },
+          "readStatus": {
+            "type": "select",
+            "label": "Read Status",
+            "default": "all",
+            "options": [
+              {
+                "label": "All emails",
+                "value": "all"
+              },
+              {
+                "label": "Unread only",
+                "value": "unread"
+              },
+              {
+                "label": "Read only",
+                "value": "read"
+              }
+            ],
+            "required": false,
+            "description": "Filter by read status"
+          },
+          "searchQuery": {
+            "type": "string",
+            "label": "Search Query",
+            "required": false,
+            "description": "Custom Gmail search query (uses Gmail search syntax)",
+            "placeholder": "subject:important OR from:boss@company.com"
+          },
+          "pollingInterval": {
+            "type": "select",
+            "label": "Polling Interval",
+            "default": "5",
+            "options": [
+              {
+                "label": "Every minute",
+                "value": "1"
+              },
+              {
+                "label": "Every 5 minutes",
+                "value": "5"
+              },
+              {
+                "label": "Every 15 minutes",
+                "value": "15"
+              },
+              {
+                "label": "Every 30 minutes",
+                "value": "30"
+              },
+              {
+                "label": "Every hour",
+                "value": "60"
+              }
+            ],
+            "required": false,
+            "description": "How often to check for new emails"
+          },
+          "includeSpamTrash": {
+            "type": "boolean",
+            "label": "Include Spam/Trash",
+            "default": false,
+            "required": false,
+            "description": "Include emails from Spam and Trash folders"
+          }
+        },
+        "triggerName": "Email Received",
+        "configSchema": {
+          "sender": {
+            "type": "string",
+            "label": "From",
+            "required": false,
+            "description": "Filter by sender email address (e.g., user@example.com)",
+            "placeholder": "sender@example.com"
+          },
+          "simple": {
+            "type": "boolean",
+            "label": "Simple Mode",
+            "default": true,
+            "required": false,
+            "description": "Return simplified message data (metadata only, faster)"
+          },
+          "labelIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "label": "Labels",
+            "required": false,
+            "description": "Filter by Gmail label IDs (e.g., INBOX, IMPORTANT)"
+          },
+          "readStatus": {
+            "type": "select",
+            "label": "Read Status",
+            "default": "all",
+            "options": [
+              {
+                "label": "All emails",
+                "value": "all"
+              },
+              {
+                "label": "Unread only",
+                "value": "unread"
+              },
+              {
+                "label": "Read only",
+                "value": "read"
+              }
+            ],
+            "required": false,
+            "description": "Filter by read status"
+          },
+          "searchQuery": {
+            "type": "string",
+            "label": "Search Query",
+            "required": false,
+            "description": "Custom Gmail search query (uses Gmail search syntax)",
+            "placeholder": "subject:important OR from:boss@company.com"
+          },
+          "pollingInterval": {
+            "type": "select",
+            "label": "Polling Interval",
+            "default": "5",
+            "options": [
+              {
+                "label": "Every minute",
+                "value": "1"
+              },
+              {
+                "label": "Every 5 minutes",
+                "value": "5"
+              },
+              {
+                "label": "Every 15 minutes",
+                "value": "15"
+              },
+              {
+                "label": "Every 30 minutes",
+                "value": "30"
+              },
+              {
+                "label": "Every hour",
+                "value": "60"
+              }
+            ],
+            "required": false,
+            "description": "How often to check for new emails"
+          },
+          "includeSpamTrash": {
+            "type": "boolean",
+            "label": "Include Spam/Trash",
+            "default": false,
+            "required": false,
+            "description": "Include emails from Spam and Trash folders"
+          }
+        },
+        "outputSchema": {
+          "cc": {
+            "type": "string",
+            "description": "CC email addresses"
+          },
+          "to": {
+            "type": "string",
+            "description": "Recipient email addresses"
+          },
+          "bcc": {
+            "type": "string",
+            "description": "BCC email addresses"
+          },
+          "date": {
+            "type": "string",
+            "description": "Email date"
+          },
+          "from": {
+            "type": "string",
+            "description": "Sender email address"
+          },
+          "headers": {
+            "type": "object",
+            "description": "Email headers"
+          },
+          "payload": {
+            "type": "object",
+            "description": "Full email payload (if simple=false)"
+          },
+          "snippet": {
+            "type": "string",
+            "description": "Email preview text"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Email subject"
+          },
+          "labelIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Gmail labels"
+          },
+          "threadId": {
+            "type": "string",
+            "description": "Thread ID"
+          },
+          "messageId": {
+            "type": "string",
+            "description": "Message ID"
+          },
+          "internalDate": {
+            "type": "string",
+            "description": "Internal Gmail timestamp"
+          }
+        },
+        "connectorType": "gmail",
+        "webhookRequired": false,
+        "connectorDisplayName": "Gmail"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "CONNECTOR_ACTION"
+  ],
+  "tags": [],
+  "verified": true,
+  "is_public": true,
+  "metadata": {},
+  "ai_prompt": null
+}

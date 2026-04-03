@@ -1,0 +1,80 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build output
+dist/
+build/
+.next/
+out/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+.env.production
+.env.*.production
+.env\ copy*
+backend/.env.production
+backend/.env.example.production
+backend/.env\ copy*
+frontend/.env
+frontend/.env.production
+frontend/.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+
+# Testing
+coverage/
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+uploads/
+
+# Database
+backend/db/backups/
+*.sql.bak
+backend/debug_org.sql
+backend/insert-scrapfly.sql
+
+# Large media files (use CDN instead)
+*.mp4
+*.avi
+*.mov
+
+# Sensitive files
+info.txt
+*.pem
+*.key
+
+# Backup files
+*.bak
+*.backup
+
+# Internal development docs
+.claude/
+backend/.claude/
+docs/internal/
+
+# Misc
+r_templates/nul
+.cache/

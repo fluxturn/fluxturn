@@ -1,0 +1,150 @@
+{
+  "id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c05",
+  "name": "Stripe Payments to MySQL",
+  "description": "Save Stripe payment records to MySQL database. Nodes: Stripe Trigger (payment succeeded), MySQL Action (insert row), Gmail Action (send receipt)",
+  "category": "ecommerce",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Payment Received",
+          "config": {},
+          "trigger": "payment_intent_succeeded",
+          "category": "trigger",
+          "connector": "stripe",
+          "eventType": "webhook",
+          "triggerId": "payment_intent_succeeded",
+          "description": "Triggered when payment succeeds",
+          "connectorType": "stripe",
+          "connectorDisplayName": "Stripe"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Save Order",
+          "action": "insert_rows",
+          "config": {
+            "table": "orders",
+            "dataMode": "autoMapInputData"
+          },
+          "actionId": "insert_rows",
+          "category": "action",
+          "connector": "mysql",
+          "actionName": "Insert Row",
+          "description": "Insert order into MySQL",
+          "connectorType": "mysql",
+          "connectorDisplayName": "MySQL"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Send Receipt",
+          "action": "send_message",
+          "config": {
+            "to": "{{customer_email}}",
+            "subject": "Payment Receipt",
+            "body": "{{receipt_body}}"
+          },
+          "actionId": "send_message",
+          "category": "action",
+          "connector": "gmail",
+          "actionName": "Send Email",
+          "description": "Send payment receipt",
+          "connectorType": "gmail",
+          "connectorDisplayName": "Gmail"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#14b8a6",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#14b8a6",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "stripe",
+        "triggerId": "payment_intent_succeeded"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "stripe",
+    "mysql",
+    "gmail"
+  ],
+  "tags": [
+    "ecommerce",
+    "automation",
+    "stripe",
+    "mysql",
+    "gmail",
+    "payments"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow saves Stripe payments to MySQL and sends receipt emails",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow that captures Stripe payments, stores them in MySQL database, and sends receipt emails"
+}

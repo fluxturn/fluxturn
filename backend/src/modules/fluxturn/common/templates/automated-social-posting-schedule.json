@@ -1,0 +1,1124 @@
+{
+  "id": "4c5d0182-81f4-4f7d-aadd-aa0a22cba1b6",
+  "name": "Automated Social Posting Schedule",
+  "description": "Queue and publish social content on schedule across platforms.",
+  "category": "social_media",
+  "canvas": {
+    "edges": [
+      {
+        "id": "xy-edge__MANUAL_TRIGGER_1762749992465source-1-google_sheets_get_rows_1762751629725target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "MANUAL_TRIGGER_1762749992465",
+        "target": "google_sheets_get_rows_1762751629725",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__google_sheets_get_rows_1762751629725source-1-RUN_CODE_1762756355637target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "google_sheets_get_rows_1762751629725",
+        "target": "RUN_CODE_1762756355637",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__RUN_CODE_1762756355637source-1-linkedin_create_post_1762762070068target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "RUN_CODE_1762756355637",
+        "target": "linkedin_create_post_1762762070068",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__linkedin_create_post_1762762070068source-1-twitter_create_tweet_1762764659684target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "linkedin_create_post_1762762070068",
+        "target": "twitter_create_tweet_1762764659684",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "MANUAL_TRIGGER_1762749992465",
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "status": "success",
+          "category": "trigger",
+          "inputData": [
+            {
+              "json": {
+                "test": true,
+                "executedAt": "2025-11-10T09:02:28.370Z"
+              }
+            }
+          ],
+          "startTime": 1762765348710,
+          "lastResult": {
+            "test": true,
+            "executedAt": "2025-11-10T09:02:28.370Z"
+          },
+          "outputData": {
+            "test": true,
+            "executedAt": "2025-11-10T09:02:28.370Z"
+          },
+          "description": "Manually execute the workflow",
+          "executionTime": 0,
+          "lastExecutedAt": "2025-11-10T09:02:31.943Z"
+        },
+        "type": "MANUAL_TRIGGER",
+        "position": {
+          "x": 540,
+          "y": 90
+        }
+      },
+      {
+        "id": "google_sheets_get_rows_1762751629725",
+        "data": {
+          "icon": "Search",
+          "label": "Get Rows",
+          "status": "success",
+          "actionId": "get_rows",
+          "inputData": [
+            {
+              "json": {
+                "test": true,
+                "executedAt": "2025-11-10T09:02:28.370Z"
+              }
+            }
+          ],
+          "startTime": 1762765348711,
+          "lastResult": {
+            "data": {
+              "range": "Sheet1!A1:Z1001",
+              "values": [
+                [
+                  "content"
+                ]
+              ]
+            },
+            "action": "get_rows",
+            "success": true,
+            "connector": "google_sheets",
+            "executedAt": "2025-11-10T09:02:29.750Z"
+          },
+          "outputData": {
+            "data": {
+              "range": "Sheet1!A1:Z1001",
+              "values": [
+                [
+                  "content"
+                ]
+              ]
+            },
+            "action": "get_rows",
+            "success": true,
+            "connector": "google_sheets",
+            "executedAt": "2025-11-10T09:02:29.750Z"
+          },
+          "description": "Retrieve rows from a sheet",
+          "inputSchema": {
+            "range": {
+              "type": "string",
+              "label": "Range",
+              "order": 3,
+              "required": false,
+              "description": "Cell range in A1 notation (e.g., A1:D10). Leave empty to get all rows.",
+              "placeholder": "A1:D10"
+            },
+            "sheet": {
+              "type": "string",
+              "label": "Sheet",
+              "order": 2,
+              "required": true,
+              "description": "Select a sheet from the spreadsheet",
+              "loadOptionsResource": "sheets",
+              "loadOptionsDependsOn": [
+                "spreadsheetId"
+              ],
+              "loadOptionsDescription": "Fetch sheets from selected spreadsheet"
+            },
+            "spreadsheetId": {
+              "type": "string",
+              "label": "Spreadsheet",
+              "order": 1,
+              "required": true,
+              "description": "Select a spreadsheet from your Google Drive",
+              "loadOptionsResource": "spreadsheets",
+              "loadOptionsDescription": "Fetch spreadsheets from Google Drive"
+            },
+            "returnLinkToSheet": {
+              "type": "boolean",
+              "label": "Return link to sheet",
+              "order": 4,
+              "default": false,
+              "description": "Include spreadsheet URL in output"
+            }
+          },
+          "actionParams": {
+            "range": "{{$node[\"Manual Trigger\"].json.test}}",
+            "sheet": "Sheet1",
+            "spreadsheetId": "1VnwEZZuHu9VZSGXja7S8D1hAN1I4VauntHQgZWFeASA",
+            "returnLinkToSheet": false
+          },
+          "credentialId": "94a149b2-ff1b-4957-b5bb-de56ed7410cc",
+          "connectorType": "google_sheets",
+          "executionTime": 1039,
+          "lastExecutedAt": "2025-11-10T09:02:31.943Z",
+          "credentialAuthType": "standard"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 795,
+          "y": 90
+        }
+      },
+      {
+        "id": "RUN_CODE_1762756355637",
+        "data": {
+          "code": " const values = data.data?.values || data.values;\n\n  if (values && Array.isArray(values)) {\n    const text = values\n      .map(row => Array.isArray(row) ? row.join(' ').trim() : String(row).trim())\n      .filter(line => line !== '')\n      .join('\\n');\n\n    // Return as object to prevent string spreading\n    return { text: text };\n  }\n\n  return { text: String(data) };",
+          "icon": "R",
+          "color": "#14b8a6",
+          "label": "Run Code",
+          "status": "success",
+          "category": "action",
+          "inputData": [
+            {
+              "json": {
+                "data": {
+                  "range": "Sheet1!A1:Z1001",
+                  "values": [
+                    [
+                      "content"
+                    ]
+                  ]
+                },
+                "action": "get_rows",
+                "success": true,
+                "connector": "google_sheets",
+                "executedAt": "2025-11-10T09:02:29.750Z"
+              }
+            }
+          ],
+          "startTime": 1762765349751,
+          "lastResult": {
+            "text": "content"
+          },
+          "outputData": {
+            "text": "content"
+          },
+          "description": "Execute custom JavaScript code",
+          "executionTime": 5,
+          "lastExecutedAt": "2025-11-10T09:02:31.943Z"
+        },
+        "type": "RUN_CODE",
+        "position": {
+          "x": 1050,
+          "y": 90
+        }
+      },
+      {
+        "id": "linkedin_create_post_1762762070068",
+        "data": {
+          "icon": "Plus",
+          "label": "Create Post",
+          "status": "success",
+          "actionId": "create_post",
+          "inputData": [
+            {
+              "json": {
+                "text": "content"
+              }
+            }
+          ],
+          "startTime": 1762765349758,
+          "lastResult": {
+            "urn": "urn:li:share:7393573760488079360",
+            "action": "create_post",
+            "success": true,
+            "connector": "linkedin",
+            "executedAt": "2025-11-10T09:02:31.450Z"
+          },
+          "outputData": {
+            "urn": "urn:li:share:7393573760488079360",
+            "action": "create_post",
+            "success": true,
+            "connector": "linkedin",
+            "executedAt": "2025-11-10T09:02:31.450Z"
+          },
+          "description": "Create a LinkedIn post with text, images, or articles",
+          "inputSchema": {
+            "text": {
+              "type": "string",
+              "label": "Post Text",
+              "required": true,
+              "inputType": "textarea",
+              "maxLength": 3000,
+              "description": "Post content (special characters will be automatically escaped)",
+              "placeholder": "Enter your post content..."
+            },
+            "postAs": {
+              "type": "select",
+              "label": "Post As",
+              "default": "person",
+              "options": [
+                {
+                  "label": "Person (Me)",
+                  "value": "person"
+                },
+                {
+                  "label": "Organization",
+                  "value": "organization"
+                }
+              ],
+              "required": false,
+              "description": "Post as yourself or an organization"
+            },
+            "imageUrl": {
+              "type": "string",
+              "label": "Image URL",
+              "required": false,
+              "description": "LinkedIn image asset URN (for IMAGE posts)",
+              "placeholder": "LinkedIn image asset URN",
+              "displayOptions": {
+                "show": {
+                  "shareMediaCategory": [
+                    "IMAGE"
+                  ]
+                }
+              }
+            },
+            "articleUrl": {
+              "type": "string",
+              "label": "Article URL",
+              "required": false,
+              "inputType": "url",
+              "description": "URL of the article to share (required for ARTICLE posts)",
+              "placeholder": "https://example.com/article",
+              "displayOptions": {
+                "show": {
+                  "shareMediaCategory": [
+                    "ARTICLE"
+                  ]
+                }
+              }
+            },
+            "binaryData": {
+              "type": "string",
+              "label": "Binary Image Data",
+              "required": false,
+              "inputType": "textarea",
+              "description": "Base64 encoded binary image data (alternative to Image URL)",
+              "displayOptions": {
+                "show": {
+                  "shareMediaCategory": [
+                    "IMAGE"
+                  ]
+                }
+              }
+            },
+            "imageTitle": {
+              "type": "string",
+              "label": "Image Title",
+              "required": false,
+              "description": "Title for the image",
+              "placeholder": "Image title",
+              "displayOptions": {
+                "show": {
+                  "shareMediaCategory": [
+                    "IMAGE"
+                  ]
+                }
+              }
+            },
+            "visibility": {
+              "type": "select",
+              "label": "Visibility",
+              "default": "PUBLIC",
+              "options": [
+                {
+                  "label": "Public",
+                  "value": "PUBLIC"
+                },
+                {
+                  "label": "Connections Only",
+                  "value": "CONNECTIONS"
+                }
+              ],
+              "required": false,
+              "description": "Who can see this post"
+            },
+            "articleTitle": {
+              "type": "string",
+              "label": "Article Title",
+              "required": false,
+              "description": "Title of the article",
+              "placeholder": "Article title",
+              "displayOptions": {
+                "show": {
+                  "shareMediaCategory": [
+                    "ARTICLE"
+                  ]
+                }
+              }
+            },
+            "thumbnailUrl": {
+              "type": "string",
+              "label": "Article Thumbnail URL",
+              "required": false,
+              "description": "LinkedIn image asset URN for article thumbnail",
+              "placeholder": "LinkedIn image asset URN",
+              "displayOptions": {
+                "show": {
+                  "shareMediaCategory": [
+                    "ARTICLE"
+                  ]
+                }
+              }
+            },
+            "binaryMimeType": {
+              "type": "select",
+              "label": "Image Type",
+              "default": "image/jpeg",
+              "options": [
+                {
+                  "label": "JPEG",
+                  "value": "image/jpeg"
+                },
+                {
+                  "label": "PNG",
+                  "value": "image/png"
+                },
+                {
+                  "label": "GIF",
+                  "value": "image/gif"
+                }
+              ],
+              "required": false,
+              "description": "MIME type of the binary data",
+              "displayOptions": {
+                "show": {
+                  "shareMediaCategory": [
+                    "IMAGE"
+                  ]
+                }
+              }
+            },
+            "organizationUrn": {
+              "type": "string",
+              "label": "Organization URN",
+              "required": false,
+              "description": "Organization URN (required when posting as organization)",
+              "placeholder": "12345678",
+              "displayOptions": {
+                "show": {
+                  "postAs": [
+                    "organization"
+                  ]
+                }
+              }
+            },
+            "articleDescription": {
+              "type": "string",
+              "label": "Article Description",
+              "required": false,
+              "inputType": "textarea",
+              "description": "Description of the article",
+              "placeholder": "Article description",
+              "displayOptions": {
+                "show": {
+                  "shareMediaCategory": [
+                    "ARTICLE"
+                  ]
+                }
+              }
+            },
+            "shareMediaCategory": {
+              "type": "select",
+              "label": "Media Type",
+              "default": "NONE",
+              "options": [
+                {
+                  "label": "None (Text Only)",
+                  "value": "NONE"
+                },
+                {
+                  "label": "Image",
+                  "value": "IMAGE"
+                },
+                {
+                  "label": "Article",
+                  "value": "ARTICLE"
+                }
+              ],
+              "required": false,
+              "description": "Type of media to include in the post"
+            }
+          },
+          "actionParams": {
+            "text": "{{$node[\"Run Code\"].json.text}}",
+            "postAs": "person",
+            "visibility": "PUBLIC",
+            "binaryMimeType": "image/jpeg",
+            "shareMediaCategory": "NONE"
+          },
+          "credentialId": "2f6a6e73-1b50-40e8-ac03-fd920d35c8f5",
+          "connectorType": "linkedin",
+          "executionTime": 1692,
+          "lastExecutedAt": "2025-11-10T09:02:31.943Z",
+          "credentialAuthType": "standard"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1305,
+          "y": 0
+        }
+      },
+      {
+        "id": "twitter_create_tweet_1762764659684",
+        "data": {
+          "icon": "Plus",
+          "label": "Create Tweet",
+          "status": "success",
+          "actionId": "create_tweet",
+          "inputData": [
+            {
+              "json": {
+                "urn": "urn:li:share:7393573760488079360",
+                "action": "create_post",
+                "success": true,
+                "connector": "linkedin",
+                "executedAt": "2025-11-10T09:02:31.450Z"
+              }
+            }
+          ],
+          "startTime": 1762765351452,
+          "lastResult": {
+            "id": "1987808073034211735",
+            "text": "content",
+            "action": "create_tweet",
+            "success": true,
+            "connector": "twitter",
+            "executedAt": "2025-11-10T09:02:31.899Z",
+            "edit_history_tweet_ids": [
+              "1987808073034211735"
+            ]
+          },
+          "outputData": {
+            "id": "1987808073034211735",
+            "text": "content",
+            "action": "create_tweet",
+            "success": true,
+            "connector": "twitter",
+            "executedAt": "2025-11-10T09:02:31.899Z",
+            "edit_history_tweet_ids": [
+              "1987808073034211735"
+            ]
+          },
+          "description": "Create, quote, or reply to a tweet",
+          "inputSchema": {
+            "text": {
+              "type": "string",
+              "label": "Tweet Text",
+              "required": true,
+              "inputType": "textarea",
+              "maxLength": 280,
+              "description": "The text of the tweet. URLs will be shortened with t.co"
+            },
+            "media": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "label": "Media URLs",
+              "description": "Array of media URLs to attach to the tweet"
+            },
+            "reply_to": {
+              "type": "string",
+              "label": "Reply to Tweet ID",
+              "description": "ID of the tweet to reply to (leave empty to post a new tweet)",
+              "placeholder": "1187836157394112513"
+            }
+          },
+          "actionParams": {
+            "text": "{{$node[\"Run Code\"].json.text}}"
+          },
+          "credentialId": "cc4a3993-ebe0-46d6-addb-52fc088db4d1",
+          "connectorType": "twitter",
+          "executionTime": 447,
+          "lastExecutedAt": "2025-11-10T09:02:31.943Z",
+          "credentialAuthType": "standard"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1575,
+          "y": 180
+        }
+      }
+    ]
+  },
+  "steps": [
+    {
+      "id": "google_sheets_get_rows_1762751629725",
+      "action": "execute",
+      "params": {
+        "icon": "Search",
+        "label": "Get Rows",
+        "status": "success",
+        "actionId": "get_rows",
+        "inputData": [
+          {
+            "json": {
+              "test": true,
+              "executedAt": "2025-11-10T09:02:28.370Z"
+            }
+          }
+        ],
+        "startTime": 1762765348711,
+        "lastResult": {
+          "data": {
+            "range": "Sheet1!A1:Z1001",
+            "values": [
+              [
+                "content"
+              ]
+            ]
+          },
+          "action": "get_rows",
+          "success": true,
+          "connector": "google_sheets",
+          "executedAt": "2025-11-10T09:02:29.750Z"
+        },
+        "outputData": {
+          "data": {
+            "range": "Sheet1!A1:Z1001",
+            "values": [
+              [
+                "content"
+              ]
+            ]
+          },
+          "action": "get_rows",
+          "success": true,
+          "connector": "google_sheets",
+          "executedAt": "2025-11-10T09:02:29.750Z"
+        },
+        "description": "Retrieve rows from a sheet",
+        "inputSchema": {
+          "range": {
+            "type": "string",
+            "label": "Range",
+            "order": 3,
+            "required": false,
+            "description": "Cell range in A1 notation (e.g., A1:D10). Leave empty to get all rows.",
+            "placeholder": "A1:D10"
+          },
+          "sheet": {
+            "type": "string",
+            "label": "Sheet",
+            "order": 2,
+            "required": true,
+            "description": "Select a sheet from the spreadsheet",
+            "loadOptionsResource": "sheets",
+            "loadOptionsDependsOn": [
+              "spreadsheetId"
+            ],
+            "loadOptionsDescription": "Fetch sheets from selected spreadsheet"
+          },
+          "spreadsheetId": {
+            "type": "string",
+            "label": "Spreadsheet",
+            "order": 1,
+            "required": true,
+            "description": "Select a spreadsheet from your Google Drive",
+            "loadOptionsResource": "spreadsheets",
+            "loadOptionsDescription": "Fetch spreadsheets from Google Drive"
+          },
+          "returnLinkToSheet": {
+            "type": "boolean",
+            "label": "Return link to sheet",
+            "order": 4,
+            "default": false,
+            "description": "Include spreadsheet URL in output"
+          }
+        },
+        "actionParams": {
+          "range": "{{$node[\"Manual Trigger\"].json.test}}",
+          "sheet": "Sheet1",
+          "spreadsheetId": "1VnwEZZuHu9VZSGXja7S8D1hAN1I4VauntHQgZWFeASA",
+          "returnLinkToSheet": false
+        },
+        "credentialId": "94a149b2-ff1b-4957-b5bb-de56ed7410cc",
+        "connectorType": "google_sheets",
+        "executionTime": 1039,
+        "lastExecutedAt": "2025-11-10T09:02:31.943Z",
+        "credentialAuthType": "standard"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "RUN_CODE_1762756355637",
+      "action": "execute",
+      "params": {
+        "code": " const values = data.data?.values || data.values;\n\n  if (values && Array.isArray(values)) {\n    const text = values\n      .map(row => Array.isArray(row) ? row.join(' ').trim() : String(row).trim())\n      .filter(line => line !== '')\n      .join('\\n');\n\n    // Return as object to prevent string spreading\n    return { text: text };\n  }\n\n  return { text: String(data) };",
+        "icon": "R",
+        "color": "#14b8a6",
+        "label": "Run Code",
+        "status": "success",
+        "category": "action",
+        "inputData": [
+          {
+            "json": {
+              "data": {
+                "range": "Sheet1!A1:Z1001",
+                "values": [
+                  [
+                    "content"
+                  ]
+                ]
+              },
+              "action": "get_rows",
+              "success": true,
+              "connector": "google_sheets",
+              "executedAt": "2025-11-10T09:02:29.750Z"
+            }
+          }
+        ],
+        "startTime": 1762765349751,
+        "lastResult": {
+          "text": "content"
+        },
+        "outputData": {
+          "text": "content"
+        },
+        "description": "Execute custom JavaScript code",
+        "executionTime": 5,
+        "lastExecutedAt": "2025-11-10T09:02:31.943Z"
+      },
+      "connector": "RUN_CODE"
+    },
+    {
+      "id": "linkedin_create_post_1762762070068",
+      "action": "execute",
+      "params": {
+        "icon": "Plus",
+        "label": "Create Post",
+        "status": "success",
+        "actionId": "create_post",
+        "inputData": [
+          {
+            "json": {
+              "text": "content"
+            }
+          }
+        ],
+        "startTime": 1762765349758,
+        "lastResult": {
+          "urn": "urn:li:share:7393573760488079360",
+          "action": "create_post",
+          "success": true,
+          "connector": "linkedin",
+          "executedAt": "2025-11-10T09:02:31.450Z"
+        },
+        "outputData": {
+          "urn": "urn:li:share:7393573760488079360",
+          "action": "create_post",
+          "success": true,
+          "connector": "linkedin",
+          "executedAt": "2025-11-10T09:02:31.450Z"
+        },
+        "description": "Create a LinkedIn post with text, images, or articles",
+        "inputSchema": {
+          "text": {
+            "type": "string",
+            "label": "Post Text",
+            "required": true,
+            "inputType": "textarea",
+            "maxLength": 3000,
+            "description": "Post content (special characters will be automatically escaped)",
+            "placeholder": "Enter your post content..."
+          },
+          "postAs": {
+            "type": "select",
+            "label": "Post As",
+            "default": "person",
+            "options": [
+              {
+                "label": "Person (Me)",
+                "value": "person"
+              },
+              {
+                "label": "Organization",
+                "value": "organization"
+              }
+            ],
+            "required": false,
+            "description": "Post as yourself or an organization"
+          },
+          "imageUrl": {
+            "type": "string",
+            "label": "Image URL",
+            "required": false,
+            "description": "LinkedIn image asset URN (for IMAGE posts)",
+            "placeholder": "LinkedIn image asset URN",
+            "displayOptions": {
+              "show": {
+                "shareMediaCategory": [
+                  "IMAGE"
+                ]
+              }
+            }
+          },
+          "articleUrl": {
+            "type": "string",
+            "label": "Article URL",
+            "required": false,
+            "inputType": "url",
+            "description": "URL of the article to share (required for ARTICLE posts)",
+            "placeholder": "https://example.com/article",
+            "displayOptions": {
+              "show": {
+                "shareMediaCategory": [
+                  "ARTICLE"
+                ]
+              }
+            }
+          },
+          "binaryData": {
+            "type": "string",
+            "label": "Binary Image Data",
+            "required": false,
+            "inputType": "textarea",
+            "description": "Base64 encoded binary image data (alternative to Image URL)",
+            "displayOptions": {
+              "show": {
+                "shareMediaCategory": [
+                  "IMAGE"
+                ]
+              }
+            }
+          },
+          "imageTitle": {
+            "type": "string",
+            "label": "Image Title",
+            "required": false,
+            "description": "Title for the image",
+            "placeholder": "Image title",
+            "displayOptions": {
+              "show": {
+                "shareMediaCategory": [
+                  "IMAGE"
+                ]
+              }
+            }
+          },
+          "visibility": {
+            "type": "select",
+            "label": "Visibility",
+            "default": "PUBLIC",
+            "options": [
+              {
+                "label": "Public",
+                "value": "PUBLIC"
+              },
+              {
+                "label": "Connections Only",
+                "value": "CONNECTIONS"
+              }
+            ],
+            "required": false,
+            "description": "Who can see this post"
+          },
+          "articleTitle": {
+            "type": "string",
+            "label": "Article Title",
+            "required": false,
+            "description": "Title of the article",
+            "placeholder": "Article title",
+            "displayOptions": {
+              "show": {
+                "shareMediaCategory": [
+                  "ARTICLE"
+                ]
+              }
+            }
+          },
+          "thumbnailUrl": {
+            "type": "string",
+            "label": "Article Thumbnail URL",
+            "required": false,
+            "description": "LinkedIn image asset URN for article thumbnail",
+            "placeholder": "LinkedIn image asset URN",
+            "displayOptions": {
+              "show": {
+                "shareMediaCategory": [
+                  "ARTICLE"
+                ]
+              }
+            }
+          },
+          "binaryMimeType": {
+            "type": "select",
+            "label": "Image Type",
+            "default": "image/jpeg",
+            "options": [
+              {
+                "label": "JPEG",
+                "value": "image/jpeg"
+              },
+              {
+                "label": "PNG",
+                "value": "image/png"
+              },
+              {
+                "label": "GIF",
+                "value": "image/gif"
+              }
+            ],
+            "required": false,
+            "description": "MIME type of the binary data",
+            "displayOptions": {
+              "show": {
+                "shareMediaCategory": [
+                  "IMAGE"
+                ]
+              }
+            }
+          },
+          "organizationUrn": {
+            "type": "string",
+            "label": "Organization URN",
+            "required": false,
+            "description": "Organization URN (required when posting as organization)",
+            "placeholder": "12345678",
+            "displayOptions": {
+              "show": {
+                "postAs": [
+                  "organization"
+                ]
+              }
+            }
+          },
+          "articleDescription": {
+            "type": "string",
+            "label": "Article Description",
+            "required": false,
+            "inputType": "textarea",
+            "description": "Description of the article",
+            "placeholder": "Article description",
+            "displayOptions": {
+              "show": {
+                "shareMediaCategory": [
+                  "ARTICLE"
+                ]
+              }
+            }
+          },
+          "shareMediaCategory": {
+            "type": "select",
+            "label": "Media Type",
+            "default": "NONE",
+            "options": [
+              {
+                "label": "None (Text Only)",
+                "value": "NONE"
+              },
+              {
+                "label": "Image",
+                "value": "IMAGE"
+              },
+              {
+                "label": "Article",
+                "value": "ARTICLE"
+              }
+            ],
+            "required": false,
+            "description": "Type of media to include in the post"
+          }
+        },
+        "actionParams": {
+          "text": "{{$node[\"Run Code\"].json.text}}",
+          "postAs": "person",
+          "visibility": "PUBLIC",
+          "binaryMimeType": "image/jpeg",
+          "shareMediaCategory": "NONE"
+        },
+        "credentialId": "2f6a6e73-1b50-40e8-ac03-fd920d35c8f5",
+        "connectorType": "linkedin",
+        "executionTime": 1692,
+        "lastExecutedAt": "2025-11-10T09:02:31.943Z",
+        "credentialAuthType": "standard"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "twitter_create_tweet_1762764659684",
+      "action": "execute",
+      "params": {
+        "icon": "Plus",
+        "label": "Create Tweet",
+        "status": "success",
+        "actionId": "create_tweet",
+        "inputData": [
+          {
+            "json": {
+              "urn": "urn:li:share:7393573760488079360",
+              "action": "create_post",
+              "success": true,
+              "connector": "linkedin",
+              "executedAt": "2025-11-10T09:02:31.450Z"
+            }
+          }
+        ],
+        "startTime": 1762765351452,
+        "lastResult": {
+          "id": "1987808073034211735",
+          "text": "content",
+          "action": "create_tweet",
+          "success": true,
+          "connector": "twitter",
+          "executedAt": "2025-11-10T09:02:31.899Z",
+          "edit_history_tweet_ids": [
+            "1987808073034211735"
+          ]
+        },
+        "outputData": {
+          "id": "1987808073034211735",
+          "text": "content",
+          "action": "create_tweet",
+          "success": true,
+          "connector": "twitter",
+          "executedAt": "2025-11-10T09:02:31.899Z",
+          "edit_history_tweet_ids": [
+            "1987808073034211735"
+          ]
+        },
+        "description": "Create, quote, or reply to a tweet",
+        "inputSchema": {
+          "text": {
+            "type": "string",
+            "label": "Tweet Text",
+            "required": true,
+            "inputType": "textarea",
+            "maxLength": 280,
+            "description": "The text of the tweet. URLs will be shortened with t.co"
+          },
+          "media": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "label": "Media URLs",
+            "description": "Array of media URLs to attach to the tweet"
+          },
+          "reply_to": {
+            "type": "string",
+            "label": "Reply to Tweet ID",
+            "description": "ID of the tweet to reply to (leave empty to post a new tweet)",
+            "placeholder": "1187836157394112513"
+          }
+        },
+        "actionParams": {
+          "text": "{{$node[\"Run Code\"].json.text}}"
+        },
+        "credentialId": "cc4a3993-ebe0-46d6-addb-52fc088db4d1",
+        "connectorType": "twitter",
+        "executionTime": 447,
+        "lastExecutedAt": "2025-11-10T09:02:31.943Z",
+        "credentialAuthType": "standard"
+      },
+      "connector": "CONNECTOR_ACTION"
+    }
+  ],
+  "triggers": [
+    {
+      "id": "MANUAL_TRIGGER_1762749992465",
+      "type": "MANUAL_TRIGGER",
+      "config": {
+        "icon": "M",
+        "color": "#06b6d4",
+        "label": "Manual Trigger",
+        "status": "success",
+        "category": "trigger",
+        "inputData": [
+          {
+            "json": {
+              "test": true,
+              "executedAt": "2025-11-10T09:02:28.370Z"
+            }
+          }
+        ],
+        "startTime": 1762765348710,
+        "lastResult": {
+          "test": true,
+          "executedAt": "2025-11-10T09:02:28.370Z"
+        },
+        "outputData": {
+          "test": true,
+          "executedAt": "2025-11-10T09:02:28.370Z"
+        },
+        "description": "Manually execute the workflow",
+        "executionTime": 0,
+        "lastExecutedAt": "2025-11-10T09:02:31.943Z"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "CONNECTOR_ACTION",
+    "RUN_CODE"
+  ],
+  "tags": [],
+  "verified": true,
+  "is_public": true,
+  "metadata": {},
+  "ai_prompt": "You need Google Sheets Trigger to detect scheduled content, then use Twitter, LinkedIn, and Facebook actions to publish posts. This totals 4 nodes.\n\nWorkflow steps:\n1. Trigger: Google Sheets (when content is scheduled)\n2. Action: Schedule posts on Twitter, LinkedIn, and Facebook"
+}

@@ -1,0 +1,2166 @@
+{
+  "id": "f4040dcf-bd68-427e-809c-405e9e12d625",
+  "name": "Learning Content Curator",
+  "description": "AI creates personalized learning paths from saved content",
+  "category": "other",
+  "canvas": {
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "xy-edge__node_2source-1-google_gemini_text_message_1762166560240target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "google_gemini_text_message_1762166560240",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__google_gemini_text_message_1762166560240source-1-google_docs_append_text_1762166633878target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "google_gemini_text_message_1762166560240",
+        "target": "google_docs_append_text_1762166633878",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__google_docs_append_text_1762166633878source-1-openai_chat_complete_1762166902838target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "google_docs_append_text_1762166633878",
+        "target": "openai_chat_complete_1762166902838",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__openai_chat_complete_1762166902838source-1-telegram_send_message_1762166950172target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "openai_chat_complete_1762166902838",
+        "target": "telegram_send_message_1762166950172",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "node_1",
+        "data": {
+          "icon": "connector",
+          "label": "When Article Link Sent on Telegram",
+          "config": {},
+          "trigger": "new_message",
+          "category": "trigger",
+          "connector": "telegram",
+          "eventType": "message",
+          "triggerId": "new_message",
+          "description": "Triggers when a new message is received",
+          "inputSchema": {
+            "chatType": {
+              "type": "select",
+              "label": "Chat Type Filter",
+              "default": "all",
+              "options": [
+                {
+                  "label": "All Chats",
+                  "value": "all"
+                },
+                {
+                  "label": "Private Chats Only",
+                  "value": "private"
+                },
+                {
+                  "label": "Groups Only",
+                  "value": "group"
+                },
+                {
+                  "label": "Supergroups Only",
+                  "value": "supergroup"
+                },
+                {
+                  "label": "Channels Only",
+                  "value": "channel"
+                }
+              ],
+              "description": "Filter messages by chat type"
+            },
+            "messageType": {
+              "type": "select",
+              "label": "Message Type Filter",
+              "default": "all",
+              "options": [
+                {
+                  "label": "All Messages",
+                  "value": "all"
+                },
+                {
+                  "label": "Text Messages Only",
+                  "value": "text"
+                },
+                {
+                  "label": "Photo Messages Only",
+                  "value": "photo"
+                },
+                {
+                  "label": "Document Messages Only",
+                  "value": "document"
+                }
+              ],
+              "description": "Filter messages by type"
+            },
+            "webhookToken": {
+              "type": "string",
+              "label": "Webhook Secret Token",
+              "description": "Optional secret token for webhook verification",
+              "placeholder": "my-secret-token-123"
+            }
+          },
+          "triggerName": "New Message",
+          "configSchema": {
+            "chatType": {
+              "type": "select",
+              "label": "Chat Type Filter",
+              "default": "all",
+              "options": [
+                {
+                  "label": "All Chats",
+                  "value": "all"
+                },
+                {
+                  "label": "Private Chats Only",
+                  "value": "private"
+                },
+                {
+                  "label": "Groups Only",
+                  "value": "group"
+                },
+                {
+                  "label": "Supergroups Only",
+                  "value": "supergroup"
+                },
+                {
+                  "label": "Channels Only",
+                  "value": "channel"
+                }
+              ],
+              "description": "Filter messages by chat type"
+            },
+            "messageType": {
+              "type": "select",
+              "label": "Message Type Filter",
+              "default": "all",
+              "options": [
+                {
+                  "label": "All Messages",
+                  "value": "all"
+                },
+                {
+                  "label": "Text Messages Only",
+                  "value": "text"
+                },
+                {
+                  "label": "Photo Messages Only",
+                  "value": "photo"
+                },
+                {
+                  "label": "Document Messages Only",
+                  "value": "document"
+                }
+              ],
+              "description": "Filter messages by type"
+            },
+            "webhookToken": {
+              "type": "string",
+              "label": "Webhook Secret Token",
+              "description": "Optional secret token for webhook verification",
+              "placeholder": "my-secret-token-123"
+            }
+          },
+          "outputSchema": {
+            "telegramEvent": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "Event type (message, callback_query, etc.)"
+                },
+                "message": {
+                  "type": "object",
+                  "properties": {
+                    "chat": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "description": "Chat ID"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Chat type (private, group, etc.)"
+                        },
+                        "title": {
+                          "type": "string",
+                          "description": "Title for group chats"
+                        },
+                        "username": {
+                          "type": "string",
+                          "description": "Chat username if available"
+                        },
+                        "firstName": {
+                          "type": "string",
+                          "description": "First name for private chats"
+                        }
+                      }
+                    },
+                    "date": {
+                      "type": "number",
+                      "description": "Unix timestamp of the message"
+                    },
+                    "from": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "description": "User ID"
+                        },
+                        "isBot": {
+                          "type": "boolean",
+                          "description": "Whether user is a bot"
+                        },
+                        "username": {
+                          "type": "string",
+                          "description": "User @username"
+                        },
+                        "firstName": {
+                          "type": "string",
+                          "description": "User first name"
+                        }
+                      }
+                    },
+                    "text": {
+                      "type": "string",
+                      "description": "Message text content"
+                    },
+                    "photo": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "width": {
+                            "type": "number"
+                          },
+                          "height": {
+                            "type": "number"
+                          },
+                          "file_id": {
+                            "type": "string"
+                          },
+                          "file_size": {
+                            "type": "number"
+                          }
+                        }
+                      },
+                      "description": "Photo sizes if photo message"
+                    },
+                    "caption": {
+                      "type": "string",
+                      "description": "Caption for media messages"
+                    },
+                    "entities": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string"
+                          },
+                          "length": {
+                            "type": "number"
+                          },
+                          "offset": {
+                            "type": "number"
+                          }
+                        }
+                      },
+                      "description": "Message entities (commands, mentions, etc.)"
+                    },
+                    "messageId": {
+                      "type": "number",
+                      "description": "Unique message ID"
+                    }
+                  }
+                },
+                "updateId": {
+                  "type": "number",
+                  "description": "Update ID from Telegram"
+                },
+                "timestamp": {
+                  "type": "string",
+                  "description": "ISO timestamp of the event"
+                }
+              }
+            }
+          },
+          "connectorType": "telegram",
+          "webhookRequired": true,
+          "connectorDisplayName": "Telegram"
+        },
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 200
+        }
+      },
+      {
+        "id": "node_2",
+        "data": {
+          "icon": "globe",
+          "label": "Fetch Article Content",
+          "config": {
+            "url": "{{node_1.message.text}}",
+            "method": "GET"
+          },
+          "category": "action",
+          "description": "Make HTTP API requests with advanced options",
+          "inputSchema": {
+            "data": {
+              "type": "object"
+            }
+          },
+          "configSchema": {
+            "url": {
+              "type": "string",
+              "label": "URL",
+              "required": true,
+              "description": "The URL to make the request to",
+              "placeholder": "https://api.example.com/endpoint"
+            },
+            "method": {
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE",
+                "HEAD",
+                "OPTIONS"
+              ],
+              "type": "string",
+              "label": "Method",
+              "default": "GET",
+              "required": true,
+              "description": "HTTP method to use"
+            },
+            "options": {
+              "type": "object",
+              "label": "Options",
+              "properties": {
+                "proxy": {
+                  "type": "string",
+                  "label": "Proxy",
+                  "description": "HTTP proxy to use",
+                  "placeholder": "http://proxy:8080"
+                },
+                "timeout": {
+                  "min": 1,
+                  "type": "number",
+                  "label": "Timeout",
+                  "default": 10000,
+                  "description": "Time in milliseconds to wait for response"
+                },
+                "maxRedirects": {
+                  "type": "number",
+                  "label": "Max Redirects",
+                  "default": 21,
+                  "description": "Maximum number of redirects to follow"
+                },
+                "followRedirect": {
+                  "type": "boolean",
+                  "label": "Follow Redirects",
+                  "default": true,
+                  "description": "Follow HTTP 3xx redirects"
+                },
+                "lowercaseHeaders": {
+                  "type": "boolean",
+                  "label": "Lowercase Headers",
+                  "default": true,
+                  "description": "Convert header names to lowercase"
+                },
+                "allowUnauthorizedCerts": {
+                  "type": "boolean",
+                  "label": "Ignore SSL Issues",
+                  "default": false,
+                  "description": "Allow requests with invalid SSL certificates"
+                }
+              },
+              "description": "Advanced request options"
+            },
+            "rawBody": {
+              "type": "string",
+              "label": "Raw Body",
+              "inputType": "textarea",
+              "displayOptions": {
+                "show": {
+                  "sendBody": [
+                    true
+                  ],
+                  "bodyContentType": [
+                    "raw"
+                  ]
+                }
+              }
+            },
+            "jsonBody": {
+              "type": "string",
+              "label": "JSON Body",
+              "default": "{\n  \n}",
+              "inputType": "textarea",
+              "placeholder": "{\"key\": \"value\"}",
+              "displayOptions": {
+                "show": {
+                  "sendBody": [
+                    true
+                  ],
+                  "bodyContentType": [
+                    "json"
+                  ]
+                }
+              }
+            },
+            "sendBody": {
+              "type": "boolean",
+              "label": "Body",
+              "default": false,
+              "description": "Add a body to the request",
+              "displayOptions": {
+                "show": {
+                  "method": [
+                    "POST",
+                    "PUT",
+                    "PATCH",
+                    "DELETE"
+                  ]
+                }
+              }
+            },
+            "basicAuth": {
+              "type": "object",
+              "label": "Basic Auth",
+              "properties": {
+                "password": {
+                  "type": "string",
+                  "label": "Password",
+                  "required": true,
+                  "inputType": "password"
+                },
+                "username": {
+                  "type": "string",
+                  "label": "Username",
+                  "required": true
+                }
+              },
+              "description": "Basic authentication credentials",
+              "displayOptions": {
+                "show": {
+                  "authentication": [
+                    "basicAuth"
+                  ]
+                }
+              }
+            },
+            "headersUI": {
+              "type": "array",
+              "label": "Headers",
+              "itemType": "object",
+              "displayOptions": {
+                "show": {
+                  "sendHeaders": [
+                    true
+                  ]
+                }
+              },
+              "itemProperties": {
+                "name": {
+                  "type": "string",
+                  "label": "Name",
+                  "required": true
+                },
+                "value": {
+                  "type": "string",
+                  "label": "Value",
+                  "required": true
+                }
+              }
+            },
+            "queryAuth": {
+              "type": "object",
+              "label": "Query Auth",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "label": "Parameter Name",
+                  "required": true,
+                  "placeholder": "api_key"
+                },
+                "value": {
+                  "type": "string",
+                  "label": "Parameter Value",
+                  "required": true,
+                  "inputType": "password"
+                }
+              },
+              "displayOptions": {
+                "show": {
+                  "authentication": [
+                    "queryAuth"
+                  ]
+                }
+              }
+            },
+            "sendQuery": {
+              "type": "boolean",
+              "label": "Query Parameters",
+              "default": false,
+              "description": "Add query parameters to the request"
+            },
+            "digestAuth": {
+              "type": "object",
+              "label": "Digest Auth",
+              "properties": {
+                "password": {
+                  "type": "string",
+                  "label": "Password",
+                  "required": true,
+                  "inputType": "password"
+                },
+                "username": {
+                  "type": "string",
+                  "label": "Username",
+                  "required": true
+                }
+              },
+              "displayOptions": {
+                "show": {
+                  "authentication": [
+                    "digestAuth"
+                  ]
+                }
+              }
+            },
+            "headerAuth": {
+              "type": "object",
+              "label": "Header Auth",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "label": "Header Name",
+                  "required": true,
+                  "placeholder": "X-API-Key"
+                },
+                "value": {
+                  "type": "string",
+                  "label": "Header Value",
+                  "required": true,
+                  "inputType": "password"
+                }
+              },
+              "displayOptions": {
+                "show": {
+                  "authentication": [
+                    "headerAuth"
+                  ]
+                }
+              }
+            },
+            "neverError": {
+              "type": "boolean",
+              "label": "Never Error",
+              "default": false,
+              "description": "HTTP errors will not cause the node to fail"
+            },
+            "bearerToken": {
+              "type": "string",
+              "label": "Bearer Token",
+              "inputType": "password",
+              "description": "The bearer token for authentication",
+              "displayOptions": {
+                "show": {
+                  "authentication": [
+                    "bearerToken"
+                  ]
+                }
+              }
+            },
+            "sendHeaders": {
+              "type": "boolean",
+              "label": "Headers",
+              "default": false,
+              "description": "Add custom headers to the request"
+            },
+            "fullResponse": {
+              "type": "boolean",
+              "label": "Include Response Headers and Status",
+              "default": false,
+              "description": "Return full response including headers and status code"
+            },
+            "authentication": {
+              "enum": [
+                "none",
+                "basicAuth",
+                "bearerToken",
+                "headerAuth",
+                "queryAuth",
+                "digestAuth"
+              ],
+              "type": "string",
+              "label": "Authentication",
+              "default": "none",
+              "required": true,
+              "description": "Authentication method to use"
+            },
+            "responseFormat": {
+              "enum": [
+                "autodetect",
+                "json",
+                "text",
+                "file"
+              ],
+              "type": "string",
+              "label": "Response Format",
+              "default": "autodetect",
+              "description": "How to parse the response"
+            },
+            "bodyContentType": {
+              "enum": [
+                "json",
+                "form-urlencoded",
+                "multipart-form-data",
+                "raw",
+                "binary"
+              ],
+              "type": "string",
+              "label": "Body Content Type",
+              "default": "json",
+              "displayOptions": {
+                "show": {
+                  "sendBody": [
+                    true
+                  ]
+                }
+              }
+            },
+            "rawBodyMimeType": {
+              "type": "string",
+              "label": "Content Type",
+              "default": "text/plain",
+              "placeholder": "text/plain",
+              "displayOptions": {
+                "show": {
+                  "sendBody": [
+                    true
+                  ],
+                  "bodyContentType": [
+                    "raw"
+                  ]
+                }
+              }
+            },
+            "bodyParametersUI": {
+              "type": "array",
+              "label": "Body Parameters",
+              "itemType": "object",
+              "displayOptions": {
+                "show": {
+                  "sendBody": [
+                    true
+                  ],
+                  "bodyContentType": [
+                    "form-urlencoded",
+                    "multipart-form-data"
+                  ]
+                }
+              },
+              "itemProperties": {
+                "name": {
+                  "type": "string",
+                  "label": "Name",
+                  "required": true
+                },
+                "value": {
+                  "type": "string",
+                  "label": "Value",
+                  "required": true
+                }
+              }
+            },
+            "queryParametersUI": {
+              "type": "array",
+              "label": "Query Parameters",
+              "itemType": "object",
+              "displayOptions": {
+                "show": {
+                  "sendQuery": [
+                    true
+                  ]
+                }
+              },
+              "itemProperties": {
+                "name": {
+                  "type": "string",
+                  "label": "Name",
+                  "required": true
+                },
+                "value": {
+                  "type": "string",
+                  "label": "Value",
+                  "required": true
+                }
+              }
+            }
+          },
+          "outputSchema": {
+            "response": {
+              "type": "object"
+            }
+          }
+        },
+        "type": "HTTP_REQUEST",
+        "position": {
+          "x": 510,
+          "y": 195
+        }
+      },
+      {
+        "id": "google_gemini_text_message_1762166560240",
+        "data": {
+          "icon": "MessageSquare",
+          "label": "Message a Model",
+          "actionId": "text_message",
+          "description": "Create a chat completion with Google Gemini model",
+          "inputSchema": {
+            "topK": {
+              "max": 100,
+              "min": 1,
+              "type": "number",
+              "label": "Top K",
+              "default": 40,
+              "description": "Top-k sampling parameter"
+            },
+            "topP": {
+              "max": 1,
+              "min": 0,
+              "step": 0.1,
+              "type": "number",
+              "label": "Top P",
+              "default": 1,
+              "description": "Nucleus sampling parameter"
+            },
+            "model": {
+              "type": "select",
+              "label": "Model",
+              "order": 0,
+              "default": "gemini-1.5-flash",
+              "options": [
+                {
+                  "label": "Gemini 1.5 Pro (Best quality, slower)",
+                  "value": "gemini-1.5-pro"
+                },
+                {
+                  "label": "Gemini 1.5 Flash (Faster, cost-effective)",
+                  "value": "gemini-1.5-flash"
+                },
+                {
+                  "label": "Gemini Pro (Legacy model)",
+                  "value": "gemini-pro"
+                }
+              ],
+              "required": true,
+              "description": "The Gemini model to use for generation. Available models are fetched from your credential.",
+              "dynamicOptions": true
+            },
+            "messages": {
+              "type": "array",
+              "label": "Messages",
+              "order": 1,
+              "required": true,
+              "itemSchema": {
+                "role": {
+                  "type": "select",
+                  "label": "Role",
+                  "default": "user",
+                  "options": [
+                    {
+                      "label": "User",
+                      "value": "user"
+                    },
+                    {
+                      "label": "Model",
+                      "value": "model"
+                    }
+                  ],
+                  "required": true,
+                  "description": "The role of the message sender"
+                },
+                "content": {
+                  "type": "string",
+                  "label": "Prompt",
+                  "required": true,
+                  "inputType": "textarea",
+                  "description": "The content of the message",
+                  "placeholder": "e.g. Hello, how can you help me?"
+                }
+              },
+              "description": "Array of message objects for the conversation"
+            },
+            "simplify": {
+              "type": "boolean",
+              "label": "Simplify Output",
+              "default": true,
+              "description": "Return simplified response instead of raw data"
+            },
+            "jsonOutput": {
+              "type": "boolean",
+              "label": "Output Content as JSON",
+              "default": false,
+              "description": "Attempt to return the response in JSON format"
+            },
+            "temperature": {
+              "max": 2,
+              "min": 0,
+              "step": 0.1,
+              "type": "number",
+              "label": "Temperature",
+              "default": 0.9,
+              "description": "Controls randomness (0-2). Lower is more deterministic"
+            },
+            "systemMessage": {
+              "type": "string",
+              "label": "System Message",
+              "inputType": "textarea",
+              "description": "Optional system instruction for the model",
+              "placeholder": "e.g. You are a helpful assistant"
+            },
+            "maxOutputTokens": {
+              "max": 8192,
+              "min": 1,
+              "type": "number",
+              "label": "Maximum Output Tokens",
+              "default": 2048,
+              "description": "Maximum number of tokens to generate"
+            }
+          },
+          "connectorType": "google_gemini"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 330
+        }
+      },
+      {
+        "id": "google_docs_append_text_1762166633878",
+        "data": {
+          "icon": "Zap",
+          "label": "Append Text",
+          "actionId": "append_text",
+          "description": "Append text to the end of a document",
+          "inputSchema": {
+            "text": {
+              "type": "string",
+              "label": "Text",
+              "required": true,
+              "inputType": "textarea",
+              "description": "Content to add at the end of the document",
+              "placeholder": "Text to append to the document"
+            },
+            "documentId": {
+              "type": "string",
+              "label": "Document ID",
+              "required": true,
+              "description": "ID of the document",
+              "placeholder": "1abc2def3ghiJKLmnop4qrs"
+            }
+          },
+          "connectorType": "google_docs"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1005,
+          "y": 195
+        }
+      },
+      {
+        "id": "openai_chat_complete_1762166902838",
+        "data": {
+          "icon": "Zap",
+          "label": "Chat Completion",
+          "actionId": "chat_complete",
+          "description": "Create a chat completion using GPT models (gpt-4, gpt-3.5-turbo, etc.)",
+          "inputSchema": {
+            "n": {
+              "max": 10,
+              "min": 1,
+              "type": "number",
+              "label": "Number of Completions",
+              "default": 1,
+              "description": "How many completions to generate"
+            },
+            "topP": {
+              "max": 1,
+              "min": 0,
+              "step": 0.1,
+              "type": "number",
+              "label": "Top P",
+              "default": 1,
+              "description": "Nucleus sampling parameter (0-1)"
+            },
+            "model": {
+              "type": "select",
+              "label": "Model",
+              "default": "gpt-3.5-turbo",
+              "options": [
+                {
+                  "label": "GPT-4 Turbo",
+                  "value": "gpt-4-turbo-preview"
+                },
+                {
+                  "label": "GPT-4",
+                  "value": "gpt-4"
+                },
+                {
+                  "label": "GPT-3.5 Turbo",
+                  "value": "gpt-3.5-turbo"
+                },
+                {
+                  "label": "GPT-3.5 Turbo 16K",
+                  "value": "gpt-3.5-turbo-16k"
+                }
+              ],
+              "required": true,
+              "description": "The model to use for chat completion"
+            },
+            "messages": {
+              "type": "array",
+              "label": "Messages",
+              "required": true,
+              "itemSchema": {
+                "role": {
+                  "type": "select",
+                  "label": "Role",
+                  "default": "user",
+                  "options": [
+                    {
+                      "label": "System",
+                      "value": "system"
+                    },
+                    {
+                      "label": "User",
+                      "value": "user"
+                    },
+                    {
+                      "label": "Assistant",
+                      "value": "assistant"
+                    }
+                  ],
+                  "required": true
+                },
+                "content": {
+                  "type": "string",
+                  "label": "Content",
+                  "required": true,
+                  "inputType": "textarea",
+                  "placeholder": "Enter message content..."
+                }
+              },
+              "description": "Array of message objects for the conversation"
+            },
+            "maxTokens": {
+              "max": 32768,
+              "min": 1,
+              "type": "number",
+              "label": "Max Tokens",
+              "default": 16,
+              "description": "Maximum number of tokens to generate"
+            },
+            "temperature": {
+              "max": 2,
+              "min": 0,
+              "step": 0.1,
+              "type": "number",
+              "label": "Temperature",
+              "default": 1,
+              "description": "Controls randomness (0-2). Lower is more deterministic"
+            },
+            "presencePenalty": {
+              "max": 2,
+              "min": -2,
+              "step": 0.1,
+              "type": "number",
+              "label": "Presence Penalty",
+              "default": 0,
+              "description": "Encourage new topics (-2 to 2)"
+            },
+            "frequencyPenalty": {
+              "max": 2,
+              "min": -2,
+              "step": 0.1,
+              "type": "number",
+              "label": "Frequency Penalty",
+              "default": 0,
+              "description": "Penalize repeated tokens (-2 to 2)"
+            }
+          },
+          "connectorType": "openai"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1200,
+          "y": 330
+        }
+      },
+      {
+        "id": "telegram_send_message_1762166950172",
+        "data": {
+          "icon": "Mail",
+          "label": "Send Message",
+          "actionId": "send_message",
+          "description": "Send a text message to a Telegram chat",
+          "inputSchema": {
+            "text": {
+              "type": "string",
+              "label": "Message Text",
+              "required": true,
+              "inputType": "textarea",
+              "description": "Text of the message to be sent (1-4096 characters)"
+            },
+            "chatId": {
+              "type": "string",
+              "label": "Chat ID",
+              "required": true,
+              "description": "Unique identifier for the target chat or username",
+              "placeholder": "@username or -123456789"
+            },
+            "parseMode": {
+              "type": "select",
+              "label": "Parse Mode",
+              "default": "none",
+              "options": [
+                {
+                  "label": "Plain Text",
+                  "value": "none"
+                },
+                {
+                  "label": "Markdown",
+                  "value": "Markdown"
+                },
+                {
+                  "label": "HTML",
+                  "value": "HTML"
+                }
+              ],
+              "description": "How to parse entities in the message"
+            },
+            "disableNotification": {
+              "type": "boolean",
+              "label": "Silent Message",
+              "default": false,
+              "description": "Send message silently without notification"
+            }
+          },
+          "connectorType": "telegram"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1455,
+          "y": 480
+        }
+      }
+    ]
+  },
+  "steps": [
+    {
+      "id": "node_2",
+      "action": "execute",
+      "params": {
+        "icon": "globe",
+        "label": "Fetch Article Content",
+        "config": {
+          "url": "{{node_1.message.text}}",
+          "method": "GET"
+        },
+        "category": "action",
+        "description": "Make HTTP API requests with advanced options",
+        "inputSchema": {
+          "data": {
+            "type": "object"
+          }
+        },
+        "configSchema": {
+          "url": {
+            "type": "string",
+            "label": "URL",
+            "required": true,
+            "description": "The URL to make the request to",
+            "placeholder": "https://api.example.com/endpoint"
+          },
+          "method": {
+            "enum": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE",
+              "HEAD",
+              "OPTIONS"
+            ],
+            "type": "string",
+            "label": "Method",
+            "default": "GET",
+            "required": true,
+            "description": "HTTP method to use"
+          },
+          "options": {
+            "type": "object",
+            "label": "Options",
+            "properties": {
+              "proxy": {
+                "type": "string",
+                "label": "Proxy",
+                "description": "HTTP proxy to use",
+                "placeholder": "http://proxy:8080"
+              },
+              "timeout": {
+                "min": 1,
+                "type": "number",
+                "label": "Timeout",
+                "default": 10000,
+                "description": "Time in milliseconds to wait for response"
+              },
+              "maxRedirects": {
+                "type": "number",
+                "label": "Max Redirects",
+                "default": 21,
+                "description": "Maximum number of redirects to follow"
+              },
+              "followRedirect": {
+                "type": "boolean",
+                "label": "Follow Redirects",
+                "default": true,
+                "description": "Follow HTTP 3xx redirects"
+              },
+              "lowercaseHeaders": {
+                "type": "boolean",
+                "label": "Lowercase Headers",
+                "default": true,
+                "description": "Convert header names to lowercase"
+              },
+              "allowUnauthorizedCerts": {
+                "type": "boolean",
+                "label": "Ignore SSL Issues",
+                "default": false,
+                "description": "Allow requests with invalid SSL certificates"
+              }
+            },
+            "description": "Advanced request options"
+          },
+          "rawBody": {
+            "type": "string",
+            "label": "Raw Body",
+            "inputType": "textarea",
+            "displayOptions": {
+              "show": {
+                "sendBody": [
+                  true
+                ],
+                "bodyContentType": [
+                  "raw"
+                ]
+              }
+            }
+          },
+          "jsonBody": {
+            "type": "string",
+            "label": "JSON Body",
+            "default": "{\n  \n}",
+            "inputType": "textarea",
+            "placeholder": "{\"key\": \"value\"}",
+            "displayOptions": {
+              "show": {
+                "sendBody": [
+                  true
+                ],
+                "bodyContentType": [
+                  "json"
+                ]
+              }
+            }
+          },
+          "sendBody": {
+            "type": "boolean",
+            "label": "Body",
+            "default": false,
+            "description": "Add a body to the request",
+            "displayOptions": {
+              "show": {
+                "method": [
+                  "POST",
+                  "PUT",
+                  "PATCH",
+                  "DELETE"
+                ]
+              }
+            }
+          },
+          "basicAuth": {
+            "type": "object",
+            "label": "Basic Auth",
+            "properties": {
+              "password": {
+                "type": "string",
+                "label": "Password",
+                "required": true,
+                "inputType": "password"
+              },
+              "username": {
+                "type": "string",
+                "label": "Username",
+                "required": true
+              }
+            },
+            "description": "Basic authentication credentials",
+            "displayOptions": {
+              "show": {
+                "authentication": [
+                  "basicAuth"
+                ]
+              }
+            }
+          },
+          "headersUI": {
+            "type": "array",
+            "label": "Headers",
+            "itemType": "object",
+            "displayOptions": {
+              "show": {
+                "sendHeaders": [
+                  true
+                ]
+              }
+            },
+            "itemProperties": {
+              "name": {
+                "type": "string",
+                "label": "Name",
+                "required": true
+              },
+              "value": {
+                "type": "string",
+                "label": "Value",
+                "required": true
+              }
+            }
+          },
+          "queryAuth": {
+            "type": "object",
+            "label": "Query Auth",
+            "properties": {
+              "name": {
+                "type": "string",
+                "label": "Parameter Name",
+                "required": true,
+                "placeholder": "api_key"
+              },
+              "value": {
+                "type": "string",
+                "label": "Parameter Value",
+                "required": true,
+                "inputType": "password"
+              }
+            },
+            "displayOptions": {
+              "show": {
+                "authentication": [
+                  "queryAuth"
+                ]
+              }
+            }
+          },
+          "sendQuery": {
+            "type": "boolean",
+            "label": "Query Parameters",
+            "default": false,
+            "description": "Add query parameters to the request"
+          },
+          "digestAuth": {
+            "type": "object",
+            "label": "Digest Auth",
+            "properties": {
+              "password": {
+                "type": "string",
+                "label": "Password",
+                "required": true,
+                "inputType": "password"
+              },
+              "username": {
+                "type": "string",
+                "label": "Username",
+                "required": true
+              }
+            },
+            "displayOptions": {
+              "show": {
+                "authentication": [
+                  "digestAuth"
+                ]
+              }
+            }
+          },
+          "headerAuth": {
+            "type": "object",
+            "label": "Header Auth",
+            "properties": {
+              "name": {
+                "type": "string",
+                "label": "Header Name",
+                "required": true,
+                "placeholder": "X-API-Key"
+              },
+              "value": {
+                "type": "string",
+                "label": "Header Value",
+                "required": true,
+                "inputType": "password"
+              }
+            },
+            "displayOptions": {
+              "show": {
+                "authentication": [
+                  "headerAuth"
+                ]
+              }
+            }
+          },
+          "neverError": {
+            "type": "boolean",
+            "label": "Never Error",
+            "default": false,
+            "description": "HTTP errors will not cause the node to fail"
+          },
+          "bearerToken": {
+            "type": "string",
+            "label": "Bearer Token",
+            "inputType": "password",
+            "description": "The bearer token for authentication",
+            "displayOptions": {
+              "show": {
+                "authentication": [
+                  "bearerToken"
+                ]
+              }
+            }
+          },
+          "sendHeaders": {
+            "type": "boolean",
+            "label": "Headers",
+            "default": false,
+            "description": "Add custom headers to the request"
+          },
+          "fullResponse": {
+            "type": "boolean",
+            "label": "Include Response Headers and Status",
+            "default": false,
+            "description": "Return full response including headers and status code"
+          },
+          "authentication": {
+            "enum": [
+              "none",
+              "basicAuth",
+              "bearerToken",
+              "headerAuth",
+              "queryAuth",
+              "digestAuth"
+            ],
+            "type": "string",
+            "label": "Authentication",
+            "default": "none",
+            "required": true,
+            "description": "Authentication method to use"
+          },
+          "responseFormat": {
+            "enum": [
+              "autodetect",
+              "json",
+              "text",
+              "file"
+            ],
+            "type": "string",
+            "label": "Response Format",
+            "default": "autodetect",
+            "description": "How to parse the response"
+          },
+          "bodyContentType": {
+            "enum": [
+              "json",
+              "form-urlencoded",
+              "multipart-form-data",
+              "raw",
+              "binary"
+            ],
+            "type": "string",
+            "label": "Body Content Type",
+            "default": "json",
+            "displayOptions": {
+              "show": {
+                "sendBody": [
+                  true
+                ]
+              }
+            }
+          },
+          "rawBodyMimeType": {
+            "type": "string",
+            "label": "Content Type",
+            "default": "text/plain",
+            "placeholder": "text/plain",
+            "displayOptions": {
+              "show": {
+                "sendBody": [
+                  true
+                ],
+                "bodyContentType": [
+                  "raw"
+                ]
+              }
+            }
+          },
+          "bodyParametersUI": {
+            "type": "array",
+            "label": "Body Parameters",
+            "itemType": "object",
+            "displayOptions": {
+              "show": {
+                "sendBody": [
+                  true
+                ],
+                "bodyContentType": [
+                  "form-urlencoded",
+                  "multipart-form-data"
+                ]
+              }
+            },
+            "itemProperties": {
+              "name": {
+                "type": "string",
+                "label": "Name",
+                "required": true
+              },
+              "value": {
+                "type": "string",
+                "label": "Value",
+                "required": true
+              }
+            }
+          },
+          "queryParametersUI": {
+            "type": "array",
+            "label": "Query Parameters",
+            "itemType": "object",
+            "displayOptions": {
+              "show": {
+                "sendQuery": [
+                  true
+                ]
+              }
+            },
+            "itemProperties": {
+              "name": {
+                "type": "string",
+                "label": "Name",
+                "required": true
+              },
+              "value": {
+                "type": "string",
+                "label": "Value",
+                "required": true
+              }
+            }
+          }
+        },
+        "outputSchema": {
+          "response": {
+            "type": "object"
+          }
+        }
+      },
+      "connector": "HTTP_REQUEST"
+    },
+    {
+      "id": "google_gemini_text_message_1762166560240",
+      "action": "execute",
+      "params": {
+        "icon": "MessageSquare",
+        "label": "Message a Model",
+        "actionId": "text_message",
+        "description": "Create a chat completion with Google Gemini model",
+        "inputSchema": {
+          "topK": {
+            "max": 100,
+            "min": 1,
+            "type": "number",
+            "label": "Top K",
+            "default": 40,
+            "description": "Top-k sampling parameter"
+          },
+          "topP": {
+            "max": 1,
+            "min": 0,
+            "step": 0.1,
+            "type": "number",
+            "label": "Top P",
+            "default": 1,
+            "description": "Nucleus sampling parameter"
+          },
+          "model": {
+            "type": "select",
+            "label": "Model",
+            "order": 0,
+            "default": "gemini-1.5-flash",
+            "options": [
+              {
+                "label": "Gemini 1.5 Pro (Best quality, slower)",
+                "value": "gemini-1.5-pro"
+              },
+              {
+                "label": "Gemini 1.5 Flash (Faster, cost-effective)",
+                "value": "gemini-1.5-flash"
+              },
+              {
+                "label": "Gemini Pro (Legacy model)",
+                "value": "gemini-pro"
+              }
+            ],
+            "required": true,
+            "description": "The Gemini model to use for generation. Available models are fetched from your credential.",
+            "dynamicOptions": true
+          },
+          "messages": {
+            "type": "array",
+            "label": "Messages",
+            "order": 1,
+            "required": true,
+            "itemSchema": {
+              "role": {
+                "type": "select",
+                "label": "Role",
+                "default": "user",
+                "options": [
+                  {
+                    "label": "User",
+                    "value": "user"
+                  },
+                  {
+                    "label": "Model",
+                    "value": "model"
+                  }
+                ],
+                "required": true,
+                "description": "The role of the message sender"
+              },
+              "content": {
+                "type": "string",
+                "label": "Prompt",
+                "required": true,
+                "inputType": "textarea",
+                "description": "The content of the message",
+                "placeholder": "e.g. Hello, how can you help me?"
+              }
+            },
+            "description": "Array of message objects for the conversation"
+          },
+          "simplify": {
+            "type": "boolean",
+            "label": "Simplify Output",
+            "default": true,
+            "description": "Return simplified response instead of raw data"
+          },
+          "jsonOutput": {
+            "type": "boolean",
+            "label": "Output Content as JSON",
+            "default": false,
+            "description": "Attempt to return the response in JSON format"
+          },
+          "temperature": {
+            "max": 2,
+            "min": 0,
+            "step": 0.1,
+            "type": "number",
+            "label": "Temperature",
+            "default": 0.9,
+            "description": "Controls randomness (0-2). Lower is more deterministic"
+          },
+          "systemMessage": {
+            "type": "string",
+            "label": "System Message",
+            "inputType": "textarea",
+            "description": "Optional system instruction for the model",
+            "placeholder": "e.g. You are a helpful assistant"
+          },
+          "maxOutputTokens": {
+            "max": 8192,
+            "min": 1,
+            "type": "number",
+            "label": "Maximum Output Tokens",
+            "default": 2048,
+            "description": "Maximum number of tokens to generate"
+          }
+        },
+        "connectorType": "google_gemini"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "google_docs_append_text_1762166633878",
+      "action": "execute",
+      "params": {
+        "icon": "Zap",
+        "label": "Append Text",
+        "actionId": "append_text",
+        "description": "Append text to the end of a document",
+        "inputSchema": {
+          "text": {
+            "type": "string",
+            "label": "Text",
+            "required": true,
+            "inputType": "textarea",
+            "description": "Content to add at the end of the document",
+            "placeholder": "Text to append to the document"
+          },
+          "documentId": {
+            "type": "string",
+            "label": "Document ID",
+            "required": true,
+            "description": "ID of the document",
+            "placeholder": "1abc2def3ghiJKLmnop4qrs"
+          }
+        },
+        "connectorType": "google_docs"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "openai_chat_complete_1762166902838",
+      "action": "execute",
+      "params": {
+        "icon": "Zap",
+        "label": "Chat Completion",
+        "actionId": "chat_complete",
+        "description": "Create a chat completion using GPT models (gpt-4, gpt-3.5-turbo, etc.)",
+        "inputSchema": {
+          "n": {
+            "max": 10,
+            "min": 1,
+            "type": "number",
+            "label": "Number of Completions",
+            "default": 1,
+            "description": "How many completions to generate"
+          },
+          "topP": {
+            "max": 1,
+            "min": 0,
+            "step": 0.1,
+            "type": "number",
+            "label": "Top P",
+            "default": 1,
+            "description": "Nucleus sampling parameter (0-1)"
+          },
+          "model": {
+            "type": "select",
+            "label": "Model",
+            "default": "gpt-3.5-turbo",
+            "options": [
+              {
+                "label": "GPT-4 Turbo",
+                "value": "gpt-4-turbo-preview"
+              },
+              {
+                "label": "GPT-4",
+                "value": "gpt-4"
+              },
+              {
+                "label": "GPT-3.5 Turbo",
+                "value": "gpt-3.5-turbo"
+              },
+              {
+                "label": "GPT-3.5 Turbo 16K",
+                "value": "gpt-3.5-turbo-16k"
+              }
+            ],
+            "required": true,
+            "description": "The model to use for chat completion"
+          },
+          "messages": {
+            "type": "array",
+            "label": "Messages",
+            "required": true,
+            "itemSchema": {
+              "role": {
+                "type": "select",
+                "label": "Role",
+                "default": "user",
+                "options": [
+                  {
+                    "label": "System",
+                    "value": "system"
+                  },
+                  {
+                    "label": "User",
+                    "value": "user"
+                  },
+                  {
+                    "label": "Assistant",
+                    "value": "assistant"
+                  }
+                ],
+                "required": true
+              },
+              "content": {
+                "type": "string",
+                "label": "Content",
+                "required": true,
+                "inputType": "textarea",
+                "placeholder": "Enter message content..."
+              }
+            },
+            "description": "Array of message objects for the conversation"
+          },
+          "maxTokens": {
+            "max": 32768,
+            "min": 1,
+            "type": "number",
+            "label": "Max Tokens",
+            "default": 16,
+            "description": "Maximum number of tokens to generate"
+          },
+          "temperature": {
+            "max": 2,
+            "min": 0,
+            "step": 0.1,
+            "type": "number",
+            "label": "Temperature",
+            "default": 1,
+            "description": "Controls randomness (0-2). Lower is more deterministic"
+          },
+          "presencePenalty": {
+            "max": 2,
+            "min": -2,
+            "step": 0.1,
+            "type": "number",
+            "label": "Presence Penalty",
+            "default": 0,
+            "description": "Encourage new topics (-2 to 2)"
+          },
+          "frequencyPenalty": {
+            "max": 2,
+            "min": -2,
+            "step": 0.1,
+            "type": "number",
+            "label": "Frequency Penalty",
+            "default": 0,
+            "description": "Penalize repeated tokens (-2 to 2)"
+          }
+        },
+        "connectorType": "openai"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "telegram_send_message_1762166950172",
+      "action": "execute",
+      "params": {
+        "icon": "Mail",
+        "label": "Send Message",
+        "actionId": "send_message",
+        "description": "Send a text message to a Telegram chat",
+        "inputSchema": {
+          "text": {
+            "type": "string",
+            "label": "Message Text",
+            "required": true,
+            "inputType": "textarea",
+            "description": "Text of the message to be sent (1-4096 characters)"
+          },
+          "chatId": {
+            "type": "string",
+            "label": "Chat ID",
+            "required": true,
+            "description": "Unique identifier for the target chat or username",
+            "placeholder": "@username or -123456789"
+          },
+          "parseMode": {
+            "type": "select",
+            "label": "Parse Mode",
+            "default": "none",
+            "options": [
+              {
+                "label": "Plain Text",
+                "value": "none"
+              },
+              {
+                "label": "Markdown",
+                "value": "Markdown"
+              },
+              {
+                "label": "HTML",
+                "value": "HTML"
+              }
+            ],
+            "description": "How to parse entities in the message"
+          },
+          "disableNotification": {
+            "type": "boolean",
+            "label": "Silent Message",
+            "default": false,
+            "description": "Send message silently without notification"
+          }
+        },
+        "connectorType": "telegram"
+      },
+      "connector": "CONNECTOR_ACTION"
+    }
+  ],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "icon": "connector",
+        "label": "When Article Link Sent on Telegram",
+        "config": {},
+        "trigger": "new_message",
+        "category": "trigger",
+        "connector": "telegram",
+        "eventType": "message",
+        "triggerId": "new_message",
+        "description": "Triggers when a new message is received",
+        "inputSchema": {
+          "chatType": {
+            "type": "select",
+            "label": "Chat Type Filter",
+            "default": "all",
+            "options": [
+              {
+                "label": "All Chats",
+                "value": "all"
+              },
+              {
+                "label": "Private Chats Only",
+                "value": "private"
+              },
+              {
+                "label": "Groups Only",
+                "value": "group"
+              },
+              {
+                "label": "Supergroups Only",
+                "value": "supergroup"
+              },
+              {
+                "label": "Channels Only",
+                "value": "channel"
+              }
+            ],
+            "description": "Filter messages by chat type"
+          },
+          "messageType": {
+            "type": "select",
+            "label": "Message Type Filter",
+            "default": "all",
+            "options": [
+              {
+                "label": "All Messages",
+                "value": "all"
+              },
+              {
+                "label": "Text Messages Only",
+                "value": "text"
+              },
+              {
+                "label": "Photo Messages Only",
+                "value": "photo"
+              },
+              {
+                "label": "Document Messages Only",
+                "value": "document"
+              }
+            ],
+            "description": "Filter messages by type"
+          },
+          "webhookToken": {
+            "type": "string",
+            "label": "Webhook Secret Token",
+            "description": "Optional secret token for webhook verification",
+            "placeholder": "my-secret-token-123"
+          }
+        },
+        "triggerName": "New Message",
+        "configSchema": {
+          "chatType": {
+            "type": "select",
+            "label": "Chat Type Filter",
+            "default": "all",
+            "options": [
+              {
+                "label": "All Chats",
+                "value": "all"
+              },
+              {
+                "label": "Private Chats Only",
+                "value": "private"
+              },
+              {
+                "label": "Groups Only",
+                "value": "group"
+              },
+              {
+                "label": "Supergroups Only",
+                "value": "supergroup"
+              },
+              {
+                "label": "Channels Only",
+                "value": "channel"
+              }
+            ],
+            "description": "Filter messages by chat type"
+          },
+          "messageType": {
+            "type": "select",
+            "label": "Message Type Filter",
+            "default": "all",
+            "options": [
+              {
+                "label": "All Messages",
+                "value": "all"
+              },
+              {
+                "label": "Text Messages Only",
+                "value": "text"
+              },
+              {
+                "label": "Photo Messages Only",
+                "value": "photo"
+              },
+              {
+                "label": "Document Messages Only",
+                "value": "document"
+              }
+            ],
+            "description": "Filter messages by type"
+          },
+          "webhookToken": {
+            "type": "string",
+            "label": "Webhook Secret Token",
+            "description": "Optional secret token for webhook verification",
+            "placeholder": "my-secret-token-123"
+          }
+        },
+        "outputSchema": {
+          "telegramEvent": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Event type (message, callback_query, etc.)"
+              },
+              "message": {
+                "type": "object",
+                "properties": {
+                  "chat": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "description": "Chat ID"
+                      },
+                      "type": {
+                        "type": "string",
+                        "description": "Chat type (private, group, etc.)"
+                      },
+                      "title": {
+                        "type": "string",
+                        "description": "Title for group chats"
+                      },
+                      "username": {
+                        "type": "string",
+                        "description": "Chat username if available"
+                      },
+                      "firstName": {
+                        "type": "string",
+                        "description": "First name for private chats"
+                      }
+                    }
+                  },
+                  "date": {
+                    "type": "number",
+                    "description": "Unix timestamp of the message"
+                  },
+                  "from": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "description": "User ID"
+                      },
+                      "isBot": {
+                        "type": "boolean",
+                        "description": "Whether user is a bot"
+                      },
+                      "username": {
+                        "type": "string",
+                        "description": "User @username"
+                      },
+                      "firstName": {
+                        "type": "string",
+                        "description": "User first name"
+                      }
+                    }
+                  },
+                  "text": {
+                    "type": "string",
+                    "description": "Message text content"
+                  },
+                  "photo": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "width": {
+                          "type": "number"
+                        },
+                        "height": {
+                          "type": "number"
+                        },
+                        "file_id": {
+                          "type": "string"
+                        },
+                        "file_size": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "description": "Photo sizes if photo message"
+                  },
+                  "caption": {
+                    "type": "string",
+                    "description": "Caption for media messages"
+                  },
+                  "entities": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string"
+                        },
+                        "length": {
+                          "type": "number"
+                        },
+                        "offset": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "description": "Message entities (commands, mentions, etc.)"
+                  },
+                  "messageId": {
+                    "type": "number",
+                    "description": "Unique message ID"
+                  }
+                }
+              },
+              "updateId": {
+                "type": "number",
+                "description": "Update ID from Telegram"
+              },
+              "timestamp": {
+                "type": "string",
+                "description": "ISO timestamp of the event"
+              }
+            }
+          }
+        },
+        "connectorType": "telegram",
+        "webhookRequired": true,
+        "connectorDisplayName": "Telegram"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "HTTP_REQUEST",
+    "CONNECTOR_ACTION"
+  ],
+  "tags": [],
+  "verified": false,
+  "is_public": true,
+  "metadata": {},
+  "ai_prompt": null
+}

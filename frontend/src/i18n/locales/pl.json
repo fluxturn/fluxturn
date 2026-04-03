@@ -1,0 +1,1187 @@
+{
+  "nav": {
+    "features": "Funkcje",
+    "tutorials": "Poradniki",
+    "templates": "Szablony",
+    "capabilities": "Mozliwosci",
+    "useCases": "Zastosowania",
+    "whyFluxTurn": "Dlaczego FluxTurn",
+    "pricing": "Cennik",
+    "documents": "Dokumenty",
+    "blog": "Blog",
+    "login": "Logowanie",
+    "getStarted": "Rozpocznij",
+    "dashboard": "Panel",
+    "admin": "Admin"
+  },
+  "hero": {
+    "badge": "Platforma automatyzacji procesow bez kodu",
+    "title1": "Zautomatyzuj swoje",
+    "title2": "procesy w",
+    "title3": "minuty",
+    "subtitle": "Polacz swoje aplikacje, automatyzuj procesy i optymalizuj operacje biznesowe za pomoca naszej poteznej platformy bez kodu. Nie sa wymagane umiejetnosci techniczne.",
+    "cta": "Rozpocznij darmowy okres probny",
+    "workflowRunning": "Zautomatyzowany proces w toku",
+    "personas": {
+      "marketing": "Marketing",
+      "marketingTitle": "Automatyzuj kampanie e-mailowe",
+      "sales": "Sprzedaz",
+      "salesTitle": "Automatycznie synchronizuj leady z CRM",
+      "hr": "HR",
+      "hrTitle": "Wdrazaj nowych pracownikow",
+      "aiTools": "Narzedzia AI",
+      "aiToolsTitle": "Przetwarzaj zadania za pomoca AI"
+    },
+    "workflow": {
+      "formSubmit": "Wyslanie formularza",
+      "website": "Strona www",
+      "addToList": "Dodaj do listy",
+      "sendEmail": "Wyslij e-mail",
+      "email": "E-mail",
+      "trackEvent": "Sledz zdarzenie",
+      "analytics": "Analityka",
+      "newLead": "Nowy lead",
+      "webForm": "Formularz web",
+      "enrichData": "Wzbogac dane",
+      "addToCRM": "Dodaj do CRM",
+      "notifySales": "Powiadom sprzedaz",
+      "newEmployee": "Nowy pracownik",
+      "hrSystem": "System HR",
+      "createEmail": "Utworz e-mail",
+      "setupSlack": "Skonfiguruj Slack",
+      "addToPayroll": "Dodaj do listy plac",
+      "sendWelcome": "Wyslij powitanie",
+      "userRequest": "Zadanie uzytkownika",
+      "processAI": "Przetwarzaj AI",
+      "executeTask": "Wykonaj zadanie",
+      "sendResult": "Wyslij wynik"
+    }
+  },
+  "powerful": {
+    "badge": "Potezny i prosty",
+    "title": "Wdraz",
+    "titleHighlight": "AI i automatyzacje",
+    "titleEnd": "w swoim biznesie",
+    "subtitle": "Bez drogich programistow. Bez miesiecy szkolen. Tylko potezna automatyzacja, ktora dziala od pierwszego dnia.",
+    "stats": {
+      "setupTime": "5 min",
+      "setupTimeLabel": "Sredni czas konfiguracji",
+      "integrations": "120+",
+      "integrationsLabel": "Integracji",
+      "uptime": "99.9%",
+      "uptimeLabel": "Czas dzialania"
+    },
+    "cta": "Zacznij budowac za darmo",
+    "cards": {
+      "lightning": {
+        "title": "Blyskawiczna konfiguracja",
+        "description": "Gotowe szablony i interfejs przeciagnij i upusc. Zacznij automatyzowac w minuty bez kodu."
+      },
+      "ai": {
+        "title": "Wbudowana integracja AI",
+        "description": "Polacz OpenAI, Claude i inne modele AI jednym kliknieciem. Bez komplikacji z API."
+      },
+      "security": {
+        "title": "Bezpieczenstwo korporacyjne",
+        "description": "Zgodnosc z SOC2 i szyfrowanie end-to-end. Hostuj samodzielnie lub korzystaj z naszej bezpiecznej chmury."
+      }
+    }
+  },
+  "aiPromptBuilder": {
+    "badge": "Naped AI",
+    "heading": "Co chcesz zautomatyzowac?",
+    "subtitle": "Opisz, uruchom i wdraz procesy z AI w sekundy",
+    "placeholder": "Opisz co chcesz zautomatyzowac...",
+    "generate": "Generuj",
+    "generating": "Generowanie...",
+    "tryThese": "Wyprobuj jedno z tych:",
+    "loginMessage": "Zaloguj sie, aby wygenerowac proces z AI",
+    "helperText": "Nacisnij Enter, aby wygenerowac lub kliknij przycisk",
+    "videoTitle": "Generowanie procesow z AI",
+    "cards": {
+      "naturalLanguage": "Jezyk naturalny",
+      "noCode": "Kreator bez kodu",
+      "aiGeneration": "Generowanie AI",
+      "integrations": "120+ integracji"
+    },
+    "suggestions": {
+      "gmail": {
+        "title": "Wyslij e-mail przez Gmail",
+        "description": "Utworz formularz wyzwalajacy ze wszystkimi wymaganymi polami dla Gmail i wyslij"
+      },
+      "translate": {
+        "title": "Tlumacz przychodzace wiadomosci",
+        "description": "Automatycznie konwertuj wiadomosci na preferowany jezyk"
+      },
+      "priceAlert": {
+        "title": "Powiadom mnie gdy ceny spadna",
+        "description": "Sledz produkty i otrzymuj powiadomienia gdy osiagna docelowa cene"
+      },
+      "emailSummary": {
+        "title": "Podsumuj moje e-maile codziennie",
+        "description": "Otrzymuj szybkie podsumowanie najwazniejszych wiadomosci kazdego ranka"
+      },
+      "supportDraft": {
+        "title": "Przygotuj odpowiedzi na zgloszenia",
+        "description": "Generuj wersje robocze pomocnych odpowiedzi na zapytania klientow"
+      },
+      "crmUpdate": {
+        "title": "Aktualizuj CRM z formularzy",
+        "description": "Dodawaj nowe leady do CRM bez recznego wprowadzania"
+      },
+      "slackTasks": {
+        "title": "Twórz zadania z wiadomosci Slack",
+        "description": "Zamieniaj wiadomosci Slack w zadania za pomoca reakcji lub komendy"
+      }
+    },
+    "errors": {
+      "emptyPrompt": "Prosze wprowadzic wiadomosc",
+      "creationFailed": "Blad podczas tworzenia procesu",
+      "noOrganization": "Nie znaleziono organizacji",
+      "noProject": "Nie znaleziono projektu. Prosze najpierw utworzyc projekt."
+    }
+  },
+  "video": {
+    "badge": "Zobacz w akcji",
+    "title": "Buduj procesy wizualnie",
+    "subtitle": "Zobacz jak latwo jest laczyc aplikacje i tworzyc potezne automatyzacje za pomoca naszego intuicyjnego edytora przeciagnij i upusc",
+    "editor": "Edytor procesow FluxTurn",
+    "connected": "Polaczony",
+    "dragDrop": "Interfejs przeciagnij i upusc"
+  },
+  "buildYourWay": {
+    "interactive": {
+      "title": "Poznaj",
+      "titleHighlight": "Edytor wizualny",
+      "subtitle": "Przeciagaj wezly, lacz je i odkryj jak latwo jest budowac procesy",
+      "addNodes": "Dodaj wezly",
+      "dragHint": "Przeciagnij wezly na plotno",
+      "canvasHint": "Przeciagnij wezly tutaj i polacz je",
+      "startBuilding": "Zacznij budowac prawdziwe procesy",
+      "feature1": {
+        "title": "Przeciagnij i upusc",
+        "desc": "Po prostu przeciagnij wezly z paska bocznego na plotno"
+      },
+      "feature2": {
+        "title": "Polaczenia wizualne",
+        "desc": "Lacz wezly przeciagajac z jednego zlacza do drugiego"
+      },
+      "feature3": {
+        "title": "Natychmiastowe wdrozenie",
+        "desc": "Wdroz swoj proces jednym kliknieciem"
+      }
+    }
+  },
+  "templates": {
+    "badge": "300+ szablonow",
+    "title": "Zacznij od",
+    "titleHighlight": "gotowego szablonu",
+    "subtitle": "Przegladaj szablony procesow. Kliknij i dostosuj.",
+    "clickToPreview": "Kliknij dowolny szablon, aby podejrzec proces",
+    "useForFree": "Uzyj za darmo",
+    "useTemplate": "Uzyj tego szablonu",
+    "creating": "Tworzenie...",
+    "browseAll": "Przegladaj wszystkie szablony",
+    "browseHint": "Odkryj 300+ gotowych szablonow automatyzacji",
+    "verified": "Zweryfikowany",
+    "users": "Uzytkownicy",
+    "popular": "Popularny",
+    "steps": "Kroki",
+    "integrations": "Integracje",
+    "workflowPreview": "Podglad procesu",
+    "previewNotAvailable": "Podglad niedostepny",
+    "viewDetails": "Zobacz szczegoly szablonu, aby dowiedziec sie wiecej",
+    "loginMessage": "Zaloguj sie, aby uzyc tego szablonu",
+    "errors": {
+      "noOrganization": "Nie znaleziono organizacji",
+      "noProject": "Nie znaleziono projektu",
+      "creationFailed": "Blad podczas tworzenia procesu"
+    },
+    "success": {
+      "created": "Proces utworzony z szablonu"
+    }
+  },
+  "aiAgent": {
+    "badge": "Automatyzacja AI",
+    "title": "Poznaj",
+    "titleHighlight": "Wezel agenta AI",
+    "subtitle": "Potezny wezel, ktory mysli, decyduje i dziala. Polacz dowolne narzedzie i pozwol AI zarzadzac logika.",
+    "canvasCaption": "Agent AI odbiera dane wejsciowe, wybiera odpowiednie narzedzie i automatycznie wykonuje",
+    "feature1Title": "Dowolne narzedzie, jeden wezel",
+    "feature1Desc": "Polacz Gmail, Slack, Notion lub dowolny z 120+ konektorow jako narzedzia AI",
+    "feature2Title": "AI decyduje",
+    "feature2Desc": "Agent analizuje dane wejsciowe i automatycznie wybiera odpowiednie narzedzie",
+    "feature3Title": "Ty kontrolujesz",
+    "feature3Desc": "Ustaw maksymalne iteracje, prompty systemowe i dostepne narzedzia",
+    "cta": "Wyprobuj agenta AI",
+    "ctaHint": "Bez karty kredytowej. Darmowy plan dostepny",
+    "creating": "Tworzenie...",
+    "loginMessage": "Zaloguj sie, aby wyprobowac agenta AI",
+    "errors": {
+      "noOrganization": "Nie znaleziono organizacji",
+      "noProject": "Nie znaleziono projektu",
+      "creationFailed": "Blad podczas tworzenia procesu"
+    },
+    "success": {
+      "created": "Proces agenta AI utworzony"
+    }
+  },
+  "templatesPage": {
+    "title": "Szablony",
+    "titleHighlight": "procesow",
+    "subtitle": "Przegladaj nasza biblioteke gotowych szablonow procesow. Kliknij dowolny szablon, aby uzyc go za darmo.",
+    "searchPlaceholder": "Szukaj szablonow...",
+    "showingCount": "Wyswietlanie",
+    "of": "z",
+    "template": "szablon",
+    "templates": "szablonow",
+    "loading": "Ladowanie szablonow...",
+    "loadFailed": "Blad ladowania szablonow",
+    "retry": "Ponow probe",
+    "noResults": "Nie znaleziono szablonow",
+    "noResultsHint": "Sprobuj dostosowac wyszukiwanie lub filtry",
+    "clearFilters": "Wyczysc filtry",
+    "uses": "uzyc",
+    "useTemplate": "Uzyj szablonu",
+    "loadMore": "Zaladuj wiecej szablonow",
+    "verified": "Zweryfikowany",
+    "steps": "Kroki",
+    "users": "Uzytkownicy",
+    "integrations": "Integracje",
+    "creating": "Tworzenie...",
+    "useThisTemplate": "Uzyj tego szablonu",
+    "previewNotAvailable": "Podglad niedostepny",
+    "previewHint": "Kliknij \"Uzyj tego szablonu\", aby rozpoczac",
+    "workflowPreview": "Podglad procesu",
+    "all": "Wszystkie"
+  },
+  "features": {
+    "title": "Wzmocnij swoj proces:",
+    "titleExplore": "odkryj",
+    "titleHighlight": "platforme",
+    "titleEnd": "wszystko w jednym.",
+    "subtitle": "Wszystko czego potrzebujesz do automatyzacji procesow i polaczenia calej infrastruktury technologicznej",
+    "cta": "Odkryj funkcje",
+    "bento": {
+      "ai-workflow": {
+        "title": "Generowanie procesow AI",
+        "description": "Opisz co chcesz prostym jezykiem. AI zbuduje caly proces w sekundy."
+      },
+      "visual-builder": {
+        "title": "Kreator wizualny",
+        "description": "Tworzenie procesow przeciagnij i upusc"
+      },
+      "ai-agent": {
+        "title": "Agent AI",
+        "description": "Inteligentna automatyzacja, ktora mysli i dziala"
+      },
+      "integrations": {
+        "title": "Integracje",
+        "description": "Polacz wszystkie swoje ulubione aplikacje"
+      },
+      "custom-code": {
+        "title": "Wlasny kod",
+        "description": "JavaScript, Python lub dowolny jezyk"
+      }
+    },
+    "items": {
+      "visualBuilder": {
+        "title": "Wizualny kreator procesow",
+        "description": "Buduj zlozone procesy automatyzacji za pomoca intuicyjnego interfejsu przeciagnij i upusc. Bez kodu."
+      },
+      "conditionalLogic": {
+        "title": "Logika warunkowa",
+        "description": "Twórz zaawansowane procesy z rozgalezieniami za pomoca warunkow if/else, petli i drzew decyzyjnych."
+      },
+      "customCode": {
+        "title": "Wykonywanie wlasnego kodu",
+        "description": "Uruchamiaj kod JavaScript, Python lub dowolny inny bezposrednio w procesach dla maksymalnej elastycznosci."
+      },
+      "cloudHosted": {
+        "title": "Chmura i self-hosting",
+        "description": "Wdrazaj na naszej infrastrukturze chmurowej lub hostuj samodzielnie na wlasnych serwerach dla pelnej kontroli."
+      },
+      "security": {
+        "title": "Bezpieczenstwo korporacyjne",
+        "description": "Szyfrowanie na poziomie bankowym, zgodnosc z SOC2 i szczegolowe kontrole dostepu dla bezpieczenstwa danych."
+      },
+      "realtime": {
+        "title": "Wykonywanie w czasie rzeczywistym",
+        "description": "Ultraszybkie wykonywanie procesow z monitoringiem w czasie rzeczywistym i szczegolowymi logami."
+      }
+    }
+  },
+  "integrations": {
+    "title": "Polacz wszystko",
+    "subtitle": "120+ gotowych integracji z Twoimi ulubionymi aplikacjami i uslugami",
+    "hoverHint": "Najedz, aby wstrzymac. 120+ integracji dostepnych"
+  },
+  "useCases": {
+    "title": "Stworzony dla",
+    "titleHighlight": "kazdego zastosowania",
+    "subtitle": "Od automatyzacji marketingu po zlozone potoki danych",
+    "viewAll": "Zobacz wszystkie zastosowania",
+    "items": {
+      "marketing": {
+        "title": "Automatyzacja marketingu",
+        "description": "Automatyzuj kampanie e-mailowe, posty w mediach spolecznosciowych i procesy generowania leadow.",
+        "stats": "KAMPANIE 10X SZYBCIEJ",
+        "category": "Marketing"
+      },
+      "api": {
+        "title": "Integracja API",
+        "description": "Lacz wiele API i uslug, aby tworzyc plynne przeplywy danych miedzy platformami.",
+        "stats": "120+ INTEGRACJI",
+        "category": "IT i DevOps"
+      },
+      "data": {
+        "title": "Przetwarzanie danych",
+        "description": "Transformuj, agreguj i analizuj dane z wielu zrodel w czasie rzeczywistym.",
+        "stats": "MILIONY REKORDOW",
+        "category": "Dane i analityka"
+      },
+      "ai": {
+        "title": "AI i Machine Learning",
+        "description": "Integruj modele AI i potoki ML w swoich procesach automatyzacji.",
+        "stats": "PROCESY NAPED AI",
+        "category": "AI i ML"
+      }
+    }
+  },
+  "whyFluxTurn": {
+    "title": "Dlaczego",
+    "subtitle": "Przeksztalc zlozone procesy w proste i wydajne przeplywy pracy",
+    "efficiency": "Wydajnosc",
+    "status": {
+      "complex": "Zlozony proces",
+      "optimized": "Zoptymalizowany z FluxTurn"
+    },
+    "stats": {
+      "nodes": "Wezly:",
+      "time": "Czas konfiguracji:"
+    },
+    "analyzing": "Analiza zlozonosci procesu...",
+    "cta": "Zacznij upraszczac"
+  },
+  "pricing": {
+    "badge": "Prosty cennik",
+    "title": "Wybierz swoj",
+    "titleHighlight": "idealny plan",
+    "subtitle": "Zacznij za darmo i skaluj wraz z rozwojem. Bez ukrytych kosztow.",
+    "monthly": "Miesiecznie",
+    "yearly": "Rocznie",
+    "twoMonthsFree": "2 miesiace gratis",
+    "perMonth": "miesiecznie",
+    "forever": "na zawsze",
+    "year": "rok",
+    "viewFullDetails": "Zobacz pelne szczegoly cennika",
+    "mostPopular": "Najpopularniejszy",
+    "plans": {
+      "free": {
+        "name": "Darmowy",
+        "description": "Idealny dla indywidualnych",
+        "features": [
+          "1 000 wykonan/miesiac",
+          "20 aktywnych procesow",
+          "Wsparcie spolecznosci",
+          "Podstawowe integracje"
+        ],
+        "cta": "Zacznij za darmo"
+      },
+      "starter": {
+        "name": "Starter",
+        "description": "Dla malych zespolow",
+        "features": [
+          "10 000 wykonan/miesiac",
+          "50 aktywnych procesow",
+          "Wsparcie e-mailowe",
+          "Wszystkie integracje"
+        ],
+        "cta": "Rozpocznij darmowy okres probny"
+      },
+      "professional": {
+        "name": "Profesjonalny",
+        "description": "Dla rosnacych zespolow",
+        "features": [
+          "50 000 wykonan/miesiac",
+          "Nieograniczone procesy",
+          "Wsparcie priorytetowe",
+          "Uwierzytelnianie SSO"
+        ],
+        "cta": "Rozpocznij darmowy okres probny"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "Dla duzych organizacji",
+        "features": [
+          "200 000 wykonan/miesiac",
+          "Dedykowane wsparcie",
+          "SLA 99.9%",
+          "Opcja on-premise"
+        ],
+        "cta": "Skontaktuj sie ze sprzedaza"
+      }
+    }
+  },
+  "blog": {
+    "title": "Najnowsze z naszego bloga",
+    "subtitle": "Badz na biezaco z najnowszymi spostrzezeniami na temat automatyzacji, wskazowkami i historiami sukcesu",
+    "featured": "Wyrozniony",
+    "minRead": "min czytania",
+    "by": "Autor",
+    "readMore": "Czytaj wiecej",
+    "viewAllPosts": "Zobacz wszystkie wpisy"
+  },
+  "blogPage": {
+    "title": "Blog",
+    "subtitle": "Spostrzezenia na temat automatyzacji procesow i rozwoju",
+    "newPost": "Nowy wpis",
+    "myPosts": "Moje wpisy",
+    "search": {
+      "placeholder": "Szukaj artykulow..."
+    },
+    "browse": {
+      "title": "Przegladaj",
+      "latest": "Najnowsze",
+      "popular": "Popularne",
+      "featured": "Wyrosnione",
+      "allPosts": "Wszystkie wpisy"
+    },
+    "categories": {
+      "title": "Kategorie",
+      "all": "Wszystkie kategorie"
+    },
+    "loading": "Ladowanie...",
+    "error": {
+      "loadFailed": "Blad ladowania wpisow",
+      "tryAgain": "Ponow probe"
+    },
+    "empty": {
+      "title": "Nie znaleziono artykulow",
+      "subtitle": "Wroc pozniej po nowe tresci!"
+    },
+    "pagination": {
+      "previous": "Poprzedni",
+      "next": "Nastepny"
+    },
+    "post": {
+      "backToBlog": "Powrot do bloga",
+      "notFound": {
+        "title": "Wpis nie znaleziony",
+        "message": "Wpis, ktorego szukasz, nie istnieje."
+      },
+      "minRead": "min czytania",
+      "views": "wyswietlenia",
+      "by": "Autor",
+      "featured": "Wyrozniomy",
+      "edit": "Edytuj",
+      "delete": "Usun",
+      "deleteConfirm": "Czy na pewno chcesz usunac ten wpis? Tej operacji nie mozna cofnac.",
+      "signInToRate": "Zaloguj sie, aby ocenic ten wpis"
+    },
+    "comments": {
+      "title": "Komentarze",
+      "comment": "komentarz",
+      "comments": "komentarze",
+      "placeholder": "Podziel sie swoimi przemysleniami...",
+      "signInPrompt": "aby zostawic komentarz.",
+      "signIn": "Zaloguj sie",
+      "noComments": "Brak komentarzy. Badz pierwszy!",
+      "reply": "Odpowiedz",
+      "replying": "Odpowiadanie...",
+      "submit": "Wyslij",
+      "cancel": "Anuluj"
+    },
+    "card": {
+      "minRead": "min czytania",
+      "by": "Autor"
+    }
+  },
+  "comparison": {
+    "badge": "Porownanie platform",
+    "title": "Dlaczego warto wybrac",
+    "subtitle": "Zobacz jak FluxTurn wypada na tle innych platform automatyzacji procesow",
+    "getStarted": "Zacznij za darmo",
+    "footnote": "* Wersja self-hosted. Ceny i funkcje moga sie roznic. Ostatnia aktualizacja: styczen 2025.",
+    "categories": {
+      "corefeatures": "Glowne funkcje",
+      "deployment": "Wdrozenie",
+      "pricing": "Cennik",
+      "integrations": "Integracje",
+      "performance": "Wydajnosc",
+      "collaboration": "Wspolpraca"
+    },
+    "features": {
+      "visualBuilder": "Wizualny kreator procesow",
+      "aiWorkflowGeneration": "Generowanie procesow AI",
+      "naturalLanguagePrompts": "Prompty w jezyku naturalnym",
+      "customCodeSupport": "Obsluga wlasnego kodu",
+      "selfHosting": "Opcja self-hostingu",
+      "cloudHosted": "Hosting w chmurze",
+      "freeWorkflows": "Darmowe procesy",
+      "freeOperations": "Darmowe operacje",
+      "startingPrice": "Cena poczatkowa",
+      "integrations": "Integracje",
+      "apiAccess": "Dostep do API",
+      "webhooks": "Webhooks",
+      "realtimeExecution": "Wykonywanie w czasie rzeczywistym",
+      "errorHandling": "Obsluga bledow",
+      "teamCollaboration": "Wspolpraca zespolowa",
+      "versionHistory": "Historia wersji"
+    }
+  },
+  "faq": {
+    "badge": "Masz pytania?",
+    "title": "Czesto zadawane pytania",
+    "subtitle": "Wszystko co musisz wiedziec o FluxTurn. Nie znalazles tego czego szukasz? Skontaktuj sie z naszym zespolem wsparcia.",
+    "items": {
+      "whatIs": {
+        "question": "Czym jest FluxTurn i jak dziala?",
+        "answer": "FluxTurn to potezna platforma automatyzacji procesow, ktora pozwala laczyc aplikacje i automatyzowac powtarzalne zadania bez programowania. Za pomoca naszego wizualnego kreatora przeciagnij i upusc mozesz tworzyc procesy, ktore sa automatycznie uruchamiane przez zdarzenia, harmonogramy lub reczne wyzwalanie. Po prostu polacz swoje aplikacje, zdefiniuj logike i pozwol FluxTurn zajac sie reszta."
+      },
+      "codingSkills": {
+        "question": "Czy muszę umiec programowac, aby uzywac FluxTurn?",
+        "answer": "Nie sa wymagane umiejetnosci programistyczne! FluxTurn posiada intuicyjny wizualny kreator, w ktorym mozesz przeciagac i upuszczac wezly, laczyc je i konfigurowac akcje za pomoca prostych formularzy. Jednak dla zaawansowanych uzytkownikow wspieramy rowniez wykonywanie wlasnego kodu w JavaScript i Python w procesach dla maksymalnej elastycznosci."
+      },
+      "integrations": {
+        "question": "Jakie aplikacje i uslugi moge polaczyc?",
+        "answer": "FluxTurn integruje sie z ponad 100 popularnymi aplikacjami w tym Gmail, Slack, Google Sheets, Telegram, Discord, Stripe, Shopify, OpenAI, bazami danych jak PostgreSQL i MongoDB oraz wieloma innymi. Stale dodajemy nowe integracje na podstawie prosb uzytkownikow."
+      },
+      "freePlan": {
+        "question": "Czy dostepny jest darmowy plan?",
+        "answer": "Tak! Oferujemy hojny darmowy plan obejmujacy do 500 wykonan procesow miesiecznie, dostep do wszystkich integracji i mozliwosc tworzenia nieograniczonych procesow. Idealny dla projektow osobistych i malych zespolow zaczynajacych z automatyzacja."
+      },
+      "selfHost": {
+        "question": "Czy moge hostowac FluxTurn na wlasnych serwerach?",
+        "answer": "Oczywiscie! FluxTurn oferuje opcje hostingu w chmurze i self-hostingu. Nasze rozwiazanie self-hosted daje pelna kontrole nad danymi i infrastruktura. Idealne dla firm ze scislymi wymaganiami zgodnosci lub zespolow preferujacych zarzadzanie wlasnym wdrozeniem."
+      },
+      "security": {
+        "question": "Jak bezpieczne sa moje dane z FluxTurn?",
+        "answer": "Bezpieczenstwo jest naszym najwyzszym priorytetem. Uzywamy szyfrowania AES-256 na poziomie bankowym dla wszystkich danych w spoczynku i TLS 1.3 dla danych w tranzycie. Twoje dane uwierzytelniajace sa szyfrowane i nigdy nie sa przechowywane w postaci jawnej. Oferujemy rowniez zgodnosc z SOC2, kontrole dostepu oparte na rolach i logi audytu dla klientow korporacyjnych."
+      },
+      "failedWorkflow": {
+        "question": "Co sie stanie, jesli proces sie nie powiedzie?",
+        "answer": "FluxTurn zapewnia kompleksowa obsluge bledow i monitoring. Gdy proces sie nie powiedzie, otrzymasz natychmiastowe powiadomienia e-mailem lub preferowanym kanalem. Nasze szczegolowe logi wykonania pomagaja szybko identyfikowac i naprawiac problemy. Mozesz rowniez skonfigurowac automatyczne ponawianie i akcje zapasowe dla krytycznych procesow."
+      },
+      "aiWorkflows": {
+        "question": "Czy moge uzywac AI w moich procesach?",
+        "answer": "Tak! FluxTurn ma wbudowane mozliwosci AI napedzane przez OpenAI, Anthropic i innych wiodacych dostawcow AI. Mozesz uzywac AI do generowania tresci, analizy danych, podejmowania decyzji, klasyfikacji informacji i wiele wiecej. Nasze wezly agenta AI ulatwiaja dodawanie inteligencji do dowolnego procesu."
+      }
+    }
+  },
+  "footer": {
+    "description": "Buduj potezne aplikacje za pomoca naszej kompleksowej platformy backendowej. Wszystko czego potrzebujesz w jednym miejscu.",
+    "sections": {
+      "product": "Produkt",
+      "developers": "Deweloperzy",
+      "company": "Firma",
+      "legal": "Prawne"
+    },
+    "links": {
+      "features": "Funkcje",
+      "visualBuilders": "Kreatory wizualne",
+      "aiPlatform": "Platforma AI",
+      "integrations": "Integracje",
+      "pricing": "Cennik",
+      "documentation": "Dokumentacja",
+      "tutorials": "Poradniki",
+      "apiReference": "Dokumentacja API",
+      "examples": "Przyklady",
+      "support": "Wsparcie",
+      "privacy": "Prywatnosc",
+      "terms": "Regulamin",
+      "security": "Bezpieczenstwo"
+    },
+    "newsletter": {
+      "title": "Badz na biezaco",
+      "description": "Otrzymuj najnowsze wiadomosci o nowych funkcjach i wydaniach.",
+      "placeholder": "Podaj swoj e-mail",
+      "subscribe": "Subskrybuj",
+      "subscribing": "Subskrybowanie..."
+    },
+    "copyright": "\u00a9 {{year}} Info Inlet. Wszelkie prawa zastrzezone.",
+    "builtWith": "Stworzone z",
+    "byTeam": "przez zespol Info Inlet",
+    "docs": "Dokumentacja"
+  },
+  "language": {
+    "en": "Angielski",
+    "ja": "Japonski",
+    "zh": "Chinski",
+    "ko": "Koreanski",
+    "es": "Hiszpanski",
+    "fr": "Francuski",
+    "de": "Niemiecki"
+  },
+  "featuresPage": {
+    "badge": "Potezne funkcje",
+    "title": "Wszystko czego potrzebujesz do",
+    "titleHighlight": "automatyzacji",
+    "subtitle": "Odkryj potezne funkcje, ktore czynia FluxTurn najbardziej elastyczna platforma automatyzacji procesow dla nowoczesnych zespolow.",
+    "cta": "Rozpocznij darmowy okres probny",
+    "viewDocs": "Zobacz dokumentacje",
+    "stats": {
+      "workflows": "Nieograniczone procesy",
+      "workflowsValue": "Budowanie",
+      "integrations": "Integracje",
+      "codeSupport": "Obsluga kodu",
+      "security": "Bezpieczenstwo"
+    },
+    "coreFeatures": {
+      "title": "Glowne funkcje",
+      "subtitle": "Odkryj potezne mozliwosci, ktore wyrozniajna FluxTurn"
+    },
+    "features": {
+      "visualBuilder": {
+        "title": "Wizualny kreator procesow",
+        "desc": "Interfejs przeciagnij i upusc do budowania zlozonych procesow automatyzacji bez kodu."
+      },
+      "conditionalLogic": {
+        "title": "Logika warunkowa",
+        "desc": "Twórz procesy z rozgalezieniami za pomoca warunkow if/else, petli i drzew decyzyjnych."
+      },
+      "customCode": {
+        "title": "Wlasny kod",
+        "desc": "Uruchamiaj kod JavaScript lub Python dla maksymalnej elastycznosci."
+      },
+      "integrations": {
+        "title": "120+ integracji",
+        "desc": "Polacz sie od razu ze wszystkimi ulubionymi aplikacjami i uslugami."
+      },
+      "realtime": {
+        "title": "Wykonywanie w czasie rzeczywistym",
+        "desc": "Ultraszybkie wykonywanie procesow z monitoringiem w czasie rzeczywistym."
+      },
+      "security": {
+        "title": "Bezpieczenstwo korporacyjne",
+        "desc": "Szyfrowanie na poziomie bankowym, zgodnosc z SOC2 i szczegolowe kontrole dostepu."
+      },
+      "deployment": {
+        "title": "Chmura i self-hosting",
+        "desc": "Wdrazaj w naszej chmurze lub hostuj samodzielnie na wlasnej infrastrukturze."
+      },
+      "scheduling": {
+        "title": "Zaawansowane harmonogramowanie",
+        "desc": "Harmonogramuj procesy do uruchomienia o okreslonych porach lub w odstepach."
+      },
+      "templates": {
+        "title": "300+ szablonow",
+        "desc": "Szybki start z gotowymi szablonami dla typowych zastosowan."
+      }
+    },
+    "ctaSection": {
+      "title": "Gotowy do rozpoczecia?",
+      "subtitle": "Zacznij automatyzowac swoje procesy juz dzis z FluxTurn. Bez karty kredytowej.",
+      "cta": "Rozpocznij darmowy okres probny",
+      "viewPricing": "Zobacz cennik"
+    },
+    "visualSection": {
+      "badge": "Wizualny edytor procesow",
+      "title": "Buduj automatyzacje",
+      "titleHighlight": "przeciagnij i upusc",
+      "subtitle": "Twórz potezne procesy automatyzacji wizualnie. Lacz wezly, konfiguruj akcje i wdrazaj automatyzacje za pomoca naszego intuicyjnego edytora wizualnego.",
+      "videoTitle": "Wizualny edytor procesow FluxTurn",
+      "floatingBadge": "Przeciagnij i upusc",
+      "cta": "Wyprobuj edytor wizualny",
+      "features": {
+        "dragDrop": {
+          "title": "Intuicyjne przeciagnij i upusc",
+          "desc": "Po prostu przeciagnij wezly na plotno i polacz je, aby zbudowac proces. Bez doswiadczenia w programowaniu."
+        },
+        "integrations": {
+          "title": "120+ gotowych integracji",
+          "desc": "Polacz sie od razu z ulubionymi aplikacjami. Gmail, Slack, Notion, Stripe i setki wiecej gotowych do uzycia."
+        },
+        "realtime": {
+          "title": "Testowanie w czasie rzeczywistym",
+          "desc": "Testuj procesy natychmiast z prawdziwymi danymi. Zobacz wyniki od razu i debuguj ze szczegolowymi logami."
+        },
+        "preview": {
+          "title": "Podglad na zywo",
+          "desc": "Obserwuj dzialanie procesu w czasie rzeczywistym. Wizualizuj przeplyw danych i wykrywaj problemy przed wdrozeniem."
+        }
+      }
+    },
+    "aiSection": {
+      "badge": "Automatyzacja AI",
+      "title": "Buduj procesy z",
+      "titleHighlight": "asystentem AI",
+      "subtitle": "Opisz co chcesz zautomatyzowac w jezyku naturalnym i pozwol naszemu AI zbudowac proces za Ciebie. Rozmawiaj z AI, aby modyfikowac, optymalizowac i debugowac procesy w czasie rzeczywistym.",
+      "videoTitle": "Kreator procesow AI FluxTurn",
+      "floatingBadge": "Bez kodu",
+      "cta": "Wyprobuj kreator AI",
+      "features": {
+        "naturalLanguage": {
+          "title": "Wprowadzanie w jezyku naturalnym",
+          "desc": "Opisz swoja automatyzacje prostym jezykiem. Nasze AI rozumie Twoja intencje i automatycznie tworzy proces."
+        },
+        "aiChat": {
+          "title": "Asystent czatu AI",
+          "desc": "Rozmawiaj z AI, aby modyfikowac procesy, zadawac pytania i otrzymywac sugestie usprawnieh w czasie rzeczywistym."
+        },
+        "instantGeneration": {
+          "title": "Natychmiastowe generowanie procesow",
+          "desc": "Zobacz jak Twoj proces powstaje w sekundy. AI automatycznie wybiera odpowiednie integracje i je konfiguruje."
+        },
+        "smartSuggestions": {
+          "title": "Inteligentne sugestie",
+          "desc": "Otrzymuj inteligentne rekomendacje dotyczace optymalizacji, obslugi bledow i najlepszych praktyk podczas budowania."
+        }
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Witaj ponownie",
+      "subtitle": "Wprowadz swoje dane logowania, aby uzyskac dostep do konta",
+      "inviteMessage": "Zaloguj sie, aby zaakceptowac zaproszenie",
+      "email": "E-mail",
+      "emailPlaceholder": "Wprowadz swoj e-mail",
+      "password": "Haslo",
+      "passwordPlaceholder": "Wprowadz swoje haslo",
+      "rememberMe": "Zapamietaj mnie",
+      "forgotPassword": "Nie pamietasz hasla?",
+      "signIn": "Zaloguj sie",
+      "signingIn": "Logowanie...",
+      "noAccount": "Nie masz konta?",
+      "signUp": "Zarejestruj sie",
+      "orContinueWith": "Lub kontynuuj z",
+      "termsAgreement": "Logujac sie, akceptujesz nasze",
+      "termsOfService": "Regulamin",
+      "and": "i",
+      "privacyPolicy": "Polityke prywatnosci"
+    },
+    "register": {
+      "title": "Utworz konto",
+      "subtitle": "Zarejestruj sie, aby zaczac korzystac z FluxTurn",
+      "name": "Pelne imie i nazwisko",
+      "namePlaceholder": "Wprowadz pelne imie i nazwisko",
+      "passwordRequirements": {
+        "minLength": "8+ znakow",
+        "uppercase": "wielka litera",
+        "lowercase": "mala litera",
+        "number": "cyfra",
+        "special": "znak specjalny"
+      },
+      "email": "E-mail",
+      "emailPlaceholder": "Wprowadz swoj e-mail",
+      "password": "Haslo",
+      "passwordPlaceholder": "Utworz haslo",
+      "confirmPassword": "Potwierdz haslo",
+      "confirmPasswordPlaceholder": "Potwierdz swoje haslo",
+      "passwordStrength": "Sila hasla:",
+      "weak": "Slabe",
+      "fair": "Przecietne",
+      "good": "Dobre",
+      "strong": "Silne",
+      "missing": "Brakuje:",
+      "passwordsMatch": "Hasla sie zgadzaja",
+      "passwordsNoMatch": "Hasla sie nie zgadzaja",
+      "agreeToTerms": "Akceptuje",
+      "termsOfService": "Regulamin",
+      "and": "i",
+      "privacyPolicy": "Polityke prywatnosci",
+      "createAccount": "Utworz konto",
+      "creating": "Tworzenie konta...",
+      "haveAccount": "Masz juz konto?",
+      "signIn": "Zaloguj sie",
+      "orContinueWith": "Lub kontynuuj z"
+    },
+    "forgotPassword": {
+      "title": "Nie pamietasz hasla?",
+      "subtitle": "Nie martw sie, wysylemy instrukcje resetowania",
+      "email": "E-mail",
+      "emailPlaceholder": "Wprowadz swoj e-mail",
+      "sendLink": "Wyslij e-mail resetujacy",
+      "sending": "Wysylanie...",
+      "backToLogin": "Powrot do logowania",
+      "successTitle": "Sprawdz swoj e-mail",
+      "successMessage": "Wyslalismy link resetujacy na adres:",
+      "successHint": "Nie otrzymales e-maila? Sprawdz folder spam lub sprobuj ponownie.",
+      "resendEmail": "Wyslij ponownie",
+      "resending": "Ponowne wysylanie..."
+    },
+    "resetPassword": {
+      "title": "Ustaw nowe haslo",
+      "subtitle": "Wprowadz swoje nowe haslo ponizej",
+      "invalidTitle": "Nieprawidlowy link resetowania",
+      "invalidMessage": "Ten link resetowania jest nieprawidlowy lub wygasl.",
+      "requestNewLink": "Popros o nowy link",
+      "newPassword": "Nowe haslo",
+      "newPasswordPlaceholder": "Wprowadz nowe haslo",
+      "confirmPassword": "Potwierdz haslo",
+      "confirmPasswordPlaceholder": "Potwierdz nowe haslo",
+      "passwordStrength": "Sila hasla:",
+      "passwordsMatch": "Hasla sie zgadzaja",
+      "passwordsNoMatch": "Hasla sie nie zgadzaja",
+      "reset": "Zaktualizuj haslo",
+      "resetting": "Aktualizowanie hasla...",
+      "successTitle": "Haslo zaktualizowane",
+      "successMessage": "Twoje haslo zostalo pomyslnie zaktualizowane. Mozesz sie teraz zalogowac nowym haslem.",
+      "continueToLogin": "Przejdz do logowania",
+      "validating": "Weryfikacja linku resetowania...",
+      "backToLogin": "Powrot do logowania"
+    },
+    "verifyEmail": {
+      "title": "Zweryfikuj swoj e-mail",
+      "subtitle": "Wyslalismy link weryfikacyjny na adres:",
+      "instruction": "Kliknij link w e-mailu, aby zweryfikowac swoje konto",
+      "checkEmail": "Sprawdz swoj e-mail",
+      "expireNote": "Link weryfikacyjny wygasnie za 24 godziny",
+      "noEmailHint": "Nie otrzymales e-maila? Sprawdz folder spam lub wyslij ponownie.",
+      "resendEmail": "Wyslij ponownie",
+      "sending": "Wysylanie...",
+      "verifyingTitle": "Weryfikacja e-maila",
+      "verifyingMessage": "Prosze czekac, weryfikujemy Twoj adres e-mail...",
+      "successTitle": "E-mail zweryfikowany!",
+      "successMessage": "Twoj e-mail zostal pomyslnie zweryfikowany. Mozesz teraz uzyskac dostep do wszystkich funkcji konta.",
+      "goToDashboard": "Przejdz do panelu",
+      "signIn": "Zaloguj sie",
+      "failedTitle": "Weryfikacja nieudana",
+      "failedMessage": "Link weryfikacyjny jest nieprawidlowy lub wygasl. Prosze poprosic o nowy e-mail weryfikacyjny.",
+      "sendNewEmail": "Wyslij nowy e-mail weryfikacyjny",
+      "backToLogin": "Powrot do logowania",
+      "emailSentTitle": "E-mail wyslany!",
+      "emailSentMessage": "Wyslalismy nowy e-mail weryfikacyjny na adres:",
+      "emailSentHint": "Sprawdz skrzynke odbiorcza i kliknij link weryfikacyjny",
+      "spamHint": "Nadal nie widzisz? Sprawdz folder spam.",
+      "resendAgain": "Wyslij ponownie",
+      "waitBeforeResend": "Poczekaj {{countdown}}s przed ponownym wyslaniem",
+      "welcome": "Witaj w przyszlosci rozwoju",
+      "verifyToStart": "Zweryfikuj swoj e-mail, aby rozpoczac",
+      "needHelp": "Potrzebujesz pomocy? Skontaktuj sie z naszym",
+      "supportTeam": "zespolem wsparcia"
+    },
+    "authSuccess": {
+      "title": "Uwierzytelnianie udane!",
+      "message": "Zalogowano pomyslnie. Przekierowywanie do panelu..."
+    },
+    "authError": {
+      "title": "Uwierzytelnianie nieudane",
+      "redirectMessage": "Zostaniesz przekierowany na strone logowania za kilka sekund...",
+      "returnToLogin": "Powrot do logowania",
+      "troubleHelp": "Masz problemy? Wyprobuj te opcje:",
+      "createAccount": "Utworz konto",
+      "resetPassword": "Zresetuj haslo"
+    },
+    "oauth": {
+      "google": "Kontynuuj z Google",
+      "github": "Kontynuuj z GitHub",
+      "apple": "Kontynuuj z Apple",
+      "connecting": "Laczenie...",
+      "processing": "Przetwarzanie callbacku OAuth...",
+      "success": "Sukces!",
+      "successMessage": "Polaczono pomyslnie! Przekierowywanie...",
+      "error": "Blad",
+      "closeWindow": "Zamknij okno"
+    },
+    "errors": {
+      "invalidCredentials": "Nieprawidlowy e-mail lub haslo",
+      "emailRequired": "E-mail jest wymagany",
+      "passwordRequired": "Haslo jest wymagane",
+      "nameRequired": "Imie jest wymagane",
+      "passwordMismatch": "Hasla sie nie zgadzaja",
+      "weakPassword": "Haslo musi miec co najmniej 8 znakow",
+      "invalidEmail": "Prosze podac prawidlowy adres e-mail",
+      "accountExists": "Konto z tym e-mailem juz istnieje",
+      "loginFailed": "Logowanie nieudane. Sprawdz dane logowania i sprobuj ponownie.",
+      "registrationFailed": "Rejestracja nieudana. Sprobuj ponownie.",
+      "missingOAuthParams": "Brak wymaganych parametrow OAuth",
+      "invalidOAuthState": "Nieprawidlowy stan OAuth - mozliwy problem bezpieczenstwa",
+      "missingCredentialId": "Brak identyfikatora danych uwierzytelniajacych"
+    },
+    "branding": {
+      "welcomeBack": "Witaj",
+      "back": "ponownie",
+      "joinFluxTurn": "Dolacz do",
+      "fluxTurn": "FluxTurn",
+      "tagline": "Buduj potezne automatyzacje procesow za pomoca naszej platformy bez kodu. Polacz 120+ aplikacji natychmiast.",
+      "feature1": "120+ gotowych integracji",
+      "feature2": "Wizualny kreator procesow przeciagnij i upusc",
+      "feature3": "Sugestie automatyzacji AI",
+      "feature4": "Bezpieczenstwo na poziomie korporacyjnym",
+      "testimonial": "FluxTurn calkowicie zmienil sposob pracy naszego zespolu. Zautomatyzowalismy 80% powtarzalnych zadan!",
+      "powerUser": "Zaawansowany uzytkownik",
+      "premiumMember": "Czlonek premium"
+    },
+    "common": {
+      "email": "E-mail",
+      "password": "Haslo",
+      "submit": "Wyslij",
+      "cancel": "Anuluj",
+      "loading": "Ladowanie...",
+      "or": "lub"
+    }
+  },
+  "common": {
+    "save": "Zapisz",
+    "cancel": "Anuluj",
+    "delete": "Usun",
+    "edit": "Edytuj",
+    "create": "Utworz",
+    "update": "Zaktualizuj",
+    "close": "Zamknij",
+    "confirm": "Potwierdz",
+    "back": "Wstecz",
+    "next": "Dalej",
+    "search": "Szukaj",
+    "filter": "Filtruj",
+    "loading": "Ladowanie...",
+    "saving": "Zapisywanie...",
+    "deleting": "Usuwanie...",
+    "noResults": "Nie znaleziono wynikow",
+    "error": "Cos poszlo nie tak",
+    "success": "Sukces",
+    "required": "Wymagane",
+    "optional": "Opcjonalne",
+    "actions": "Akcje",
+    "status": "Status",
+    "active": "Aktywny",
+    "inactive": "Nieaktywny",
+    "enabled": "Wlaczony",
+    "disabled": "Wylaczony",
+    "name": "Nazwa",
+    "description": "Opis",
+    "createdAt": "Utworzono",
+    "updatedAt": "Zaktualizowano",
+    "copy": "Kopiuj",
+    "copied": "Skopiowano!",
+    "download": "Pobierz",
+    "upload": "Przeslij",
+    "refresh": "Odswiez",
+    "retry": "Ponow probe",
+    "learnMore": "Dowiedz sie wiecej",
+    "viewAll": "Zobacz wszystko",
+    "showMore": "Pokaz wiecej",
+    "showLess": "Pokaz mniej",
+    "yes": "Tak",
+    "no": "Nie",
+    "or": "lub",
+    "and": "i"
+  },
+  "dashboard": {
+    "title": "Panel",
+    "welcome": "Witaj ponownie",
+    "overview": "Przeglad",
+    "recentWorkflows": "Ostatnie procesy",
+    "recentActivity": "Ostatnia aktywnosc",
+    "quickActions": "Szybkie akcje",
+    "createWorkflow": "Utworz proces",
+    "viewAllWorkflows": "Zobacz wszystkie procesy",
+    "noWorkflows": "Brak procesow",
+    "noWorkflowsHint": "Utworz swoj pierwszy proces, aby zaczac",
+    "stats": {
+      "totalWorkflows": "Lacznie procesow",
+      "activeWorkflows": "Aktywne procesy",
+      "totalExecutions": "Lacznie wykonan",
+      "successRate": "Wskaznik sukcesu"
+    }
+  },
+  "workflow": {
+    "title": "Procesy",
+    "create": "Utworz proces",
+    "createNew": "Utworz nowy proces",
+    "builder": "Kreator procesow",
+    "name": "Nazwa procesu",
+    "namePlaceholder": "Wprowadz nazwe procesu",
+    "description": "Opis",
+    "descriptionPlaceholder": "Opisz co robi ten proces",
+    "status": {
+      "active": "Aktywny",
+      "inactive": "Nieaktywny",
+      "draft": "Wersja robocza",
+      "running": "W toku",
+      "completed": "Zakonczony",
+      "failed": "Nieudany",
+      "paused": "Wstrzymany"
+    },
+    "actions": {
+      "run": "Uruchom",
+      "stop": "Zatrzymaj",
+      "duplicate": "Duplikuj",
+      "export": "Eksportuj",
+      "delete": "Usun",
+      "activate": "Aktywuj",
+      "deactivate": "Dezaktywuj"
+    },
+    "nodes": {
+      "addNode": "Dodaj wezel",
+      "configure": "Konfiguruj",
+      "delete": "Usun wezel",
+      "duplicate": "Duplikuj wezel",
+      "trigger": "Wyzwalacz",
+      "action": "Akcja",
+      "condition": "Warunek",
+      "loop": "Petla",
+      "delay": "Opoznienie",
+      "code": "Kod",
+      "aiAgent": "Agent AI",
+      "webhook": "Webhook",
+      "schedule": "Harmonogram",
+      "manual": "Reczny wyzwalacz"
+    },
+    "execution": {
+      "title": "Log wykonania",
+      "running": "Wykonywanie...",
+      "completed": "Zakonczono",
+      "failed": "Nieudane",
+      "duration": "Czas trwania",
+      "startedAt": "Rozpoczeto o",
+      "input": "Dane wejsciowe",
+      "output": "Dane wyjsciowe",
+      "error": "Blad",
+      "noExecutions": "Brak wykonan",
+      "viewDetails": "Zobacz szczegoly"
+    },
+    "canvas": {
+      "zoomIn": "Przybliz",
+      "zoomOut": "Oddal",
+      "fitView": "Dopasuj widok",
+      "undo": "Cofnij",
+      "redo": "Ponow",
+      "save": "Zapisz",
+      "deploy": "Wdroz"
+    },
+    "errors": {
+      "saveFailed": "Blad zapisu procesu",
+      "loadFailed": "Blad ladowania procesu",
+      "executionFailed": "Wykonanie procesu nieudane",
+      "invalidConfig": "Nieprawidlowa konfiguracja"
+    }
+  },
+  "credentials": {
+    "title": "Dane uwierzytelniajace",
+    "add": "Dodaj dane",
+    "edit": "Edytuj dane",
+    "name": "Nazwa danych",
+    "namePlaceholder": "Moje dane uwierzytelniajace",
+    "type": "Typ danych",
+    "test": "Testuj polaczenie",
+    "testing": "Testowanie...",
+    "testSuccess": "Polaczenie udane",
+    "testFailed": "Polaczenie nieudane",
+    "save": "Zapisz dane",
+    "delete": "Usun dane",
+    "deleteConfirm": "Czy na pewno chcesz usunac te dane? Procesy z nich korzystajace przestana dzialac.",
+    "noCredentials": "Brak danych uwierzytelniajacych",
+    "noCredentialsHint": "Dodaj dane uwierzytelniajace, aby polaczyc aplikacje",
+    "lastTested": "Ostatni test",
+    "connected": "Polaczony",
+    "disconnected": "Rozlaczony",
+    "expires": "Wygasa",
+    "reconnect": "Polacz ponownie"
+  },
+  "organization": {
+    "title": "Organizacja",
+    "create": "Utworz organizacje",
+    "settings": "Ustawienia organizacji",
+    "name": "Nazwa organizacji",
+    "namePlaceholder": "Moja organizacja",
+    "members": {
+      "title": "Czlonkowie",
+      "invite": "Zapros czlonka",
+      "inviteByEmail": "Zapros e-mailem",
+      "emailPlaceholder": "kolega@firma.com",
+      "role": "Rola",
+      "roles": {
+        "owner": "Wlasciciel",
+        "admin": "Administrator",
+        "member": "Czlonek",
+        "viewer": "Obserwator"
+      },
+      "remove": "Usun czlonka",
+      "removeConfirm": "Czy na pewno chcesz usunac tego czlonka?",
+      "pending": "Oczekujacy",
+      "active": "Aktywny"
+    },
+    "billing": {
+      "title": "Rozliczenia",
+      "currentPlan": "Aktualny plan",
+      "usage": "Wykorzystanie",
+      "invoices": "Faktury",
+      "upgrade": "Uaktualnij",
+      "downgrade": "Obniz plan",
+      "cancel": "Anuluj subskrypcje",
+      "paymentMethod": "Metoda platnosci",
+      "addPayment": "Dodaj metode platnosci",
+      "nextBilling": "Nastepna data rozliczenia",
+      "executions": "Wykonania",
+      "executionsUsed": "{{used}} z {{limit}} uzytych",
+      "workflows": "Procesy",
+      "workflowsUsed": "{{used}} z {{limit}} uzytych"
+    },
+    "integrations": {
+      "title": "Integracje",
+      "connected": "Polaczony",
+      "available": "Dostepny",
+      "connect": "Polacz",
+      "disconnect": "Rozlacz",
+      "configure": "Konfiguruj",
+      "lastSync": "Ostatnia synchronizacja"
+    }
+  },
+  "project": {
+    "title": "Projekt",
+    "create": "Utworz projekt",
+    "settings": "Ustawienia projektu",
+    "name": "Nazwa projektu",
+    "namePlaceholder": "Moj projekt",
+    "description": "Opis",
+    "descriptionPlaceholder": "Do czego sluzy ten projekt?",
+    "workflows": "Procesy",
+    "credentials": "Dane uwierzytelniajace",
+    "members": "Czlonkowie",
+    "noProjects": "Brak projektow",
+    "noProjectsHint": "Utworz projekt, aby zorganizowac procesy"
+  },
+  "settings": {
+    "title": "Ustawienia",
+    "account": {
+      "title": "Ustawienia konta",
+      "profile": "Profil",
+      "email": "Adres e-mail",
+      "name": "Nazwa wyswietlana",
+      "avatar": "Zdjecie profilowe",
+      "changeAvatar": "Zmien",
+      "removeAvatar": "Usun",
+      "timezone": "Strefa czasowa",
+      "language": "Jezyk",
+      "notifications": "Powiadomienia",
+      "emailNotifications": "Powiadomienia e-mailowe",
+      "pushNotifications": "Powiadomienia push",
+      "workflowAlerts": "Alerty procesow"
+    },
+    "security": {
+      "title": "Bezpieczenstwo",
+      "changePassword": "Zmien haslo",
+      "currentPassword": "Aktualne haslo",
+      "newPassword": "Nowe haslo",
+      "confirmPassword": "Potwierdz haslo",
+      "twoFactor": "Uwierzytelnianie dwuskladnikowe",
+      "enable2FA": "Wlacz 2FA",
+      "disable2FA": "Wylacz 2FA",
+      "sessions": "Aktywne sesje",
+      "revokeSession": "Odwolaj",
+      "revokeAll": "Odwolaj wszystkie sesje"
+    },
+    "apiKeys": {
+      "title": "Klucze API",
+      "create": "Utworz klucz API",
+      "name": "Nazwa klucza",
+      "namePlaceholder": "Moj klucz API",
+      "permissions": "Uprawnienia",
+      "expires": "Wygasa",
+      "never": "Nigdy",
+      "revoke": "Odwolaj",
+      "revokeConfirm": "Czy na pewno? Tej operacji nie mozna cofnac.",
+      "noKeys": "Brak kluczy API",
+      "copyWarning": "Skopiuj ten klucz teraz. Nie bedziesz mogl go ponownie wyswietlic."
+    },
+    "danger": {
+      "title": "Strefa zagrozen",
+      "deleteAccount": "Usun konto",
+      "deleteAccountWarning": "To trwale usunie Twoje konto i wszystkie powiazane dane. Tej operacji nie mozna cofnac.",
+      "typeToConfirm": "Wpisz swoj e-mail, aby potwierdzic"
+    }
+  }
+}

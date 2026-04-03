@@ -1,0 +1,64 @@
+{
+  "action": "send_email",
+  "baseUrl": "https://api.sendgrid.com",
+  "testCases": [
+    {
+      "name": "sends email successfully",
+      "input": {
+        "to": "recipient@example.com",
+        "from": "sender@example.com",
+        "subject": "Test Email",
+        "content": "Hello World"
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/v3/mail/send",
+        "status": 202,
+        "response": {}
+      },
+      "expected": {
+        "success": true
+      }
+    },
+    {
+      "name": "handles unauthorized error",
+      "input": {
+        "to": "recipient@example.com",
+        "from": "sender@example.com",
+        "subject": "Test",
+        "content": "Test content"
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/v3/mail/send",
+        "status": 401,
+        "response": {
+          "errors": [{ "message": "Invalid API key" }]
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    },
+    {
+      "name": "handles rate limit error",
+      "input": {
+        "to": "recipient@example.com",
+        "from": "sender@example.com",
+        "subject": "Test",
+        "content": "Test content"
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/v3/mail/send",
+        "status": 429,
+        "response": {
+          "errors": [{ "message": "Rate limit exceeded" }]
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    }
+  ]
+}

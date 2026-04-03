@@ -1,0 +1,113 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-300000000046",
+  "name": "Google Forms Response to OpenAI Analysis",
+  "description": "Analyze Google Forms responses using OpenAI for sentiment analysis and insights",
+  "category": "forms",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "List Form Responses",
+          "config": {
+            "formId": "{{form_id}}"
+          },
+          "category": "action",
+          "connector": "google_forms",
+          "connectorType": "google_forms",
+          "connectorDisplayName": "Google Forms",
+          "description": "Get all responses from the form",
+          "action": "responses_list",
+          "actionId": "responses_list",
+          "actionName": "List Responses"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Analyze with OpenAI",
+          "config": {
+            "model": "gpt-4o-mini",
+            "messages": [
+              {
+                "role": "system",
+                "content": "You are an expert at analyzing survey and form responses. Provide sentiment analysis, key insights, and actionable recommendations."
+              },
+              {
+                "role": "user",
+                "content": "Analyze the following form responses and provide:\n1. Sentiment (positive/neutral/negative)\n2. Key themes\n3. Actionable insights\n\nResponses:\n{{node_2.output.responses}}"
+              }
+            ],
+            "temperature": 0.3
+          },
+          "category": "action",
+          "connector": "openai",
+          "connectorType": "openai",
+          "connectorDisplayName": "OpenAI",
+          "description": "Analyze responses with AI",
+          "action": "chat_completion",
+          "actionId": "chat_completion",
+          "actionName": "Chat Completion"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [],
+  "conditions": [],
+  "variables": [
+    {
+      "name": "form_id",
+      "type": "string",
+      "description": "Google Form ID"
+    }
+  ],
+  "outputs": [],
+  "required_connectors": ["google_forms", "openai"],
+  "tags": ["forms", "google-forms", "openai", "ai", "analysis", "sentiment", "insights"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "Analyze Google Forms responses with OpenAI",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Analyze Google Forms responses using OpenAI for sentiment and insights"
+}

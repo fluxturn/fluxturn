@@ -1,0 +1,418 @@
+{
+  "id": "10fc7380-f867-48b5-8257-62b3903fb473",
+  "name": "Smart Social Media Cross-Poster",
+  "description": "Automatically rewrite and optimize your content for different platforms using AI with Split and Merge nodes for parallel posting",
+  "category": "social_media",
+  "canvas": {
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_3",
+        "type": "default",
+        "style": {
+          "stroke": "#14b8a6",
+          "strokeWidth": 2
+        },
+        "source": "node_3",
+        "target": "node_4",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#14b8a6",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1"
+      },
+      {
+        "id": "edge_4",
+        "type": "default",
+        "style": {
+          "stroke": "#14b8a6",
+          "strokeWidth": 2
+        },
+        "source": "node_3",
+        "target": "node_5",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#14b8a6",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-2"
+      },
+      {
+        "id": "edge_5",
+        "type": "default",
+        "style": {
+          "stroke": "#8b5cf6",
+          "strokeWidth": 2
+        },
+        "source": "node_4",
+        "target": "node_6",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#8b5cf6",
+          "width": 20,
+          "height": 20
+        },
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "edge_6",
+        "type": "default",
+        "style": {
+          "stroke": "#8b5cf6",
+          "strokeWidth": 2
+        },
+        "source": "node_5",
+        "target": "node_6",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#8b5cf6",
+          "width": 20,
+          "height": 20
+        },
+        "targetHandle": "target-2"
+      },
+      {
+        "id": "edge_7",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_6",
+        "target": "node_7",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ],
+    "nodes": [
+      {
+        "id": "node_1",
+        "data": {
+          "icon": "connector",
+          "label": "New Tweet Trigger",
+          "config": {},
+          "trigger": "new_tweet",
+          "category": "trigger",
+          "connector": "twitter",
+          "eventType": "polling",
+          "triggerId": "new_tweet",
+          "description": "Triggered when you post a new tweet",
+          "inputSchema": {
+            "type": "object",
+            "required": [
+              "event",
+              "pollingInterval"
+            ],
+            "properties": {
+              "event": {
+                "enum": [
+                  "new_tweet"
+                ],
+                "type": "string",
+                "label": "Trigger Event",
+                "default": "new_tweet",
+                "description": "Triggers when you post a new tweet"
+              },
+              "pollingInterval": {
+                "enum": [
+                  1,
+                  2,
+                  5,
+                  10,
+                  15,
+                  30
+                ],
+                "type": "number",
+                "label": "Polling Interval (minutes)",
+                "default": 15,
+                "description": "How often to check for new tweets"
+              }
+            }
+          },
+          "triggerName": "New Tweet",
+          "configSchema": {
+            "type": "object",
+            "required": [
+              "event",
+              "pollingInterval"
+            ],
+            "properties": {
+              "event": {
+                "enum": [
+                  "new_tweet"
+                ],
+                "type": "string",
+                "label": "Trigger Event",
+                "default": "new_tweet",
+                "description": "Triggers when you post a new tweet"
+              },
+              "pollingInterval": {
+                "enum": [
+                  1,
+                  2,
+                  5,
+                  10,
+                  15,
+                  30
+                ],
+                "type": "number",
+                "label": "Polling Interval (minutes)",
+                "default": 15,
+                "description": "How often to check for new tweets"
+              }
+            }
+          },
+          "outputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              },
+              "author_id": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "public_metrics": {
+                "type": "object"
+              }
+            }
+          },
+          "connectorType": "twitter",
+          "webhookRequired": false,
+          "connectorDisplayName": "Twitter/X"
+        },
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        }
+      },
+      {
+        "id": "node_2",
+        "data": {
+          "icon": "connector",
+          "label": "Rewrite with OpenAI",
+          "action": "chat_complete",
+          "config": {
+            "model": "gpt-4",
+            "messages": [
+              {
+                "role": "user",
+                "content": "Rewrite this tweet for professional social media platforms (LinkedIn and Facebook). Make it more formal and engaging: {{node_1.text}}"
+              }
+            ]
+          },
+          "actionId": "chat_complete",
+          "category": "action",
+          "connector": "openai",
+          "actionName": "Chat Completion",
+          "description": "Rewrite tweet content for multiple platforms",
+          "connectorType": "openai",
+          "connectorDisplayName": "OpenAI"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        }
+      },
+      {
+        "id": "node_3",
+        "data": {
+          "mode": "duplicate",
+          "label": "Split Content",
+          "description": "Duplicate to 2 outputs",
+          "numberOfOutputs": 2
+        },
+        "type": "SPLIT",
+        "position": {
+          "x": 750,
+          "y": 200
+        }
+      },
+      {
+        "id": "node_4",
+        "data": {
+          "icon": "connector",
+          "label": "Post to LinkedIn",
+          "action": "create_post",
+          "config": {
+            "text": "{{node_2.choices[0].message.content}}",
+            "postAs": "person",
+            "visibility": "PUBLIC"
+          },
+          "actionId": "create_post",
+          "category": "action",
+          "connector": "linkedin",
+          "actionName": "Create Post",
+          "description": "Create a LinkedIn post",
+          "connectorType": "linkedin",
+          "connectorDisplayName": "LinkedIn"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1050,
+          "y": 100
+        }
+      },
+      {
+        "id": "node_5",
+        "data": {
+          "icon": "connector",
+          "label": "Post to Facebook",
+          "action": "create_page_post",
+          "config": {
+            "message": "{{node_2.choices[0].message.content}}",
+            "published": true
+          },
+          "actionId": "create_page_post",
+          "category": "action",
+          "connector": "facebook_graph",
+          "actionName": "Create Page Post",
+          "description": "Publish to Facebook page",
+          "connectorType": "facebook_graph",
+          "connectorDisplayName": "Facebook Graph API"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1050,
+          "y": 300
+        }
+      },
+      {
+        "id": "node_6",
+        "data": {
+          "mode": "append",
+          "label": "Merge Results",
+          "description": "Append 2 inputs",
+          "numberOfInputs": 2
+        },
+        "type": "MERGE",
+        "position": {
+          "x": 1350,
+          "y": 200
+        }
+      },
+      {
+        "id": "node_7",
+        "data": {
+          "icon": "connector",
+          "label": "Append Row",
+          "action": "append_row",
+          "config": {
+            "values": [
+              [
+                "{{node_1.text}}",
+                "{{node_2.choices[0].message.content}}",
+                "{{node_4.success ? 'LinkedIn: Success' : 'LinkedIn: Failed'}}",
+                "{{node_5.success ? 'Facebook: Success' : 'Facebook: Failed'}}",
+                "{{new Date().toISOString()}}"
+              ]
+            ],
+            "sheetName": "Sheet1",
+            "spreadsheetId": "your_spreadsheet_id_here"
+          },
+          "actionId": "append_row",
+          "category": "action",
+          "connector": "google_sheets",
+          "actionName": "Append Row",
+          "description": "Append post data to Google Sheets",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1650,
+          "y": 200
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "twitter",
+        "triggerId": "new_tweet"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "twitter",
+    "openai",
+    "linkedin",
+    "facebook_graph",
+    "google_sheets"
+  ],
+  "tags": [
+    "split",
+    "merge",
+    "parallel",
+    "social-media",
+    "cross-posting"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "uses_merge_node": true,
+    "uses_split_node": true,
+    "flow_description": "This workflow demonstrates how to use Split and Merge nodes for parallel processing. The content is duplicated via Split node to post simultaneously to LinkedIn and Facebook, then both results are merged before logging to Google Sheets.",
+    "parallel_execution": true
+  },
+  "ai_prompt": null
+}

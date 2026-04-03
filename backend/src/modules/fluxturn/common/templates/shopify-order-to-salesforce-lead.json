@@ -1,0 +1,72 @@
+{
+  "id": "79c68ab2-5386-45d4-a597-674ba647c211",
+  "name": "Shopify Order to Salesforce Lead",
+  "description": "Create Salesforce leads from new Shopify orders",
+  "category": "ecommerce",
+  "difficulty": "intermediate",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": ["shopify", "salesforce"],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "shopify_trigger_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": { "x": 100, "y": 100 },
+        "data": {
+          "label": "New Shopify Order",
+          "connector": "shopify",
+          "triggerId": "order_created",
+          "icon": "shopping-cart",
+          "category": "trigger",
+          "description": "Triggers when a new order is created",
+          "config": {},
+          "outputSchema": {
+            "customer": { "type": "object" },
+            "total_price": { "type": "string" }
+          }
+        }
+      },
+      {
+        "id": "salesforce_action_1",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 450, "y": 100 },
+        "data": {
+          "label": "Create Salesforce Lead",
+          "connector": "salesforce",
+          "actionId": "create_lead",
+          "icon": "user-plus",
+          "category": "action",
+          "description": "Create a new lead in Salesforce",
+          "config": {
+            "FirstName": "={{$json.customer.first_name}}",
+            "LastName": "={{$json.customer.last_name}}",
+            "Email": "={{$json.customer.email}}",
+            "Phone": "={{$json.customer.phone}}",
+            "Company": "={{$json.customer.company || 'Individual'}}",
+            "LeadSource": "Shopify",
+            "Description": "Shopify Order #{{$json.order_number}} - Total: ${{$json.total_price}}"
+          },
+          "inputSchema": {
+            "FirstName": { "type": "string", "label": "First Name" },
+            "LastName": { "type": "string", "required": true, "label": "Last Name" },
+            "Email": { "type": "string", "label": "Email" },
+            "Company": { "type": "string", "required": true, "label": "Company" }
+          },
+          "outputSchema": {
+            "id": { "type": "string" }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1",
+        "source": "shopify_trigger_1",
+        "target": "salesforce_action_1",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

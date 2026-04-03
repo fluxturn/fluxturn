@@ -1,0 +1,145 @@
+{
+  "id": "d768f704-e2cd-453e-9d30-55620e1baebb",
+  "name": "LinkedIn Article to Google Docs Backup",
+  "description": "Automatically backup LinkedIn articles to Google Docs and upload to Google Drive. Nodes: LinkedIn Trigger, Google Docs Action, Google Drive Action",
+  "category": "social_media",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Article Published",
+          "config": {},
+          "trigger": "new_article_published",
+          "category": "trigger",
+          "connector": "linkedin",
+          "eventType": "polling",
+          "triggerId": "new_article_published",
+          "description": "Triggered when new article published",
+          "connectorType": "linkedin",
+          "connectorDisplayName": "LinkedIn"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Document",
+          "action": "create_document",
+          "config": {
+            "title": "{{document_title}}",
+            "content": "{{document_content}}"
+          },
+          "actionId": "create_document",
+          "category": "action",
+          "connector": "google_docs",
+          "actionName": "Create Document",
+          "description": "Create Document",
+          "connectorType": "google_docs",
+          "connectorDisplayName": "Google Docs"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Upload File",
+          "action": "upload_file",
+          "config": {},
+          "actionId": "upload_file",
+          "category": "action",
+          "connector": "google_drive",
+          "actionName": "Upload File",
+          "description": "Upload File",
+          "connectorType": "google_drive",
+          "connectorDisplayName": "Google Drive"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#14b8a6",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#14b8a6",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "linkedin",
+        "triggerId": "new_article_published"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "linkedin",
+    "google_docs",
+    "google_drive"
+  ],
+  "tags": [
+    "social_media",
+    "automation",
+    "linkedin",
+    "google_docs",
+    "google_drive"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow linkedin article to google docs backup using linkedin, google_docs, google_drive",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"linkedin article to google docs backup\" that triggers when triggered when new article published and then Create Document via Google Docs, Upload File via Google Drive"
+}

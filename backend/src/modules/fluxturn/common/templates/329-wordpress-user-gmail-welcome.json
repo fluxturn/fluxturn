@@ -1,0 +1,129 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-300000000029",
+  "name": "WordPress User Gmail Welcome",
+  "description": "Create WordPress user and send welcome email via Gmail",
+  "category": "cms",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Create User",
+          "config": {
+            "username": "{{username}}",
+            "email": "{{user_email}}",
+            "password": "{{user_password}}",
+            "first_name": "{{first_name}}",
+            "last_name": "{{last_name}}",
+            "roles": "subscriber"
+          },
+          "category": "action",
+          "connector": "wordpress",
+          "connectorType": "wordpress",
+          "connectorDisplayName": "WordPress",
+          "description": "Create WordPress user account",
+          "action": "create_user",
+          "actionId": "create_user",
+          "actionName": "Create User"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Send Welcome Email",
+          "config": {
+            "to": "{{user_email}}",
+            "subject": "Welcome to Our Website, {{first_name}}!",
+            "body": "Hi {{first_name}},\n\nWelcome to our website! Your account has been created successfully.\n\nUsername: {{username}}\n\nYou can now log in and start exploring our content.\n\nBest regards,\nThe Team"
+          },
+          "category": "action",
+          "connector": "gmail",
+          "connectorType": "gmail",
+          "connectorDisplayName": "Gmail",
+          "description": "Send welcome email to new user",
+          "action": "send_email",
+          "actionId": "send_email",
+          "actionName": "Send Email"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [],
+  "conditions": [],
+  "variables": [
+    {
+      "name": "username",
+      "type": "string",
+      "description": "WordPress username"
+    },
+    {
+      "name": "user_email",
+      "type": "string",
+      "description": "User email address"
+    },
+    {
+      "name": "user_password",
+      "type": "string",
+      "description": "User password"
+    },
+    {
+      "name": "first_name",
+      "type": "string",
+      "description": "User first name"
+    },
+    {
+      "name": "last_name",
+      "type": "string",
+      "description": "User last name"
+    }
+  ],
+  "outputs": [],
+  "required_connectors": ["wordpress", "gmail"],
+  "tags": ["cms", "wordpress", "gmail", "users", "welcome", "onboarding"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "Create WordPress user and send welcome email via Gmail",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create WordPress user account and send welcome email"
+}

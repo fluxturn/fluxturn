@@ -1,0 +1,69 @@
+{
+  "action": "create_contact",
+  "baseUrl": "https://api.sendgrid.com",
+  "testCases": [
+    {
+      "name": "creates contact successfully",
+      "input": {
+        "email": "newuser@example.com",
+        "firstName": "John",
+        "lastName": "Doe"
+      },
+      "mock": {
+        "method": "PUT",
+        "path": "/v3/marketing/contacts",
+        "status": 202,
+        "response": {
+          "job_id": "job-123-abc"
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "email": "newuser@example.com"
+        }
+      }
+    },
+    {
+      "name": "creates contact with custom fields",
+      "input": {
+        "email": "custom@example.com",
+        "firstName": "Jane",
+        "lastName": "Smith",
+        "customFields": {
+          "company": "Acme Inc",
+          "role": "Manager"
+        }
+      },
+      "mock": {
+        "method": "PUT",
+        "path": "/v3/marketing/contacts",
+        "status": 202,
+        "response": {
+          "job_id": "job-456-def"
+        }
+      },
+      "expected": {
+        "success": true
+      }
+    },
+    {
+      "name": "handles validation error",
+      "input": {
+        "email": "invalid-email",
+        "firstName": "Test"
+      },
+      "mock": {
+        "method": "PUT",
+        "path": "/v3/marketing/contacts",
+        "status": 400,
+        "response": {
+          "errors": [{ "message": "Invalid email address" }]
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    }
+  ]
+}

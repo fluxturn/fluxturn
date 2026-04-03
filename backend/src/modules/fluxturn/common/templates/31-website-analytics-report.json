@@ -1,0 +1,230 @@
+{
+  "id": "39bbe447-c201-46cb-a9bd-1bdd99ec4f75",
+  "name": "Website Analytics Report",
+  "description": "Daily website analytics summary to Google Sheets and Slack",
+  "category": "analytics",
+  "difficulty": "intermediate",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": [
+    "google_analytics",
+    "google_sheets",
+    "slack"
+  ],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_31_1",
+        "type": "MANUAL_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 100
+        },
+        "data": {
+          "label": "Daily 8 AM",
+          "category": "trigger",
+          "config": {
+            "cronExpression": "0 8 * * *"
+          },
+          "description": "Manually trigger this workflow",
+          "icon": "play",
+          "configSchema": {},
+          "outputSchema": {
+            "timestamp": {
+              "type": "string",
+              "description": "Execution timestamp"
+            }
+          },
+          "inputSchema": {}
+        }
+      },
+      {
+        "id": "node_31_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "label": "Get Analytics",
+          "category": "action",
+          "config": {
+            "viewId": "{{your_view_id}}",
+            "metrics": [
+              "sessions",
+              "pageviews",
+              "bounceRate"
+            ],
+            "dimensions": [
+              "date"
+            ],
+            "dateRange": "yesterday"
+          },
+          "connector": "google_analytics",
+          "actionId": "get_report",
+          "inputSchema": {
+            "data": {
+              "type": "object",
+              "label": "Data",
+              "description": "Action input data"
+            }
+          },
+          "configSchema": {
+            "data": {
+              "type": "object",
+              "label": "Data",
+              "description": "Action input data"
+            }
+          },
+          "outputSchema": {
+            "result": {
+              "type": "object",
+              "description": "Action result"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_31_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 700,
+          "y": 100
+        },
+        "data": {
+          "label": "Log to Sheet",
+          "category": "action",
+          "config": {
+            "spreadsheetId": "{{your_sheet_id}}",
+            "values": "={{$json}}"
+          },
+          "connector": "google_sheets",
+          "actionId": "append_row",
+          "action": "append_row",
+          "actionName": "Append Row",
+          "description": "Append a row to a Google Sheet",
+          "icon": "table",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets",
+          "inputSchema": {
+            "spreadsheetId": {
+              "type": "string",
+              "required": true,
+              "label": "Spreadsheet ID"
+            },
+            "sheetName": {
+              "type": "string",
+              "label": "Sheet Name",
+              "default": "Sheet1"
+            },
+            "values": {
+              "type": "object",
+              "required": true,
+              "label": "Values"
+            }
+          },
+          "configSchema": {
+            "spreadsheetId": {
+              "type": "string",
+              "required": true,
+              "label": "Spreadsheet ID"
+            },
+            "sheetName": {
+              "type": "string",
+              "label": "Sheet Name",
+              "default": "Sheet1"
+            },
+            "values": {
+              "type": "object",
+              "required": true,
+              "label": "Values"
+            }
+          },
+          "outputSchema": {
+            "rowNumber": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_31_4",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1000,
+          "y": 100
+        },
+        "data": {
+          "label": "Send Report",
+          "category": "action",
+          "config": {
+            "channel": "#analytics",
+            "message": "📊 Daily Analytics: {{$json.sessions}} sessions, {{$json.pageviews}} pageviews"
+          },
+          "connector": "slack",
+          "actionId": "send_message",
+          "action": "send_message",
+          "actionName": "Send Message",
+          "description": "Send a message to a Slack channel",
+          "icon": "send",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack",
+          "inputSchema": {
+            "channel": {
+              "type": "string",
+              "required": true,
+              "label": "Channel"
+            },
+            "message": {
+              "type": "string",
+              "required": true,
+              "label": "Message",
+              "inputType": "textarea"
+            }
+          },
+          "configSchema": {
+            "channel": {
+              "type": "string",
+              "required": true,
+              "label": "Channel"
+            },
+            "message": {
+              "type": "string",
+              "required": true,
+              "label": "Message",
+              "inputType": "textarea"
+            }
+          },
+          "outputSchema": {
+            "messageId": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_1",
+        "source": "node_31_1",
+        "target": "node_31_2",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_2",
+        "source": "node_31_2",
+        "target": "node_31_3",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_3",
+        "source": "node_31_3",
+        "target": "node_31_4",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

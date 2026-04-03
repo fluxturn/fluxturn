@@ -1,0 +1,597 @@
+{
+  "timestamp": "2025-11-19T04:16:07.276Z",
+  "summary": {
+    "totalFiles": 99,
+    "modifiedFiles": 71,
+    "totalReplacements": 119,
+    "errors": 0
+  },
+  "replacementsByType": {
+    "gmail:trigger:new_email->email_received": 1,
+    "airtable:action:list_records->find_records": 1,
+    "google_sheets:action:clear_and_write->append_row": 1,
+    "google_sheets:trigger:new_row->row_added": 1,
+    "openai:action:generate_outline->chat_complete": 1,
+    "google_docs:trigger:new_document_created->document_created": 1,
+    "imap:trigger:bug_report_email->new_email": 1,
+    "smtp:action:email_developer->send_email": 1,
+    "google_calendar:trigger:new_event->event_created": 1,
+    "slack:action:send_direct_message->send_message": 1,
+    "slack:action:alert_marketing_team->send_message": 1,
+    "openai:action:generate_docs->chat_complete": 1,
+    "slack:action:send_reminder->send_message": 1,
+    "google_sheets:action:log_activity->append_row": 1,
+    "google_docs:trigger:new_blog_post->document_created": 1,
+    "smtp:action:send_renewal_notice->send_email": 1,
+    "google_drive:trigger:file_uploaded_to_folder->file_created": 1,
+    "smtp:action:send_notification_email->send_email": 1,
+    "smtp:action:send_feedback_request->send_email": 1,
+    "openai:action:generate_task_list->chat_complete": 1,
+    "google_sheets:action:log_update->append_row": 1,
+    "discord:action:notify_team->send_message": 1,
+    "slack:action:announce_deployment->send_message": 1,
+    "twitter:action:post_update->create_tweet": 1,
+    "discord:trigger:new_message_in_channel->new_message": 1,
+    "slack:action:post_message->send_message": 2,
+    "google_sheets:action:add_row->append_row": 4,
+    "smtp:action:send_notification->send_email": 1,
+    "imap:trigger:new_email_with_attachment->new_email": 1,
+    "imap:trigger:new_email_received->new_email": 2,
+    "openai:action:generate_response->chat_complete": 2,
+    "imap:trigger:new_email->email_received": 2,
+    "openai:action:summarize_content->chat_complete": 1,
+    "smtp:action:send_feedback_form->send_email": 1,
+    "twitter:action:tweet->create_tweet": 1,
+    "linkedin:action:post->create_post": 1,
+    "google_sheets:trigger:new_registration->row_added": 1,
+    "smtp:action:send_confirmation->send_email": 1,
+    "google_calendar:action:add_event->create_event": 1,
+    "imap:trigger:email_with_common_question->new_email": 1,
+    "openai:action:generate_answer->chat_complete": 1,
+    "smtp:action:send_response->send_email": 1,
+    "smtp:action:send_follow-up_template->send_email": 1,
+    "imap:trigger:new_email_from_form->new_email": 1,
+    "twitter:action:thank_tweet->create_tweet": 1,
+    "discord:action:send_message_to_channel->send_message": 1,
+    "google_sheets:action:update_status->append_row": 1,
+    "slack:action:notify_team->send_message": 1,
+    "openai:action:generate_readme->chat_complete": 1,
+    "openai:action:generate_tweet->chat_complete": 1,
+    "twitter:action:post_tweet->create_tweet": 1,
+    "google_sheets:action:update_row->append_row": 1,
+    "google_sheets:trigger:daily_check-in->row_added": 1,
+    "google_sheets:action:add_to_list->append_row": 1,
+    "google_sheets:trigger:candidate_selected->row_added": 1,
+    "google_calendar:action:create_interview->create_event": 1,
+    "smtp:action:send_invite->send_email": 1,
+    "imap:trigger:new_application_email->new_email": 1,
+    "google_sheets:action:add_candidate->append_row": 1,
+    "smtp:action:send_acknowledgment->send_email": 1,
+    "google_sheets:trigger:new_lead_added->row_added": 1,
+    "smtp:action:send_welcome_email->send_email": 2,
+    "google_calendar:action:schedule_follow-up->create_event": 1,
+    "google_sheets:trigger:new_lead->row_added": 1,
+    "openai:action:score_lead->chat_complete": 1,
+    "smtp:action:notify_sales_rep->send_email": 1,
+    "google_sheets:action:log_data->append_row": 1,
+    "openai:action:enhance_content->chat_complete": 1,
+    "google_docs:trigger:document_created_in_folder->document_created": 1,
+    "smtp:action:send_to_attendees->send_email": 2,
+    "slack:action:post_summary->send_message": 1,
+    "openai:action:summarize_notes->chat_complete": 1,
+    "openai:action:generate_agenda->chat_complete": 1,
+    "google_sheets:trigger:new_row_added->row_added": 2,
+    "google_sheets:trigger:new_hire_added->row_added": 1,
+    "smtp:action:send_welcome_package->send_email": 1,
+    "google_calendar:action:schedule_orientation->create_event": 1,
+    "google_sheets:trigger:new_subscriber->row_added": 1,
+    "smtp:action:send_confirmation_email->send_email": 1,
+    "google_sheets:trigger:deal_stage_changed->row_added": 1,
+    "smtp:action:send_to_client->send_email": 1,
+    "google_sheets:action:add_to_reading_list->append_row": 1,
+    "google_sheets:action:compile_sales_data->append_row": 1,
+    "google_drive:trigger:new_file_added->file_created": 1,
+    "slack:trigger:message_with_emoji_reaction->reaction_added": 1,
+    "google_sheets:action:add_task_row->append_row": 1,
+    "google_drive:trigger:new_image_uploaded->file_created": 1,
+    "openai:action:generate_caption->chat_complete": 1,
+    "twitter:action:post_with_image->create_tweet": 1,
+    "google_sheets:action:log_engagement->append_row": 1,
+    "smtp:action:send_thank_you->send_email": 1,
+    "google_sheets:action:compile_data->append_row": 1,
+    "imap:trigger:new_email_with_subject_contains->new_email": 1,
+    "smtp:action:reply->send_email": 1,
+    "imap:trigger:new_support_email->new_email": 1,
+    "google_sheets:action:create_ticket->append_row": 1,
+    "slack:action:notify_support_team->send_message": 1,
+    "google_sheets:trigger:ticket_status_changed_to_resolved->row_added": 1,
+    "smtp:action:send_resolution_email->send_email": 1,
+    "slack:action:send_birthday_message->send_message": 1,
+    "openai:action:generate_thread->chat_complete": 1,
+    "twitter:trigger:new_tweet_from_account->new_tweet": 1,
+    "slack:action:send_message_to_channel->send_message": 1,
+    "slack:action:post_report->send_message": 1,
+    "google_sheets:action:get_data->append_row": 1,
+    "smtp:action:send_digest->send_email": 1,
+    "google_sheets:action:compile_week_data->append_row": 1,
+    "google_sheets:action:compile_weekly_data->append_row": 1,
+    "smtp:action:send_report->send_email": 1
+  },
+  "changes": [
+    {
+      "file": "01-gmail-to-google-sheets-lead-tracker.json",
+      "changes": [
+        "gmail:trigger:new_email->email_received"
+      ]
+    },
+    {
+      "file": "34-airtable-to-sheets-reporter.json",
+      "changes": [
+        "airtable:action:list_records->find_records",
+        "google_sheets:action:clear_and_write->append_row"
+      ]
+    },
+    {
+      "file": "blog-idea-to-draft.json",
+      "changes": [
+        "google_sheets:trigger:new_row->row_added",
+        "openai:action:generate_outline->chat_complete"
+      ]
+    },
+    {
+      "file": "blog-post-to-multi-platform-share.json",
+      "changes": [
+        "google_docs:trigger:new_document_created->document_created"
+      ]
+    },
+    {
+      "file": "bug-report-to-github.json",
+      "changes": [
+        "imap:trigger:bug_report_email->new_email"
+      ]
+    },
+    {
+      "file": "build-failure-alert.json",
+      "changes": [
+        "smtp:action:email_developer->send_email"
+      ]
+    },
+    {
+      "file": "calendar-event-to-github-issue.json",
+      "changes": [
+        "google_calendar:trigger:new_event->event_created"
+      ]
+    },
+    {
+      "file": "calendar-event-to-slack-reminder.json",
+      "changes": [
+        "slack:action:send_direct_message->send_message"
+      ]
+    },
+    {
+      "file": "campaign-performance-alert.json",
+      "changes": [
+        "slack:action:alert_marketing_team->send_message"
+      ]
+    },
+    {
+      "file": "code-documentation-generator.json",
+      "changes": [
+        "openai:action:generate_docs->chat_complete"
+      ]
+    },
+    {
+      "file": "code-review-reminder.json",
+      "changes": [
+        "slack:action:send_reminder->send_message"
+      ]
+    },
+    {
+      "file": "community-engagement-tracker.json",
+      "changes": [
+        "google_sheets:action:log_activity->append_row"
+      ]
+    },
+    {
+      "file": "content-promotion-scheduler.json",
+      "changes": [
+        "google_docs:trigger:new_blog_post->document_created"
+      ]
+    },
+    {
+      "file": "contract-expiry-reminder.json",
+      "changes": [
+        "smtp:action:send_renewal_notice->send_email"
+      ]
+    },
+    {
+      "file": "contract-signing-notification.json",
+      "changes": [
+        "google_drive:trigger:file_uploaded_to_folder->file_created",
+        "smtp:action:send_notification_email->send_email"
+      ]
+    },
+    {
+      "file": "customer-feedback-collection.json",
+      "changes": [
+        "smtp:action:send_feedback_request->send_email"
+      ]
+    },
+    {
+      "file": "daily-task-planner.json",
+      "changes": [
+        "openai:action:generate_task_list->chat_complete"
+      ]
+    },
+    {
+      "file": "dependency-update-tracker.json",
+      "changes": [
+        "google_sheets:action:log_update->append_row",
+        "discord:action:notify_team->send_message"
+      ]
+    },
+    {
+      "file": "deployment-notification.json",
+      "changes": [
+        "slack:action:announce_deployment->send_message",
+        "twitter:action:post_update->create_tweet"
+      ]
+    },
+    {
+      "file": "discord-announcement-to-slack.json",
+      "changes": [
+        "discord:trigger:new_message_in_channel->new_message",
+        "slack:action:post_message->send_message"
+      ]
+    },
+    {
+      "file": "discord-task-assignment.json",
+      "changes": [
+        "google_sheets:action:add_row->append_row",
+        "smtp:action:send_notification->send_email"
+      ]
+    },
+    {
+      "file": "email-attachment-to-drive.json",
+      "changes": [
+        "imap:trigger:new_email_with_attachment->new_email"
+      ]
+    },
+    {
+      "file": "email-response-auto-draft.json",
+      "changes": [
+        "imap:trigger:new_email_received->new_email",
+        "openai:action:generate_response->chat_complete"
+      ]
+    },
+    {
+      "file": "email-to-ai-summary-in-docs.json",
+      "changes": [
+        "imap:trigger:new_email->email_received",
+        "openai:action:summarize_content->chat_complete"
+      ]
+    },
+    {
+      "file": "email-to-google-sheets-logger.json",
+      "changes": [
+        "imap:trigger:new_email->email_received",
+        "google_sheets:action:add_row->append_row"
+      ]
+    },
+    {
+      "file": "email-to-slack-channel-forward.json",
+      "changes": [
+        "imap:trigger:new_email_received->new_email",
+        "slack:action:post_message->send_message"
+      ]
+    },
+    {
+      "file": "employee-feedback-collection.json",
+      "changes": [
+        "smtp:action:send_feedback_form->send_email"
+      ]
+    },
+    {
+      "file": "event-announcement-multi-channel.json",
+      "changes": [
+        "twitter:action:tweet->create_tweet",
+        "linkedin:action:post->create_post"
+      ]
+    },
+    {
+      "file": "event-registration-confirmation.json",
+      "changes": [
+        "google_sheets:trigger:new_registration->row_added",
+        "smtp:action:send_confirmation->send_email",
+        "google_calendar:action:add_event->create_event"
+      ]
+    },
+    {
+      "file": "faq-auto-responder.json",
+      "changes": [
+        "imap:trigger:email_with_common_question->new_email",
+        "openai:action:generate_answer->chat_complete",
+        "smtp:action:send_response->send_email"
+      ]
+    },
+    {
+      "file": "follow-up-reminder.json",
+      "changes": [
+        "smtp:action:send_follow-up_template->send_email"
+      ]
+    },
+    {
+      "file": "form-submission-to-sheet.json",
+      "changes": [
+        "imap:trigger:new_email_from_form->new_email",
+        "google_sheets:action:add_row->append_row"
+      ]
+    },
+    {
+      "file": "github-contributor-recognition.json",
+      "changes": [
+        "twitter:action:thank_tweet->create_tweet"
+      ]
+    },
+    {
+      "file": "github-issue-to-discord-alert.json",
+      "changes": [
+        "discord:action:send_message_to_channel->send_message"
+      ]
+    },
+    {
+      "file": "github-issue-to-google-sheets-tracker.json",
+      "changes": [
+        "google_sheets:action:add_row->append_row"
+      ]
+    },
+    {
+      "file": "github-project-board-update.json",
+      "changes": [
+        "google_sheets:action:update_status->append_row",
+        "slack:action:notify_team->send_message"
+      ]
+    },
+    {
+      "file": "github-readme-auto-generator.json",
+      "changes": [
+        "openai:action:generate_readme->chat_complete"
+      ]
+    },
+    {
+      "file": "github-release-to-twitter-announcement.json",
+      "changes": [
+        "openai:action:generate_tweet->chat_complete",
+        "twitter:action:post_tweet->create_tweet"
+      ]
+    },
+    {
+      "file": "github-stats-to-google-sheets.json",
+      "changes": [
+        "google_sheets:action:update_row->append_row"
+      ]
+    },
+    {
+      "file": "habit-tracker-logger.json",
+      "changes": [
+        "google_sheets:trigger:daily_check-in->row_added"
+      ]
+    },
+    {
+      "file": "influencer-outreach-tracker.json",
+      "changes": [
+        "google_sheets:action:add_to_list->append_row"
+      ]
+    },
+    {
+      "file": "interview-scheduler.json",
+      "changes": [
+        "google_sheets:trigger:candidate_selected->row_added",
+        "google_calendar:action:create_interview->create_event",
+        "smtp:action:send_invite->send_email"
+      ]
+    },
+    {
+      "file": "job-application-tracker.json",
+      "changes": [
+        "imap:trigger:new_application_email->new_email",
+        "google_sheets:action:add_candidate->append_row",
+        "smtp:action:send_acknowledgment->send_email"
+      ]
+    },
+    {
+      "file": "lead-capture-to-follow-up.json",
+      "changes": [
+        "google_sheets:trigger:new_lead_added->row_added",
+        "smtp:action:send_welcome_email->send_email",
+        "google_calendar:action:schedule_follow-up->create_event"
+      ]
+    },
+    {
+      "file": "lead-qualification-scorer.json",
+      "changes": [
+        "google_sheets:trigger:new_lead->row_added",
+        "openai:action:score_lead->chat_complete",
+        "smtp:action:notify_sales_rep->send_email"
+      ]
+    },
+    {
+      "file": "linkedin-engagement-logger.json",
+      "changes": [
+        "google_sheets:action:log_data->append_row"
+      ]
+    },
+    {
+      "file": "linkedin-post-ai-enhancement.json",
+      "changes": [
+        "openai:action:enhance_content->chat_complete"
+      ]
+    },
+    {
+      "file": "meeting-notes-distribution.json",
+      "changes": [
+        "google_docs:trigger:document_created_in_folder->document_created",
+        "smtp:action:send_to_attendees->send_email",
+        "slack:action:post_summary->send_message"
+      ]
+    },
+    {
+      "file": "meeting-notes-to-google-docs.json",
+      "changes": [
+        "openai:action:summarize_notes->chat_complete"
+      ]
+    },
+    {
+      "file": "meeting-prep-assistant.json",
+      "changes": [
+        "openai:action:generate_agenda->chat_complete",
+        "smtp:action:send_to_attendees->send_email"
+      ]
+    },
+    {
+      "file": "new-contact-to-email-welcome.json",
+      "changes": [
+        "google_sheets:trigger:new_row_added->row_added",
+        "smtp:action:send_welcome_email->send_email"
+      ]
+    },
+    {
+      "file": "new-employee-onboarding.json",
+      "changes": [
+        "google_sheets:trigger:new_hire_added->row_added",
+        "smtp:action:send_welcome_package->send_email",
+        "google_calendar:action:schedule_orientation->create_event"
+      ]
+    },
+    {
+      "file": "newsletter-signup-confirmation.json",
+      "changes": [
+        "google_sheets:trigger:new_subscriber->row_added",
+        "smtp:action:send_confirmation_email->send_email"
+      ]
+    },
+    {
+      "file": "proposal-auto-send.json",
+      "changes": [
+        "google_sheets:trigger:deal_stage_changed->row_added",
+        "smtp:action:send_to_client->send_email"
+      ]
+    },
+    {
+      "file": "reading-list-manager.json",
+      "changes": [
+        "google_sheets:action:add_to_reading_list->append_row"
+      ]
+    },
+    {
+      "file": "sales-report-generator.json",
+      "changes": [
+        "google_sheets:action:compile_sales_data->append_row"
+      ]
+    },
+    {
+      "file": "shared-drive-organization.json",
+      "changes": [
+        "google_drive:trigger:new_file_added->file_created"
+      ]
+    },
+    {
+      "file": "slack-task-to-google-sheets.json",
+      "changes": [
+        "slack:trigger:message_with_emoji_reaction->reaction_added",
+        "google_sheets:action:add_task_row->append_row"
+      ]
+    },
+    {
+      "file": "social-media-caption-generator.json",
+      "changes": [
+        "google_drive:trigger:new_image_uploaded->file_created",
+        "openai:action:generate_caption->chat_complete",
+        "twitter:action:post_with_image->create_tweet"
+      ]
+    },
+    {
+      "file": "social-media-engagement-follow-up.json",
+      "changes": [
+        "google_sheets:action:log_engagement->append_row",
+        "smtp:action:send_thank_you->send_email"
+      ]
+    },
+    {
+      "file": "social-media-report-generator.json",
+      "changes": [
+        "google_sheets:action:compile_data->append_row"
+      ]
+    },
+    {
+      "file": "support-ticket-auto-response.json",
+      "changes": [
+        "imap:trigger:new_email_with_subject_contains->new_email",
+        "openai:action:generate_response->chat_complete",
+        "smtp:action:reply->send_email"
+      ]
+    },
+    {
+      "file": "support-ticket-creation.json",
+      "changes": [
+        "imap:trigger:new_support_email->new_email",
+        "google_sheets:action:create_ticket->append_row",
+        "slack:action:notify_support_team->send_message"
+      ]
+    },
+    {
+      "file": "support-ticket-resolution-notice.json",
+      "changes": [
+        "google_sheets:trigger:ticket_status_changed_to_resolved->row_added",
+        "smtp:action:send_resolution_email->send_email"
+      ]
+    },
+    {
+      "file": "team-birthday-reminder.json",
+      "changes": [
+        "slack:action:send_birthday_message->send_message"
+      ]
+    },
+    {
+      "file": "tweet-thread-generator.json",
+      "changes": [
+        "google_sheets:trigger:new_row_added->row_added",
+        "openai:action:generate_thread->chat_complete"
+      ]
+    },
+    {
+      "file": "tweet-to-slack-notification.json",
+      "changes": [
+        "twitter:trigger:new_tweet_from_account->new_tweet",
+        "slack:action:send_message_to_channel->send_message"
+      ]
+    },
+    {
+      "file": "website-analytics-to-slack.json",
+      "changes": [
+        "slack:action:post_report->send_message"
+      ]
+    },
+    {
+      "file": "weekly-digest-email.json",
+      "changes": [
+        "google_sheets:action:get_data->append_row",
+        "smtp:action:send_digest->send_email"
+      ]
+    },
+    {
+      "file": "weekly-review-generator.json",
+      "changes": [
+        "google_sheets:action:compile_week_data->append_row"
+      ]
+    },
+    {
+      "file": "weekly-team-report.json",
+      "changes": [
+        "google_sheets:action:compile_weekly_data->append_row",
+        "smtp:action:send_report->send_email"
+      ]
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,99 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-100000000016",
+  "name": "Insert Text in Docs from Sheets",
+  "description": "Get text from Sheets and insert at specific position in Google Docs. Nodes: Manual Trigger, Google Sheets Action, Google Docs Action",
+  "category": "productivity",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Get Rows",
+          "config": {
+            "spreadsheetId": "{{spreadsheet_id}}",
+            "sheetName": "{{sheet_name}}"
+          },
+          "category": "action",
+          "connector": "google_sheets",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets",
+          "description": "Retrieve rows from a sheet",
+          "action": "get_rows",
+          "actionId": "get_rows",
+          "actionName": "Get Rows"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Insert Text",
+          "config": {
+            "documentId": "{{document_id}}",
+            "text": "{{node_2.output.values[0][0]}}",
+            "index": 1
+          },
+          "category": "action",
+          "connector": "google_docs",
+          "connectorType": "google_docs",
+          "connectorDisplayName": "Google Docs",
+          "description": "Insert text at a specific location in the document",
+          "action": "insert_text",
+          "actionId": "insert_text",
+          "actionName": "Insert Text"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [{ "id": "node_1", "type": "MANUAL_TRIGGER", "config": {} }],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": ["google_sheets", "google_docs"],
+  "tags": ["productivity", "automation", "google_sheets", "google_docs", "insert"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow inserts text from Sheets into Google Docs at a specific position using manual trigger, google_sheets, google_docs",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow to get text from Sheets and insert at specific position in Google Docs"
+}

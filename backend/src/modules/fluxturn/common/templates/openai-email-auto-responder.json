@@ -1,0 +1,80 @@
+{
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567801",
+  "name": "OpenAI Email Auto Responder",
+  "description": "Automatically generate AI-powered responses to incoming emails using OpenAI GPT. Nodes: Gmail Trigger, OpenAI Action",
+  "category": "ai",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Email Received",
+          "config": {},
+          "trigger": "email_received",
+          "category": "trigger",
+          "connector": "gmail",
+          "eventType": "polling",
+          "triggerId": "email_received",
+          "description": "Triggered when a new email is received",
+          "connectorType": "gmail",
+          "connectorDisplayName": "Gmail"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Chat Completion",
+          "action": "chat_complete",
+          "config": {
+            "model": "gpt-3.5-turbo",
+            "messages": "{{messages}}"
+          },
+          "actionId": "chat_complete",
+          "category": "action",
+          "connector": "openai",
+          "actionName": "Chat Completion",
+          "description": "Generate AI response to email",
+          "connectorType": "openai",
+          "connectorDisplayName": "OpenAI"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": { "connector": "gmail", "triggerId": "email_received" }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": ["gmail", "openai"],
+  "tags": ["ai", "automation", "email", "openai", "gmail"],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow automatically responds to emails using OpenAI GPT",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"OpenAI email auto responder\" that triggers when a new email is received and then generates an AI response via OpenAI Chat Completion"
+}

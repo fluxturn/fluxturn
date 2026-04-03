@@ -1,0 +1,451 @@
+{
+  "id": "b93a3c53-008a-49e9-a8cf-6cee9146ed0d",
+  "name": "Get User Data Automatically",
+  "description": "Every two hours, get new users from database then add these user in google sheet and give message in slacks with new users using parallel processing",
+  "category": "business",
+  "canvas": {
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "SCHEDULE_TRIGGER_1762246434461",
+        "target": "mysql_execute_query_1762246458799",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "mysql_execute_query_1762246458799",
+        "target": "split_node",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_3",
+        "type": "default",
+        "style": {
+          "stroke": "#14b8a6",
+          "strokeWidth": 2
+        },
+        "source": "split_node",
+        "target": "google_sheets_append_row_1762246587119",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#14b8a6",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1"
+      },
+      {
+        "id": "edge_4",
+        "type": "default",
+        "style": {
+          "stroke": "#14b8a6",
+          "strokeWidth": 2
+        },
+        "source": "split_node",
+        "target": "slack_send_message_1762246733255",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#14b8a6",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-2"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "SCHEDULE_TRIGGER_1762246434461",
+        "data": {
+          "icon": "S",
+          "color": "#06b6d4",
+          "label": "Schedule",
+          "status": "initial",
+          "category": "trigger",
+          "schedule": {
+            "hour": 9,
+            "mode": "hours",
+            "minute": 0,
+            "interval": 2,
+            "dayOfWeek": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "dayOfMonth": 1
+          },
+          "timezone": "UTC",
+          "description": "Run on a schedule (cron)"
+        },
+        "type": "SCHEDULE_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        }
+      },
+      {
+        "id": "mysql_execute_query_1762246458799",
+        "data": {
+          "icon": "Zap",
+          "label": "Execute Query",
+          "actionId": "execute_query",
+          "description": "Execute a SQL query with parameters",
+          "inputSchema": {
+            "query": {
+              "type": "string",
+              "label": "Query",
+              "required": true,
+              "inputType": "textarea",
+              "description": "SQL query to execute. Use ? for parameters",
+              "placeholder": "SELECT * FROM users WHERE id = ?"
+            },
+            "params": {
+              "type": "array",
+              "label": "Query Parameters",
+              "required": false,
+              "itemSchema": {
+                "value": {
+                  "type": "string",
+                  "label": "Parameter Value"
+                }
+              },
+              "description": "Parameters for the SQL query"
+            }
+          },
+          "connectorType": "mysql"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        }
+      },
+      {
+        "id": "split_node",
+        "data": {
+          "mode": "duplicate",
+          "label": "Split Data",
+          "description": "Duplicate to 2 outputs for parallel processing",
+          "numberOfOutputs": 2
+        },
+        "type": "SPLIT",
+        "position": {
+          "x": 750,
+          "y": 200
+        }
+      },
+      {
+        "id": "google_sheets_append_row_1762246587119",
+        "data": {
+          "icon": "Zap",
+          "label": "Append Row",
+          "actionId": "append_row",
+          "description": "Add a new row to the end of a sheet",
+          "inputSchema": {
+            "values": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "label": "Values",
+              "required": true,
+              "description": "Row data as array of values"
+            },
+            "sheetName": {
+              "type": "string",
+              "label": "Sheet Name",
+              "default": "Sheet1",
+              "required": true,
+              "description": "Name of the sheet tab",
+              "loadOptionsResource": "sheets",
+              "loadOptionsDependsOn": [
+                "spreadsheetId"
+              ],
+              "loadOptionsDescription": "Fetch sheets from selected spreadsheet"
+            },
+            "spreadsheetId": {
+              "type": "string",
+              "label": "Spreadsheet ID",
+              "required": true,
+              "description": "The ID of the spreadsheet",
+              "placeholder": "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms",
+              "loadOptionsResource": "spreadsheets",
+              "loadOptionsDescription": "Fetch spreadsheets from Google Drive"
+            },
+            "valueInputOption": {
+              "type": "select",
+              "label": "Value Input Option",
+              "default": "USER_ENTERED",
+              "options": [
+                {
+                  "label": "User Entered (Formatted)",
+                  "value": "USER_ENTERED"
+                },
+                {
+                  "label": "Raw",
+                  "value": "RAW"
+                }
+              ]
+            }
+          },
+          "connectorType": "google_sheets"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1095,
+          "y": 100
+        }
+      },
+      {
+        "id": "slack_send_message_1762246733255",
+        "data": {
+          "icon": "Mail",
+          "label": "Send Message",
+          "actionId": "send_message",
+          "description": "Send a message to a Slack channel or direct message to a user",
+          "inputSchema": {
+            "text": {
+              "type": "string",
+              "label": "Message Text",
+              "helpText": "You can use *bold*, _italic_, ~strikethrough~, `code`, and ```code blocks```",
+              "required": true,
+              "inputType": "textarea",
+              "description": "The text content of your message (supports Slack markdown formatting)",
+              "placeholder": "Enter your message here..."
+            },
+            "threadTs": {
+              "type": "string",
+              "label": "Reply in Thread (Optional)",
+              "helpText": "Leave empty to send as a new message. Use output from previous message node to reply in thread.",
+              "description": "To reply in a thread, provide the timestamp of the parent message",
+              "placeholder": "1234567890.123456"
+            },
+            "channelId": {
+              "type": "string",
+              "label": "Channel or User ID",
+              "helpText": "Right-click on a channel in Slack → View channel details → Copy channel ID",
+              "required": true,
+              "description": "The ID of the channel (starts with C) or user (starts with U) to send the message to",
+              "placeholder": "C01234ABCDE or U01234ABCDE"
+            }
+          },
+          "connectorType": "slack"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1095,
+          "y": 300
+        }
+      }
+    ]
+  },
+  "steps": [
+    {
+      "id": "mysql_execute_query_1762246458799",
+      "action": "execute",
+      "params": {
+        "icon": "Zap",
+        "label": "Execute Query",
+        "actionId": "execute_query",
+        "description": "Execute a SQL query with parameters",
+        "inputSchema": {
+          "query": {
+            "type": "string",
+            "label": "Query",
+            "required": true,
+            "inputType": "textarea",
+            "description": "SQL query to execute. Use ? for parameters",
+            "placeholder": "SELECT * FROM users WHERE id = ?"
+          },
+          "params": {
+            "type": "array",
+            "label": "Query Parameters",
+            "required": false,
+            "itemSchema": {
+              "value": {
+                "type": "string",
+                "label": "Parameter Value"
+              }
+            },
+            "description": "Parameters for the SQL query"
+          }
+        },
+        "connectorType": "mysql"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "google_sheets_append_row_1762246587119",
+      "action": "execute",
+      "params": {
+        "icon": "Zap",
+        "label": "Append Row",
+        "actionId": "append_row",
+        "description": "Add a new row to the end of a sheet",
+        "inputSchema": {
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "label": "Values",
+            "required": true,
+            "description": "Row data as array of values"
+          },
+          "sheetName": {
+            "type": "string",
+            "label": "Sheet Name",
+            "default": "Sheet1",
+            "required": true,
+            "description": "Name of the sheet tab",
+            "loadOptionsResource": "sheets",
+            "loadOptionsDependsOn": [
+              "spreadsheetId"
+            ],
+            "loadOptionsDescription": "Fetch sheets from selected spreadsheet"
+          },
+          "spreadsheetId": {
+            "type": "string",
+            "label": "Spreadsheet ID",
+            "required": true,
+            "description": "The ID of the spreadsheet",
+            "placeholder": "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms",
+            "loadOptionsResource": "spreadsheets",
+            "loadOptionsDescription": "Fetch spreadsheets from Google Drive"
+          },
+          "valueInputOption": {
+            "type": "select",
+            "label": "Value Input Option",
+            "default": "USER_ENTERED",
+            "options": [
+              {
+                "label": "User Entered (Formatted)",
+                "value": "USER_ENTERED"
+              },
+              {
+                "label": "Raw",
+                "value": "RAW"
+              }
+            ]
+          }
+        },
+        "connectorType": "google_sheets"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "slack_send_message_1762246733255",
+      "action": "execute",
+      "params": {
+        "icon": "Mail",
+        "label": "Send Message",
+        "actionId": "send_message",
+        "description": "Send a message to a Slack channel or direct message to a user",
+        "inputSchema": {
+          "text": {
+            "type": "string",
+            "label": "Message Text",
+            "helpText": "You can use *bold*, _italic_, ~strikethrough~, `code`, and ```code blocks```",
+            "required": true,
+            "inputType": "textarea",
+            "description": "The text content of your message (supports Slack markdown formatting)",
+            "placeholder": "Enter your message here..."
+          },
+          "threadTs": {
+            "type": "string",
+            "label": "Reply in Thread (Optional)",
+            "helpText": "Leave empty to send as a new message. Use output from previous message node to reply in thread.",
+            "description": "To reply in a thread, provide the timestamp of the parent message",
+            "placeholder": "1234567890.123456"
+          },
+          "channelId": {
+            "type": "string",
+            "label": "Channel or User ID",
+            "helpText": "Right-click on a channel in Slack → View channel details → Copy channel ID",
+            "required": true,
+            "description": "The ID of the channel (starts with C) or user (starts with U) to send the message to",
+            "placeholder": "C01234ABCDE or U01234ABCDE"
+          }
+        },
+        "connectorType": "slack"
+      },
+      "connector": "CONNECTOR_ACTION"
+    }
+  ],
+  "triggers": [
+    {
+      "id": "SCHEDULE_TRIGGER_1762246434461",
+      "type": "SCHEDULE_TRIGGER",
+      "config": {
+        "icon": "S",
+        "color": "#06b6d4",
+        "label": "Schedule",
+        "status": "initial",
+        "category": "trigger",
+        "schedule": {
+          "hour": 9,
+          "mode": "hours",
+          "minute": 0,
+          "interval": 2,
+          "dayOfWeek": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "dayOfMonth": 1
+        },
+        "timezone": "UTC",
+        "description": "Run on a schedule (cron)"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "mysql",
+    "google_sheets",
+    "slack"
+  ],
+  "tags": [
+    "split",
+    "parallel",
+    "database",
+    "automation"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "uses_split_node": true,
+    "flow_description": "This workflow demonstrates parallel processing using Split node. Data from MySQL is duplicated via Split node to simultaneously update Google Sheets and send Slack notifications.",
+    "parallel_execution": true
+  },
+  "ai_prompt": null
+}

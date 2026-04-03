@@ -1,0 +1,149 @@
+{
+  "id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c07",
+  "name": "Google Calendar Events to MySQL",
+  "description": "Store Google Calendar events in MySQL database. Nodes: Google Calendar Trigger (new event), MySQL Action (insert row), Slack Action (announce event)",
+  "category": "productivity",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Event",
+          "config": {},
+          "trigger": "event_created",
+          "category": "trigger",
+          "connector": "google_calendar",
+          "eventType": "polling",
+          "triggerId": "event_created",
+          "description": "Triggered when new calendar event created",
+          "connectorType": "google_calendar",
+          "connectorDisplayName": "Google Calendar"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Save Event",
+          "action": "insert_rows",
+          "config": {
+            "table": "events",
+            "dataMode": "autoMapInputData"
+          },
+          "actionId": "insert_rows",
+          "category": "action",
+          "connector": "mysql",
+          "actionName": "Insert Row",
+          "description": "Insert event into MySQL",
+          "connectorType": "mysql",
+          "connectorDisplayName": "MySQL"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Announce Event",
+          "action": "send_message",
+          "config": {
+            "channel": "{{channel_id}}",
+            "text": "{{event_announcement}}"
+          },
+          "actionId": "send_message",
+          "category": "action",
+          "connector": "slack",
+          "actionName": "Send Message",
+          "description": "Announce event on Slack",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#14b8a6",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#14b8a6",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_calendar",
+        "triggerId": "event_created"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_calendar",
+    "mysql",
+    "slack"
+  ],
+  "tags": [
+    "productivity",
+    "automation",
+    "google_calendar",
+    "mysql",
+    "slack",
+    "events"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow stores Google Calendar events in MySQL and announces them on Slack",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow that captures Google Calendar events, stores them in MySQL database, and announces on Slack"
+}

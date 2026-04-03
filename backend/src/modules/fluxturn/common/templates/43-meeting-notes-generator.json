@@ -1,0 +1,194 @@
+{
+  "id": "fa5b3397-1447-404f-9763-4bd33de10b3f",
+  "name": "Meeting Notes Generator",
+  "description": "Generate AI meeting notes and save to Google Docs",
+  "category": "ai",
+  "difficulty": "advanced",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": [
+    "google_calendar",
+    "openai",
+    "google_docs"
+  ],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_43_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 100
+        },
+        "data": {
+          "label": "Meeting Ended",
+          "category": "trigger",
+          "config": {},
+          "connector": "google_calendar",
+          "triggerId": "event_ended",
+          "inputSchema": {
+            "pollInterval": {
+              "type": "number",
+              "label": "Poll Interval",
+              "default": 300
+            }
+          },
+          "configSchema": {
+            "pollInterval": {
+              "type": "number",
+              "label": "Poll Interval",
+              "default": 300
+            }
+          },
+          "outputSchema": {
+            "data": {
+              "type": "object",
+              "description": "Trigger event data"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_43_2",
+        "type": "RUN_CODE",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "label": "Get Transcript",
+          "category": "utility",
+          "config": {
+            "code": "// Fetch meeting transcript or details\nreturn { transcript: \"Meeting discussion points...\" };"
+          },
+          "configSchema": {
+            "code": {
+              "type": "string",
+              "label": "JavaScript Code",
+              "inputType": "textarea",
+              "required": true,
+              "description": "JavaScript code to execute"
+            }
+          },
+          "inputSchema": {
+            "input": {
+              "type": "object",
+              "required": false
+            }
+          },
+          "outputSchema": {
+            "output": {
+              "type": "object",
+              "description": "Code execution result"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_43_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 700,
+          "y": 100
+        },
+        "data": {
+          "label": "Generate Notes",
+          "category": "action",
+          "config": {
+            "model": "gpt-4",
+            "messages": [
+              {
+                "role": "user",
+                "content": "Summarize meeting notes with action items: {{$json.transcript}}"
+              }
+            ]
+          },
+          "connector": "openai",
+          "actionId": "chat_completion",
+          "action": "create_chat_completion",
+          "actionName": "Create Chat Completion",
+          "description": "Generate text using OpenAI",
+          "icon": "brain",
+          "connectorType": "openai",
+          "connectorDisplayName": "Openai",
+          "inputSchema": {
+            "model": {
+              "type": "string",
+              "required": true,
+              "label": "Model",
+              "default": "gpt-4"
+            },
+            "messages": {
+              "type": "array",
+              "required": true,
+              "label": "Messages"
+            }
+          },
+          "configSchema": {
+            "model": {
+              "type": "string",
+              "required": true,
+              "label": "Model",
+              "default": "gpt-4"
+            },
+            "messages": {
+              "type": "array",
+              "required": true,
+              "label": "Messages"
+            }
+          },
+          "outputSchema": {
+            "choices": {
+              "type": "array",
+              "description": "AI responses"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_43_4",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1000,
+          "y": 100
+        },
+        "data": {
+          "label": "Save Notes",
+          "category": "action",
+          "config": {
+            "title": "Meeting Notes - {{$node[\"Meeting Ended\"].json.summary}}",
+            "content": "={{$json.choices[0].message.content}}"
+          },
+          "connector": "google_docs",
+          "actionId": "create_document",
+          "inputSchema": {},
+          "configSchema": {},
+          "outputSchema": {}
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_1",
+        "source": "node_43_1",
+        "target": "node_43_2",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_2",
+        "source": "node_43_2",
+        "target": "node_43_3",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_3",
+        "source": "node_43_3",
+        "target": "node_43_4",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

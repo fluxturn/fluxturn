@@ -1,0 +1,1187 @@
+{
+  "nav": {
+    "features": "Fitur",
+    "tutorials": "Tutorial",
+    "templates": "Template",
+    "capabilities": "Kemampuan",
+    "useCases": "Kasus penggunaan",
+    "whyFluxTurn": "Mengapa FluxTurn",
+    "pricing": "Harga",
+    "documents": "Dokumen",
+    "blog": "Blog",
+    "login": "Masuk",
+    "getStarted": "Mulai",
+    "dashboard": "Dasbor",
+    "admin": "Admin"
+  },
+  "hero": {
+    "badge": "Platform otomatisasi alur kerja tanpa kode",
+    "title1": "Otomatiskan",
+    "title2": "alur kerja Anda dalam",
+    "title3": "hitungan menit",
+    "subtitle": "Hubungkan aplikasi Anda, otomatiskan alur kerja, dan optimalkan proses bisnis dengan platform tanpa kode kami yang powerful. Tidak memerlukan keahlian teknis.",
+    "cta": "Mulai uji coba gratis",
+    "workflowRunning": "Alur kerja otomatis sedang berjalan",
+    "personas": {
+      "marketing": "Marketing",
+      "marketingTitle": "Otomatiskan kampanye email",
+      "sales": "Penjualan",
+      "salesTitle": "Sinkronisasi lead dengan CRM secara otomatis",
+      "hr": "SDM",
+      "hrTitle": "Onboarding karyawan baru",
+      "aiTools": "Alat AI",
+      "aiToolsTitle": "Proses permintaan dengan AI"
+    },
+    "workflow": {
+      "formSubmit": "Pengiriman formulir",
+      "website": "Situs web",
+      "addToList": "Tambahkan ke daftar",
+      "sendEmail": "Kirim email",
+      "email": "Email",
+      "trackEvent": "Lacak event",
+      "analytics": "Analitik",
+      "newLead": "Lead baru",
+      "webForm": "Formulir web",
+      "enrichData": "Perkaya data",
+      "addToCRM": "Tambahkan ke CRM",
+      "notifySales": "Notifikasi penjualan",
+      "newEmployee": "Karyawan baru",
+      "hrSystem": "Sistem SDM",
+      "createEmail": "Buat email",
+      "setupSlack": "Siapkan Slack",
+      "addToPayroll": "Tambahkan ke penggajian",
+      "sendWelcome": "Kirim sambutan",
+      "userRequest": "Permintaan pengguna",
+      "processAI": "Proses AI",
+      "executeTask": "Jalankan tugas",
+      "sendResult": "Kirim hasil"
+    }
+  },
+  "powerful": {
+    "badge": "Powerful dan sederhana",
+    "title": "Manfaatkan",
+    "titleHighlight": "AI dan otomatisasi",
+    "titleEnd": "untuk bisnis Anda",
+    "subtitle": "Tanpa developer mahal. Tanpa berbulan-bulan pelatihan. Hanya otomatisasi powerful yang langsung bekerja sejak hari pertama.",
+    "stats": {
+      "setupTime": "5 mnt",
+      "setupTimeLabel": "Waktu rata-rata pengaturan",
+      "integrations": "120+",
+      "integrationsLabel": "Integrasi",
+      "uptime": "99.9%",
+      "uptimeLabel": "Uptime"
+    },
+    "cta": "Mulai membangun gratis",
+    "cards": {
+      "lightning": {
+        "title": "Pengaturan super cepat",
+        "description": "Template siap pakai dan antarmuka seret dan lepas. Mulai otomatisasi dalam hitungan menit tanpa kode."
+      },
+      "ai": {
+        "title": "Integrasi AI bawaan",
+        "description": "Hubungkan OpenAI, Claude, dan model AI lainnya dengan satu klik. Tanpa kerumitan API."
+      },
+      "security": {
+        "title": "Keamanan tingkat enterprise",
+        "description": "Kepatuhan SOC2 dengan enkripsi end-to-end. Self-hosting atau cloud aman kami."
+      }
+    }
+  },
+  "aiPromptBuilder": {
+    "badge": "Didukung AI",
+    "heading": "Apa yang ingin Anda otomatiskan?",
+    "subtitle": "Deskripsikan, jalankan, dan deploy alur kerja dengan AI dalam hitungan detik",
+    "placeholder": "Deskripsikan apa yang ingin Anda otomatiskan...",
+    "generate": "Buat",
+    "generating": "Membuat...",
+    "tryThese": "Coba salah satu ini:",
+    "loginMessage": "Masuk untuk membuat alur kerja Anda dengan AI",
+    "helperText": "Tekan Enter untuk membuat atau klik tombol",
+    "videoTitle": "Pembuatan alur kerja dengan AI",
+    "cards": {
+      "naturalLanguage": "Bahasa alami",
+      "noCode": "Pembuat tanpa kode",
+      "aiGeneration": "Pembuatan dengan AI",
+      "integrations": "120+ integrasi"
+    },
+    "suggestions": {
+      "gmail": {
+        "title": "Kirim email dengan Gmail",
+        "description": "Buat formulir trigger dengan semua field yang diperlukan untuk Gmail dan kirim"
+      },
+      "translate": {
+        "title": "Terjemahkan pesan masuk",
+        "description": "Otomatis terjemahkan pesan ke bahasa pilihan Anda"
+      },
+      "priceAlert": {
+        "title": "Beritahu saya saat harga turun",
+        "description": "Pantau produk dan terima notifikasi saat mencapai harga target Anda"
+      },
+      "emailSummary": {
+        "title": "Rangkum email saya setiap hari",
+        "description": "Terima rangkuman cepat sorotan kotak masuk Anda setiap pagi"
+      },
+      "supportDraft": {
+        "title": "Buat draf balasan tiket dukungan",
+        "description": "Buat draf balasan yang berguna untuk pertanyaan pelanggan"
+      },
+      "crmUpdate": {
+        "title": "Perbarui CRM dari formulir",
+        "description": "Tambahkan lead baru ke CRM Anda tanpa input manual"
+      },
+      "slackTasks": {
+        "title": "Buat tugas dari pesan Slack",
+        "description": "Ubah pesan Slack menjadi tugas dengan reaksi atau perintah"
+      }
+    },
+    "errors": {
+      "emptyPrompt": "Silakan masukkan pesan",
+      "creationFailed": "Gagal membuat alur kerja",
+      "noOrganization": "Organisasi tidak ditemukan",
+      "noProject": "Proyek tidak ditemukan. Silakan buat terlebih dahulu."
+    }
+  },
+  "video": {
+    "badge": "Lihat langsung",
+    "title": "Bangun alur kerja secara visual",
+    "subtitle": "Lihat betapa mudahnya menghubungkan aplikasi dan membuat otomatisasi powerful dengan editor seret dan lepas kami yang intuitif",
+    "editor": "Editor alur kerja FluxTurn",
+    "connected": "Terhubung",
+    "dragDrop": "Antarmuka seret dan lepas"
+  },
+  "buildYourWay": {
+    "interactive": {
+      "title": "Coba",
+      "titleHighlight": "Editor visual",
+      "subtitle": "Seret node, hubungkan, dan temukan betapa mudahnya membangun alur kerja",
+      "addNodes": "Tambah node",
+      "dragHint": "Seret node ke kanvas",
+      "canvasHint": "Seret node ke sini dan hubungkan",
+      "startBuilding": "Mulai bangun alur kerja nyata",
+      "feature1": {
+        "title": "Seret dan lepas",
+        "desc": "Cukup seret node dari sidebar ke kanvas"
+      },
+      "feature2": {
+        "title": "Koneksi visual",
+        "desc": "Hubungkan node dengan menyeret dari satu konektor ke konektor lainnya"
+      },
+      "feature3": {
+        "title": "Deploy instan",
+        "desc": "Deploy alur kerja Anda dengan satu klik"
+      }
+    }
+  },
+  "templates": {
+    "badge": "300+ template",
+    "title": "Mulai dengan",
+    "titleHighlight": "template siap pakai",
+    "subtitle": "Jelajahi template alur kerja. Cukup klik dan sesuaikan.",
+    "clickToPreview": "Klik template mana saja untuk melihat pratinjau alur kerja",
+    "useForFree": "Gunakan gratis",
+    "useTemplate": "Gunakan template ini",
+    "creating": "Membuat...",
+    "browseAll": "Lihat semua template",
+    "browseHint": "Jelajahi 300+ template otomatisasi siap pakai",
+    "verified": "Terverifikasi",
+    "users": "Pengguna",
+    "popular": "Populer",
+    "steps": "Langkah",
+    "integrations": "Integrasi",
+    "workflowPreview": "Pratinjau alur kerja",
+    "previewNotAvailable": "Pratinjau tidak tersedia",
+    "viewDetails": "Lihat detail template untuk informasi lebih lanjut",
+    "loginMessage": "Masuk untuk menggunakan template ini",
+    "errors": {
+      "noOrganization": "Organisasi tidak ditemukan",
+      "noProject": "Proyek tidak ditemukan",
+      "creationFailed": "Gagal membuat alur kerja"
+    },
+    "success": {
+      "created": "Alur kerja dibuat dari template"
+    }
+  },
+  "aiAgent": {
+    "badge": "Otomatisasi dengan AI",
+    "title": "Kenali",
+    "titleHighlight": "Node agen AI",
+    "subtitle": "Node powerful yang berpikir, memutuskan, dan bertindak. Hubungkan alat apa pun dan biarkan AI menangani logikanya.",
+    "canvasCaption": "Agen AI menerima input, memilih alat yang tepat, dan mengeksekusi secara otomatis",
+    "feature1Title": "Alat apa pun, satu node",
+    "feature1Desc": "Hubungkan Gmail, Slack, Notion, atau 120+ konektor lainnya sebagai alat AI",
+    "feature2Title": "AI yang memutuskan",
+    "feature2Desc": "Agen menganalisis input dan memilih alat yang tepat secara otomatis",
+    "feature3Title": "Anda tetap memegang kendali",
+    "feature3Desc": "Atur iterasi maksimum, prompt sistem, dan alat yang tersedia",
+    "cta": "Coba agen AI",
+    "ctaHint": "Tidak perlu kartu kredit. Paket gratis tersedia",
+    "creating": "Membuat...",
+    "loginMessage": "Masuk untuk mencoba agen AI",
+    "errors": {
+      "noOrganization": "Organisasi tidak ditemukan",
+      "noProject": "Proyek tidak ditemukan",
+      "creationFailed": "Gagal membuat alur kerja"
+    },
+    "success": {
+      "created": "Alur kerja agen AI dibuat"
+    }
+  },
+  "templatesPage": {
+    "title": "Template",
+    "titleHighlight": "alur kerja",
+    "subtitle": "Jelajahi pustaka template alur kerja siap pakai kami. Klik template mana saja untuk menggunakannya secara gratis.",
+    "searchPlaceholder": "Cari template...",
+    "showingCount": "Menampilkan",
+    "of": "dari",
+    "template": "template",
+    "templates": "template",
+    "loading": "Memuat template...",
+    "loadFailed": "Gagal memuat template",
+    "retry": "Coba lagi",
+    "noResults": "Tidak ada template ditemukan",
+    "noResultsHint": "Coba sesuaikan pencarian atau filter Anda",
+    "clearFilters": "Hapus filter",
+    "uses": "penggunaan",
+    "useTemplate": "Gunakan template",
+    "loadMore": "Muat lebih banyak template",
+    "verified": "Terverifikasi",
+    "steps": "Langkah",
+    "users": "Pengguna",
+    "integrations": "Integrasi",
+    "creating": "Membuat...",
+    "useThisTemplate": "Gunakan template ini",
+    "previewNotAvailable": "Pratinjau tidak tersedia",
+    "previewHint": "Klik \"Gunakan template ini\" untuk memulai",
+    "workflowPreview": "Pratinjau alur kerja",
+    "all": "Semua"
+  },
+  "features": {
+    "title": "Tingkatkan alur kerja Anda:",
+    "titleExplore": "jelajahi",
+    "titleHighlight": "platform",
+    "titleEnd": "semua dalam satu.",
+    "subtitle": "Semua yang Anda butuhkan untuk mengotomatiskan alur kerja dan menghubungkan seluruh infrastruktur teknologi Anda",
+    "cta": "Jelajahi fitur",
+    "bento": {
+      "ai-workflow": {
+        "title": "Pembuatan alur kerja dengan AI",
+        "description": "Deskripsikan apa yang Anda inginkan dengan bahasa sederhana. AI membangun seluruh alur kerja dalam hitungan detik."
+      },
+      "visual-builder": {
+        "title": "Pembuat visual",
+        "description": "Pembuatan alur kerja dengan seret dan lepas"
+      },
+      "ai-agent": {
+        "title": "Agen AI",
+        "description": "Otomatisasi cerdas yang berpikir dan bertindak"
+      },
+      "integrations": {
+        "title": "Integrasi",
+        "description": "Hubungkan semua aplikasi favorit Anda"
+      },
+      "custom-code": {
+        "title": "Kode kustom",
+        "description": "JavaScript, Python, atau bahasa apa pun"
+      }
+    },
+    "items": {
+      "visualBuilder": {
+        "title": "Pembuat alur kerja visual",
+        "description": "Bangun alur otomatisasi kompleks dengan antarmuka seret dan lepas kami yang intuitif. Tanpa kode."
+      },
+      "conditionalLogic": {
+        "title": "Logika kondisional",
+        "description": "Buat alur kerja canggih dengan percabangan menggunakan kondisi if/else, loop, dan pohon keputusan."
+      },
+      "customCode": {
+        "title": "Eksekusi kode kustom",
+        "description": "Jalankan kode JavaScript, Python, atau bahasa lainnya langsung di alur kerja untuk fleksibilitas maksimal."
+      },
+      "cloudHosted": {
+        "title": "Cloud dan self-hosting",
+        "description": "Deploy di infrastruktur cloud kami atau self-hosting di server Anda sendiri untuk kontrol penuh."
+      },
+      "security": {
+        "title": "Keamanan tingkat enterprise",
+        "description": "Enkripsi tingkat bank, kepatuhan SOC2, dan kontrol akses granular untuk menjaga keamanan data Anda."
+      },
+      "realtime": {
+        "title": "Eksekusi real-time",
+        "description": "Eksekusi alur kerja super cepat dengan pemantauan real-time dan log eksekusi terperinci."
+      }
+    }
+  },
+  "integrations": {
+    "title": "Hubungkan semuanya",
+    "subtitle": "120+ integrasi bawaan dengan aplikasi dan layanan favorit Anda",
+    "hoverHint": "Arahkan kursor untuk jeda. 120+ integrasi tersedia"
+  },
+  "useCases": {
+    "title": "Dibuat untuk",
+    "titleHighlight": "setiap kasus penggunaan",
+    "subtitle": "Dari otomatisasi marketing hingga pipeline data kompleks",
+    "viewAll": "Lihat semua kasus penggunaan",
+    "items": {
+      "marketing": {
+        "title": "Otomatisasi marketing",
+        "description": "Otomatiskan kampanye email, posting media sosial, dan alur perolehan lead.",
+        "stats": "KAMPANYE 10X LEBIH CEPAT",
+        "category": "Marketing"
+      },
+      "api": {
+        "title": "Integrasi API",
+        "description": "Hubungkan berbagai API dan layanan untuk membuat aliran data yang mulus antar platform.",
+        "stats": "120+ INTEGRASI",
+        "category": "IT dan DevOps"
+      },
+      "data": {
+        "title": "Pemrosesan data",
+        "description": "Transformasi, agregasi, dan analisis data dari berbagai sumber secara real-time.",
+        "stats": "JUTAAN RECORD",
+        "category": "Data dan analitik"
+      },
+      "ai": {
+        "title": "AI dan Machine Learning",
+        "description": "Integrasikan model AI dan pipeline ML ke dalam alur kerja otomatisasi Anda.",
+        "stats": "ALUR KERJA BERBASIS AI",
+        "category": "AI dan ML"
+      }
+    }
+  },
+  "whyFluxTurn": {
+    "title": "Mengapa",
+    "subtitle": "Ubah proses kompleks menjadi alur kerja yang sederhana dan efisien",
+    "efficiency": "Efisiensi",
+    "status": {
+      "complex": "Proses kompleks",
+      "optimized": "Dioptimalkan dengan FluxTurn"
+    },
+    "stats": {
+      "nodes": "Node:",
+      "time": "Waktu pengaturan:"
+    },
+    "analyzing": "Menganalisis kompleksitas alur kerja...",
+    "cta": "Mulai menyederhanakan"
+  },
+  "pricing": {
+    "badge": "Harga sederhana",
+    "title": "Pilih",
+    "titleHighlight": "paket sempurna Anda",
+    "subtitle": "Mulai gratis dan tingkatkan seiring pertumbuhan. Tanpa biaya tersembunyi.",
+    "monthly": "Bulanan",
+    "yearly": "Tahunan",
+    "twoMonthsFree": "2 bulan gratis",
+    "perMonth": "per bulan",
+    "forever": "selamanya",
+    "year": "tahun",
+    "viewFullDetails": "Lihat detail harga lengkap",
+    "mostPopular": "Paling populer",
+    "plans": {
+      "free": {
+        "name": "Gratis",
+        "description": "Sempurna untuk individu",
+        "features": [
+          "1.000 eksekusi/bulan",
+          "20 alur kerja aktif",
+          "Dukungan komunitas",
+          "Integrasi dasar"
+        ],
+        "cta": "Mulai gratis"
+      },
+      "starter": {
+        "name": "Starter",
+        "description": "Untuk tim kecil",
+        "features": [
+          "10.000 eksekusi/bulan",
+          "50 alur kerja aktif",
+          "Dukungan email",
+          "Semua integrasi"
+        ],
+        "cta": "Mulai uji coba gratis"
+      },
+      "professional": {
+        "name": "Professional",
+        "description": "Untuk tim yang berkembang",
+        "features": [
+          "50.000 eksekusi/bulan",
+          "Alur kerja tak terbatas",
+          "Dukungan prioritas",
+          "Autentikasi SSO"
+        ],
+        "cta": "Mulai uji coba gratis"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "Untuk organisasi besar",
+        "features": [
+          "200.000 eksekusi/bulan",
+          "Dukungan khusus",
+          "SLA 99.9%",
+          "Opsi on-premise"
+        ],
+        "cta": "Hubungi penjualan"
+      }
+    }
+  },
+  "blog": {
+    "title": "Terbaru dari blog kami",
+    "subtitle": "Tetap update dengan insight otomatisasi terbaru, tips, dan kisah sukses",
+    "featured": "Unggulan",
+    "minRead": "mnt baca",
+    "by": "Oleh",
+    "readMore": "Baca selengkapnya",
+    "viewAllPosts": "Lihat semua posting"
+  },
+  "blogPage": {
+    "title": "Blog",
+    "subtitle": "Insight tentang otomatisasi alur kerja dan pertumbuhan",
+    "newPost": "Posting baru",
+    "myPosts": "Posting saya",
+    "search": {
+      "placeholder": "Cari artikel..."
+    },
+    "browse": {
+      "title": "Jelajahi",
+      "latest": "Terbaru",
+      "popular": "Populer",
+      "featured": "Unggulan",
+      "allPosts": "Semua posting"
+    },
+    "categories": {
+      "title": "Kategori",
+      "all": "Semua kategori"
+    },
+    "loading": "Memuat...",
+    "error": {
+      "loadFailed": "Gagal memuat posting",
+      "tryAgain": "Coba lagi"
+    },
+    "empty": {
+      "title": "Tidak ada artikel ditemukan",
+      "subtitle": "Kembali lagi nanti untuk konten baru!"
+    },
+    "pagination": {
+      "previous": "Sebelumnya",
+      "next": "Selanjutnya"
+    },
+    "post": {
+      "backToBlog": "Kembali ke blog",
+      "notFound": {
+        "title": "Posting tidak ditemukan",
+        "message": "Posting yang Anda cari tidak ada."
+      },
+      "minRead": "mnt baca",
+      "views": "tayangan",
+      "by": "Oleh",
+      "featured": "Unggulan",
+      "edit": "Edit",
+      "delete": "Hapus",
+      "deleteConfirm": "Apakah Anda yakin ingin menghapus posting ini? Tindakan ini tidak dapat dibatalkan.",
+      "signInToRate": "Masuk untuk menilai posting ini"
+    },
+    "comments": {
+      "title": "Komentar",
+      "comment": "komentar",
+      "comments": "komentar",
+      "placeholder": "Bagikan pendapat Anda...",
+      "signInPrompt": "untuk meninggalkan komentar.",
+      "signIn": "Masuk",
+      "noComments": "Belum ada komentar. Jadilah yang pertama berkomentar!",
+      "reply": "Balas",
+      "replying": "Membalas...",
+      "submit": "Kirim",
+      "cancel": "Batal"
+    },
+    "card": {
+      "minRead": "mnt baca",
+      "by": "Oleh"
+    }
+  },
+  "comparison": {
+    "badge": "Bandingkan platform",
+    "title": "Mengapa memilih",
+    "subtitle": "Lihat bagaimana FluxTurn dibandingkan dengan platform otomatisasi alur kerja lainnya",
+    "getStarted": "Mulai gratis",
+    "footnote": "* Versi self-hosted. Harga dan fitur dapat bervariasi. Pembaruan terakhir: Januari 2025.",
+    "categories": {
+      "corefeatures": "Fitur utama",
+      "deployment": "Deployment",
+      "pricing": "Harga",
+      "integrations": "Integrasi",
+      "performance": "Performa",
+      "collaboration": "Kolaborasi"
+    },
+    "features": {
+      "visualBuilder": "Pembuat alur kerja visual",
+      "aiWorkflowGeneration": "Pembuatan alur kerja dengan AI",
+      "naturalLanguagePrompts": "Prompt bahasa alami",
+      "customCodeSupport": "Dukungan kode kustom",
+      "selfHosting": "Opsi self-hosting",
+      "cloudHosted": "Hosting cloud",
+      "freeWorkflows": "Alur kerja gratis",
+      "freeOperations": "Operasi gratis",
+      "startingPrice": "Harga mulai",
+      "integrations": "Integrasi",
+      "apiAccess": "Akses API",
+      "webhooks": "Webhook",
+      "realtimeExecution": "Eksekusi real-time",
+      "errorHandling": "Penanganan error",
+      "teamCollaboration": "Kolaborasi tim",
+      "versionHistory": "Riwayat versi"
+    }
+  },
+  "faq": {
+    "badge": "Punya pertanyaan?",
+    "title": "Pertanyaan yang sering diajukan",
+    "subtitle": "Semua yang perlu Anda ketahui tentang FluxTurn. Tidak menemukan yang Anda cari? Jangan ragu untuk menghubungi tim dukungan kami.",
+    "items": {
+      "whatIs": {
+        "question": "Apa itu FluxTurn dan bagaimana cara kerjanya?",
+        "answer": "FluxTurn adalah platform otomatisasi alur kerja yang powerful, memungkinkan Anda menghubungkan aplikasi dan mengotomatiskan tugas berulang tanpa coding. Menggunakan pembuat visual seret dan lepas kami, Anda dapat membuat alur kerja yang aktif secara otomatis berdasarkan event, jadwal, atau aktivasi manual. Cukup hubungkan aplikasi, tentukan logika, dan biarkan FluxTurn menangani sisanya."
+      },
+      "codingSkills": {
+        "question": "Apakah saya perlu bisa coding untuk menggunakan FluxTurn?",
+        "answer": "Tidak perlu keahlian coding! FluxTurn memiliki pembuat visual intuitif di mana Anda bisa menyeret dan melepaskan node, menghubungkannya, dan mengonfigurasi aksi melalui formulir sederhana. Namun, untuk pengguna tingkat lanjut, kami juga mendukung eksekusi kode kustom dalam JavaScript dan Python di dalam alur kerja untuk fleksibilitas maksimal."
+      },
+      "integrations": {
+        "question": "Aplikasi dan layanan apa saja yang bisa dihubungkan?",
+        "answer": "FluxTurn terintegrasi dengan lebih dari 100 aplikasi populer termasuk Gmail, Slack, Google Sheets, Telegram, Discord, Stripe, Shopify, OpenAI, database seperti PostgreSQL dan MongoDB, dan masih banyak lagi. Kami terus menambahkan integrasi baru berdasarkan permintaan pengguna."
+      },
+      "freePlan": {
+        "question": "Apakah ada paket gratis yang tersedia?",
+        "answer": "Ya! Kami menawarkan paket gratis yang murah hati mencakup hingga 500 eksekusi alur kerja per bulan, akses ke semua integrasi, dan kemampuan membuat alur kerja tak terbatas. Sempurna untuk proyek pribadi dan tim kecil yang mulai dengan otomatisasi."
+      },
+      "selfHost": {
+        "question": "Bisakah saya melakukan self-hosting FluxTurn di server sendiri?",
+        "answer": "Tentu saja! FluxTurn menawarkan opsi hosting cloud dan self-hosting. Solusi self-hosted kami memberikan kontrol penuh atas data dan infrastruktur Anda. Ideal untuk perusahaan dengan persyaratan kepatuhan ketat atau tim yang lebih suka mengelola deployment mereka sendiri."
+      },
+      "security": {
+        "question": "Seberapa aman data saya di FluxTurn?",
+        "answer": "Keamanan adalah prioritas utama kami. Kami menggunakan enkripsi AES-256 tingkat bank untuk semua data saat istirahat dan TLS 1.3 untuk data saat transit. Kredensial Anda dienkripsi dan tidak pernah disimpan dalam teks biasa. Kami juga menawarkan kepatuhan SOC2, kontrol akses berbasis peran, dan log audit untuk pelanggan enterprise."
+      },
+      "failedWorkflow": {
+        "question": "Apa yang terjadi jika alur kerja gagal?",
+        "answer": "FluxTurn menyediakan penanganan error dan pemantauan yang komprehensif. Ketika alur kerja gagal, Anda akan menerima notifikasi instan melalui email atau channel pilihan Anda. Log eksekusi terperinci kami membantu Anda mengidentifikasi dan memperbaiki masalah dengan cepat. Anda juga dapat mengonfigurasi percobaan ulang otomatis dan aksi fallback untuk alur kerja kritis."
+      },
+      "aiWorkflows": {
+        "question": "Bisakah saya menggunakan AI di alur kerja saya?",
+        "answer": "Ya! FluxTurn memiliki kemampuan AI bawaan yang didukung oleh OpenAI, Anthropic, dan penyedia AI terkemuka lainnya. Anda dapat menggunakan AI untuk menghasilkan konten, menganalisis data, membuat keputusan, mengklasifikasikan informasi, dan banyak lagi. Node agen AI kami memudahkan penambahan kecerdasan ke alur kerja mana pun."
+      }
+    }
+  },
+  "footer": {
+    "description": "Bangun aplikasi powerful dengan platform backend komprehensif kami. Semua yang Anda butuhkan di satu tempat.",
+    "sections": {
+      "product": "Produk",
+      "developers": "Developer",
+      "company": "Perusahaan",
+      "legal": "Legal"
+    },
+    "links": {
+      "features": "Fitur",
+      "visualBuilders": "Pembuat visual",
+      "aiPlatform": "Platform AI",
+      "integrations": "Integrasi",
+      "pricing": "Harga",
+      "documentation": "Dokumentasi",
+      "tutorials": "Tutorial",
+      "apiReference": "Referensi API",
+      "examples": "Contoh",
+      "support": "Dukungan",
+      "privacy": "Privasi",
+      "terms": "Ketentuan",
+      "security": "Keamanan"
+    },
+    "newsletter": {
+      "title": "Tetap update",
+      "description": "Dapatkan berita terbaru tentang fitur baru dan rilis.",
+      "placeholder": "Masukkan email Anda",
+      "subscribe": "Berlangganan",
+      "subscribing": "Berlangganan..."
+    },
+    "copyright": "© {{year}} Info Inlet. Semua hak dilindungi.",
+    "builtWith": "Dibuat dengan",
+    "byTeam": "oleh tim Info Inlet",
+    "docs": "Docs"
+  },
+  "language": {
+    "en": "Inggris",
+    "ja": "Jepang",
+    "zh": "Tionghoa",
+    "ko": "Korea",
+    "es": "Spanyol",
+    "fr": "Prancis",
+    "de": "Jerman"
+  },
+  "featuresPage": {
+    "badge": "Fitur powerful",
+    "title": "Semua yang Anda butuhkan untuk",
+    "titleHighlight": "mengotomatiskan",
+    "subtitle": "Temukan fitur powerful yang menjadikan FluxTurn platform otomatisasi alur kerja paling fleksibel untuk tim modern.",
+    "cta": "Mulai uji coba gratis",
+    "viewDocs": "Lihat dokumentasi",
+    "stats": {
+      "workflows": "Alur kerja tak terbatas",
+      "workflowsValue": "Bangun",
+      "integrations": "Integrasi",
+      "codeSupport": "Dukungan kode",
+      "security": "Keamanan"
+    },
+    "coreFeatures": {
+      "title": "Fitur utama",
+      "subtitle": "Jelajahi kemampuan powerful yang membedakan FluxTurn"
+    },
+    "features": {
+      "visualBuilder": {
+        "title": "Pembuat alur kerja visual",
+        "desc": "Antarmuka seret dan lepas untuk membangun alur otomatisasi kompleks tanpa kode."
+      },
+      "conditionalLogic": {
+        "title": "Logika kondisional",
+        "desc": "Buat alur kerja dengan percabangan menggunakan kondisi if/else, loop, dan pohon keputusan."
+      },
+      "customCode": {
+        "title": "Kode kustom",
+        "desc": "Jalankan kode JavaScript atau Python untuk fleksibilitas maksimal."
+      },
+      "integrations": {
+        "title": "120+ integrasi",
+        "desc": "Terhubung dengan semua aplikasi dan layanan favorit Anda secara instan."
+      },
+      "realtime": {
+        "title": "Eksekusi real-time",
+        "desc": "Eksekusi alur kerja super cepat dengan pemantauan real-time."
+      },
+      "security": {
+        "title": "Keamanan tingkat enterprise",
+        "desc": "Enkripsi tingkat bank, kepatuhan SOC2, dan kontrol akses granular."
+      },
+      "deployment": {
+        "title": "Cloud dan self-hosting",
+        "desc": "Deploy di cloud kami atau self-hosting di infrastruktur Anda sendiri."
+      },
+      "scheduling": {
+        "title": "Penjadwalan lanjutan",
+        "desc": "Jadwalkan alur kerja untuk berjalan pada waktu atau interval tertentu."
+      },
+      "templates": {
+        "title": "300+ template",
+        "desc": "Mulai cepat dengan template siap pakai untuk kasus penggunaan umum."
+      }
+    },
+    "ctaSection": {
+      "title": "Siap untuk memulai?",
+      "subtitle": "Mulai otomatiskan alur kerja Anda hari ini dengan FluxTurn. Tanpa kartu kredit.",
+      "cta": "Mulai uji coba gratis",
+      "viewPricing": "Lihat harga"
+    },
+    "visualSection": {
+      "badge": "Editor alur kerja visual",
+      "title": "Bangun otomatisasi dengan",
+      "titleHighlight": "seret dan lepas",
+      "subtitle": "Buat alur otomatisasi powerful secara visual. Hubungkan node, konfigurasi aksi, dan deploy otomatisasi Anda dengan editor visual kami yang intuitif.",
+      "videoTitle": "Editor alur kerja visual FluxTurn",
+      "floatingBadge": "Seret dan lepas",
+      "cta": "Coba editor visual",
+      "features": {
+        "dragDrop": {
+          "title": "Seret dan lepas yang intuitif",
+          "desc": "Cukup seret node ke kanvas dan hubungkan untuk membangun alur kerja. Tidak perlu pengalaman coding."
+        },
+        "integrations": {
+          "title": "120+ integrasi bawaan",
+          "desc": "Terhubung dengan aplikasi favorit secara instan. Gmail, Slack, Notion, Stripe, dan ratusan lainnya siap digunakan."
+        },
+        "realtime": {
+          "title": "Pengujian real-time",
+          "desc": "Uji alur kerja secara instan dengan data nyata. Lihat hasil langsung dan debug dengan log terperinci."
+        },
+        "preview": {
+          "title": "Pratinjau langsung",
+          "desc": "Lihat alur kerja berjalan secara real-time. Visualisasikan aliran data dan temukan masalah sebelum deployment."
+        }
+      }
+    },
+    "aiSection": {
+      "badge": "Otomatisasi dengan AI",
+      "title": "Bangun alur kerja dengan",
+      "titleHighlight": "asisten AI",
+      "subtitle": "Deskripsikan apa yang ingin Anda otomatiskan dalam bahasa alami dan biarkan AI kami membangun alur kerja untuk Anda. Chat dengan AI untuk memodifikasi, mengoptimalkan, dan debug alur kerja secara real-time.",
+      "videoTitle": "Pembuat alur kerja AI FluxTurn",
+      "floatingBadge": "Tanpa kode",
+      "cta": "Coba pembuat AI",
+      "features": {
+        "naturalLanguage": {
+          "title": "Input bahasa alami",
+          "desc": "Deskripsikan otomatisasi dalam bahasa sederhana. AI kami memahami maksud Anda dan membuat alur kerja secara otomatis."
+        },
+        "aiChat": {
+          "title": "Asisten chat AI",
+          "desc": "Chat dengan AI untuk memodifikasi alur kerja, ajukan pertanyaan, dan dapatkan saran perbaikan secara real-time."
+        },
+        "instantGeneration": {
+          "title": "Pembuatan alur kerja instan",
+          "desc": "Saksikan alur kerja Anda tercipta dalam hitungan detik. AI secara otomatis memilih integrasi yang tepat dan mengonfigurasinya."
+        },
+        "smartSuggestions": {
+          "title": "Saran cerdas",
+          "desc": "Dapatkan rekomendasi cerdas untuk optimisasi, penanganan error, dan praktik terbaik saat membangun."
+        }
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Selamat datang kembali",
+      "subtitle": "Masukkan kredensial untuk mengakses akun Anda",
+      "inviteMessage": "Silakan masuk untuk menerima undangan Anda",
+      "email": "Email",
+      "emailPlaceholder": "Masukkan email Anda",
+      "password": "Kata sandi",
+      "passwordPlaceholder": "Masukkan kata sandi Anda",
+      "rememberMe": "Ingat saya",
+      "forgotPassword": "Lupa kata sandi?",
+      "signIn": "Masuk",
+      "signingIn": "Sedang masuk...",
+      "noAccount": "Belum punya akun?",
+      "signUp": "Daftar",
+      "orContinueWith": "Atau lanjutkan dengan",
+      "termsAgreement": "Dengan masuk, Anda menyetujui",
+      "termsOfService": "Ketentuan layanan",
+      "and": "dan",
+      "privacyPolicy": "Kebijakan privasi"
+    },
+    "register": {
+      "title": "Buat akun",
+      "subtitle": "Daftar untuk memulai dengan FluxTurn",
+      "name": "Nama lengkap",
+      "namePlaceholder": "Masukkan nama lengkap Anda",
+      "passwordRequirements": {
+        "minLength": "8+ karakter",
+        "uppercase": "huruf kapital",
+        "lowercase": "huruf kecil",
+        "number": "angka",
+        "special": "karakter khusus"
+      },
+      "email": "Email",
+      "emailPlaceholder": "Masukkan email Anda",
+      "password": "Kata sandi",
+      "passwordPlaceholder": "Buat kata sandi",
+      "confirmPassword": "Konfirmasi kata sandi",
+      "confirmPasswordPlaceholder": "Konfirmasi kata sandi Anda",
+      "passwordStrength": "Kekuatan kata sandi:",
+      "weak": "Lemah",
+      "fair": "Cukup",
+      "good": "Baik",
+      "strong": "Kuat",
+      "missing": "Kurang:",
+      "passwordsMatch": "Kata sandi cocok",
+      "passwordsNoMatch": "Kata sandi tidak cocok",
+      "agreeToTerms": "Saya menyetujui",
+      "termsOfService": "Ketentuan layanan",
+      "and": "dan",
+      "privacyPolicy": "Kebijakan privasi",
+      "createAccount": "Buat akun",
+      "creating": "Membuat akun...",
+      "haveAccount": "Sudah punya akun?",
+      "signIn": "Masuk",
+      "orContinueWith": "Atau lanjutkan dengan"
+    },
+    "forgotPassword": {
+      "title": "Lupa kata sandi?",
+      "subtitle": "Jangan khawatir, kami akan mengirim instruksi reset",
+      "email": "Email",
+      "emailPlaceholder": "Masukkan email Anda",
+      "sendLink": "Kirim email reset",
+      "sending": "Mengirim...",
+      "backToLogin": "Kembali ke login",
+      "successTitle": "Periksa email Anda",
+      "successMessage": "Kami telah mengirim tautan reset ke:",
+      "successHint": "Tidak menerima email? Periksa folder spam atau coba lagi.",
+      "resendEmail": "Kirim ulang email",
+      "resending": "Mengirim ulang..."
+    },
+    "resetPassword": {
+      "title": "Atur kata sandi baru",
+      "subtitle": "Masukkan kata sandi baru Anda di bawah",
+      "invalidTitle": "Tautan reset tidak valid",
+      "invalidMessage": "Tautan reset ini tidak valid atau telah kedaluwarsa.",
+      "requestNewLink": "Minta tautan baru",
+      "newPassword": "Kata sandi baru",
+      "newPasswordPlaceholder": "Masukkan kata sandi baru Anda",
+      "confirmPassword": "Konfirmasi kata sandi",
+      "confirmPasswordPlaceholder": "Konfirmasi kata sandi baru Anda",
+      "passwordStrength": "Kekuatan kata sandi:",
+      "passwordsMatch": "Kata sandi cocok",
+      "passwordsNoMatch": "Kata sandi tidak cocok",
+      "reset": "Perbarui kata sandi",
+      "resetting": "Memperbarui kata sandi...",
+      "successTitle": "Kata sandi diperbarui",
+      "successMessage": "Kata sandi Anda telah berhasil diperbarui. Sekarang Anda dapat masuk dengan kata sandi baru.",
+      "continueToLogin": "Lanjutkan ke login",
+      "validating": "Memvalidasi tautan reset...",
+      "backToLogin": "Kembali ke login"
+    },
+    "verifyEmail": {
+      "title": "Verifikasi email Anda",
+      "subtitle": "Kami telah mengirim tautan verifikasi ke:",
+      "instruction": "Klik tautan di email Anda untuk memverifikasi akun",
+      "checkEmail": "Periksa email Anda",
+      "expireNote": "Tautan verifikasi akan kedaluwarsa dalam 24 jam",
+      "noEmailHint": "Tidak menerima email? Periksa folder spam atau kirim ulang.",
+      "resendEmail": "Kirim ulang email",
+      "sending": "Mengirim...",
+      "verifyingTitle": "Memverifikasi email",
+      "verifyingMessage": "Tunggu sementara kami memverifikasi alamat email Anda...",
+      "successTitle": "Email terverifikasi!",
+      "successMessage": "Email Anda telah berhasil diverifikasi. Sekarang Anda dapat mengakses semua fitur akun Anda.",
+      "goToDashboard": "Ke dasbor",
+      "signIn": "Masuk",
+      "failedTitle": "Verifikasi gagal",
+      "failedMessage": "Tautan verifikasi tidak valid atau telah kedaluwarsa. Silakan minta email verifikasi baru.",
+      "sendNewEmail": "Kirim email verifikasi baru",
+      "backToLogin": "Kembali ke login",
+      "emailSentTitle": "Email terkirim!",
+      "emailSentMessage": "Kami telah mengirim email verifikasi baru ke:",
+      "emailSentHint": "Periksa kotak masuk dan klik tautan verifikasi",
+      "spamHint": "Masih tidak terlihat? Periksa folder spam.",
+      "resendAgain": "Kirim ulang lagi",
+      "waitBeforeResend": "Tunggu {{countdown}}d sebelum mengirim ulang",
+      "welcome": "Selamat datang di masa depan pengembangan",
+      "verifyToStart": "Verifikasi email Anda untuk memulai",
+      "needHelp": "Butuh bantuan? Hubungi",
+      "supportTeam": "tim dukungan kami"
+    },
+    "authSuccess": {
+      "title": "Autentikasi berhasil!",
+      "message": "Anda telah berhasil masuk. Mengalihkan ke dasbor Anda..."
+    },
+    "authError": {
+      "title": "Autentikasi gagal",
+      "redirectMessage": "Anda akan dialihkan ke halaman login dalam beberapa detik...",
+      "returnToLogin": "Kembali ke login",
+      "troubleHelp": "Mengalami masalah? Coba opsi ini:",
+      "createAccount": "Buat akun",
+      "resetPassword": "Reset kata sandi"
+    },
+    "oauth": {
+      "google": "Lanjutkan dengan Google",
+      "github": "Lanjutkan dengan GitHub",
+      "apple": "Lanjutkan dengan Apple",
+      "connecting": "Menghubungkan...",
+      "processing": "Memproses callback OAuth...",
+      "success": "Berhasil!",
+      "successMessage": "Berhasil terhubung! Mengalihkan...",
+      "error": "Error",
+      "closeWindow": "Tutup jendela"
+    },
+    "errors": {
+      "invalidCredentials": "Email atau kata sandi tidak valid",
+      "emailRequired": "Email wajib diisi",
+      "passwordRequired": "Kata sandi wajib diisi",
+      "nameRequired": "Nama wajib diisi",
+      "passwordMismatch": "Kata sandi tidak cocok",
+      "weakPassword": "Kata sandi harus minimal 8 karakter",
+      "invalidEmail": "Silakan masukkan email yang valid",
+      "accountExists": "Akun dengan email ini sudah ada",
+      "loginFailed": "Login gagal. Silakan periksa kredensial Anda dan coba lagi.",
+      "registrationFailed": "Pendaftaran gagal. Silakan coba lagi.",
+      "missingOAuthParams": "Parameter OAuth yang diperlukan tidak ada",
+      "invalidOAuthState": "Status OAuth tidak valid - kemungkinan masalah keamanan",
+      "missingCredentialId": "ID kredensial tidak ada"
+    },
+    "branding": {
+      "welcomeBack": "Selamat datang",
+      "back": "kembali",
+      "joinFluxTurn": "Bergabung dengan",
+      "fluxTurn": "FluxTurn",
+      "tagline": "Bangun otomatisasi alur kerja powerful dengan platform tanpa kode kami. Hubungkan 120+ aplikasi secara instan.",
+      "feature1": "120+ integrasi bawaan",
+      "feature2": "Pembuat alur kerja visual seret dan lepas",
+      "feature3": "Saran otomatisasi dengan AI",
+      "feature4": "Keamanan tingkat enterprise",
+      "testimonial": "FluxTurn telah sepenuhnya mengubah cara tim kami bekerja. Kami telah mengotomatiskan 80% tugas berulang kami!",
+      "powerUser": "Pengguna tingkat lanjut",
+      "premiumMember": "Anggota premium"
+    },
+    "common": {
+      "email": "Email",
+      "password": "Kata sandi",
+      "submit": "Kirim",
+      "cancel": "Batal",
+      "loading": "Memuat...",
+      "or": "atau"
+    }
+  },
+  "common": {
+    "save": "Simpan",
+    "cancel": "Batal",
+    "delete": "Hapus",
+    "edit": "Edit",
+    "create": "Buat",
+    "update": "Perbarui",
+    "close": "Tutup",
+    "confirm": "Konfirmasi",
+    "back": "Kembali",
+    "next": "Selanjutnya",
+    "search": "Cari",
+    "filter": "Filter",
+    "loading": "Memuat...",
+    "saving": "Menyimpan...",
+    "deleting": "Menghapus...",
+    "noResults": "Tidak ada hasil ditemukan",
+    "error": "Terjadi kesalahan",
+    "success": "Berhasil",
+    "required": "Wajib",
+    "optional": "Opsional",
+    "actions": "Aksi",
+    "status": "Status",
+    "active": "Aktif",
+    "inactive": "Tidak aktif",
+    "enabled": "Diaktifkan",
+    "disabled": "Dinonaktifkan",
+    "name": "Nama",
+    "description": "Deskripsi",
+    "createdAt": "Dibuat",
+    "updatedAt": "Diperbarui",
+    "copy": "Salin",
+    "copied": "Disalin!",
+    "download": "Unduh",
+    "upload": "Unggah",
+    "refresh": "Segarkan",
+    "retry": "Coba lagi",
+    "learnMore": "Pelajari lebih lanjut",
+    "viewAll": "Lihat semua",
+    "showMore": "Tampilkan lebih banyak",
+    "showLess": "Tampilkan lebih sedikit",
+    "yes": "Ya",
+    "no": "Tidak",
+    "or": "atau",
+    "and": "dan"
+  },
+  "dashboard": {
+    "title": "Dasbor",
+    "welcome": "Selamat datang kembali",
+    "overview": "Ringkasan",
+    "recentWorkflows": "Alur kerja terbaru",
+    "recentActivity": "Aktivitas terbaru",
+    "quickActions": "Aksi cepat",
+    "createWorkflow": "Buat alur kerja",
+    "viewAllWorkflows": "Lihat semua alur kerja",
+    "noWorkflows": "Belum ada alur kerja",
+    "noWorkflowsHint": "Buat alur kerja pertama Anda untuk memulai",
+    "stats": {
+      "totalWorkflows": "Total alur kerja",
+      "activeWorkflows": "Alur kerja aktif",
+      "totalExecutions": "Total eksekusi",
+      "successRate": "Tingkat keberhasilan"
+    }
+  },
+  "workflow": {
+    "title": "Alur kerja",
+    "create": "Buat alur kerja",
+    "createNew": "Buat alur kerja baru",
+    "builder": "Pembuat alur kerja",
+    "name": "Nama alur kerja",
+    "namePlaceholder": "Masukkan nama alur kerja",
+    "description": "Deskripsi",
+    "descriptionPlaceholder": "Deskripsikan apa yang dilakukan alur kerja ini",
+    "status": {
+      "active": "Aktif",
+      "inactive": "Tidak aktif",
+      "draft": "Draf",
+      "running": "Sedang berjalan",
+      "completed": "Selesai",
+      "failed": "Gagal",
+      "paused": "Dijeda"
+    },
+    "actions": {
+      "run": "Jalankan",
+      "stop": "Hentikan",
+      "duplicate": "Duplikasi",
+      "export": "Ekspor",
+      "delete": "Hapus",
+      "activate": "Aktifkan",
+      "deactivate": "Nonaktifkan"
+    },
+    "nodes": {
+      "addNode": "Tambah node",
+      "configure": "Konfigurasi",
+      "delete": "Hapus node",
+      "duplicate": "Duplikasi node",
+      "trigger": "Trigger",
+      "action": "Aksi",
+      "condition": "Kondisi",
+      "loop": "Loop",
+      "delay": "Delay",
+      "code": "Kode",
+      "aiAgent": "Agen AI",
+      "webhook": "Webhook",
+      "schedule": "Jadwal",
+      "manual": "Trigger manual"
+    },
+    "execution": {
+      "title": "Log eksekusi",
+      "running": "Sedang berjalan...",
+      "completed": "Selesai",
+      "failed": "Gagal",
+      "duration": "Durasi",
+      "startedAt": "Dimulai pada",
+      "input": "Input",
+      "output": "Output",
+      "error": "Error",
+      "noExecutions": "Belum ada eksekusi",
+      "viewDetails": "Lihat detail"
+    },
+    "canvas": {
+      "zoomIn": "Perbesar",
+      "zoomOut": "Perkecil",
+      "fitView": "Sesuaikan tampilan",
+      "undo": "Urungkan",
+      "redo": "Ulangi",
+      "save": "Simpan",
+      "deploy": "Deploy"
+    },
+    "errors": {
+      "saveFailed": "Gagal menyimpan alur kerja",
+      "loadFailed": "Gagal memuat alur kerja",
+      "executionFailed": "Eksekusi alur kerja gagal",
+      "invalidConfig": "Konfigurasi tidak valid"
+    }
+  },
+  "credentials": {
+    "title": "Kredensial",
+    "add": "Tambah kredensial",
+    "edit": "Edit kredensial",
+    "name": "Nama kredensial",
+    "namePlaceholder": "Kredensial saya",
+    "type": "Tipe kredensial",
+    "test": "Uji koneksi",
+    "testing": "Menguji...",
+    "testSuccess": "Koneksi berhasil",
+    "testFailed": "Koneksi gagal",
+    "save": "Simpan kredensial",
+    "delete": "Hapus kredensial",
+    "deleteConfirm": "Apakah Anda yakin ingin menghapus kredensial ini? Alur kerja yang menggunakannya akan berhenti berfungsi.",
+    "noCredentials": "Belum ada kredensial",
+    "noCredentialsHint": "Tambahkan kredensial untuk menghubungkan aplikasi Anda",
+    "lastTested": "Terakhir diuji",
+    "connected": "Terhubung",
+    "disconnected": "Terputus",
+    "expires": "Kedaluwarsa",
+    "reconnect": "Hubungkan ulang"
+  },
+  "organization": {
+    "title": "Organisasi",
+    "create": "Buat organisasi",
+    "settings": "Pengaturan organisasi",
+    "name": "Nama organisasi",
+    "namePlaceholder": "Organisasi saya",
+    "members": {
+      "title": "Anggota",
+      "invite": "Undang anggota",
+      "inviteByEmail": "Undang melalui email",
+      "emailPlaceholder": "colleague@company.com",
+      "role": "Peran",
+      "roles": {
+        "owner": "Pemilik",
+        "admin": "Administrator",
+        "member": "Anggota",
+        "viewer": "Penampil"
+      },
+      "remove": "Hapus anggota",
+      "removeConfirm": "Apakah Anda yakin ingin menghapus anggota ini?",
+      "pending": "Menunggu",
+      "active": "Aktif"
+    },
+    "billing": {
+      "title": "Tagihan",
+      "currentPlan": "Paket saat ini",
+      "usage": "Penggunaan",
+      "invoices": "Faktur",
+      "upgrade": "Tingkatkan paket",
+      "downgrade": "Turunkan paket",
+      "cancel": "Batalkan langganan",
+      "paymentMethod": "Metode pembayaran",
+      "addPayment": "Tambah metode pembayaran",
+      "nextBilling": "Tanggal tagihan berikutnya",
+      "executions": "Eksekusi",
+      "executionsUsed": "{{used}} dari {{limit}} digunakan",
+      "workflows": "Alur kerja",
+      "workflowsUsed": "{{used}} dari {{limit}} digunakan"
+    },
+    "integrations": {
+      "title": "Integrasi",
+      "connected": "Terhubung",
+      "available": "Tersedia",
+      "connect": "Hubungkan",
+      "disconnect": "Putuskan",
+      "configure": "Konfigurasi",
+      "lastSync": "Sinkronisasi terakhir"
+    }
+  },
+  "project": {
+    "title": "Proyek",
+    "create": "Buat proyek",
+    "settings": "Pengaturan proyek",
+    "name": "Nama proyek",
+    "namePlaceholder": "Proyek saya",
+    "description": "Deskripsi",
+    "descriptionPlaceholder": "Untuk apa proyek ini?",
+    "workflows": "Alur kerja",
+    "credentials": "Kredensial",
+    "members": "Anggota",
+    "noProjects": "Belum ada proyek",
+    "noProjectsHint": "Buat proyek untuk mengorganisir alur kerja Anda"
+  },
+  "settings": {
+    "title": "Pengaturan",
+    "account": {
+      "title": "Pengaturan akun",
+      "profile": "Profil",
+      "email": "Alamat email",
+      "name": "Nama tampilan",
+      "avatar": "Foto profil",
+      "changeAvatar": "Ubah",
+      "removeAvatar": "Hapus",
+      "timezone": "Zona waktu",
+      "language": "Bahasa",
+      "notifications": "Notifikasi",
+      "emailNotifications": "Notifikasi email",
+      "pushNotifications": "Notifikasi push",
+      "workflowAlerts": "Peringatan alur kerja"
+    },
+    "security": {
+      "title": "Keamanan",
+      "changePassword": "Ubah kata sandi",
+      "currentPassword": "Kata sandi saat ini",
+      "newPassword": "Kata sandi baru",
+      "confirmPassword": "Konfirmasi kata sandi",
+      "twoFactor": "Autentikasi dua faktor",
+      "enable2FA": "Aktifkan 2FA",
+      "disable2FA": "Nonaktifkan 2FA",
+      "sessions": "Sesi aktif",
+      "revokeSession": "Cabut",
+      "revokeAll": "Cabut semua sesi"
+    },
+    "apiKeys": {
+      "title": "Kunci API",
+      "create": "Buat kunci API",
+      "name": "Nama kunci",
+      "namePlaceholder": "Kunci API saya",
+      "permissions": "Izin",
+      "expires": "Kedaluwarsa",
+      "never": "Tidak pernah",
+      "revoke": "Cabut",
+      "revokeConfirm": "Apakah Anda yakin? Tindakan ini tidak dapat dibatalkan.",
+      "noKeys": "Belum ada kunci API",
+      "copyWarning": "Salin kunci ini sekarang. Anda tidak akan bisa melihatnya lagi."
+    },
+    "danger": {
+      "title": "Zona bahaya",
+      "deleteAccount": "Hapus akun",
+      "deleteAccountWarning": "Ini akan menghapus akun Anda dan semua data terkait secara permanen. Tindakan ini tidak dapat dibatalkan.",
+      "typeToConfirm": "Ketik email Anda untuk konfirmasi"
+    }
+  }
+}

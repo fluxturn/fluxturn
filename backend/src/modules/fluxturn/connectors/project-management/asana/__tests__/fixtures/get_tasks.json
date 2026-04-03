@@ -1,0 +1,106 @@
+{
+  "action": "get_tasks",
+  "baseUrl": "https://app.asana.com/api/1.0",
+  "testCases": [
+    {
+      "name": "gets tasks from project",
+      "input": {
+        "projectId": "project-123"
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/tasks",
+        "query": {
+          "project": "project-123"
+        },
+        "status": 200,
+        "response": {
+          "data": [
+            {
+              "gid": "task-1",
+              "name": "Task One",
+              "completed": false
+            },
+            {
+              "gid": "task-2",
+              "name": "Task Two",
+              "completed": true
+            },
+            {
+              "gid": "task-3",
+              "name": "Task Three",
+              "completed": false
+            }
+          ]
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "tasks": [
+            { "id": "task-1", "name": "Task One" },
+            { "id": "task-2", "name": "Task Two" },
+            { "id": "task-3", "name": "Task Three" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "gets tasks assigned to user",
+      "input": {
+        "assigneeId": "user-789",
+        "workspaceId": "workspace-123"
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/tasks",
+        "query": {
+          "assignee": "user-789",
+          "workspace": "workspace-123"
+        },
+        "status": 200,
+        "response": {
+          "data": [
+            {
+              "gid": "task-4",
+              "name": "Assigned Task",
+              "completed": false,
+              "assignee": { "gid": "user-789" }
+            }
+          ]
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "tasks": [
+            { "id": "task-4", "name": "Assigned Task" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "handles empty result",
+      "input": {
+        "projectId": "empty-project"
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/tasks",
+        "query": {
+          "project": "empty-project"
+        },
+        "status": 200,
+        "response": {
+          "data": []
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "tasks": []
+        }
+      }
+    }
+  ]
+}

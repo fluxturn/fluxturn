@@ -1,0 +1,100 @@
+{
+  "id": "602bd36a-60ec-4381-bb2b-e2485321e7c5",
+  "name": "Shared Drive Organization",
+  "description": "Automatically shared drive organization. Nodes: Google Drive Trigger, Google Drive Action",
+  "category": "document_management",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New File Added",
+          "config": {},
+          "trigger": "file_created",
+          "category": "trigger",
+          "connector": "google_drive",
+          "eventType": "polling",
+          "triggerId": "file_created",
+          "description": "Triggered when new file added",
+          "connectorType": "google_drive",
+          "connectorDisplayName": "Google Drive"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Move to Folder Based on Type",
+          "action": "move_to_folder_based_on_type",
+          "config": {},
+          "actionId": "move_to_folder_based_on_type",
+          "category": "action",
+          "connector": "google_drive",
+          "actionName": "Move to Folder Based on Type",
+          "description": "Move to Folder Based on Type",
+          "connectorType": "google_drive",
+          "connectorDisplayName": "Google Drive"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_drive",
+        "triggerId": "file_created"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_drive"
+  ],
+  "tags": [
+    "document_management",
+    "automation",
+    "google_drive"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow shared drive organization using google_drive",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"shared drive organization\" that triggers when triggered when new file added and then Move to Folder Based on Type via Google Drive"
+}

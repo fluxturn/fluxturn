@@ -1,0 +1,117 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-300000000007",
+  "name": "YouTube Video Summarizer",
+  "description": "Get YouTube video details and generate an AI-powered summary using OpenAI",
+  "category": "content",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Get Video",
+          "config": {},
+          "actionParams": {
+            "videoId": "{{video_id}}",
+            "part": ["snippet", "contentDetails", "statistics"]
+          },
+          "category": "action",
+          "connector": "youtube",
+          "connectorType": "youtube",
+          "connectorDisplayName": "YouTube",
+          "description": "Fetch video details from YouTube",
+          "action": "video_get",
+          "actionId": "video_get",
+          "actionName": "Get a Video"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Chat Completion",
+          "config": {},
+          "actionParams": {
+            "model": "gpt-3.5-turbo",
+            "messages": [
+              {
+                "role": "system",
+                "content": "You are an expert video content summarizer. Create concise, informative summaries that capture the key points and value of video content."
+              },
+              {
+                "role": "user",
+                "content": "Based on this YouTube video information, create a detailed summary:\n\nTitle: {{node_2.output[0].snippet.title}}\nDescription: {{node_2.output[0].snippet.description}}\nChannel: {{node_2.output[0].snippet.channelTitle}}\nViews: {{node_2.output[0].statistics.viewCount}}\n\nProvide a comprehensive summary including key topics, main takeaways, and who would benefit from watching this video."
+              }
+            ],
+            "temperature": 0.5,
+            "maxTokens": 500
+          },
+          "category": "action",
+          "connector": "openai",
+          "connectorType": "openai",
+          "connectorDisplayName": "OpenAI",
+          "description": "Generate video summary using GPT",
+          "action": "chat_complete",
+          "actionId": "chat_complete",
+          "actionName": "Chat Completion"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [],
+  "conditions": [],
+  "variables": [
+    {
+      "name": "video_id",
+      "type": "string",
+      "description": "The YouTube video ID (e.g., dQw4w9WgXcQ)"
+    }
+  ],
+  "outputs": [],
+  "required_connectors": ["youtube", "openai"],
+  "tags": ["ai", "youtube", "video", "summary", "openai", "content"],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "Fetch YouTube video details and generate AI summary",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Get YouTube video information and create an AI-powered summary"
+}

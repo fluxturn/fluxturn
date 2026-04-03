@@ -1,0 +1,122 @@
+{
+  "id": "ab1648c1-c940-4943-b7d4-7a72ca69fae4",
+  "name": "Jotform Submission to ClickUp Task",
+  "description": "Convert form submissions into actionable ClickUp tasks. Nodes: Jotform Trigger, ClickUp Action",
+  "category": "project_management",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Form Submitted",
+          "config": {},
+          "category": "trigger",
+          "connector": "jotform",
+          "connectorType": "jotform",
+          "connectorDisplayName": "Jotform",
+          "description": "Triggered on form submission",
+          "trigger": "new_submission",
+          "triggerId": "new_submission",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Task",
+          "category": "action",
+          "connector": "clickup",
+          "connectorType": "clickup",
+          "connectorDisplayName": "ClickUp",
+          "description": "Create task in ClickUp",
+          "actionId": "task_create",
+          "actionName": "Create Task",
+          "actionParams": {
+            "listId": "{{$trigger.list_id}}",
+            "name": "New Submission: {{$trigger.form_title}}",
+            "description": "Form Response:\n\n{{$trigger.submission_data}}",
+            "priority": 3
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [
+    {
+      "id": "node_2",
+      "type": "CONNECTOR_ACTION",
+      "config": {
+        "connector": "clickup",
+        "actionId": "task_create",
+        "actionParams": {
+          "listId": "{{$trigger.list_id}}",
+          "name": "New Submission: {{$trigger.form_title}}",
+          "description": "Form Response:\n\n{{$trigger.submission_data}}",
+          "priority": 3
+        }
+      }
+    }
+  ],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "jotform",
+        "triggerId": "new_submission"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "jotform",
+    "clickup"
+  ],
+  "tags": [
+    "project_management",
+    "automation",
+    "jotform",
+    "clickup",
+    "tasks"
+  ],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow convert form submissions into actionable clickup tasks. nodes: jotform trigger, clickup action using jotform, clickup",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"form to task\" that triggers on Jotform submission and creates ClickUp task"
+}

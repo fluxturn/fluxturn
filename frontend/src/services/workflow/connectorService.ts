@@ -1,0 +1,116 @@
+import { api } from '@/lib/api';
+
+export interface ConnectorConfig {
+  id: string;
+  name: string;
+  connector_type: string;
+  enabled: boolean;
+  status: string;
+  created_at: string;
+  updated_at: string;
+  metadata?: {
+    display_name: string;
+    description: string;
+    category: string;
+  };
+}
+
+export interface AvailableConnector {
+  id: string;
+  name: string;
+  display_name: string;
+  description: string;
+  category: string;
+  auth_type: string;
+  auth_fields?: Record<string, any>;
+  supported_actions?: string[];
+  supported_triggers?: string[];
+  webhook_support?: boolean;
+  rate_limits?: Record<string, any>;
+  sandbox_available?: boolean;
+  verified?: boolean; // Indicates if the connector is verified and working
+}
+
+export const connectorService = {
+  /**
+   * List user's configured connectors
+   */
+  async listConnectorConfigs(params?: {
+    connector_type?: string;
+    enabled?: boolean;
+    status?: string;
+    limit?: number;
+    offset?: number;
+  }): Promise<{ connectors: ConnectorConfig[]; total: number }> {
+    const queryParams = new URLSearchParams();
+    
+    if (params?.connector_type) queryParams.append('connector_type', params.connector_type);
+    if (params?.enabled !== undefined) queryParams.append('enabled', params.enabled.toString());
+    if (params?.status) queryParams.append('status', params.status);
+    if (params?.limit) queryParams.append('limit', params.limit.toString());
+    if (params?.offset) queryParams.append('offset', params.offset.toString());
+
+    const queryString = queryParams.toString();
+    const url = queryString ? `/connectors?${queryString}` : '/connectors';
+    
+    const response = await api.get(url);
+    return response;
+  },
+
+  /**
+   * Get available connector types from the system
+   */
+  async getAvailableConnectors(): Promise<AvailableConnector[]> {
+    const response = await api.get('/connectors/available');
+    return response;
+  },
+
+  /**
+   * Get connectors by category for node actions/triggers
+   */
+  async getConnectorsByCategory(category?: string): Promise<AvailableConnector[]> {
+    const connectors = await this.getAvailableConnectors();
+    if (category) {
+      return connectors.filter(c => c.category.toLowerCase() === category.toLowerCase());
+    }
+    return connectors;
+  },
+
+  /**
+   * Get email connectors for the Send Email node
+   */
+  async getEmailConnectors(): Promise<ConnectorConfig[]> {
+    const response = await this.listConnectorConfigs({ 
+      enabled: true
+    });
+    
+    // Filter for email-type connectors (gmail, outlook, sendgrid, etc.)
+    return response.connectors.filter((c: ConnectorConfig) => 
+      ['gmail', 'outlook', 'sendgrid', 'smtp', 'mailchimp'].includes(c.connector_type.toLowerCase())
+    );
+  },
+
+  /**
+   * Get actions for a specific connector type
+   */
+  async getConnectorActions(connectorType: string): Promise<any[]> {
+    const response = await api.get(`/connectors/available/${connectorType}/actions`);
+    return response;
+  },
+
+  /**
+   * Get triggers for a specific connector type
+   */
+  async getConnectorTriggers(connectorType: string): Promise<any[]> {
+    const response = await api.get(`/connectors/available/${connectorType}/triggers`);
+    return response;
+  },
+
+  /**
+   * Get metadata for a specific connector including actions/triggers
+   */
+  async getConnectorMetadata(connectorType: string): Promise<AvailableConnector> {
+    const response = await api.get(`/connectors/available/${connectorType}`);
+    return response;
+  }
+};

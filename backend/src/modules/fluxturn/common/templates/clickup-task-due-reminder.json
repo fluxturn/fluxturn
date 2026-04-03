@@ -1,0 +1,150 @@
+{
+  "id": "6d25a84d-1aad-4d6b-940d-05284a5d0acc",
+  "name": "ClickUp Task Due Date Reminder",
+  "description": "Send reminders for upcoming task deadlines. Nodes: Schedule Trigger, ClickUp Action, Slack Action",
+  "category": "project_management",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Daily Check",
+          "config": {
+            "cron": "0 9 * * *"
+          },
+          "category": "trigger",
+          "connector": "schedule",
+          "connectorType": "schedule",
+          "connectorDisplayName": "Schedule",
+          "description": "Runs daily at 9 AM",
+          "trigger": "schedule",
+          "triggerId": "schedule",
+          "eventType": "cron"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Get Due Tasks",
+          "config": {
+            "listId": "{{list_id}}",
+            "filter": "due_today"
+          },
+          "category": "action",
+          "connector": "clickup",
+          "connectorType": "clickup",
+          "connectorDisplayName": "Clickup",
+          "description": "Fetch tasks due today",
+          "action": "list_tasks",
+          "actionId": "list_tasks",
+          "actionName": "Get Due Tasks"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Send Reminder",
+          "config": {
+            "channel": "{{channel_id}}",
+            "text": "⏰ Tasks due today:\n{{node_2.output.tasks}}"
+          },
+          "category": "action",
+          "connector": "slack",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack",
+          "description": "Post reminder to Slack",
+          "action": "send_message",
+          "actionId": "send_message",
+          "actionName": "Send Reminder"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "schedule",
+        "triggerId": "schedule"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "schedule",
+    "clickup",
+    "slack"
+  ],
+  "tags": [
+    "project_management",
+    "automation",
+    "clickup",
+    "slack",
+    "reminders"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow send reminders for upcoming task deadlines. nodes: schedule trigger, clickup action, slack action using schedule, clickup, slack",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"task due reminders\" that runs daily, lists due ClickUp tasks, and notifies Slack"
+}

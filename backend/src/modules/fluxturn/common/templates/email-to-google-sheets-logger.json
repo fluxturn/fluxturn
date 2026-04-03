@@ -1,0 +1,110 @@
+{
+  "id": "934ef913-5a4b-4c6b-82ff-de9fe96ec205",
+  "name": "Email to Google Sheets Logger",
+  "description": "Automatically email to google sheets logger. Nodes: IMAP Trigger, Google Sheets Action",
+  "category": "email",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Email",
+          "config": {},
+          "trigger": "email_received",
+          "category": "trigger",
+          "connector": "imap",
+          "eventType": "polling",
+          "triggerId": "email_received",
+          "description": "Triggered when new email",
+          "connectorType": "imap",
+          "connectorDisplayName": "IMAP"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Add Row",
+          "action": "append_row",
+          "config": {
+            "spreadsheetId": "{{spreadsheet_id}}",
+            "sheetName": "Sheet1",
+            "values": [
+              [
+                "{{data}}"
+              ]
+            ]
+          },
+          "actionId": "append_row",
+          "category": "action",
+          "connector": "google_sheets",
+          "actionName": "Add Row",
+          "description": "Add Row",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "imap",
+        "triggerId": "email_received"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "imap",
+    "google_sheets"
+  ],
+  "tags": [
+    "email",
+    "automation",
+    "imap",
+    "google_sheets"
+  ],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow email to google sheets logger using imap, google_sheets",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"email to google sheets logger\" that triggers when triggered when new email and then Add Row via Google Sheets"
+}

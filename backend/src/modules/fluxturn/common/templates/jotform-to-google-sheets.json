@@ -1,0 +1,107 @@
+{
+  "id": "6fded047-4f3b-42ba-aa89-f92979d36cfc",
+  "name": "Jotform Responses to Google Sheets",
+  "description": "Automatically log Jotform submissions to Google Sheets. Nodes: Jotform Trigger, Google Sheets Action",
+  "category": "productivity",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Submission",
+          "config": {},
+          "category": "trigger",
+          "connector": "jotform",
+          "connectorType": "jotform",
+          "connectorDisplayName": "Jotform",
+          "description": "Triggered on form submission",
+          "trigger": "new_submission",
+          "triggerId": "new_submission",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Log to Sheet",
+          "config": {
+            "spreadsheetId": "{{spreadsheet_id}}",
+            "range": "Responses!A:Z",
+            "values": "{{form.all_fields}}"
+          },
+          "category": "action",
+          "connector": "google_sheets",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets",
+          "description": "Append row to sheet",
+          "action": "append_row",
+          "actionId": "append_row",
+          "actionName": "Log to Sheet"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "jotform",
+        "triggerId": "new_submission"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "jotform",
+    "google_sheets"
+  ],
+  "tags": [
+    "productivity",
+    "automation",
+    "jotform",
+    "google_sheets",
+    "data"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow automatically log jotform submissions to google sheets. nodes: jotform trigger, google sheets action using jotform, google_sheets",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"form response logging\" that triggers on Jotform submission and logs to Google Sheets"
+}

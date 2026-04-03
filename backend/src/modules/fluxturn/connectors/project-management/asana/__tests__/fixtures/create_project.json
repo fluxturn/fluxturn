@@ -1,0 +1,84 @@
+{
+  "action": "create_project",
+  "baseUrl": "https://app.asana.com/api/1.0",
+  "testCases": [
+    {
+      "name": "creates project successfully",
+      "input": {
+        "name": "New Marketing Campaign",
+        "workspaceId": "workspace-123",
+        "notes": "Q1 2024 marketing initiatives"
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/projects",
+        "status": 201,
+        "response": {
+          "data": {
+            "gid": "project-456789",
+            "name": "New Marketing Campaign",
+            "notes": "Q1 2024 marketing initiatives",
+            "permalink_url": "https://app.asana.com/0/project-456789",
+            "workspace": { "gid": "workspace-123" }
+          }
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "id": "project-456789"
+        }
+      }
+    },
+    {
+      "name": "creates project with team",
+      "input": {
+        "name": "Engineering Sprint",
+        "workspaceId": "workspace-123",
+        "teamId": "team-456"
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/projects",
+        "status": 201,
+        "response": {
+          "data": {
+            "gid": "project-789012",
+            "name": "Engineering Sprint",
+            "permalink_url": "https://app.asana.com/0/project-789012",
+            "workspace": { "gid": "workspace-123" },
+            "team": { "gid": "team-456" }
+          }
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "id": "project-789012"
+        }
+      }
+    },
+    {
+      "name": "handles missing workspace error",
+      "input": {
+        "name": "Project without workspace"
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/projects",
+        "status": 400,
+        "response": {
+          "errors": [
+            {
+              "message": "workspace: Missing required field",
+              "help": "For more information on API status codes, see https://developers.asana.com/docs"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    }
+  ]
+}

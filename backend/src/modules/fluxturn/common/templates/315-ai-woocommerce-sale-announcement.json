@@ -1,0 +1,131 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-300000000015",
+  "name": "AI WooCommerce Sale Announcement",
+  "description": "Generate AI-powered sale announcement and update WooCommerce product with sale price",
+  "category": "ecommerce",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Chat Completion",
+          "config": {
+            "model": "gpt-3.5-turbo",
+            "messages": [
+              {
+                "role": "system",
+                "content": "You are a marketing copywriter. Create compelling, urgency-driven sale descriptions that highlight the discount and encourage immediate purchase. Keep it concise and impactful."
+              },
+              {
+                "role": "user",
+                "content": "Create a sale description for: {{product_name}}. Original price: ${{original_price}}. Sale price: ${{sale_price}}. Make it exciting and create urgency!"
+              }
+            ],
+            "temperature": 0.8,
+            "maxTokens": 200
+          },
+          "category": "action",
+          "connector": "openai",
+          "connectorType": "openai",
+          "connectorDisplayName": "OpenAI",
+          "description": "Generate sale description using GPT",
+          "action": "chat_complete",
+          "actionId": "chat_complete",
+          "actionName": "Chat Completion"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Update Product",
+          "config": {
+            "product_id": "{{product_id}}",
+            "sale_price": "{{sale_price}}",
+            "short_description": "{{node_2.output.choices[0].message.content}}"
+          },
+          "category": "action",
+          "connector": "woocommerce",
+          "connectorType": "woocommerce",
+          "connectorDisplayName": "WooCommerce",
+          "description": "Update product with sale price and AI description",
+          "action": "update_product",
+          "actionId": "update_product",
+          "actionName": "Update Product"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [],
+  "conditions": [],
+  "variables": [
+    {
+      "name": "product_id",
+      "type": "string",
+      "description": "WooCommerce product ID"
+    },
+    {
+      "name": "product_name",
+      "type": "string",
+      "description": "Name of the product"
+    },
+    {
+      "name": "original_price",
+      "type": "string",
+      "description": "Original product price"
+    },
+    {
+      "name": "sale_price",
+      "type": "string",
+      "description": "New sale price"
+    }
+  ],
+  "outputs": [],
+  "required_connectors": ["openai", "woocommerce"],
+  "tags": ["ai", "ecommerce", "woocommerce", "openai", "sale", "marketing"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "Generate AI sale copy and update WooCommerce product",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create AI sale announcement and update WooCommerce product"
+}

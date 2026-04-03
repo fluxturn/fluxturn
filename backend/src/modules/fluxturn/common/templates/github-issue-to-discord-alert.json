@@ -1,0 +1,105 @@
+{
+  "id": "8dd3f4e2-b533-4f78-be80-e43703ecaba6",
+  "name": "GitHub Issue to Discord Alert",
+  "description": "Automatically github issue to discord alert. Nodes: GitHub Trigger, Discord Action",
+  "category": "collaboration",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Issue Created",
+          "config": {},
+          "trigger": "new_issue_created",
+          "category": "trigger",
+          "connector": "github",
+          "eventType": "polling",
+          "triggerId": "new_issue_created",
+          "description": "Triggered when new issue created",
+          "connectorType": "github",
+          "connectorDisplayName": "GitHub"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Send Message to Channel",
+          "action": "message_send",
+          "config": {
+            "channelId": "{{channel_id}}",
+            "content": "{{message}}"
+          },
+          "actionId": "message_send",
+          "category": "action",
+          "connector": "discord",
+          "actionName": "Send Message to Channel",
+          "description": "Send Message to Channel",
+          "connectorType": "discord",
+          "connectorDisplayName": "Discord"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "github",
+        "triggerId": "new_issue_created"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "github",
+    "discord"
+  ],
+  "tags": [
+    "collaboration",
+    "automation",
+    "github",
+    "discord"
+  ],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow github issue to discord alert using github, discord",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"github issue to discord alert\" that triggers when triggered when new issue created and then Send Message to Channel via Discord"
+}

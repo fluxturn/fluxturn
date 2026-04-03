@@ -1,0 +1,115 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-300000000027",
+  "name": "WordPress Post Telegram Channel",
+  "description": "Create WordPress post and broadcast to Telegram channel",
+  "category": "cms",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Create Post",
+          "config": {
+            "title": "{{post_title}}",
+            "content": "{{post_content}}",
+            "status": "publish"
+          },
+          "category": "action",
+          "connector": "wordpress",
+          "connectorType": "wordpress",
+          "connectorDisplayName": "WordPress",
+          "description": "Create and publish WordPress post",
+          "action": "create_post",
+          "actionId": "create_post",
+          "actionName": "Create Post"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Send to Telegram",
+          "config": {
+            "chatId": "{{telegram_channel_id}}",
+            "text": "New Article Published!\n\n{{post_title}}\n\nRead the full article:\n{{node_2.output.link}}"
+          },
+          "category": "action",
+          "connector": "telegram",
+          "connectorType": "telegram",
+          "connectorDisplayName": "Telegram",
+          "description": "Broadcast to Telegram channel",
+          "action": "send_message",
+          "actionId": "send_message",
+          "actionName": "Send Message"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [],
+  "conditions": [],
+  "variables": [
+    {
+      "name": "post_title",
+      "type": "string",
+      "description": "Title of the blog post"
+    },
+    {
+      "name": "post_content",
+      "type": "string",
+      "description": "Content of the blog post (HTML)"
+    },
+    {
+      "name": "telegram_channel_id",
+      "type": "string",
+      "description": "Telegram channel ID (e.g., @yourchannel)"
+    }
+  ],
+  "outputs": [],
+  "required_connectors": ["wordpress", "telegram"],
+  "tags": ["cms", "wordpress", "telegram", "broadcast", "channel", "blog"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "Create WordPress post and broadcast to Telegram channel",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create WordPress blog post and send to Telegram channel"
+}

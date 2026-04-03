@@ -1,0 +1,110 @@
+{
+  "action": "get_repository",
+  "baseUrl": "https://api.bitbucket.org/2.0",
+  "testCases": [
+    {
+      "name": "executes get_repository successfully",
+      "input": {
+        "workspace": "test-workspace",
+        "repository": "test-repo"
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/repositories/test-workspace/test-repo",
+        "status": 200,
+        "response": {
+          "uuid": "{12345678-1234-1234-1234-123456789012}",
+          "full_name": "test-workspace/test-repo",
+          "name": "test-repo",
+          "slug": "test-repo",
+          "description": "Test repository",
+          "is_private": false,
+          "created_on": "2024-01-01T00:00:00.000000+00:00",
+          "updated_on": "2024-01-15T00:00:00.000000+00:00",
+          "size": 1024,
+          "language": "JavaScript",
+          "has_issues": true,
+          "has_wiki": true,
+          "mainbranch": {
+            "type": "branch",
+            "name": "main"
+          },
+          "owner": {
+            "display_name": "Test User",
+            "username": "test-workspace",
+            "type": "workspace",
+            "uuid": "{workspace-uuid}"
+          },
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/test-workspace/test-repo"
+            },
+            "html": {
+              "href": "https://bitbucket.org/test-workspace/test-repo"
+            },
+            "clone": [
+              {
+                "name": "https",
+                "href": "https://bitbucket.org/test-workspace/test-repo.git"
+              },
+              {
+                "name": "ssh",
+                "href": "git@bitbucket.org:test-workspace/test-repo.git"
+              }
+            ]
+          }
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "uuid": "{12345678-1234-1234-1234-123456789012}",
+          "full_name": "test-workspace/test-repo",
+          "name": "test-repo"
+        }
+      }
+    },
+    {
+      "name": "handles error for get_repository with 404",
+      "input": {
+        "workspace": "test-workspace",
+        "repository": "non-existent-repo"
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/repositories/test-workspace/non-existent-repo",
+        "status": 404,
+        "response": {
+          "type": "error",
+          "error": {
+            "message": "Repository not found"
+          }
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    },
+    {
+      "name": "handles unauthorized error for get_repository",
+      "input": {
+        "workspace": "private-workspace",
+        "repository": "private-repo"
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/repositories/private-workspace/private-repo",
+        "status": 401,
+        "response": {
+          "type": "error",
+          "error": {
+            "message": "Unauthorized"
+          }
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    }
+  ]
+}

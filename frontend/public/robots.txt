@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fluxturn.com/sitemap.xml
+
+Disallow: /admin/
+Disallow: /api/
+Disallow: /preview/
+Disallow: /login
+Disallow: /register

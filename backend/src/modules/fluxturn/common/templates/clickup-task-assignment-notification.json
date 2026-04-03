@@ -1,0 +1,107 @@
+{
+  "id": "104d0d2c-3136-4fe2-b2b5-9fb9625e37b0",
+  "name": "ClickUp Task Assignment Notification",
+  "description": "Notify users when tasks are assigned to them. Nodes: ClickUp Trigger, Gmail Action",
+  "category": "project_management",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Task Assigned",
+          "config": {},
+          "category": "trigger",
+          "connector": "clickup",
+          "connectorType": "clickup",
+          "connectorDisplayName": "Clickup",
+          "description": "Triggered when task assigned",
+          "trigger": "task_assigned",
+          "triggerId": "task_assigned",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Notify Assignee",
+          "config": {
+            "to": "{{trigger.assignee_email}}",
+            "subject": "New Task Assigned: {{trigger.name}}",
+            "body": "You have been assigned a new task:\n{{trigger.name}}\nDue: {{trigger.due_date}}"
+          },
+          "category": "action",
+          "connector": "gmail",
+          "connectorType": "gmail",
+          "connectorDisplayName": "Gmail",
+          "description": "Email assignee",
+          "action": "send_email",
+          "actionId": "send_email",
+          "actionName": "Notify Assignee"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "clickup",
+        "triggerId": "task_assigned"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "clickup",
+    "gmail"
+  ],
+  "tags": [
+    "project_management",
+    "automation",
+    "clickup",
+    "gmail",
+    "notifications"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow notify users when tasks are assigned to them. nodes: clickup trigger, gmail action using clickup, gmail",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"assignment notification\" that triggers on ClickUp task assignment and emails assignee"
+}

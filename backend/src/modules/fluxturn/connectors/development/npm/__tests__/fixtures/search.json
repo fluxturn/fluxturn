@@ -1,0 +1,109 @@
+{
+  "action": "search",
+  "baseUrl": "https://registry.npmjs.org",
+  "testCases": [
+    {
+      "name": "searches packages successfully",
+      "input": {
+        "query": "react hooks",
+        "limit": 10,
+        "offset": 0
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/-/v1/search",
+        "status": 200,
+        "response": {
+          "objects": [
+            {
+              "package": {
+                "name": "react",
+                "version": "18.2.0",
+                "description": "React is a JavaScript library for building user interfaces.",
+                "keywords": ["react", "hooks"]
+              },
+              "score": {
+                "final": 0.9,
+                "detail": {
+                  "quality": 0.9,
+                  "popularity": 0.95,
+                  "maintenance": 0.85
+                }
+              }
+            },
+            {
+              "package": {
+                "name": "react-hooks",
+                "version": "1.0.0",
+                "description": "Collection of React hooks",
+                "keywords": ["react", "hooks"]
+              },
+              "score": {
+                "final": 0.7,
+                "detail": {
+                  "quality": 0.7,
+                  "popularity": 0.6,
+                  "maintenance": 0.8
+                }
+              }
+            }
+          ],
+          "total": 2,
+          "time": "Tue Jan 14 2026 08:00:00 GMT+0000 (UTC)"
+        }
+      },
+      "expected": {
+        "success": true
+      }
+    },
+    {
+      "name": "handles empty search results",
+      "input": {
+        "query": "xyz-nonexistent-package-name-abcdef",
+        "limit": 10
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/-/v1/search",
+        "status": 200,
+        "response": {
+          "objects": [],
+          "total": 0,
+          "time": "Tue Jan 14 2026 08:00:00 GMT+0000 (UTC)"
+        }
+      },
+      "expected": {
+        "success": true
+      }
+    },
+    {
+      "name": "searches with custom limit",
+      "input": {
+        "query": "express",
+        "limit": 5
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/-/v1/search",
+        "status": 200,
+        "response": {
+          "objects": [
+            {
+              "package": {
+                "name": "express",
+                "version": "4.18.2",
+                "description": "Fast, unopinionated, minimalist web framework"
+              },
+              "score": { "final": 0.95 }
+            }
+          ],
+          "total": 1,
+          "time": "Tue Jan 14 2026 08:00:00 GMT+0000 (UTC)"
+        }
+      },
+      "expected": {
+        "success": true
+      }
+    }
+  ]
+}

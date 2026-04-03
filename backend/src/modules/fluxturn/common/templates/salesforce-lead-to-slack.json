@@ -1,0 +1,106 @@
+{
+  "id": "c623cea1-009c-4b0f-bb49-ed9dcd73431e",
+  "name": "Salesforce New Lead Alert to Slack",
+  "description": "Get instant Slack notifications for new Salesforce leads. Nodes: Salesforce Trigger, Slack Action",
+  "category": "sales",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Lead Created",
+          "config": {},
+          "category": "trigger",
+          "connector": "salesforce",
+          "connectorType": "salesforce",
+          "connectorDisplayName": "Salesforce",
+          "description": "Triggered when new lead is created",
+          "trigger": "lead_created",
+          "triggerId": "lead_created",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Notify Sales Team",
+          "config": {
+            "channel": "{{channel_id}}",
+            "text": "🎯 New Lead!\nName: {{trigger.Name}}\nCompany: {{trigger.Company}}\nEmail: {{trigger.Email}}"
+          },
+          "category": "action",
+          "connector": "slack",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack",
+          "description": "Post message to Slack",
+          "action": "send_message",
+          "actionId": "send_message",
+          "actionName": "Notify Sales Team"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "salesforce",
+        "triggerId": "lead_created"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "salesforce",
+    "slack"
+  ],
+  "tags": [
+    "sales",
+    "automation",
+    "salesforce",
+    "slack",
+    "leads"
+  ],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow get instant slack notifications for new salesforce leads. nodes: salesforce trigger, slack action using salesforce, slack",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"new lead alert\" that triggers on Salesforce lead creation and posts to Slack"
+}

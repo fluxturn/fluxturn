@@ -1,0 +1,105 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-300000000010",
+  "name": "YouTube to Twitter Share",
+  "description": "Get YouTube video details and automatically share on Twitter with AI-generated caption",
+  "category": "social",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Get Video",
+          "config": {},
+          "actionParams": {
+            "videoId": "{{video_id}}",
+            "part": ["snippet", "statistics"]
+          },
+          "category": "action",
+          "connector": "youtube",
+          "connectorType": "youtube",
+          "connectorDisplayName": "YouTube",
+          "description": "Fetch video details from YouTube",
+          "action": "video_get",
+          "actionId": "video_get",
+          "actionName": "Get a Video"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Create Tweet",
+          "config": {},
+          "actionParams": {
+            "text": "Check out this video: {{node_2.output[0].snippet.title}}\n\nBy: {{node_2.output[0].snippet.channelTitle}}\n\nhttps://youtube.com/watch?v={{video_id}}"
+          },
+          "category": "action",
+          "connector": "twitter",
+          "connectorType": "twitter",
+          "connectorDisplayName": "Twitter/X",
+          "description": "Share YouTube video on Twitter",
+          "action": "create_tweet",
+          "actionId": "create_tweet",
+          "actionName": "Create Tweet"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [],
+  "conditions": [],
+  "variables": [
+    {
+      "name": "video_id",
+      "type": "string",
+      "description": "The YouTube video ID to share"
+    }
+  ],
+  "outputs": [],
+  "required_connectors": ["youtube", "twitter"],
+  "tags": ["youtube", "twitter", "social", "share", "video"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "Share YouTube videos on Twitter automatically",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Get YouTube video details and share on Twitter"
+}

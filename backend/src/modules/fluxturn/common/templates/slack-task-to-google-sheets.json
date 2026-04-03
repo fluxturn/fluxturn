@@ -1,0 +1,110 @@
+{
+  "id": "db1c2d59-0328-43db-b521-b7d5dee9d864",
+  "name": "Slack Task to Google Sheets",
+  "description": "Automatically slack task to google sheets. Nodes: Slack Trigger, Google Sheets Action",
+  "category": "project_management",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Message with Emoji Reaction",
+          "config": {},
+          "trigger": "reaction_added",
+          "category": "trigger",
+          "connector": "slack",
+          "eventType": "polling",
+          "triggerId": "reaction_added",
+          "description": "Triggered when message with emoji reaction",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Add Task Row",
+          "action": "append_row",
+          "config": {
+            "spreadsheetId": "{{spreadsheet_id}}",
+            "sheetName": "Sheet1",
+            "values": [
+              [
+                "{{data}}"
+              ]
+            ]
+          },
+          "actionId": "append_row",
+          "category": "action",
+          "connector": "google_sheets",
+          "actionName": "Add Task Row",
+          "description": "Add Task Row",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "slack",
+        "triggerId": "reaction_added"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "slack",
+    "google_sheets"
+  ],
+  "tags": [
+    "project_management",
+    "automation",
+    "slack",
+    "google_sheets"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow slack task to google sheets using slack, google_sheets",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"slack task to google sheets\" that triggers when triggered when message with emoji reaction and then Add Task Row via Google Sheets"
+}

@@ -1,0 +1,77 @@
+{
+  "id": "a7fa895f-c630-4808-a602-02d6399d6422",
+  "name": "Shopify Customer to Mailchimp List",
+  "description": "Add new Shopify customers to Mailchimp email list",
+  "category": "ecommerce",
+  "difficulty": "beginner",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": ["shopify", "mailchimp"],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "shopify_trigger_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": { "x": 100, "y": 100 },
+        "data": {
+          "label": "New Customer",
+          "connector": "shopify",
+          "triggerId": "customer_created",
+          "icon": "user-plus",
+          "category": "trigger",
+          "description": "Triggers when a new customer is created",
+          "config": {},
+          "outputSchema": {
+            "id": { "type": "string" },
+            "email": { "type": "string" },
+            "first_name": { "type": "string" },
+            "last_name": { "type": "string" }
+          }
+        }
+      },
+      {
+        "id": "mailchimp_action_1",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 450, "y": 100 },
+        "data": {
+          "label": "Add to Mailchimp",
+          "connector": "mailchimp",
+          "actionId": "add_to_list",
+          "icon": "mail",
+          "category": "action",
+          "description": "Add customer to Mailchimp list",
+          "config": {
+            "listId": "{{mailchimp_list_id}}",
+            "email": "={{$json.email}}",
+            "mergeFields": {
+              "FNAME": "={{$json.first_name}}",
+              "LNAME": "={{$json.last_name}}",
+              "SOURCE": "Shopify"
+            },
+            "tags": ["shopify-customer", "ecommerce"],
+            "status": "subscribed"
+          },
+          "inputSchema": {
+            "listId": { "type": "string", "required": true, "label": "List ID" },
+            "email": { "type": "string", "required": true, "label": "Email" },
+            "mergeFields": { "type": "object", "label": "Merge Fields" },
+            "tags": { "type": "array", "label": "Tags" },
+            "status": { "type": "string", "label": "Status" }
+          },
+          "outputSchema": {
+            "id": { "type": "string" }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1",
+        "source": "shopify_trigger_1",
+        "target": "mailchimp_action_1",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

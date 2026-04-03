@@ -1,0 +1,107 @@
+{
+  "id": "aee217c8-b728-4eb5-8851-22f097418ddc",
+  "name": "Google Forms to Airtable Record",
+  "description": "Sync form responses to Airtable database automatically. Nodes: Google Forms Trigger, Airtable Action",
+  "category": "productivity",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Form Response",
+          "config": {},
+          "category": "trigger",
+          "connector": "google_forms",
+          "connectorType": "google_forms",
+          "connectorDisplayName": "Google Forms",
+          "description": "Triggered on new response",
+          "trigger": "new_response",
+          "triggerId": "new_response",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Add Record",
+          "config": {
+            "baseId": "{{base_id}}",
+            "tableId": "{{table_id}}",
+            "fields": "{{trigger.responses}}"
+          },
+          "category": "action",
+          "connector": "airtable",
+          "connectorType": "airtable",
+          "connectorDisplayName": "Airtable",
+          "description": "Create record in Airtable",
+          "action": "create_record",
+          "actionId": "create_record",
+          "actionName": "Add Record"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_forms",
+        "triggerId": "new_response"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_forms",
+    "airtable"
+  ],
+  "tags": [
+    "productivity",
+    "automation",
+    "google_forms",
+    "airtable",
+    "database"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow sync form responses to airtable database automatically. nodes: google forms trigger, airtable action using google_forms, airtable",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"form to database\" that triggers on Google Forms submission and creates Airtable record"
+}

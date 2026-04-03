@@ -1,0 +1,89 @@
+{
+  "action": "list",
+  "baseUrl": "",
+  "testCases": [
+    {
+      "name": "should list files in a directory",
+      "input": {
+        "path": "/public",
+        "recursive": false,
+        "timeout": 10000
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/public",
+        "status": 200,
+        "response": []
+      },
+      "expected": {
+        "success": true,
+        "data": [
+          {
+            "type": "d",
+            "name": "documents"
+          },
+          {
+            "type": "-",
+            "name": "file.txt"
+          }
+        ]
+      }
+    },
+    {
+      "name": "should list root directory",
+      "input": {
+        "path": "/",
+        "recursive": false,
+        "timeout": 10000
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/",
+        "status": 200,
+        "response": []
+      },
+      "expected": {
+        "success": true,
+        "data": [
+          {
+            "type": "d",
+            "name": "documents",
+            "size": 4096
+          },
+          {
+            "type": "-",
+            "name": "file.txt",
+            "size": 1024
+          }
+        ]
+      }
+    },
+    {
+      "name": "should list files recursively",
+      "input": {
+        "path": "/public",
+        "recursive": true,
+        "timeout": 10000
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/public",
+        "status": 200,
+        "response": []
+      },
+      "expected": {
+        "success": true,
+        "data": [
+          {
+            "type": "d",
+            "name": "documents"
+          },
+          {
+            "type": "-",
+            "name": "file.txt"
+          }
+        ]
+      }
+    }
+  ]
+}

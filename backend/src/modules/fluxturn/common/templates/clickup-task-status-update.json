@@ -1,0 +1,107 @@
+{
+  "id": "581b2ac6-3780-4a1c-b7e1-6e0f6fc5a7eb",
+  "name": "ClickUp Task Status Change Notification",
+  "description": "Track task status changes and notify stakeholders. Nodes: ClickUp Trigger, Gmail Action",
+  "category": "project_management",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Status Changed",
+          "config": {},
+          "category": "trigger",
+          "connector": "clickup",
+          "connectorType": "clickup",
+          "connectorDisplayName": "Clickup",
+          "description": "Triggered on status change",
+          "trigger": "task_status_updated",
+          "triggerId": "task_status_updated",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Email Update",
+          "config": {
+            "to": "{{trigger.assignee_email}}",
+            "subject": "Task Status Update: {{trigger.name}}",
+            "body": "Task \"{{trigger.name}}\" status changed to {{trigger.new_status}}"
+          },
+          "category": "action",
+          "connector": "gmail",
+          "connectorType": "gmail",
+          "connectorDisplayName": "Gmail",
+          "description": "Send email notification",
+          "action": "send_email",
+          "actionId": "send_email",
+          "actionName": "Email Update"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "clickup",
+        "triggerId": "task_status_updated"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "clickup",
+    "gmail"
+  ],
+  "tags": [
+    "project_management",
+    "automation",
+    "clickup",
+    "gmail",
+    "notifications"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow track task status changes and notify stakeholders. nodes: clickup trigger, gmail action using clickup, gmail",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"status change notification\" that triggers on ClickUp status update and emails assignee"
+}

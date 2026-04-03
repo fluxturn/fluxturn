@@ -1,0 +1,104 @@
+{
+  "id": "4cbb953e-877b-4941-885b-b3ff3875f665",
+  "name": "Google Form to ClickUp Task Creator",
+  "description": "Convert form responses into project tasks. Nodes: Google Forms Trigger, ClickUp Action",
+  "category": "productivity",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Form Response",
+          "config": {},
+          "category": "trigger",
+          "connector": "google_forms",
+          "connectorType": "google_forms",
+          "connectorDisplayName": "Google Forms",
+          "trigger": "new_response",
+          "triggerId": "new_response",
+          "eventType": "webhook",
+          "description": "Triggered when new form response"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Task",
+          "config": {
+            "name": "{{response.title}}",
+            "description": "{{response.description}}"
+          },
+          "category": "action",
+          "connector": "clickup",
+          "connectorType": "clickup",
+          "connectorDisplayName": "Clickup",
+          "action": "create_task",
+          "actionId": "create_task",
+          "actionName": "Create Task",
+          "description": "Create Task"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_forms",
+        "triggerId": "new_response"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_forms",
+    "clickup"
+  ],
+  "tags": [
+    "productivity",
+    "google_forms",
+    "clickup"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow convert form responses into project tasks. nodes: google forms trigger, clickup action using google_forms, clickup",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"google form to clickup task creator\" that convert form responses into project tasks. nodes: google forms trigger, clickup action"
+}

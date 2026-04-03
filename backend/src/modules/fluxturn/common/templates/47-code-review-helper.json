@@ -1,0 +1,274 @@
+{
+  "id": "52aa9bd6-2fc2-4b12-899f-5e15076361c3",
+  "name": "Code Review Helper",
+  "description": "AI-powered code review for GitHub pull requests",
+  "category": "ai",
+  "difficulty": "advanced",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": [
+    "github",
+    "openai",
+    "slack"
+  ],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_47_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 100
+        },
+        "data": {
+          "label": "New PR",
+          "category": "trigger",
+          "config": {},
+          "connector": "github",
+          "triggerId": "pull_request_opened",
+          "inputSchema": {
+            "pollInterval": {
+              "type": "number",
+              "label": "Poll Interval",
+              "default": 300
+            }
+          },
+          "configSchema": {
+            "pollInterval": {
+              "type": "number",
+              "label": "Poll Interval",
+              "default": 300
+            }
+          },
+          "outputSchema": {
+            "data": {
+              "type": "object",
+              "description": "Trigger event data"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_47_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "label": "Get Code Changes",
+          "category": "action",
+          "config": {
+            "prNumber": "={{$json.number}}"
+          },
+          "connector": "github",
+          "actionId": "get_pr_diff",
+          "inputSchema": {
+            "data": {
+              "type": "object",
+              "label": "Data",
+              "description": "Action input data"
+            }
+          },
+          "configSchema": {
+            "data": {
+              "type": "object",
+              "label": "Data",
+              "description": "Action input data"
+            }
+          },
+          "outputSchema": {
+            "result": {
+              "type": "object",
+              "description": "Action result"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_47_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 700,
+          "y": 100
+        },
+        "data": {
+          "label": "Review Code",
+          "category": "action",
+          "config": {
+            "model": "gpt-4",
+            "messages": [
+              {
+                "role": "user",
+                "content": "Review this code and suggest improvements: {{$json.diff}}"
+              }
+            ]
+          },
+          "connector": "openai",
+          "actionId": "chat_completion",
+          "action": "create_chat_completion",
+          "actionName": "Create Chat Completion",
+          "description": "Generate text using OpenAI",
+          "icon": "brain",
+          "connectorType": "openai",
+          "connectorDisplayName": "Openai",
+          "inputSchema": {
+            "model": {
+              "type": "string",
+              "required": true,
+              "label": "Model",
+              "default": "gpt-4"
+            },
+            "messages": {
+              "type": "array",
+              "required": true,
+              "label": "Messages"
+            }
+          },
+          "configSchema": {
+            "model": {
+              "type": "string",
+              "required": true,
+              "label": "Model",
+              "default": "gpt-4"
+            },
+            "messages": {
+              "type": "array",
+              "required": true,
+              "label": "Messages"
+            }
+          },
+          "outputSchema": {
+            "choices": {
+              "type": "array",
+              "description": "AI responses"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_47_4",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1000,
+          "y": 100
+        },
+        "data": {
+          "label": "Post Review",
+          "category": "action",
+          "config": {
+            "prNumber": "={{$node[\"New PR\"].json.number}}",
+            "body": "={{$json.choices[0].message.content}}"
+          },
+          "connector": "github",
+          "actionId": "create_pr_comment",
+          "inputSchema": {
+            "data": {
+              "type": "object",
+              "label": "Data",
+              "description": "Action input data"
+            }
+          },
+          "configSchema": {
+            "data": {
+              "type": "object",
+              "label": "Data",
+              "description": "Action input data"
+            }
+          },
+          "outputSchema": {
+            "result": {
+              "type": "object",
+              "description": "Action result"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_47_5",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1300,
+          "y": 100
+        },
+        "data": {
+          "label": "Notify",
+          "category": "action",
+          "config": {
+            "channel": "#dev",
+            "message": "🔍 AI code review completed for PR #{{$node[\"New PR\"].json.number}}"
+          },
+          "connector": "slack",
+          "actionId": "send_message",
+          "action": "send_message",
+          "actionName": "Send Message",
+          "description": "Send a message to a Slack channel",
+          "icon": "send",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack",
+          "inputSchema": {
+            "channel": {
+              "type": "string",
+              "required": true,
+              "label": "Channel"
+            },
+            "message": {
+              "type": "string",
+              "required": true,
+              "label": "Message",
+              "inputType": "textarea"
+            }
+          },
+          "configSchema": {
+            "channel": {
+              "type": "string",
+              "required": true,
+              "label": "Channel"
+            },
+            "message": {
+              "type": "string",
+              "required": true,
+              "label": "Message",
+              "inputType": "textarea"
+            }
+          },
+          "outputSchema": {
+            "messageId": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_1",
+        "source": "node_47_1",
+        "target": "node_47_2",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_2",
+        "source": "node_47_2",
+        "target": "node_47_3",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_3",
+        "source": "node_47_3",
+        "target": "node_47_4",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_4",
+        "source": "node_47_4",
+        "target": "node_47_5",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

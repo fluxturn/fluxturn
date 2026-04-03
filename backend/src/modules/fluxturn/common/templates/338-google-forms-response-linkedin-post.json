@@ -1,0 +1,108 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-300000000038",
+  "name": "Google Forms Response to LinkedIn Post",
+  "description": "Share Google Forms responses as LinkedIn posts for professional content sharing",
+  "category": "forms",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "List Form Responses",
+          "config": {
+            "formId": "{{form_id}}"
+          },
+          "category": "action",
+          "connector": "google_forms",
+          "connectorType": "google_forms",
+          "connectorDisplayName": "Google Forms",
+          "description": "Get all responses from the form",
+          "action": "responses_list",
+          "actionId": "responses_list",
+          "actionName": "List Responses"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Create LinkedIn Post",
+          "config": {
+            "text": "{{post_text}}\n\nSubmission highlights:\n{{node_2.output.responses}}",
+            "visibility": "PUBLIC"
+          },
+          "category": "action",
+          "connector": "linkedin",
+          "connectorType": "linkedin",
+          "connectorDisplayName": "LinkedIn",
+          "description": "Share form response on LinkedIn",
+          "action": "create_post",
+          "actionId": "create_post",
+          "actionName": "Create Post"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [],
+  "conditions": [],
+  "variables": [
+    {
+      "name": "form_id",
+      "type": "string",
+      "description": "Google Form ID"
+    },
+    {
+      "name": "post_text",
+      "type": "string",
+      "description": "Introduction text for the LinkedIn post"
+    }
+  ],
+  "outputs": [],
+  "required_connectors": ["google_forms", "linkedin"],
+  "tags": ["forms", "google-forms", "linkedin", "social", "professional", "sharing"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "Share Google Forms responses on LinkedIn",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Post Google Forms response to LinkedIn"
+}

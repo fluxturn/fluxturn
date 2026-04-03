@@ -1,0 +1,66 @@
+{
+  "id": "3782aac4-b75c-4015-a0aa-b22daea33b91",
+  "name": "Shopify Order to Discord Alert",
+  "description": "Post new Shopify orders to a Discord channel for team visibility",
+  "category": "ecommerce",
+  "difficulty": "beginner",
+  "estimatedSetupTime": "5 min",
+  "requiredConnectors": ["shopify", "discord"],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "shopify_trigger_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": { "x": 100, "y": 100 },
+        "data": {
+          "label": "New Shopify Order",
+          "connector": "shopify",
+          "triggerId": "order_created",
+          "icon": "shopping-cart",
+          "category": "trigger",
+          "description": "Triggers when a new order is created",
+          "config": {},
+          "outputSchema": {
+            "order_id": { "type": "string" },
+            "total_price": { "type": "string" },
+            "customer": { "type": "object" }
+          }
+        }
+      },
+      {
+        "id": "discord_action_1",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 450, "y": 100 },
+        "data": {
+          "label": "Post to Discord",
+          "connector": "discord",
+          "actionId": "send_message",
+          "icon": "message-circle",
+          "category": "action",
+          "description": "Send order notification to Discord",
+          "config": {
+            "channelId": "{{discord_channel_id}}",
+            "content": "🛒 **New Order!**\nOrder #{{$json.order_number}}\nCustomer: {{$json.customer.first_name}} {{$json.customer.last_name}}\nTotal: ${{$json.total_price}}\nItems: {{$json.line_items.length}}"
+          },
+          "inputSchema": {
+            "channelId": { "type": "string", "required": true, "label": "Channel ID" },
+            "content": { "type": "string", "required": true, "label": "Message" }
+          },
+          "outputSchema": {
+            "id": { "type": "string" }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1",
+        "source": "shopify_trigger_1",
+        "target": "discord_action_1",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

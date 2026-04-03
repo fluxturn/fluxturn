@@ -1,0 +1,47 @@
+{
+  "name": "Telegram Echo Bot",
+  "description": "A simple bot that echoes back any message sent to it",
+  "nodes": [
+    {
+      "id": "telegram_trigger_1",
+      "type": "CONNECTOR_TRIGGER",
+      "position": { "x": 250, "y": 300 },
+      "data": {
+        "label": "New Message",
+        "description": "Triggers when a new message is received",
+        "connectorType": "telegram",
+        "triggerId": "new_message",
+        "triggerConfig": {
+          "messageType": "text",
+          "chatType": "all"
+        },
+        "webhookToken": "my-secret-webhook-token-123"
+      }
+    },
+    {
+      "id": "telegram_action_1",
+      "type": "CONNECTOR_ACTION",
+      "position": { "x": 500, "y": 300 },
+      "data": {
+        "label": "Send Message",
+        "description": "Echo the received message",
+        "connectorType": "telegram",
+        "actionId": "send_message",
+        "actionParams": {
+          "chatId": "{{$json.telegramEvent.message.chat.id}}",
+          "text": "🤖 Echo: {{$json.telegramEvent.message.text}}\n\nSent by: {{$json.telegramEvent.message.from.firstName}}",
+          "parseMode": "Markdown",
+          "disableNotification": false
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge_1",
+      "source": "telegram_trigger_1",
+      "target": "telegram_action_1",
+      "type": "default"
+    }
+  ]
+}

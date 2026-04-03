@@ -1,0 +1,116 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-300000000005",
+  "name": "AI Blog Post Generator",
+  "description": "Generate SEO-optimized blog posts using OpenAI and publish directly to WordPress",
+  "category": "content",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Chat Completion",
+          "config": {
+            "model": "gpt-3.5-turbo",
+            "messages": [
+              {
+                "role": "system",
+                "content": "You are an expert SEO blog writer. Write engaging, well-structured blog posts with proper headings, bullet points, and a compelling introduction and conclusion."
+              },
+              {
+                "role": "user",
+                "content": "Write a blog post about {{topic}}. Include an engaging title, meta description, and the full article content in HTML format."
+              }
+            ],
+            "temperature": 0.7,
+            "maxTokens": 2000
+          },
+          "category": "action",
+          "connector": "openai",
+          "connectorType": "openai",
+          "connectorDisplayName": "OpenAI",
+          "description": "Generate blog content using GPT",
+          "action": "chat_complete",
+          "actionId": "chat_complete",
+          "actionName": "Chat Completion"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Create Post",
+          "config": {
+            "title": "{{node_2.output.choices[0].message.content}}",
+            "content": "{{node_2.output.choices[0].message.content}}",
+            "status": "draft"
+          },
+          "category": "action",
+          "connector": "wordpress",
+          "connectorType": "wordpress",
+          "connectorDisplayName": "WordPress",
+          "description": "Publish AI-generated post to WordPress",
+          "action": "create_post",
+          "actionId": "create_post",
+          "actionName": "Create Post"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [],
+  "conditions": [],
+  "variables": [
+    {
+      "name": "topic",
+      "type": "string",
+      "description": "The topic for the blog post"
+    }
+  ],
+  "outputs": [],
+  "required_connectors": ["openai", "wordpress"],
+  "tags": ["ai", "content", "blog", "wordpress", "openai", "seo"],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "Generate SEO blog posts with AI and publish to WordPress",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Generate a blog post using OpenAI and publish it to WordPress"
+}

@@ -1,0 +1,66 @@
+{
+  "id": "efe25e59-3013-41ee-9b11-3432079f6850",
+  "name": "Shopify Order Telegram Notification",
+  "description": "Get instant Telegram notifications for new Shopify orders",
+  "category": "ecommerce",
+  "difficulty": "beginner",
+  "estimatedSetupTime": "5 min",
+  "requiredConnectors": ["shopify", "telegram"],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "shopify_trigger_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": { "x": 100, "y": 100 },
+        "data": {
+          "label": "New Shopify Order",
+          "connector": "shopify",
+          "triggerId": "order_created",
+          "icon": "shopping-cart",
+          "category": "trigger",
+          "description": "Triggers when a new order is created",
+          "config": {},
+          "outputSchema": {
+            "order_number": { "type": "string" },
+            "total_price": { "type": "string" },
+            "customer": { "type": "object" }
+          }
+        }
+      },
+      {
+        "id": "telegram_action_1",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 450, "y": 100 },
+        "data": {
+          "label": "Send Telegram Alert",
+          "connector": "telegram",
+          "actionId": "send_message",
+          "icon": "send",
+          "category": "action",
+          "description": "Send order notification via Telegram",
+          "config": {
+            "chatId": "{{telegram_chat_id}}",
+            "text": "🛍️ New Order Received!\n\nOrder: #{{$json.order_number}}\nCustomer: {{$json.customer.first_name}} {{$json.customer.last_name}}\nEmail: {{$json.customer.email}}\nTotal: ${{$json.total_price}}\n\nCheck your Shopify dashboard for details."
+          },
+          "inputSchema": {
+            "chatId": { "type": "string", "required": true, "label": "Chat ID" },
+            "text": { "type": "string", "required": true, "label": "Message" }
+          },
+          "outputSchema": {
+            "message_id": { "type": "number" }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1",
+        "source": "shopify_trigger_1",
+        "target": "telegram_action_1",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

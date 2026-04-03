@@ -1,0 +1,2020 @@
+{
+  "id": "31b216c0-5fdd-4df8-9e9c-9f1515f3a920",
+  "name": "Review Analysis",
+  "description": "When user review on a content, webhook trigger. The review save into mysql database review table. Check the review if it is less than 3 , review is saved to alart table. And automatically notice it in telegram. And user forward this notice in whatsapp",
+  "category": "content",
+  "canvas": {
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_3",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_3",
+        "target": "node_4",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_4",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_4",
+        "target": "node_5",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "xy-edge__node_2source-1-IF_CONDITION_1762249478066target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "IF_CONDITION_1762249478066",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__IF_CONDITION_1762249478066true-node_3target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "IF_CONDITION_1762249478066",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "true",
+        "targetHandle": "target-1"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "node_1",
+        "data": {
+          "icon": "webhook",
+          "label": "Receive Customer Feedback",
+          "config": {
+            "path": "/customer-feedback",
+            "method": "POST"
+          },
+          "category": "trigger",
+          "description": "Trigger workflow via HTTP webhook",
+          "inputSchema": {},
+          "configSchema": {
+            "path": {
+              "type": "string",
+              "required": true
+            },
+            "method": {
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE"
+              ],
+              "type": "string"
+            }
+          },
+          "outputSchema": {
+            "body": {
+              "type": "object"
+            },
+            "headers": {
+              "type": "object"
+            }
+          }
+        },
+        "type": "WEBHOOK_TRIGGER",
+        "position": {
+          "x": 45,
+          "y": 180
+        }
+      },
+      {
+        "id": "node_2",
+        "data": {
+          "icon": "connector",
+          "label": "Insert Feedback into MySQL",
+          "action": "insert_rows",
+          "config": {
+            "query": "INSERT INTO feedback (customer_id, rating, comments) VALUES (?, ?, ?)",
+            "params": [
+              "{{node_1.customer_id}}",
+              "{{node_1.rating}}",
+              "{{node_1.comments}}"
+            ]
+          },
+          "actionId": "insert_rows",
+          "category": "action",
+          "connector": "mysql",
+          "actionName": "Insert",
+          "description": "Insert one or more rows into a table",
+          "inputSchema": {
+            "table": {
+              "type": "string",
+              "label": "Table Name",
+              "order": 1,
+              "required": true,
+              "description": "Name of the table to insert into",
+              "placeholder": "users",
+              "loadOptionsResource": "tables",
+              "loadOptionsDescription": "Fetch tables from database"
+            },
+            "dataMode": {
+              "type": "select",
+              "label": "Data Mode",
+              "order": 2,
+              "default": "autoMapInputData",
+              "options": [
+                "autoMapInputData",
+                "defineBelow"
+              ],
+              "required": false,
+              "description": "Auto-map input data or define columns manually"
+            },
+            "priority": {
+              "type": "select",
+              "label": "Priority",
+              "order": 4,
+              "options": [
+                "LOW_PRIORITY",
+                "HIGH_PRIORITY"
+              ],
+              "required": false,
+              "description": "Insert priority"
+            },
+            "columnMappings": {
+              "type": "fixedCollection",
+              "items": {
+                "mappings": {
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "label": "Value",
+                      "required": true,
+                      "description": "Value or expression to insert",
+                      "placeholder": "{{ $json.email }}"
+                    },
+                    "column": {
+                      "type": "string",
+                      "label": "Column",
+                      "required": true,
+                      "description": "Column name to insert into",
+                      "loadOptionsResource": "table-columns",
+                      "loadOptionsDependsOn": [
+                        "table"
+                      ]
+                    }
+                  }
+                }
+              },
+              "label": "Column Mappings",
+              "order": 3,
+              "required": false,
+              "description": "Map data to table columns",
+              "placeholder": "Add Column Mapping"
+            },
+            "skipOnConflict": {
+              "type": "boolean",
+              "label": "Skip On Conflict",
+              "order": 5,
+              "default": false,
+              "required": false,
+              "description": "Skip row if unique constraint violated (INSERT IGNORE)"
+            }
+          },
+          "configSchema": {
+            "table": {
+              "type": "string",
+              "label": "Table Name",
+              "order": 1,
+              "required": true,
+              "description": "Name of the table to insert into",
+              "placeholder": "users",
+              "loadOptionsResource": "tables",
+              "loadOptionsDescription": "Fetch tables from database"
+            },
+            "dataMode": {
+              "type": "select",
+              "label": "Data Mode",
+              "order": 2,
+              "default": "autoMapInputData",
+              "options": [
+                "autoMapInputData",
+                "defineBelow"
+              ],
+              "required": false,
+              "description": "Auto-map input data or define columns manually"
+            },
+            "priority": {
+              "type": "select",
+              "label": "Priority",
+              "order": 4,
+              "options": [
+                "LOW_PRIORITY",
+                "HIGH_PRIORITY"
+              ],
+              "required": false,
+              "description": "Insert priority"
+            },
+            "columnMappings": {
+              "type": "fixedCollection",
+              "items": {
+                "mappings": {
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "label": "Value",
+                      "required": true,
+                      "description": "Value or expression to insert",
+                      "placeholder": "{{ $json.email }}"
+                    },
+                    "column": {
+                      "type": "string",
+                      "label": "Column",
+                      "required": true,
+                      "description": "Column name to insert into",
+                      "loadOptionsResource": "table-columns",
+                      "loadOptionsDependsOn": [
+                        "table"
+                      ]
+                    }
+                  }
+                }
+              },
+              "label": "Column Mappings",
+              "order": 3,
+              "required": false,
+              "description": "Map data to table columns",
+              "placeholder": "Add Column Mapping"
+            },
+            "skipOnConflict": {
+              "type": "boolean",
+              "label": "Skip On Conflict",
+              "order": 5,
+              "default": false,
+              "required": false,
+              "description": "Skip row if unique constraint violated (INSERT IGNORE)"
+            }
+          },
+          "outputSchema": {
+            "insertId": {
+              "type": "number",
+              "description": "Auto-increment ID of inserted row"
+            },
+            "affectedRows": {
+              "type": "number",
+              "description": "Number of rows inserted"
+            }
+          },
+          "connectorType": "mysql",
+          "connectorDisplayName": "MySQL"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 270,
+          "y": 15
+        }
+      },
+      {
+        "id": "node_3",
+        "data": {
+          "icon": "connector",
+          "label": "Create Alert in MySQL",
+          "action": "insert_rows",
+          "config": {
+            "query": "INSERT INTO alerts (customer_id, message) VALUES (?, ?)",
+            "params": [
+              "{{node_1.customer_id}}",
+              "Urgent feedback received"
+            ]
+          },
+          "actionId": "insert_rows",
+          "category": "action",
+          "connector": "mysql",
+          "actionName": "Insert",
+          "description": "Insert one or more rows into a table",
+          "inputSchema": {
+            "table": {
+              "type": "string",
+              "label": "Table Name",
+              "order": 1,
+              "required": true,
+              "description": "Name of the table to insert into",
+              "placeholder": "users",
+              "loadOptionsResource": "tables",
+              "loadOptionsDescription": "Fetch tables from database"
+            },
+            "dataMode": {
+              "type": "select",
+              "label": "Data Mode",
+              "order": 2,
+              "default": "autoMapInputData",
+              "options": [
+                "autoMapInputData",
+                "defineBelow"
+              ],
+              "required": false,
+              "description": "Auto-map input data or define columns manually"
+            },
+            "priority": {
+              "type": "select",
+              "label": "Priority",
+              "order": 4,
+              "options": [
+                "LOW_PRIORITY",
+                "HIGH_PRIORITY"
+              ],
+              "required": false,
+              "description": "Insert priority"
+            },
+            "columnMappings": {
+              "type": "fixedCollection",
+              "items": {
+                "mappings": {
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "label": "Value",
+                      "required": true,
+                      "description": "Value or expression to insert",
+                      "placeholder": "{{ $json.email }}"
+                    },
+                    "column": {
+                      "type": "string",
+                      "label": "Column",
+                      "required": true,
+                      "description": "Column name to insert into",
+                      "loadOptionsResource": "table-columns",
+                      "loadOptionsDependsOn": [
+                        "table"
+                      ]
+                    }
+                  }
+                }
+              },
+              "label": "Column Mappings",
+              "order": 3,
+              "required": false,
+              "description": "Map data to table columns",
+              "placeholder": "Add Column Mapping"
+            },
+            "skipOnConflict": {
+              "type": "boolean",
+              "label": "Skip On Conflict",
+              "order": 5,
+              "default": false,
+              "required": false,
+              "description": "Skip row if unique constraint violated (INSERT IGNORE)"
+            }
+          },
+          "configSchema": {
+            "table": {
+              "type": "string",
+              "label": "Table Name",
+              "order": 1,
+              "required": true,
+              "description": "Name of the table to insert into",
+              "placeholder": "users",
+              "loadOptionsResource": "tables",
+              "loadOptionsDescription": "Fetch tables from database"
+            },
+            "dataMode": {
+              "type": "select",
+              "label": "Data Mode",
+              "order": 2,
+              "default": "autoMapInputData",
+              "options": [
+                "autoMapInputData",
+                "defineBelow"
+              ],
+              "required": false,
+              "description": "Auto-map input data or define columns manually"
+            },
+            "priority": {
+              "type": "select",
+              "label": "Priority",
+              "order": 4,
+              "options": [
+                "LOW_PRIORITY",
+                "HIGH_PRIORITY"
+              ],
+              "required": false,
+              "description": "Insert priority"
+            },
+            "columnMappings": {
+              "type": "fixedCollection",
+              "items": {
+                "mappings": {
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "label": "Value",
+                      "required": true,
+                      "description": "Value or expression to insert",
+                      "placeholder": "{{ $json.email }}"
+                    },
+                    "column": {
+                      "type": "string",
+                      "label": "Column",
+                      "required": true,
+                      "description": "Column name to insert into",
+                      "loadOptionsResource": "table-columns",
+                      "loadOptionsDependsOn": [
+                        "table"
+                      ]
+                    }
+                  }
+                }
+              },
+              "label": "Column Mappings",
+              "order": 3,
+              "required": false,
+              "description": "Map data to table columns",
+              "placeholder": "Add Column Mapping"
+            },
+            "skipOnConflict": {
+              "type": "boolean",
+              "label": "Skip On Conflict",
+              "order": 5,
+              "default": false,
+              "required": false,
+              "description": "Skip row if unique constraint violated (INSERT IGNORE)"
+            }
+          },
+          "outputSchema": {
+            "insertId": {
+              "type": "number",
+              "description": "Auto-increment ID of inserted row"
+            },
+            "affectedRows": {
+              "type": "number",
+              "description": "Number of rows inserted"
+            }
+          },
+          "connectorType": "mysql",
+          "connectorDisplayName": "MySQL"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 915,
+          "y": 0
+        }
+      },
+      {
+        "id": "node_4",
+        "data": {
+          "icon": "connector",
+          "label": "Send Alert via Telegram",
+          "action": "send_message",
+          "config": {
+            "text": "Urgent feedback received from customer {{node_1.customer_id}}",
+            "chat_id": "{{node_1.chat_id}}"
+          },
+          "actionId": "send_message",
+          "category": "action",
+          "connector": "telegram",
+          "actionName": "Send Message",
+          "description": "Send a text message to a Telegram chat",
+          "inputSchema": {
+            "text": {
+              "type": "string",
+              "label": "Message Text",
+              "required": true,
+              "inputType": "textarea",
+              "description": "Text of the message to be sent (1-4096 characters)"
+            },
+            "chatId": {
+              "type": "string",
+              "label": "Chat ID",
+              "required": true,
+              "description": "Unique identifier for the target chat or username",
+              "placeholder": "@username or -123456789"
+            },
+            "parseMode": {
+              "type": "select",
+              "label": "Parse Mode",
+              "default": "none",
+              "options": [
+                {
+                  "label": "Plain Text",
+                  "value": "none"
+                },
+                {
+                  "label": "Markdown",
+                  "value": "Markdown"
+                },
+                {
+                  "label": "HTML",
+                  "value": "HTML"
+                }
+              ],
+              "description": "How to parse entities in the message"
+            },
+            "disableNotification": {
+              "type": "boolean",
+              "label": "Silent Message",
+              "default": false,
+              "description": "Send message silently without notification"
+            }
+          },
+          "configSchema": {
+            "text": {
+              "type": "string",
+              "label": "Message Text",
+              "required": true,
+              "inputType": "textarea",
+              "description": "Text of the message to be sent (1-4096 characters)"
+            },
+            "chatId": {
+              "type": "string",
+              "label": "Chat ID",
+              "required": true,
+              "description": "Unique identifier for the target chat or username",
+              "placeholder": "@username or -123456789"
+            },
+            "parseMode": {
+              "type": "select",
+              "label": "Parse Mode",
+              "default": "none",
+              "options": [
+                {
+                  "label": "Plain Text",
+                  "value": "none"
+                },
+                {
+                  "label": "Markdown",
+                  "value": "Markdown"
+                },
+                {
+                  "label": "HTML",
+                  "value": "HTML"
+                }
+              ],
+              "description": "How to parse entities in the message"
+            },
+            "disableNotification": {
+              "type": "boolean",
+              "label": "Silent Message",
+              "default": false,
+              "description": "Send message silently without notification"
+            }
+          },
+          "connectorType": "telegram",
+          "connectorDisplayName": "Telegram"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1050,
+          "y": 270
+        }
+      },
+      {
+        "id": "node_5",
+        "data": {
+          "icon": "connector",
+          "label": "Send Notice via WhatsApp",
+          "action": "send_message",
+          "config": {
+            "message": "Urgent feedback received from customer {{node_1.customer_id}}",
+            "phone_number": "{{node_1.phone_number}}"
+          },
+          "actionId": "send_message",
+          "category": "action",
+          "connector": "whatsapp",
+          "actionName": "Send Message",
+          "description": "Send a message via WhatsApp (text, image, video, audio, document, location, contacts)",
+          "inputSchema": {
+            "to": {
+              "hint": "Include country code, e.g., 1234567890",
+              "type": "string",
+              "label": "Recipient Phone Number",
+              "required": true,
+              "description": "Phone number in international format (no + sign)",
+              "placeholder": "1234567890"
+            },
+            "text": {
+              "type": "string",
+              "label": "Message Text",
+              "inputType": "textarea",
+              "maxLength": 4096,
+              "description": "Text content of the message",
+              "displayOptions": {
+                "show": {
+                  "messageType": [
+                    "text"
+                  ]
+                }
+              }
+            },
+            "caption": {
+              "type": "string",
+              "label": "Caption",
+              "inputType": "textarea",
+              "description": "Caption for the media",
+              "displayOptions": {
+                "show": {
+                  "messageType": [
+                    "image",
+                    "video",
+                    "document"
+                  ]
+                }
+              }
+            },
+            "mediaId": {
+              "type": "string",
+              "label": "Media ID",
+              "description": "The ID of the uploaded media",
+              "displayOptions": {
+                "show": {
+                  "messageType": [
+                    "image",
+                    "video",
+                    "audio",
+                    "document"
+                  ]
+                }
+              }
+            },
+            "filename": {
+              "type": "string",
+              "label": "Filename",
+              "description": "Filename for the document",
+              "displayOptions": {
+                "show": {
+                  "messageType": [
+                    "document"
+                  ]
+                }
+              }
+            },
+            "latitude": {
+              "type": "number",
+              "label": "Latitude",
+              "description": "Location latitude",
+              "displayOptions": {
+                "show": {
+                  "messageType": [
+                    "location"
+                  ]
+                }
+              }
+            },
+            "mediaUrl": {
+              "type": "string",
+              "label": "Media URL",
+              "description": "Public URL of the media file",
+              "displayOptions": {
+                "show": {
+                  "messageType": [
+                    "image",
+                    "video",
+                    "audio",
+                    "document"
+                  ]
+                }
+              }
+            },
+            "longitude": {
+              "type": "number",
+              "label": "Longitude",
+              "description": "Location longitude",
+              "displayOptions": {
+                "show": {
+                  "messageType": [
+                    "location"
+                  ]
+                }
+              }
+            },
+            "previewUrl": {
+              "type": "boolean",
+              "label": "Preview URL",
+              "default": false,
+              "description": "Enable URL preview in message",
+              "displayOptions": {
+                "show": {
+                  "messageType": [
+                    "text"
+                  ]
+                }
+              }
+            },
+            "messageType": {
+              "type": "select",
+              "label": "Message Type",
+              "default": "text",
+              "options": [
+                {
+                  "label": "Text",
+                  "value": "text"
+                },
+                {
+                  "label": "Image",
+                  "value": "image"
+                },
+                {
+                  "label": "Video",
+                  "value": "video"
+                },
+                {
+                  "label": "Audio",
+                  "value": "audio"
+                },
+                {
+                  "label": "Document",
+                  "value": "document"
+                },
+                {
+                  "label": "Location",
+                  "value": "location"
+                },
+                {
+                  "label": "Contacts",
+                  "value": "contacts"
+                }
+              ],
+              "required": true,
+              "description": "The type of message to send"
+            },
+            "locationName": {
+              "type": "string",
+              "label": "Location Name",
+              "description": "Name of the location",
+              "displayOptions": {
+                "show": {
+                  "messageType": [
+                    "location"
+                  ]
+                }
+              }
+            },
+            "locationAddress": {
+              "type": "string",
+              "label": "Location Address",
+              "description": "Address of the location",
+              "displayOptions": {
+                "show": {
+                  "messageType": [
+                    "location"
+                  ]
+                }
+              }
+            }
+          },
+          "configSchema": {
+            "to": {
+              "hint": "Include country code, e.g., 1234567890",
+              "type": "string",
+              "label": "Recipient Phone Number",
+              "required": true,
+              "description": "Phone number in international format (no + sign)",
+              "placeholder": "1234567890"
+            },
+            "text": {
+              "type": "string",
+              "label": "Message Text",
+              "inputType": "textarea",
+              "maxLength": 4096,
+              "description": "Text content of the message",
+              "displayOptions": {
+                "show": {
+                  "messageType": [
+                    "text"
+                  ]
+                }
+              }
+            },
+            "caption": {
+              "type": "string",
+              "label": "Caption",
+              "inputType": "textarea",
+              "description": "Caption for the media",
+              "displayOptions": {
+                "show": {
+                  "messageType": [
+                    "image",
+                    "video",
+                    "document"
+                  ]
+                }
+              }
+            },
+            "mediaId": {
+              "type": "string",
+              "label": "Media ID",
+              "description": "The ID of the uploaded media",
+              "displayOptions": {
+                "show": {
+                  "messageType": [
+                    "image",
+                    "video",
+                    "audio",
+                    "document"
+                  ]
+                }
+              }
+            },
+            "filename": {
+              "type": "string",
+              "label": "Filename",
+              "description": "Filename for the document",
+              "displayOptions": {
+                "show": {
+                  "messageType": [
+                    "document"
+                  ]
+                }
+              }
+            },
+            "latitude": {
+              "type": "number",
+              "label": "Latitude",
+              "description": "Location latitude",
+              "displayOptions": {
+                "show": {
+                  "messageType": [
+                    "location"
+                  ]
+                }
+              }
+            },
+            "mediaUrl": {
+              "type": "string",
+              "label": "Media URL",
+              "description": "Public URL of the media file",
+              "displayOptions": {
+                "show": {
+                  "messageType": [
+                    "image",
+                    "video",
+                    "audio",
+                    "document"
+                  ]
+                }
+              }
+            },
+            "longitude": {
+              "type": "number",
+              "label": "Longitude",
+              "description": "Location longitude",
+              "displayOptions": {
+                "show": {
+                  "messageType": [
+                    "location"
+                  ]
+                }
+              }
+            },
+            "previewUrl": {
+              "type": "boolean",
+              "label": "Preview URL",
+              "default": false,
+              "description": "Enable URL preview in message",
+              "displayOptions": {
+                "show": {
+                  "messageType": [
+                    "text"
+                  ]
+                }
+              }
+            },
+            "messageType": {
+              "type": "select",
+              "label": "Message Type",
+              "default": "text",
+              "options": [
+                {
+                  "label": "Text",
+                  "value": "text"
+                },
+                {
+                  "label": "Image",
+                  "value": "image"
+                },
+                {
+                  "label": "Video",
+                  "value": "video"
+                },
+                {
+                  "label": "Audio",
+                  "value": "audio"
+                },
+                {
+                  "label": "Document",
+                  "value": "document"
+                },
+                {
+                  "label": "Location",
+                  "value": "location"
+                },
+                {
+                  "label": "Contacts",
+                  "value": "contacts"
+                }
+              ],
+              "required": true,
+              "description": "The type of message to send"
+            },
+            "locationName": {
+              "type": "string",
+              "label": "Location Name",
+              "description": "Name of the location",
+              "displayOptions": {
+                "show": {
+                  "messageType": [
+                    "location"
+                  ]
+                }
+              }
+            },
+            "locationAddress": {
+              "type": "string",
+              "label": "Location Address",
+              "description": "Address of the location",
+              "displayOptions": {
+                "show": {
+                  "messageType": [
+                    "location"
+                  ]
+                }
+              }
+            }
+          },
+          "outputSchema": {
+            "contacts": {
+              "type": "array",
+              "properties": {
+                "input": {
+                  "type": "string"
+                },
+                "wa_id": {
+                  "type": "string"
+                }
+              },
+              "description": "Array of contact information"
+            },
+            "messages": {
+              "type": "array",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Message ID"
+                }
+              },
+              "description": "Array of sent messages"
+            },
+            "messagingProduct": {
+              "type": "string",
+              "description": "Messaging product (whatsapp)"
+            }
+          },
+          "connectorType": "whatsapp",
+          "connectorDisplayName": "WhatsApp Business"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1395,
+          "y": 75
+        }
+      },
+      {
+        "id": "IF_CONDITION_1762249478066",
+        "data": {
+          "icon": "I",
+          "color": "#a855f7",
+          "label": "If",
+          "category": "control",
+          "conditions": {
+            "combinator": "and",
+            "conditions": [
+              {
+                "operator": {
+                  "type": "string",
+                  "operation": "equals"
+                },
+                "leftValue": "",
+                "rightValue": ""
+              }
+            ]
+          },
+          "ignoreCase": true,
+          "controlType": "if",
+          "description": "Branch workflow based on conditions"
+        },
+        "type": "IF_CONDITION",
+        "position": {
+          "x": 585,
+          "y": 90
+        }
+      }
+    ]
+  },
+  "steps": [
+    {
+      "id": "node_2",
+      "action": "insert_rows",
+      "params": {
+        "icon": "connector",
+        "label": "Insert Feedback into MySQL",
+        "action": "insert_rows",
+        "config": {
+          "query": "INSERT INTO feedback (customer_id, rating, comments) VALUES (?, ?, ?)",
+          "params": [
+            "{{node_1.customer_id}}",
+            "{{node_1.rating}}",
+            "{{node_1.comments}}"
+          ]
+        },
+        "actionId": "insert_rows",
+        "category": "action",
+        "connector": "mysql",
+        "actionName": "Insert",
+        "description": "Insert one or more rows into a table",
+        "inputSchema": {
+          "table": {
+            "type": "string",
+            "label": "Table Name",
+            "order": 1,
+            "required": true,
+            "description": "Name of the table to insert into",
+            "placeholder": "users",
+            "loadOptionsResource": "tables",
+            "loadOptionsDescription": "Fetch tables from database"
+          },
+          "dataMode": {
+            "type": "select",
+            "label": "Data Mode",
+            "order": 2,
+            "default": "autoMapInputData",
+            "options": [
+              "autoMapInputData",
+              "defineBelow"
+            ],
+            "required": false,
+            "description": "Auto-map input data or define columns manually"
+          },
+          "priority": {
+            "type": "select",
+            "label": "Priority",
+            "order": 4,
+            "options": [
+              "LOW_PRIORITY",
+              "HIGH_PRIORITY"
+            ],
+            "required": false,
+            "description": "Insert priority"
+          },
+          "columnMappings": {
+            "type": "fixedCollection",
+            "items": {
+              "mappings": {
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "label": "Value",
+                    "required": true,
+                    "description": "Value or expression to insert",
+                    "placeholder": "{{ $json.email }}"
+                  },
+                  "column": {
+                    "type": "string",
+                    "label": "Column",
+                    "required": true,
+                    "description": "Column name to insert into",
+                    "loadOptionsResource": "table-columns",
+                    "loadOptionsDependsOn": [
+                      "table"
+                    ]
+                  }
+                }
+              }
+            },
+            "label": "Column Mappings",
+            "order": 3,
+            "required": false,
+            "description": "Map data to table columns",
+            "placeholder": "Add Column Mapping"
+          },
+          "skipOnConflict": {
+            "type": "boolean",
+            "label": "Skip On Conflict",
+            "order": 5,
+            "default": false,
+            "required": false,
+            "description": "Skip row if unique constraint violated (INSERT IGNORE)"
+          }
+        },
+        "configSchema": {
+          "table": {
+            "type": "string",
+            "label": "Table Name",
+            "order": 1,
+            "required": true,
+            "description": "Name of the table to insert into",
+            "placeholder": "users",
+            "loadOptionsResource": "tables",
+            "loadOptionsDescription": "Fetch tables from database"
+          },
+          "dataMode": {
+            "type": "select",
+            "label": "Data Mode",
+            "order": 2,
+            "default": "autoMapInputData",
+            "options": [
+              "autoMapInputData",
+              "defineBelow"
+            ],
+            "required": false,
+            "description": "Auto-map input data or define columns manually"
+          },
+          "priority": {
+            "type": "select",
+            "label": "Priority",
+            "order": 4,
+            "options": [
+              "LOW_PRIORITY",
+              "HIGH_PRIORITY"
+            ],
+            "required": false,
+            "description": "Insert priority"
+          },
+          "columnMappings": {
+            "type": "fixedCollection",
+            "items": {
+              "mappings": {
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "label": "Value",
+                    "required": true,
+                    "description": "Value or expression to insert",
+                    "placeholder": "{{ $json.email }}"
+                  },
+                  "column": {
+                    "type": "string",
+                    "label": "Column",
+                    "required": true,
+                    "description": "Column name to insert into",
+                    "loadOptionsResource": "table-columns",
+                    "loadOptionsDependsOn": [
+                      "table"
+                    ]
+                  }
+                }
+              }
+            },
+            "label": "Column Mappings",
+            "order": 3,
+            "required": false,
+            "description": "Map data to table columns",
+            "placeholder": "Add Column Mapping"
+          },
+          "skipOnConflict": {
+            "type": "boolean",
+            "label": "Skip On Conflict",
+            "order": 5,
+            "default": false,
+            "required": false,
+            "description": "Skip row if unique constraint violated (INSERT IGNORE)"
+          }
+        },
+        "outputSchema": {
+          "insertId": {
+            "type": "number",
+            "description": "Auto-increment ID of inserted row"
+          },
+          "affectedRows": {
+            "type": "number",
+            "description": "Number of rows inserted"
+          }
+        },
+        "connectorType": "mysql",
+        "connectorDisplayName": "MySQL"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "node_3",
+      "action": "insert_rows",
+      "params": {
+        "icon": "connector",
+        "label": "Create Alert in MySQL",
+        "action": "insert_rows",
+        "config": {
+          "query": "INSERT INTO alerts (customer_id, message) VALUES (?, ?)",
+          "params": [
+            "{{node_1.customer_id}}",
+            "Urgent feedback received"
+          ]
+        },
+        "actionId": "insert_rows",
+        "category": "action",
+        "connector": "mysql",
+        "actionName": "Insert",
+        "description": "Insert one or more rows into a table",
+        "inputSchema": {
+          "table": {
+            "type": "string",
+            "label": "Table Name",
+            "order": 1,
+            "required": true,
+            "description": "Name of the table to insert into",
+            "placeholder": "users",
+            "loadOptionsResource": "tables",
+            "loadOptionsDescription": "Fetch tables from database"
+          },
+          "dataMode": {
+            "type": "select",
+            "label": "Data Mode",
+            "order": 2,
+            "default": "autoMapInputData",
+            "options": [
+              "autoMapInputData",
+              "defineBelow"
+            ],
+            "required": false,
+            "description": "Auto-map input data or define columns manually"
+          },
+          "priority": {
+            "type": "select",
+            "label": "Priority",
+            "order": 4,
+            "options": [
+              "LOW_PRIORITY",
+              "HIGH_PRIORITY"
+            ],
+            "required": false,
+            "description": "Insert priority"
+          },
+          "columnMappings": {
+            "type": "fixedCollection",
+            "items": {
+              "mappings": {
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "label": "Value",
+                    "required": true,
+                    "description": "Value or expression to insert",
+                    "placeholder": "{{ $json.email }}"
+                  },
+                  "column": {
+                    "type": "string",
+                    "label": "Column",
+                    "required": true,
+                    "description": "Column name to insert into",
+                    "loadOptionsResource": "table-columns",
+                    "loadOptionsDependsOn": [
+                      "table"
+                    ]
+                  }
+                }
+              }
+            },
+            "label": "Column Mappings",
+            "order": 3,
+            "required": false,
+            "description": "Map data to table columns",
+            "placeholder": "Add Column Mapping"
+          },
+          "skipOnConflict": {
+            "type": "boolean",
+            "label": "Skip On Conflict",
+            "order": 5,
+            "default": false,
+            "required": false,
+            "description": "Skip row if unique constraint violated (INSERT IGNORE)"
+          }
+        },
+        "configSchema": {
+          "table": {
+            "type": "string",
+            "label": "Table Name",
+            "order": 1,
+            "required": true,
+            "description": "Name of the table to insert into",
+            "placeholder": "users",
+            "loadOptionsResource": "tables",
+            "loadOptionsDescription": "Fetch tables from database"
+          },
+          "dataMode": {
+            "type": "select",
+            "label": "Data Mode",
+            "order": 2,
+            "default": "autoMapInputData",
+            "options": [
+              "autoMapInputData",
+              "defineBelow"
+            ],
+            "required": false,
+            "description": "Auto-map input data or define columns manually"
+          },
+          "priority": {
+            "type": "select",
+            "label": "Priority",
+            "order": 4,
+            "options": [
+              "LOW_PRIORITY",
+              "HIGH_PRIORITY"
+            ],
+            "required": false,
+            "description": "Insert priority"
+          },
+          "columnMappings": {
+            "type": "fixedCollection",
+            "items": {
+              "mappings": {
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "label": "Value",
+                    "required": true,
+                    "description": "Value or expression to insert",
+                    "placeholder": "{{ $json.email }}"
+                  },
+                  "column": {
+                    "type": "string",
+                    "label": "Column",
+                    "required": true,
+                    "description": "Column name to insert into",
+                    "loadOptionsResource": "table-columns",
+                    "loadOptionsDependsOn": [
+                      "table"
+                    ]
+                  }
+                }
+              }
+            },
+            "label": "Column Mappings",
+            "order": 3,
+            "required": false,
+            "description": "Map data to table columns",
+            "placeholder": "Add Column Mapping"
+          },
+          "skipOnConflict": {
+            "type": "boolean",
+            "label": "Skip On Conflict",
+            "order": 5,
+            "default": false,
+            "required": false,
+            "description": "Skip row if unique constraint violated (INSERT IGNORE)"
+          }
+        },
+        "outputSchema": {
+          "insertId": {
+            "type": "number",
+            "description": "Auto-increment ID of inserted row"
+          },
+          "affectedRows": {
+            "type": "number",
+            "description": "Number of rows inserted"
+          }
+        },
+        "connectorType": "mysql",
+        "connectorDisplayName": "MySQL"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "node_4",
+      "action": "send_message",
+      "params": {
+        "icon": "connector",
+        "label": "Send Alert via Telegram",
+        "action": "send_message",
+        "config": {
+          "text": "Urgent feedback received from customer {{node_1.customer_id}}",
+          "chat_id": "{{node_1.chat_id}}"
+        },
+        "actionId": "send_message",
+        "category": "action",
+        "connector": "telegram",
+        "actionName": "Send Message",
+        "description": "Send a text message to a Telegram chat",
+        "inputSchema": {
+          "text": {
+            "type": "string",
+            "label": "Message Text",
+            "required": true,
+            "inputType": "textarea",
+            "description": "Text of the message to be sent (1-4096 characters)"
+          },
+          "chatId": {
+            "type": "string",
+            "label": "Chat ID",
+            "required": true,
+            "description": "Unique identifier for the target chat or username",
+            "placeholder": "@username or -123456789"
+          },
+          "parseMode": {
+            "type": "select",
+            "label": "Parse Mode",
+            "default": "none",
+            "options": [
+              {
+                "label": "Plain Text",
+                "value": "none"
+              },
+              {
+                "label": "Markdown",
+                "value": "Markdown"
+              },
+              {
+                "label": "HTML",
+                "value": "HTML"
+              }
+            ],
+            "description": "How to parse entities in the message"
+          },
+          "disableNotification": {
+            "type": "boolean",
+            "label": "Silent Message",
+            "default": false,
+            "description": "Send message silently without notification"
+          }
+        },
+        "configSchema": {
+          "text": {
+            "type": "string",
+            "label": "Message Text",
+            "required": true,
+            "inputType": "textarea",
+            "description": "Text of the message to be sent (1-4096 characters)"
+          },
+          "chatId": {
+            "type": "string",
+            "label": "Chat ID",
+            "required": true,
+            "description": "Unique identifier for the target chat or username",
+            "placeholder": "@username or -123456789"
+          },
+          "parseMode": {
+            "type": "select",
+            "label": "Parse Mode",
+            "default": "none",
+            "options": [
+              {
+                "label": "Plain Text",
+                "value": "none"
+              },
+              {
+                "label": "Markdown",
+                "value": "Markdown"
+              },
+              {
+                "label": "HTML",
+                "value": "HTML"
+              }
+            ],
+            "description": "How to parse entities in the message"
+          },
+          "disableNotification": {
+            "type": "boolean",
+            "label": "Silent Message",
+            "default": false,
+            "description": "Send message silently without notification"
+          }
+        },
+        "connectorType": "telegram",
+        "connectorDisplayName": "Telegram"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "node_5",
+      "action": "send_message",
+      "params": {
+        "icon": "connector",
+        "label": "Send Notice via WhatsApp",
+        "action": "send_message",
+        "config": {
+          "message": "Urgent feedback received from customer {{node_1.customer_id}}",
+          "phone_number": "{{node_1.phone_number}}"
+        },
+        "actionId": "send_message",
+        "category": "action",
+        "connector": "whatsapp",
+        "actionName": "Send Message",
+        "description": "Send a message via WhatsApp (text, image, video, audio, document, location, contacts)",
+        "inputSchema": {
+          "to": {
+            "hint": "Include country code, e.g., 1234567890",
+            "type": "string",
+            "label": "Recipient Phone Number",
+            "required": true,
+            "description": "Phone number in international format (no + sign)",
+            "placeholder": "1234567890"
+          },
+          "text": {
+            "type": "string",
+            "label": "Message Text",
+            "inputType": "textarea",
+            "maxLength": 4096,
+            "description": "Text content of the message",
+            "displayOptions": {
+              "show": {
+                "messageType": [
+                  "text"
+                ]
+              }
+            }
+          },
+          "caption": {
+            "type": "string",
+            "label": "Caption",
+            "inputType": "textarea",
+            "description": "Caption for the media",
+            "displayOptions": {
+              "show": {
+                "messageType": [
+                  "image",
+                  "video",
+                  "document"
+                ]
+              }
+            }
+          },
+          "mediaId": {
+            "type": "string",
+            "label": "Media ID",
+            "description": "The ID of the uploaded media",
+            "displayOptions": {
+              "show": {
+                "messageType": [
+                  "image",
+                  "video",
+                  "audio",
+                  "document"
+                ]
+              }
+            }
+          },
+          "filename": {
+            "type": "string",
+            "label": "Filename",
+            "description": "Filename for the document",
+            "displayOptions": {
+              "show": {
+                "messageType": [
+                  "document"
+                ]
+              }
+            }
+          },
+          "latitude": {
+            "type": "number",
+            "label": "Latitude",
+            "description": "Location latitude",
+            "displayOptions": {
+              "show": {
+                "messageType": [
+                  "location"
+                ]
+              }
+            }
+          },
+          "mediaUrl": {
+            "type": "string",
+            "label": "Media URL",
+            "description": "Public URL of the media file",
+            "displayOptions": {
+              "show": {
+                "messageType": [
+                  "image",
+                  "video",
+                  "audio",
+                  "document"
+                ]
+              }
+            }
+          },
+          "longitude": {
+            "type": "number",
+            "label": "Longitude",
+            "description": "Location longitude",
+            "displayOptions": {
+              "show": {
+                "messageType": [
+                  "location"
+                ]
+              }
+            }
+          },
+          "previewUrl": {
+            "type": "boolean",
+            "label": "Preview URL",
+            "default": false,
+            "description": "Enable URL preview in message",
+            "displayOptions": {
+              "show": {
+                "messageType": [
+                  "text"
+                ]
+              }
+            }
+          },
+          "messageType": {
+            "type": "select",
+            "label": "Message Type",
+            "default": "text",
+            "options": [
+              {
+                "label": "Text",
+                "value": "text"
+              },
+              {
+                "label": "Image",
+                "value": "image"
+              },
+              {
+                "label": "Video",
+                "value": "video"
+              },
+              {
+                "label": "Audio",
+                "value": "audio"
+              },
+              {
+                "label": "Document",
+                "value": "document"
+              },
+              {
+                "label": "Location",
+                "value": "location"
+              },
+              {
+                "label": "Contacts",
+                "value": "contacts"
+              }
+            ],
+            "required": true,
+            "description": "The type of message to send"
+          },
+          "locationName": {
+            "type": "string",
+            "label": "Location Name",
+            "description": "Name of the location",
+            "displayOptions": {
+              "show": {
+                "messageType": [
+                  "location"
+                ]
+              }
+            }
+          },
+          "locationAddress": {
+            "type": "string",
+            "label": "Location Address",
+            "description": "Address of the location",
+            "displayOptions": {
+              "show": {
+                "messageType": [
+                  "location"
+                ]
+              }
+            }
+          }
+        },
+        "configSchema": {
+          "to": {
+            "hint": "Include country code, e.g., 1234567890",
+            "type": "string",
+            "label": "Recipient Phone Number",
+            "required": true,
+            "description": "Phone number in international format (no + sign)",
+            "placeholder": "1234567890"
+          },
+          "text": {
+            "type": "string",
+            "label": "Message Text",
+            "inputType": "textarea",
+            "maxLength": 4096,
+            "description": "Text content of the message",
+            "displayOptions": {
+              "show": {
+                "messageType": [
+                  "text"
+                ]
+              }
+            }
+          },
+          "caption": {
+            "type": "string",
+            "label": "Caption",
+            "inputType": "textarea",
+            "description": "Caption for the media",
+            "displayOptions": {
+              "show": {
+                "messageType": [
+                  "image",
+                  "video",
+                  "document"
+                ]
+              }
+            }
+          },
+          "mediaId": {
+            "type": "string",
+            "label": "Media ID",
+            "description": "The ID of the uploaded media",
+            "displayOptions": {
+              "show": {
+                "messageType": [
+                  "image",
+                  "video",
+                  "audio",
+                  "document"
+                ]
+              }
+            }
+          },
+          "filename": {
+            "type": "string",
+            "label": "Filename",
+            "description": "Filename for the document",
+            "displayOptions": {
+              "show": {
+                "messageType": [
+                  "document"
+                ]
+              }
+            }
+          },
+          "latitude": {
+            "type": "number",
+            "label": "Latitude",
+            "description": "Location latitude",
+            "displayOptions": {
+              "show": {
+                "messageType": [
+                  "location"
+                ]
+              }
+            }
+          },
+          "mediaUrl": {
+            "type": "string",
+            "label": "Media URL",
+            "description": "Public URL of the media file",
+            "displayOptions": {
+              "show": {
+                "messageType": [
+                  "image",
+                  "video",
+                  "audio",
+                  "document"
+                ]
+              }
+            }
+          },
+          "longitude": {
+            "type": "number",
+            "label": "Longitude",
+            "description": "Location longitude",
+            "displayOptions": {
+              "show": {
+                "messageType": [
+                  "location"
+                ]
+              }
+            }
+          },
+          "previewUrl": {
+            "type": "boolean",
+            "label": "Preview URL",
+            "default": false,
+            "description": "Enable URL preview in message",
+            "displayOptions": {
+              "show": {
+                "messageType": [
+                  "text"
+                ]
+              }
+            }
+          },
+          "messageType": {
+            "type": "select",
+            "label": "Message Type",
+            "default": "text",
+            "options": [
+              {
+                "label": "Text",
+                "value": "text"
+              },
+              {
+                "label": "Image",
+                "value": "image"
+              },
+              {
+                "label": "Video",
+                "value": "video"
+              },
+              {
+                "label": "Audio",
+                "value": "audio"
+              },
+              {
+                "label": "Document",
+                "value": "document"
+              },
+              {
+                "label": "Location",
+                "value": "location"
+              },
+              {
+                "label": "Contacts",
+                "value": "contacts"
+              }
+            ],
+            "required": true,
+            "description": "The type of message to send"
+          },
+          "locationName": {
+            "type": "string",
+            "label": "Location Name",
+            "description": "Name of the location",
+            "displayOptions": {
+              "show": {
+                "messageType": [
+                  "location"
+                ]
+              }
+            }
+          },
+          "locationAddress": {
+            "type": "string",
+            "label": "Location Address",
+            "description": "Address of the location",
+            "displayOptions": {
+              "show": {
+                "messageType": [
+                  "location"
+                ]
+              }
+            }
+          }
+        },
+        "outputSchema": {
+          "contacts": {
+            "type": "array",
+            "properties": {
+              "input": {
+                "type": "string"
+              },
+              "wa_id": {
+                "type": "string"
+              }
+            },
+            "description": "Array of contact information"
+          },
+          "messages": {
+            "type": "array",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Message ID"
+              }
+            },
+            "description": "Array of sent messages"
+          },
+          "messagingProduct": {
+            "type": "string",
+            "description": "Messaging product (whatsapp)"
+          }
+        },
+        "connectorType": "whatsapp",
+        "connectorDisplayName": "WhatsApp Business"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "IF_CONDITION_1762249478066",
+      "action": "execute",
+      "params": {
+        "icon": "I",
+        "color": "#a855f7",
+        "label": "If",
+        "category": "control",
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "leftValue": "",
+              "rightValue": ""
+            }
+          ]
+        },
+        "ignoreCase": true,
+        "controlType": "if",
+        "description": "Branch workflow based on conditions"
+      },
+      "connector": "IF_CONDITION"
+    }
+  ],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "WEBHOOK_TRIGGER",
+      "config": {
+        "icon": "webhook",
+        "label": "Receive Customer Feedback",
+        "config": {
+          "path": "/customer-feedback",
+          "method": "POST"
+        },
+        "category": "trigger",
+        "description": "Trigger workflow via HTTP webhook",
+        "inputSchema": {},
+        "configSchema": {
+          "path": {
+            "type": "string",
+            "required": true
+          },
+          "method": {
+            "enum": [
+              "GET",
+              "POST",
+              "PUT",
+              "DELETE"
+            ],
+            "type": "string"
+          }
+        },
+        "outputSchema": {
+          "body": {
+            "type": "object"
+          },
+          "headers": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "CONNECTOR_ACTION",
+    "IF_CONDITION"
+  ],
+  "tags": [],
+  "verified": false,
+  "is_public": true,
+  "metadata": {},
+  "ai_prompt": null
+}

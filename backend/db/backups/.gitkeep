@@ -1,0 +1,2 @@
+# This file keeps the backups directory in git
+# Database backups will be stored here by the GitHub Action

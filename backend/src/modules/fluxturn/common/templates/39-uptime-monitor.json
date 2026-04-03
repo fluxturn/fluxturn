@@ -1,0 +1,192 @@
+{
+  "id": "8abf21ca-4d98-43cb-af5d-710a19281d7f",
+  "name": "Uptime Monitor",
+  "description": "Monitor website uptime and alert on failures",
+  "category": "data",
+  "difficulty": "beginner",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": [
+    "slack"
+  ],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_39_1",
+        "type": "MANUAL_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 100
+        },
+        "data": {
+          "label": "Every 5 Minutes",
+          "category": "trigger",
+          "config": {
+            "cronExpression": "*/5 * * * *"
+          },
+          "description": "Manually trigger this workflow",
+          "icon": "play",
+          "configSchema": {},
+          "outputSchema": {
+            "timestamp": {
+              "type": "string",
+              "description": "Execution timestamp"
+            }
+          },
+          "inputSchema": {}
+        }
+      },
+      {
+        "id": "node_39_2",
+        "type": "RUN_CODE",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "label": "Check Website",
+          "category": "utility",
+          "config": {
+            "code": "const response = await fetch(\"{{your_website_url}}\"); return { status: response.status, ok: response.ok, timestamp: new Date() };"
+          },
+          "configSchema": {
+            "code": {
+              "type": "string",
+              "label": "JavaScript Code",
+              "inputType": "textarea",
+              "required": true,
+              "description": "JavaScript code to execute"
+            }
+          },
+          "inputSchema": {
+            "input": {
+              "type": "object",
+              "required": false
+            }
+          },
+          "outputSchema": {
+            "output": {
+              "type": "object",
+              "description": "Code execution result"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_39_3",
+        "type": "RUN_CODE",
+        "position": {
+          "x": 700,
+          "y": 100
+        },
+        "data": {
+          "label": "Check If Down",
+          "category": "utility",
+          "config": {
+            "condition": "!$json.ok",
+            "code": "// Your code here\nreturn $json;"
+          },
+          "configSchema": {
+            "code": {
+              "type": "string",
+              "label": "JavaScript Code",
+              "inputType": "textarea",
+              "required": true,
+              "description": "JavaScript code to execute"
+            }
+          },
+          "inputSchema": {
+            "input": {
+              "type": "object",
+              "required": false
+            }
+          },
+          "outputSchema": {
+            "output": {
+              "type": "object",
+              "description": "Code execution result"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_39_4",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1000,
+          "y": 100
+        },
+        "data": {
+          "label": "Alert Team",
+          "category": "action",
+          "config": {
+            "channel": "#alerts",
+            "message": "🚨 Website down! Status: {{$json.status}}"
+          },
+          "connector": "slack",
+          "actionId": "send_message",
+          "action": "send_message",
+          "actionName": "Send Message",
+          "description": "Send a message to a Slack channel",
+          "icon": "send",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack",
+          "inputSchema": {
+            "channel": {
+              "type": "string",
+              "required": true,
+              "label": "Channel"
+            },
+            "message": {
+              "type": "string",
+              "required": true,
+              "label": "Message",
+              "inputType": "textarea"
+            }
+          },
+          "configSchema": {
+            "channel": {
+              "type": "string",
+              "required": true,
+              "label": "Channel"
+            },
+            "message": {
+              "type": "string",
+              "required": true,
+              "label": "Message",
+              "inputType": "textarea"
+            }
+          },
+          "outputSchema": {
+            "messageId": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_1",
+        "source": "node_39_1",
+        "target": "node_39_2",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_2",
+        "source": "node_39_2",
+        "target": "node_39_3",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_3",
+        "source": "node_39_3",
+        "target": "node_39_4",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

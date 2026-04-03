@@ -1,0 +1,152 @@
+{
+  "id": "41849c48-9fd9-44a6-ba79-f28862e2ddfe",
+  "name": "Tweet Thread Generator",
+  "description": "Automatically tweet thread generator. Nodes: Google Sheets Trigger, ChatGPT Action, Twitter Action",
+  "category": "ai_automation",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Row Added",
+          "config": {},
+          "trigger": "row_added",
+          "category": "trigger",
+          "connector": "google_sheets",
+          "eventType": "polling",
+          "triggerId": "row_added",
+          "description": "Triggered when new row added",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Generate Thread",
+          "action": "chat_complete",
+          "config": {
+            "model": "gpt-4",
+            "messages": [
+              {
+                "role": "user",
+                "content": "{{prompt}}"
+              }
+            ]
+          },
+          "actionId": "chat_complete",
+          "category": "action",
+          "connector": "openai",
+          "actionName": "Generate Thread",
+          "description": "Generate Thread",
+          "connectorType": "openai",
+          "connectorDisplayName": "ChatGPT"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Post Tweets",
+          "action": "post_tweets",
+          "config": {
+            "text": "{{tweet_text}}"
+          },
+          "actionId": "post_tweets",
+          "category": "action",
+          "connector": "twitter",
+          "actionName": "Post Tweets",
+          "description": "Post Tweets",
+          "connectorType": "twitter",
+          "connectorDisplayName": "Twitter"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#14b8a6",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#14b8a6",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_sheets",
+        "triggerId": "row_added"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_sheets",
+    "openai",
+    "twitter"
+  ],
+  "tags": [
+    "ai_automation",
+    "automation",
+    "google_sheets",
+    "openai",
+    "twitter"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow tweet thread generator using google_sheets, openai, twitter",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"tweet thread generator\" that triggers when triggered when new row added and then Generate Thread via ChatGPT, Post Tweets via Twitter"
+}

@@ -1,0 +1,108 @@
+{
+  "id": "c3d4e5f6-a7b8-4901-c3d4-e5f6a7b89012",
+  "name": "Zoom Recording to Google Drive",
+  "description": "Auto-backup Zoom recordings to Google Drive for archival and compliance. Nodes: Zoom Trigger, Google Drive Action",
+  "category": "productivity",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Recording Completed",
+          "config": {},
+          "trigger": "recording_completed",
+          "category": "trigger",
+          "connector": "zoom",
+          "eventType": "webhook",
+          "triggerId": "recording_completed",
+          "description": "Triggered when Zoom recording is completed",
+          "connectorType": "zoom",
+          "connectorDisplayName": "Zoom"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Upload to Drive",
+          "action": "upload_file",
+          "config": {
+            "folderId": "{{drive_folder_id}}",
+            "fileName": "{{trigger.topic}}_{{trigger.start_time}}.mp4",
+            "fileUrl": "{{trigger.recording_files[0].download_url}}"
+          },
+          "actionId": "upload_file",
+          "category": "action",
+          "connector": "google_drive",
+          "actionName": "Upload File",
+          "description": "Upload file to Google Drive",
+          "connectorType": "google_drive",
+          "connectorDisplayName": "Google Drive"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "zoom",
+        "triggerId": "recording_completed"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "zoom",
+    "google_drive"
+  ],
+  "tags": [
+    "productivity",
+    "automation",
+    "zoom",
+    "google_drive",
+    "recording",
+    "backup"
+  ],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow backs up Zoom recordings to Google Drive using zoom, google_drive",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"zoom recording backup\" that triggers when recording is completed and uploads to Google Drive"
+}

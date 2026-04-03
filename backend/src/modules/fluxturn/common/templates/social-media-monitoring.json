@@ -1,0 +1,1020 @@
+{
+  "id": "dbb31019-bab5-463f-8783-1aa88bd9db3e",
+  "name": "Social Media Monitoring",
+  "description": "Monitor brand mentions across social platforms and analyze sentiment",
+  "category": "other",
+  "canvas": {
+    "edges": [
+      {
+        "id": "xy-edge__twitter_new_mention_1762340946063source-1-openai_chat_complete_1762340969228target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "twitter_new_mention_1762340946063",
+        "target": "openai_chat_complete_1762340969228",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__openai_chat_complete_1762340969228source-1-postgresql_insert_rows_1762341008092target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "openai_chat_complete_1762340969228",
+        "target": "postgresql_insert_rows_1762341008092",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__postgresql_insert_rows_1762341008092source-1-IF_CONDITION_1762341021460target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "postgresql_insert_rows_1762341008092",
+        "target": "IF_CONDITION_1762341021460",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__IF_CONDITION_1762341021460true-slack_send_message_1762341078436target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "IF_CONDITION_1762341021460",
+        "target": "slack_send_message_1762341078436",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "true",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__slack_send_message_1762341078436source-1-google_sheets_append_row_1762341118463target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "slack_send_message_1762341078436",
+        "target": "google_sheets_append_row_1762341118463",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__google_sheets_append_row_1762341118463source-1-gmail_send_email_1762341157252target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "google_sheets_append_row_1762341118463",
+        "target": "gmail_send_email_1762341157252",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "twitter_new_mention_1762340946063",
+        "data": {
+          "icon": "at-sign",
+          "color": "cyan",
+          "label": "New Mention",
+          "category": "trigger",
+          "eventType": "polling",
+          "triggerId": "new_mention",
+          "description": "Triggered when someone mentions you on Twitter",
+          "triggerName": "New Mention",
+          "outputSchema": {
+            "id": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            },
+            "author_id": {
+              "type": "string"
+            },
+            "created_at": {
+              "type": "string"
+            },
+            "public_metrics": {
+              "type": "object"
+            }
+          },
+          "connectorType": "twitter",
+          "webhookRequired": false,
+          "connectorDisplayName": "Twitter/X"
+        },
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 240,
+          "y": 435
+        }
+      },
+      {
+        "id": "openai_chat_complete_1762340969228",
+        "data": {
+          "icon": "Zap",
+          "label": "Chat Completion",
+          "actionId": "chat_complete",
+          "description": "Create a chat completion using GPT models (gpt-4, gpt-3.5-turbo, etc.)",
+          "inputSchema": {
+            "n": {
+              "max": 10,
+              "min": 1,
+              "type": "number",
+              "label": "Number of Completions",
+              "default": 1,
+              "description": "How many completions to generate"
+            },
+            "topP": {
+              "max": 1,
+              "min": 0,
+              "step": 0.1,
+              "type": "number",
+              "label": "Top P",
+              "default": 1,
+              "description": "Nucleus sampling parameter (0-1)"
+            },
+            "model": {
+              "type": "select",
+              "label": "Model",
+              "default": "gpt-3.5-turbo",
+              "options": [
+                {
+                  "label": "GPT-4 Turbo",
+                  "value": "gpt-4-turbo-preview"
+                },
+                {
+                  "label": "GPT-4",
+                  "value": "gpt-4"
+                },
+                {
+                  "label": "GPT-3.5 Turbo",
+                  "value": "gpt-3.5-turbo"
+                },
+                {
+                  "label": "GPT-3.5 Turbo 16K",
+                  "value": "gpt-3.5-turbo-16k"
+                }
+              ],
+              "required": true,
+              "description": "The model to use for chat completion"
+            },
+            "messages": {
+              "type": "array",
+              "label": "Messages",
+              "required": true,
+              "itemSchema": {
+                "role": {
+                  "type": "select",
+                  "label": "Role",
+                  "default": "user",
+                  "options": [
+                    {
+                      "label": "System",
+                      "value": "system"
+                    },
+                    {
+                      "label": "User",
+                      "value": "user"
+                    },
+                    {
+                      "label": "Assistant",
+                      "value": "assistant"
+                    }
+                  ],
+                  "required": true
+                },
+                "content": {
+                  "type": "string",
+                  "label": "Content",
+                  "required": true,
+                  "inputType": "textarea",
+                  "placeholder": "Enter message content..."
+                }
+              },
+              "description": "Array of message objects for the conversation"
+            },
+            "maxTokens": {
+              "max": 32768,
+              "min": 1,
+              "type": "number",
+              "label": "Max Tokens",
+              "default": 16,
+              "description": "Maximum number of tokens to generate"
+            },
+            "temperature": {
+              "max": 2,
+              "min": 0,
+              "step": 0.1,
+              "type": "number",
+              "label": "Temperature",
+              "default": 1,
+              "description": "Controls randomness (0-2). Lower is more deterministic"
+            },
+            "presencePenalty": {
+              "max": 2,
+              "min": -2,
+              "step": 0.1,
+              "type": "number",
+              "label": "Presence Penalty",
+              "default": 0,
+              "description": "Encourage new topics (-2 to 2)"
+            },
+            "frequencyPenalty": {
+              "max": 2,
+              "min": -2,
+              "step": 0.1,
+              "type": "number",
+              "label": "Frequency Penalty",
+              "default": 0,
+              "description": "Penalize repeated tokens (-2 to 2)"
+            }
+          },
+          "connectorType": "openai"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 540,
+          "y": 240
+        }
+      },
+      {
+        "id": "postgresql_insert_rows_1762341008092",
+        "data": {
+          "icon": "Zap",
+          "label": "Insert rows in a table",
+          "actionId": "insert_rows",
+          "description": "Insert one or more rows into a table",
+          "inputSchema": {
+            "table": {
+              "type": "string",
+              "label": "Table Name",
+              "order": 2,
+              "required": true,
+              "description": "Name of the table to insert into",
+              "placeholder": "users",
+              "loadOptionsResource": "tables",
+              "loadOptionsDependsOn": [
+                "schema"
+              ],
+              "loadOptionsDescription": "Fetch tables from selected schema"
+            },
+            "schema": {
+              "type": "string",
+              "label": "Schema",
+              "order": 1,
+              "default": "public",
+              "required": false,
+              "description": "Database schema",
+              "placeholder": "public",
+              "loadOptionsResource": "schemas",
+              "loadOptionsDescription": "Fetch schemas from database"
+            },
+            "returning": {
+              "type": "string",
+              "label": "Returning",
+              "order": 4,
+              "required": false,
+              "description": "Columns to return from inserted rows",
+              "placeholder": "*"
+            },
+            "columnMappings": {
+              "type": "fixedCollection",
+              "items": {
+                "mappings": {
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "label": "Value",
+                      "required": true,
+                      "description": "Value or expression to insert",
+                      "placeholder": "{{ $json.email }}"
+                    },
+                    "column": {
+                      "type": "string",
+                      "label": "Column",
+                      "required": true,
+                      "description": "Column name to insert into",
+                      "loadOptionsResource": "table-columns",
+                      "loadOptionsDependsOn": [
+                        "schema",
+                        "table"
+                      ],
+                      "loadOptionsDescription": "Fetch columns from selected table"
+                    }
+                  }
+                }
+              },
+              "label": "Column Mappings",
+              "order": 3,
+              "required": true,
+              "description": "Map data to table columns",
+              "placeholder": "Add Column Mapping"
+            }
+          },
+          "connectorType": "postgresql"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 645,
+          "y": 465
+        }
+      },
+      {
+        "id": "IF_CONDITION_1762341021460",
+        "data": {
+          "icon": "I",
+          "color": "#a855f7",
+          "label": "If",
+          "category": "control",
+          "conditions": {
+            "combinator": "and",
+            "conditions": [
+              {
+                "operator": {
+                  "type": "string",
+                  "operation": "equals"
+                },
+                "leftValue": "",
+                "rightValue": ""
+              }
+            ]
+          },
+          "ignoreCase": true,
+          "controlType": "if",
+          "description": "Branch workflow based on conditions"
+        },
+        "type": "IF_CONDITION",
+        "position": {
+          "x": 870,
+          "y": 315
+        }
+      },
+      {
+        "id": "slack_send_message_1762341078436",
+        "data": {
+          "icon": "Mail",
+          "label": "Send Message",
+          "actionId": "send_message",
+          "description": "Send a message to a Slack channel or direct message to a user",
+          "inputSchema": {
+            "text": {
+              "type": "string",
+              "label": "Message Text",
+              "helpText": "You can use *bold*, _italic_, ~strikethrough~, `code`, and ```code blocks```",
+              "required": true,
+              "inputType": "textarea",
+              "description": "The text content of your message (supports Slack markdown formatting)",
+              "placeholder": "Enter your message here..."
+            },
+            "threadTs": {
+              "type": "string",
+              "label": "Reply in Thread (Optional)",
+              "helpText": "Leave empty to send as a new message. Use output from previous message node to reply in thread.",
+              "description": "To reply in a thread, provide the timestamp of the parent message",
+              "placeholder": "1234567890.123456"
+            },
+            "channelId": {
+              "type": "string",
+              "label": "Channel or User ID",
+              "helpText": "Right-click on a channel in Slack → View channel details → Copy channel ID",
+              "required": true,
+              "description": "The ID of the channel (starts with C) or user (starts with U) to send the message to",
+              "placeholder": "C01234ABCDE or U01234ABCDE"
+            }
+          },
+          "connectorType": "slack"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1035,
+          "y": 465
+        }
+      },
+      {
+        "id": "google_sheets_append_row_1762341118463",
+        "data": {
+          "icon": "Zap",
+          "label": "Append Row",
+          "actionId": "append_row",
+          "description": "Add a new row to the end of a sheet",
+          "inputSchema": {
+            "values": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "label": "Values",
+              "required": true,
+              "description": "Row data as array of values"
+            },
+            "sheetName": {
+              "type": "string",
+              "label": "Sheet Name",
+              "default": "Sheet1",
+              "required": true,
+              "description": "Name of the sheet tab",
+              "loadOptionsResource": "sheets",
+              "loadOptionsDependsOn": [
+                "spreadsheetId"
+              ],
+              "loadOptionsDescription": "Fetch sheets from selected spreadsheet"
+            },
+            "spreadsheetId": {
+              "type": "string",
+              "label": "Spreadsheet ID",
+              "required": true,
+              "description": "The ID of the spreadsheet",
+              "placeholder": "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms",
+              "loadOptionsResource": "spreadsheets",
+              "loadOptionsDescription": "Fetch spreadsheets from Google Drive"
+            },
+            "valueInputOption": {
+              "type": "select",
+              "label": "Value Input Option",
+              "default": "USER_ENTERED",
+              "options": [
+                {
+                  "label": "User Entered (Formatted)",
+                  "value": "USER_ENTERED"
+                },
+                {
+                  "label": "Raw",
+                  "value": "RAW"
+                }
+              ]
+            }
+          },
+          "connectorType": "google_sheets"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1125,
+          "y": 180
+        }
+      },
+      {
+        "id": "gmail_send_email_1762341157252",
+        "data": {
+          "icon": "Mail",
+          "label": "Send Email",
+          "actionId": "send_email",
+          "description": "Send an email via Gmail",
+          "inputSchema": {
+            "cc": {
+              "type": "string",
+              "label": "CC",
+              "description": "CC recipients (comma-separated)",
+              "placeholder": "cc@example.com"
+            },
+            "to": {
+              "type": "string",
+              "label": "To",
+              "required": true,
+              "description": "Recipient email addresses (comma-separated)",
+              "placeholder": "recipient@example.com"
+            },
+            "bcc": {
+              "type": "string",
+              "label": "BCC",
+              "description": "BCC recipients (comma-separated)",
+              "placeholder": "bcc@example.com"
+            },
+            "body": {
+              "type": "string",
+              "label": "Body",
+              "required": true,
+              "inputType": "richtext",
+              "description": "Email body content (supports HTML)"
+            },
+            "subject": {
+              "type": "string",
+              "label": "Subject",
+              "required": true,
+              "description": "Email subject line"
+            },
+            "attachments": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "string"
+                  },
+                  "filename": {
+                    "type": "string"
+                  },
+                  "mimeType": {
+                    "type": "string"
+                  }
+                }
+              },
+              "label": "Attachments",
+              "description": "File attachments (optional)"
+            }
+          },
+          "connectorType": "gmail"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1365,
+          "y": 480
+        }
+      }
+    ]
+  },
+  "steps": [
+    {
+      "id": "openai_chat_complete_1762340969228",
+      "action": "execute",
+      "params": {
+        "icon": "Zap",
+        "label": "Chat Completion",
+        "actionId": "chat_complete",
+        "description": "Create a chat completion using GPT models (gpt-4, gpt-3.5-turbo, etc.)",
+        "inputSchema": {
+          "n": {
+            "max": 10,
+            "min": 1,
+            "type": "number",
+            "label": "Number of Completions",
+            "default": 1,
+            "description": "How many completions to generate"
+          },
+          "topP": {
+            "max": 1,
+            "min": 0,
+            "step": 0.1,
+            "type": "number",
+            "label": "Top P",
+            "default": 1,
+            "description": "Nucleus sampling parameter (0-1)"
+          },
+          "model": {
+            "type": "select",
+            "label": "Model",
+            "default": "gpt-3.5-turbo",
+            "options": [
+              {
+                "label": "GPT-4 Turbo",
+                "value": "gpt-4-turbo-preview"
+              },
+              {
+                "label": "GPT-4",
+                "value": "gpt-4"
+              },
+              {
+                "label": "GPT-3.5 Turbo",
+                "value": "gpt-3.5-turbo"
+              },
+              {
+                "label": "GPT-3.5 Turbo 16K",
+                "value": "gpt-3.5-turbo-16k"
+              }
+            ],
+            "required": true,
+            "description": "The model to use for chat completion"
+          },
+          "messages": {
+            "type": "array",
+            "label": "Messages",
+            "required": true,
+            "itemSchema": {
+              "role": {
+                "type": "select",
+                "label": "Role",
+                "default": "user",
+                "options": [
+                  {
+                    "label": "System",
+                    "value": "system"
+                  },
+                  {
+                    "label": "User",
+                    "value": "user"
+                  },
+                  {
+                    "label": "Assistant",
+                    "value": "assistant"
+                  }
+                ],
+                "required": true
+              },
+              "content": {
+                "type": "string",
+                "label": "Content",
+                "required": true,
+                "inputType": "textarea",
+                "placeholder": "Enter message content..."
+              }
+            },
+            "description": "Array of message objects for the conversation"
+          },
+          "maxTokens": {
+            "max": 32768,
+            "min": 1,
+            "type": "number",
+            "label": "Max Tokens",
+            "default": 16,
+            "description": "Maximum number of tokens to generate"
+          },
+          "temperature": {
+            "max": 2,
+            "min": 0,
+            "step": 0.1,
+            "type": "number",
+            "label": "Temperature",
+            "default": 1,
+            "description": "Controls randomness (0-2). Lower is more deterministic"
+          },
+          "presencePenalty": {
+            "max": 2,
+            "min": -2,
+            "step": 0.1,
+            "type": "number",
+            "label": "Presence Penalty",
+            "default": 0,
+            "description": "Encourage new topics (-2 to 2)"
+          },
+          "frequencyPenalty": {
+            "max": 2,
+            "min": -2,
+            "step": 0.1,
+            "type": "number",
+            "label": "Frequency Penalty",
+            "default": 0,
+            "description": "Penalize repeated tokens (-2 to 2)"
+          }
+        },
+        "connectorType": "openai"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "postgresql_insert_rows_1762341008092",
+      "action": "execute",
+      "params": {
+        "icon": "Zap",
+        "label": "Insert rows in a table",
+        "actionId": "insert_rows",
+        "description": "Insert one or more rows into a table",
+        "inputSchema": {
+          "table": {
+            "type": "string",
+            "label": "Table Name",
+            "order": 2,
+            "required": true,
+            "description": "Name of the table to insert into",
+            "placeholder": "users",
+            "loadOptionsResource": "tables",
+            "loadOptionsDependsOn": [
+              "schema"
+            ],
+            "loadOptionsDescription": "Fetch tables from selected schema"
+          },
+          "schema": {
+            "type": "string",
+            "label": "Schema",
+            "order": 1,
+            "default": "public",
+            "required": false,
+            "description": "Database schema",
+            "placeholder": "public",
+            "loadOptionsResource": "schemas",
+            "loadOptionsDescription": "Fetch schemas from database"
+          },
+          "returning": {
+            "type": "string",
+            "label": "Returning",
+            "order": 4,
+            "required": false,
+            "description": "Columns to return from inserted rows",
+            "placeholder": "*"
+          },
+          "columnMappings": {
+            "type": "fixedCollection",
+            "items": {
+              "mappings": {
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "label": "Value",
+                    "required": true,
+                    "description": "Value or expression to insert",
+                    "placeholder": "{{ $json.email }}"
+                  },
+                  "column": {
+                    "type": "string",
+                    "label": "Column",
+                    "required": true,
+                    "description": "Column name to insert into",
+                    "loadOptionsResource": "table-columns",
+                    "loadOptionsDependsOn": [
+                      "schema",
+                      "table"
+                    ],
+                    "loadOptionsDescription": "Fetch columns from selected table"
+                  }
+                }
+              }
+            },
+            "label": "Column Mappings",
+            "order": 3,
+            "required": true,
+            "description": "Map data to table columns",
+            "placeholder": "Add Column Mapping"
+          }
+        },
+        "connectorType": "postgresql"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "IF_CONDITION_1762341021460",
+      "action": "execute",
+      "params": {
+        "icon": "I",
+        "color": "#a855f7",
+        "label": "If",
+        "category": "control",
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "leftValue": "",
+              "rightValue": ""
+            }
+          ]
+        },
+        "ignoreCase": true,
+        "controlType": "if",
+        "description": "Branch workflow based on conditions"
+      },
+      "connector": "IF_CONDITION"
+    },
+    {
+      "id": "slack_send_message_1762341078436",
+      "action": "execute",
+      "params": {
+        "icon": "Mail",
+        "label": "Send Message",
+        "actionId": "send_message",
+        "description": "Send a message to a Slack channel or direct message to a user",
+        "inputSchema": {
+          "text": {
+            "type": "string",
+            "label": "Message Text",
+            "helpText": "You can use *bold*, _italic_, ~strikethrough~, `code`, and ```code blocks```",
+            "required": true,
+            "inputType": "textarea",
+            "description": "The text content of your message (supports Slack markdown formatting)",
+            "placeholder": "Enter your message here..."
+          },
+          "threadTs": {
+            "type": "string",
+            "label": "Reply in Thread (Optional)",
+            "helpText": "Leave empty to send as a new message. Use output from previous message node to reply in thread.",
+            "description": "To reply in a thread, provide the timestamp of the parent message",
+            "placeholder": "1234567890.123456"
+          },
+          "channelId": {
+            "type": "string",
+            "label": "Channel or User ID",
+            "helpText": "Right-click on a channel in Slack → View channel details → Copy channel ID",
+            "required": true,
+            "description": "The ID of the channel (starts with C) or user (starts with U) to send the message to",
+            "placeholder": "C01234ABCDE or U01234ABCDE"
+          }
+        },
+        "connectorType": "slack"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "google_sheets_append_row_1762341118463",
+      "action": "execute",
+      "params": {
+        "icon": "Zap",
+        "label": "Append Row",
+        "actionId": "append_row",
+        "description": "Add a new row to the end of a sheet",
+        "inputSchema": {
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "label": "Values",
+            "required": true,
+            "description": "Row data as array of values"
+          },
+          "sheetName": {
+            "type": "string",
+            "label": "Sheet Name",
+            "default": "Sheet1",
+            "required": true,
+            "description": "Name of the sheet tab",
+            "loadOptionsResource": "sheets",
+            "loadOptionsDependsOn": [
+              "spreadsheetId"
+            ],
+            "loadOptionsDescription": "Fetch sheets from selected spreadsheet"
+          },
+          "spreadsheetId": {
+            "type": "string",
+            "label": "Spreadsheet ID",
+            "required": true,
+            "description": "The ID of the spreadsheet",
+            "placeholder": "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms",
+            "loadOptionsResource": "spreadsheets",
+            "loadOptionsDescription": "Fetch spreadsheets from Google Drive"
+          },
+          "valueInputOption": {
+            "type": "select",
+            "label": "Value Input Option",
+            "default": "USER_ENTERED",
+            "options": [
+              {
+                "label": "User Entered (Formatted)",
+                "value": "USER_ENTERED"
+              },
+              {
+                "label": "Raw",
+                "value": "RAW"
+              }
+            ]
+          }
+        },
+        "connectorType": "google_sheets"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "gmail_send_email_1762341157252",
+      "action": "execute",
+      "params": {
+        "icon": "Mail",
+        "label": "Send Email",
+        "actionId": "send_email",
+        "description": "Send an email via Gmail",
+        "inputSchema": {
+          "cc": {
+            "type": "string",
+            "label": "CC",
+            "description": "CC recipients (comma-separated)",
+            "placeholder": "cc@example.com"
+          },
+          "to": {
+            "type": "string",
+            "label": "To",
+            "required": true,
+            "description": "Recipient email addresses (comma-separated)",
+            "placeholder": "recipient@example.com"
+          },
+          "bcc": {
+            "type": "string",
+            "label": "BCC",
+            "description": "BCC recipients (comma-separated)",
+            "placeholder": "bcc@example.com"
+          },
+          "body": {
+            "type": "string",
+            "label": "Body",
+            "required": true,
+            "inputType": "richtext",
+            "description": "Email body content (supports HTML)"
+          },
+          "subject": {
+            "type": "string",
+            "label": "Subject",
+            "required": true,
+            "description": "Email subject line"
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "string"
+                },
+                "filename": {
+                  "type": "string"
+                },
+                "mimeType": {
+                  "type": "string"
+                }
+              }
+            },
+            "label": "Attachments",
+            "description": "File attachments (optional)"
+          }
+        },
+        "connectorType": "gmail"
+      },
+      "connector": "CONNECTOR_ACTION"
+    }
+  ],
+  "triggers": [
+    {
+      "id": "twitter_new_mention_1762340946063",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "icon": "at-sign",
+        "color": "cyan",
+        "label": "New Mention",
+        "category": "trigger",
+        "eventType": "polling",
+        "triggerId": "new_mention",
+        "description": "Triggered when someone mentions you on Twitter",
+        "triggerName": "New Mention",
+        "outputSchema": {
+          "id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "author_id": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "public_metrics": {
+            "type": "object"
+          }
+        },
+        "connectorType": "twitter",
+        "webhookRequired": false,
+        "connectorDisplayName": "Twitter/X"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "CONNECTOR_ACTION",
+    "IF_CONDITION"
+  ],
+  "tags": [],
+  "verified": false,
+  "is_public": true,
+  "metadata": {},
+  "ai_prompt": null
+}

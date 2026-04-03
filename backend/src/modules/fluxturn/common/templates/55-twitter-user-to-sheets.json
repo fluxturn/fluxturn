@@ -1,0 +1,99 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-100000000005",
+  "name": "Twitter User Info to Sheets",
+  "description": "Get Twitter user information and save to Google Sheets. Nodes: Manual Trigger, Twitter Action, Google Sheets Action",
+  "category": "social",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Get User",
+          "config": {
+            "searchBy": "username",
+            "username": "{{twitter_username}}"
+          },
+          "category": "action",
+          "connector": "twitter",
+          "connectorType": "twitter",
+          "connectorDisplayName": "Twitter/X",
+          "description": "Retrieve user information by username or ID",
+          "action": "get_user",
+          "actionId": "get_user",
+          "actionName": "Get User"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Append Row",
+          "config": {
+            "spreadsheetId": "{{spreadsheet_id}}",
+            "sheetName": "{{sheet_name}}",
+            "values": ["{{node_2.output.id}}", "{{node_2.output.username}}", "{{node_2.output.name}}"]
+          },
+          "category": "action",
+          "connector": "google_sheets",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets",
+          "description": "Add a new row to the end of a sheet",
+          "action": "append_row",
+          "actionId": "append_row",
+          "actionName": "Append Row"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [{ "id": "node_1", "type": "MANUAL_TRIGGER", "config": {} }],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": ["twitter", "google_sheets"],
+  "tags": ["social", "automation", "twitter", "google_sheets", "analytics"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow gets Twitter user info and saves to Google Sheets using manual trigger, twitter, google_sheets",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow to get Twitter user information and save to Google Sheets"
+}

@@ -1,0 +1,199 @@
+{
+  "id": "45aa5fff-bc08-4891-99f7-6648cb415621",
+  "name": "Invoice Payment Reminder",
+  "description": "Auto-send reminders for overdue Stripe invoices",
+  "category": "sales",
+  "difficulty": "beginner",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": [
+    "stripe",
+    "gmail",
+    "google_sheets"
+  ],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_27_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 100
+        },
+        "data": {
+          "label": "Invoice Overdue",
+          "category": "trigger",
+          "config": {},
+          "connector": "stripe",
+          "triggerId": "invoice_overdue",
+          "inputSchema": {
+            "pollInterval": {
+              "type": "number",
+              "label": "Poll Interval",
+              "default": 300
+            }
+          },
+          "configSchema": {
+            "pollInterval": {
+              "type": "number",
+              "label": "Poll Interval",
+              "default": 300
+            }
+          },
+          "outputSchema": {
+            "data": {
+              "type": "object",
+              "description": "Trigger event data"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_27_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "label": "Send Reminder",
+          "category": "action",
+          "config": {
+            "to": "={{$json.customer_email}}",
+            "subject": "Payment reminder",
+            "message": "Your invoice is overdue"
+          },
+          "connector": "gmail",
+          "actionId": "send_email",
+          "action": "send_email",
+          "actionName": "Send Email",
+          "description": "Send an email via Gmail",
+          "icon": "send",
+          "connectorType": "gmail",
+          "connectorDisplayName": "Gmail",
+          "inputSchema": {
+            "to": {
+              "type": "string",
+              "required": true,
+              "label": "To"
+            },
+            "subject": {
+              "type": "string",
+              "required": true,
+              "label": "Subject"
+            },
+            "message": {
+              "type": "string",
+              "required": true,
+              "label": "Message",
+              "inputType": "textarea"
+            }
+          },
+          "configSchema": {
+            "to": {
+              "type": "string",
+              "required": true,
+              "label": "To"
+            },
+            "subject": {
+              "type": "string",
+              "required": true,
+              "label": "Subject"
+            },
+            "message": {
+              "type": "string",
+              "required": true,
+              "label": "Message",
+              "inputType": "textarea"
+            }
+          },
+          "outputSchema": {
+            "messageId": {
+              "type": "string",
+              "description": "Sent message ID"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_27_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 700,
+          "y": 100
+        },
+        "data": {
+          "label": "Log",
+          "category": "action",
+          "config": {
+            "spreadsheetId": "{{your_sheet_id}}",
+            "values": "={{$json}}"
+          },
+          "connector": "google_sheets",
+          "actionId": "append_row",
+          "action": "append_row",
+          "actionName": "Append Row",
+          "description": "Append a row to a Google Sheet",
+          "icon": "table",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets",
+          "inputSchema": {
+            "spreadsheetId": {
+              "type": "string",
+              "required": true,
+              "label": "Spreadsheet ID"
+            },
+            "sheetName": {
+              "type": "string",
+              "label": "Sheet Name",
+              "default": "Sheet1"
+            },
+            "values": {
+              "type": "object",
+              "required": true,
+              "label": "Values"
+            }
+          },
+          "configSchema": {
+            "spreadsheetId": {
+              "type": "string",
+              "required": true,
+              "label": "Spreadsheet ID"
+            },
+            "sheetName": {
+              "type": "string",
+              "label": "Sheet Name",
+              "default": "Sheet1"
+            },
+            "values": {
+              "type": "object",
+              "required": true,
+              "label": "Values"
+            }
+          },
+          "outputSchema": {
+            "rowNumber": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_1",
+        "source": "node_27_1",
+        "target": "node_27_2",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_2",
+        "source": "node_27_2",
+        "target": "node_27_3",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

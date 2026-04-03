@@ -1,0 +1,108 @@
+{
+  "id": "389b939b-cfc7-4cf2-834a-1c3e6f9fe25f",
+  "name": "Jotform Submission to Salesforce Contact",
+  "description": "Create Salesforce contacts from Jotform submissions. Nodes: Jotform Trigger, Salesforce Action",
+  "category": "sales",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Form Submitted",
+          "config": {},
+          "category": "trigger",
+          "connector": "jotform",
+          "connectorType": "jotform",
+          "connectorDisplayName": "Jotform",
+          "description": "Triggered on new submission",
+          "trigger": "new_submission",
+          "triggerId": "new_submission",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Contact",
+          "config": {
+            "firstName": "{{form.first_name}}",
+            "lastName": "{{form.last_name}}",
+            "email": "{{form.email}}",
+            "phone": "{{form.phone}}"
+          },
+          "category": "action",
+          "connector": "salesforce",
+          "connectorType": "salesforce",
+          "connectorDisplayName": "Salesforce",
+          "description": "Create Salesforce contact",
+          "action": "create_contact",
+          "actionId": "create_contact",
+          "actionName": "Create Contact"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "jotform",
+        "triggerId": "new_submission"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "jotform",
+    "salesforce"
+  ],
+  "tags": [
+    "sales",
+    "automation",
+    "jotform",
+    "salesforce",
+    "contacts"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow create salesforce contacts from jotform submissions. nodes: jotform trigger, salesforce action using jotform, salesforce",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"form to contact\" that triggers on Jotform submission and creates Salesforce contact"
+}

@@ -1,0 +1,164 @@
+{
+  "id": "661d32e0-fa27-41ac-a27f-ae2301a2b5ee",
+  "name": "YouTube Analytics Dashboard",
+  "description": "Track YouTube channel performance metrics",
+  "category": "analytics",
+  "difficulty": "intermediate",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": [
+    "youtube",
+    "google_sheets"
+  ],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_36_1",
+        "type": "MANUAL_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 100
+        },
+        "data": {
+          "label": "Daily 10 AM",
+          "category": "trigger",
+          "config": {
+            "cronExpression": "0 10 * * *"
+          },
+          "description": "Manually trigger this workflow",
+          "icon": "play",
+          "configSchema": {},
+          "outputSchema": {
+            "timestamp": {
+              "type": "string",
+              "description": "Execution timestamp"
+            }
+          },
+          "inputSchema": {}
+        }
+      },
+      {
+        "id": "node_36_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "label": "Get Stats",
+          "category": "action",
+          "config": {
+            "metrics": [
+              "views",
+              "likes",
+              "comments",
+              "subscribers"
+            ],
+            "dateRange": "yesterday"
+          },
+          "connector": "youtube",
+          "actionId": "get_channel_analytics",
+          "inputSchema": {
+            "data": {
+              "type": "object",
+              "label": "Data",
+              "description": "Action input data"
+            }
+          },
+          "configSchema": {
+            "data": {
+              "type": "object",
+              "label": "Data",
+              "description": "Action input data"
+            }
+          },
+          "outputSchema": {
+            "result": {
+              "type": "object",
+              "description": "Action result"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_36_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 700,
+          "y": 100
+        },
+        "data": {
+          "label": "Update Dashboard",
+          "category": "action",
+          "config": {
+            "spreadsheetId": "{{your_sheet_id}}",
+            "values": "={{$json}}"
+          },
+          "connector": "google_sheets",
+          "actionId": "append_row",
+          "action": "append_row",
+          "actionName": "Append Row",
+          "description": "Append a row to a Google Sheet",
+          "icon": "table",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets",
+          "inputSchema": {
+            "spreadsheetId": {
+              "type": "string",
+              "required": true,
+              "label": "Spreadsheet ID"
+            },
+            "sheetName": {
+              "type": "string",
+              "label": "Sheet Name",
+              "default": "Sheet1"
+            },
+            "values": {
+              "type": "object",
+              "required": true,
+              "label": "Values"
+            }
+          },
+          "configSchema": {
+            "spreadsheetId": {
+              "type": "string",
+              "required": true,
+              "label": "Spreadsheet ID"
+            },
+            "sheetName": {
+              "type": "string",
+              "label": "Sheet Name",
+              "default": "Sheet1"
+            },
+            "values": {
+              "type": "object",
+              "required": true,
+              "label": "Values"
+            }
+          },
+          "outputSchema": {
+            "rowNumber": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_1",
+        "source": "node_36_1",
+        "target": "node_36_2",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_2",
+        "source": "node_36_2",
+        "target": "node_36_3",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

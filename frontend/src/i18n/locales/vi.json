@@ -1,0 +1,1187 @@
+{
+  "nav": {
+    "features": "Tinh nang",
+    "tutorials": "Huong dan",
+    "templates": "Mau",
+    "capabilities": "Kha nang",
+    "useCases": "Truong hop su dung",
+    "whyFluxTurn": "Tai sao FluxTurn",
+    "pricing": "Bang gia",
+    "documents": "Tai lieu",
+    "blog": "Blog",
+    "login": "Dang nhap",
+    "getStarted": "Bat dau",
+    "dashboard": "Bang dieu khien",
+    "admin": "Quan tri"
+  },
+  "hero": {
+    "badge": "Nen tang tu dong hoa quy trinh khong can code",
+    "title1": "Tu dong hoa",
+    "title2": "quy trinh lam viec trong",
+    "title3": "vai phut",
+    "subtitle": "Ket noi cac ung dung, tu dong hoa quy trinh lam viec va toi uu hoa hoat dong kinh doanh voi nen tang khong can code manh me cua chung toi. Khong can ky nang ky thuat.",
+    "cta": "Bat dau dung thu mien phi",
+    "workflowRunning": "Quy trinh tu dong dang chay",
+    "personas": {
+      "marketing": "Marketing",
+      "marketingTitle": "Tu dong hoa chien dich email",
+      "sales": "Kinh doanh",
+      "salesTitle": "Tu dong dong bo lead voi CRM",
+      "hr": "Nhan su",
+      "hrTitle": "Tiep nhan nhan vien moi",
+      "aiTools": "Cong cu AI",
+      "aiToolsTitle": "Xu ly yeu cau bang AI"
+    },
+    "workflow": {
+      "formSubmit": "Gui bieu mau",
+      "website": "Trang web",
+      "addToList": "Them vao danh sach",
+      "sendEmail": "Gui email",
+      "email": "Email",
+      "trackEvent": "Theo doi su kien",
+      "analytics": "Phan tich",
+      "newLead": "Lead moi",
+      "webForm": "Bieu mau web",
+      "enrichData": "Lam giau du lieu",
+      "addToCRM": "Them vao CRM",
+      "notifySales": "Thong bao kinh doanh",
+      "newEmployee": "Nhan vien moi",
+      "hrSystem": "He thong nhan su",
+      "createEmail": "Tao email",
+      "setupSlack": "Cai dat Slack",
+      "addToPayroll": "Them vao bang luong",
+      "sendWelcome": "Gui loi chao mung",
+      "userRequest": "Yeu cau nguoi dung",
+      "processAI": "Xu ly AI",
+      "executeTask": "Thuc thi tac vu",
+      "sendResult": "Gui ket qua"
+    }
+  },
+  "powerful": {
+    "badge": "Manh me va don gian",
+    "title": "Dua",
+    "titleHighlight": "AI va tu dong hoa",
+    "titleEnd": "vao hoat dong kinh doanh cua ban",
+    "subtitle": "Khong can lap trinh vien dat do. Khong can dao tao hang thang. Chi can tu dong hoa manh me hoat dong ngay tu ngay dau.",
+    "stats": {
+      "setupTime": "5 phut",
+      "setupTimeLabel": "Thoi gian cai dat trung binh",
+      "integrations": "120+",
+      "integrationsLabel": "Tich hop",
+      "uptime": "99.9%",
+      "uptimeLabel": "Thoi gian hoat dong"
+    },
+    "cta": "Bat dau xay dung mien phi",
+    "cards": {
+      "lightning": {
+        "title": "Cai dat sieu nhanh",
+        "description": "Mau co san va giao dien keo tha. Bat dau tu dong hoa trong vai phut ma khong can code."
+      },
+      "ai": {
+        "title": "Tich hop AI san co",
+        "description": "Ket noi OpenAI, Claude va cac mo hinh AI khac chi voi mot cu nhap chuot. Khong phuc tap voi API."
+      },
+      "security": {
+        "title": "Bao mat cap doanh nghiep",
+        "description": "Tuan thu SOC2 voi ma hoa dau cuoi. Tu luu tru hoac su dung cloud bao mat cua chung toi."
+      }
+    }
+  },
+  "aiPromptBuilder": {
+    "badge": "Duoc ho tro boi AI",
+    "heading": "Ban muon tu dong hoa dieu gi?",
+    "subtitle": "Mo ta, thuc thi va trien khai quy trinh voi AI trong vai giay",
+    "placeholder": "Mo ta dieu ban muon tu dong hoa...",
+    "generate": "Tao",
+    "generating": "Dang tao...",
+    "tryThese": "Thu mot trong nhung goi y nay:",
+    "loginMessage": "Dang nhap de tao quy trinh lam viec voi AI",
+    "helperText": "Nhan Enter de tao hoac nhap vao nut",
+    "videoTitle": "Tao quy trinh voi AI",
+    "cards": {
+      "naturalLanguage": "Ngon ngu tu nhien",
+      "noCode": "Xay dung khong can code",
+      "aiGeneration": "Tao voi AI",
+      "integrations": "120+ tich hop"
+    },
+    "suggestions": {
+      "gmail": {
+        "title": "Gui email bang Gmail",
+        "description": "Tao bieu mau kich hoat voi tat ca cac truong can thiet cho Gmail va gui di"
+      },
+      "translate": {
+        "title": "Dich tin nhan den",
+        "description": "Tu dong chuyen doi tin nhan sang ngon ngu uu thich cua ban"
+      },
+      "priceAlert": {
+        "title": "Canh bao khi gia giam",
+        "description": "Theo doi san pham va nhan thong bao khi dat muc gia muc tieu"
+      },
+      "emailSummary": {
+        "title": "Tom tat email hang ngay",
+        "description": "Nhan ban tom tat nhanh ve nhung diem noi bat trong hop thu moi sang"
+      },
+      "supportDraft": {
+        "title": "Soan tra loi cho phieu ho tro",
+        "description": "Tao ban nhap cau tra loi huu ich cho cac yeu cau cua khach hang"
+      },
+      "crmUpdate": {
+        "title": "Cap nhat CRM tu bieu mau",
+        "description": "Them lead moi vao CRM ma khong can nhap thu cong"
+      },
+      "slackTasks": {
+        "title": "Tao tac vu tu tin nhan Slack",
+        "description": "Chuyen tin nhan Slack thanh tac vu bang phan hoi hoac lenh"
+      }
+    },
+    "errors": {
+      "emptyPrompt": "Vui long nhap noi dung",
+      "creationFailed": "Loi khi tao quy trinh lam viec",
+      "noOrganization": "Khong tim thay to chuc nao",
+      "noProject": "Khong tim thay du an nao. Vui long tao mot du an truoc."
+    }
+  },
+  "video": {
+    "badge": "Xem thuc te",
+    "title": "Xay dung quy trinh truc quan",
+    "subtitle": "Xem viec ket noi ung dung va tao tu dong hoa manh me de dang nhu the nao voi trinh bien tap keo tha truc quan cua chung toi",
+    "editor": "Trinh bien tap quy trinh FluxTurn",
+    "connected": "Da ket noi",
+    "dragDrop": "Giao dien keo va tha"
+  },
+  "buildYourWay": {
+    "interactive": {
+      "title": "Trai nghiem",
+      "titleHighlight": "Trinh bien tap truc quan",
+      "subtitle": "Keo cac node, ket noi chung va kham pha viec xay dung quy trinh lam viec de dang nhu the nao",
+      "addNodes": "Them node",
+      "dragHint": "Keo node vao khung lam viec",
+      "canvasHint": "Keo node vao day va ket noi chung",
+      "startBuilding": "Bat dau xay dung quy trinh thuc te",
+      "feature1": {
+        "title": "Keo va tha",
+        "desc": "Chi can keo cac node tu thanh ben vao khung lam viec"
+      },
+      "feature2": {
+        "title": "Ket noi truc quan",
+        "desc": "Ket noi cac node bang cach keo tu dau noi nay sang dau noi khac"
+      },
+      "feature3": {
+        "title": "Trien khai tuc thi",
+        "desc": "Trien khai quy trinh lam viec cua ban chi voi mot cu nhap chuot"
+      }
+    }
+  },
+  "templates": {
+    "badge": "300+ mau",
+    "title": "Bat dau voi",
+    "titleHighlight": "mau san sang su dung",
+    "subtitle": "Kham pha cac mau quy trinh. Chi can nhap va tuy chinh.",
+    "clickToPreview": "Nhap vao bat ky mau nao de xem truoc quy trinh",
+    "useForFree": "Dung mien phi",
+    "useTemplate": "Su dung mau nay",
+    "creating": "Dang tao...",
+    "browseAll": "Xem tat ca cac mau",
+    "browseHint": "Kham pha 300+ mau tu dong hoa san sang su dung",
+    "verified": "Da xac minh",
+    "users": "Nguoi dung",
+    "popular": "Pho bien",
+    "steps": "Buoc",
+    "integrations": "Tich hop",
+    "workflowPreview": "Xem truoc quy trinh",
+    "previewNotAvailable": "Khong co ban xem truoc",
+    "viewDetails": "Xem chi tiet mau de biet them thong tin",
+    "loginMessage": "Dang nhap de su dung mau nay",
+    "errors": {
+      "noOrganization": "Khong tim thay to chuc nao",
+      "noProject": "Khong tim thay du an nao",
+      "creationFailed": "Loi khi tao quy trinh lam viec"
+    },
+    "success": {
+      "created": "Quy trinh lam viec da duoc tao tu mau"
+    }
+  },
+  "aiAgent": {
+    "badge": "Tu dong hoa voi AI",
+    "title": "Kham pha",
+    "titleHighlight": "Node tac nhan AI",
+    "subtitle": "Mot node manh me co the suy nghi, quyet dinh va hanh dong. Ket noi bat ky cong cu nao va de AI xu ly logic.",
+    "canvasCaption": "Tac nhan AI nhan dau vao, chon cong cu phu hop va tu dong thuc thi",
+    "feature1Title": "Bat ky cong cu, mot node",
+    "feature1Desc": "Ket noi Gmail, Slack, Notion hoac bat ky connector nao trong 120+ connector lam cong cu AI",
+    "feature2Title": "AI quyet dinh",
+    "feature2Desc": "Tac nhan phan tich dau vao va tu dong chon cong cu phu hop",
+    "feature3Title": "Ban nam quyen kiem soat",
+    "feature3Desc": "Cau hinh so vong lap toi da, prompt he thong va cac cong cu kha dung",
+    "cta": "Thu tac nhan AI",
+    "ctaHint": "Khong can the tin dung. Co goi mien phi",
+    "creating": "Dang tao...",
+    "loginMessage": "Dang nhap de thu tac nhan AI",
+    "errors": {
+      "noOrganization": "Khong tim thay to chuc nao",
+      "noProject": "Khong tim thay du an nao",
+      "creationFailed": "Loi khi tao quy trinh lam viec"
+    },
+    "success": {
+      "created": "Quy trinh tac nhan AI da duoc tao"
+    }
+  },
+  "templatesPage": {
+    "title": "Mau",
+    "titleHighlight": "quy trinh lam viec",
+    "subtitle": "Kham pha thu vien mau quy trinh san sang su dung. Nhap vao bat ky mau nao de su dung mien phi.",
+    "searchPlaceholder": "Tim kiem mau...",
+    "showingCount": "Hien thi",
+    "of": "trong",
+    "template": "mau",
+    "templates": "mau",
+    "loading": "Dang tai mau...",
+    "loadFailed": "Loi khi tai mau",
+    "retry": "Thu lai",
+    "noResults": "Khong tim thay mau nao",
+    "noResultsHint": "Thu dieu chinh tim kiem hoac bo loc",
+    "clearFilters": "Xoa bo loc",
+    "uses": "luot dung",
+    "useTemplate": "Su dung mau",
+    "loadMore": "Tai them mau",
+    "verified": "Da xac minh",
+    "steps": "Buoc",
+    "users": "Nguoi dung",
+    "integrations": "Tich hop",
+    "creating": "Dang tao...",
+    "useThisTemplate": "Su dung mau nay",
+    "previewNotAvailable": "Khong co ban xem truoc",
+    "previewHint": "Nhap \"Su dung mau nay\" de bat dau",
+    "workflowPreview": "Xem truoc quy trinh",
+    "all": "Tat ca"
+  },
+  "features": {
+    "title": "Tang cuong quy trinh lam viec:",
+    "titleExplore": "kham pha",
+    "titleHighlight": "nen tang",
+    "titleEnd": "tat ca trong mot.",
+    "subtitle": "Tat ca nhung gi ban can de tu dong hoa quy trinh va ket noi toan bo ha tang cong nghe",
+    "cta": "Kham pha tinh nang",
+    "bento": {
+      "ai-workflow": {
+        "title": "Tao quy trinh voi AI",
+        "description": "Mo ta dieu ban muon bang ngon ngu don gian. AI xay dung toan bo quy trinh trong vai giay."
+      },
+      "visual-builder": {
+        "title": "Xay dung truc quan",
+        "description": "Tao quy trinh bang keo va tha"
+      },
+      "ai-agent": {
+        "title": "Tac nhan AI",
+        "description": "Tu dong hoa thong minh co kha nang suy nghi va hanh dong"
+      },
+      "integrations": {
+        "title": "Tich hop",
+        "description": "Ket noi tat ca ung dung yeu thich cua ban"
+      },
+      "custom-code": {
+        "title": "Code tuy chinh",
+        "description": "JavaScript, Python hoac bat ky ngon ngu nao"
+      }
+    },
+    "items": {
+      "visualBuilder": {
+        "title": "Xay dung quy trinh truc quan",
+        "description": "Xay dung quy trinh tu dong hoa phuc tap voi giao dien keo tha truc quan. Khong can code."
+      },
+      "conditionalLogic": {
+        "title": "Logic co dieu kien",
+        "description": "Tao quy trinh tinh vi voi phan nhanh su dung dieu kien if/else, vong lap va cay quyet dinh."
+      },
+      "customCode": {
+        "title": "Thuc thi code tuy chinh",
+        "description": "Chay code JavaScript, Python hoac bat ky ngon ngu nao truc tiep trong quy trinh de co su linh hoat toi da."
+      },
+      "cloudHosted": {
+        "title": "Cloud va tu luu tru",
+        "description": "Trien khai tren ha tang cloud cua chung toi hoac tu luu tru tren may chu cua ban de co quyen kiem soat toan dien."
+      },
+      "security": {
+        "title": "Bao mat cap doanh nghiep",
+        "description": "Ma hoa cap ngan hang, tuan thu SOC2 va kiem soat truy cap chi tiet de bao ve du lieu cua ban."
+      },
+      "realtime": {
+        "title": "Thuc thi thoi gian thuc",
+        "description": "Thuc thi quy trinh sieu nhanh voi giam sat thoi gian thuc va nhat ky thuc thi chi tiet."
+      }
+    }
+  },
+  "integrations": {
+    "title": "Ket noi tat ca",
+    "subtitle": "120+ tich hop san co voi cac ung dung va dich vu yeu thich cua ban",
+    "hoverHint": "Di chuot de tam dung. 120+ tich hop kha dung"
+  },
+  "useCases": {
+    "title": "Duoc tao cho",
+    "titleHighlight": "moi truong hop su dung",
+    "subtitle": "Tu tu dong hoa marketing den pipeline du lieu phuc tap",
+    "viewAll": "Xem tat ca truong hop su dung",
+    "items": {
+      "marketing": {
+        "title": "Tu dong hoa marketing",
+        "description": "Tu dong hoa chien dich email, bai dang mang xa hoi va quy trinh thu thap lead.",
+        "stats": "CHIEN DICH NHANH HON 10 LAN",
+        "category": "Marketing"
+      },
+      "api": {
+        "title": "Tich hop API",
+        "description": "Ket noi nhieu API va dich vu de tao dong du lieu lien mach giua cac nen tang.",
+        "stats": "120+ TICH HOP",
+        "category": "CNTT va DevOps"
+      },
+      "data": {
+        "title": "Xu ly du lieu",
+        "description": "Bien doi, tong hop va phan tich du lieu tu nhieu nguon trong thoi gian thuc.",
+        "stats": "HANG TRIEU BAN GHI",
+        "category": "Du lieu va phan tich"
+      },
+      "ai": {
+        "title": "AI va Machine Learning",
+        "description": "Tich hop mo hinh AI va pipeline ML vao quy trinh tu dong hoa cua ban.",
+        "stats": "QUY TRINH DUOC HO TRO BOI AI",
+        "category": "AI va ML"
+      }
+    }
+  },
+  "whyFluxTurn": {
+    "title": "Tai sao",
+    "subtitle": "Bien doi cac quy trinh phuc tap thanh quy trinh lam viec don gian va hieu qua",
+    "efficiency": "Hieu qua",
+    "status": {
+      "complex": "Quy trinh phuc tap",
+      "optimized": "Toi uu voi FluxTurn"
+    },
+    "stats": {
+      "nodes": "Node:",
+      "time": "Thoi gian cai dat:"
+    },
+    "analyzing": "Dang phan tich do phuc tap cua quy trinh...",
+    "cta": "Bat dau don gian hoa"
+  },
+  "pricing": {
+    "badge": "Bang gia don gian",
+    "title": "Chon",
+    "titleHighlight": "goi hoan hao",
+    "subtitle": "Bat dau mien phi va mo rong khi ban phat trien. Khong co chi phi an.",
+    "monthly": "Hang thang",
+    "yearly": "Hang nam",
+    "twoMonthsFree": "Mien phi 2 thang",
+    "perMonth": "moi thang",
+    "forever": "mai mai",
+    "year": "nam",
+    "viewFullDetails": "Xem chi tiet day du bang gia",
+    "mostPopular": "Pho bien nhat",
+    "plans": {
+      "free": {
+        "name": "Mien phi",
+        "description": "Hoan hao cho ca nhan",
+        "features": [
+          "1.000 luot thuc thi/thang",
+          "20 quy trinh hoat dong",
+          "Ho tro cong dong",
+          "Tich hop co ban"
+        ],
+        "cta": "Bat dau mien phi"
+      },
+      "starter": {
+        "name": "Starter",
+        "description": "Cho nhom nho",
+        "features": [
+          "10.000 luot thuc thi/thang",
+          "50 quy trinh hoat dong",
+          "Ho tro qua email",
+          "Tat ca tich hop"
+        ],
+        "cta": "Bat dau dung thu mien phi"
+      },
+      "professional": {
+        "name": "Chuyen nghiep",
+        "description": "Cho nhom dang phat trien",
+        "features": [
+          "50.000 luot thuc thi/thang",
+          "Quy trinh khong gioi han",
+          "Ho tro uu tien",
+          "Xac thuc SSO"
+        ],
+        "cta": "Bat dau dung thu mien phi"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "Cho to chuc lon",
+        "features": [
+          "200.000 luot thuc thi/thang",
+          "Ho tro chuyen trach",
+          "SLA 99.9%",
+          "Tuy chon on-premise"
+        ],
+        "cta": "Lien he kinh doanh"
+      }
+    }
+  },
+  "blog": {
+    "title": "Bai viet moi nhat tu blog",
+    "subtitle": "Cap nhat nhung thong tin moi nhat ve tu dong hoa, meo va cau chuyen thanh cong",
+    "featured": "Noi bat",
+    "minRead": "phut doc",
+    "by": "Boi",
+    "readMore": "Doc them",
+    "viewAllPosts": "Xem tat ca bai viet"
+  },
+  "blogPage": {
+    "title": "Blog",
+    "subtitle": "Thong tin ve tu dong hoa quy trinh va tang truong",
+    "newPost": "Bai viet moi",
+    "myPosts": "Bai viet cua toi",
+    "search": {
+      "placeholder": "Tim kiem bai viet..."
+    },
+    "browse": {
+      "title": "Duyet",
+      "latest": "Moi nhat",
+      "popular": "Pho bien",
+      "featured": "Noi bat",
+      "allPosts": "Tat ca bai viet"
+    },
+    "categories": {
+      "title": "Danh muc",
+      "all": "Tat ca danh muc"
+    },
+    "loading": "Dang tai...",
+    "error": {
+      "loadFailed": "Loi khi tai bai viet",
+      "tryAgain": "Thu lai"
+    },
+    "empty": {
+      "title": "Khong tim thay bai viet nao",
+      "subtitle": "Quay lai sau de xem noi dung moi!"
+    },
+    "pagination": {
+      "previous": "Truoc",
+      "next": "Tiep"
+    },
+    "post": {
+      "backToBlog": "Quay lai blog",
+      "notFound": {
+        "title": "Khong tim thay bai viet",
+        "message": "Bai viet ban tim khong ton tai."
+      },
+      "minRead": "phut doc",
+      "views": "luot xem",
+      "by": "Boi",
+      "featured": "Noi bat",
+      "edit": "Chinh sua",
+      "delete": "Xoa",
+      "deleteConfirm": "Ban co chac muon xoa bai viet nay khong? Hanh dong nay khong the hoan tac.",
+      "signInToRate": "Dang nhap de danh gia bai viet nay"
+    },
+    "comments": {
+      "title": "Binh luan",
+      "comment": "binh luan",
+      "comments": "binh luan",
+      "placeholder": "Chia se suy nghi cua ban...",
+      "signInPrompt": "de binh luan.",
+      "signIn": "Dang nhap",
+      "noComments": "Chua co binh luan. Hay la nguoi dau tien binh luan!",
+      "reply": "Tra loi",
+      "replying": "Dang tra loi...",
+      "submit": "Gui",
+      "cancel": "Huy"
+    },
+    "card": {
+      "minRead": "phut doc",
+      "by": "Boi"
+    }
+  },
+  "comparison": {
+    "badge": "So sanh nen tang",
+    "title": "Tai sao chon",
+    "subtitle": "Xem FluxTurn so sanh voi cac nen tang tu dong hoa quy trinh khac nhu the nao",
+    "getStarted": "Bat dau mien phi",
+    "footnote": "* Phien ban tu luu tru. Gia va tinh nang co the thay doi. Cap nhat lan cuoi: thang 1/2025.",
+    "categories": {
+      "corefeatures": "Tinh nang chinh",
+      "deployment": "Trien khai",
+      "pricing": "Bang gia",
+      "integrations": "Tich hop",
+      "performance": "Hieu suat",
+      "collaboration": "Cong tac"
+    },
+    "features": {
+      "visualBuilder": "Xay dung quy trinh truc quan",
+      "aiWorkflowGeneration": "Tao quy trinh voi AI",
+      "naturalLanguagePrompts": "Prompt ngon ngu tu nhien",
+      "customCodeSupport": "Ho tro code tuy chinh",
+      "selfHosting": "Tuy chon tu luu tru",
+      "cloudHosted": "Luu tru tren cloud",
+      "freeWorkflows": "Quy trinh mien phi",
+      "freeOperations": "Thao tac mien phi",
+      "startingPrice": "Gia khoi diem",
+      "integrations": "Tich hop",
+      "apiAccess": "Truy cap API",
+      "webhooks": "Webhooks",
+      "realtimeExecution": "Thuc thi thoi gian thuc",
+      "errorHandling": "Xu ly loi",
+      "teamCollaboration": "Cong tac nhom",
+      "versionHistory": "Lich su phien ban"
+    }
+  },
+  "faq": {
+    "badge": "Ban co cau hoi?",
+    "title": "Cau hoi thuong gap",
+    "subtitle": "Tat ca nhung gi ban can biet ve FluxTurn. Khong tim thay dieu ban can? Hay lien he voi doi ngu ho tro cua chung toi.",
+    "items": {
+      "whatIs": {
+        "question": "FluxTurn la gi va hoat dong nhu the nao?",
+        "answer": "FluxTurn la mot nen tang tu dong hoa quy trinh lam viec manh me cho phep ban ket noi ung dung va tu dong hoa cac tac vu lap di lap lai ma khong can lap trinh. Su dung trinh xay dung truc quan keo tha, ban co the tao cac quy trinh tu dong kich hoat boi su kien, lich trinh hoac kich hoat thu cong. Chi can ket noi ung dung, dinh nghia logic va de FluxTurn xu ly phan con lai."
+      },
+      "codingSkills": {
+        "question": "Toi co can biet lap trinh de su dung FluxTurn khong?",
+        "answer": "Khong can ky nang lap trinh! FluxTurn co trinh xay dung truc quan truc quan noi ban co the keo tha cac node, ket noi chung va cau hinh hanh dong thong qua cac bieu mau don gian. Tuy nhien, cho nguoi dung nang cao, chung toi cung ho tro thuc thi code tuy chinh bang JavaScript va Python trong quy trinh de co su linh hoat toi da."
+      },
+      "integrations": {
+        "question": "Toi co the ket noi nhung ung dung va dich vu nao?",
+        "answer": "FluxTurn tich hop voi hon 100 ung dung pho bien bao gom Gmail, Slack, Google Sheets, Telegram, Discord, Stripe, Shopify, OpenAI, co so du lieu nhu PostgreSQL va MongoDB, va nhieu hon nua. Chung toi lien tuc bo sung tich hop moi dua tren yeu cau cua nguoi dung."
+      },
+      "freePlan": {
+        "question": "Co goi mien phi khong?",
+        "answer": "Co! Chung toi cung cap goi mien phi hao phong bao gom toi 500 luot thuc thi quy trinh moi thang, truy cap tat ca tich hop va kha nang tao quy trinh khong gioi han. Hoan hao cho du an ca nhan va nhom nho bat dau voi tu dong hoa."
+      },
+      "selfHost": {
+        "question": "Toi co the tu luu tru FluxTurn tren may chu rieng khong?",
+        "answer": "Hoan toan co the! FluxTurn cung cap ca tuy chon luu tru tren cloud va tu luu tru. Giai phap tu luu tru cho ban toan quyen kiem soat du lieu va ha tang. Ly tuong cho doanh nghiep co yeu cau tuan thu nghiem ngat hoac nhom muon tu quan ly viec trien khai."
+      },
+      "security": {
+        "question": "Du lieu cua toi an toan nhu the nao voi FluxTurn?",
+        "answer": "Bao mat la uu tien hang dau cua chung toi. Chung toi su dung ma hoa AES-256 cap ngan hang cho tat ca du lieu luu tru va TLS 1.3 cho du lieu truyen tai. Thong tin dang nhap cua ban duoc ma hoa va khong bao gio luu duoi dang van ban thuan. Chung toi cung cung cap tuan thu SOC2, kiem soat truy cap dua tren vai tro va nhat ky kiem toan cho khach hang doanh nghiep."
+      },
+      "failedWorkflow": {
+        "question": "Dieu gi xay ra khi quy trinh lam viec that bai?",
+        "answer": "FluxTurn cung cap xu ly loi toan dien va giam sat. Khi quy trinh that bai, ban se nhan thong bao tuc thi qua email hoac kenh uu thich. Nhat ky thuc thi chi tiet giup ban xac dinh va khac phuc van de nhanh chong. Ban cung co the cau hinh thu lai tu dong va hanh dong du phong cho cac quy trinh quan trong."
+      },
+      "aiWorkflows": {
+        "question": "Toi co the su dung AI trong quy trinh lam viec khong?",
+        "answer": "Co! FluxTurn co kha nang AI tich hop duoc ho tro boi OpenAI, Anthropic va cac nha cung cap AI hang dau khac. Ban co the su dung AI de tao noi dung, phan tich du lieu, ra quyet dinh, phan loai thong tin va nhieu hon nua. Cac node tac nhan AI giup de dang them tri tue vao bat ky quy trinh lam viec nao."
+      }
+    }
+  },
+  "footer": {
+    "description": "Xay dung ung dung manh me voi nen tang backend toan dien cua chung toi. Tat ca nhung gi ban can tai mot noi.",
+    "sections": {
+      "product": "San pham",
+      "developers": "Nha phat trien",
+      "company": "Cong ty",
+      "legal": "Phap ly"
+    },
+    "links": {
+      "features": "Tinh nang",
+      "visualBuilders": "Xay dung truc quan",
+      "aiPlatform": "Nen tang AI",
+      "integrations": "Tich hop",
+      "pricing": "Bang gia",
+      "documentation": "Tai lieu",
+      "tutorials": "Huong dan",
+      "apiReference": "Tai lieu tham khao API",
+      "examples": "Vi du",
+      "support": "Ho tro",
+      "privacy": "Quyen rieng tu",
+      "terms": "Dieu khoan",
+      "security": "Bao mat"
+    },
+    "newsletter": {
+      "title": "Cap nhat thong tin",
+      "description": "Nhan tin tuc moi nhat ve cac tinh nang va ban phat hanh moi.",
+      "placeholder": "Nhap email cua ban",
+      "subscribe": "Dang ky",
+      "subscribing": "Dang dang ky..."
+    },
+    "copyright": "\u00a9 {{year}} Info Inlet. Moi quyen duoc bao luu.",
+    "builtWith": "Duoc tao voi",
+    "byTeam": "boi doi ngu Info Inlet",
+    "docs": "Tai lieu"
+  },
+  "language": {
+    "en": "Tieng Anh",
+    "ja": "Tieng Nhat",
+    "zh": "Tieng Trung",
+    "ko": "Tieng Han",
+    "es": "Tieng Tay Ban Nha",
+    "fr": "Tieng Phap",
+    "de": "Tieng Duc"
+  },
+  "featuresPage": {
+    "badge": "Tinh nang manh me",
+    "title": "Tat ca nhung gi ban can de",
+    "titleHighlight": "tu dong hoa",
+    "subtitle": "Kham pha cac tinh nang manh me giup FluxTurn tro thanh nen tang tu dong hoa quy trinh linh hoat nhat cho cac nhom hien dai.",
+    "cta": "Bat dau dung thu mien phi",
+    "viewDocs": "Xem tai lieu",
+    "stats": {
+      "workflows": "Quy trinh khong gioi han",
+      "workflowsValue": "Xay dung",
+      "integrations": "Tich hop",
+      "codeSupport": "Ho tro code",
+      "security": "Bao mat"
+    },
+    "coreFeatures": {
+      "title": "Tinh nang chinh",
+      "subtitle": "Kham pha cac kha nang manh me tao nen su khac biet cua FluxTurn"
+    },
+    "features": {
+      "visualBuilder": {
+        "title": "Xay dung quy trinh truc quan",
+        "desc": "Giao dien keo tha de xay dung quy trinh tu dong hoa phuc tap ma khong can code."
+      },
+      "conditionalLogic": {
+        "title": "Logic co dieu kien",
+        "desc": "Tao quy trinh voi phan nhanh su dung dieu kien if/else, vong lap va cay quyet dinh."
+      },
+      "customCode": {
+        "title": "Code tuy chinh",
+        "desc": "Chay code JavaScript hoac Python de co su linh hoat toi da."
+      },
+      "integrations": {
+        "title": "120+ tich hop",
+        "desc": "Ket noi ngay voi tat ca ung dung va dich vu yeu thich cua ban."
+      },
+      "realtime": {
+        "title": "Thuc thi thoi gian thuc",
+        "desc": "Thuc thi quy trinh sieu nhanh voi giam sat thoi gian thuc."
+      },
+      "security": {
+        "title": "Bao mat cap doanh nghiep",
+        "desc": "Ma hoa cap ngan hang, tuan thu SOC2 va kiem soat truy cap chi tiet."
+      },
+      "deployment": {
+        "title": "Cloud va tu luu tru",
+        "desc": "Trien khai tren cloud cua chung toi hoac tu luu tru tren ha tang cua ban."
+      },
+      "scheduling": {
+        "title": "Lap lich nang cao",
+        "desc": "Lap lich quy trinh chay vao thoi diem hoac khoang thoi gian cu the."
+      },
+      "templates": {
+        "title": "300+ mau",
+        "desc": "Bat dau nhanh voi cac mau san co cho cac truong hop su dung pho bien."
+      }
+    },
+    "ctaSection": {
+      "title": "San sang bat dau?",
+      "subtitle": "Bat dau tu dong hoa quy trinh ngay hom nay voi FluxTurn. Khong can the tin dung.",
+      "cta": "Bat dau dung thu mien phi",
+      "viewPricing": "Xem bang gia"
+    },
+    "visualSection": {
+      "badge": "Trinh bien tap quy trinh truc quan",
+      "title": "Xay dung tu dong hoa bang",
+      "titleHighlight": "keo va tha",
+      "subtitle": "Tao quy trinh tu dong hoa manh me mot cach truc quan. Ket noi cac node, cau hinh hanh dong va trien khai tu dong hoa voi trinh bien tap truc quan.",
+      "videoTitle": "Trinh bien tap quy trinh truc quan FluxTurn",
+      "floatingBadge": "Keo va tha",
+      "cta": "Thu trinh bien tap truc quan",
+      "features": {
+        "dragDrop": {
+          "title": "Keo tha truc quan",
+          "desc": "Chi can keo node vao khung lam viec va ket noi de xay dung quy trinh. Khong can kinh nghiem lap trinh."
+        },
+        "integrations": {
+          "title": "120+ tich hop san co",
+          "desc": "Ket noi ngay voi ung dung yeu thich. Gmail, Slack, Notion, Stripe va hang tram ung dung khac san sang su dung."
+        },
+        "realtime": {
+          "title": "Kiem thu thoi gian thuc",
+          "desc": "Kiem thu quy trinh ngay voi du lieu thuc. Xem ket qua tuc thi va giai loi voi nhat ky chi tiet."
+        },
+        "preview": {
+          "title": "Xem truoc truc tiep",
+          "desc": "Quan sat quy trinh chay thoi gian thuc. Truc quan hoa dong du lieu va phat hien van de truoc khi trien khai."
+        }
+      }
+    },
+    "aiSection": {
+      "badge": "Tu dong hoa voi AI",
+      "title": "Xay dung quy trinh voi",
+      "titleHighlight": "tro ly AI",
+      "subtitle": "Mo ta dieu ban muon tu dong hoa bang ngon ngu tu nhien va de AI xay dung quy trinh cho ban. Tro chuyen voi AI de chinh sua, toi uu va giai loi quy trinh thoi gian thuc.",
+      "videoTitle": "Xay dung quy trinh AI FluxTurn",
+      "floatingBadge": "Khong can code",
+      "cta": "Thu xay dung voi AI",
+      "features": {
+        "naturalLanguage": {
+          "title": "Nhap lieu ngon ngu tu nhien",
+          "desc": "Mo ta tu dong hoa cua ban bang ngon ngu don gian. AI hieu y dinh va tu dong tao quy trinh."
+        },
+        "aiChat": {
+          "title": "Tro ly chat AI",
+          "desc": "Tro chuyen voi AI de chinh sua quy trinh, dat cau hoi va nhan goi y cai thien thoi gian thuc."
+        },
+        "instantGeneration": {
+          "title": "Tao quy trinh tuc thi",
+          "desc": "Xem quy trinh hien thuc trong vai giay. AI tu dong chon dung tich hop va cau hinh chung."
+        },
+        "smartSuggestions": {
+          "title": "Goi y thong minh",
+          "desc": "Nhan de xuat thong minh ve toi uu hoa, xu ly loi va cac phuong phap tot nhat khi xay dung."
+        }
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Chao mung tro lai",
+      "subtitle": "Nhap thong tin dang nhap de truy cap tai khoan",
+      "inviteMessage": "Vui long dang nhap de chap nhan loi moi",
+      "email": "Email",
+      "emailPlaceholder": "Nhap email cua ban",
+      "password": "Mat khau",
+      "passwordPlaceholder": "Nhap mat khau",
+      "rememberMe": "Ghi nho dang nhap",
+      "forgotPassword": "Quen mat khau?",
+      "signIn": "Dang nhap",
+      "signingIn": "Dang dang nhap...",
+      "noAccount": "Chua co tai khoan?",
+      "signUp": "Dang ky",
+      "orContinueWith": "Hoac tiep tuc voi",
+      "termsAgreement": "Khi dang nhap, ban dong y voi",
+      "termsOfService": "Dieu khoan dich vu",
+      "and": "va",
+      "privacyPolicy": "Chinh sach quyen rieng tu"
+    },
+    "register": {
+      "title": "Tao tai khoan",
+      "subtitle": "Dang ky de bat dau voi FluxTurn",
+      "name": "Ho va ten",
+      "namePlaceholder": "Nhap ho va ten",
+      "passwordRequirements": {
+        "minLength": "8+ ky tu",
+        "uppercase": "chu hoa",
+        "lowercase": "chu thuong",
+        "number": "so",
+        "special": "ky tu dac biet"
+      },
+      "email": "Email",
+      "emailPlaceholder": "Nhap email cua ban",
+      "password": "Mat khau",
+      "passwordPlaceholder": "Tao mat khau",
+      "confirmPassword": "Xac nhan mat khau",
+      "confirmPasswordPlaceholder": "Xac nhan mat khau cua ban",
+      "passwordStrength": "Do manh mat khau:",
+      "weak": "Yeu",
+      "fair": "Trung binh",
+      "good": "Tot",
+      "strong": "Manh",
+      "missing": "Thieu:",
+      "passwordsMatch": "Mat khau trung khop",
+      "passwordsNoMatch": "Mat khau khong trung khop",
+      "agreeToTerms": "Toi dong y voi",
+      "termsOfService": "Dieu khoan dich vu",
+      "and": "va",
+      "privacyPolicy": "Chinh sach quyen rieng tu",
+      "createAccount": "Tao tai khoan",
+      "creating": "Dang tao tai khoan...",
+      "haveAccount": "Da co tai khoan?",
+      "signIn": "Dang nhap",
+      "orContinueWith": "Hoac tiep tuc voi"
+    },
+    "forgotPassword": {
+      "title": "Quen mat khau?",
+      "subtitle": "Dung lo, chung toi se gui huong dan dat lai mat khau",
+      "email": "Email",
+      "emailPlaceholder": "Nhap email cua ban",
+      "sendLink": "Gui email dat lai",
+      "sending": "Dang gui...",
+      "backToLogin": "Quay lai dang nhap",
+      "successTitle": "Kiem tra email",
+      "successMessage": "Chung toi da gui lien ket dat lai den:",
+      "successHint": "Khong nhan duoc email? Kiem tra thu muc spam hoac thu lai.",
+      "resendEmail": "Gui lai email",
+      "resending": "Dang gui lai..."
+    },
+    "resetPassword": {
+      "title": "Dat mat khau moi",
+      "subtitle": "Nhap mat khau moi cua ban ben duoi",
+      "invalidTitle": "Lien ket dat lai khong hop le",
+      "invalidMessage": "Lien ket dat lai nay khong hop le hoac da het han.",
+      "requestNewLink": "Yeu cau lien ket moi",
+      "newPassword": "Mat khau moi",
+      "newPasswordPlaceholder": "Nhap mat khau moi",
+      "confirmPassword": "Xac nhan mat khau",
+      "confirmPasswordPlaceholder": "Xac nhan mat khau moi",
+      "passwordStrength": "Do manh mat khau:",
+      "passwordsMatch": "Mat khau trung khop",
+      "passwordsNoMatch": "Mat khau khong trung khop",
+      "reset": "Cap nhat mat khau",
+      "resetting": "Dang cap nhat mat khau...",
+      "successTitle": "Mat khau da cap nhat",
+      "successMessage": "Mat khau cua ban da duoc cap nhat thanh cong. Bay gio ban co the dang nhap bang mat khau moi.",
+      "continueToLogin": "Tiep tuc den dang nhap",
+      "validating": "Dang xac thuc lien ket dat lai...",
+      "backToLogin": "Quay lai dang nhap"
+    },
+    "verifyEmail": {
+      "title": "Xac minh email",
+      "subtitle": "Chung toi da gui lien ket xac minh den:",
+      "instruction": "Nhap vao lien ket trong email de xac minh tai khoan",
+      "checkEmail": "Kiem tra email",
+      "expireNote": "Lien ket xac minh se het han sau 24 gio",
+      "noEmailHint": "Khong nhan duoc email? Kiem tra thu muc spam hoac gui lai.",
+      "resendEmail": "Gui lai email",
+      "sending": "Dang gui...",
+      "verifyingTitle": "Dang xac minh email",
+      "verifyingMessage": "Vui long cho trong khi chung toi xac minh dia chi email cua ban...",
+      "successTitle": "Email da xac minh!",
+      "successMessage": "Email cua ban da duoc xac minh thanh cong. Bay gio ban co the truy cap tat ca tinh nang tai khoan.",
+      "goToDashboard": "Di den bang dieu khien",
+      "signIn": "Dang nhap",
+      "failedTitle": "Xac minh that bai",
+      "failedMessage": "Lien ket xac minh khong hop le hoac da het han. Vui long yeu cau email xac minh moi.",
+      "sendNewEmail": "Gui email xac minh moi",
+      "backToLogin": "Quay lai dang nhap",
+      "emailSentTitle": "Email da gui!",
+      "emailSentMessage": "Chung toi da gui email xac minh moi den:",
+      "emailSentHint": "Kiem tra hop thu den va nhap vao lien ket xac minh",
+      "spamHint": "Van chua thay? Kiem tra thu muc spam.",
+      "resendAgain": "Gui lai lan nua",
+      "waitBeforeResend": "Doi {{countdown}} giay truoc khi gui lai",
+      "welcome": "Chao mung den tuong lai cua phat trien",
+      "verifyToStart": "Xac minh email de bat dau",
+      "needHelp": "Can ho tro? Lien he voi",
+      "supportTeam": "doi ngu ho tro"
+    },
+    "authSuccess": {
+      "title": "Xac thuc thanh cong!",
+      "message": "Ban da dang nhap thanh cong. Dang chuyen huong den bang dieu khien..."
+    },
+    "authError": {
+      "title": "Xac thuc that bai",
+      "redirectMessage": "Ban se duoc chuyen huong den trang dang nhap trong vai giay...",
+      "returnToLogin": "Quay lai dang nhap",
+      "troubleHelp": "Gap su co? Thu cac tuy chon sau:",
+      "createAccount": "Tao tai khoan",
+      "resetPassword": "Dat lai mat khau"
+    },
+    "oauth": {
+      "google": "Tiep tuc voi Google",
+      "github": "Tiep tuc voi GitHub",
+      "apple": "Tiep tuc voi Apple",
+      "connecting": "Dang ket noi...",
+      "processing": "Dang xu ly callback OAuth...",
+      "success": "Thanh cong!",
+      "successMessage": "Ket noi thanh cong! Dang chuyen huong...",
+      "error": "Loi",
+      "closeWindow": "Dong cua so"
+    },
+    "errors": {
+      "invalidCredentials": "Email hoac mat khau khong hop le",
+      "emailRequired": "Email la bat buoc",
+      "passwordRequired": "Mat khau la bat buoc",
+      "nameRequired": "Ten la bat buoc",
+      "passwordMismatch": "Mat khau khong trung khop",
+      "weakPassword": "Mat khau phai co it nhat 8 ky tu",
+      "invalidEmail": "Vui long nhap email hop le",
+      "accountExists": "Tai khoan voi email nay da ton tai",
+      "loginFailed": "Dang nhap that bai. Vui long kiem tra thong tin dang nhap va thu lai.",
+      "registrationFailed": "Dang ky that bai. Vui long thu lai.",
+      "missingOAuthParams": "Thieu tham so OAuth bat buoc",
+      "invalidOAuthState": "Trang thai OAuth khong hop le - co the la van de bao mat",
+      "missingCredentialId": "Thieu ID thong tin xac thuc"
+    },
+    "branding": {
+      "welcomeBack": "Chao mung",
+      "back": "tro lai",
+      "joinFluxTurn": "Tham gia",
+      "fluxTurn": "FluxTurn",
+      "tagline": "Xay dung tu dong hoa quy trinh manh me voi nen tang khong can code. Ket noi 120+ ung dung ngay lap tuc.",
+      "feature1": "120+ tich hop san co",
+      "feature2": "Xay dung quy trinh truc quan keo va tha",
+      "feature3": "Goi y tu dong hoa voi AI",
+      "feature4": "Bao mat cap doanh nghiep",
+      "testimonial": "FluxTurn da hoan toan thay doi cach nhom chung toi lam viec. Chung toi da tu dong hoa 80% cac tac vu lap di lap lai!",
+      "powerUser": "Nguoi dung nang cao",
+      "premiumMember": "Thanh vien premium"
+    },
+    "common": {
+      "email": "Email",
+      "password": "Mat khau",
+      "submit": "Gui",
+      "cancel": "Huy",
+      "loading": "Dang tai...",
+      "or": "hoac"
+    }
+  },
+  "common": {
+    "save": "Luu",
+    "cancel": "Huy",
+    "delete": "Xoa",
+    "edit": "Chinh sua",
+    "create": "Tao",
+    "update": "Cap nhat",
+    "close": "Dong",
+    "confirm": "Xac nhan",
+    "back": "Quay lai",
+    "next": "Tiep theo",
+    "search": "Tim kiem",
+    "filter": "Loc",
+    "loading": "Dang tai...",
+    "saving": "Dang luu...",
+    "deleting": "Dang xoa...",
+    "noResults": "Khong tim thay ket qua",
+    "error": "Da xay ra loi",
+    "success": "Thanh cong",
+    "required": "Bat buoc",
+    "optional": "Tuy chon",
+    "actions": "Hanh dong",
+    "status": "Trang thai",
+    "active": "Hoat dong",
+    "inactive": "Khong hoat dong",
+    "enabled": "Da bat",
+    "disabled": "Da tat",
+    "name": "Ten",
+    "description": "Mo ta",
+    "createdAt": "Ngay tao",
+    "updatedAt": "Ngay cap nhat",
+    "copy": "Sao chep",
+    "copied": "Da sao chep!",
+    "download": "Tai xuong",
+    "upload": "Tai len",
+    "refresh": "Lam moi",
+    "retry": "Thu lai",
+    "learnMore": "Tim hieu them",
+    "viewAll": "Xem tat ca",
+    "showMore": "Xem them",
+    "showLess": "Thu gon",
+    "yes": "Co",
+    "no": "Khong",
+    "or": "hoac",
+    "and": "va"
+  },
+  "dashboard": {
+    "title": "Bang dieu khien",
+    "welcome": "Chao mung tro lai",
+    "overview": "Tong quan",
+    "recentWorkflows": "Quy trinh gan day",
+    "recentActivity": "Hoat dong gan day",
+    "quickActions": "Hanh dong nhanh",
+    "createWorkflow": "Tao quy trinh",
+    "viewAllWorkflows": "Xem tat ca quy trinh",
+    "noWorkflows": "Chua co quy trinh nao",
+    "noWorkflowsHint": "Tao quy trinh dau tien de bat dau",
+    "stats": {
+      "totalWorkflows": "Tong quy trinh",
+      "activeWorkflows": "Quy trinh hoat dong",
+      "totalExecutions": "Tong luot thuc thi",
+      "successRate": "Ty le thanh cong"
+    }
+  },
+  "workflow": {
+    "title": "Quy trinh lam viec",
+    "create": "Tao quy trinh",
+    "createNew": "Tao quy trinh moi",
+    "builder": "Xay dung quy trinh",
+    "name": "Ten quy trinh",
+    "namePlaceholder": "Nhap ten quy trinh",
+    "description": "Mo ta",
+    "descriptionPlaceholder": "Mo ta quy trinh nay lam gi",
+    "status": {
+      "active": "Hoat dong",
+      "inactive": "Khong hoat dong",
+      "draft": "Nhap",
+      "running": "Dang chay",
+      "completed": "Hoan thanh",
+      "failed": "That bai",
+      "paused": "Tam dung"
+    },
+    "actions": {
+      "run": "Chay",
+      "stop": "Dung",
+      "duplicate": "Nhan ban",
+      "export": "Xuat",
+      "delete": "Xoa",
+      "activate": "Kich hoat",
+      "deactivate": "Vo hieu hoa"
+    },
+    "nodes": {
+      "addNode": "Them node",
+      "configure": "Cau hinh",
+      "delete": "Xoa node",
+      "duplicate": "Nhan ban node",
+      "trigger": "Kich hoat",
+      "action": "Hanh dong",
+      "condition": "Dieu kien",
+      "loop": "Vong lap",
+      "delay": "Tre",
+      "code": "Code",
+      "aiAgent": "Tac nhan AI",
+      "webhook": "Webhook",
+      "schedule": "Lap lich",
+      "manual": "Kich hoat thu cong"
+    },
+    "execution": {
+      "title": "Nhat ky thuc thi",
+      "running": "Dang chay...",
+      "completed": "Hoan thanh",
+      "failed": "That bai",
+      "duration": "Thoi luong",
+      "startedAt": "Bat dau luc",
+      "input": "Dau vao",
+      "output": "Dau ra",
+      "error": "Loi",
+      "noExecutions": "Chua co luot thuc thi nao",
+      "viewDetails": "Xem chi tiet"
+    },
+    "canvas": {
+      "zoomIn": "Phong to",
+      "zoomOut": "Thu nho",
+      "fitView": "Vua khung nhin",
+      "undo": "Hoan tac",
+      "redo": "Lam lai",
+      "save": "Luu",
+      "deploy": "Trien khai"
+    },
+    "errors": {
+      "saveFailed": "Loi khi luu quy trinh",
+      "loadFailed": "Loi khi tai quy trinh",
+      "executionFailed": "Thuc thi quy trinh that bai",
+      "invalidConfig": "Cau hinh khong hop le"
+    }
+  },
+  "credentials": {
+    "title": "Thong tin xac thuc",
+    "add": "Them thong tin xac thuc",
+    "edit": "Chinh sua thong tin xac thuc",
+    "name": "Ten thong tin xac thuc",
+    "namePlaceholder": "Thong tin xac thuc cua toi",
+    "type": "Loai thong tin xac thuc",
+    "test": "Kiem tra ket noi",
+    "testing": "Dang kiem tra...",
+    "testSuccess": "Ket noi thanh cong",
+    "testFailed": "Ket noi that bai",
+    "save": "Luu thong tin xac thuc",
+    "delete": "Xoa thong tin xac thuc",
+    "deleteConfirm": "Ban co chac muon xoa thong tin xac thuc nay? Cac quy trinh su dung no se ngung hoat dong.",
+    "noCredentials": "Chua co thong tin xac thuc",
+    "noCredentialsHint": "Them thong tin xac thuc de ket noi ung dung",
+    "lastTested": "Kiem tra lan cuoi",
+    "connected": "Da ket noi",
+    "disconnected": "Ngat ket noi",
+    "expires": "Het han",
+    "reconnect": "Ket noi lai"
+  },
+  "organization": {
+    "title": "To chuc",
+    "create": "Tao to chuc",
+    "settings": "Cai dat to chuc",
+    "name": "Ten to chuc",
+    "namePlaceholder": "To chuc cua toi",
+    "members": {
+      "title": "Thanh vien",
+      "invite": "Moi thanh vien",
+      "inviteByEmail": "Moi qua email",
+      "emailPlaceholder": "dongnghiep@congty.com",
+      "role": "Vai tro",
+      "roles": {
+        "owner": "Chu so huu",
+        "admin": "Quan tri vien",
+        "member": "Thanh vien",
+        "viewer": "Nguoi xem"
+      },
+      "remove": "Xoa thanh vien",
+      "removeConfirm": "Ban co chac muon xoa thanh vien nay?",
+      "pending": "Cho xu ly",
+      "active": "Hoat dong"
+    },
+    "billing": {
+      "title": "Thanh toan",
+      "currentPlan": "Goi hien tai",
+      "usage": "Su dung",
+      "invoices": "Hoa don",
+      "upgrade": "Nang cap",
+      "downgrade": "Ha cap",
+      "cancel": "Huy dang ky",
+      "paymentMethod": "Phuong thuc thanh toan",
+      "addPayment": "Them phuong thuc thanh toan",
+      "nextBilling": "Ngay thanh toan tiep theo",
+      "executions": "Luot thuc thi",
+      "executionsUsed": "{{used}} trong {{limit}} da dung",
+      "workflows": "Quy trinh lam viec",
+      "workflowsUsed": "{{used}} trong {{limit}} da dung"
+    },
+    "integrations": {
+      "title": "Tich hop",
+      "connected": "Da ket noi",
+      "available": "Kha dung",
+      "connect": "Ket noi",
+      "disconnect": "Ngat ket noi",
+      "configure": "Cau hinh",
+      "lastSync": "Dong bo lan cuoi"
+    }
+  },
+  "project": {
+    "title": "Du an",
+    "create": "Tao du an",
+    "settings": "Cai dat du an",
+    "name": "Ten du an",
+    "namePlaceholder": "Du an cua toi",
+    "description": "Mo ta",
+    "descriptionPlaceholder": "Du an nay dung de lam gi?",
+    "workflows": "Quy trinh lam viec",
+    "credentials": "Thong tin xac thuc",
+    "members": "Thanh vien",
+    "noProjects": "Chua co du an nao",
+    "noProjectsHint": "Tao du an de to chuc cac quy trinh"
+  },
+  "settings": {
+    "title": "Cai dat",
+    "account": {
+      "title": "Cai dat tai khoan",
+      "profile": "Ho so",
+      "email": "Dia chi email",
+      "name": "Ten hien thi",
+      "avatar": "Anh dai dien",
+      "changeAvatar": "Doi",
+      "removeAvatar": "Xoa",
+      "timezone": "Mui gio",
+      "language": "Ngon ngu",
+      "notifications": "Thong bao",
+      "emailNotifications": "Thong bao qua email",
+      "pushNotifications": "Thong bao day",
+      "workflowAlerts": "Canh bao quy trinh"
+    },
+    "security": {
+      "title": "Bao mat",
+      "changePassword": "Doi mat khau",
+      "currentPassword": "Mat khau hien tai",
+      "newPassword": "Mat khau moi",
+      "confirmPassword": "Xac nhan mat khau",
+      "twoFactor": "Xac thuc hai yeu to",
+      "enable2FA": "Bat 2FA",
+      "disable2FA": "Tat 2FA",
+      "sessions": "Phien hoat dong",
+      "revokeSession": "Thu hoi",
+      "revokeAll": "Thu hoi tat ca phien"
+    },
+    "apiKeys": {
+      "title": "Khoa API",
+      "create": "Tao khoa API",
+      "name": "Ten khoa",
+      "namePlaceholder": "Khoa API cua toi",
+      "permissions": "Quyen",
+      "expires": "Het han",
+      "never": "Khong bao gio",
+      "revoke": "Thu hoi",
+      "revokeConfirm": "Ban co chac khong? Hanh dong nay khong the hoan tac.",
+      "noKeys": "Chua co khoa API nao",
+      "copyWarning": "Sao chep khoa nay ngay. Ban se khong the xem lai."
+    },
+    "danger": {
+      "title": "Vung nguy hiem",
+      "deleteAccount": "Xoa tai khoan",
+      "deleteAccountWarning": "Dieu nay se xoa vinh vien tai khoan va tat ca du lieu lien quan. Hanh dong nay khong the hoan tac.",
+      "typeToConfirm": "Nhap email de xac nhan"
+    }
+  }
+}

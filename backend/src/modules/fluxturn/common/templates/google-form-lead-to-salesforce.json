@@ -1,0 +1,105 @@
+{
+  "id": "b233d515-3ff6-4f1e-82d9-7f9d8fcea5a8",
+  "name": "Google Form Lead to Salesforce",
+  "description": "Auto-create CRM leads from contact forms. Nodes: Google Forms Trigger, Salesforce Action",
+  "category": "sales",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Lead",
+          "config": {},
+          "category": "trigger",
+          "connector": "google_forms",
+          "connectorType": "google_forms",
+          "connectorDisplayName": "Google Forms",
+          "trigger": "new_response",
+          "triggerId": "new_response",
+          "eventType": "webhook",
+          "description": "Triggered when new lead"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Lead",
+          "config": {
+            "FirstName": "{{response.first_name}}",
+            "LastName": "{{response.last_name}}",
+            "Company": "{{response.company}}"
+          },
+          "category": "action",
+          "connector": "salesforce",
+          "connectorType": "salesforce",
+          "connectorDisplayName": "Salesforce",
+          "action": "create_lead",
+          "actionId": "create_lead",
+          "actionName": "Create Lead",
+          "description": "Create Lead"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_forms",
+        "triggerId": "new_response"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_forms",
+    "salesforce"
+  ],
+  "tags": [
+    "sales",
+    "google_forms",
+    "salesforce"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow auto-create crm leads from contact forms. nodes: google forms trigger, salesforce action using google_forms, salesforce",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"google form lead to salesforce\" that auto-create crm leads from contact forms. nodes: google forms trigger, salesforce action"
+}

@@ -1,0 +1,151 @@
+{
+  "id": "84826387-6f24-48f5-8b6e-521aa5ae7b72",
+  "name": "Daily Zoom Meeting List",
+  "description": "Daily meeting agenda posted to Slack. Nodes: Schedule Trigger, Zoom Action, Slack Action",
+  "category": "productivity",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Daily at 8 AM",
+          "config": {
+            "cron": "0 8 * * *"
+          },
+          "trigger": "schedule",
+          "category": "trigger",
+          "connector": "schedule",
+          "eventType": "cron",
+          "triggerId": "schedule",
+          "description": "Triggered daily at 8 AM",
+          "connectorType": "schedule",
+          "connectorDisplayName": "Schedule"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Get Meetings",
+          "action": "list_meetings",
+          "config": {
+            "type": "scheduled",
+            "from": "{{today}}",
+            "to": "{{today}}"
+          },
+          "actionId": "list_meetings",
+          "category": "action",
+          "connector": "zoom",
+          "actionName": "List Meetings",
+          "description": "List Zoom meetings",
+          "connectorType": "zoom",
+          "connectorDisplayName": "Zoom"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Post Agenda",
+          "action": "send_message",
+          "config": {
+            "channel": "{{channel_id}}",
+            "text": "📅 Today's Meetings:\n{{node_2.output}}"
+          },
+          "actionId": "send_message",
+          "category": "action",
+          "connector": "slack",
+          "actionName": "Post Message",
+          "description": "Post message to Slack",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "schedule",
+        "triggerId": "schedule"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "schedule",
+    "zoom",
+    "slack"
+  ],
+  "tags": [
+    "productivity",
+    "automation",
+    "zoom",
+    "slack",
+    "daily"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow daily meeting agenda posted to slack. nodes: schedule trigger, zoom action, slack action using schedule, zoom, slack",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"daily zoom meeting list\" that daily meeting agenda posted to slack. nodes: schedule trigger, zoom action, slack action"
+}

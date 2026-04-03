@@ -1,0 +1,147 @@
+{
+  "id": "d12d82e6-38c0-4faa-8633-e53c3785d97d",
+  "name": "Blog Post to Multi-Platform Share",
+  "description": "Share blog posts across multiple social platforms automatically. Nodes: Google Docs Trigger (new document), LinkedIn Action (create post), Twitter Action (create tweet)",
+  "category": "social_media",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Document Created",
+          "config": {},
+          "trigger": "document_created",
+          "category": "trigger",
+          "connector": "google_docs",
+          "eventType": "polling",
+          "triggerId": "document_created",
+          "description": "Triggered when new document created",
+          "connectorType": "google_docs",
+          "connectorDisplayName": "Google Docs"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Post",
+          "action": "create_post",
+          "config": {
+            "text": "{{post_content}}",
+            "visibility": "PUBLIC"
+          },
+          "actionId": "create_post",
+          "category": "action",
+          "connector": "linkedin",
+          "actionName": "Create Post",
+          "description": "Create Post",
+          "connectorType": "linkedin",
+          "connectorDisplayName": "LinkedIn"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Tweet",
+          "action": "create_tweet",
+          "config": {
+            "text": "{{tweet_text}}"
+          },
+          "actionId": "create_tweet",
+          "category": "action",
+          "connector": "twitter",
+          "actionName": "Create Tweet",
+          "description": "Create Tweet",
+          "connectorType": "twitter",
+          "connectorDisplayName": "Twitter"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#14b8a6",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#14b8a6",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_docs",
+        "triggerId": "document_created"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_docs",
+    "linkedin",
+    "twitter"
+  ],
+  "tags": [
+    "social_media",
+    "automation",
+    "google_docs",
+    "linkedin",
+    "twitter"
+  ],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow blog post to multi-platform share using google_docs, linkedin, twitter",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow that triggers when a new document is created in Google Docs and automatically shares it as a post on LinkedIn and as a tweet on Twitter"
+}

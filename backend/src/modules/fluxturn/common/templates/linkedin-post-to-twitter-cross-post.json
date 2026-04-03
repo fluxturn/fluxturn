@@ -1,0 +1,174 @@
+{
+  "id": "eb655d2a-f5b9-412c-a70b-6e2b7ab80551",
+  "name": "Post to LinkedIn and Twitter",
+  "description": "Manually trigger workflow to post the same content to both LinkedIn and Twitter. Nodes: Manual Trigger, LinkedIn Action, Twitter Action",
+  "category": "social_media",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "play",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually start this workflow",
+          "formFields": [
+            {
+              "name": "postText",
+              "label": "Post Text",
+              "type": "textarea",
+              "required": true,
+              "placeholder": "Enter your post content here...",
+              "description": "The text to post on both LinkedIn and Twitter (max 280 chars for Twitter)"
+            }
+          ]
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Post to LinkedIn",
+          "actionId": "create_post",
+          "category": "action",
+          "connector": "linkedin",
+          "connectorType": "linkedin",
+          "connectorDisplayName": "LinkedIn",
+          "description": "Create LinkedIn Post",
+          "actionParams": {
+            "text": "{{$trigger.formData.postText}}"
+          }
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 400,
+          "y": 300
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Post to Twitter",
+          "actionId": "create_tweet",
+          "category": "action",
+          "connector": "twitter",
+          "connectorType": "twitter",
+          "connectorDisplayName": "Twitter",
+          "description": "Create Tweet",
+          "actionParams": {
+            "text": "{{$trigger.formData.postText}}"
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [
+    {
+      "id": "node_2",
+      "type": "CONNECTOR_ACTION",
+      "config": {
+        "connector": "linkedin",
+        "actionId": "create_post",
+        "actionParams": {
+          "text": "{{$trigger.formData.postText}}"
+        }
+      }
+    },
+    {
+      "id": "node_3",
+      "type": "CONNECTOR_ACTION",
+      "config": {
+        "connector": "twitter",
+        "actionId": "create_tweet",
+        "actionParams": {
+          "text": "{{$trigger.formData.postText}}"
+        }
+      }
+    }
+  ],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "MANUAL_TRIGGER",
+      "config": {
+        "formFields": [
+          {
+            "name": "postText",
+            "label": "Post Text",
+            "type": "textarea",
+            "required": true,
+            "placeholder": "Enter your post content here...",
+            "description": "The text to post on both LinkedIn and Twitter (max 280 chars for Twitter)"
+          }
+        ]
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "linkedin",
+    "twitter"
+  ],
+  "tags": [
+    "social_media",
+    "automation",
+    "linkedin",
+    "twitter"
+  ],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow allows you to manually post the same content to both LinkedIn and Twitter simultaneously",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for posting content to both LinkedIn and Twitter that manually triggers and then creates posts on both platforms in parallel"
+}

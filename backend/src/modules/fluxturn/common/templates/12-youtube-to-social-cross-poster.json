@@ -1,0 +1,197 @@
+{
+  "id": "0e36467f-382b-4c17-8880-35e3926c87ed",
+  "name": "YouTube to Social Cross-Poster",
+  "description": "Share new YouTube videos across Twitter, LinkedIn, and Facebook",
+  "category": "social",
+  "difficulty": "beginner",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": [
+    "youtube",
+    "twitter",
+    "linkedin",
+    "facebook_graph"
+  ],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_12_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 100
+        },
+        "data": {
+          "label": "New Video",
+          "category": "trigger",
+          "config": {},
+          "connector": "youtube",
+          "triggerId": "new_video",
+          "inputSchema": {
+            "pollInterval": {
+              "type": "number",
+              "label": "Poll Interval",
+              "default": 300
+            }
+          },
+          "configSchema": {
+            "pollInterval": {
+              "type": "number",
+              "label": "Poll Interval",
+              "default": 300
+            }
+          },
+          "outputSchema": {
+            "data": {
+              "type": "object",
+              "description": "Trigger event data"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_12_2",
+        "type": "RUN_CODE",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "label": "Format Message",
+          "category": "utility",
+          "config": {
+            "code": "return { text: `🎥 New video: ${$json.title}\\n\\n${$json.url}` };"
+          },
+          "configSchema": {
+            "code": {
+              "type": "string",
+              "label": "JavaScript Code",
+              "inputType": "textarea",
+              "required": true,
+              "description": "JavaScript code to execute"
+            }
+          },
+          "inputSchema": {
+            "input": {
+              "type": "object",
+              "required": false
+            }
+          },
+          "outputSchema": {
+            "output": {
+              "type": "object",
+              "description": "Code execution result"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_12_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 700,
+          "y": 100
+        },
+        "data": {
+          "label": "Tweet",
+          "category": "action",
+          "config": {
+            "text": "={{$json.text}}"
+          },
+          "connector": "twitter",
+          "actionId": "create_tweet",
+          "action": "create_tweet",
+          "actionName": "Create Tweet",
+          "description": "Post a tweet",
+          "icon": "twitter",
+          "connectorType": "twitter",
+          "connectorDisplayName": "Twitter",
+          "inputSchema": {
+            "text": {
+              "type": "string",
+              "required": true,
+              "label": "Tweet Text"
+            }
+          },
+          "configSchema": {
+            "text": {
+              "type": "string",
+              "required": true,
+              "label": "Tweet Text"
+            }
+          },
+          "outputSchema": {
+            "tweetId": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_12_4",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1000,
+          "y": 100
+        },
+        "data": {
+          "label": "LinkedIn Post",
+          "category": "action",
+          "config": {
+            "text": "={{$node[\"Format Message\"].json.text}}"
+          },
+          "connector": "linkedin",
+          "actionId": "create_post",
+          "action": "create_post",
+          "actionName": "Create Post",
+          "description": "Create a LinkedIn post",
+          "icon": "linkedin",
+          "connectorType": "linkedin",
+          "connectorDisplayName": "Linkedin",
+          "inputSchema": {
+            "text": {
+              "type": "string",
+              "required": true,
+              "label": "Post Text"
+            }
+          },
+          "configSchema": {
+            "text": {
+              "type": "string",
+              "required": true,
+              "label": "Post Text"
+            }
+          },
+          "outputSchema": {
+            "postId": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_1",
+        "source": "node_12_1",
+        "target": "node_12_2",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_2",
+        "source": "node_12_2",
+        "target": "node_12_3",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_3",
+        "source": "node_12_3",
+        "target": "node_12_4",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

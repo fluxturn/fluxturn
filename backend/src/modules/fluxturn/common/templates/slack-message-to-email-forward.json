@@ -1,0 +1,106 @@
+{
+  "id": "53cdd82c-72cd-4550-b186-2d973a515c1f",
+  "name": "Slack Message to Email Forward",
+  "description": "Automatically slack message to email forward. Nodes: Slack Trigger, SMTP Action",
+  "category": "collaboration",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Direct Message",
+          "config": {},
+          "trigger": "new_direct_message",
+          "category": "trigger",
+          "connector": "slack",
+          "eventType": "polling",
+          "triggerId": "new_direct_message",
+          "description": "Triggered when new direct message",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Send Email",
+          "action": "send_email",
+          "config": {
+            "to": "{{recipient_email}}",
+            "subject": "{{email_subject}}",
+            "body": "{{email_body}}"
+          },
+          "actionId": "send_email",
+          "category": "action",
+          "connector": "smtp",
+          "actionName": "Send Email",
+          "description": "Send Email",
+          "connectorType": "smtp",
+          "connectorDisplayName": "SMTP"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "slack",
+        "triggerId": "new_direct_message"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "slack",
+    "smtp"
+  ],
+  "tags": [
+    "collaboration",
+    "automation",
+    "slack",
+    "smtp"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow slack message to email forward using slack, smtp",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"slack message to email forward\" that triggers when triggered when new direct message and then Send Email via SMTP"
+}

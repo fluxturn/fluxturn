@@ -1,0 +1,145 @@
+{
+  "id": "2763b297-2c72-4823-9426-a928bffd29cc",
+  "name": "Customer Feedback Collector",
+  "description": "Send feedback forms after order delivery",
+  "category": "sales",
+  "difficulty": "intermediate",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": [
+    "shopify",
+    "jotform",
+    "airtable"
+  ],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_28_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 100
+        },
+        "data": {
+          "label": "Order Delivered",
+          "category": "trigger",
+          "config": {},
+          "connector": "shopify",
+          "triggerId": "order_fulfilled",
+          "inputSchema": {
+            "pollInterval": {
+              "type": "number",
+              "label": "Poll Interval",
+              "default": 300
+            }
+          },
+          "configSchema": {
+            "pollInterval": {
+              "type": "number",
+              "label": "Poll Interval",
+              "default": 300
+            }
+          },
+          "outputSchema": {
+            "data": {
+              "type": "object",
+              "description": "Trigger event data"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_28_2",
+        "type": "RUN_CODE",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "label": "Wait 3 Days",
+          "category": "utility",
+          "config": {
+            "duration": 259200,
+            "code": "// Your code here\nreturn $json;"
+          },
+          "configSchema": {
+            "code": {
+              "type": "string",
+              "label": "JavaScript Code",
+              "inputType": "textarea",
+              "required": true,
+              "description": "JavaScript code to execute"
+            }
+          },
+          "inputSchema": {
+            "input": {
+              "type": "object",
+              "required": false
+            }
+          },
+          "outputSchema": {
+            "output": {
+              "type": "object",
+              "description": "Code execution result"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_28_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 700,
+          "y": 100
+        },
+        "data": {
+          "label": "Send Feedback Form",
+          "category": "action",
+          "config": {
+            "to": "={{$json.email}}",
+            "subject": "How was your order?",
+            "content": "Please share feedback: {{jotform_url}}"
+          },
+          "connector": "sendgrid",
+          "actionId": "send_email",
+          "inputSchema": {
+            "data": {
+              "type": "object",
+              "label": "Data",
+              "description": "Action input data"
+            }
+          },
+          "configSchema": {
+            "data": {
+              "type": "object",
+              "label": "Data",
+              "description": "Action input data"
+            }
+          },
+          "outputSchema": {
+            "result": {
+              "type": "object",
+              "description": "Action result"
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_1",
+        "source": "node_28_1",
+        "target": "node_28_2",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_2",
+        "source": "node_28_2",
+        "target": "node_28_3",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

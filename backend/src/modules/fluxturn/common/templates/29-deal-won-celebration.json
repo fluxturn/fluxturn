@@ -1,0 +1,219 @@
+{
+  "id": "f2388b3c-ae4c-41d7-b7fc-7b3a92408383",
+  "name": "Deal Won Celebration",
+  "description": "Celebrate closed deals with team notifications",
+  "category": "sales",
+  "difficulty": "beginner",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": [
+    "airtable",
+    "slack",
+    "sendgrid"
+  ],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_29_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 100
+        },
+        "data": {
+          "label": "Deal Updated",
+          "category": "trigger",
+          "config": {
+            "tableId": "Deals"
+          },
+          "connector": "airtable",
+          "triggerId": "record_created",
+          "trigger": "record_created",
+          "triggerName": "Record Created",
+          "description": "Triggers when a record is created",
+          "eventType": "polling",
+          "icon": "plus-circle",
+          "connectorType": "airtable",
+          "connectorDisplayName": "Airtable",
+          "webhookRequired": false,
+          "inputSchema": {
+            "tableId": {
+              "type": "string",
+              "required": true,
+              "label": "Table ID"
+            }
+          },
+          "configSchema": {
+            "tableId": {
+              "type": "string",
+              "required": true,
+              "label": "Table ID"
+            }
+          },
+          "outputSchema": {
+            "id": {
+              "type": "string"
+            },
+            "fields": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_29_2",
+        "type": "RUN_CODE",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "label": "Check Won",
+          "category": "utility",
+          "config": {
+            "condition": "$json.fields.Status === \"Won\"",
+            "code": "// Your code here\nreturn $json;"
+          },
+          "configSchema": {
+            "code": {
+              "type": "string",
+              "label": "JavaScript Code",
+              "inputType": "textarea",
+              "required": true,
+              "description": "JavaScript code to execute"
+            }
+          },
+          "inputSchema": {
+            "input": {
+              "type": "object",
+              "required": false
+            }
+          },
+          "outputSchema": {
+            "output": {
+              "type": "object",
+              "description": "Code execution result"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_29_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 700,
+          "y": 100
+        },
+        "data": {
+          "label": "Celebrate",
+          "category": "action",
+          "config": {
+            "channel": "#sales",
+            "message": "🎉 Deal closed! {{$json.fields.Name}} - ${{$json.fields.Amount}}"
+          },
+          "connector": "slack",
+          "actionId": "send_message",
+          "action": "send_message",
+          "actionName": "Send Message",
+          "description": "Send a message to a Slack channel",
+          "icon": "send",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack",
+          "inputSchema": {
+            "channel": {
+              "type": "string",
+              "required": true,
+              "label": "Channel"
+            },
+            "message": {
+              "type": "string",
+              "required": true,
+              "label": "Message",
+              "inputType": "textarea"
+            }
+          },
+          "configSchema": {
+            "channel": {
+              "type": "string",
+              "required": true,
+              "label": "Channel"
+            },
+            "message": {
+              "type": "string",
+              "required": true,
+              "label": "Message",
+              "inputType": "textarea"
+            }
+          },
+          "outputSchema": {
+            "messageId": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_29_4",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1000,
+          "y": 100
+        },
+        "data": {
+          "label": "Congrats Email",
+          "category": "action",
+          "config": {
+            "to": "={{$json.fields.Owner}}",
+            "subject": "Deal closed!",
+            "content": "Congratulations!"
+          },
+          "connector": "sendgrid",
+          "actionId": "send_email",
+          "inputSchema": {
+            "data": {
+              "type": "object",
+              "label": "Data",
+              "description": "Action input data"
+            }
+          },
+          "configSchema": {
+            "data": {
+              "type": "object",
+              "label": "Data",
+              "description": "Action input data"
+            }
+          },
+          "outputSchema": {
+            "result": {
+              "type": "object",
+              "description": "Action result"
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_1",
+        "source": "node_29_1",
+        "target": "node_29_2",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_2",
+        "source": "node_29_2",
+        "target": "node_29_3",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_3",
+        "source": "node_29_3",
+        "target": "node_29_4",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

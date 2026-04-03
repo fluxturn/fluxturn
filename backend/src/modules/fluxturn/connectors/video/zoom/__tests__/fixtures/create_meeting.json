@@ -1,0 +1,185 @@
+{
+  "action": "create_meeting",
+  "baseUrl": "https://api.zoom.us/v2",
+  "testCases": [
+    {
+      "name": "creates scheduled meeting successfully",
+      "input": {
+        "topic": "Team Standup",
+        "type": 2,
+        "start_time": "2024-12-31T10:00:00Z",
+        "duration": 30,
+        "timezone": "UTC"
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/users/me/meetings",
+        "status": 201,
+        "response": {
+          "id": 123456789,
+          "uuid": "abc123-uuid",
+          "host_id": "host123",
+          "topic": "Team Standup",
+          "type": 2,
+          "start_time": "2024-12-31T10:00:00Z",
+          "duration": 30,
+          "timezone": "UTC",
+          "join_url": "https://zoom.us/j/123456789",
+          "start_url": "https://zoom.us/s/123456789?zak=token",
+          "password": "pass123"
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "id": 123456789,
+          "topic": "Team Standup",
+          "join_url": "https://zoom.us/j/123456789"
+        }
+      }
+    },
+    {
+      "name": "creates instant meeting successfully",
+      "input": {
+        "topic": "Quick Discussion",
+        "type": 1
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/users/me/meetings",
+        "status": 201,
+        "response": {
+          "id": 987654321,
+          "uuid": "xyz789-uuid",
+          "host_id": "host123",
+          "topic": "Quick Discussion",
+          "type": 1,
+          "join_url": "https://zoom.us/j/987654321",
+          "start_url": "https://zoom.us/s/987654321?zak=token"
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "id": 987654321,
+          "type": 1
+        }
+      }
+    },
+    {
+      "name": "creates recurring meeting successfully",
+      "input": {
+        "topic": "Weekly Review",
+        "type": 8,
+        "start_time": "2024-12-31T14:00:00Z",
+        "duration": 60,
+        "recurrence": {
+          "type": 2,
+          "repeat_interval": 1,
+          "weekly_days": "2,4"
+        }
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/users/me/meetings",
+        "status": 201,
+        "response": {
+          "id": 555666777,
+          "uuid": "rec-uuid-123",
+          "host_id": "host123",
+          "topic": "Weekly Review",
+          "type": 8,
+          "start_time": "2024-12-31T14:00:00Z",
+          "duration": 60,
+          "timezone": "UTC",
+          "join_url": "https://zoom.us/j/555666777",
+          "occurrences": [
+            {
+              "occurrence_id": "occ-1",
+              "start_time": "2024-12-31T14:00:00Z"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "id": 555666777,
+          "type": 8
+        }
+      }
+    },
+    {
+      "name": "handles unauthorized error",
+      "input": {
+        "topic": "Unauthorized Meeting"
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/users/me/meetings",
+        "status": 401,
+        "response": {
+          "code": 124,
+          "message": "Invalid access token."
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    },
+    {
+      "name": "handles validation error - empty topic",
+      "input": {
+        "topic": ""
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/users/me/meetings",
+        "status": 400,
+        "response": {
+          "code": 300,
+          "message": "Validation failed: topic is required"
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    },
+    {
+      "name": "handles rate limit exceeded",
+      "input": {
+        "topic": "Rate Limited Meeting"
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/users/me/meetings",
+        "status": 429,
+        "response": {
+          "code": 429,
+          "message": "You have exceeded the daily rate limit of Creating meetings."
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    },
+    {
+      "name": "handles server error",
+      "input": {
+        "topic": "Server Error Meeting"
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/users/me/meetings",
+        "status": 500,
+        "response": {
+          "code": 500,
+          "message": "Internal server error"
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    }
+  ]
+}

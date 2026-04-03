@@ -1,0 +1,58 @@
+{
+  "action": "get_form",
+  "baseUrl": "https://api.jotform.com",
+  "testCases": [
+    {
+      "name": "gets form successfully",
+      "input": {
+        "formId": "123456789012345"
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/form/123456789012345",
+        "status": 200,
+        "response": {
+          "responseCode": 200,
+          "message": "success",
+          "content": {
+            "id": "123456789012345",
+            "username": "testuser",
+            "title": "Contact Form",
+            "status": "ENABLED",
+            "created_at": "2024-01-15 10:00:00",
+            "updated_at": "2024-01-16 12:30:00",
+            "count": 150,
+            "new": 5,
+            "url": "https://form.jotform.com/123456789012345"
+          }
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "id": "123456789012345",
+          "title": "Contact Form",
+          "status": "ENABLED"
+        }
+      }
+    },
+    {
+      "name": "handles form not found",
+      "input": {
+        "formId": "nonexistent"
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/form/nonexistent",
+        "status": 404,
+        "response": {
+          "responseCode": 404,
+          "message": "Form not found"
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    }
+  ]
+}

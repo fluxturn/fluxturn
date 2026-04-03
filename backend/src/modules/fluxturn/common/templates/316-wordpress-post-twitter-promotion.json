@@ -1,0 +1,102 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-300000000016",
+  "name": "WordPress Post Twitter Promotion",
+  "description": "Get WordPress post details and create a promotional tweet with AI-generated caption",
+  "category": "marketing",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Get Post",
+          "config": {
+            "post_id": "{{post_id}}"
+          },
+          "category": "action",
+          "connector": "wordpress",
+          "connectorType": "wordpress",
+          "connectorDisplayName": "WordPress",
+          "description": "Fetch post details from WordPress",
+          "action": "get_post",
+          "actionId": "get_post",
+          "actionName": "Get Post"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Create Tweet",
+          "config": {
+            "text": "New blog post! {{node_2.output.title.rendered}}\n\nRead more: {{node_2.output.link}}\n\n#blog #newpost"
+          },
+          "category": "action",
+          "connector": "twitter",
+          "connectorType": "twitter",
+          "connectorDisplayName": "Twitter/X",
+          "description": "Promote WordPress post on Twitter",
+          "action": "create_tweet",
+          "actionId": "create_tweet",
+          "actionName": "Create Tweet"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [],
+  "conditions": [],
+  "variables": [
+    {
+      "name": "post_id",
+      "type": "string",
+      "description": "WordPress post ID to promote"
+    }
+  ],
+  "outputs": [],
+  "required_connectors": ["wordpress", "twitter"],
+  "tags": ["wordpress", "twitter", "social", "marketing", "promotion"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "Promote WordPress posts on Twitter",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Get WordPress post and create promotional tweet"
+}

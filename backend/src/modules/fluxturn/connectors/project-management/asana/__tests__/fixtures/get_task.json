@@ -1,0 +1,85 @@
+{
+  "action": "get_task",
+  "baseUrl": "https://app.asana.com/api/1.0",
+  "testCases": [
+    {
+      "name": "gets task successfully",
+      "input": {
+        "taskId": "task-123456"
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/tasks/task-123456",
+        "status": 200,
+        "response": {
+          "data": {
+            "gid": "task-123456",
+            "name": "Complete project documentation",
+            "notes": "Write API documentation for the new features",
+            "completed": false,
+            "due_on": "2024-03-15",
+            "assignee": {
+              "gid": "user-789",
+              "name": "John Doe"
+            },
+            "projects": [
+              { "gid": "project-123", "name": "Main Project" }
+            ],
+            "permalink_url": "https://app.asana.com/0/project/task-123456"
+          }
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "id": "task-123456",
+          "name": "Complete project documentation"
+        }
+      }
+    },
+    {
+      "name": "handles task not found",
+      "input": {
+        "taskId": "nonexistent-task"
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/tasks/nonexistent-task",
+        "status": 404,
+        "response": {
+          "errors": [
+            {
+              "message": "task: Unknown object: nonexistent-task",
+              "help": "For more information on API status codes, see https://developers.asana.com/docs"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    },
+    {
+      "name": "handles unauthorized access",
+      "input": {
+        "taskId": "task-private"
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/tasks/task-private",
+        "status": 401,
+        "response": {
+          "errors": [
+            {
+              "message": "Not Authorized",
+              "help": "For more information on API status codes, see https://developers.asana.com/docs"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    }
+  ]
+}

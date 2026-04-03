@@ -1,0 +1,107 @@
+{
+  "id": "da64add0-a08f-460a-b91d-6104bf12f1b2",
+  "name": "Google Forms Response to Sheets",
+  "description": "Automatically log form responses to Google Sheets for analysis. Nodes: Google Forms Trigger, Google Sheets Action",
+  "category": "productivity",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Form Response",
+          "config": {},
+          "category": "trigger",
+          "connector": "google_forms",
+          "connectorType": "google_forms",
+          "connectorDisplayName": "Google Forms",
+          "description": "Triggered when new form response is submitted",
+          "trigger": "new_response",
+          "triggerId": "new_response",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Add to Sheet",
+          "config": {
+            "spreadsheetId": "{{spreadsheet_id}}",
+            "range": "Sheet1!A:Z",
+            "values": "{{trigger.responses}}"
+          },
+          "category": "action",
+          "connector": "google_sheets",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets",
+          "description": "Append row to Google Sheet",
+          "action": "append_row",
+          "actionId": "append_row",
+          "actionName": "Add to Sheet"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_forms",
+        "triggerId": "new_response"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_forms",
+    "google_sheets"
+  ],
+  "tags": [
+    "productivity",
+    "automation",
+    "google_forms",
+    "google_sheets",
+    "data"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow automatically log form responses to google sheets for analysis. nodes: google forms trigger, google sheets action using google_forms, google_sheets",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"form response logging\" that triggers on Google Forms submission and logs to Google Sheets"
+}

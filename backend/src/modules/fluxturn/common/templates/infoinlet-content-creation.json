@@ -1,0 +1,931 @@
+{
+  "id": "27fdc25b-bcbb-4ac3-8ca2-05dc05001bd5",
+  "name": "Infoinlet Content Creation",
+  "description": "Content Creation using Open Ai and formatted and then save to database",
+  "category": "content",
+  "canvas": {
+    "edges": [
+      {
+        "id": "xy-edge__MANUAL_TRIGGER_1764299847417source-1-openai_chat_complete_1764300733309target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "MANUAL_TRIGGER_1764299847417",
+        "target": "openai_chat_complete_1764300733309",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__openai_chat_complete_1764300733309source-1-RUN_CODE_1764301488716target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "openai_chat_complete_1764300733309",
+        "target": "RUN_CODE_1764301488716",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__RUN_CODE_1764301488716source-1-mysql_insert_rows_1764301561304target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "RUN_CODE_1764301488716",
+        "target": "mysql_insert_rows_1764301561304",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "MANUAL_TRIGGER_1764299847417",
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "inputData": [
+            {
+              "json": {
+                "test": true,
+                "executedAt": "2025-11-28T07:02:58.677Z"
+              }
+            }
+          ],
+          "startTime": 1764313380277,
+          "lastResult": [
+            [
+              {
+                "json": {
+                  "test": true,
+                  "executedAt": "2025-11-28T07:02:58.677Z"
+                }
+              }
+            ]
+          ],
+          "outputData": [
+            [
+              {
+                "json": {
+                  "test": true,
+                  "executedAt": "2025-11-28T07:02:58.677Z"
+                }
+              }
+            ]
+          ],
+          "description": "Manually execute the workflow",
+          "executionTime": 1,
+          "lastExecutedAt": "2025-11-28T07:03:00.414Z"
+        },
+        "type": "MANUAL_TRIGGER",
+        "position": {
+          "x": 525,
+          "y": 225
+        }
+      },
+      {
+        "id": "openai_chat_complete_1764300733309",
+        "data": {
+          "icon": "Zap",
+          "label": "Chat Completion",
+          "status": "initial",
+          "actionId": "chat_complete",
+          "inputData": [
+            {
+              "json": {
+                "test": true,
+                "executedAt": "2025-11-28T07:02:58.677Z"
+              }
+            }
+          ],
+          "startTime": 1764313380278,
+          "lastResult": [
+            [
+              {
+                "json": {
+                  "text": "{\n  \"prompt\": {\n    \"task\": \"Generate social media content in the following JSON format:\",\n    \"output_format\": \"\"result:{\n      \"facebook\": \"Hey folks, we are thrilled to announce the launch of our new product - DeskTrack! A state-of-the-art office management tool designed meticulously to elevate the efficiency in your work environment. Join us on this incredible journey! #ProductLaunch #SmartOffice #WorkEfficiency #DigitalInnovation #TechRevolution\",\n      \"linkedin\": \"We are proud to announce the launch of our new SaaS product, DeskTrack - a smart office management tool. Built with the latest technology to optimize productivity at your workplace. Connect with us to learn more. #DeskTrackProductLaunch #OfficeEfficiency #SaaS #Innovation\",\n      \"twitter\": \"Launch alert! DeskTrack, your next-gen solution for optimal office management. Let's redefine workspace productivity! #DeskTrackLaunch #SmartOffice #SaaS\"\n    },\n    \"content_topic\": \"Launching my new SaaS product DeskTrack – a smart office management tool.\",\n    \"rules\": [\n      \"Facebook: friendly, engaging, marketing style.\",\n      \"LinkedIn: formal, polished, value-driven content.\",\n      \"Twitter: concise, impactful, under 280 characters.\",\n      \"Use hashtags that are relevant, clean, and professional.\",\n      \"Avoid repeating hashtags across platforms unless necessary.\",\n      \"Do NOT include emojis unless I specify.\"\n    ],\n    \"example_topic\": \"Launching my new SaaS product DeskTrack – a smart office management tool.\"\n  }\n}",
+                  "action": "chat_complete",
+                  "success": true,
+                  "connector": "openai",
+                  "executedAt": "2025-11-28T07:03:09.926Z"
+                }
+              }
+            ]
+          ],
+          "outputData": [
+            [
+              {
+                "json": {
+                  "text": "{\n  \"prompt\": {\n    \"task\": \"Generate social media content in the following JSON format:\",\n    \"output_format\": \"\"result:{\n      \"facebook\": \"Hey folks, we are thrilled to announce the launch of our new product - DeskTrack! A state-of-the-art office management tool designed meticulously to elevate the efficiency in your work environment. Join us on this incredible journey! #ProductLaunch #SmartOffice #WorkEfficiency #DigitalInnovation #TechRevolution\",\n      \"linkedin\": \"We are proud to announce the launch of our new SaaS product, DeskTrack - a smart office management tool. Built with the latest technology to optimize productivity at your workplace. Connect with us to learn more. #DeskTrackProductLaunch #OfficeEfficiency #SaaS #Innovation\",\n      \"twitter\": \"Launch alert! DeskTrack, your next-gen solution for optimal office management. Let's redefine workspace productivity! #DeskTrackLaunch #SmartOffice #SaaS\"\n    },\n    \"content_topic\": \"Launching my new SaaS product DeskTrack – a smart office management tool.\",\n    \"rules\": [\n      \"Facebook: friendly, engaging, marketing style.\",\n      \"LinkedIn: formal, polished, value-driven content.\",\n      \"Twitter: concise, impactful, under 280 characters.\",\n      \"Use hashtags that are relevant, clean, and professional.\",\n      \"Avoid repeating hashtags across platforms unless necessary.\",\n      \"Do NOT include emojis unless I specify.\"\n    ],\n    \"example_topic\": \"Launching my new SaaS product DeskTrack – a smart office management tool.\"\n  }\n}",
+                  "action": "chat_complete",
+                  "success": true,
+                  "connector": "openai",
+                  "executedAt": "2025-11-28T07:03:09.926Z"
+                }
+              }
+            ]
+          ],
+          "description": "Create a chat completion using GPT models (gpt-4, gpt-3.5-turbo, etc.)",
+          "inputSchema": {
+            "n": {
+              "max": 10,
+              "min": 1,
+              "type": "number",
+              "label": "Number of Completions",
+              "default": 1,
+              "description": "How many completions to generate"
+            },
+            "topP": {
+              "max": 1,
+              "min": 0,
+              "step": 0.1,
+              "type": "number",
+              "label": "Top P",
+              "default": 1,
+              "description": "Nucleus sampling parameter (0-1)"
+            },
+            "model": {
+              "type": "select",
+              "label": "Model",
+              "default": "gpt-3.5-turbo",
+              "options": [
+                {
+                  "label": "GPT-4 Turbo",
+                  "value": "gpt-4-turbo-preview"
+                },
+                {
+                  "label": "GPT-4",
+                  "value": "gpt-4"
+                },
+                {
+                  "label": "GPT-3.5 Turbo",
+                  "value": "gpt-3.5-turbo"
+                },
+                {
+                  "label": "GPT-3.5 Turbo 16K",
+                  "value": "gpt-3.5-turbo-16k"
+                }
+              ],
+              "required": true,
+              "description": "The model to use for chat completion"
+            },
+            "messages": {
+              "type": "array",
+              "label": "Messages",
+              "required": true,
+              "itemSchema": {
+                "role": {
+                  "type": "select",
+                  "label": "Role",
+                  "default": "user",
+                  "options": [
+                    {
+                      "label": "System",
+                      "value": "system"
+                    },
+                    {
+                      "label": "User",
+                      "value": "user"
+                    },
+                    {
+                      "label": "Assistant",
+                      "value": "assistant"
+                    }
+                  ],
+                  "required": true
+                },
+                "content": {
+                  "type": "string",
+                  "label": "Content",
+                  "required": true,
+                  "inputType": "textarea",
+                  "placeholder": "Enter message content..."
+                }
+              },
+              "description": "Array of message objects for the conversation"
+            },
+            "maxTokens": {
+              "max": 32768,
+              "min": 1,
+              "type": "number",
+              "label": "Max Tokens",
+              "default": 16,
+              "description": "Maximum number of tokens to generate"
+            },
+            "temperature": {
+              "max": 2,
+              "min": 0,
+              "step": 0.1,
+              "type": "number",
+              "label": "Temperature",
+              "default": 1,
+              "description": "Controls randomness (0-2). Lower is more deterministic"
+            },
+            "presencePenalty": {
+              "max": 2,
+              "min": -2,
+              "step": 0.1,
+              "type": "number",
+              "label": "Presence Penalty",
+              "default": 0,
+              "description": "Encourage new topics (-2 to 2)"
+            },
+            "frequencyPenalty": {
+              "max": 2,
+              "min": -2,
+              "step": 0.1,
+              "type": "number",
+              "label": "Frequency Penalty",
+              "default": 0,
+              "description": "Penalize repeated tokens (-2 to 2)"
+            }
+          },
+          "actionParams": {
+            "n": 1,
+            "topP": 1,
+            "model": "gpt-4",
+            "messages": "{   \"prompt\": \"Universal Social Media Content Generator Prompt\",   \"instructions\": {     \"task\": \"Generate social media content in the following JSON format:\",     \"output_format\": \"result\":{       \"facebook\": \"Attractive Facebook post with a friendly tone. Include 5–8 engaging hashtags.\",       \"linkedin\": \"Formal, professional LinkedIn post. Include 4–6 relevant hashtags.\",       \"twitter\": \"Short tweet under 280 characters. Catchy tone. Include 3–5 concise hashtags.\"     },     \"content_topic\": \"{YOUR TOPIC HERE}\",     \"rules\": [       \"Facebook: friendly, engaging, marketing style.\",       \"LinkedIn: formal, polished, value-driven content.\",       \"Twitter: concise, impactful, under 280 characters.\",       \"Use hashtags that are relevant, clean, and professional.\",       \"Avoid repeating hashtags across platforms unless necessary.\",       \"Do NOT include emojis unless I specify.\"     ],     \"example_topic\": \"Launching my new SaaS product DeskTrack – a smart office management tool.\"   } }",
+            "maxTokens": 3000,
+            "temperature": 1,
+            "presencePenalty": 0,
+            "frequencyPenalty": 0
+          },
+          "credentialId": "5b9ac47c-7d2f-4c5d-b5d7-18307b5780d2",
+          "connectorType": "openai",
+          "executionTime": 9648,
+          "lastExecutedAt": "2025-11-28T07:03:09.969Z",
+          "credentialAuthType": "standard"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 840,
+          "y": 225
+        }
+      },
+      {
+        "id": "RUN_CODE_1764301488716",
+        "data": {
+          "code": "// Parse the AI response text to extract the result object\n  const text = data.text;\n\n  // Try to parse the JSON from the text\n  let parsed;\n  try {\n    parsed = JSON.parse(text);\n  } catch (e) {\n    // If direct parse fails, try to extract JSON from the text\n    const jsonMatch = text.match(/\\{[\\s\\S]*\\}/);\n    if (jsonMatch) {\n      parsed = JSON.parse(jsonMatch[0]);\n    } else {\n      throw new Error('Could not parse JSON from AI response');\n    }\n  }\n\n  // Extract the result object\n  const result = parsed.result || parsed;\n\n  return {\n    facebook: result.facebook || '',\n    linkedin: result.linkedin || '',\n    twitter: result.twitter || ''\n  };",
+          "icon": "R",
+          "color": "#14b8a6",
+          "label": "Run Code",
+          "category": "action",
+          "inputData": [
+            {
+              "json": {
+                "text": "{\n  \"prompt\": {\n    \"task\": \"Generate social media content in the following JSON format:\",\n    \"output_format\": \"\"result:{\n      \"facebook\": \"Hey folks, we are thrilled to announce the launch of our new product - DeskTrack! A state-of-the-art office management tool designed meticulously to elevate the efficiency in your work environment. Join us on this incredible journey! #ProductLaunch #SmartOffice #WorkEfficiency #DigitalInnovation #TechRevolution\",\n      \"linkedin\": \"We are proud to announce the launch of our new SaaS product, DeskTrack - a smart office management tool. Built with the latest technology to optimize productivity at your workplace. Connect with us to learn more. #DeskTrackProductLaunch #OfficeEfficiency #SaaS #Innovation\",\n      \"twitter\": \"Launch alert! DeskTrack, your next-gen solution for optimal office management. Let's redefine workspace productivity! #DeskTrackLaunch #SmartOffice #SaaS\"\n    },\n    \"content_topic\": \"Launching my new SaaS product DeskTrack – a smart office management tool.\",\n    \"rules\": [\n      \"Facebook: friendly, engaging, marketing style.\",\n      \"LinkedIn: formal, polished, value-driven content.\",\n      \"Twitter: concise, impactful, under 280 characters.\",\n      \"Use hashtags that are relevant, clean, and professional.\",\n      \"Avoid repeating hashtags across platforms unless necessary.\",\n      \"Do NOT include emojis unless I specify.\"\n    ],\n    \"example_topic\": \"Launching my new SaaS product DeskTrack – a smart office management tool.\"\n  }\n}",
+                "action": "chat_complete",
+                "success": true,
+                "connector": "openai",
+                "executedAt": "2025-11-28T07:03:09.926Z"
+              }
+            }
+          ],
+          "startTime": 1764313389926,
+          "lastResult": {
+            "twitter": "Ignite productivity with our new SaaS product: DeskTrack – the smart office management tool of the future. #DeskTrack #WorkSmart #Productivity",
+            "facebook": "We are beyond excited to unleash DeskTrack: the smart office management tool to optimize your productivity and transform your workspace! Let's join hands and make work smarter, not harder! #smartOffice #DeskTrack #ProductivityTools #OfficeManagement #WorkSmart #NewLaunch",
+            "linkedin": "Introducing DeskTrack, a cutting-edge office management SaaS product designed to bolster productivity and streamline your workspace. Lead your team more efficiently with DeskTrack. #ProductivityOptimization #OfficeManagement #DeskTrack #SaaS #Leadership"
+          },
+          "outputData": {
+            "twitter": "Ignite productivity with our new SaaS product: DeskTrack – the smart office management tool of the future. #DeskTrack #WorkSmart #Productivity",
+            "facebook": "We are beyond excited to unleash DeskTrack: the smart office management tool to optimize your productivity and transform your workspace! Let's join hands and make work smarter, not harder! #smartOffice #DeskTrack #ProductivityTools #OfficeManagement #WorkSmart #NewLaunch",
+            "linkedin": "Introducing DeskTrack, a cutting-edge office management SaaS product designed to bolster productivity and streamline your workspace. Lead your team more efficiently with DeskTrack. #ProductivityOptimization #OfficeManagement #DeskTrack #SaaS #Leadership"
+          },
+          "description": "Execute custom JavaScript code",
+          "executionTime": 2,
+          "lastExecutedAt": "2025-11-28T06:56:44.126Z"
+        },
+        "type": "RUN_CODE",
+        "position": {
+          "x": 1095,
+          "y": 240
+        }
+      },
+      {
+        "id": "mysql_insert_rows_1764301561304",
+        "data": {
+          "icon": "Zap",
+          "label": "Insert",
+          "actionId": "insert_rows",
+          "inputData": [
+            {
+              "json": {
+                "twitter": "Ignite productivity with our new SaaS product: DeskTrack – the smart office management tool of the future. #DeskTrack #WorkSmart #Productivity",
+                "facebook": "We are beyond excited to unleash DeskTrack: the smart office management tool to optimize your productivity and transform your workspace! Let's join hands and make work smarter, not harder! #smartOffice #DeskTrack #ProductivityTools #OfficeManagement #WorkSmart #NewLaunch",
+                "linkedin": "Introducing DeskTrack, a cutting-edge office management SaaS product designed to bolster productivity and streamline your workspace. Lead your team more efficiently with DeskTrack. #ProductivityOptimization #OfficeManagement #DeskTrack #SaaS #Leadership"
+              }
+            }
+          ],
+          "startTime": 1764313003643,
+          "lastResult": {
+            "error": {
+              "code": "ER_NO_DEFAULT_FOR_FIELD",
+              "details": {
+                "sql": "INSERT INTO `social_posts` (`facebook_content`, `linkedin_content`, `twitter_content`) VALUES (?, ?, ?)",
+                "code": "ER_NO_DEFAULT_FOR_FIELD",
+                "errno": 1364,
+                "message": "Field 'id' doesn't have a default value",
+                "sqlState": "HY000",
+                "sqlMessage": "Field 'id' doesn't have a default value"
+              },
+              "message": "Field 'id' doesn't have a default value",
+              "retryable": false
+            },
+            "action": "insert_rows",
+            "success": false,
+            "metadata": {
+              "timestamp": "2025-11-28T06:56:43.876Z"
+            },
+            "connector": "mysql",
+            "executedAt": "2025-11-28T06:56:43.876Z"
+          },
+          "outputData": {
+            "error": {
+              "code": "ER_NO_DEFAULT_FOR_FIELD",
+              "details": {
+                "sql": "INSERT INTO `social_posts` (`facebook_content`, `linkedin_content`, `twitter_content`) VALUES (?, ?, ?)",
+                "code": "ER_NO_DEFAULT_FOR_FIELD",
+                "errno": 1364,
+                "message": "Field 'id' doesn't have a default value",
+                "sqlState": "HY000",
+                "sqlMessage": "Field 'id' doesn't have a default value"
+              },
+              "message": "Field 'id' doesn't have a default value",
+              "retryable": false
+            },
+            "action": "insert_rows",
+            "success": false,
+            "metadata": {
+              "timestamp": "2025-11-28T06:56:43.876Z"
+            },
+            "connector": "mysql",
+            "executedAt": "2025-11-28T06:56:43.876Z"
+          },
+          "description": "Insert one or more rows into a table",
+          "inputSchema": {
+            "table": {
+              "type": "string",
+              "label": "Table Name",
+              "order": 1,
+              "required": true,
+              "description": "Name of the table to insert into",
+              "placeholder": "users",
+              "loadOptionsResource": "tables",
+              "loadOptionsDescription": "Fetch tables from database"
+            },
+            "dataMode": {
+              "type": "select",
+              "label": "Data Mode",
+              "order": 2,
+              "default": "autoMapInputData",
+              "options": [
+                "autoMapInputData",
+                "defineBelow"
+              ],
+              "required": false,
+              "description": "Auto-map input data or define columns manually"
+            },
+            "priority": {
+              "type": "select",
+              "label": "Priority",
+              "order": 4,
+              "options": [
+                "LOW_PRIORITY",
+                "HIGH_PRIORITY"
+              ],
+              "required": false,
+              "description": "Insert priority"
+            },
+            "columnMappings": {
+              "type": "fixedCollection",
+              "items": {
+                "mappings": {
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "label": "Value",
+                      "required": true,
+                      "description": "Value or expression to insert",
+                      "placeholder": "{{ $json.email }}"
+                    },
+                    "column": {
+                      "type": "string",
+                      "label": "Column",
+                      "required": true,
+                      "description": "Column name to insert into",
+                      "loadOptionsResource": "table-columns",
+                      "loadOptionsDependsOn": [
+                        "table"
+                      ]
+                    }
+                  }
+                }
+              },
+              "label": "Column Mappings",
+              "order": 3,
+              "required": false,
+              "description": "Map data to table columns",
+              "placeholder": "Add Column Mapping"
+            },
+            "skipOnConflict": {
+              "type": "boolean",
+              "label": "Skip On Conflict",
+              "order": 5,
+              "default": false,
+              "required": false,
+              "description": "Skip row if unique constraint violated (INSERT IGNORE)"
+            }
+          },
+          "actionParams": {
+            "table": "social_posts",
+            "dataMode": "autoMapInputData",
+            "columnMappings": {
+              "mappings": [
+                {
+                  "value": "{{$node[\"Run Code\"].json.facebook}}",
+                  "column": "facebook_content"
+                },
+                {
+                  "value": "{{$node[\"Run Code\"].json.linkedin}}",
+                  "column": "linkedin_content"
+                },
+                {
+                  "value": "{{$node[\"Run Code\"].json.twitter}}",
+                  "column": "twitter_content"
+                }
+              ]
+            },
+            "skipOnConflict": false
+          },
+          "credentialId": "14b558c0-3b8c-4ca3-98dd-75aff29b373a",
+          "connectorType": "mysql",
+          "executionTime": 233,
+          "lastExecutedAt": "2025-11-28T06:56:44.126Z",
+          "credentialAuthType": "standard"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1380,
+          "y": 270
+        }
+      }
+    ]
+  },
+  "steps": [
+    {
+      "id": "openai_chat_complete_1764300733309",
+      "action": "execute",
+      "params": {
+        "icon": "Zap",
+        "label": "Chat Completion",
+        "status": "initial",
+        "actionId": "chat_complete",
+        "inputData": [
+          {
+            "json": {
+              "test": true,
+              "executedAt": "2025-11-28T07:02:58.677Z"
+            }
+          }
+        ],
+        "startTime": 1764313380278,
+        "lastResult": [
+          [
+            {
+              "json": {
+                "text": "{\n  \"prompt\": {\n    \"task\": \"Generate social media content in the following JSON format:\",\n    \"output_format\": \"\"result:{\n      \"facebook\": \"Hey folks, we are thrilled to announce the launch of our new product - DeskTrack! A state-of-the-art office management tool designed meticulously to elevate the efficiency in your work environment. Join us on this incredible journey! #ProductLaunch #SmartOffice #WorkEfficiency #DigitalInnovation #TechRevolution\",\n      \"linkedin\": \"We are proud to announce the launch of our new SaaS product, DeskTrack - a smart office management tool. Built with the latest technology to optimize productivity at your workplace. Connect with us to learn more. #DeskTrackProductLaunch #OfficeEfficiency #SaaS #Innovation\",\n      \"twitter\": \"Launch alert! DeskTrack, your next-gen solution for optimal office management. Let's redefine workspace productivity! #DeskTrackLaunch #SmartOffice #SaaS\"\n    },\n    \"content_topic\": \"Launching my new SaaS product DeskTrack – a smart office management tool.\",\n    \"rules\": [\n      \"Facebook: friendly, engaging, marketing style.\",\n      \"LinkedIn: formal, polished, value-driven content.\",\n      \"Twitter: concise, impactful, under 280 characters.\",\n      \"Use hashtags that are relevant, clean, and professional.\",\n      \"Avoid repeating hashtags across platforms unless necessary.\",\n      \"Do NOT include emojis unless I specify.\"\n    ],\n    \"example_topic\": \"Launching my new SaaS product DeskTrack – a smart office management tool.\"\n  }\n}",
+                "action": "chat_complete",
+                "success": true,
+                "connector": "openai",
+                "executedAt": "2025-11-28T07:03:09.926Z"
+              }
+            }
+          ]
+        ],
+        "outputData": [
+          [
+            {
+              "json": {
+                "text": "{\n  \"prompt\": {\n    \"task\": \"Generate social media content in the following JSON format:\",\n    \"output_format\": \"\"result:{\n      \"facebook\": \"Hey folks, we are thrilled to announce the launch of our new product - DeskTrack! A state-of-the-art office management tool designed meticulously to elevate the efficiency in your work environment. Join us on this incredible journey! #ProductLaunch #SmartOffice #WorkEfficiency #DigitalInnovation #TechRevolution\",\n      \"linkedin\": \"We are proud to announce the launch of our new SaaS product, DeskTrack - a smart office management tool. Built with the latest technology to optimize productivity at your workplace. Connect with us to learn more. #DeskTrackProductLaunch #OfficeEfficiency #SaaS #Innovation\",\n      \"twitter\": \"Launch alert! DeskTrack, your next-gen solution for optimal office management. Let's redefine workspace productivity! #DeskTrackLaunch #SmartOffice #SaaS\"\n    },\n    \"content_topic\": \"Launching my new SaaS product DeskTrack – a smart office management tool.\",\n    \"rules\": [\n      \"Facebook: friendly, engaging, marketing style.\",\n      \"LinkedIn: formal, polished, value-driven content.\",\n      \"Twitter: concise, impactful, under 280 characters.\",\n      \"Use hashtags that are relevant, clean, and professional.\",\n      \"Avoid repeating hashtags across platforms unless necessary.\",\n      \"Do NOT include emojis unless I specify.\"\n    ],\n    \"example_topic\": \"Launching my new SaaS product DeskTrack – a smart office management tool.\"\n  }\n}",
+                "action": "chat_complete",
+                "success": true,
+                "connector": "openai",
+                "executedAt": "2025-11-28T07:03:09.926Z"
+              }
+            }
+          ]
+        ],
+        "description": "Create a chat completion using GPT models (gpt-4, gpt-3.5-turbo, etc.)",
+        "inputSchema": {
+          "n": {
+            "max": 10,
+            "min": 1,
+            "type": "number",
+            "label": "Number of Completions",
+            "default": 1,
+            "description": "How many completions to generate"
+          },
+          "topP": {
+            "max": 1,
+            "min": 0,
+            "step": 0.1,
+            "type": "number",
+            "label": "Top P",
+            "default": 1,
+            "description": "Nucleus sampling parameter (0-1)"
+          },
+          "model": {
+            "type": "select",
+            "label": "Model",
+            "default": "gpt-3.5-turbo",
+            "options": [
+              {
+                "label": "GPT-4 Turbo",
+                "value": "gpt-4-turbo-preview"
+              },
+              {
+                "label": "GPT-4",
+                "value": "gpt-4"
+              },
+              {
+                "label": "GPT-3.5 Turbo",
+                "value": "gpt-3.5-turbo"
+              },
+              {
+                "label": "GPT-3.5 Turbo 16K",
+                "value": "gpt-3.5-turbo-16k"
+              }
+            ],
+            "required": true,
+            "description": "The model to use for chat completion"
+          },
+          "messages": {
+            "type": "array",
+            "label": "Messages",
+            "required": true,
+            "itemSchema": {
+              "role": {
+                "type": "select",
+                "label": "Role",
+                "default": "user",
+                "options": [
+                  {
+                    "label": "System",
+                    "value": "system"
+                  },
+                  {
+                    "label": "User",
+                    "value": "user"
+                  },
+                  {
+                    "label": "Assistant",
+                    "value": "assistant"
+                  }
+                ],
+                "required": true
+              },
+              "content": {
+                "type": "string",
+                "label": "Content",
+                "required": true,
+                "inputType": "textarea",
+                "placeholder": "Enter message content..."
+              }
+            },
+            "description": "Array of message objects for the conversation"
+          },
+          "maxTokens": {
+            "max": 32768,
+            "min": 1,
+            "type": "number",
+            "label": "Max Tokens",
+            "default": 16,
+            "description": "Maximum number of tokens to generate"
+          },
+          "temperature": {
+            "max": 2,
+            "min": 0,
+            "step": 0.1,
+            "type": "number",
+            "label": "Temperature",
+            "default": 1,
+            "description": "Controls randomness (0-2). Lower is more deterministic"
+          },
+          "presencePenalty": {
+            "max": 2,
+            "min": -2,
+            "step": 0.1,
+            "type": "number",
+            "label": "Presence Penalty",
+            "default": 0,
+            "description": "Encourage new topics (-2 to 2)"
+          },
+          "frequencyPenalty": {
+            "max": 2,
+            "min": -2,
+            "step": 0.1,
+            "type": "number",
+            "label": "Frequency Penalty",
+            "default": 0,
+            "description": "Penalize repeated tokens (-2 to 2)"
+          }
+        },
+        "actionParams": {
+          "n": 1,
+          "topP": 1,
+          "model": "gpt-4",
+          "messages": "{   \"prompt\": \"Universal Social Media Content Generator Prompt\",   \"instructions\": {     \"task\": \"Generate social media content in the following JSON format:\",     \"output_format\": \"result\":{       \"facebook\": \"Attractive Facebook post with a friendly tone. Include 5–8 engaging hashtags.\",       \"linkedin\": \"Formal, professional LinkedIn post. Include 4–6 relevant hashtags.\",       \"twitter\": \"Short tweet under 280 characters. Catchy tone. Include 3–5 concise hashtags.\"     },     \"content_topic\": \"{YOUR TOPIC HERE}\",     \"rules\": [       \"Facebook: friendly, engaging, marketing style.\",       \"LinkedIn: formal, polished, value-driven content.\",       \"Twitter: concise, impactful, under 280 characters.\",       \"Use hashtags that are relevant, clean, and professional.\",       \"Avoid repeating hashtags across platforms unless necessary.\",       \"Do NOT include emojis unless I specify.\"     ],     \"example_topic\": \"Launching my new SaaS product DeskTrack – a smart office management tool.\"   } }",
+          "maxTokens": 3000,
+          "temperature": 1,
+          "presencePenalty": 0,
+          "frequencyPenalty": 0
+        },
+        "credentialId": "5b9ac47c-7d2f-4c5d-b5d7-18307b5780d2",
+        "connectorType": "openai",
+        "executionTime": 9648,
+        "lastExecutedAt": "2025-11-28T07:03:09.969Z",
+        "credentialAuthType": "standard"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "RUN_CODE_1764301488716",
+      "action": "execute",
+      "params": {
+        "code": "// Parse the AI response text to extract the result object\n  const text = data.text;\n\n  // Try to parse the JSON from the text\n  let parsed;\n  try {\n    parsed = JSON.parse(text);\n  } catch (e) {\n    // If direct parse fails, try to extract JSON from the text\n    const jsonMatch = text.match(/\\{[\\s\\S]*\\}/);\n    if (jsonMatch) {\n      parsed = JSON.parse(jsonMatch[0]);\n    } else {\n      throw new Error('Could not parse JSON from AI response');\n    }\n  }\n\n  // Extract the result object\n  const result = parsed.result || parsed;\n\n  return {\n    facebook: result.facebook || '',\n    linkedin: result.linkedin || '',\n    twitter: result.twitter || ''\n  };",
+        "icon": "R",
+        "color": "#14b8a6",
+        "label": "Run Code",
+        "category": "action",
+        "inputData": [
+          {
+            "json": {
+              "text": "{\n  \"prompt\": {\n    \"task\": \"Generate social media content in the following JSON format:\",\n    \"output_format\": \"\"result:{\n      \"facebook\": \"Hey folks, we are thrilled to announce the launch of our new product - DeskTrack! A state-of-the-art office management tool designed meticulously to elevate the efficiency in your work environment. Join us on this incredible journey! #ProductLaunch #SmartOffice #WorkEfficiency #DigitalInnovation #TechRevolution\",\n      \"linkedin\": \"We are proud to announce the launch of our new SaaS product, DeskTrack - a smart office management tool. Built with the latest technology to optimize productivity at your workplace. Connect with us to learn more. #DeskTrackProductLaunch #OfficeEfficiency #SaaS #Innovation\",\n      \"twitter\": \"Launch alert! DeskTrack, your next-gen solution for optimal office management. Let's redefine workspace productivity! #DeskTrackLaunch #SmartOffice #SaaS\"\n    },\n    \"content_topic\": \"Launching my new SaaS product DeskTrack – a smart office management tool.\",\n    \"rules\": [\n      \"Facebook: friendly, engaging, marketing style.\",\n      \"LinkedIn: formal, polished, value-driven content.\",\n      \"Twitter: concise, impactful, under 280 characters.\",\n      \"Use hashtags that are relevant, clean, and professional.\",\n      \"Avoid repeating hashtags across platforms unless necessary.\",\n      \"Do NOT include emojis unless I specify.\"\n    ],\n    \"example_topic\": \"Launching my new SaaS product DeskTrack – a smart office management tool.\"\n  }\n}",
+              "action": "chat_complete",
+              "success": true,
+              "connector": "openai",
+              "executedAt": "2025-11-28T07:03:09.926Z"
+            }
+          }
+        ],
+        "startTime": 1764313389926,
+        "lastResult": {
+          "twitter": "Ignite productivity with our new SaaS product: DeskTrack – the smart office management tool of the future. #DeskTrack #WorkSmart #Productivity",
+          "facebook": "We are beyond excited to unleash DeskTrack: the smart office management tool to optimize your productivity and transform your workspace! Let's join hands and make work smarter, not harder! #smartOffice #DeskTrack #ProductivityTools #OfficeManagement #WorkSmart #NewLaunch",
+          "linkedin": "Introducing DeskTrack, a cutting-edge office management SaaS product designed to bolster productivity and streamline your workspace. Lead your team more efficiently with DeskTrack. #ProductivityOptimization #OfficeManagement #DeskTrack #SaaS #Leadership"
+        },
+        "outputData": {
+          "twitter": "Ignite productivity with our new SaaS product: DeskTrack – the smart office management tool of the future. #DeskTrack #WorkSmart #Productivity",
+          "facebook": "We are beyond excited to unleash DeskTrack: the smart office management tool to optimize your productivity and transform your workspace! Let's join hands and make work smarter, not harder! #smartOffice #DeskTrack #ProductivityTools #OfficeManagement #WorkSmart #NewLaunch",
+          "linkedin": "Introducing DeskTrack, a cutting-edge office management SaaS product designed to bolster productivity and streamline your workspace. Lead your team more efficiently with DeskTrack. #ProductivityOptimization #OfficeManagement #DeskTrack #SaaS #Leadership"
+        },
+        "description": "Execute custom JavaScript code",
+        "executionTime": 2,
+        "lastExecutedAt": "2025-11-28T06:56:44.126Z"
+      },
+      "connector": "RUN_CODE"
+    },
+    {
+      "id": "mysql_insert_rows_1764301561304",
+      "action": "execute",
+      "params": {
+        "icon": "Zap",
+        "label": "Insert",
+        "actionId": "insert_rows",
+        "inputData": [
+          {
+            "json": {
+              "twitter": "Ignite productivity with our new SaaS product: DeskTrack – the smart office management tool of the future. #DeskTrack #WorkSmart #Productivity",
+              "facebook": "We are beyond excited to unleash DeskTrack: the smart office management tool to optimize your productivity and transform your workspace! Let's join hands and make work smarter, not harder! #smartOffice #DeskTrack #ProductivityTools #OfficeManagement #WorkSmart #NewLaunch",
+              "linkedin": "Introducing DeskTrack, a cutting-edge office management SaaS product designed to bolster productivity and streamline your workspace. Lead your team more efficiently with DeskTrack. #ProductivityOptimization #OfficeManagement #DeskTrack #SaaS #Leadership"
+            }
+          }
+        ],
+        "startTime": 1764313003643,
+        "lastResult": {
+          "error": {
+            "code": "ER_NO_DEFAULT_FOR_FIELD",
+            "details": {
+              "sql": "INSERT INTO `social_posts` (`facebook_content`, `linkedin_content`, `twitter_content`) VALUES (?, ?, ?)",
+              "code": "ER_NO_DEFAULT_FOR_FIELD",
+              "errno": 1364,
+              "message": "Field 'id' doesn't have a default value",
+              "sqlState": "HY000",
+              "sqlMessage": "Field 'id' doesn't have a default value"
+            },
+            "message": "Field 'id' doesn't have a default value",
+            "retryable": false
+          },
+          "action": "insert_rows",
+          "success": false,
+          "metadata": {
+            "timestamp": "2025-11-28T06:56:43.876Z"
+          },
+          "connector": "mysql",
+          "executedAt": "2025-11-28T06:56:43.876Z"
+        },
+        "outputData": {
+          "error": {
+            "code": "ER_NO_DEFAULT_FOR_FIELD",
+            "details": {
+              "sql": "INSERT INTO `social_posts` (`facebook_content`, `linkedin_content`, `twitter_content`) VALUES (?, ?, ?)",
+              "code": "ER_NO_DEFAULT_FOR_FIELD",
+              "errno": 1364,
+              "message": "Field 'id' doesn't have a default value",
+              "sqlState": "HY000",
+              "sqlMessage": "Field 'id' doesn't have a default value"
+            },
+            "message": "Field 'id' doesn't have a default value",
+            "retryable": false
+          },
+          "action": "insert_rows",
+          "success": false,
+          "metadata": {
+            "timestamp": "2025-11-28T06:56:43.876Z"
+          },
+          "connector": "mysql",
+          "executedAt": "2025-11-28T06:56:43.876Z"
+        },
+        "description": "Insert one or more rows into a table",
+        "inputSchema": {
+          "table": {
+            "type": "string",
+            "label": "Table Name",
+            "order": 1,
+            "required": true,
+            "description": "Name of the table to insert into",
+            "placeholder": "users",
+            "loadOptionsResource": "tables",
+            "loadOptionsDescription": "Fetch tables from database"
+          },
+          "dataMode": {
+            "type": "select",
+            "label": "Data Mode",
+            "order": 2,
+            "default": "autoMapInputData",
+            "options": [
+              "autoMapInputData",
+              "defineBelow"
+            ],
+            "required": false,
+            "description": "Auto-map input data or define columns manually"
+          },
+          "priority": {
+            "type": "select",
+            "label": "Priority",
+            "order": 4,
+            "options": [
+              "LOW_PRIORITY",
+              "HIGH_PRIORITY"
+            ],
+            "required": false,
+            "description": "Insert priority"
+          },
+          "columnMappings": {
+            "type": "fixedCollection",
+            "items": {
+              "mappings": {
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "label": "Value",
+                    "required": true,
+                    "description": "Value or expression to insert",
+                    "placeholder": "{{ $json.email }}"
+                  },
+                  "column": {
+                    "type": "string",
+                    "label": "Column",
+                    "required": true,
+                    "description": "Column name to insert into",
+                    "loadOptionsResource": "table-columns",
+                    "loadOptionsDependsOn": [
+                      "table"
+                    ]
+                  }
+                }
+              }
+            },
+            "label": "Column Mappings",
+            "order": 3,
+            "required": false,
+            "description": "Map data to table columns",
+            "placeholder": "Add Column Mapping"
+          },
+          "skipOnConflict": {
+            "type": "boolean",
+            "label": "Skip On Conflict",
+            "order": 5,
+            "default": false,
+            "required": false,
+            "description": "Skip row if unique constraint violated (INSERT IGNORE)"
+          }
+        },
+        "actionParams": {
+          "table": "social_posts",
+          "dataMode": "autoMapInputData",
+          "columnMappings": {
+            "mappings": [
+              {
+                "value": "{{$node[\"Run Code\"].json.facebook}}",
+                "column": "facebook_content"
+              },
+              {
+                "value": "{{$node[\"Run Code\"].json.linkedin}}",
+                "column": "linkedin_content"
+              },
+              {
+                "value": "{{$node[\"Run Code\"].json.twitter}}",
+                "column": "twitter_content"
+              }
+            ]
+          },
+          "skipOnConflict": false
+        },
+        "credentialId": "14b558c0-3b8c-4ca3-98dd-75aff29b373a",
+        "connectorType": "mysql",
+        "executionTime": 233,
+        "lastExecutedAt": "2025-11-28T06:56:44.126Z",
+        "credentialAuthType": "standard"
+      },
+      "connector": "CONNECTOR_ACTION"
+    }
+  ],
+  "triggers": [
+    {
+      "id": "MANUAL_TRIGGER_1764299847417",
+      "type": "MANUAL_TRIGGER",
+      "config": {
+        "icon": "M",
+        "color": "#06b6d4",
+        "label": "Manual Trigger",
+        "category": "trigger",
+        "inputData": [
+          {
+            "json": {
+              "test": true,
+              "executedAt": "2025-11-28T07:02:58.677Z"
+            }
+          }
+        ],
+        "startTime": 1764313380277,
+        "lastResult": [
+          [
+            {
+              "json": {
+                "test": true,
+                "executedAt": "2025-11-28T07:02:58.677Z"
+              }
+            }
+          ]
+        ],
+        "outputData": [
+          [
+            {
+              "json": {
+                "test": true,
+                "executedAt": "2025-11-28T07:02:58.677Z"
+              }
+            }
+          ]
+        ],
+        "description": "Manually execute the workflow",
+        "executionTime": 1,
+        "lastExecutedAt": "2025-11-28T07:03:00.414Z"
+      }
+    }
+  ],
+  "requiredConnectors": [
+    "CONNECTOR_ACTION",
+    "RUN_CODE"
+  ],
+  "isPublic": true
+}

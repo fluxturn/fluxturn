@@ -1,0 +1,107 @@
+{
+  "id": "6aed9a9e-5b77-456d-92f5-f378922f4d4d",
+  "name": "Google Ads Budget Alert",
+  "description": "Get notified when ad campaign budget reaches threshold. Nodes: Google Ads Trigger, Gmail Action",
+  "category": "marketing",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Budget Threshold",
+          "config": {},
+          "category": "trigger",
+          "connector": "google_ads",
+          "connectorType": "google_ads",
+          "connectorDisplayName": "Google Ads",
+          "description": "Triggered when budget threshold hit",
+          "trigger": "budget_threshold_reached",
+          "triggerId": "budget_threshold_reached",
+          "eventType": "polling"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Send Alert",
+          "config": {
+            "to": "{{manager_email}}",
+            "subject": "⚠️ Google Ads Budget Alert",
+            "body": "Campaign {{trigger.campaign_name}} has reached {{trigger.budget_percentage}}% of budget.\nSpent: ${{trigger.amount_spent}}"
+          },
+          "category": "action",
+          "connector": "gmail",
+          "connectorType": "gmail",
+          "connectorDisplayName": "Gmail",
+          "description": "Send budget alert",
+          "action": "send_email",
+          "actionId": "send_email",
+          "actionName": "Send Alert"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_ads",
+        "triggerId": "budget_threshold_reached"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_ads",
+    "gmail"
+  ],
+  "tags": [
+    "marketing",
+    "automation",
+    "google_ads",
+    "gmail",
+    "budget"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow get notified when ad campaign budget reaches threshold. nodes: google ads trigger, gmail action using google_ads, gmail",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"budget alert\" that triggers when Google Ads budget threshold reached and emails manager"
+}

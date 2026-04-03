@@ -1,0 +1,97 @@
+name: Seed Templates to Production (One-Time)
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type "seed" to confirm template seeding'
+        required: true
+        type: string
+
+env:
+  SERVER_IP: ${{ secrets.PRODUCTION_SERVER_IP }}
+
+jobs:
+  seed-templates:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.confirm == 'seed'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/hetzner_fluxturn
+        chmod 600 ~/.ssh/hetzner_fluxturn
+        ssh-keyscan -H ${{ env.SERVER_IP }} >> ~/.ssh/known_hosts
+
+    - name: Seed Templates to Production
+      run: |
+        echo "🌱 Seeding templates to production database..."
+
+        ssh -i ~/.ssh/hetzner_fluxturn root@${{ env.SERVER_IP }} << 'ENDSSH'
+          set -e
+
+          cd /opt/fluxturn/backend
+
+          # Ensure we're using production env
+          if [ -f .env.production ]; then
+            cp .env.production .env
+          fi
+
+          echo "Building backend..."
+          npm run build
+
+          echo "Running standalone template seeder..."
+          # Check which dist structure exists and use the correct path
+          if [ -f dist/scripts/seed-templates-standalone.js ]; then
+            SEED_JS="dist/scripts/seed-templates-standalone.js"
+          elif [ -f dist/src/scripts/seed-templates-standalone.js ]; then
+            SEED_JS="dist/src/scripts/seed-templates-standalone.js"
+          else
+            echo "ERROR: seed-templates-standalone.js not found in dist!"
+            find dist -name "seed-templates*.js" 2>/dev/null || echo "No seed-templates*.js found"
+            exit 1
+          fi
+
+          echo "Running seed from: $SEED_JS"
+          NODE_ENV=production node $SEED_JS
+
+          echo "✅ Template seeding complete!"
+        ENDSSH
+
+    - name: Verify Seeding
+      run: |
+        echo "📊 Verifying template count in database..."
+
+        ssh -i ~/.ssh/hetzner_fluxturn root@${{ env.SERVER_IP }} << 'ENDSSH'
+          cd /opt/fluxturn/backend
+
+          # Extract database credentials from .env
+          DB_HOST=$(grep -E "^DB_HOST=" .env | cut -d '=' -f2 | tr -d '"' | tr -d "'")
+          DB_USER=$(grep -E "^DB_USERNAME=" .env | cut -d '=' -f2 | tr -d '"' | tr -d "'")
+          DB_PASS=$(grep -E "^DB_PASSWORD=" .env | cut -d '=' -f2 | tr -d '"' | tr -d "'")
+          DB_NAME=$(grep -E "^DB_DATABASE=" .env | cut -d '=' -f2 | tr -d '"' | tr -d "'")
+
+          # Default values if not found
+          DB_HOST=${DB_HOST:-localhost}
+          DB_USER=${DB_USER:-postgres}
+          DB_NAME=${DB_NAME:-fluxturn}
+
+          echo "Checking template count..."
+          PGPASSWORD="$DB_PASS" psql -h "$DB_HOST" -U "$DB_USER" -d "$DB_NAME" -c "SELECT COUNT(*) as total_templates FROM workflow_templates;" 2>/dev/null || echo "Could not verify count (psql not available or connection failed)"
+
+          echo ""
+          echo "✅ Seeding verification complete!"
+        ENDSSH
+
+    - name: Notify Status
+      if: always()
+      run: |
+        if [ "${{ job.status }}" == "success" ]; then
+          echo "✅ Template seeding to Production completed successfully!"
+        else
+          echo "❌ Template seeding failed - check logs above"
+        fi

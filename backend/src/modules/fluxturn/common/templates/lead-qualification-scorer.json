@@ -1,0 +1,154 @@
+{
+  "id": "ced68e36-b116-4ee6-89fd-ed29f5b8a5db",
+  "name": "Lead Qualification Scorer",
+  "description": "Automatically lead qualification scorer. Nodes: Google Sheets Trigger, ChatGPT Action, SMTP Action",
+  "category": "sales",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Lead",
+          "config": {},
+          "trigger": "row_added",
+          "category": "trigger",
+          "connector": "google_sheets",
+          "eventType": "polling",
+          "triggerId": "row_added",
+          "description": "Triggered when new lead",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Score Lead",
+          "action": "chat_complete",
+          "config": {
+            "model": "gpt-4",
+            "messages": [
+              {
+                "role": "user",
+                "content": "{{prompt}}"
+              }
+            ]
+          },
+          "actionId": "chat_complete",
+          "category": "action",
+          "connector": "openai",
+          "actionName": "Score Lead",
+          "description": "Score Lead",
+          "connectorType": "openai",
+          "connectorDisplayName": "ChatGPT"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Notify Sales Rep",
+          "action": "send_email",
+          "config": {
+            "to": "{{recipient_email}}",
+            "subject": "{{email_subject}}",
+            "body": "{{email_body}}"
+          },
+          "actionId": "send_email",
+          "category": "action",
+          "connector": "smtp",
+          "actionName": "Notify Sales Rep",
+          "description": "Notify Sales Rep",
+          "connectorType": "smtp",
+          "connectorDisplayName": "SMTP"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#14b8a6",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#14b8a6",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_sheets",
+        "triggerId": "row_added"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_sheets",
+    "openai",
+    "smtp"
+  ],
+  "tags": [
+    "sales",
+    "automation",
+    "google_sheets",
+    "openai",
+    "smtp"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow lead qualification scorer using google_sheets, openai, smtp",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"lead qualification scorer\" that triggers when triggered when new lead and then Score Lead via ChatGPT, Notify Sales Rep via SMTP"
+}

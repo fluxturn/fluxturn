@@ -1,0 +1,88 @@
+{
+  "action": "get_metadata",
+  "baseUrl": "https://registry.npmjs.org",
+  "testCases": [
+    {
+      "name": "gets package metadata for latest version",
+      "input": {
+        "packageName": "express",
+        "packageVersion": "latest"
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/express/latest",
+        "status": 200,
+        "response": {
+          "name": "express",
+          "version": "4.18.2",
+          "description": "Fast, unopinionated, minimalist web framework",
+          "main": "index.js",
+          "author": "TJ Holowaychuk",
+          "license": "MIT"
+        }
+      },
+      "expected": {
+        "success": true
+      }
+    },
+    {
+      "name": "gets package metadata for specific version",
+      "input": {
+        "packageName": "lodash",
+        "packageVersion": "4.17.21"
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/lodash/4.17.21",
+        "status": 200,
+        "response": {
+          "name": "lodash",
+          "version": "4.17.21",
+          "description": "Lodash modular utilities.",
+          "main": "lodash.js",
+          "author": "John-David Dalton",
+          "license": "MIT"
+        }
+      },
+      "expected": {
+        "success": true
+      }
+    },
+    {
+      "name": "handles package not found",
+      "input": {
+        "packageName": "nonexistent-package-xyz",
+        "packageVersion": "latest"
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/nonexistent-package-xyz/latest",
+        "status": 404,
+        "response": {
+          "error": "Not found"
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    },
+    {
+      "name": "handles invalid version",
+      "input": {
+        "packageName": "react",
+        "packageVersion": "99.99.99"
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/react/99.99.99",
+        "status": 404,
+        "response": {
+          "error": "version not found: 99.99.99"
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "action": "create_contact",
+  "baseUrl": "https://api.brevo.com/v3",
+  "testCases": [
+    {
+      "name": "creates contact successfully",
+      "input": {
+        "email": "test@example.com",
+        "attributes": { "FIRSTNAME": "John", "LASTNAME": "Doe" }
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/contacts",
+        "status": 200,
+        "response": { "id": 12345 }
+      },
+      "expected": {
+        "success": true,
+        "data": { "id": 12345 }
+      }
+    },
+    {
+      "name": "creates contact with list IDs",
+      "input": {
+        "email": "newuser@example.com",
+        "attributes": { "FIRSTNAME": "Jane" },
+        "listIds": [1, 2, 3]
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/contacts",
+        "status": 201,
+        "response": { "id": 67890 }
+      },
+      "expected": {
+        "success": true,
+        "data": { "id": 67890 }
+      }
+    },
+    {
+      "name": "handles duplicate contact error",
+      "input": {
+        "email": "exists@example.com"
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/contacts",
+        "status": 400,
+        "response": {
+          "code": "duplicate_parameter",
+          "message": "Contact already exists"
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    },
+    {
+      "name": "handles invalid email error",
+      "input": {
+        "email": "invalid-email"
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/contacts",
+        "status": 400,
+        "response": {
+          "code": "invalid_parameter",
+          "message": "Invalid email address"
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    }
+  ]
+}

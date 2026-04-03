@@ -1,0 +1,124 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-300000000018",
+  "name": "AI Social Media Caption Generator",
+  "description": "Generate engaging social media captions with OpenAI and post to Twitter",
+  "category": "social",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Chat Completion",
+          "config": {
+            "model": "gpt-3.5-turbo",
+            "messages": [
+              {
+                "role": "system",
+                "content": "You are a social media marketing expert. Create engaging, platform-optimized captions that drive engagement. Include relevant emojis, hashtags, and calls-to-action. Keep within character limits."
+              },
+              {
+                "role": "user",
+                "content": "Create a social media caption for {{platform}} about: {{topic}}. Brand voice: {{brand_voice}}. Include a call-to-action and relevant hashtags."
+              }
+            ],
+            "temperature": 0.8,
+            "maxTokens": 200
+          },
+          "category": "action",
+          "connector": "openai",
+          "connectorType": "openai",
+          "connectorDisplayName": "OpenAI",
+          "description": "Generate caption using GPT",
+          "action": "chat_complete",
+          "actionId": "chat_complete",
+          "actionName": "Chat Completion"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Create Tweet",
+          "config": {
+            "text": "{{node_2.output.choices[0].message.content}}"
+          },
+          "category": "action",
+          "connector": "twitter",
+          "connectorType": "twitter",
+          "connectorDisplayName": "Twitter/X",
+          "description": "Post generated caption to Twitter",
+          "action": "create_tweet",
+          "actionId": "create_tweet",
+          "actionName": "Create Tweet"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [],
+  "conditions": [],
+  "variables": [
+    {
+      "name": "platform",
+      "type": "string",
+      "description": "Target platform (Twitter, Instagram, LinkedIn)"
+    },
+    {
+      "name": "topic",
+      "type": "string",
+      "description": "Topic or subject for the caption"
+    },
+    {
+      "name": "brand_voice",
+      "type": "string",
+      "description": "Brand voice (professional, casual, playful)"
+    }
+  ],
+  "outputs": [],
+  "required_connectors": ["openai", "twitter"],
+  "tags": ["ai", "social", "twitter", "openai", "marketing", "caption"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "Generate AI social media captions and post to Twitter",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Generate social media caption with AI and post to Twitter"
+}

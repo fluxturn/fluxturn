@@ -1,0 +1,98 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-100000000014",
+  "name": "Twitter User Info to Docs",
+  "description": "Get Twitter user info and append to Google Docs. Nodes: Manual Trigger, Twitter Action, Google Docs Action",
+  "category": "social",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Get User",
+          "config": {
+            "searchBy": "username",
+            "username": "{{twitter_username}}"
+          },
+          "category": "action",
+          "connector": "twitter",
+          "connectorType": "twitter",
+          "connectorDisplayName": "Twitter/X",
+          "description": "Retrieve user information by username or ID",
+          "action": "get_user",
+          "actionId": "get_user",
+          "actionName": "Get User"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Append Text",
+          "config": {
+            "documentId": "{{document_id}}",
+            "text": "User: {{node_2.output.name}} (@{{node_2.output.username}})\nID: {{node_2.output.id}}\n\n"
+          },
+          "category": "action",
+          "connector": "google_docs",
+          "connectorType": "google_docs",
+          "connectorDisplayName": "Google Docs",
+          "description": "Append text to the end of a document",
+          "action": "append_text",
+          "actionId": "append_text",
+          "actionName": "Append Text"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [{ "id": "node_1", "type": "MANUAL_TRIGGER", "config": {} }],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": ["twitter", "google_docs"],
+  "tags": ["social", "automation", "twitter", "google_docs", "analytics"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow gets Twitter user info and appends to Google Docs using manual trigger, twitter, google_docs",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow to get Twitter user info and append to Google Docs"
+}

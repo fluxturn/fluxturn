@@ -1,0 +1,92 @@
+{
+  "action": "upload_certificate",
+  "baseUrl": "https://api.cloudflare.com/client/v4",
+  "testCases": [
+    {
+      "name": "uploads certificate successfully",
+      "input": {
+        "zoneId": "023e105f4ecef8ad9ca31a8372d0c353",
+        "certificate": "-----BEGIN CERTIFICATE-----\nMIIDtTCCAp2gAwIBAgIJAMHAwfXZ5/PWMA0GCSqGSIb3DQEBBQUAME4xCzAJBgNV\nBAYTAlVTMRMwEQYDVQQIDApDYWxpZm9ybmlhMRYwFAYDVQQHDA1TYW4gRnJhbmNp\nc2NvMRIwEAYDVQQKDAlCYWRTU0wgQ0EwHhcNMTIwNzEyMDMxNjQxWhcNMTIwODEx\n-----END CERTIFICATE-----",
+        "privateKey": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDlrVdWOQ8XwNcN\nBQEBBQUAME4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIDApDYWxpZm9ybmlhMRYwFAYD\nVQQHDA1TYW4gRnJhbmNpc2NvMRIwEAYDVQQKDAlCYWRTU0wgQ0EwHhcNMTIwNzEy\n-----END PRIVATE KEY-----"
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/zones/023e105f4ecef8ad9ca31a8372d0c353/origin_tls_client_auth",
+        "status": 200,
+        "response": {
+          "success": true,
+          "errors": [],
+          "messages": [],
+          "result": {
+            "id": "328578535",
+            "certificate": "-----BEGIN CERTIFICATE-----\nMIIDtTCCAp2gAwIBAgIJAMHAwfXZ5/PWMA0GCSqGSIb3DQEBBQUAME4xCzAJBgNV\nBAYTAlVTMRMwEQYDVQQIDApDYWxpZm9ybmlhMRYwFAYDVQQHDA1TYW4gRnJhbmNp\nc2NvMRIwEAYDVQQKDAlCYWRTU0wgQ0EwHhcNMTIwNzEyMDMxNjQxWhcNMTIwODEx\n-----END CERTIFICATE-----",
+            "expires_on": "2026-01-01",
+            "uploaded_on": "2024-01-14",
+            "status": "active"
+          }
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "id": "328578535",
+          "status": "active"
+        }
+      }
+    },
+    {
+      "name": "handles invalid certificate format error",
+      "input": {
+        "zoneId": "023e105f4ecef8ad9ca31a8372d0c353",
+        "certificate": "invalid-certificate",
+        "privateKey": "invalid-key"
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/zones/023e105f4ecef8ad9ca31a8372d0c353/origin_tls_client_auth",
+        "status": 400,
+        "response": {
+          "success": false,
+          "errors": [
+            {
+              "code": 1004,
+              "message": "Invalid certificate format"
+            }
+          ],
+          "messages": [],
+          "result": null
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    },
+    {
+      "name": "handles certificate and private key mismatch error",
+      "input": {
+        "zoneId": "023e105f4ecef8ad9ca31a8372d0c353",
+        "certificate": "-----BEGIN CERTIFICATE-----\nMIIDtTCCAp2gAwIBAgIJAMHAwfXZ5/PWMA0GCSqGSIb3DQEBBQUAME4xCzAJBgNV\n-----END CERTIFICATE-----",
+        "privateKey": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDifferent\n-----END PRIVATE KEY-----"
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/zones/023e105f4ecef8ad9ca31a8372d0c353/origin_tls_client_auth",
+        "status": 400,
+        "response": {
+          "success": false,
+          "errors": [
+            {
+              "code": 1005,
+              "message": "Certificate and private key do not match"
+            }
+          ],
+          "messages": [],
+          "result": null
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    }
+  ]
+}

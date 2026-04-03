@@ -1,0 +1,111 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-a1b2-c3d4e5f67890",
+  "name": "Zoom Meeting Scheduler from Form Submission",
+  "description": "Automatically create Zoom meetings when someone submits a meeting request form. Nodes: Jotform Trigger, Zoom Action",
+  "category": "productivity",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Form Submission",
+          "config": {},
+          "trigger": "new_submission",
+          "category": "trigger",
+          "connector": "jotform",
+          "eventType": "webhook",
+          "triggerId": "new_submission",
+          "description": "Triggered when new form submission received",
+          "connectorType": "jotform",
+          "connectorDisplayName": "Jotform"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Zoom Meeting",
+          "action": "create_meeting",
+          "config": {
+            "topic": "{{form.meeting_topic}}",
+            "type": 2,
+            "start_time": "{{form.preferred_time}}",
+            "duration": 60,
+            "timezone": "UTC",
+            "agenda": "{{form.agenda}}"
+          },
+          "actionId": "create_meeting",
+          "category": "action",
+          "connector": "zoom",
+          "actionName": "Create Meeting",
+          "description": "Create a new Zoom meeting",
+          "connectorType": "zoom",
+          "connectorDisplayName": "Zoom"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "jotform",
+        "triggerId": "new_submission"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "jotform",
+    "zoom"
+  ],
+  "tags": [
+    "productivity",
+    "automation",
+    "jotform",
+    "zoom",
+    "meetings",
+    "scheduling"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow auto-creates Zoom meetings from form submissions using jotform, zoom",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"zoom meeting scheduler from form\" that triggers when new form submission is received and then creates a Zoom meeting"
+}

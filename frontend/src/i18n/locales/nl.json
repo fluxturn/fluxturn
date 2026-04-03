@@ -1,0 +1,1187 @@
+{
+  "nav": {
+    "features": "Functies",
+    "tutorials": "Tutorials",
+    "templates": "Sjablonen",
+    "capabilities": "Mogelijkheden",
+    "useCases": "Toepassingen",
+    "whyFluxTurn": "Waarom FluxTurn",
+    "pricing": "Prijzen",
+    "documents": "Documenten",
+    "blog": "Blog",
+    "login": "Inloggen",
+    "getStarted": "Aan de slag",
+    "dashboard": "Dashboard",
+    "admin": "Admin"
+  },
+  "hero": {
+    "badge": "No-code workflow automatiseringsplatform",
+    "title1": "Automatiseer je",
+    "title2": "workflow in",
+    "title3": "minuten",
+    "subtitle": "Verbind je apps, automatiseer workflows en optimaliseer je bedrijfsprocessen met ons krachtige no-code platform. Geen technische vaardigheden nodig.",
+    "cta": "Start gratis proefperiode",
+    "workflowRunning": "Geautomatiseerde workflow actief",
+    "personas": {
+      "marketing": "Marketing",
+      "marketingTitle": "Automatiseer e-mailcampagnes",
+      "sales": "Sales",
+      "salesTitle": "Synchroniseer leads automatisch met CRM",
+      "hr": "HR",
+      "hrTitle": "Onboard nieuwe medewerkers",
+      "aiTools": "AI-tools",
+      "aiToolsTitle": "Verwerk verzoeken met AI"
+    },
+    "workflow": {
+      "formSubmit": "Formulier verzonden",
+      "website": "Website",
+      "addToList": "Toevoegen aan lijst",
+      "sendEmail": "E-mail verzenden",
+      "email": "E-mail",
+      "trackEvent": "Evenement bijhouden",
+      "analytics": "Analytics",
+      "newLead": "Nieuwe lead",
+      "webForm": "Webformulier",
+      "enrichData": "Data verrijken",
+      "addToCRM": "Toevoegen aan CRM",
+      "notifySales": "Sales notificeren",
+      "newEmployee": "Nieuwe medewerker",
+      "hrSystem": "HR-systeem",
+      "createEmail": "E-mail aanmaken",
+      "setupSlack": "Slack instellen",
+      "addToPayroll": "Toevoegen aan salarisadministratie",
+      "sendWelcome": "Welkomstbericht verzenden",
+      "userRequest": "Gebruikersverzoek",
+      "processAI": "AI verwerken",
+      "executeTask": "Taak uitvoeren",
+      "sendResult": "Resultaat verzenden"
+    }
+  },
+  "powerful": {
+    "badge": "Krachtig en eenvoudig",
+    "title": "Zet",
+    "titleHighlight": "AI en automatisering",
+    "titleEnd": "in voor je bedrijf",
+    "subtitle": "Geen dure ontwikkelaars. Geen maanden training. Alleen krachtige automatisering die vanaf dag een werkt.",
+    "stats": {
+      "setupTime": "5 min",
+      "setupTimeLabel": "Gemiddelde insteltijd",
+      "integrations": "120+",
+      "integrationsLabel": "Integraties",
+      "uptime": "99.9%",
+      "uptimeLabel": "Uptime"
+    },
+    "cta": "Begin gratis te bouwen",
+    "cards": {
+      "lightning": {
+        "title": "Razendsnelle installatie",
+        "description": "Kant-en-klare sjablonen en drag-and-drop interface. Begin binnen minuten te automatiseren zonder code."
+      },
+      "ai": {
+        "title": "Ingebouwde AI-integratie",
+        "description": "Verbind OpenAI, Claude en andere AI-modellen met een klik. Geen gedoe met APIs."
+      },
+      "security": {
+        "title": "Enterprise beveiliging",
+        "description": "SOC2-compliance met end-to-end encryptie. Self-host of gebruik onze beveiligde cloud."
+      }
+    }
+  },
+  "aiPromptBuilder": {
+    "badge": "Aangedreven door AI",
+    "heading": "Wat wil je automatiseren?",
+    "subtitle": "Beschrijf, voer uit en implementeer workflows met AI in seconden",
+    "placeholder": "Beschrijf wat je wilt automatiseren...",
+    "generate": "Genereren",
+    "generating": "Bezig met genereren...",
+    "tryThese": "Probeer een van deze:",
+    "loginMessage": "Log in om je workflow met AI te genereren",
+    "helperText": "Druk op Enter om te genereren of klik op de knop",
+    "videoTitle": "AI-workflowgeneratie",
+    "cards": {
+      "naturalLanguage": "Natuurlijke taal",
+      "noCode": "No-code bouwer",
+      "aiGeneration": "AI-generatie",
+      "integrations": "120+ integraties"
+    },
+    "suggestions": {
+      "gmail": {
+        "title": "Stuur een e-mail met Gmail",
+        "description": "Maak een triggerformulier aan met alle benodigde velden voor Gmail en verstuur het"
+      },
+      "translate": {
+        "title": "Vertaal inkomende berichten",
+        "description": "Zet berichten automatisch om naar je voorkeurstaal"
+      },
+      "priceAlert": {
+        "title": "Waarschuw me bij prijsdalingen",
+        "description": "Volg producten en ontvang meldingen wanneer ze je doelprijs bereiken"
+      },
+      "emailSummary": {
+        "title": "Vat mijn e-mails dagelijks samen",
+        "description": "Ontvang elke ochtend een kort overzicht van de hoogtepunten uit je inbox"
+      },
+      "supportDraft": {
+        "title": "Stel antwoorden op voor supporttickets",
+        "description": "Genereer conceptantwoorden voor klantvragen"
+      },
+      "crmUpdate": {
+        "title": "Werk CRM bij vanuit formulieren",
+        "description": "Voeg nieuwe leads toe aan je CRM zonder handmatige invoer"
+      },
+      "slackTasks": {
+        "title": "Maak taken aan vanuit Slack-berichten",
+        "description": "Zet Slack-berichten om in taken met een reactie of commando"
+      }
+    },
+    "errors": {
+      "emptyPrompt": "Voer alsjeblieft een bericht in",
+      "creationFailed": "Fout bij het aanmaken van de workflow",
+      "noOrganization": "Geen organisatie gevonden",
+      "noProject": "Geen project gevonden. Maak er eerst een aan."
+    }
+  },
+  "video": {
+    "badge": "Bekijk het in actie",
+    "title": "Bouw workflows visueel",
+    "subtitle": "Ontdek hoe eenvoudig het is om apps te verbinden en krachtige automatiseringen te maken met onze intuïtieve drag-and-drop editor",
+    "editor": "FluxTurn workflow-editor",
+    "connected": "Verbonden",
+    "dragDrop": "Drag-and-drop interface"
+  },
+  "buildYourWay": {
+    "interactive": {
+      "title": "Ervaar de",
+      "titleHighlight": "Visuele editor",
+      "subtitle": "Sleep nodes, verbind ze en ontdek hoe eenvoudig het is om workflows te bouwen",
+      "addNodes": "Nodes toevoegen",
+      "dragHint": "Sleep nodes naar het canvas",
+      "canvasHint": "Sleep nodes hier en verbind ze",
+      "startBuilding": "Begin met het bouwen van echte workflows",
+      "feature1": {
+        "title": "Drag and drop",
+        "desc": "Sleep eenvoudig nodes vanuit de zijbalk naar het canvas"
+      },
+      "feature2": {
+        "title": "Visuele verbindingen",
+        "desc": "Verbind nodes door van de ene connector naar de andere te slepen"
+      },
+      "feature3": {
+        "title": "Directe implementatie",
+        "desc": "Implementeer je workflow met een enkele klik"
+      }
+    }
+  },
+  "templates": {
+    "badge": "300+ sjablonen",
+    "title": "Begin met een",
+    "titleHighlight": "kant-en-klaar sjabloon",
+    "subtitle": "Verken workflowsjablonen. Klik en pas aan.",
+    "clickToPreview": "Klik op een sjabloon om de workflow te bekijken",
+    "useForFree": "Gratis gebruiken",
+    "useTemplate": "Dit sjabloon gebruiken",
+    "creating": "Bezig met aanmaken...",
+    "browseAll": "Alle sjablonen bekijken",
+    "browseHint": "Verken 300+ kant-en-klare automatiseringssjablonen",
+    "verified": "Geverifieerd",
+    "users": "Gebruikers",
+    "popular": "Populair",
+    "steps": "Stappen",
+    "integrations": "Integraties",
+    "workflowPreview": "Workflowvoorbeeld",
+    "previewNotAvailable": "Voorbeeld niet beschikbaar",
+    "viewDetails": "Bekijk sjabloondetails voor meer informatie",
+    "loginMessage": "Log in om dit sjabloon te gebruiken",
+    "errors": {
+      "noOrganization": "Geen organisatie gevonden",
+      "noProject": "Geen project gevonden",
+      "creationFailed": "Fout bij het aanmaken van de workflow"
+    },
+    "success": {
+      "created": "Workflow aangemaakt vanuit sjabloon"
+    }
+  },
+  "aiAgent": {
+    "badge": "AI-automatisering",
+    "title": "Maak kennis met het",
+    "titleHighlight": "AI-agent node",
+    "subtitle": "Een krachtig node dat denkt, beslist en handelt. Verbind elke tool en laat AI de logica afhandelen.",
+    "canvasCaption": "De AI-agent ontvangt de invoer, selecteert de juiste tool en voert automatisch uit",
+    "feature1Title": "Elke tool, een node",
+    "feature1Desc": "Verbind Gmail, Slack, Notion of een van de 120+ connectoren als AI-tools",
+    "feature2Title": "AI beslist",
+    "feature2Desc": "De agent analyseert de invoer en kiest automatisch de juiste tool",
+    "feature3Title": "Jij houdt de controle",
+    "feature3Desc": "Stel maximale iteraties, systeemprompts en beschikbare tools in",
+    "cta": "AI-agent proberen",
+    "ctaHint": "Geen creditcard nodig. Gratis plan beschikbaar",
+    "creating": "Bezig met aanmaken...",
+    "loginMessage": "Log in om de AI-agent te proberen",
+    "errors": {
+      "noOrganization": "Geen organisatie gevonden",
+      "noProject": "Geen project gevonden",
+      "creationFailed": "Fout bij het aanmaken van de workflow"
+    },
+    "success": {
+      "created": "AI-agent workflow aangemaakt"
+    }
+  },
+  "templatesPage": {
+    "title": "Workflow-",
+    "titleHighlight": "sjablonen",
+    "subtitle": "Verken onze bibliotheek met kant-en-klare workflowsjablonen. Klik op een sjabloon om het gratis te gebruiken.",
+    "searchPlaceholder": "Sjablonen zoeken...",
+    "showingCount": "Toont",
+    "of": "van",
+    "template": "sjabloon",
+    "templates": "sjablonen",
+    "loading": "Sjablonen laden...",
+    "loadFailed": "Fout bij het laden van sjablonen",
+    "retry": "Opnieuw proberen",
+    "noResults": "Geen sjablonen gevonden",
+    "noResultsHint": "Probeer je zoekopdracht of filters aan te passen",
+    "clearFilters": "Filters wissen",
+    "uses": "gebruik",
+    "useTemplate": "Sjabloon gebruiken",
+    "loadMore": "Meer sjablonen laden",
+    "verified": "Geverifieerd",
+    "steps": "Stappen",
+    "users": "Gebruikers",
+    "integrations": "Integraties",
+    "creating": "Bezig met aanmaken...",
+    "useThisTemplate": "Dit sjabloon gebruiken",
+    "previewNotAvailable": "Voorbeeld niet beschikbaar",
+    "previewHint": "Klik op \"Dit sjabloon gebruiken\" om te beginnen",
+    "workflowPreview": "Workflowvoorbeeld",
+    "all": "Alle"
+  },
+  "features": {
+    "title": "Versterk je workflow:",
+    "titleExplore": "verken",
+    "titleHighlight": "het platform",
+    "titleEnd": "alles-in-een.",
+    "subtitle": "Alles wat je nodig hebt om workflows te automatiseren en je hele technische infrastructuur te verbinden",
+    "cta": "Functies verkennen",
+    "bento": {
+      "ai-workflow": {
+        "title": "AI-workflowgeneratie",
+        "description": "Beschrijf wat je wilt in eenvoudige taal. AI bouwt de hele workflow in seconden."
+      },
+      "visual-builder": {
+        "title": "Visuele bouwer",
+        "description": "Workflows bouwen met drag and drop"
+      },
+      "ai-agent": {
+        "title": "AI-agent",
+        "description": "Intelligente automatisering die denkt en handelt"
+      },
+      "integrations": {
+        "title": "Integraties",
+        "description": "Verbind al je favoriete apps"
+      },
+      "custom-code": {
+        "title": "Aangepaste code",
+        "description": "JavaScript, Python of elke taal"
+      }
+    },
+    "items": {
+      "visualBuilder": {
+        "title": "Visuele workflowbouwer",
+        "description": "Bouw complexe automatiseringsworkflows met onze intuïtieve drag-and-drop interface. Geen code nodig."
+      },
+      "conditionalLogic": {
+        "title": "Conditionele logica",
+        "description": "Maak geavanceerde workflows met vertakkingen met if/else-condities, lussen en beslisbomen."
+      },
+      "customCode": {
+        "title": "Aangepaste code-uitvoering",
+        "description": "Voer JavaScript, Python of elke andere code rechtstreeks uit in je workflows voor maximale flexibiliteit."
+      },
+      "cloudHosted": {
+        "title": "Cloud en self-hosting",
+        "description": "Implementeer op onze cloud-infrastructuur of self-host op je eigen servers voor volledige controle."
+      },
+      "security": {
+        "title": "Enterprise beveiliging",
+        "description": "Bankwaardige encryptie, SOC2-compliance en gedetailleerde toegangscontroles om je data veilig te houden."
+      },
+      "realtime": {
+        "title": "Realtime uitvoering",
+        "description": "Razendsnelle workflowuitvoering met realtime monitoring en gedetailleerde uitvoeringslogboeken."
+      }
+    }
+  },
+  "integrations": {
+    "title": "Verbind alles",
+    "subtitle": "120+ kant-en-klare integraties met je favoriete apps en diensten",
+    "hoverHint": "Beweeg om te pauzeren. 120+ integraties beschikbaar"
+  },
+  "useCases": {
+    "title": "Gemaakt voor",
+    "titleHighlight": "elke toepassing",
+    "subtitle": "Van marketingautomatisering tot complexe datapipelines",
+    "viewAll": "Alle toepassingen bekijken",
+    "items": {
+      "marketing": {
+        "title": "Marketingautomatisering",
+        "description": "Automatiseer e-mailcampagnes, social media posts en leadgeneratie-workflows.",
+        "stats": "CAMPAGNES 10X SNELLER",
+        "category": "Marketing"
+      },
+      "api": {
+        "title": "API-integratie",
+        "description": "Verbind meerdere APIs en diensten om naadloze datastromen tussen platforms te creëren.",
+        "stats": "120+ INTEGRATIES",
+        "category": "IT en DevOps"
+      },
+      "data": {
+        "title": "Dataverwerking",
+        "description": "Transformeer, aggregeer en analyseer data uit meerdere bronnen in realtime.",
+        "stats": "MILJOENEN RECORDS",
+        "category": "Data en analytics"
+      },
+      "ai": {
+        "title": "AI en Machine Learning",
+        "description": "Integreer AI-modellen en ML-pipelines in je automatiseringsworkflows.",
+        "stats": "AI-AANGEDREVEN WORKFLOWS",
+        "category": "AI en ML"
+      }
+    }
+  },
+  "whyFluxTurn": {
+    "title": "Waarom",
+    "subtitle": "Transformeer complexe processen in eenvoudige en efficiënte workflows",
+    "efficiency": "Efficiëntie",
+    "status": {
+      "complex": "Complex proces",
+      "optimized": "Geoptimaliseerd met FluxTurn"
+    },
+    "stats": {
+      "nodes": "Nodes:",
+      "time": "Insteltijd:"
+    },
+    "analyzing": "Workflowcomplexiteit analyseren...",
+    "cta": "Begin met vereenvoudigen"
+  },
+  "pricing": {
+    "badge": "Eenvoudige prijzen",
+    "title": "Kies je",
+    "titleHighlight": "perfecte plan",
+    "subtitle": "Begin gratis en schaal mee naarmate je groeit. Geen verborgen kosten.",
+    "monthly": "Maandelijks",
+    "yearly": "Jaarlijks",
+    "twoMonthsFree": "2 maanden gratis",
+    "perMonth": "per maand",
+    "forever": "voor altijd",
+    "year": "jaar",
+    "viewFullDetails": "Volledige prijsdetails bekijken",
+    "mostPopular": "Meest populair",
+    "plans": {
+      "free": {
+        "name": "Gratis",
+        "description": "Ideaal voor individuen",
+        "features": [
+          "1.000 uitvoeringen/maand",
+          "20 actieve workflows",
+          "Community-ondersteuning",
+          "Basisintegraties"
+        ],
+        "cta": "Gratis beginnen"
+      },
+      "starter": {
+        "name": "Starter",
+        "description": "Voor kleine teams",
+        "features": [
+          "10.000 uitvoeringen/maand",
+          "50 actieve workflows",
+          "E-mailondersteuning",
+          "Alle integraties"
+        ],
+        "cta": "Start gratis proefperiode"
+      },
+      "professional": {
+        "name": "Professioneel",
+        "description": "Voor groeiende teams",
+        "features": [
+          "50.000 uitvoeringen/maand",
+          "Onbeperkte workflows",
+          "Prioriteitsondersteuning",
+          "SSO-authenticatie"
+        ],
+        "cta": "Start gratis proefperiode"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "Voor grote organisaties",
+        "features": [
+          "200.000 uitvoeringen/maand",
+          "Toegewijd support",
+          "99.9% SLA",
+          "On-premise optie"
+        ],
+        "cta": "Contact sales"
+      }
+    }
+  },
+  "blog": {
+    "title": "Het laatste van onze blog",
+    "subtitle": "Blijf op de hoogte van de nieuwste inzichten over automatisering, tips en succesverhalen",
+    "featured": "Uitgelicht",
+    "minRead": "min leestijd",
+    "by": "Door",
+    "readMore": "Lees meer",
+    "viewAllPosts": "Alle berichten bekijken"
+  },
+  "blogPage": {
+    "title": "Blog",
+    "subtitle": "Inzichten over workflowautomatisering en groei",
+    "newPost": "Nieuw bericht",
+    "myPosts": "Mijn berichten",
+    "search": {
+      "placeholder": "Artikelen zoeken..."
+    },
+    "browse": {
+      "title": "Verkennen",
+      "latest": "Recent",
+      "popular": "Populair",
+      "featured": "Uitgelicht",
+      "allPosts": "Alle berichten"
+    },
+    "categories": {
+      "title": "Categorieën",
+      "all": "Alle categorieën"
+    },
+    "loading": "Laden...",
+    "error": {
+      "loadFailed": "Fout bij het laden van berichten",
+      "tryAgain": "Opnieuw proberen"
+    },
+    "empty": {
+      "title": "Geen artikelen gevonden",
+      "subtitle": "Kom later terug voor nieuwe content!"
+    },
+    "pagination": {
+      "previous": "Vorige",
+      "next": "Volgende"
+    },
+    "post": {
+      "backToBlog": "Terug naar blog",
+      "notFound": {
+        "title": "Bericht niet gevonden",
+        "message": "Het bericht dat je zoekt bestaat niet."
+      },
+      "minRead": "min leestijd",
+      "views": "weergaven",
+      "by": "Door",
+      "featured": "Uitgelicht",
+      "edit": "Bewerken",
+      "delete": "Verwijderen",
+      "deleteConfirm": "Weet je zeker dat je dit bericht wilt verwijderen? Dit kan niet ongedaan worden gemaakt.",
+      "signInToRate": "Log in om dit bericht te beoordelen"
+    },
+    "comments": {
+      "title": "Reacties",
+      "comment": "reactie",
+      "comments": "reacties",
+      "placeholder": "Deel je gedachten...",
+      "signInPrompt": "om een reactie achter te laten.",
+      "signIn": "Log in",
+      "noComments": "Nog geen reacties. Wees de eerste om te reageren!",
+      "reply": "Reageren",
+      "replying": "Bezig met reageren...",
+      "submit": "Verzenden",
+      "cancel": "Annuleren"
+    },
+    "card": {
+      "minRead": "min leestijd",
+      "by": "Door"
+    }
+  },
+  "comparison": {
+    "badge": "Platforms vergelijken",
+    "title": "Waarom kiezen voor",
+    "subtitle": "Bekijk hoe FluxTurn zich verhoudt tot andere workflowautomatiseringsplatforms",
+    "getStarted": "Gratis beginnen",
+    "footnote": "* Self-hosted versie. Prijzen en functies kunnen variëren. Laatst bijgewerkt: januari 2025.",
+    "categories": {
+      "corefeatures": "Kernfuncties",
+      "deployment": "Implementatie",
+      "pricing": "Prijzen",
+      "integrations": "Integraties",
+      "performance": "Prestaties",
+      "collaboration": "Samenwerking"
+    },
+    "features": {
+      "visualBuilder": "Visuele workflowbouwer",
+      "aiWorkflowGeneration": "AI-workflowgeneratie",
+      "naturalLanguagePrompts": "Prompts in natuurlijke taal",
+      "customCodeSupport": "Ondersteuning voor aangepaste code",
+      "selfHosting": "Self-hosting optie",
+      "cloudHosted": "Cloud-hosting",
+      "freeWorkflows": "Gratis workflows",
+      "freeOperations": "Gratis operaties",
+      "startingPrice": "Startprijs",
+      "integrations": "Integraties",
+      "apiAccess": "API-toegang",
+      "webhooks": "Webhooks",
+      "realtimeExecution": "Realtime uitvoering",
+      "errorHandling": "Foutafhandeling",
+      "teamCollaboration": "Teamsamenwerking",
+      "versionHistory": "Versiegeschiedenis"
+    }
+  },
+  "faq": {
+    "badge": "Heb je vragen?",
+    "title": "Veelgestelde vragen",
+    "subtitle": "Alles wat je moet weten over FluxTurn. Niet gevonden wat je zoekt? Neem gerust contact op met ons supportteam.",
+    "items": {
+      "whatIs": {
+        "question": "Wat is FluxTurn en hoe werkt het?",
+        "answer": "FluxTurn is een krachtig workflowautomatiseringsplatform waarmee je je apps kunt verbinden en repetitieve taken kunt automatiseren zonder te programmeren. Met onze visuele drag-and-drop bouwer kun je workflows maken die automatisch worden geactiveerd door events, schema's of handmatige activering. Verbind gewoon je apps, definieer je logica en laat FluxTurn de rest afhandelen."
+      },
+      "codingSkills": {
+        "question": "Moet ik kunnen programmeren om FluxTurn te gebruiken?",
+        "answer": "Er zijn geen programmeervaardigheden nodig! FluxTurn heeft een intuïtieve visuele bouwer waar je nodes kunt slepen en neerzetten, verbinden en acties kunt configureren via eenvoudige formulieren. Voor gevorderde gebruikers ondersteunen we echter ook het uitvoeren van aangepaste code in JavaScript en Python binnen workflows voor maximale flexibiliteit."
+      },
+      "integrations": {
+        "question": "Welke apps en diensten kan ik verbinden?",
+        "answer": "FluxTurn integreert met meer dan 100 populaire apps waaronder Gmail, Slack, Google Sheets, Telegram, Discord, Stripe, Shopify, OpenAI, databases zoals PostgreSQL en MongoDB, en nog veel meer. We voegen voortdurend nieuwe integraties toe op basis van gebruikersverzoeken."
+      },
+      "freePlan": {
+        "question": "Is er een gratis plan beschikbaar?",
+        "answer": "Ja! We bieden een royaal gratis plan dat tot 500 workflowuitvoeringen per maand omvat, toegang tot alle integraties en de mogelijkheid om onbeperkte workflows te maken. Het is ideaal voor persoonlijke projecten en kleine teams die beginnen met automatisering."
+      },
+      "selfHost": {
+        "question": "Kan ik FluxTurn self-hosten op mijn eigen servers?",
+        "answer": "Absoluut! FluxTurn biedt zowel cloud-hosting als self-hosting opties. Onze self-hosted oplossing geeft je volledige controle over je data en infrastructuur. Het is ideaal voor bedrijven met strikte compliance-eisen of teams die liever hun eigen implementatie beheren."
+      },
+      "security": {
+        "question": "Hoe veilig zijn mijn gegevens bij FluxTurn?",
+        "answer": "Beveiliging is onze hoogste prioriteit. We gebruiken bankwaardige AES-256 encryptie voor alle data in rust en TLS 1.3 voor data in transit. Je inloggegevens worden versleuteld en nooit in platte tekst opgeslagen. We bieden ook SOC2-compliance, rolgebaseerde toegangscontroles en auditlogs voor enterprise-klanten."
+      },
+      "failedWorkflow": {
+        "question": "Wat gebeurt er als een workflow mislukt?",
+        "answer": "FluxTurn biedt uitgebreide foutafhandeling en monitoring. Wanneer een workflow mislukt, ontvang je direct meldingen via e-mail of je voorkeurskanaal. Onze gedetailleerde uitvoeringslogboeken helpen je problemen snel te identificeren en op te lossen. Je kunt ook automatische herhaalpogingen en terugvalacties configureren voor kritieke workflows."
+      },
+      "aiWorkflows": {
+        "question": "Kan ik AI gebruiken in mijn workflows?",
+        "answer": "Ja! FluxTurn heeft ingebouwde AI-mogelijkheden aangedreven door OpenAI, Anthropic en andere toonaangevende AI-providers. Je kunt AI gebruiken om content te genereren, data te analyseren, beslissingen te nemen, informatie te classificeren en nog veel meer. Onze AI-agent nodes maken het eenvoudig om intelligentie toe te voegen aan elke workflow."
+      }
+    }
+  },
+  "footer": {
+    "description": "Bouw krachtige applicaties met ons uitgebreide backendplatform. Alles wat je nodig hebt op een plek.",
+    "sections": {
+      "product": "Product",
+      "developers": "Ontwikkelaars",
+      "company": "Bedrijf",
+      "legal": "Juridisch"
+    },
+    "links": {
+      "features": "Functies",
+      "visualBuilders": "Visuele bouwers",
+      "aiPlatform": "AI-platform",
+      "integrations": "Integraties",
+      "pricing": "Prijzen",
+      "documentation": "Documentatie",
+      "tutorials": "Tutorials",
+      "apiReference": "API-referentie",
+      "examples": "Voorbeelden",
+      "support": "Ondersteuning",
+      "privacy": "Privacy",
+      "terms": "Voorwaarden",
+      "security": "Beveiliging"
+    },
+    "newsletter": {
+      "title": "Blijf op de hoogte",
+      "description": "Ontvang het laatste nieuws over nieuwe functies en releases.",
+      "placeholder": "Vul je e-mail in",
+      "subscribe": "Abonneren",
+      "subscribing": "Bezig met abonneren..."
+    },
+    "copyright": "\u00a9 {{year}} Info Inlet. Alle rechten voorbehouden.",
+    "builtWith": "Gemaakt met",
+    "byTeam": "door het Info Inlet team",
+    "docs": "Docs"
+  },
+  "language": {
+    "en": "Engels",
+    "ja": "Japans",
+    "zh": "Chinees",
+    "ko": "Koreaans",
+    "es": "Spaans",
+    "fr": "Frans",
+    "de": "Duits"
+  },
+  "featuresPage": {
+    "badge": "Krachtige functies",
+    "title": "Alles wat je nodig hebt om te",
+    "titleHighlight": "automatiseren",
+    "subtitle": "Ontdek de krachtige functies die FluxTurn het meest flexibele workflowautomatiseringsplatform maken voor moderne teams.",
+    "cta": "Start gratis proefperiode",
+    "viewDocs": "Documentatie bekijken",
+    "stats": {
+      "workflows": "Onbeperkte workflows",
+      "workflowsValue": "Bouwen",
+      "integrations": "Integraties",
+      "codeSupport": "Code-ondersteuning",
+      "security": "Beveiliging"
+    },
+    "coreFeatures": {
+      "title": "Kernfuncties",
+      "subtitle": "Verken de krachtige mogelijkheden die FluxTurn onderscheiden"
+    },
+    "features": {
+      "visualBuilder": {
+        "title": "Visuele workflowbouwer",
+        "desc": "Drag-and-drop interface om complexe automatiseringsworkflows te bouwen zonder code."
+      },
+      "conditionalLogic": {
+        "title": "Conditionele logica",
+        "desc": "Maak workflows met vertakkingen met if/else-condities, lussen en beslisbomen."
+      },
+      "customCode": {
+        "title": "Aangepaste code",
+        "desc": "Voer JavaScript of Python code uit voor maximale flexibiliteit."
+      },
+      "integrations": {
+        "title": "120+ integraties",
+        "desc": "Verbind direct met al je favoriete apps en diensten."
+      },
+      "realtime": {
+        "title": "Realtime uitvoering",
+        "desc": "Razendsnelle workflowuitvoering met realtime monitoring."
+      },
+      "security": {
+        "title": "Enterprise beveiliging",
+        "desc": "Bankwaardige encryptie, SOC2-compliance en gedetailleerde toegangscontroles."
+      },
+      "deployment": {
+        "title": "Cloud en self-hosting",
+        "desc": "Implementeer op onze cloud of self-host op je eigen infrastructuur."
+      },
+      "scheduling": {
+        "title": "Geavanceerde planning",
+        "desc": "Plan workflows om op specifieke tijden of intervallen uit te voeren."
+      },
+      "templates": {
+        "title": "300+ sjablonen",
+        "desc": "Begin snel met kant-en-klare sjablonen voor veelvoorkomende toepassingen."
+      }
+    },
+    "ctaSection": {
+      "title": "Klaar om te beginnen?",
+      "subtitle": "Begin vandaag nog met het automatiseren van je workflows met FluxTurn. Geen creditcard nodig.",
+      "cta": "Start gratis proefperiode",
+      "viewPricing": "Prijzen bekijken"
+    },
+    "visualSection": {
+      "badge": "Visuele workflow-editor",
+      "title": "Bouw automatiseringen met",
+      "titleHighlight": "drag and drop",
+      "subtitle": "Maak krachtige automatiseringsworkflows visueel. Verbind nodes, configureer acties en implementeer je automatiseringen met onze intuïtieve visuele editor.",
+      "videoTitle": "FluxTurn visuele workflow-editor",
+      "floatingBadge": "Drag and drop",
+      "cta": "Visuele editor proberen",
+      "features": {
+        "dragDrop": {
+          "title": "Intuïtieve drag and drop",
+          "desc": "Sleep eenvoudig nodes naar het canvas en verbind ze om je workflow te bouwen. Geen programmeerervaring nodig."
+        },
+        "integrations": {
+          "title": "120+ kant-en-klare integraties",
+          "desc": "Verbind direct met je favoriete apps. Gmail, Slack, Notion, Stripe en honderden meer klaar voor gebruik."
+        },
+        "realtime": {
+          "title": "Realtime testen",
+          "desc": "Test je workflows direct met echte data. Bekijk resultaten onmiddellijk en debug met gedetailleerde logs."
+        },
+        "preview": {
+          "title": "Live voorbeeld",
+          "desc": "Bekijk je workflow in realtime. Visualiseer de datastroom en detecteer problemen voor implementatie."
+        }
+      }
+    },
+    "aiSection": {
+      "badge": "AI-automatisering",
+      "title": "Bouw workflows met",
+      "titleHighlight": "AI-assistent",
+      "subtitle": "Beschrijf wat je wilt automatiseren in natuurlijke taal en laat onze AI de workflow voor je bouwen. Chat met de AI om je workflows te wijzigen, optimaliseren en debuggen in realtime.",
+      "videoTitle": "FluxTurn AI-workflowbouwer",
+      "floatingBadge": "Geen code nodig",
+      "cta": "AI-bouwer proberen",
+      "features": {
+        "naturalLanguage": {
+          "title": "Invoer in natuurlijke taal",
+          "desc": "Beschrijf je automatisering in eenvoudige taal. Onze AI begrijpt je intentie en maakt de workflow automatisch."
+        },
+        "aiChat": {
+          "title": "AI-chatassistent",
+          "desc": "Chat met de AI om je workflows te wijzigen, vragen te stellen en in realtime verbeteringsuggesties te krijgen."
+        },
+        "instantGeneration": {
+          "title": "Directe workflowgeneratie",
+          "desc": "Zie je workflow in seconden tot leven komen. AI selecteert automatisch de juiste integraties en configureert ze."
+        },
+        "smartSuggestions": {
+          "title": "Slimme suggesties",
+          "desc": "Ontvang intelligente aanbevelingen voor optimalisatie, foutafhandeling en best practices terwijl je bouwt."
+        }
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Welkom terug",
+      "subtitle": "Vul je inloggegevens in om toegang te krijgen tot je account",
+      "inviteMessage": "Log in om je uitnodiging te accepteren",
+      "email": "E-mail",
+      "emailPlaceholder": "Vul je e-mail in",
+      "password": "Wachtwoord",
+      "passwordPlaceholder": "Vul je wachtwoord in",
+      "rememberMe": "Onthoud mij",
+      "forgotPassword": "Wachtwoord vergeten?",
+      "signIn": "Inloggen",
+      "signingIn": "Bezig met inloggen...",
+      "noAccount": "Heb je geen account?",
+      "signUp": "Registreren",
+      "orContinueWith": "Of ga verder met",
+      "termsAgreement": "Door in te loggen ga je akkoord met onze",
+      "termsOfService": "Servicevoorwaarden",
+      "and": "en",
+      "privacyPolicy": "Privacybeleid"
+    },
+    "register": {
+      "title": "Account aanmaken",
+      "subtitle": "Registreer je om te beginnen met FluxTurn",
+      "name": "Volledige naam",
+      "namePlaceholder": "Vul je volledige naam in",
+      "passwordRequirements": {
+        "minLength": "8+ tekens",
+        "uppercase": "hoofdletter",
+        "lowercase": "kleine letter",
+        "number": "cijfer",
+        "special": "speciaal teken"
+      },
+      "email": "E-mail",
+      "emailPlaceholder": "Vul je e-mail in",
+      "password": "Wachtwoord",
+      "passwordPlaceholder": "Maak een wachtwoord",
+      "confirmPassword": "Wachtwoord bevestigen",
+      "confirmPasswordPlaceholder": "Bevestig je wachtwoord",
+      "passwordStrength": "Wachtwoordsterkte:",
+      "weak": "Zwak",
+      "fair": "Redelijk",
+      "good": "Goed",
+      "strong": "Sterk",
+      "missing": "Ontbreekt:",
+      "passwordsMatch": "Wachtwoorden komen overeen",
+      "passwordsNoMatch": "Wachtwoorden komen niet overeen",
+      "agreeToTerms": "Ik ga akkoord met de",
+      "termsOfService": "Servicevoorwaarden",
+      "and": "en",
+      "privacyPolicy": "Privacybeleid",
+      "createAccount": "Account aanmaken",
+      "creating": "Account aanmaken...",
+      "haveAccount": "Heb je al een account?",
+      "signIn": "Inloggen",
+      "orContinueWith": "Of ga verder met"
+    },
+    "forgotPassword": {
+      "title": "Wachtwoord vergeten?",
+      "subtitle": "Geen zorgen, we sturen je herstelinstructies",
+      "email": "E-mail",
+      "emailPlaceholder": "Vul je e-mail in",
+      "sendLink": "Herstel-e-mail verzenden",
+      "sending": "Verzenden...",
+      "backToLogin": "Terug naar inloggen",
+      "successTitle": "Controleer je e-mail",
+      "successMessage": "We hebben een herstellink gestuurd naar:",
+      "successHint": "Geen e-mail ontvangen? Controleer je spammap of probeer het opnieuw.",
+      "resendEmail": "E-mail opnieuw verzenden",
+      "resending": "Opnieuw verzenden..."
+    },
+    "resetPassword": {
+      "title": "Nieuw wachtwoord instellen",
+      "subtitle": "Vul hieronder je nieuwe wachtwoord in",
+      "invalidTitle": "Ongeldige herstellink",
+      "invalidMessage": "Deze herstellink is ongeldig of verlopen.",
+      "requestNewLink": "Nieuwe link aanvragen",
+      "newPassword": "Nieuw wachtwoord",
+      "newPasswordPlaceholder": "Vul je nieuwe wachtwoord in",
+      "confirmPassword": "Wachtwoord bevestigen",
+      "confirmPasswordPlaceholder": "Bevestig je nieuwe wachtwoord",
+      "passwordStrength": "Wachtwoordsterkte:",
+      "passwordsMatch": "Wachtwoorden komen overeen",
+      "passwordsNoMatch": "Wachtwoorden komen niet overeen",
+      "reset": "Wachtwoord bijwerken",
+      "resetting": "Wachtwoord bijwerken...",
+      "successTitle": "Wachtwoord bijgewerkt",
+      "successMessage": "Je wachtwoord is succesvol bijgewerkt. Je kunt nu inloggen met je nieuwe wachtwoord.",
+      "continueToLogin": "Doorgaan naar inloggen",
+      "validating": "Herstellink valideren...",
+      "backToLogin": "Terug naar inloggen"
+    },
+    "verifyEmail": {
+      "title": "Verifieer je e-mail",
+      "subtitle": "We hebben een verificatielink gestuurd naar:",
+      "instruction": "Klik op de link in je e-mail om je account te verifiëren",
+      "checkEmail": "Controleer je e-mail",
+      "expireNote": "De verificatielink verloopt over 24 uur",
+      "noEmailHint": "Geen e-mail ontvangen? Controleer je spammap of stuur opnieuw.",
+      "resendEmail": "E-mail opnieuw verzenden",
+      "sending": "Verzenden...",
+      "verifyingTitle": "E-mail verifiëren",
+      "verifyingMessage": "Even geduld terwijl we je e-mailadres verifiëren...",
+      "successTitle": "E-mail geverifieerd!",
+      "successMessage": "Je e-mail is succesvol geverifieerd. Je hebt nu toegang tot alle functies van je account.",
+      "goToDashboard": "Ga naar dashboard",
+      "signIn": "Inloggen",
+      "failedTitle": "Verificatie mislukt",
+      "failedMessage": "De verificatielink is ongeldig of verlopen. Vraag alsjeblieft een nieuwe verificatie-e-mail aan.",
+      "sendNewEmail": "Nieuwe verificatie-e-mail verzenden",
+      "backToLogin": "Terug naar inloggen",
+      "emailSentTitle": "E-mail verzonden!",
+      "emailSentMessage": "We hebben een nieuwe verificatie-e-mail gestuurd naar:",
+      "emailSentHint": "Controleer je inbox en klik op de verificatielink",
+      "spamHint": "Nog niet gezien? Controleer je spammap.",
+      "resendAgain": "Opnieuw verzenden",
+      "waitBeforeResend": "Wacht {{countdown}}s voor opnieuw verzenden",
+      "welcome": "Welkom bij de toekomst van ontwikkeling",
+      "verifyToStart": "Verifieer je e-mail om te beginnen",
+      "needHelp": "Hulp nodig? Neem contact op met ons",
+      "supportTeam": "supportteam"
+    },
+    "authSuccess": {
+      "title": "Authenticatie geslaagd!",
+      "message": "Je bent succesvol ingelogd. Je wordt doorgestuurd naar je dashboard..."
+    },
+    "authError": {
+      "title": "Authenticatie mislukt",
+      "redirectMessage": "Je wordt over enkele seconden doorgestuurd naar de inlogpagina...",
+      "returnToLogin": "Terug naar inloggen",
+      "troubleHelp": "Problemen? Probeer deze opties:",
+      "createAccount": "Account aanmaken",
+      "resetPassword": "Wachtwoord herstellen"
+    },
+    "oauth": {
+      "google": "Doorgaan met Google",
+      "github": "Doorgaan met GitHub",
+      "apple": "Doorgaan met Apple",
+      "connecting": "Verbinden...",
+      "processing": "OAuth callback verwerken...",
+      "success": "Gelukt!",
+      "successMessage": "Succesvol verbonden! Je wordt doorgestuurd...",
+      "error": "Fout",
+      "closeWindow": "Venster sluiten"
+    },
+    "errors": {
+      "invalidCredentials": "Ongeldig e-mailadres of wachtwoord",
+      "emailRequired": "E-mail is verplicht",
+      "passwordRequired": "Wachtwoord is verplicht",
+      "nameRequired": "Naam is verplicht",
+      "passwordMismatch": "Wachtwoorden komen niet overeen",
+      "weakPassword": "Wachtwoord moet minimaal 8 tekens bevatten",
+      "invalidEmail": "Vul een geldig e-mailadres in",
+      "accountExists": "Er bestaat al een account met dit e-mailadres",
+      "loginFailed": "Inloggen mislukt. Controleer je inloggegevens en probeer het opnieuw.",
+      "registrationFailed": "Registratie mislukt. Probeer het opnieuw.",
+      "missingOAuthParams": "Verplichte OAuth-parameters ontbreken",
+      "invalidOAuthState": "Ongeldige OAuth-status - mogelijk beveiligingsprobleem",
+      "missingCredentialId": "Credential ID ontbreekt"
+    },
+    "branding": {
+      "welcomeBack": "Welkom",
+      "back": "terug",
+      "joinFluxTurn": "Word lid van",
+      "fluxTurn": "FluxTurn",
+      "tagline": "Bouw krachtige workflowautomatiseringen met ons no-code platform. Verbind 120+ apps direct.",
+      "feature1": "120+ kant-en-klare integraties",
+      "feature2": "Visuele drag-and-drop workflowbouwer",
+      "feature3": "AI-automatiseringssuggesties",
+      "feature4": "Enterprise-niveau beveiliging",
+      "testimonial": "FluxTurn heeft de manier waarop ons team werkt volledig getransformeerd. We hebben 80% van onze repetitieve taken geautomatiseerd!",
+      "powerUser": "Power user",
+      "premiumMember": "Premium lid"
+    },
+    "common": {
+      "email": "E-mail",
+      "password": "Wachtwoord",
+      "submit": "Verzenden",
+      "cancel": "Annuleren",
+      "loading": "Laden...",
+      "or": "of"
+    }
+  },
+  "common": {
+    "save": "Opslaan",
+    "cancel": "Annuleren",
+    "delete": "Verwijderen",
+    "edit": "Bewerken",
+    "create": "Aanmaken",
+    "update": "Bijwerken",
+    "close": "Sluiten",
+    "confirm": "Bevestigen",
+    "back": "Terug",
+    "next": "Volgende",
+    "search": "Zoeken",
+    "filter": "Filteren",
+    "loading": "Laden...",
+    "saving": "Opslaan...",
+    "deleting": "Verwijderen...",
+    "noResults": "Geen resultaten gevonden",
+    "error": "Er is iets misgegaan",
+    "success": "Gelukt",
+    "required": "Verplicht",
+    "optional": "Optioneel",
+    "actions": "Acties",
+    "status": "Status",
+    "active": "Actief",
+    "inactive": "Inactief",
+    "enabled": "Ingeschakeld",
+    "disabled": "Uitgeschakeld",
+    "name": "Naam",
+    "description": "Beschrijving",
+    "createdAt": "Aangemaakt",
+    "updatedAt": "Bijgewerkt",
+    "copy": "Kopiëren",
+    "copied": "Gekopieerd!",
+    "download": "Downloaden",
+    "upload": "Uploaden",
+    "refresh": "Vernieuwen",
+    "retry": "Opnieuw proberen",
+    "learnMore": "Meer informatie",
+    "viewAll": "Alles bekijken",
+    "showMore": "Meer tonen",
+    "showLess": "Minder tonen",
+    "yes": "Ja",
+    "no": "Nee",
+    "or": "of",
+    "and": "en"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welkom terug",
+    "overview": "Overzicht",
+    "recentWorkflows": "Recente workflows",
+    "recentActivity": "Recente activiteit",
+    "quickActions": "Snelle acties",
+    "createWorkflow": "Workflow aanmaken",
+    "viewAllWorkflows": "Alle workflows bekijken",
+    "noWorkflows": "Nog geen workflows",
+    "noWorkflowsHint": "Maak je eerste workflow aan om te beginnen",
+    "stats": {
+      "totalWorkflows": "Totaal workflows",
+      "activeWorkflows": "Actieve workflows",
+      "totalExecutions": "Totaal uitvoeringen",
+      "successRate": "Slagingspercentage"
+    }
+  },
+  "workflow": {
+    "title": "Workflows",
+    "create": "Workflow aanmaken",
+    "createNew": "Nieuwe workflow aanmaken",
+    "builder": "Workflowbouwer",
+    "name": "Workflownaam",
+    "namePlaceholder": "Vul de workflownaam in",
+    "description": "Beschrijving",
+    "descriptionPlaceholder": "Beschrijf wat deze workflow doet",
+    "status": {
+      "active": "Actief",
+      "inactive": "Inactief",
+      "draft": "Concept",
+      "running": "Actief",
+      "completed": "Voltooid",
+      "failed": "Mislukt",
+      "paused": "Gepauzeerd"
+    },
+    "actions": {
+      "run": "Uitvoeren",
+      "stop": "Stoppen",
+      "duplicate": "Dupliceren",
+      "export": "Exporteren",
+      "delete": "Verwijderen",
+      "activate": "Activeren",
+      "deactivate": "Deactiveren"
+    },
+    "nodes": {
+      "addNode": "Node toevoegen",
+      "configure": "Configureren",
+      "delete": "Node verwijderen",
+      "duplicate": "Node dupliceren",
+      "trigger": "Trigger",
+      "action": "Actie",
+      "condition": "Conditie",
+      "loop": "Lus",
+      "delay": "Vertraging",
+      "code": "Code",
+      "aiAgent": "AI-agent",
+      "webhook": "Webhook",
+      "schedule": "Planning",
+      "manual": "Handmatige trigger"
+    },
+    "execution": {
+      "title": "Uitvoeringslog",
+      "running": "Uitvoeren...",
+      "completed": "Voltooid",
+      "failed": "Mislukt",
+      "duration": "Duur",
+      "startedAt": "Gestart om",
+      "input": "Invoer",
+      "output": "Uitvoer",
+      "error": "Fout",
+      "noExecutions": "Nog geen uitvoeringen",
+      "viewDetails": "Details bekijken"
+    },
+    "canvas": {
+      "zoomIn": "Inzoomen",
+      "zoomOut": "Uitzoomen",
+      "fitView": "Passend maken",
+      "undo": "Ongedaan maken",
+      "redo": "Opnieuw doen",
+      "save": "Opslaan",
+      "deploy": "Implementeren"
+    },
+    "errors": {
+      "saveFailed": "Fout bij het opslaan van de workflow",
+      "loadFailed": "Fout bij het laden van de workflow",
+      "executionFailed": "Workflow-uitvoering mislukt",
+      "invalidConfig": "Ongeldige configuratie"
+    }
+  },
+  "credentials": {
+    "title": "Inloggegevens",
+    "add": "Inloggegevens toevoegen",
+    "edit": "Inloggegevens bewerken",
+    "name": "Naam van de inloggegevens",
+    "namePlaceholder": "Mijn inloggegevens",
+    "type": "Type inloggegevens",
+    "test": "Verbinding testen",
+    "testing": "Testen...",
+    "testSuccess": "Verbinding geslaagd",
+    "testFailed": "Verbinding mislukt",
+    "save": "Inloggegevens opslaan",
+    "delete": "Inloggegevens verwijderen",
+    "deleteConfirm": "Weet je zeker dat je deze inloggegevens wilt verwijderen? Workflows die ze gebruiken zullen stoppen met werken.",
+    "noCredentials": "Nog geen inloggegevens",
+    "noCredentialsHint": "Voeg inloggegevens toe om je apps te verbinden",
+    "lastTested": "Laatst getest",
+    "connected": "Verbonden",
+    "disconnected": "Niet verbonden",
+    "expires": "Verloopt",
+    "reconnect": "Opnieuw verbinden"
+  },
+  "organization": {
+    "title": "Organisatie",
+    "create": "Organisatie aanmaken",
+    "settings": "Organisatie-instellingen",
+    "name": "Organisatienaam",
+    "namePlaceholder": "Mijn organisatie",
+    "members": {
+      "title": "Leden",
+      "invite": "Lid uitnodigen",
+      "inviteByEmail": "Uitnodigen per e-mail",
+      "emailPlaceholder": "collega@bedrijf.com",
+      "role": "Rol",
+      "roles": {
+        "owner": "Eigenaar",
+        "admin": "Beheerder",
+        "member": "Lid",
+        "viewer": "Kijker"
+      },
+      "remove": "Lid verwijderen",
+      "removeConfirm": "Weet je zeker dat je dit lid wilt verwijderen?",
+      "pending": "In afwachting",
+      "active": "Actief"
+    },
+    "billing": {
+      "title": "Facturering",
+      "currentPlan": "Huidig plan",
+      "usage": "Gebruik",
+      "invoices": "Facturen",
+      "upgrade": "Upgraden",
+      "downgrade": "Downgraden",
+      "cancel": "Abonnement opzeggen",
+      "paymentMethod": "Betaalmethode",
+      "addPayment": "Betaalmethode toevoegen",
+      "nextBilling": "Volgende factureringsdatum",
+      "executions": "Uitvoeringen",
+      "executionsUsed": "{{used}} van {{limit}} gebruikt",
+      "workflows": "Workflows",
+      "workflowsUsed": "{{used}} van {{limit}} gebruikt"
+    },
+    "integrations": {
+      "title": "Integraties",
+      "connected": "Verbonden",
+      "available": "Beschikbaar",
+      "connect": "Verbinden",
+      "disconnect": "Ontkoppelen",
+      "configure": "Configureren",
+      "lastSync": "Laatste synchronisatie"
+    }
+  },
+  "project": {
+    "title": "Project",
+    "create": "Project aanmaken",
+    "settings": "Projectinstellingen",
+    "name": "Projectnaam",
+    "namePlaceholder": "Mijn project",
+    "description": "Beschrijving",
+    "descriptionPlaceholder": "Waarvoor is dit project?",
+    "workflows": "Workflows",
+    "credentials": "Inloggegevens",
+    "members": "Leden",
+    "noProjects": "Nog geen projecten",
+    "noProjectsHint": "Maak een project aan om je workflows te organiseren"
+  },
+  "settings": {
+    "title": "Instellingen",
+    "account": {
+      "title": "Accountinstellingen",
+      "profile": "Profiel",
+      "email": "E-mailadres",
+      "name": "Weergavenaam",
+      "avatar": "Profielfoto",
+      "changeAvatar": "Wijzigen",
+      "removeAvatar": "Verwijderen",
+      "timezone": "Tijdzone",
+      "language": "Taal",
+      "notifications": "Notificaties",
+      "emailNotifications": "E-mailnotificaties",
+      "pushNotifications": "Pushnotificaties",
+      "workflowAlerts": "Workflowwaarschuwingen"
+    },
+    "security": {
+      "title": "Beveiliging",
+      "changePassword": "Wachtwoord wijzigen",
+      "currentPassword": "Huidig wachtwoord",
+      "newPassword": "Nieuw wachtwoord",
+      "confirmPassword": "Wachtwoord bevestigen",
+      "twoFactor": "Tweefactorauthenticatie",
+      "enable2FA": "2FA inschakelen",
+      "disable2FA": "2FA uitschakelen",
+      "sessions": "Actieve sessies",
+      "revokeSession": "Intrekken",
+      "revokeAll": "Alle sessies intrekken"
+    },
+    "apiKeys": {
+      "title": "API-sleutels",
+      "create": "API-sleutel aanmaken",
+      "name": "Sleutelnaam",
+      "namePlaceholder": "Mijn API-sleutel",
+      "permissions": "Machtigingen",
+      "expires": "Verloopt",
+      "never": "Nooit",
+      "revoke": "Intrekken",
+      "revokeConfirm": "Weet je het zeker? Dit kan niet ongedaan worden gemaakt.",
+      "noKeys": "Nog geen API-sleutels",
+      "copyWarning": "Kopieer deze sleutel nu. Je kunt hem niet opnieuw bekijken."
+    },
+    "danger": {
+      "title": "Gevarenzone",
+      "deleteAccount": "Account verwijderen",
+      "deleteAccountWarning": "Dit verwijdert permanent je account en alle bijbehorende gegevens. Dit kan niet ongedaan worden gemaakt.",
+      "typeToConfirm": "Typ je e-mail om te bevestigen"
+    }
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-300000000008",
+  "name": "WooCommerce Product Description Generator",
+  "description": "Generate compelling product descriptions using OpenAI and create products in WooCommerce",
+  "category": "ecommerce",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Chat Completion",
+          "config": {
+            "model": "gpt-3.5-turbo",
+            "messages": [
+              {
+                "role": "system",
+                "content": "You are an expert e-commerce copywriter. Create compelling, SEO-optimized product descriptions that highlight key features, benefits, and include a call to action. Format the description in HTML with proper headings and bullet points."
+              },
+              {
+                "role": "user",
+                "content": "Create a product description for: {{product_name}}. Price: ${{price}}. Key features: {{features}}. Make it engaging and conversion-focused."
+              }
+            ],
+            "temperature": 0.7,
+            "maxTokens": 500
+          },
+          "category": "action",
+          "connector": "openai",
+          "connectorType": "openai",
+          "connectorDisplayName": "OpenAI",
+          "description": "Generate product description using GPT",
+          "action": "chat_complete",
+          "actionId": "chat_complete",
+          "actionName": "Chat Completion"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Create Product",
+          "config": {
+            "name": "{{product_name}}",
+            "description": "{{node_2.output.choices[0].message.content}}",
+            "regular_price": "{{price}}",
+            "status": "draft",
+            "type": "simple"
+          },
+          "category": "action",
+          "connector": "woocommerce",
+          "connectorType": "woocommerce",
+          "connectorDisplayName": "WooCommerce",
+          "description": "Create product in WooCommerce store",
+          "action": "create_product",
+          "actionId": "create_product",
+          "actionName": "Create Product"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [],
+  "conditions": [],
+  "variables": [
+    {
+      "name": "product_name",
+      "type": "string",
+      "description": "The name of the product"
+    },
+    {
+      "name": "price",
+      "type": "string",
+      "description": "The product price (numeric value)"
+    },
+    {
+      "name": "features",
+      "type": "string",
+      "description": "Key product features (comma-separated)"
+    }
+  ],
+  "outputs": [],
+  "required_connectors": ["openai", "woocommerce"],
+  "tags": ["ai", "ecommerce", "woocommerce", "openai", "products"],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "Generate AI product descriptions and create WooCommerce products",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Generate a product description using OpenAI and create the product in WooCommerce"
+}

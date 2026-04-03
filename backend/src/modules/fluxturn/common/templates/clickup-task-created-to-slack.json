@@ -1,0 +1,106 @@
+{
+  "id": "53c8f4bc-b270-42cf-9fe6-b68bb723bf4b",
+  "name": "ClickUp New Task Alert to Slack",
+  "description": "Get notified in Slack when new ClickUp tasks are created. Nodes: ClickUp Trigger, Slack Action",
+  "category": "project_management",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Task Created",
+          "config": {},
+          "category": "trigger",
+          "connector": "clickup",
+          "connectorType": "clickup",
+          "connectorDisplayName": "Clickup",
+          "description": "Triggered when new ClickUp task is created",
+          "trigger": "task_created",
+          "triggerId": "task_created",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Notify Team",
+          "config": {
+            "channel": "{{channel_id}}",
+            "text": "📋 New task created: {{trigger.name}}\nAssignee: {{trigger.assignee}}\nDue: {{trigger.due_date}}"
+          },
+          "category": "action",
+          "connector": "slack",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack",
+          "description": "Post message to Slack",
+          "action": "send_message",
+          "actionId": "send_message",
+          "actionName": "Notify Team"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "clickup",
+        "triggerId": "task_created"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "clickup",
+    "slack"
+  ],
+  "tags": [
+    "project_management",
+    "automation",
+    "clickup",
+    "slack",
+    "notifications"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow get notified in slack when new clickup tasks are created. nodes: clickup trigger, slack action using clickup, slack",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"task creation alert\" that triggers on ClickUp task creation and posts to Slack"
+}

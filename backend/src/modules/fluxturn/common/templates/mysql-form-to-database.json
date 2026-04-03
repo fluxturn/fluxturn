@@ -1,0 +1,149 @@
+{
+  "id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c01",
+  "name": "Form Submissions to MySQL",
+  "description": "Automatically save form submissions to MySQL database. Nodes: Jotform Trigger (new submission), MySQL Action (insert row)",
+  "category": "database",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Submission",
+          "config": {},
+          "trigger": "new_submission",
+          "category": "trigger",
+          "connector": "jotform",
+          "eventType": "webhook",
+          "triggerId": "new_submission",
+          "description": "Triggered when new form submission",
+          "connectorType": "jotform",
+          "connectorDisplayName": "Jotform"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Insert Row",
+          "action": "insert_rows",
+          "config": {
+            "table": "{{table_name}}",
+            "dataMode": "autoMapInputData"
+          },
+          "actionId": "insert_rows",
+          "category": "action",
+          "connector": "mysql",
+          "actionName": "Insert Row",
+          "description": "Insert form data into MySQL",
+          "connectorType": "mysql",
+          "connectorDisplayName": "MySQL"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Send Confirmation",
+          "action": "send_message",
+          "config": {
+            "to": "{{email}}",
+            "subject": "Form Received",
+            "body": "{{confirmation_message}}"
+          },
+          "actionId": "send_message",
+          "category": "action",
+          "connector": "gmail",
+          "actionName": "Send Email",
+          "description": "Send confirmation email",
+          "connectorType": "gmail",
+          "connectorDisplayName": "Gmail"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#14b8a6",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#14b8a6",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "jotform",
+        "triggerId": "new_submission"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "jotform",
+    "mysql",
+    "gmail"
+  ],
+  "tags": [
+    "database",
+    "automation",
+    "jotform",
+    "mysql",
+    "gmail"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow saves form submissions to MySQL database and sends confirmation email",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow that captures Jotform submissions, stores them in MySQL database, and sends a confirmation email"
+}

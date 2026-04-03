@@ -1,0 +1,75 @@
+{
+  "action": "upload",
+  "baseUrl": "",
+  "testCases": [
+    {
+      "name": "should upload binary file successfully",
+      "input": {
+        "path": "/public/upload.pdf",
+        "binaryData": true,
+        "binaryPropertyName": "data",
+        "timeout": 10000
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/public/upload.pdf",
+        "status": 200,
+        "response": {}
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "success": true,
+          "message": "File uploaded successfully",
+          "path": "/public/upload.pdf"
+        }
+      }
+    },
+    {
+      "name": "should upload text content successfully",
+      "input": {
+        "path": "/public/text-file.txt",
+        "binaryData": false,
+        "fileContent": "Hello, FTP World!",
+        "timeout": 10000
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/public/text-file.txt",
+        "status": 200,
+        "response": {}
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "success": true,
+          "message": "File uploaded successfully",
+          "path": "/public/text-file.txt"
+        }
+      }
+    },
+    {
+      "name": "should upload to nested directory",
+      "input": {
+        "path": "/public/docs/2024/report.pdf",
+        "binaryData": true,
+        "binaryPropertyName": "data",
+        "timeout": 10000
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/public/docs/2024/report.pdf",
+        "status": 200,
+        "response": {}
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "success": true,
+          "message": "File uploaded successfully",
+          "path": "/public/docs/2024/report.pdf"
+        }
+      }
+    }
+  ]
+}

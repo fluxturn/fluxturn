@@ -1,0 +1,79 @@
+{
+  "id": "25c61444-f3bb-485f-b571-c184cddb0c7f",
+  "name": "Shopify Products to Google Sheets Catalog",
+  "description": "Export Shopify product catalog to Google Sheets",
+  "category": "ecommerce",
+  "difficulty": "beginner",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": ["shopify", "google_sheets"],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "shopify_action_1",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 100, "y": 100 },
+        "data": {
+          "label": "Get All Products",
+          "connector": "shopify",
+          "actionId": "get_all_products",
+          "icon": "package",
+          "category": "action",
+          "description": "Retrieve all products from Shopify",
+          "config": {
+            "returnAll": true
+          },
+          "inputSchema": {
+            "returnAll": { "type": "boolean", "label": "Return All", "default": true }
+          },
+          "outputSchema": {
+            "products": { "type": "array" }
+          }
+        }
+      },
+      {
+        "id": "sheets_action_1",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 450, "y": 100 },
+        "data": {
+          "label": "Add to Google Sheets",
+          "connector": "google_sheets",
+          "actionId": "append_row",
+          "icon": "table",
+          "category": "action",
+          "description": "Append product data to spreadsheet",
+          "config": {
+            "spreadsheetId": "{{spreadsheet_id}}",
+            "sheetName": "Products",
+            "values": {
+              "ID": "={{$json.id}}",
+              "Title": "={{$json.title}}",
+              "Vendor": "={{$json.vendor}}",
+              "Type": "={{$json.product_type}}",
+              "Price": "={{$json.variants[0].price}}",
+              "SKU": "={{$json.variants[0].sku}}",
+              "Inventory": "={{$json.variants[0].inventory_quantity}}"
+            }
+          },
+          "inputSchema": {
+            "spreadsheetId": { "type": "string", "required": true, "label": "Spreadsheet ID" },
+            "sheetName": { "type": "string", "label": "Sheet Name" },
+            "values": { "type": "object", "required": true, "label": "Values" }
+          },
+          "outputSchema": {
+            "rowNumber": { "type": "number" }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1",
+        "source": "shopify_action_1",
+        "target": "sheets_action_1",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

@@ -1,0 +1,107 @@
+{
+  "id": "1dc10860-b98d-41e4-96fc-2e731208acab",
+  "name": "Jotform to Airtable Database",
+  "description": "Sync Jotform submissions to Airtable for organization. Nodes: Jotform Trigger, Airtable Action",
+  "category": "productivity",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Response",
+          "config": {},
+          "category": "trigger",
+          "connector": "jotform",
+          "connectorType": "jotform",
+          "connectorDisplayName": "Jotform",
+          "description": "Triggered on form submission",
+          "trigger": "new_submission",
+          "triggerId": "new_submission",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Record",
+          "config": {
+            "baseId": "{{base_id}}",
+            "tableId": "{{table_id}}",
+            "fields": "{{form.all_fields}}"
+          },
+          "category": "action",
+          "connector": "airtable",
+          "connectorType": "airtable",
+          "connectorDisplayName": "Airtable",
+          "description": "Create Airtable record",
+          "action": "create_record",
+          "actionId": "create_record",
+          "actionName": "Create Record"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "jotform",
+        "triggerId": "new_submission"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "jotform",
+    "airtable"
+  ],
+  "tags": [
+    "productivity",
+    "automation",
+    "jotform",
+    "airtable",
+    "database"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow sync jotform submissions to airtable for organization. nodes: jotform trigger, airtable action using jotform, airtable",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"form to database\" that triggers on Jotform submission and creates Airtable record"
+}

@@ -1,0 +1,102 @@
+{
+  "id": "0d467c44-cbcc-4da6-83f6-b49ecec209e6",
+  "name": "Email Attachment to Drive",
+  "description": "Automatically email attachment to drive. Nodes: IMAP Trigger, Google Drive Action",
+  "category": "document_management",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Email with Attachment",
+          "config": {},
+          "trigger": "new_email",
+          "category": "trigger",
+          "connector": "imap",
+          "eventType": "polling",
+          "triggerId": "new_email",
+          "description": "Triggered when new email with attachment",
+          "connectorType": "imap",
+          "connectorDisplayName": "IMAP"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Upload File",
+          "action": "upload_file",
+          "config": {},
+          "actionId": "upload_file",
+          "category": "action",
+          "connector": "google_drive",
+          "actionName": "Upload File",
+          "description": "Upload File",
+          "connectorType": "google_drive",
+          "connectorDisplayName": "Google Drive"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "imap",
+        "triggerId": "new_email"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "imap",
+    "google_drive"
+  ],
+  "tags": [
+    "document_management",
+    "automation",
+    "imap",
+    "google_drive"
+  ],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow email attachment to drive using imap, google_drive",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"email attachment to drive\" that triggers when triggered when new email with attachment and then Upload File via Google Drive"
+}

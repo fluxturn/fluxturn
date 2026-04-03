@@ -1,0 +1,181 @@
+{
+  "id": "03f4025c-6b53-42ce-80de-2403fe42ab8a",
+  "name": "LinkedIn Post AI Enhancement",
+  "description": "Automatically linkedin post ai enhancement. Nodes: Google Docs Trigger, ChatGPT Action, LinkedIn Action",
+  "category": "ai_automation",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Document Created",
+          "config": {},
+          "trigger": "document_created",
+          "category": "trigger",
+          "connector": "google_docs",
+          "eventType": "polling",
+          "triggerId": "document_created",
+          "description": "Triggered when document created",
+          "connectorType": "google_docs",
+          "connectorDisplayName": "Google Docs"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Enhance Content",
+          "category": "action",
+          "connector": "openai",
+          "connectorType": "openai",
+          "connectorDisplayName": "OpenAI",
+          "actionId": "chat_complete",
+          "actionName": "Enhance Content",
+          "description": "Enhance Content with AI",
+          "actionParams": {
+            "model": "gpt-4",
+            "messages": [
+              {
+                "role": "user",
+                "content": "{{$trigger.content}}"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Post",
+          "category": "action",
+          "connector": "linkedin",
+          "connectorType": "linkedin",
+          "connectorDisplayName": "LinkedIn",
+          "actionId": "create_post",
+          "actionName": "Create Post",
+          "description": "Post enhanced content to LinkedIn",
+          "actionParams": {
+            "text": "{{$node[\"Enhance Content\"].json.choices[0].message.content}}",
+            "visibility": "PUBLIC"
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#14b8a6",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#14b8a6",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [
+    {
+      "id": "node_2",
+      "type": "CONNECTOR_ACTION",
+      "config": {
+        "connector": "openai",
+        "actionId": "chat_complete",
+        "actionParams": {
+          "model": "gpt-4",
+          "messages": [
+            {
+              "role": "user",
+              "content": "{{$trigger.content}}"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "node_3",
+      "type": "CONNECTOR_ACTION",
+      "config": {
+        "connector": "linkedin",
+        "actionId": "create_post",
+        "actionParams": {
+          "text": "{{$node[\"Enhance Content\"].json.choices[0].message.content}}",
+          "visibility": "PUBLIC"
+        }
+      }
+    }
+  ],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_docs",
+        "triggerId": "document_created"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_docs",
+    "openai",
+    "linkedin"
+  ],
+  "tags": [
+    "ai_automation",
+    "automation",
+    "google_docs",
+    "openai",
+    "linkedin"
+  ],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow linkedin post ai enhancement using google_docs, openai, linkedin",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"linkedin post ai enhancement\" that triggers when triggered when document created and then Enhance Content via ChatGPT, Create Post via LinkedIn"
+}

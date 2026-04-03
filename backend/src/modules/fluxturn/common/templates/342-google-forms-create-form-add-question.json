@@ -1,0 +1,121 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-300000000042",
+  "name": "Create Google Form and Add Question",
+  "description": "Create a new Google Form and automatically add a question to it",
+  "category": "forms",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Create Form",
+          "config": {
+            "title": "{{form_title}}"
+          },
+          "category": "action",
+          "connector": "google_forms",
+          "connectorType": "google_forms",
+          "connectorDisplayName": "Google Forms",
+          "description": "Create a new Google Form",
+          "action": "form_create",
+          "actionId": "form_create",
+          "actionName": "Create Form"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Add Question",
+          "config": {
+            "formId": "{{node_2.output.formId}}",
+            "questionTitle": "{{question_title}}",
+            "questionType": "{{question_type}}",
+            "required": true,
+            "options": "{{question_options}}"
+          },
+          "category": "action",
+          "connector": "google_forms",
+          "connectorType": "google_forms",
+          "connectorDisplayName": "Google Forms",
+          "description": "Add question to the form",
+          "action": "question_create",
+          "actionId": "question_create",
+          "actionName": "Add Question"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [],
+  "conditions": [],
+  "variables": [
+    {
+      "name": "form_title",
+      "type": "string",
+      "description": "Title of the new form (use batchUpdate to add description after creation)"
+    },
+    {
+      "name": "question_title",
+      "type": "string",
+      "description": "The question text"
+    },
+    {
+      "name": "question_type",
+      "type": "string",
+      "description": "Type of question (RADIO, CHECKBOX, SHORT_ANSWER, etc.)"
+    },
+    {
+      "name": "question_options",
+      "type": "array",
+      "description": "Options for multiple choice questions"
+    }
+  ],
+  "outputs": [],
+  "required_connectors": ["google_forms"],
+  "tags": ["forms", "google-forms", "create", "questions", "surveys"],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "Create Google Form and add question",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a new Google Form and add a question to it"
+}

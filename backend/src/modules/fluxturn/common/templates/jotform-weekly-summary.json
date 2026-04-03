@@ -1,0 +1,151 @@
+{
+  "id": "1a57943f-737f-4560-9745-6f98e6cc0a04",
+  "name": "Jotform Weekly Submission Summary",
+  "description": "Send weekly summary of Jotform submissions via email. Nodes: Schedule Trigger, Jotform Action, Gmail Action",
+  "category": "analytics",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Weekly",
+          "config": {
+            "cron": "0 9 * * 1"
+          },
+          "category": "trigger",
+          "connector": "schedule",
+          "connectorType": "schedule",
+          "connectorDisplayName": "Schedule",
+          "description": "Runs Monday at 9 AM",
+          "trigger": "schedule",
+          "triggerId": "schedule",
+          "eventType": "cron"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Get Submissions",
+          "config": {
+            "formId": "{{form_id}}",
+            "filter": "last_7_days"
+          },
+          "category": "action",
+          "connector": "jotform",
+          "connectorType": "jotform",
+          "connectorDisplayName": "Jotform",
+          "description": "Fetch week submissions",
+          "action": "list_submissions",
+          "actionId": "list_submissions",
+          "actionName": "Get Submissions"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Email Summary",
+          "config": {
+            "to": "{{team_email}}",
+            "subject": "Weekly Jotform Submissions",
+            "body": "Total submissions: {{node_2.output.count}}\n\n{{node_2.output.summary}}"
+          },
+          "category": "action",
+          "connector": "gmail",
+          "connectorType": "gmail",
+          "connectorDisplayName": "Gmail",
+          "description": "Send weekly summary",
+          "action": "send_email",
+          "actionId": "send_email",
+          "actionName": "Email Summary"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "schedule",
+        "triggerId": "schedule"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "schedule",
+    "jotform",
+    "gmail"
+  ],
+  "tags": [
+    "analytics",
+    "automation",
+    "jotform",
+    "gmail",
+    "reporting"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow send weekly summary of jotform submissions via email. nodes: schedule trigger, jotform action, gmail action using schedule, jotform, gmail",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"weekly summary\" that runs weekly, gets Jotform submissions, and emails summary"
+}

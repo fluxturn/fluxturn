@@ -1,0 +1,67 @@
+{
+  "action": "list_forms",
+  "baseUrl": "https://api.jotform.com",
+  "testCases": [
+    {
+      "name": "lists forms successfully",
+      "input": {
+        "limit": 20,
+        "offset": 0
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/user/forms",
+        "status": 200,
+        "response": {
+          "responseCode": 200,
+          "message": "success",
+          "content": [
+            {
+              "id": "form-1",
+              "title": "Contact Form",
+              "status": "ENABLED",
+              "count": 100,
+              "url": "https://form.jotform.com/form-1"
+            },
+            {
+              "id": "form-2",
+              "title": "Survey Form",
+              "status": "ENABLED",
+              "count": 50,
+              "url": "https://form.jotform.com/form-2"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "forms": [
+            { "id": "form-1", "title": "Contact Form" },
+            { "id": "form-2", "title": "Survey Form" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "handles empty result",
+      "input": {},
+      "mock": {
+        "method": "GET",
+        "path": "/user/forms",
+        "status": 200,
+        "response": {
+          "responseCode": 200,
+          "message": "success",
+          "content": []
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "forms": []
+        }
+      }
+    }
+  ]
+}

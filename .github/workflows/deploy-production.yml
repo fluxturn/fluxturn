@@ -1,0 +1,193 @@
+name: Deploy to Production Server
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '18.x'
+  SERVER_IP: ${{ secrets.PRODUCTION_SERVER_IP }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/hetzner_fluxturn
+        chmod 600 ~/.ssh/hetzner_fluxturn
+        ssh-keyscan -H ${{ env.SERVER_IP }} >> ~/.ssh/known_hosts
+
+    - name: Deploy Backend
+      env:
+        SERVER_IP: ${{ env.SERVER_IP }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        echo "🚀 Deploying Fluxturn backend to PRODUCTION ($SERVER_IP)..."
+
+        # Create a temporary deploy script
+        cat > /tmp/deploy-backend.sh << 'DEPLOYSCRIPT'
+          set -e
+
+          echo "Updating code..."
+          cd /opt/fluxturn
+
+          # Initialize git if not already initialized
+          if [ ! -d .git ]; then
+            git init
+            git remote add origin https://github.com/fluxturn/fluxturn.git
+          fi
+
+          # Pull latest changes from main branch
+          git fetch origin main
+          git reset --hard origin/main
+
+          echo "Building backend..."
+          cd backend
+
+          # Use .env.production (already exists on server with correct DB config)
+          if [ -f .env.production ]; then
+            echo "Using existing .env.production from server..."
+            cp .env.production .env
+          else
+            echo "ERROR: .env.production not found on server!"
+            exit 1
+          fi
+
+          # Remove .env.local if it exists (to prevent conflicts)
+          if [ -f .env.local ]; then
+            echo "Backing up .env.local..."
+            mv .env.local .env.local.backup 2>/dev/null || true
+          fi
+
+          # Clean install dependencies
+          echo "Installing dependencies..."
+          rm -rf node_modules package-lock.json
+          npm cache clean --force
+          npm install --production=false
+
+          # Build the application
+          echo "Building application..."
+          npm run build
+
+          # Run database migrations (if available)
+          echo "Running database migrations..."
+          npm run migrate 2>/dev/null || echo "No migration script found (skipping)"
+
+          echo "Restarting backend service..."
+          pm2 delete fluxturn-backend 2>/dev/null || true
+
+          # Check which dist structure exists and use the correct path
+          if [ -f dist/main.js ]; then
+            MAIN_JS="dist/main.js"
+          elif [ -f dist/src/main.js ]; then
+            MAIN_JS="dist/src/main.js"
+          else
+            echo "ERROR: main.js not found in dist!"
+            exit 1
+          fi
+
+          echo "Starting backend from: $MAIN_JS"
+          NODE_ENV=production pm2 start $MAIN_JS --name fluxturn-backend
+          pm2 save
+
+          # Wait for backend to start
+          sleep 10
+
+          # Check if backend is running
+          pm2 status fluxturn-backend
+
+          echo "Backend deployment complete!"
+        DEPLOYSCRIPT
+
+        # Copy script to server and execute
+        scp -i ~/.ssh/hetzner_fluxturn /tmp/deploy-backend.sh root@$SERVER_IP:/tmp/deploy-backend.sh
+
+        ssh -i ~/.ssh/hetzner_fluxturn root@$SERVER_IP << ENDSSH
+          chmod +x /tmp/deploy-backend.sh
+
+          # Setup git credentials for this session
+          cd /opt/fluxturn
+          git config --global credential.helper '!f() { echo "username=x-access-token"; echo "password=$GITHUB_TOKEN"; }; f'
+
+          # Run deployment
+          bash /tmp/deploy-backend.sh
+
+          # Cleanup
+          rm /tmp/deploy-backend.sh
+        ENDSSH
+
+    - name: Deploy Frontend
+      env:
+        SERVER_IP: ${{ env.SERVER_IP }}
+      run: |
+        echo "Deploying Fluxturn frontend to PRODUCTION..."
+
+        ssh -i ~/.ssh/hetzner_fluxturn root@$SERVER_IP << 'ENDSSH'
+          set -e
+
+          cd /opt/fluxturn/frontend
+
+          echo "Installing dependencies..."
+          rm -rf node_modules package-lock.json || true
+          npm install
+
+          echo "Building frontend for production..."
+          NODE_ENV=production npm run build
+
+          echo "Restarting frontend service..."
+          pm2 delete fluxturn-frontend 2>/dev/null || true
+          pm2 start "serve -s dist -l 5185" --name fluxturn-frontend
+          pm2 save
+
+          # Wait for frontend to start
+          sleep 5
+
+          pm2 status fluxturn-frontend
+
+          echo "Frontend deployment complete!"
+        ENDSSH
+
+    - name: Verify Deployment
+      env:
+        SERVER_IP: ${{ env.SERVER_IP }}
+      run: |
+        echo "Verifying deployment..."
+
+        ssh -i ~/.ssh/hetzner_fluxturn root@$SERVER_IP << 'ENDSSH'
+          echo "PM2 Status:"
+          pm2 status
+
+          echo ""
+          echo "Recent Backend Logs:"
+          pm2 logs fluxturn-backend --lines 20 --nostream || echo "No logs available"
+
+          echo ""
+          echo "Recent Frontend Logs:"
+          pm2 logs fluxturn-frontend --lines 20 --nostream || echo "No logs available"
+
+          echo ""
+          echo "Application URLs:"
+          echo "  Backend API: https://api.fluxturn.com"
+          echo "  Frontend: https://fluxturn.com"
+
+          echo ""
+          echo "Deployment verification complete!"
+        ENDSSH
+
+    - name: Notify Deployment Status
+      if: always()
+      run: |
+        if [ "${{ job.status }}" == "success" ]; then
+          echo "Deployment to Production completed successfully!"
+          echo "Backend: https://api.fluxturn.com"
+          echo "Frontend: https://fluxturn.com"
+        else
+          echo "Deployment to Production had issues - check logs above"
+        fi

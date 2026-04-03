@@ -1,0 +1,115 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-300000000028",
+  "name": "WordPress Page Slack Notification",
+  "description": "Create WordPress page and notify team via Slack",
+  "category": "cms",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Create Page",
+          "config": {
+            "title": "{{page_title}}",
+            "content": "{{page_content}}",
+            "status": "publish"
+          },
+          "category": "action",
+          "connector": "wordpress",
+          "connectorType": "wordpress",
+          "connectorDisplayName": "WordPress",
+          "description": "Create WordPress page",
+          "action": "create_page",
+          "actionId": "create_page",
+          "actionName": "Create Page"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Send Slack Message",
+          "config": {
+            "channel": "{{slack_channel}}",
+            "text": "New Page Published!\n\nTitle: {{page_title}}\nURL: {{node_2.output.link}}\nStatus: {{node_2.output.status}}\n\nPlease review the new page."
+          },
+          "category": "action",
+          "connector": "slack",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack",
+          "description": "Notify team via Slack",
+          "action": "send_message",
+          "actionId": "send_message",
+          "actionName": "Send Message"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [],
+  "conditions": [],
+  "variables": [
+    {
+      "name": "page_title",
+      "type": "string",
+      "description": "Title of the WordPress page"
+    },
+    {
+      "name": "page_content",
+      "type": "string",
+      "description": "Content of the page (HTML)"
+    },
+    {
+      "name": "slack_channel",
+      "type": "string",
+      "description": "Slack channel name (e.g., #website)"
+    }
+  ],
+  "outputs": [],
+  "required_connectors": ["wordpress", "slack"],
+  "tags": ["cms", "wordpress", "slack", "pages", "notification", "team"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "Create WordPress page and notify team via Slack",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create WordPress page and send Slack notification to team"
+}

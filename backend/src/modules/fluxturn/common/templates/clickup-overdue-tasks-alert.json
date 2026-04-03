@@ -1,0 +1,150 @@
+{
+  "id": "2e6dd048-e218-44b8-b097-a49ac95c0a9c",
+  "name": "ClickUp Overdue Tasks Alert",
+  "description": "Daily alert for overdue tasks to keep projects on track. Nodes: Schedule Trigger, ClickUp Action, Slack Action",
+  "category": "project_management",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Daily Check",
+          "config": {
+            "cron": "0 10 * * *"
+          },
+          "category": "trigger",
+          "connector": "schedule",
+          "connectorType": "schedule",
+          "connectorDisplayName": "Schedule",
+          "description": "Runs daily at 10 AM",
+          "trigger": "schedule",
+          "triggerId": "schedule",
+          "eventType": "cron"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Get Overdue",
+          "config": {
+            "listId": "{{list_id}}",
+            "filter": "overdue"
+          },
+          "category": "action",
+          "connector": "clickup",
+          "connectorType": "clickup",
+          "connectorDisplayName": "Clickup",
+          "description": "Fetch overdue tasks",
+          "action": "list_tasks",
+          "actionId": "list_tasks",
+          "actionName": "Get Overdue"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Alert Team",
+          "config": {
+            "channel": "{{channel_id}}",
+            "text": "🚨 {{node_2.output.count}} overdue tasks:\n{{node_2.output.tasks}}"
+          },
+          "category": "action",
+          "connector": "slack",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack",
+          "description": "Post alert to Slack",
+          "action": "send_message",
+          "actionId": "send_message",
+          "actionName": "Alert Team"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "schedule",
+        "triggerId": "schedule"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "schedule",
+    "clickup",
+    "slack"
+  ],
+  "tags": [
+    "project_management",
+    "automation",
+    "clickup",
+    "slack",
+    "alerts"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow daily alert for overdue tasks to keep projects on track. nodes: schedule trigger, clickup action, slack action using schedule, clickup, slack",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"overdue task alerts\" that runs daily, lists overdue ClickUp tasks, and alerts Slack"
+}

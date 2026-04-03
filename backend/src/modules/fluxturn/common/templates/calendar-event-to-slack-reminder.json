@@ -1,0 +1,105 @@
+{
+  "id": "8e5fcd97-0fc6-4291-bd7c-f727a774ab9c",
+  "name": "Calendar Event to Slack Reminder",
+  "description": "Automatically calendar event to slack reminder. Nodes: Google Calendar Trigger, Slack Action",
+  "category": "collaboration",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Event Starting Soon",
+          "config": {},
+          "trigger": "event_starting_soon",
+          "category": "trigger",
+          "connector": "google_calendar",
+          "eventType": "polling",
+          "triggerId": "event_starting_soon",
+          "description": "Triggered when event starting soon",
+          "connectorType": "google_calendar",
+          "connectorDisplayName": "Google Calendar"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Send Direct Message",
+          "action": "send_message",
+          "config": {
+            "channel": "{{channel_id}}",
+            "text": "{{message}}"
+          },
+          "actionId": "send_message",
+          "category": "action",
+          "connector": "slack",
+          "actionName": "Send Direct Message",
+          "description": "Send Direct Message",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_calendar",
+        "triggerId": "event_starting_soon"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_calendar",
+    "slack"
+  ],
+  "tags": [
+    "collaboration",
+    "automation",
+    "google_calendar",
+    "slack"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow calendar event to slack reminder using google_calendar, slack",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"calendar event to slack reminder\" that triggers when triggered when event starting soon and then Send Direct Message via Slack"
+}

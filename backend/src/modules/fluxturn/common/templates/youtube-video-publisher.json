@@ -1,0 +1,190 @@
+{
+  "id": "01338c11-303f-4c87-97ec-7ccbfe04677e",
+  "name": "YouTube Video Publisher",
+  "description": "Automatically upload videos from Google Drive to YouTube when a new video file is added",
+  "category": "productivity",
+  "canvas": {
+    "edges": [
+      {
+        "id": "e1-2",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "google_drive_file_created_1",
+        "target": "google_drive_download_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "e2-3",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "google_drive_download_2",
+        "target": "youtube_upload_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ],
+    "nodes": [
+      {
+        "id": "google_drive_file_created_1",
+        "data": {
+          "icon": "connector",
+          "label": "New Video in Drive",
+          "category": "trigger",
+          "connector": "google_drive",
+          "connectorType": "google_drive",
+          "connectorDisplayName": "Google Drive",
+          "triggerId": "file_created",
+          "description": "Triggers when a new video file is uploaded to Google Drive",
+          "triggerParams": {
+            "folderId": "",
+            "pollingInterval": "5"
+          }
+        },
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 200
+        }
+      },
+      {
+        "id": "google_drive_download_2",
+        "data": {
+          "icon": "connector",
+          "label": "Download Video",
+          "category": "action",
+          "connector": "google_drive",
+          "connectorType": "google_drive",
+          "connectorDisplayName": "Google Drive",
+          "actionId": "download_file",
+          "description": "Downloads the video file from Google Drive",
+          "actionParams": {
+            "fileId": "{{$node[\"New Video in Drive\"].json.id}}",
+            "convertGoogleDocs": false
+          }
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 350,
+          "y": 200
+        }
+      },
+      {
+        "id": "youtube_upload_3",
+        "data": {
+          "icon": "connector",
+          "label": "Upload to YouTube",
+          "category": "action",
+          "connector": "youtube",
+          "connectorType": "youtube",
+          "connectorDisplayName": "YouTube",
+          "actionId": "video_upload",
+          "description": "Uploads the video to YouTube channel",
+          "actionParams": {
+            "title": "{{$node[\"New Video in Drive\"].json.name}}",
+            "categoryId": "28",
+            "binaryProperty": "data",
+            "options": {
+              "tags": "video,automation,youtube",
+              "description": "Automatically uploaded from Google Drive",
+              "privacyStatus": "public",
+              "defaultLanguage": "en",
+              "notifySubscribers": true
+            }
+          }
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 600,
+          "y": 200
+        }
+      }
+    ]
+  },
+  "steps": [
+    {
+      "id": "google_drive_download_2",
+      "type": "CONNECTOR_ACTION",
+      "config": {
+        "connector": "google_drive",
+        "actionId": "download_file",
+        "actionParams": {
+          "fileId": "{{$node[\"New Video in Drive\"].json.id}}",
+          "convertGoogleDocs": false
+        }
+      }
+    },
+    {
+      "id": "youtube_upload_3",
+      "type": "CONNECTOR_ACTION",
+      "config": {
+        "connector": "youtube",
+        "actionId": "video_upload",
+        "actionParams": {
+          "title": "{{$node[\"New Video in Drive\"].json.name}}",
+          "categoryId": "28",
+          "binaryProperty": "data",
+          "options": {
+            "tags": "video,automation,youtube",
+            "description": "Automatically uploaded from Google Drive",
+            "privacyStatus": "public",
+            "defaultLanguage": "en",
+            "notifySubscribers": true
+          }
+        }
+      }
+    }
+  ],
+  "triggers": [
+    {
+      "id": "google_drive_file_created_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_drive",
+        "triggerId": "file_created",
+        "triggerParams": {
+          "folderId": "",
+          "pollingInterval": "5"
+        }
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_drive",
+    "youtube"
+  ],
+  "tags": [
+    "video",
+    "youtube",
+    "automation",
+    "productivity"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "updated": "2025-11-25",
+    "version": "3.0.0",
+    "changelog": "Simplified to core functionality: Google Drive trigger -> Download -> YouTube upload",
+    "instructions": "1. Connect your Google Drive and YouTube accounts\n2. Configure the folder to watch in Google Drive trigger\n3. Upload a video to the selected folder\n4. Video automatically uploads to YouTube with your configured settings"
+  },
+  "ai_prompt": "Create a simple workflow that automatically uploads videos from Google Drive to YouTube when a new video file is added"
+}

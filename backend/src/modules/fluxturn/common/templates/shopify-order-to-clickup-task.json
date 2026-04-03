@@ -1,0 +1,71 @@
+{
+  "id": "cc372373-c5ad-476d-af0c-3f8f550f4012",
+  "name": "Shopify Order to ClickUp Task",
+  "description": "Create ClickUp tasks for new Shopify orders",
+  "category": "ecommerce",
+  "difficulty": "intermediate",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": ["shopify", "clickup"],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "shopify_trigger_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": { "x": 100, "y": 100 },
+        "data": {
+          "label": "New Shopify Order",
+          "connector": "shopify",
+          "triggerId": "order_created",
+          "icon": "shopping-cart",
+          "category": "trigger",
+          "description": "Triggers when a new order is created",
+          "config": {},
+          "outputSchema": {
+            "order_number": { "type": "string" },
+            "customer": { "type": "object" },
+            "total_price": { "type": "string" }
+          }
+        }
+      },
+      {
+        "id": "clickup_action_1",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 450, "y": 100 },
+        "data": {
+          "label": "Create ClickUp Task",
+          "connector": "clickup",
+          "actionId": "create_task",
+          "icon": "check-square",
+          "category": "action",
+          "description": "Create a task for order fulfillment",
+          "config": {
+            "listId": "{{clickup_list_id}}",
+            "name": "Fulfill Order #{{$json.order_number}}",
+            "description": "Customer: {{$json.customer.first_name}} {{$json.customer.last_name}}\nEmail: {{$json.customer.email}}\nTotal: ${{$json.total_price}}\n\nItems to ship:\n{{$json.line_items.map(i => i.name + ' x' + i.quantity).join('\\n')}}",
+            "priority": 2,
+            "tags": ["shopify", "fulfillment"]
+          },
+          "inputSchema": {
+            "listId": { "type": "string", "required": true, "label": "List ID" },
+            "name": { "type": "string", "required": true, "label": "Task Name" },
+            "description": { "type": "string", "label": "Description" },
+            "priority": { "type": "number", "label": "Priority" }
+          },
+          "outputSchema": {
+            "id": { "type": "string" }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1",
+        "source": "shopify_trigger_1",
+        "target": "clickup_action_1",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

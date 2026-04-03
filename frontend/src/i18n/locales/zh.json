@@ -1,0 +1,1187 @@
+{
+  "nav": {
+    "features": "功能",
+    "tutorials": "教程",
+    "templates": "模板",
+    "capabilities": "能力",
+    "useCases": "使用场景",
+    "whyFluxTurn": "为什么选择 FluxTurn",
+    "pricing": "价格",
+    "documents": "文档",
+    "blog": "博客",
+    "login": "登录",
+    "getStarted": "开始使用",
+    "dashboard": "控制台",
+    "admin": "管理"
+  },
+  "hero": {
+    "badge": "无代码工作流自动化平台",
+    "title1": "自动化您的",
+    "title2": "工作流只需",
+    "title3": "几分钟",
+    "subtitle": "连接您的应用，自动化工作流，通过我们强大的无代码平台简化业务流程。无需技术技能。",
+    "cta": "开始免费试用",
+    "workflowRunning": "自动化工作流运行中",
+    "personas": {
+      "marketing": "市场营销",
+      "marketingTitle": "自动化邮件营销活动",
+      "sales": "销售",
+      "salesTitle": "自动同步潜在客户到 CRM",
+      "hr": "人力资源",
+      "hrTitle": "新员工入职",
+      "aiTools": "AI 工具",
+      "aiToolsTitle": "使用 AI 处理请求"
+    },
+    "workflow": {
+      "formSubmit": "表单提交",
+      "website": "网站",
+      "addToList": "添加到列表",
+      "sendEmail": "发送邮件",
+      "email": "邮件",
+      "trackEvent": "跟踪事件",
+      "analytics": "分析",
+      "newLead": "新潜在客户",
+      "webForm": "网页表单",
+      "enrichData": "数据增强",
+      "addToCRM": "添加到 CRM",
+      "notifySales": "通知销售",
+      "newEmployee": "新员工",
+      "hrSystem": "人力资源系统",
+      "createEmail": "创建邮件",
+      "setupSlack": "设置 Slack",
+      "addToPayroll": "添加到工资单",
+      "sendWelcome": "发送欢迎消息",
+      "userRequest": "用户请求",
+      "processAI": "AI 处理",
+      "executeTask": "执行任务",
+      "sendResult": "发送结果"
+    }
+  },
+  "powerful": {
+    "badge": "强大而简单",
+    "title": "让",
+    "titleHighlight": "AI 和自动化",
+    "titleEnd": "为您的业务服务",
+    "subtitle": "无需昂贵的开发人员，无需数月的培训。从第一天起就能使用的强大自动化。",
+    "stats": {
+      "setupTime": "5 分钟",
+      "setupTimeLabel": "平均设置时间",
+      "integrations": "120+",
+      "integrationsLabel": "集成",
+      "uptime": "99.9%",
+      "uptimeLabel": "正常运行时间"
+    },
+    "cta": "免费开始构建",
+    "cards": {
+      "lightning": {
+        "title": "闪电般快速设置",
+        "description": "预建模板和拖拽界面。零代码即可在几分钟内开始自动化。"
+      },
+      "ai": {
+        "title": "内置 AI 集成",
+        "description": "一键连接 OpenAI、Claude 和其他 AI 模型。无需与 API 搏斗。"
+      },
+      "security": {
+        "title": "企业级安全",
+        "description": "符合 SOC2 标准，端到端加密。可自托管或使用我们的安全云。"
+      }
+    }
+  },
+  "aiPromptBuilder": {
+    "badge": "AI 驱动",
+    "heading": "您想自动化什么？",
+    "subtitle": "几秒钟内提示、运行和部署 AI 工作流",
+    "placeholder": "描述您想要自动化的内容...",
+    "generate": "生成",
+    "generating": "生成中...",
+    "tryThese": "试试这些：",
+    "loginMessage": "登录以生成您的 AI 工作流",
+    "helperText": "按回车键生成或点击按钮",
+    "videoTitle": "AI 工作流生成",
+    "cards": {
+      "naturalLanguage": "自然语言",
+      "noCode": "无代码构建器",
+      "aiGeneration": "AI 生成",
+      "integrations": "120+ 集成"
+    },
+    "suggestions": {
+      "gmail": {
+        "title": "使用 Gmail 发送邮件",
+        "description": "创建一个触发表单，包含 Gmail 所需的所有字段，并发送到 Gmail"
+      },
+      "translate": {
+        "title": "翻译收到的消息",
+        "description": "自动将消息转换为您首选的语言"
+      },
+      "priceAlert": {
+        "title": "价格下降时通知我",
+        "description": "跟踪产品，当价格达到目标价时收到通知"
+      },
+      "emailSummary": {
+        "title": "每日邮件摘要",
+        "description": "每天早上获取收件箱要点的快速摘要"
+      },
+      "supportDraft": {
+        "title": "草拟客服工单回复",
+        "description": "为客户咨询生成有用的回复草稿"
+      },
+      "crmUpdate": {
+        "title": "从表单更新 CRM",
+        "description": "无需手动录入即可将新潜在客户添加到 CRM"
+      },
+      "slackTasks": {
+        "title": "从 Slack 消息创建任务",
+        "description": "通过一个表情或命令将 Slack 消息转化为待办事项"
+      }
+    },
+    "errors": {
+      "emptyPrompt": "请输入提示",
+      "creationFailed": "创建工作流失败",
+      "noOrganization": "未找到组织",
+      "noProject": "未找到项目。请先创建一个项目。"
+    }
+  },
+  "video": {
+    "badge": "实际演示",
+    "title": "可视化构建工作流",
+    "subtitle": "看看使用我们直观的拖拽编辑器连接应用和创建强大自动化有多简单",
+    "editor": "FluxTurn 工作流编辑器",
+    "connected": "已连接",
+    "dragDrop": "拖拽界面"
+  },
+  "buildYourWay": {
+    "interactive": {
+      "title": "体验",
+      "titleHighlight": "可视化编辑器",
+      "subtitle": "拖拽节点，连接它们，看看构建工作流有多简单",
+      "addNodes": "添加节点",
+      "dragHint": "拖拽节点到画布",
+      "canvasHint": "将节点拖到此处并连接",
+      "startBuilding": "开始构建真实工作流",
+      "feature1": {
+        "title": "拖拽操作",
+        "desc": "只需将节点从侧边栏拖到画布上"
+      },
+      "feature2": {
+        "title": "可视化连接",
+        "desc": "从一个句柄拖到另一个句柄来连接节点"
+      },
+      "feature3": {
+        "title": "即时部署",
+        "desc": "一键部署您的工作流"
+      }
+    }
+  },
+  "templates": {
+    "badge": "300+ 模板",
+    "title": "从",
+    "titleHighlight": "现成模板",
+    "subtitle": "浏览工作流模板。点击即可自定义。",
+    "clickToPreview": "点击任意模板预览工作流",
+    "useForFree": "免费使用",
+    "useTemplate": "使用此模板",
+    "creating": "创建中...",
+    "browseAll": "浏览所有模板",
+    "browseHint": "探索 300+ 即用型自动化模板",
+    "verified": "已验证",
+    "users": "用户",
+    "popular": "热门",
+    "steps": "步骤",
+    "integrations": "集成",
+    "workflowPreview": "工作流预览",
+    "previewNotAvailable": "预览不可用",
+    "viewDetails": "查看模板详情了解更多",
+    "loginMessage": "登录以使用此模板",
+    "errors": {
+      "noOrganization": "未找到组织",
+      "noProject": "未找到项目",
+      "creationFailed": "创建工作流失败"
+    },
+    "success": {
+      "created": "已从模板创建工作流"
+    }
+  },
+  "aiAgent": {
+    "badge": "AI 驱动的自动化",
+    "title": "认识",
+    "titleHighlight": "AI 代理节点",
+    "subtitle": "一个能思考、决策和行动的强大节点。连接任何工具，让 AI 处理逻辑。",
+    "canvasCaption": "AI 代理接收输入，选择正确的工具，并自动执行",
+    "feature1Title": "任何工具，一个节点",
+    "feature1Desc": "将 Gmail、Slack、Notion 或任何 120+ 连接器作为 AI 工具",
+    "feature2Title": "AI 决策",
+    "feature2Desc": "代理分析输入并自动选择正确的工具",
+    "feature3Title": "您掌控一切",
+    "feature3Desc": "设置最大迭代次数、系统提示和可用工具",
+    "cta": "试用 AI 代理",
+    "ctaHint": "无需信用卡 • 提供免费套餐",
+    "creating": "创建中...",
+    "loginMessage": "登录以试用 AI 代理",
+    "errors": {
+      "noOrganization": "未找到组织",
+      "noProject": "未找到项目",
+      "creationFailed": "创建工作流失败"
+    },
+    "success": {
+      "created": "AI 代理工作流已创建"
+    }
+  },
+  "templatesPage": {
+    "title": "工作流",
+    "titleHighlight": "模板",
+    "subtitle": "浏览我们的现成工作流模板库。点击任意模板即可免费使用。",
+    "searchPlaceholder": "搜索模板...",
+    "showingCount": "显示",
+    "of": "/",
+    "template": "个模板",
+    "templates": "个模板",
+    "loading": "加载模板中...",
+    "loadFailed": "加载模板失败",
+    "retry": "重试",
+    "noResults": "未找到模板",
+    "noResultsHint": "尝试调整搜索或筛选条件",
+    "clearFilters": "清除筛选",
+    "uses": "次使用",
+    "useTemplate": "使用模板",
+    "loadMore": "加载更多模板",
+    "verified": "已验证",
+    "steps": "步骤",
+    "users": "用户",
+    "integrations": "集成",
+    "creating": "创建中...",
+    "useThisTemplate": "使用此模板",
+    "previewNotAvailable": "预览不可用",
+    "previewHint": "点击\"使用此模板\"开始",
+    "workflowPreview": "工作流预览",
+    "all": "全部"
+  },
+  "features": {
+    "title": "赋能您的工作流：",
+    "titleExplore": "探索",
+    "titleHighlight": "一站式",
+    "titleEnd": "平台。",
+    "subtitle": "自动化工作流和连接整个技术栈所需的一切",
+    "cta": "探索功能",
+    "bento": {
+      "ai-workflow": {
+        "title": "AI 工作流生成",
+        "description": "用简单的中文描述您想要的内容。AI 在几秒钟内为您构建整个工作流。"
+      },
+      "visual-builder": {
+        "title": "可视化构建器",
+        "description": "拖拽式工作流创建"
+      },
+      "ai-agent": {
+        "title": "AI 代理",
+        "description": "能思考和行动的智能自动化"
+      },
+      "integrations": {
+        "title": "集成",
+        "description": "连接您所有喜爱的应用"
+      },
+      "custom-code": {
+        "title": "自定义代码",
+        "description": "JavaScript、Python 或任何语言"
+      }
+    },
+    "items": {
+      "visualBuilder": {
+        "title": "可视化工作流构建器",
+        "description": "使用我们直观的拖拽界面构建复杂的自动化工作流。无需编码。"
+      },
+      "conditionalLogic": {
+        "title": "条件逻辑",
+        "description": "使用 if/else 条件、循环和决策树创建复杂的分支工作流。"
+      },
+      "customCode": {
+        "title": "自定义代码执行",
+        "description": "在工作流中直接执行自定义 JavaScript、Python 或任何代码，实现最大灵活性。"
+      },
+      "cloudHosted": {
+        "title": "云端和自托管",
+        "description": "部署在我们的云基础设施上，或自托管在您自己的服务器上以完全掌控。"
+      },
+      "security": {
+        "title": "企业级安全",
+        "description": "银行级加密、SOC2 合规和精细的访问控制，确保您的数据安全。"
+      },
+      "realtime": {
+        "title": "实时执行",
+        "description": "闪电般快速的工作流执行，带有实时监控和详细执行日志。"
+      }
+    }
+  },
+  "integrations": {
+    "title": "连接一切",
+    "subtitle": "120+ 预建集成，连接您喜爱的应用和服务",
+    "hoverHint": "悬停暂停 • 120+ 集成可用"
+  },
+  "useCases": {
+    "title": "适用于",
+    "titleHighlight": "每种使用场景",
+    "subtitle": "从营销自动化到复杂数据管道",
+    "viewAll": "查看所有使用场景",
+    "items": {
+      "marketing": {
+        "title": "营销自动化",
+        "description": "自动化邮件营销活动、社交媒体发布和潜在客户培育工作流。",
+        "stats": "营销活动速度提升 10 倍",
+        "category": "市场营销"
+      },
+      "api": {
+        "title": "API 集成",
+        "description": "连接多个 API 和服务，在平台间创建无缝数据流。",
+        "stats": "120+ 集成",
+        "category": "IT 和 DevOps"
+      },
+      "data": {
+        "title": "数据处理",
+        "description": "实时转换、聚合和分析来自多个数据源的数据。",
+        "stats": "数百万条记录",
+        "category": "数据与分析"
+      },
+      "ai": {
+        "title": "AI 与机器学习",
+        "description": "将 AI 模型和机器学习管道集成到您的自动化工作流中。",
+        "stats": "AI 驱动的工作流",
+        "category": "AI 与 ML"
+      }
+    }
+  },
+  "whyFluxTurn": {
+    "title": "为什么选择",
+    "subtitle": "将复杂流程转变为简单、高效的工作流",
+    "efficiency": "效率",
+    "status": {
+      "complex": "复杂流程",
+      "optimized": "使用 FluxTurn 优化"
+    },
+    "stats": {
+      "nodes": "节点：",
+      "time": "设置时间："
+    },
+    "analyzing": "分析工作流复杂性...",
+    "cta": "开始简化"
+  },
+  "pricing": {
+    "badge": "简单定价",
+    "title": "选择您的",
+    "titleHighlight": "完美方案",
+    "subtitle": "免费开始，随业务增长扩展。无隐藏费用。",
+    "monthly": "月付",
+    "yearly": "年付",
+    "twoMonthsFree": "免费 2 个月",
+    "perMonth": "每月",
+    "forever": "永久",
+    "year": "年",
+    "viewFullDetails": "查看完整定价详情",
+    "mostPopular": "最受欢迎",
+    "plans": {
+      "free": {
+        "name": "免费版",
+        "description": "适合个人用户",
+        "features": [
+          "每月 1,000 次执行",
+          "20 个活跃工作流",
+          "社区支持",
+          "基础集成"
+        ],
+        "cta": "免费开始"
+      },
+      "starter": {
+        "name": "入门版",
+        "description": "适合小型团队",
+        "features": [
+          "每月 10,000 次执行",
+          "50 个活跃工作流",
+          "邮件支持",
+          "所有集成"
+        ],
+        "cta": "开始免费试用"
+      },
+      "professional": {
+        "name": "专业版",
+        "description": "适合成长中的团队",
+        "features": [
+          "每月 50,000 次执行",
+          "无限工作流",
+          "优先支持",
+          "SSO 身份认证"
+        ],
+        "cta": "开始免费试用"
+      },
+      "enterprise": {
+        "name": "企业版",
+        "description": "适合大型组织",
+        "features": [
+          "每月 200,000 次执行",
+          "专属支持",
+          "99.9% SLA",
+          "本地部署选项"
+        ],
+        "cta": "联系销售"
+      }
+    }
+  },
+  "blog": {
+    "title": "博客最新动态",
+    "subtitle": "获取最新的自动化洞察、技巧和成功案例",
+    "featured": "精选",
+    "minRead": "分钟阅读",
+    "by": "作者",
+    "readMore": "阅读更多",
+    "viewAllPosts": "查看所有文章"
+  },
+  "blogPage": {
+    "title": "博客",
+    "subtitle": "工作流自动化与增长洞察",
+    "newPost": "新文章",
+    "myPosts": "我的文章",
+    "search": {
+      "placeholder": "搜索文章..."
+    },
+    "browse": {
+      "title": "浏览",
+      "latest": "最新",
+      "popular": "热门",
+      "featured": "精选",
+      "allPosts": "所有文章"
+    },
+    "categories": {
+      "title": "分类",
+      "all": "所有分类"
+    },
+    "loading": "加载中...",
+    "error": {
+      "loadFailed": "加载文章失败",
+      "tryAgain": "重试"
+    },
+    "empty": {
+      "title": "未找到文章",
+      "subtitle": "稍后再来查看新内容！"
+    },
+    "pagination": {
+      "previous": "上一页",
+      "next": "下一页"
+    },
+    "post": {
+      "backToBlog": "返回博客",
+      "notFound": {
+        "title": "文章未找到",
+        "message": "您查找的博客文章不存在。"
+      },
+      "minRead": "分钟阅读",
+      "views": "次浏览",
+      "by": "作者",
+      "featured": "精选",
+      "edit": "编辑",
+      "delete": "删除",
+      "deleteConfirm": "确定要删除这篇文章吗？此操作无法撤销。",
+      "signInToRate": "登录以评价这篇文章"
+    },
+    "comments": {
+      "title": "评论",
+      "comment": "条评论",
+      "comments": "条评论",
+      "placeholder": "分享您的想法...",
+      "signInPrompt": "以发表评论。",
+      "signIn": "登录",
+      "noComments": "还没有评论。成为第一个评论的人！",
+      "reply": "回复",
+      "replying": "回复中...",
+      "submit": "提交",
+      "cancel": "取消"
+    },
+    "card": {
+      "minRead": "分钟阅读",
+      "by": "作者"
+    }
+  },
+  "comparison": {
+    "badge": "平台对比",
+    "title": "为什么选择",
+    "subtitle": "看看 FluxTurn 与其他工作流自动化平台的对比",
+    "getStarted": "免费开始",
+    "footnote": "* 自托管版本。价格和功能可能有所不同。最后更新于 2025 年 1 月。",
+    "categories": {
+      "corefeatures": "核心功能",
+      "deployment": "部署",
+      "pricing": "价格",
+      "integrations": "集成",
+      "performance": "性能",
+      "collaboration": "协作"
+    },
+    "features": {
+      "visualBuilder": "可视化工作流构建器",
+      "aiWorkflowGeneration": "AI 工作流生成",
+      "naturalLanguagePrompts": "自然语言提示",
+      "customCodeSupport": "自定义代码支持",
+      "selfHosting": "自托管选项",
+      "cloudHosted": "云端托管",
+      "freeWorkflows": "免费工作流",
+      "freeOperations": "免费操作",
+      "startingPrice": "起始价格",
+      "integrations": "集成",
+      "apiAccess": "API 访问",
+      "webhooks": "Webhooks",
+      "realtimeExecution": "实时执行",
+      "errorHandling": "错误处理",
+      "teamCollaboration": "团队协作",
+      "versionHistory": "版本历史"
+    }
+  },
+  "faq": {
+    "badge": "有疑问？",
+    "title": "常见问题",
+    "subtitle": "关于 FluxTurn 您需要了解的一切。没找到答案？请随时联系我们的支持团队。",
+    "items": {
+      "whatIs": {
+        "question": "FluxTurn 是什么？它是如何工作的？",
+        "answer": "FluxTurn 是一个强大的工作流自动化平台，让您无需编码即可连接应用并自动化重复性任务。使用我们的可视化拖拽构建器，您可以创建基于事件、计划或手动触发的自动运行工作流。只需连接您的应用，定义逻辑，FluxTurn 会处理其余的一切。"
+      },
+      "codingSkills": {
+        "question": "使用 FluxTurn 需要编程技能吗？",
+        "answer": "不需要任何编程技能！FluxTurn 具有直观的可视化工作流构建器，您可以拖放节点、连接它们，并通过简单表单配置操作。不过，对于高级用户，我们也支持在工作流中执行自定义 JavaScript 和 Python 代码，以实现最大灵活性。"
+      },
+      "integrations": {
+        "question": "可以连接哪些应用和服务？",
+        "answer": "FluxTurn 集成了 100 多个流行应用，包括 Gmail、Slack、Google Sheets、Telegram、Discord、Stripe、Shopify、OpenAI、PostgreSQL 和 MongoDB 等数据库，以及更多。我们根据用户需求不断添加新的集成。"
+      },
+      "freePlan": {
+        "question": "有免费方案吗？",
+        "answer": "有！我们提供慷慨的免费套餐，包括每月最多 500 次工作流执行、访问所有集成以及创建无限工作流的能力。非常适合个人项目和刚开始使用自动化的小型团队。"
+      },
+      "selfHost": {
+        "question": "我可以在自己的服务器上自托管 FluxTurn 吗？",
+        "answer": "当然可以！FluxTurn 提供云端托管和自托管两种选择。我们的自托管方案让您完全掌控数据和基础设施。非常适合有严格合规要求的企业或希望管理自己部署的团队。"
+      },
+      "security": {
+        "question": "我的数据在 FluxTurn 上有多安全？",
+        "answer": "安全是我们的首要任务。我们对所有静态数据使用银行级 AES-256 加密，对传输中的数据使用 TLS 1.3。您的凭据经过加密，永不以明文形式存储。我们还为企业客户提供 SOC2 合规、基于角色的访问控制和审计日志。"
+      },
+      "failedWorkflow": {
+        "question": "如果工作流失败了怎么办？",
+        "answer": "FluxTurn 提供全面的错误处理和监控。当工作流失败时，您会通过电子邮件或您首选的渠道收到即时通知。我们详细的执行日志帮助您快速识别和修复问题。您还可以为关键工作流配置自动重试和回退操作。"
+      },
+      "aiWorkflows": {
+        "question": "我可以在工作流中使用 AI 吗？",
+        "answer": "可以！FluxTurn 内置了由 OpenAI、Anthropic 和其他领先 AI 提供商驱动的 AI 功能。您可以使用 AI 生成内容、分析数据、做出决策、分类信息等。我们的 AI 代理节点使向任何工作流添加智能变得轻而易举。"
+      }
+    }
+  },
+  "footer": {
+    "description": "使用我们全面的后端平台构建强大的应用。一站式满足您的所有需求。",
+    "sections": {
+      "product": "产品",
+      "developers": "开发者",
+      "company": "公司",
+      "legal": "法律"
+    },
+    "links": {
+      "features": "功能",
+      "visualBuilders": "可视化构建器",
+      "aiPlatform": "AI 平台",
+      "integrations": "集成",
+      "pricing": "价格",
+      "documentation": "文档",
+      "tutorials": "教程",
+      "apiReference": "API 参考",
+      "examples": "示例",
+      "support": "支持",
+      "privacy": "隐私",
+      "terms": "条款",
+      "security": "安全"
+    },
+    "newsletter": {
+      "title": "保持更新",
+      "description": "获取新功能和产品发布的最新动态。",
+      "placeholder": "输入您的邮箱",
+      "subscribe": "订阅",
+      "subscribing": "订阅中..."
+    },
+    "copyright": "© {{year}} Info Inlet. 保留所有权利。",
+    "builtWith": "用",
+    "byTeam": "由 Info Inlet 团队构建",
+    "docs": "文档"
+  },
+  "language": {
+    "en": "英语",
+    "ja": "日语",
+    "zh": "中文",
+    "ko": "韩语",
+    "es": "西班牙语",
+    "fr": "法语",
+    "de": "德语"
+  },
+  "featuresPage": {
+    "badge": "强大功能",
+    "title": "自动化所需的",
+    "titleHighlight": "一切",
+    "subtitle": "发现使 FluxTurn 成为现代团队最灵活的工作流自动化平台的强大功能。",
+    "cta": "开始免费试用",
+    "viewDocs": "查看文档",
+    "stats": {
+      "workflows": "无限工作流",
+      "workflowsValue": "构建",
+      "integrations": "集成",
+      "codeSupport": "代码支持",
+      "security": "安全"
+    },
+    "coreFeatures": {
+      "title": "核心功能",
+      "subtitle": "探索使 FluxTurn 与众不同的强大能力"
+    },
+    "features": {
+      "visualBuilder": {
+        "title": "可视化工作流构建器",
+        "desc": "拖拽界面，无需代码即可构建复杂的自动化工作流。"
+      },
+      "conditionalLogic": {
+        "title": "条件逻辑",
+        "desc": "使用 if/else 条件、循环和决策树创建分支工作流。"
+      },
+      "customCode": {
+        "title": "自定义代码",
+        "desc": "执行 JavaScript 或 Python 代码以实现最大灵活性。"
+      },
+      "integrations": {
+        "title": "120+ 集成",
+        "desc": "即开即用连接您所有喜爱的应用和服务。"
+      },
+      "realtime": {
+        "title": "实时执行",
+        "desc": "闪电般快速的工作流执行，带有实时监控。"
+      },
+      "security": {
+        "title": "企业级安全",
+        "desc": "银行级加密、SOC2 合规和精细的访问控制。"
+      },
+      "deployment": {
+        "title": "云端和自托管",
+        "desc": "部署在我们的云上或自托管在您自己的基础设施上。"
+      },
+      "scheduling": {
+        "title": "高级调度",
+        "desc": "安排工作流在特定时间或间隔运行。"
+      },
+      "templates": {
+        "title": "300+ 模板",
+        "desc": "使用常见用例的预建工作流模板快速开始。"
+      }
+    },
+    "ctaSection": {
+      "title": "准备好开始了吗？",
+      "subtitle": "立即使用 FluxTurn 开始自动化您的工作流。无需信用卡。",
+      "cta": "开始免费试用",
+      "viewPricing": "查看定价"
+    },
+    "visualSection": {
+      "badge": "可视化工作流编辑器",
+      "title": "使用",
+      "titleHighlight": "拖拽操作",
+      "subtitle": "可视化创建强大的自动化工作流。连接节点、配置操作，并使用我们直观的可视化编辑器部署您的自动化。",
+      "videoTitle": "FluxTurn 可视化工作流编辑器",
+      "floatingBadge": "拖拽操作",
+      "cta": "试用可视化编辑器",
+      "features": {
+        "dragDrop": {
+          "title": "直观拖拽",
+          "desc": "只需将节点拖到画布上并连接它们即可构建工作流。无需编程经验。"
+        },
+        "integrations": {
+          "title": "120+ 预建集成",
+          "desc": "即时连接您喜爱的应用。Gmail、Slack、Notion、Stripe 等数百种应用即可使用。"
+        },
+        "realtime": {
+          "title": "实时测试",
+          "desc": "使用真实数据即时测试您的工作流。立即查看结果并通过详细日志调试。"
+        },
+        "preview": {
+          "title": "实时预览",
+          "desc": "实时观看工作流执行。可视化数据流并在部署前发现问题。"
+        }
+      }
+    },
+    "aiSection": {
+      "badge": "AI 驱动的自动化",
+      "title": "使用",
+      "titleHighlight": "AI 助手",
+      "subtitle": "用自然语言描述您想要自动化的内容，让我们的 AI 为您构建工作流。与 AI 聊天以实时修改、优化和调试您的工作流。",
+      "videoTitle": "FluxTurn AI 工作流构建器",
+      "floatingBadge": "无需代码",
+      "cta": "试用 AI 构建器",
+      "features": {
+        "naturalLanguage": {
+          "title": "自然语言输入",
+          "desc": "用简单的语言描述您的自动化。我们的 AI 理解您的意图并自动创建工作流。"
+        },
+        "aiChat": {
+          "title": "AI 聊天助手",
+          "desc": "与 AI 聊天以修改工作流、提问并获取实时改进建议。"
+        },
+        "instantGeneration": {
+          "title": "即时工作流生成",
+          "desc": "几秒钟内看到您的工作流活灵活现。AI 自动选择正确的集成并配置它们。"
+        },
+        "smartSuggestions": {
+          "title": "智能建议",
+          "desc": "在构建过程中获取关于优化、错误处理和最佳实践的智能推荐。"
+        }
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "欢迎回来",
+      "subtitle": "输入您的凭据以访问您的账户",
+      "inviteMessage": "请登录以接受您的邀请",
+      "email": "邮箱",
+      "emailPlaceholder": "输入您的邮箱",
+      "password": "密码",
+      "passwordPlaceholder": "输入您的密码",
+      "rememberMe": "记住我",
+      "forgotPassword": "忘记密码？",
+      "signIn": "登录",
+      "signingIn": "登录中...",
+      "noAccount": "还没有账户？",
+      "signUp": "注册",
+      "orContinueWith": "或通过以下方式继续",
+      "termsAgreement": "登录即表示您同意我们的",
+      "termsOfService": "服务条款",
+      "and": "和",
+      "privacyPolicy": "隐私政策"
+    },
+    "register": {
+      "title": "创建账户",
+      "subtitle": "注册以开始使用 FluxTurn",
+      "name": "姓名",
+      "namePlaceholder": "输入您的姓名",
+      "passwordRequirements": {
+        "minLength": "8 个以上字符",
+        "uppercase": "大写字母",
+        "lowercase": "小写字母",
+        "number": "数字",
+        "special": "特殊字符"
+      },
+      "email": "邮箱",
+      "emailPlaceholder": "输入您的邮箱",
+      "password": "密码",
+      "passwordPlaceholder": "创建密码",
+      "confirmPassword": "确认密码",
+      "confirmPasswordPlaceholder": "确认您的密码",
+      "passwordStrength": "密码强度：",
+      "weak": "弱",
+      "fair": "一般",
+      "good": "良好",
+      "strong": "强",
+      "missing": "缺少：",
+      "passwordsMatch": "密码匹配",
+      "passwordsNoMatch": "密码不匹配",
+      "agreeToTerms": "我同意",
+      "termsOfService": "服务条款",
+      "and": "和",
+      "privacyPolicy": "隐私政策",
+      "createAccount": "创建账户",
+      "creating": "创建账户中...",
+      "haveAccount": "已有账户？",
+      "signIn": "登录",
+      "orContinueWith": "或通过以下方式继续"
+    },
+    "forgotPassword": {
+      "title": "忘记密码？",
+      "subtitle": "别担心，我们会发送重置说明给您",
+      "email": "邮箱",
+      "emailPlaceholder": "输入您的邮箱",
+      "sendLink": "发送重置邮件",
+      "sending": "发送中...",
+      "backToLogin": "返回登录",
+      "successTitle": "检查您的邮箱",
+      "successMessage": "我们已发送密码重置链接到：",
+      "successHint": "没收到邮件？请检查垃圾邮件文件夹或重试。",
+      "resendEmail": "重新发送邮件",
+      "resending": "重新发送中..."
+    },
+    "resetPassword": {
+      "title": "设置新密码",
+      "subtitle": "在下方输入您的新密码",
+      "invalidTitle": "无效的重置链接",
+      "invalidMessage": "此密码重置链接无效或已过期。",
+      "requestNewLink": "请求新链接",
+      "newPassword": "新密码",
+      "newPasswordPlaceholder": "输入您的新密码",
+      "confirmPassword": "确认密码",
+      "confirmPasswordPlaceholder": "确认您的新密码",
+      "passwordStrength": "密码强度：",
+      "passwordsMatch": "密码匹配",
+      "passwordsNoMatch": "密码不匹配",
+      "reset": "更新密码",
+      "resetting": "更新密码中...",
+      "successTitle": "密码已更新",
+      "successMessage": "您的密码已成功更新。您现在可以使用新密码登录。",
+      "continueToLogin": "继续登录",
+      "validating": "验证重置链接...",
+      "backToLogin": "返回登录"
+    },
+    "verifyEmail": {
+      "title": "验证您的邮箱",
+      "subtitle": "我们已发送验证链接到：",
+      "instruction": "点击邮件中的链接以验证您的账户",
+      "checkEmail": "查看您的邮箱",
+      "expireNote": "验证链接将在 24 小时后过期",
+      "noEmailHint": "没收到邮件？请检查垃圾邮件文件夹或重新发送。",
+      "resendEmail": "重新发送邮件",
+      "sending": "发送中...",
+      "verifyingTitle": "正在验证邮箱",
+      "verifyingMessage": "请稍候，我们正在验证您的邮箱地址...",
+      "successTitle": "邮箱已验证！",
+      "successMessage": "您的邮箱已成功验证。您现在可以访问账户的所有功能。",
+      "goToDashboard": "前往控制台",
+      "signIn": "登录",
+      "failedTitle": "验证失败",
+      "failedMessage": "验证链接无效或已过期。请重新请求验证邮件。",
+      "sendNewEmail": "发送新的验证邮件",
+      "backToLogin": "返回登录",
+      "emailSentTitle": "邮件已发送！",
+      "emailSentMessage": "我们已发送新的验证邮件到：",
+      "emailSentHint": "检查您的收件箱并点击验证链接",
+      "spamHint": "仍未看到？请检查垃圾邮件文件夹。",
+      "resendAgain": "再次发送",
+      "waitBeforeResend": "等待 {{countdown}} 秒后重新发送",
+      "welcome": "欢迎来到开发的未来",
+      "verifyToStart": "验证您的邮箱以开始使用",
+      "needHelp": "需要帮助？联系我们的",
+      "supportTeam": "支持团队"
+    },
+    "authSuccess": {
+      "title": "认证成功！",
+      "message": "您已成功登录。正在跳转到您的控制台..."
+    },
+    "authError": {
+      "title": "认证失败",
+      "redirectMessage": "您将在几秒钟后被重定向到登录页面...",
+      "returnToLogin": "返回登录",
+      "troubleHelp": "遇到问题？请尝试以下选项：",
+      "createAccount": "创建账户",
+      "resetPassword": "重置密码"
+    },
+    "oauth": {
+      "google": "使用 Google 继续",
+      "github": "使用 GitHub 继续",
+      "apple": "使用 Apple 继续",
+      "connecting": "连接中...",
+      "processing": "处理 OAuth 回调...",
+      "success": "成功！",
+      "successMessage": "连接成功！正在重定向...",
+      "error": "错误",
+      "closeWindow": "关闭窗口"
+    },
+    "errors": {
+      "invalidCredentials": "邮箱或密码无效",
+      "emailRequired": "邮箱为必填项",
+      "passwordRequired": "密码为必填项",
+      "nameRequired": "姓名为必填项",
+      "passwordMismatch": "密码不匹配",
+      "weakPassword": "密码至少需要 8 个字符",
+      "invalidEmail": "请输入有效的邮箱地址",
+      "accountExists": "该邮箱已注册账户",
+      "loginFailed": "登录失败。请检查您的凭据并重试。",
+      "registrationFailed": "注册失败。请重试。",
+      "missingOAuthParams": "缺少必要的 OAuth 参数",
+      "invalidOAuthState": "无效的 OAuth 状态 - 可能存在安全问题",
+      "missingCredentialId": "缺少凭据 ID"
+    },
+    "branding": {
+      "welcomeBack": "欢迎",
+      "back": "回来",
+      "joinFluxTurn": "加入",
+      "fluxTurn": "FluxTurn",
+      "tagline": "使用我们的无代码平台构建强大的工作流自动化。即时连接 120+ 应用。",
+      "feature1": "120+ 预建集成",
+      "feature2": "可视化拖拽工作流构建器",
+      "feature3": "AI 驱动的自动化建议",
+      "feature4": "企业级安全",
+      "testimonial": "FluxTurn 彻底改变了我们团队的工作方式。我们已经自动化了 80% 的重复性任务！",
+      "powerUser": "高级用户",
+      "premiumMember": "高级会员"
+    },
+    "common": {
+      "email": "邮箱",
+      "password": "密码",
+      "submit": "提交",
+      "cancel": "取消",
+      "loading": "加载中...",
+      "or": "或"
+    }
+  },
+  "common": {
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "edit": "编辑",
+    "create": "创建",
+    "update": "更新",
+    "close": "关闭",
+    "confirm": "确认",
+    "back": "返回",
+    "next": "下一步",
+    "search": "搜索",
+    "filter": "筛选",
+    "loading": "加载中...",
+    "saving": "保存中...",
+    "deleting": "删除中...",
+    "noResults": "未找到结果",
+    "error": "出了点问题",
+    "success": "成功",
+    "required": "必填",
+    "optional": "可选",
+    "actions": "操作",
+    "status": "状态",
+    "active": "活跃",
+    "inactive": "未激活",
+    "enabled": "已启用",
+    "disabled": "已禁用",
+    "name": "名称",
+    "description": "描述",
+    "createdAt": "创建时间",
+    "updatedAt": "更新时间",
+    "copy": "复制",
+    "copied": "已复制！",
+    "download": "下载",
+    "upload": "上传",
+    "refresh": "刷新",
+    "retry": "重试",
+    "learnMore": "了解更多",
+    "viewAll": "查看全部",
+    "showMore": "显示更多",
+    "showLess": "收起",
+    "yes": "是",
+    "no": "否",
+    "or": "或",
+    "and": "和"
+  },
+  "dashboard": {
+    "title": "控制台",
+    "welcome": "欢迎回来",
+    "overview": "概览",
+    "recentWorkflows": "最近的工作流",
+    "recentActivity": "最近活动",
+    "quickActions": "快捷操作",
+    "createWorkflow": "创建工作流",
+    "viewAllWorkflows": "查看所有工作流",
+    "noWorkflows": "还没有工作流",
+    "noWorkflowsHint": "创建您的第一个工作流以开始",
+    "stats": {
+      "totalWorkflows": "总工作流数",
+      "activeWorkflows": "活跃工作流",
+      "totalExecutions": "总执行次数",
+      "successRate": "成功率"
+    }
+  },
+  "workflow": {
+    "title": "工作流",
+    "create": "创建工作流",
+    "createNew": "创建新工作流",
+    "builder": "工作流构建器",
+    "name": "工作流名称",
+    "namePlaceholder": "输入工作流名称",
+    "description": "描述",
+    "descriptionPlaceholder": "描述此工作流的功能",
+    "status": {
+      "active": "活跃",
+      "inactive": "未激活",
+      "draft": "草稿",
+      "running": "运行中",
+      "completed": "已完成",
+      "failed": "失败",
+      "paused": "已暂停"
+    },
+    "actions": {
+      "run": "运行",
+      "stop": "停止",
+      "duplicate": "复制",
+      "export": "导出",
+      "delete": "删除",
+      "activate": "激活",
+      "deactivate": "停用"
+    },
+    "nodes": {
+      "addNode": "添加节点",
+      "configure": "配置",
+      "delete": "删除节点",
+      "duplicate": "复制节点",
+      "trigger": "触发器",
+      "action": "操作",
+      "condition": "条件",
+      "loop": "循环",
+      "delay": "延迟",
+      "code": "代码",
+      "aiAgent": "AI 代理",
+      "webhook": "Webhook",
+      "schedule": "定时任务",
+      "manual": "手动触发"
+    },
+    "execution": {
+      "title": "执行日志",
+      "running": "运行中...",
+      "completed": "已完成",
+      "failed": "失败",
+      "duration": "持续时间",
+      "startedAt": "开始于",
+      "input": "输入",
+      "output": "输出",
+      "error": "错误",
+      "noExecutions": "还没有执行记录",
+      "viewDetails": "查看详情"
+    },
+    "canvas": {
+      "zoomIn": "放大",
+      "zoomOut": "缩小",
+      "fitView": "适应视图",
+      "undo": "撤销",
+      "redo": "重做",
+      "save": "保存",
+      "deploy": "部署"
+    },
+    "errors": {
+      "saveFailed": "保存工作流失败",
+      "loadFailed": "加载工作流失败",
+      "executionFailed": "工作流执行失败",
+      "invalidConfig": "无效的配置"
+    }
+  },
+  "credentials": {
+    "title": "凭据",
+    "add": "添加凭据",
+    "edit": "编辑凭据",
+    "name": "凭据名称",
+    "namePlaceholder": "我的凭据",
+    "type": "凭据类型",
+    "test": "测试连接",
+    "testing": "测试中...",
+    "testSuccess": "连接成功",
+    "testFailed": "连接失败",
+    "save": "保存凭据",
+    "delete": "删除凭据",
+    "deleteConfirm": "确定要删除此凭据吗？使用此凭据的工作流将停止运行。",
+    "noCredentials": "还没有凭据",
+    "noCredentialsHint": "添加凭据以连接您的应用",
+    "lastTested": "上次测试",
+    "connected": "已连接",
+    "disconnected": "已断开",
+    "expires": "过期时间",
+    "reconnect": "重新连接"
+  },
+  "organization": {
+    "title": "组织",
+    "create": "创建组织",
+    "settings": "组织设置",
+    "name": "组织名称",
+    "namePlaceholder": "我的组织",
+    "members": {
+      "title": "成员",
+      "invite": "邀请成员",
+      "inviteByEmail": "通过邮箱邀请",
+      "emailPlaceholder": "colleague@company.com",
+      "role": "角色",
+      "roles": {
+        "owner": "所有者",
+        "admin": "管理员",
+        "member": "成员",
+        "viewer": "查看者"
+      },
+      "remove": "移除成员",
+      "removeConfirm": "确定要移除此成员吗？",
+      "pending": "待处理",
+      "active": "活跃"
+    },
+    "billing": {
+      "title": "账单",
+      "currentPlan": "当前方案",
+      "usage": "使用量",
+      "invoices": "发票",
+      "upgrade": "升级方案",
+      "downgrade": "降级",
+      "cancel": "取消订阅",
+      "paymentMethod": "支付方式",
+      "addPayment": "添加支付方式",
+      "nextBilling": "下次账单日期",
+      "executions": "执行次数",
+      "executionsUsed": "已使用 {{used}} / {{limit}}",
+      "workflows": "工作流",
+      "workflowsUsed": "已使用 {{used}} / {{limit}}"
+    },
+    "integrations": {
+      "title": "集成",
+      "connected": "已连接",
+      "available": "可用",
+      "connect": "连接",
+      "disconnect": "断开",
+      "configure": "配置",
+      "lastSync": "上次同步"
+    }
+  },
+  "project": {
+    "title": "项目",
+    "create": "创建项目",
+    "settings": "项目设置",
+    "name": "项目名称",
+    "namePlaceholder": "我的项目",
+    "description": "描述",
+    "descriptionPlaceholder": "这个项目是做什么的？",
+    "workflows": "工作流",
+    "credentials": "凭据",
+    "members": "成员",
+    "noProjects": "还没有项目",
+    "noProjectsHint": "创建一个项目来组织您的工作流"
+  },
+  "settings": {
+    "title": "设置",
+    "account": {
+      "title": "账户设置",
+      "profile": "个人资料",
+      "email": "邮箱地址",
+      "name": "显示名称",
+      "avatar": "头像",
+      "changeAvatar": "更换",
+      "removeAvatar": "移除",
+      "timezone": "时区",
+      "language": "语言",
+      "notifications": "通知",
+      "emailNotifications": "邮件通知",
+      "pushNotifications": "推送通知",
+      "workflowAlerts": "工作流提醒"
+    },
+    "security": {
+      "title": "安全",
+      "changePassword": "更改密码",
+      "currentPassword": "当前密码",
+      "newPassword": "新密码",
+      "confirmPassword": "确认密码",
+      "twoFactor": "双因素认证",
+      "enable2FA": "启用 2FA",
+      "disable2FA": "禁用 2FA",
+      "sessions": "活跃会话",
+      "revokeSession": "撤销",
+      "revokeAll": "撤销所有会话"
+    },
+    "apiKeys": {
+      "title": "API 密钥",
+      "create": "创建 API 密钥",
+      "name": "密钥名称",
+      "namePlaceholder": "我的 API 密钥",
+      "permissions": "权限",
+      "expires": "过期时间",
+      "never": "永不",
+      "revoke": "撤销",
+      "revokeConfirm": "确定吗？此操作无法撤销。",
+      "noKeys": "还没有 API 密钥",
+      "copyWarning": "请立即复制此密钥。之后将无法再次查看。"
+    },
+    "danger": {
+      "title": "危险区域",
+      "deleteAccount": "删除账户",
+      "deleteAccountWarning": "这将永久删除您的账户及所有相关数据。此操作无法撤销。",
+      "typeToConfirm": "输入您的邮箱以确认"
+    }
+  }
+}

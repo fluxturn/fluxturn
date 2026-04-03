@@ -1,0 +1,70 @@
+{
+  "id": "97c50006-7463-4dc8-95aa-0f82ed44007a",
+  "name": "Shopify Order to Asana Task",
+  "description": "Create Asana tasks for new Shopify orders",
+  "category": "ecommerce",
+  "difficulty": "intermediate",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": ["shopify", "asana"],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "shopify_trigger_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": { "x": 100, "y": 100 },
+        "data": {
+          "label": "New Shopify Order",
+          "connector": "shopify",
+          "triggerId": "order_created",
+          "icon": "shopping-cart",
+          "category": "trigger",
+          "description": "Triggers when a new order is created",
+          "config": {},
+          "outputSchema": {
+            "order_number": { "type": "string" },
+            "customer": { "type": "object" },
+            "total_price": { "type": "string" }
+          }
+        }
+      },
+      {
+        "id": "asana_action_1",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 450, "y": 100 },
+        "data": {
+          "label": "Create Asana Task",
+          "connector": "asana",
+          "actionId": "task_create",
+          "icon": "check-square",
+          "category": "action",
+          "description": "Create task in Asana project",
+          "config": {
+            "projectId": "{{asana_project_id}}",
+            "name": "Process Order #{{$json.order_number}}",
+            "notes": "New Shopify Order\n\nCustomer: {{$json.customer.first_name}} {{$json.customer.last_name}}\nEmail: {{$json.customer.email}}\nTotal: ${{$json.total_price}}\n\nItems:\n{{$json.line_items.map(i => '- ' + i.title + ' x' + i.quantity).join('\\n')}}\n\nShipping Address:\n{{$json.shipping_address.address1}}\n{{$json.shipping_address.city}}, {{$json.shipping_address.province}} {{$json.shipping_address.zip}}",
+            "due_on": "={{new Date(Date.now() + 2*24*60*60*1000).toISOString().split('T')[0]}}"
+          },
+          "inputSchema": {
+            "projectId": { "type": "string", "required": true, "label": "Project ID" },
+            "name": { "type": "string", "required": true, "label": "Task Name" },
+            "notes": { "type": "string", "label": "Notes" },
+            "due_on": { "type": "string", "label": "Due Date" }
+          },
+          "outputSchema": {
+            "gid": { "type": "string" }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1",
+        "source": "shopify_trigger_1",
+        "target": "asana_action_1",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

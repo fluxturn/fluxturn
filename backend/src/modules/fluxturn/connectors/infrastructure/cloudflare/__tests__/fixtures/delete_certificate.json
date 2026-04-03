@@ -1,0 +1,84 @@
+{
+  "action": "delete_certificate",
+  "baseUrl": "https://api.cloudflare.com/client/v4",
+  "testCases": [
+    {
+      "name": "deletes certificate successfully",
+      "input": {
+        "zoneId": "023e105f4ecef8ad9ca31a8372d0c353",
+        "certificateId": "328578533"
+      },
+      "mock": {
+        "method": "DELETE",
+        "path": "/zones/023e105f4ecef8ad9ca31a8372d0c353/origin_tls_client_auth/328578533",
+        "status": 200,
+        "response": {
+          "success": true,
+          "errors": [],
+          "messages": [],
+          "result": {
+            "id": "328578533"
+          }
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "id": "328578533"
+        }
+      }
+    },
+    {
+      "name": "handles certificate not found error",
+      "input": {
+        "zoneId": "023e105f4ecef8ad9ca31a8372d0c353",
+        "certificateId": "invalid-id"
+      },
+      "mock": {
+        "method": "DELETE",
+        "path": "/zones/023e105f4ecef8ad9ca31a8372d0c353/origin_tls_client_auth/invalid-id",
+        "status": 404,
+        "response": {
+          "success": false,
+          "errors": [
+            {
+              "code": 1003,
+              "message": "Certificate not found"
+            }
+          ],
+          "messages": [],
+          "result": null
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    },
+    {
+      "name": "handles invalid zone ID error",
+      "input": {
+        "zoneId": "invalid-zone-id",
+        "certificateId": "328578533"
+      },
+      "mock": {
+        "method": "DELETE",
+        "path": "/zones/invalid-zone-id/origin_tls_client_auth/328578533",
+        "status": 400,
+        "response": {
+          "success": false,
+          "errors": [
+            {
+              "code": 7003,
+              "message": "Invalid zone identifier"
+            }
+          ],
+          "messages": [],
+          "result": null
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    }
+  ]
+}

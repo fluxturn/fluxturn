@@ -1,0 +1,106 @@
+{
+  "id": "5ab9383e-493b-4457-9918-88b49f0410ad",
+  "name": "Bug Report to GitHub",
+  "description": "Convert bug report emails into GitHub issues automatically. Nodes: IMAP Trigger (bug report email), GitHub Action (create issue)",
+  "category": "support",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Bug Report Email",
+          "config": {},
+          "trigger": "new_email",
+          "category": "trigger",
+          "connector": "imap",
+          "eventType": "polling",
+          "triggerId": "new_email",
+          "description": "Triggered when bug report email",
+          "connectorType": "imap",
+          "connectorDisplayName": "IMAP"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Issue",
+          "action": "create_issue",
+          "config": {
+            "repository": "{{repository}}",
+            "title": "{{title}}",
+            "body": "{{body}}"
+          },
+          "actionId": "create_issue",
+          "category": "action",
+          "connector": "github",
+          "actionName": "Create Issue",
+          "description": "Create Issue",
+          "connectorType": "github",
+          "connectorDisplayName": "GitHub"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "imap",
+        "triggerId": "new_email"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "imap",
+    "github"
+  ],
+  "tags": [
+    "support",
+    "automation",
+    "imap",
+    "github"
+  ],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow bug report to github using imap, github",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow that monitors an email inbox via IMAP for bug report emails and automatically creates GitHub issues from the email content"
+}

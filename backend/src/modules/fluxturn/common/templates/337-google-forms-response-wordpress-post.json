@@ -1,0 +1,115 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-300000000037",
+  "name": "Google Forms Response to WordPress Post",
+  "description": "Create WordPress blog posts from Google Forms submissions for user-generated content",
+  "category": "forms",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "List Form Responses",
+          "config": {
+            "formId": "{{form_id}}"
+          },
+          "category": "action",
+          "connector": "google_forms",
+          "connectorType": "google_forms",
+          "connectorDisplayName": "Google Forms",
+          "description": "Get all responses from the form",
+          "action": "responses_list",
+          "actionId": "responses_list",
+          "actionName": "List Responses"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Create WordPress Post",
+          "config": {
+            "title": "{{post_title}}",
+            "content": "{{node_2.output.responses}}",
+            "status": "draft",
+            "categories": "{{post_category}}"
+          },
+          "category": "action",
+          "connector": "wordpress",
+          "connectorType": "wordpress",
+          "connectorDisplayName": "WordPress",
+          "description": "Create blog post from form response",
+          "action": "create_post",
+          "actionId": "create_post",
+          "actionName": "Create Post"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [],
+  "conditions": [],
+  "variables": [
+    {
+      "name": "form_id",
+      "type": "string",
+      "description": "Google Form ID"
+    },
+    {
+      "name": "post_title",
+      "type": "string",
+      "description": "Title for the WordPress post"
+    },
+    {
+      "name": "post_category",
+      "type": "string",
+      "description": "WordPress category ID for the post"
+    }
+  ],
+  "outputs": [],
+  "required_connectors": ["google_forms", "wordpress"],
+  "tags": ["forms", "google-forms", "wordpress", "cms", "blog", "content"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "Create WordPress posts from Google Forms responses",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create WordPress blog post when a Google Forms response is submitted"
+}

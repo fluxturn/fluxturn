@@ -1,0 +1,125 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-300000000013",
+  "name": "AI Twitter Reply Generator",
+  "description": "Generate intelligent replies to tweets using OpenAI and post them automatically",
+  "category": "social",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Chat Completion",
+          "config": {
+            "model": "gpt-3.5-turbo",
+            "messages": [
+              {
+                "role": "system",
+                "content": "You are a friendly social media expert. Generate thoughtful, engaging replies to tweets. Keep replies under 280 characters, be conversational, and add value to the discussion."
+              },
+              {
+                "role": "user",
+                "content": "Generate a reply to this tweet: \"{{original_tweet}}\". The reply should be {{tone}} in tone."
+              }
+            ],
+            "temperature": 0.8,
+            "maxTokens": 100
+          },
+          "category": "action",
+          "connector": "openai",
+          "connectorType": "openai",
+          "connectorDisplayName": "OpenAI",
+          "description": "Generate reply using GPT",
+          "action": "chat_complete",
+          "actionId": "chat_complete",
+          "actionName": "Chat Completion"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Create Tweet",
+          "config": {
+            "text": "{{node_2.output.choices[0].message.content}}",
+            "reply_to": "{{tweet_id}}"
+          },
+          "category": "action",
+          "connector": "twitter",
+          "connectorType": "twitter",
+          "connectorDisplayName": "Twitter/X",
+          "description": "Post AI-generated reply",
+          "action": "create_tweet",
+          "actionId": "create_tweet",
+          "actionName": "Create Tweet"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [],
+  "conditions": [],
+  "variables": [
+    {
+      "name": "original_tweet",
+      "type": "string",
+      "description": "The original tweet text to reply to"
+    },
+    {
+      "name": "tweet_id",
+      "type": "string",
+      "description": "The tweet ID to reply to"
+    },
+    {
+      "name": "tone",
+      "type": "string",
+      "description": "Desired tone (e.g., friendly, professional, humorous)"
+    }
+  ],
+  "outputs": [],
+  "required_connectors": ["openai", "twitter"],
+  "tags": ["ai", "twitter", "social", "openai", "engagement"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "Generate AI-powered Twitter replies and post them",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Generate a smart reply to a tweet using OpenAI and post it"
+}

@@ -1,0 +1,107 @@
+{
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567814",
+  "name": "OpenAI GitHub Commit Summarizer",
+  "description": "Automatically summarize GitHub commits using AI and post to Slack. Nodes: GitHub Trigger, OpenAI Action, Slack Action",
+  "category": "ai",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "On Push",
+          "config": {},
+          "trigger": "on_push",
+          "category": "trigger",
+          "connector": "github",
+          "eventType": "webhook",
+          "triggerId": "on_push",
+          "description": "Triggered when code is pushed",
+          "connectorType": "github",
+          "connectorDisplayName": "GitHub"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Chat Completion",
+          "action": "chat_complete",
+          "config": {
+            "model": "gpt-3.5-turbo",
+            "messages": "{{messages}}"
+          },
+          "actionId": "chat_complete",
+          "category": "action",
+          "connector": "openai",
+          "actionName": "Chat Completion",
+          "description": "Summarize commits",
+          "connectorType": "openai",
+          "connectorDisplayName": "OpenAI"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Send Message",
+          "action": "send_message",
+          "config": {},
+          "actionId": "send_message",
+          "category": "action",
+          "connector": "slack",
+          "actionName": "Send Message",
+          "description": "Post summary to Slack",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#14b8a6", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#14b8a6", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": { "connector": "github", "triggerId": "on_push" }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": ["github", "openai", "slack"],
+  "tags": ["ai", "automation", "github", "openai", "slack", "commits"],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow summarizes GitHub commits using OpenAI and posts to Slack",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"OpenAI GitHub commit summarizer\" that triggers on push, summarizes commits with AI, and posts to Slack"
+}

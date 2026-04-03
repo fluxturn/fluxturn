@@ -1,0 +1,107 @@
+{
+  "id": "f6a7b8c9-d0e1-4234-f6a7-b8c9d0e12345",
+  "name": "Zoom Participant Count Alert",
+  "description": "Get notified when meeting attendance reaches threshold. Nodes: Zoom Trigger, Condition, Slack Action",
+  "category": "collaboration",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Participant Joined",
+          "config": {},
+          "trigger": "participant_joined",
+          "category": "trigger",
+          "connector": "zoom",
+          "eventType": "webhook",
+          "triggerId": "participant_joined",
+          "description": "Triggered when participant joins Zoom meeting",
+          "connectorType": "zoom",
+          "connectorDisplayName": "Zoom"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Alert High Attendance",
+          "action": "send_message",
+          "config": {
+            "channel": "{{channel_id}}",
+            "text": "⚠️ High attendance alert!\nMeeting: {{trigger.topic}}\nParticipants: {{trigger.participant_count}}"
+          },
+          "actionId": "send_message",
+          "category": "action",
+          "connector": "slack",
+          "actionName": "Post Message",
+          "description": "Post message to Slack",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "zoom",
+        "triggerId": "participant_joined"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "zoom",
+    "slack"
+  ],
+  "tags": [
+    "collaboration",
+    "automation",
+    "zoom",
+    "slack",
+    "meetings",
+    "alerts"
+  ],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow alerts when Zoom meeting attendance is high using zoom, slack",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"meeting attendance alert\" that triggers when participant joins and notifies Slack if count is high"
+}

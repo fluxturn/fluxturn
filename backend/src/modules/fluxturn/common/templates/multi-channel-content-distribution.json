@@ -1,0 +1,2047 @@
+{
+  "id": "db4cf5a1-8805-446c-96bc-c4c157879b7c",
+  "name": "Multi-Channel Content Distribution",
+  "description": "Publish content across Twitter, LinkedIn, Facebook simultaneously and track analytics of engagement",
+  "category": "other",
+  "canvas": {
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_3",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_4",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "xy-edge__node_3source-1-gmail_send_email_1762340366696target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_3",
+        "target": "gmail_send_email_1762340366696",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__node_4source-1-node_3target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_4",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__gmail_send_email_1762340366696source-1-google_analytics_get_ga4_report_1762340629053target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "gmail_send_email_1762340366696",
+        "target": "google_analytics_get_ga4_report_1762340629053",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__google_analytics_get_ga4_report_1762340629053source-1-google_sheets_append_row_1762340674301target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "google_analytics_get_ga4_report_1762340629053",
+        "target": "google_sheets_append_row_1762340674301",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "node_1",
+        "data": {
+          "icon": "connector",
+          "label": "When Content Approved in Google Docs",
+          "config": {},
+          "trigger": "document_updated",
+          "category": "trigger",
+          "connector": "google_docs",
+          "eventType": "polling",
+          "triggerId": "document_updated",
+          "description": "Triggers when a document is modified",
+          "inputSchema": {
+            "folderId": {
+              "type": "string",
+              "label": "Folder ID",
+              "description": "Monitor documents in this folder",
+              "placeholder": "root"
+            },
+            "documentId": {
+              "type": "string",
+              "label": "Document ID",
+              "description": "Monitor this specific document (leave empty to monitor all)",
+              "placeholder": "1abc2def3ghiJKLmnop4qrs"
+            },
+            "pollInterval": {
+              "max": 60,
+              "min": 1,
+              "type": "number",
+              "label": "Poll Interval (minutes)",
+              "default": 5
+            }
+          },
+          "triggerName": "Document Updated",
+          "configSchema": {
+            "folderId": {
+              "type": "string",
+              "label": "Folder ID",
+              "description": "Monitor documents in this folder",
+              "placeholder": "root"
+            },
+            "documentId": {
+              "type": "string",
+              "label": "Document ID",
+              "description": "Monitor this specific document (leave empty to monitor all)",
+              "placeholder": "1abc2def3ghiJKLmnop4qrs"
+            },
+            "pollInterval": {
+              "max": 60,
+              "min": 1,
+              "type": "number",
+              "label": "Poll Interval (minutes)",
+              "default": 5
+            }
+          },
+          "outputSchema": {
+            "title": {
+              "type": "string",
+              "description": "Document title"
+            },
+            "documentId": {
+              "type": "string",
+              "description": "ID of the updated document"
+            },
+            "revisionId": {
+              "type": "string",
+              "description": "Current revision ID"
+            },
+            "modifiedTime": {
+              "type": "string",
+              "description": "Last modified timestamp"
+            },
+            "lastModifyingUser": {
+              "type": "object",
+              "description": "User who made the change"
+            }
+          },
+          "connectorType": "google_docs",
+          "webhookRequired": false,
+          "connectorDisplayName": "Google Docs"
+        },
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": -15,
+          "y": 255
+        }
+      },
+      {
+        "id": "node_2",
+        "data": {
+          "icon": "connector",
+          "label": "Post to Twitter",
+          "action": "create_tweet",
+          "config": {
+            "text": "New content approved! Check it out: {{node_1.content}}"
+          },
+          "actionId": "create_tweet",
+          "category": "action",
+          "connector": "twitter",
+          "actionName": "Create Tweet",
+          "description": "Create, quote, or reply to a tweet",
+          "inputSchema": {
+            "text": {
+              "type": "string",
+              "label": "Tweet Text",
+              "required": true,
+              "inputType": "textarea",
+              "maxLength": 280,
+              "description": "The text of the tweet. URLs will be shortened with t.co"
+            },
+            "media": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "label": "Media URLs",
+              "description": "Array of media URLs to attach to the tweet"
+            },
+            "reply_to": {
+              "type": "string",
+              "label": "Reply to Tweet ID",
+              "description": "ID of the tweet to reply to (leave empty to post a new tweet)",
+              "placeholder": "1187836157394112513"
+            }
+          },
+          "configSchema": {
+            "text": {
+              "type": "string",
+              "label": "Tweet Text",
+              "required": true,
+              "inputType": "textarea",
+              "maxLength": 280,
+              "description": "The text of the tweet. URLs will be shortened with t.co"
+            },
+            "media": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "label": "Media URLs",
+              "description": "Array of media URLs to attach to the tweet"
+            },
+            "reply_to": {
+              "type": "string",
+              "label": "Reply to Tweet ID",
+              "description": "ID of the tweet to reply to (leave empty to post a new tweet)",
+              "placeholder": "1187836157394112513"
+            }
+          },
+          "connectorType": "twitter",
+          "connectorDisplayName": "Twitter/X"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 465,
+          "y": 165
+        }
+      },
+      {
+        "id": "node_3",
+        "data": {
+          "icon": "connector",
+          "label": "Post to LinkedIn",
+          "action": "create_post",
+          "config": {
+            "content": "New content approved! Check it out: {{node_1.content}}"
+          },
+          "actionId": "create_post",
+          "category": "action",
+          "connector": "linkedin",
+          "actionName": "Create Post",
+          "description": "Create a LinkedIn post with text, images, or articles",
+          "inputSchema": {
+            "text": {
+              "type": "string",
+              "label": "Post Text",
+              "required": true,
+              "inputType": "textarea",
+              "maxLength": 3000,
+              "description": "Post content (special characters will be automatically escaped)",
+              "placeholder": "Enter your post content..."
+            },
+            "postAs": {
+              "type": "select",
+              "label": "Post As",
+              "default": "person",
+              "options": [
+                {
+                  "label": "Person (Me)",
+                  "value": "person"
+                },
+                {
+                  "label": "Organization",
+                  "value": "organization"
+                }
+              ],
+              "required": false,
+              "description": "Post as yourself or an organization"
+            },
+            "imageUrl": {
+              "type": "string",
+              "label": "Image URL",
+              "required": false,
+              "description": "LinkedIn image asset URN (for IMAGE posts)",
+              "placeholder": "LinkedIn image asset URN",
+              "displayOptions": {
+                "show": {
+                  "shareMediaCategory": [
+                    "IMAGE"
+                  ]
+                }
+              }
+            },
+            "articleUrl": {
+              "type": "string",
+              "label": "Article URL",
+              "required": false,
+              "inputType": "url",
+              "description": "URL of the article to share (required for ARTICLE posts)",
+              "placeholder": "https://example.com/article",
+              "displayOptions": {
+                "show": {
+                  "shareMediaCategory": [
+                    "ARTICLE"
+                  ]
+                }
+              }
+            },
+            "binaryData": {
+              "type": "string",
+              "label": "Binary Image Data",
+              "required": false,
+              "inputType": "textarea",
+              "description": "Base64 encoded binary image data (alternative to Image URL)",
+              "displayOptions": {
+                "show": {
+                  "shareMediaCategory": [
+                    "IMAGE"
+                  ]
+                }
+              }
+            },
+            "imageTitle": {
+              "type": "string",
+              "label": "Image Title",
+              "required": false,
+              "description": "Title for the image",
+              "placeholder": "Image title",
+              "displayOptions": {
+                "show": {
+                  "shareMediaCategory": [
+                    "IMAGE"
+                  ]
+                }
+              }
+            },
+            "visibility": {
+              "type": "select",
+              "label": "Visibility",
+              "default": "PUBLIC",
+              "options": [
+                {
+                  "label": "Public",
+                  "value": "PUBLIC"
+                },
+                {
+                  "label": "Connections Only",
+                  "value": "CONNECTIONS"
+                }
+              ],
+              "required": false,
+              "description": "Who can see this post"
+            },
+            "articleTitle": {
+              "type": "string",
+              "label": "Article Title",
+              "required": false,
+              "description": "Title of the article",
+              "placeholder": "Article title",
+              "displayOptions": {
+                "show": {
+                  "shareMediaCategory": [
+                    "ARTICLE"
+                  ]
+                }
+              }
+            },
+            "thumbnailUrl": {
+              "type": "string",
+              "label": "Article Thumbnail URL",
+              "required": false,
+              "description": "LinkedIn image asset URN for article thumbnail",
+              "placeholder": "LinkedIn image asset URN",
+              "displayOptions": {
+                "show": {
+                  "shareMediaCategory": [
+                    "ARTICLE"
+                  ]
+                }
+              }
+            },
+            "binaryMimeType": {
+              "type": "select",
+              "label": "Image Type",
+              "default": "image/jpeg",
+              "options": [
+                {
+                  "label": "JPEG",
+                  "value": "image/jpeg"
+                },
+                {
+                  "label": "PNG",
+                  "value": "image/png"
+                },
+                {
+                  "label": "GIF",
+                  "value": "image/gif"
+                }
+              ],
+              "required": false,
+              "description": "MIME type of the binary data",
+              "displayOptions": {
+                "show": {
+                  "shareMediaCategory": [
+                    "IMAGE"
+                  ]
+                }
+              }
+            },
+            "organizationUrn": {
+              "type": "string",
+              "label": "Organization URN",
+              "required": false,
+              "description": "Organization URN (required when posting as organization)",
+              "placeholder": "12345678",
+              "displayOptions": {
+                "show": {
+                  "postAs": [
+                    "organization"
+                  ]
+                }
+              }
+            },
+            "articleDescription": {
+              "type": "string",
+              "label": "Article Description",
+              "required": false,
+              "inputType": "textarea",
+              "description": "Description of the article",
+              "placeholder": "Article description",
+              "displayOptions": {
+                "show": {
+                  "shareMediaCategory": [
+                    "ARTICLE"
+                  ]
+                }
+              }
+            },
+            "shareMediaCategory": {
+              "type": "select",
+              "label": "Media Type",
+              "default": "NONE",
+              "options": [
+                {
+                  "label": "None (Text Only)",
+                  "value": "NONE"
+                },
+                {
+                  "label": "Image",
+                  "value": "IMAGE"
+                },
+                {
+                  "label": "Article",
+                  "value": "ARTICLE"
+                }
+              ],
+              "required": false,
+              "description": "Type of media to include in the post"
+            }
+          },
+          "configSchema": {
+            "text": {
+              "type": "string",
+              "label": "Post Text",
+              "required": true,
+              "inputType": "textarea",
+              "maxLength": 3000,
+              "description": "Post content (special characters will be automatically escaped)",
+              "placeholder": "Enter your post content..."
+            },
+            "postAs": {
+              "type": "select",
+              "label": "Post As",
+              "default": "person",
+              "options": [
+                {
+                  "label": "Person (Me)",
+                  "value": "person"
+                },
+                {
+                  "label": "Organization",
+                  "value": "organization"
+                }
+              ],
+              "required": false,
+              "description": "Post as yourself or an organization"
+            },
+            "imageUrl": {
+              "type": "string",
+              "label": "Image URL",
+              "required": false,
+              "description": "LinkedIn image asset URN (for IMAGE posts)",
+              "placeholder": "LinkedIn image asset URN",
+              "displayOptions": {
+                "show": {
+                  "shareMediaCategory": [
+                    "IMAGE"
+                  ]
+                }
+              }
+            },
+            "articleUrl": {
+              "type": "string",
+              "label": "Article URL",
+              "required": false,
+              "inputType": "url",
+              "description": "URL of the article to share (required for ARTICLE posts)",
+              "placeholder": "https://example.com/article",
+              "displayOptions": {
+                "show": {
+                  "shareMediaCategory": [
+                    "ARTICLE"
+                  ]
+                }
+              }
+            },
+            "binaryData": {
+              "type": "string",
+              "label": "Binary Image Data",
+              "required": false,
+              "inputType": "textarea",
+              "description": "Base64 encoded binary image data (alternative to Image URL)",
+              "displayOptions": {
+                "show": {
+                  "shareMediaCategory": [
+                    "IMAGE"
+                  ]
+                }
+              }
+            },
+            "imageTitle": {
+              "type": "string",
+              "label": "Image Title",
+              "required": false,
+              "description": "Title for the image",
+              "placeholder": "Image title",
+              "displayOptions": {
+                "show": {
+                  "shareMediaCategory": [
+                    "IMAGE"
+                  ]
+                }
+              }
+            },
+            "visibility": {
+              "type": "select",
+              "label": "Visibility",
+              "default": "PUBLIC",
+              "options": [
+                {
+                  "label": "Public",
+                  "value": "PUBLIC"
+                },
+                {
+                  "label": "Connections Only",
+                  "value": "CONNECTIONS"
+                }
+              ],
+              "required": false,
+              "description": "Who can see this post"
+            },
+            "articleTitle": {
+              "type": "string",
+              "label": "Article Title",
+              "required": false,
+              "description": "Title of the article",
+              "placeholder": "Article title",
+              "displayOptions": {
+                "show": {
+                  "shareMediaCategory": [
+                    "ARTICLE"
+                  ]
+                }
+              }
+            },
+            "thumbnailUrl": {
+              "type": "string",
+              "label": "Article Thumbnail URL",
+              "required": false,
+              "description": "LinkedIn image asset URN for article thumbnail",
+              "placeholder": "LinkedIn image asset URN",
+              "displayOptions": {
+                "show": {
+                  "shareMediaCategory": [
+                    "ARTICLE"
+                  ]
+                }
+              }
+            },
+            "binaryMimeType": {
+              "type": "select",
+              "label": "Image Type",
+              "default": "image/jpeg",
+              "options": [
+                {
+                  "label": "JPEG",
+                  "value": "image/jpeg"
+                },
+                {
+                  "label": "PNG",
+                  "value": "image/png"
+                },
+                {
+                  "label": "GIF",
+                  "value": "image/gif"
+                }
+              ],
+              "required": false,
+              "description": "MIME type of the binary data",
+              "displayOptions": {
+                "show": {
+                  "shareMediaCategory": [
+                    "IMAGE"
+                  ]
+                }
+              }
+            },
+            "organizationUrn": {
+              "type": "string",
+              "label": "Organization URN",
+              "required": false,
+              "description": "Organization URN (required when posting as organization)",
+              "placeholder": "12345678",
+              "displayOptions": {
+                "show": {
+                  "postAs": [
+                    "organization"
+                  ]
+                }
+              }
+            },
+            "articleDescription": {
+              "type": "string",
+              "label": "Article Description",
+              "required": false,
+              "inputType": "textarea",
+              "description": "Description of the article",
+              "placeholder": "Article description",
+              "displayOptions": {
+                "show": {
+                  "shareMediaCategory": [
+                    "ARTICLE"
+                  ]
+                }
+              }
+            },
+            "shareMediaCategory": {
+              "type": "select",
+              "label": "Media Type",
+              "default": "NONE",
+              "options": [
+                {
+                  "label": "None (Text Only)",
+                  "value": "NONE"
+                },
+                {
+                  "label": "Image",
+                  "value": "IMAGE"
+                },
+                {
+                  "label": "Article",
+                  "value": "ARTICLE"
+                }
+              ],
+              "required": false,
+              "description": "Type of media to include in the post"
+            }
+          },
+          "connectorType": "linkedin",
+          "connectorDisplayName": "LinkedIn"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 450,
+          "y": 420
+        }
+      },
+      {
+        "id": "node_4",
+        "data": {
+          "icon": "connector",
+          "label": "Post to Facebook",
+          "action": "create_page_post",
+          "config": {
+            "message": "New content approved! Check it out: {{node_1.content}}"
+          },
+          "actionId": "create_page_post",
+          "category": "action",
+          "connector": "facebook_graph",
+          "actionName": "Create Page Post",
+          "description": "Publish a post to a Facebook page feed",
+          "inputSchema": {
+            "link": {
+              "type": "string",
+              "label": "Link URL",
+              "description": "URL to attach to the post (optional)",
+              "placeholder": "https://example.com"
+            },
+            "pageId": {
+              "type": "string",
+              "label": "Page ID",
+              "required": true,
+              "description": "Facebook Page ID where the post will be published"
+            },
+            "message": {
+              "type": "string",
+              "label": "Message",
+              "required": true,
+              "inputType": "textarea",
+              "maxLength": 63206,
+              "description": "The main text content of the post"
+            },
+            "published": {
+              "type": "boolean",
+              "label": "Publish Immediately",
+              "default": true,
+              "description": "Whether to publish immediately or save as draft"
+            }
+          },
+          "configSchema": {
+            "link": {
+              "type": "string",
+              "label": "Link URL",
+              "description": "URL to attach to the post (optional)",
+              "placeholder": "https://example.com"
+            },
+            "pageId": {
+              "type": "string",
+              "label": "Page ID",
+              "required": true,
+              "description": "Facebook Page ID where the post will be published"
+            },
+            "message": {
+              "type": "string",
+              "label": "Message",
+              "required": true,
+              "inputType": "textarea",
+              "maxLength": 63206,
+              "description": "The main text content of the post"
+            },
+            "published": {
+              "type": "boolean",
+              "label": "Publish Immediately",
+              "default": true,
+              "description": "Whether to publish immediately or save as draft"
+            }
+          },
+          "connectorType": "facebook_graph",
+          "connectorDisplayName": "Facebook Graph API"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 120,
+          "y": 540
+        }
+      },
+      {
+        "id": "gmail_send_email_1762340366696",
+        "data": {
+          "icon": "Mail",
+          "label": "Send Email",
+          "actionId": "send_email",
+          "description": "Send an email via Gmail",
+          "inputSchema": {
+            "cc": {
+              "type": "string",
+              "label": "CC",
+              "description": "CC recipients (comma-separated)",
+              "placeholder": "cc@example.com"
+            },
+            "to": {
+              "type": "string",
+              "label": "To",
+              "required": true,
+              "description": "Recipient email addresses (comma-separated)",
+              "placeholder": "recipient@example.com"
+            },
+            "bcc": {
+              "type": "string",
+              "label": "BCC",
+              "description": "BCC recipients (comma-separated)",
+              "placeholder": "bcc@example.com"
+            },
+            "body": {
+              "type": "string",
+              "label": "Body",
+              "required": true,
+              "inputType": "richtext",
+              "description": "Email body content (supports HTML)"
+            },
+            "subject": {
+              "type": "string",
+              "label": "Subject",
+              "required": true,
+              "description": "Email subject line"
+            },
+            "attachments": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "string"
+                  },
+                  "filename": {
+                    "type": "string"
+                  },
+                  "mimeType": {
+                    "type": "string"
+                  }
+                }
+              },
+              "label": "Attachments",
+              "description": "File attachments (optional)"
+            }
+          },
+          "connectorType": "gmail"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 735,
+          "y": 255
+        }
+      },
+      {
+        "id": "google_analytics_get_ga4_report_1762340629053",
+        "data": {
+          "icon": "Search",
+          "label": "Get GA4 Report",
+          "actionId": "get_ga4_report",
+          "description": "Get analytics data from Google Analytics 4 property",
+          "inputSchema": {
+            "limit": {
+              "max": 100000,
+              "min": 1,
+              "type": "number",
+              "label": "Limit",
+              "order": 8,
+              "default": 100,
+              "description": "Maximum number of results (only when Return All is false)",
+              "displayOptions": {
+                "show": {
+                  "returnAll": [
+                    false
+                  ]
+                }
+              }
+            },
+            "simple": {
+              "type": "boolean",
+              "label": "Simplify Response",
+              "order": 9,
+              "default": true,
+              "description": "Convert nested GA4 response into flat objects"
+            },
+            "endDate": {
+              "type": "string",
+              "label": "End Date",
+              "order": 4,
+              "description": "End date in YYYY-MM-DD format (only for Custom Range)",
+              "placeholder": "2025-01-31",
+              "displayOptions": {
+                "show": {
+                  "dateRange": [
+                    "custom"
+                  ]
+                }
+              }
+            },
+            "metrics": {
+              "type": "array",
+              "label": "Metrics",
+              "order": 5,
+              "default": [
+                "activeUsers",
+                "sessions"
+              ],
+              "required": true,
+              "description": "GA4 metrics to retrieve (e.g., activeUsers, sessions, conversions)"
+            },
+            "dateRange": {
+              "type": "select",
+              "label": "Date Range",
+              "order": 2,
+              "default": "last7days",
+              "options": [
+                {
+                  "label": "Today",
+                  "value": "today"
+                },
+                {
+                  "label": "Yesterday",
+                  "value": "yesterday"
+                },
+                {
+                  "label": "Last 7 Days",
+                  "value": "last7days"
+                },
+                {
+                  "label": "Last 30 Days",
+                  "value": "last30days"
+                },
+                {
+                  "label": "Last 90 Days",
+                  "value": "last90days"
+                },
+                {
+                  "label": "This Month",
+                  "value": "thisMonth"
+                },
+                {
+                  "label": "Last Month",
+                  "value": "lastMonth"
+                },
+                {
+                  "label": "This Year",
+                  "value": "thisYear"
+                },
+                {
+                  "label": "Last Year",
+                  "value": "lastYear"
+                },
+                {
+                  "label": "Custom Range",
+                  "value": "custom"
+                }
+              ],
+              "required": true,
+              "description": "Time period for the report"
+            },
+            "returnAll": {
+              "type": "boolean",
+              "label": "Return All Results",
+              "order": 7,
+              "default": false,
+              "description": "Get all results or limit to a specific number"
+            },
+            "startDate": {
+              "type": "string",
+              "label": "Start Date",
+              "order": 3,
+              "description": "Start date in YYYY-MM-DD format (only for Custom Range)",
+              "placeholder": "2025-01-01",
+              "displayOptions": {
+                "show": {
+                  "dateRange": [
+                    "custom"
+                  ]
+                }
+              }
+            },
+            "dimensions": {
+              "type": "array",
+              "label": "Dimensions",
+              "order": 6,
+              "default": [
+                "date"
+              ],
+              "description": "GA4 dimensions to group by (e.g., date, country, city, browser)"
+            },
+            "propertyId": {
+              "type": "string",
+              "label": "GA4 Property ID",
+              "order": 1,
+              "required": true,
+              "description": "Your GA4 Property ID (found in Admin → Property Settings)",
+              "placeholder": "123456789"
+            },
+            "currencyCode": {
+              "type": "string",
+              "label": "Currency Code",
+              "order": 10,
+              "description": "Currency code for monetary values (e.g., USD, EUR, GBP)",
+              "placeholder": "USD"
+            }
+          },
+          "connectorType": "google_analytics"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 675,
+          "y": 615
+        }
+      },
+      {
+        "id": "google_sheets_append_row_1762340674301",
+        "data": {
+          "icon": "Zap",
+          "label": "Append Row",
+          "actionId": "append_row",
+          "description": "Add a new row to the end of a sheet",
+          "inputSchema": {
+            "values": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "label": "Values",
+              "required": true,
+              "description": "Row data as array of values"
+            },
+            "sheetName": {
+              "type": "string",
+              "label": "Sheet Name",
+              "default": "Sheet1",
+              "required": true,
+              "description": "Name of the sheet tab",
+              "loadOptionsResource": "sheets",
+              "loadOptionsDependsOn": [
+                "spreadsheetId"
+              ],
+              "loadOptionsDescription": "Fetch sheets from selected spreadsheet"
+            },
+            "spreadsheetId": {
+              "type": "string",
+              "label": "Spreadsheet ID",
+              "required": true,
+              "description": "The ID of the spreadsheet",
+              "placeholder": "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms",
+              "loadOptionsResource": "spreadsheets",
+              "loadOptionsDescription": "Fetch spreadsheets from Google Drive"
+            },
+            "valueInputOption": {
+              "type": "select",
+              "label": "Value Input Option",
+              "default": "USER_ENTERED",
+              "options": [
+                {
+                  "label": "User Entered (Formatted)",
+                  "value": "USER_ENTERED"
+                },
+                {
+                  "label": "Raw",
+                  "value": "RAW"
+                }
+              ]
+            }
+          },
+          "connectorType": "google_sheets"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 975,
+          "y": 420
+        }
+      }
+    ]
+  },
+  "steps": [
+    {
+      "id": "node_2",
+      "action": "create_tweet",
+      "params": {
+        "icon": "connector",
+        "label": "Post to Twitter",
+        "action": "create_tweet",
+        "config": {
+          "text": "New content approved! Check it out: {{node_1.content}}"
+        },
+        "actionId": "create_tweet",
+        "category": "action",
+        "connector": "twitter",
+        "actionName": "Create Tweet",
+        "description": "Create, quote, or reply to a tweet",
+        "inputSchema": {
+          "text": {
+            "type": "string",
+            "label": "Tweet Text",
+            "required": true,
+            "inputType": "textarea",
+            "maxLength": 280,
+            "description": "The text of the tweet. URLs will be shortened with t.co"
+          },
+          "media": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "label": "Media URLs",
+            "description": "Array of media URLs to attach to the tweet"
+          },
+          "reply_to": {
+            "type": "string",
+            "label": "Reply to Tweet ID",
+            "description": "ID of the tweet to reply to (leave empty to post a new tweet)",
+            "placeholder": "1187836157394112513"
+          }
+        },
+        "configSchema": {
+          "text": {
+            "type": "string",
+            "label": "Tweet Text",
+            "required": true,
+            "inputType": "textarea",
+            "maxLength": 280,
+            "description": "The text of the tweet. URLs will be shortened with t.co"
+          },
+          "media": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "label": "Media URLs",
+            "description": "Array of media URLs to attach to the tweet"
+          },
+          "reply_to": {
+            "type": "string",
+            "label": "Reply to Tweet ID",
+            "description": "ID of the tweet to reply to (leave empty to post a new tweet)",
+            "placeholder": "1187836157394112513"
+          }
+        },
+        "connectorType": "twitter",
+        "connectorDisplayName": "Twitter/X"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "node_3",
+      "action": "create_post",
+      "params": {
+        "icon": "connector",
+        "label": "Post to LinkedIn",
+        "action": "create_post",
+        "config": {
+          "content": "New content approved! Check it out: {{node_1.content}}"
+        },
+        "actionId": "create_post",
+        "category": "action",
+        "connector": "linkedin",
+        "actionName": "Create Post",
+        "description": "Create a LinkedIn post with text, images, or articles",
+        "inputSchema": {
+          "text": {
+            "type": "string",
+            "label": "Post Text",
+            "required": true,
+            "inputType": "textarea",
+            "maxLength": 3000,
+            "description": "Post content (special characters will be automatically escaped)",
+            "placeholder": "Enter your post content..."
+          },
+          "postAs": {
+            "type": "select",
+            "label": "Post As",
+            "default": "person",
+            "options": [
+              {
+                "label": "Person (Me)",
+                "value": "person"
+              },
+              {
+                "label": "Organization",
+                "value": "organization"
+              }
+            ],
+            "required": false,
+            "description": "Post as yourself or an organization"
+          },
+          "imageUrl": {
+            "type": "string",
+            "label": "Image URL",
+            "required": false,
+            "description": "LinkedIn image asset URN (for IMAGE posts)",
+            "placeholder": "LinkedIn image asset URN",
+            "displayOptions": {
+              "show": {
+                "shareMediaCategory": [
+                  "IMAGE"
+                ]
+              }
+            }
+          },
+          "articleUrl": {
+            "type": "string",
+            "label": "Article URL",
+            "required": false,
+            "inputType": "url",
+            "description": "URL of the article to share (required for ARTICLE posts)",
+            "placeholder": "https://example.com/article",
+            "displayOptions": {
+              "show": {
+                "shareMediaCategory": [
+                  "ARTICLE"
+                ]
+              }
+            }
+          },
+          "binaryData": {
+            "type": "string",
+            "label": "Binary Image Data",
+            "required": false,
+            "inputType": "textarea",
+            "description": "Base64 encoded binary image data (alternative to Image URL)",
+            "displayOptions": {
+              "show": {
+                "shareMediaCategory": [
+                  "IMAGE"
+                ]
+              }
+            }
+          },
+          "imageTitle": {
+            "type": "string",
+            "label": "Image Title",
+            "required": false,
+            "description": "Title for the image",
+            "placeholder": "Image title",
+            "displayOptions": {
+              "show": {
+                "shareMediaCategory": [
+                  "IMAGE"
+                ]
+              }
+            }
+          },
+          "visibility": {
+            "type": "select",
+            "label": "Visibility",
+            "default": "PUBLIC",
+            "options": [
+              {
+                "label": "Public",
+                "value": "PUBLIC"
+              },
+              {
+                "label": "Connections Only",
+                "value": "CONNECTIONS"
+              }
+            ],
+            "required": false,
+            "description": "Who can see this post"
+          },
+          "articleTitle": {
+            "type": "string",
+            "label": "Article Title",
+            "required": false,
+            "description": "Title of the article",
+            "placeholder": "Article title",
+            "displayOptions": {
+              "show": {
+                "shareMediaCategory": [
+                  "ARTICLE"
+                ]
+              }
+            }
+          },
+          "thumbnailUrl": {
+            "type": "string",
+            "label": "Article Thumbnail URL",
+            "required": false,
+            "description": "LinkedIn image asset URN for article thumbnail",
+            "placeholder": "LinkedIn image asset URN",
+            "displayOptions": {
+              "show": {
+                "shareMediaCategory": [
+                  "ARTICLE"
+                ]
+              }
+            }
+          },
+          "binaryMimeType": {
+            "type": "select",
+            "label": "Image Type",
+            "default": "image/jpeg",
+            "options": [
+              {
+                "label": "JPEG",
+                "value": "image/jpeg"
+              },
+              {
+                "label": "PNG",
+                "value": "image/png"
+              },
+              {
+                "label": "GIF",
+                "value": "image/gif"
+              }
+            ],
+            "required": false,
+            "description": "MIME type of the binary data",
+            "displayOptions": {
+              "show": {
+                "shareMediaCategory": [
+                  "IMAGE"
+                ]
+              }
+            }
+          },
+          "organizationUrn": {
+            "type": "string",
+            "label": "Organization URN",
+            "required": false,
+            "description": "Organization URN (required when posting as organization)",
+            "placeholder": "12345678",
+            "displayOptions": {
+              "show": {
+                "postAs": [
+                  "organization"
+                ]
+              }
+            }
+          },
+          "articleDescription": {
+            "type": "string",
+            "label": "Article Description",
+            "required": false,
+            "inputType": "textarea",
+            "description": "Description of the article",
+            "placeholder": "Article description",
+            "displayOptions": {
+              "show": {
+                "shareMediaCategory": [
+                  "ARTICLE"
+                ]
+              }
+            }
+          },
+          "shareMediaCategory": {
+            "type": "select",
+            "label": "Media Type",
+            "default": "NONE",
+            "options": [
+              {
+                "label": "None (Text Only)",
+                "value": "NONE"
+              },
+              {
+                "label": "Image",
+                "value": "IMAGE"
+              },
+              {
+                "label": "Article",
+                "value": "ARTICLE"
+              }
+            ],
+            "required": false,
+            "description": "Type of media to include in the post"
+          }
+        },
+        "configSchema": {
+          "text": {
+            "type": "string",
+            "label": "Post Text",
+            "required": true,
+            "inputType": "textarea",
+            "maxLength": 3000,
+            "description": "Post content (special characters will be automatically escaped)",
+            "placeholder": "Enter your post content..."
+          },
+          "postAs": {
+            "type": "select",
+            "label": "Post As",
+            "default": "person",
+            "options": [
+              {
+                "label": "Person (Me)",
+                "value": "person"
+              },
+              {
+                "label": "Organization",
+                "value": "organization"
+              }
+            ],
+            "required": false,
+            "description": "Post as yourself or an organization"
+          },
+          "imageUrl": {
+            "type": "string",
+            "label": "Image URL",
+            "required": false,
+            "description": "LinkedIn image asset URN (for IMAGE posts)",
+            "placeholder": "LinkedIn image asset URN",
+            "displayOptions": {
+              "show": {
+                "shareMediaCategory": [
+                  "IMAGE"
+                ]
+              }
+            }
+          },
+          "articleUrl": {
+            "type": "string",
+            "label": "Article URL",
+            "required": false,
+            "inputType": "url",
+            "description": "URL of the article to share (required for ARTICLE posts)",
+            "placeholder": "https://example.com/article",
+            "displayOptions": {
+              "show": {
+                "shareMediaCategory": [
+                  "ARTICLE"
+                ]
+              }
+            }
+          },
+          "binaryData": {
+            "type": "string",
+            "label": "Binary Image Data",
+            "required": false,
+            "inputType": "textarea",
+            "description": "Base64 encoded binary image data (alternative to Image URL)",
+            "displayOptions": {
+              "show": {
+                "shareMediaCategory": [
+                  "IMAGE"
+                ]
+              }
+            }
+          },
+          "imageTitle": {
+            "type": "string",
+            "label": "Image Title",
+            "required": false,
+            "description": "Title for the image",
+            "placeholder": "Image title",
+            "displayOptions": {
+              "show": {
+                "shareMediaCategory": [
+                  "IMAGE"
+                ]
+              }
+            }
+          },
+          "visibility": {
+            "type": "select",
+            "label": "Visibility",
+            "default": "PUBLIC",
+            "options": [
+              {
+                "label": "Public",
+                "value": "PUBLIC"
+              },
+              {
+                "label": "Connections Only",
+                "value": "CONNECTIONS"
+              }
+            ],
+            "required": false,
+            "description": "Who can see this post"
+          },
+          "articleTitle": {
+            "type": "string",
+            "label": "Article Title",
+            "required": false,
+            "description": "Title of the article",
+            "placeholder": "Article title",
+            "displayOptions": {
+              "show": {
+                "shareMediaCategory": [
+                  "ARTICLE"
+                ]
+              }
+            }
+          },
+          "thumbnailUrl": {
+            "type": "string",
+            "label": "Article Thumbnail URL",
+            "required": false,
+            "description": "LinkedIn image asset URN for article thumbnail",
+            "placeholder": "LinkedIn image asset URN",
+            "displayOptions": {
+              "show": {
+                "shareMediaCategory": [
+                  "ARTICLE"
+                ]
+              }
+            }
+          },
+          "binaryMimeType": {
+            "type": "select",
+            "label": "Image Type",
+            "default": "image/jpeg",
+            "options": [
+              {
+                "label": "JPEG",
+                "value": "image/jpeg"
+              },
+              {
+                "label": "PNG",
+                "value": "image/png"
+              },
+              {
+                "label": "GIF",
+                "value": "image/gif"
+              }
+            ],
+            "required": false,
+            "description": "MIME type of the binary data",
+            "displayOptions": {
+              "show": {
+                "shareMediaCategory": [
+                  "IMAGE"
+                ]
+              }
+            }
+          },
+          "organizationUrn": {
+            "type": "string",
+            "label": "Organization URN",
+            "required": false,
+            "description": "Organization URN (required when posting as organization)",
+            "placeholder": "12345678",
+            "displayOptions": {
+              "show": {
+                "postAs": [
+                  "organization"
+                ]
+              }
+            }
+          },
+          "articleDescription": {
+            "type": "string",
+            "label": "Article Description",
+            "required": false,
+            "inputType": "textarea",
+            "description": "Description of the article",
+            "placeholder": "Article description",
+            "displayOptions": {
+              "show": {
+                "shareMediaCategory": [
+                  "ARTICLE"
+                ]
+              }
+            }
+          },
+          "shareMediaCategory": {
+            "type": "select",
+            "label": "Media Type",
+            "default": "NONE",
+            "options": [
+              {
+                "label": "None (Text Only)",
+                "value": "NONE"
+              },
+              {
+                "label": "Image",
+                "value": "IMAGE"
+              },
+              {
+                "label": "Article",
+                "value": "ARTICLE"
+              }
+            ],
+            "required": false,
+            "description": "Type of media to include in the post"
+          }
+        },
+        "connectorType": "linkedin",
+        "connectorDisplayName": "LinkedIn"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "node_4",
+      "action": "create_page_post",
+      "params": {
+        "icon": "connector",
+        "label": "Post to Facebook",
+        "action": "create_page_post",
+        "config": {
+          "message": "New content approved! Check it out: {{node_1.content}}"
+        },
+        "actionId": "create_page_post",
+        "category": "action",
+        "connector": "facebook_graph",
+        "actionName": "Create Page Post",
+        "description": "Publish a post to a Facebook page feed",
+        "inputSchema": {
+          "link": {
+            "type": "string",
+            "label": "Link URL",
+            "description": "URL to attach to the post (optional)",
+            "placeholder": "https://example.com"
+          },
+          "pageId": {
+            "type": "string",
+            "label": "Page ID",
+            "required": true,
+            "description": "Facebook Page ID where the post will be published"
+          },
+          "message": {
+            "type": "string",
+            "label": "Message",
+            "required": true,
+            "inputType": "textarea",
+            "maxLength": 63206,
+            "description": "The main text content of the post"
+          },
+          "published": {
+            "type": "boolean",
+            "label": "Publish Immediately",
+            "default": true,
+            "description": "Whether to publish immediately or save as draft"
+          }
+        },
+        "configSchema": {
+          "link": {
+            "type": "string",
+            "label": "Link URL",
+            "description": "URL to attach to the post (optional)",
+            "placeholder": "https://example.com"
+          },
+          "pageId": {
+            "type": "string",
+            "label": "Page ID",
+            "required": true,
+            "description": "Facebook Page ID where the post will be published"
+          },
+          "message": {
+            "type": "string",
+            "label": "Message",
+            "required": true,
+            "inputType": "textarea",
+            "maxLength": 63206,
+            "description": "The main text content of the post"
+          },
+          "published": {
+            "type": "boolean",
+            "label": "Publish Immediately",
+            "default": true,
+            "description": "Whether to publish immediately or save as draft"
+          }
+        },
+        "connectorType": "facebook_graph",
+        "connectorDisplayName": "Facebook Graph API"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "gmail_send_email_1762340366696",
+      "action": "execute",
+      "params": {
+        "icon": "Mail",
+        "label": "Send Email",
+        "actionId": "send_email",
+        "description": "Send an email via Gmail",
+        "inputSchema": {
+          "cc": {
+            "type": "string",
+            "label": "CC",
+            "description": "CC recipients (comma-separated)",
+            "placeholder": "cc@example.com"
+          },
+          "to": {
+            "type": "string",
+            "label": "To",
+            "required": true,
+            "description": "Recipient email addresses (comma-separated)",
+            "placeholder": "recipient@example.com"
+          },
+          "bcc": {
+            "type": "string",
+            "label": "BCC",
+            "description": "BCC recipients (comma-separated)",
+            "placeholder": "bcc@example.com"
+          },
+          "body": {
+            "type": "string",
+            "label": "Body",
+            "required": true,
+            "inputType": "richtext",
+            "description": "Email body content (supports HTML)"
+          },
+          "subject": {
+            "type": "string",
+            "label": "Subject",
+            "required": true,
+            "description": "Email subject line"
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "string"
+                },
+                "filename": {
+                  "type": "string"
+                },
+                "mimeType": {
+                  "type": "string"
+                }
+              }
+            },
+            "label": "Attachments",
+            "description": "File attachments (optional)"
+          }
+        },
+        "connectorType": "gmail"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "google_analytics_get_ga4_report_1762340629053",
+      "action": "execute",
+      "params": {
+        "icon": "Search",
+        "label": "Get GA4 Report",
+        "actionId": "get_ga4_report",
+        "description": "Get analytics data from Google Analytics 4 property",
+        "inputSchema": {
+          "limit": {
+            "max": 100000,
+            "min": 1,
+            "type": "number",
+            "label": "Limit",
+            "order": 8,
+            "default": 100,
+            "description": "Maximum number of results (only when Return All is false)",
+            "displayOptions": {
+              "show": {
+                "returnAll": [
+                  false
+                ]
+              }
+            }
+          },
+          "simple": {
+            "type": "boolean",
+            "label": "Simplify Response",
+            "order": 9,
+            "default": true,
+            "description": "Convert nested GA4 response into flat objects"
+          },
+          "endDate": {
+            "type": "string",
+            "label": "End Date",
+            "order": 4,
+            "description": "End date in YYYY-MM-DD format (only for Custom Range)",
+            "placeholder": "2025-01-31",
+            "displayOptions": {
+              "show": {
+                "dateRange": [
+                  "custom"
+                ]
+              }
+            }
+          },
+          "metrics": {
+            "type": "array",
+            "label": "Metrics",
+            "order": 5,
+            "default": [
+              "activeUsers",
+              "sessions"
+            ],
+            "required": true,
+            "description": "GA4 metrics to retrieve (e.g., activeUsers, sessions, conversions)"
+          },
+          "dateRange": {
+            "type": "select",
+            "label": "Date Range",
+            "order": 2,
+            "default": "last7days",
+            "options": [
+              {
+                "label": "Today",
+                "value": "today"
+              },
+              {
+                "label": "Yesterday",
+                "value": "yesterday"
+              },
+              {
+                "label": "Last 7 Days",
+                "value": "last7days"
+              },
+              {
+                "label": "Last 30 Days",
+                "value": "last30days"
+              },
+              {
+                "label": "Last 90 Days",
+                "value": "last90days"
+              },
+              {
+                "label": "This Month",
+                "value": "thisMonth"
+              },
+              {
+                "label": "Last Month",
+                "value": "lastMonth"
+              },
+              {
+                "label": "This Year",
+                "value": "thisYear"
+              },
+              {
+                "label": "Last Year",
+                "value": "lastYear"
+              },
+              {
+                "label": "Custom Range",
+                "value": "custom"
+              }
+            ],
+            "required": true,
+            "description": "Time period for the report"
+          },
+          "returnAll": {
+            "type": "boolean",
+            "label": "Return All Results",
+            "order": 7,
+            "default": false,
+            "description": "Get all results or limit to a specific number"
+          },
+          "startDate": {
+            "type": "string",
+            "label": "Start Date",
+            "order": 3,
+            "description": "Start date in YYYY-MM-DD format (only for Custom Range)",
+            "placeholder": "2025-01-01",
+            "displayOptions": {
+              "show": {
+                "dateRange": [
+                  "custom"
+                ]
+              }
+            }
+          },
+          "dimensions": {
+            "type": "array",
+            "label": "Dimensions",
+            "order": 6,
+            "default": [
+              "date"
+            ],
+            "description": "GA4 dimensions to group by (e.g., date, country, city, browser)"
+          },
+          "propertyId": {
+            "type": "string",
+            "label": "GA4 Property ID",
+            "order": 1,
+            "required": true,
+            "description": "Your GA4 Property ID (found in Admin → Property Settings)",
+            "placeholder": "123456789"
+          },
+          "currencyCode": {
+            "type": "string",
+            "label": "Currency Code",
+            "order": 10,
+            "description": "Currency code for monetary values (e.g., USD, EUR, GBP)",
+            "placeholder": "USD"
+          }
+        },
+        "connectorType": "google_analytics"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "google_sheets_append_row_1762340674301",
+      "action": "execute",
+      "params": {
+        "icon": "Zap",
+        "label": "Append Row",
+        "actionId": "append_row",
+        "description": "Add a new row to the end of a sheet",
+        "inputSchema": {
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "label": "Values",
+            "required": true,
+            "description": "Row data as array of values"
+          },
+          "sheetName": {
+            "type": "string",
+            "label": "Sheet Name",
+            "default": "Sheet1",
+            "required": true,
+            "description": "Name of the sheet tab",
+            "loadOptionsResource": "sheets",
+            "loadOptionsDependsOn": [
+              "spreadsheetId"
+            ],
+            "loadOptionsDescription": "Fetch sheets from selected spreadsheet"
+          },
+          "spreadsheetId": {
+            "type": "string",
+            "label": "Spreadsheet ID",
+            "required": true,
+            "description": "The ID of the spreadsheet",
+            "placeholder": "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms",
+            "loadOptionsResource": "spreadsheets",
+            "loadOptionsDescription": "Fetch spreadsheets from Google Drive"
+          },
+          "valueInputOption": {
+            "type": "select",
+            "label": "Value Input Option",
+            "default": "USER_ENTERED",
+            "options": [
+              {
+                "label": "User Entered (Formatted)",
+                "value": "USER_ENTERED"
+              },
+              {
+                "label": "Raw",
+                "value": "RAW"
+              }
+            ]
+          }
+        },
+        "connectorType": "google_sheets"
+      },
+      "connector": "CONNECTOR_ACTION"
+    }
+  ],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "icon": "connector",
+        "label": "When Content Approved in Google Docs",
+        "config": {},
+        "trigger": "document_updated",
+        "category": "trigger",
+        "connector": "google_docs",
+        "eventType": "polling",
+        "triggerId": "document_updated",
+        "description": "Triggers when a document is modified",
+        "inputSchema": {
+          "folderId": {
+            "type": "string",
+            "label": "Folder ID",
+            "description": "Monitor documents in this folder",
+            "placeholder": "root"
+          },
+          "documentId": {
+            "type": "string",
+            "label": "Document ID",
+            "description": "Monitor this specific document (leave empty to monitor all)",
+            "placeholder": "1abc2def3ghiJKLmnop4qrs"
+          },
+          "pollInterval": {
+            "max": 60,
+            "min": 1,
+            "type": "number",
+            "label": "Poll Interval (minutes)",
+            "default": 5
+          }
+        },
+        "triggerName": "Document Updated",
+        "configSchema": {
+          "folderId": {
+            "type": "string",
+            "label": "Folder ID",
+            "description": "Monitor documents in this folder",
+            "placeholder": "root"
+          },
+          "documentId": {
+            "type": "string",
+            "label": "Document ID",
+            "description": "Monitor this specific document (leave empty to monitor all)",
+            "placeholder": "1abc2def3ghiJKLmnop4qrs"
+          },
+          "pollInterval": {
+            "max": 60,
+            "min": 1,
+            "type": "number",
+            "label": "Poll Interval (minutes)",
+            "default": 5
+          }
+        },
+        "outputSchema": {
+          "title": {
+            "type": "string",
+            "description": "Document title"
+          },
+          "documentId": {
+            "type": "string",
+            "description": "ID of the updated document"
+          },
+          "revisionId": {
+            "type": "string",
+            "description": "Current revision ID"
+          },
+          "modifiedTime": {
+            "type": "string",
+            "description": "Last modified timestamp"
+          },
+          "lastModifyingUser": {
+            "type": "object",
+            "description": "User who made the change"
+          }
+        },
+        "connectorType": "google_docs",
+        "webhookRequired": false,
+        "connectorDisplayName": "Google Docs"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "CONNECTOR_ACTION"
+  ],
+  "tags": [],
+  "verified": false,
+  "is_public": true,
+  "metadata": {},
+  "ai_prompt": null
+}

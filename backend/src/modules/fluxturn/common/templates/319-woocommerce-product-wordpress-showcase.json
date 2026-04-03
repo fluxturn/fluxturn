@@ -1,0 +1,104 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-300000000019",
+  "name": "WooCommerce Product WordPress Showcase",
+  "description": "Get WooCommerce product details and create a WordPress showcase post",
+  "category": "ecommerce",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Get Product",
+          "config": {
+            "product_id": "{{product_id}}"
+          },
+          "category": "action",
+          "connector": "woocommerce",
+          "connectorType": "woocommerce",
+          "connectorDisplayName": "WooCommerce",
+          "description": "Fetch product details from WooCommerce",
+          "action": "get_product",
+          "actionId": "get_product",
+          "actionName": "Get Product"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Create Post",
+          "config": {
+            "title": "Featured Product: {{node_2.output.name}}",
+            "content": "<h2>{{node_2.output.name}}</h2>\n<p><strong>Price:</strong> ${{node_2.output.price}}</p>\n<div>{{node_2.output.description}}</div>\n<p><a href=\"{{node_2.output.permalink}}\" class=\"button\">Shop Now</a></p>",
+            "status": "draft"
+          },
+          "category": "action",
+          "connector": "wordpress",
+          "connectorType": "wordpress",
+          "connectorDisplayName": "WordPress",
+          "description": "Create product showcase post",
+          "action": "create_post",
+          "actionId": "create_post",
+          "actionName": "Create Post"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [],
+  "conditions": [],
+  "variables": [
+    {
+      "name": "product_id",
+      "type": "string",
+      "description": "WooCommerce product ID to showcase"
+    }
+  ],
+  "outputs": [],
+  "required_connectors": ["woocommerce", "wordpress"],
+  "tags": ["ecommerce", "woocommerce", "wordpress", "content", "showcase"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "Create WordPress showcase post for WooCommerce product",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Get WooCommerce product and create WordPress showcase post"
+}

@@ -1,0 +1,90 @@
+{
+  "action": "list_workspaces",
+  "baseUrl": "https://api.bitbucket.org/2.0",
+  "testCases": [
+    {
+      "name": "executes list_workspaces successfully",
+      "input": {},
+      "mock": {
+        "method": "GET",
+        "path": "/workspaces",
+        "status": 200,
+        "response": {
+          "pagelen": 10,
+          "page": 1,
+          "size": 2,
+          "values": [
+            {
+              "uuid": "{workspace-uuid-1}",
+              "name": "Test Workspace 1",
+              "slug": "test-workspace-1",
+              "type": "workspace",
+              "is_privacy_enforced": false,
+              "created_on": "2024-01-01T00:00:00.000000+00:00"
+            },
+            {
+              "uuid": "{workspace-uuid-2}",
+              "name": "Test Workspace 2",
+              "slug": "test-workspace-2",
+              "type": "workspace",
+              "is_privacy_enforced": true,
+              "created_on": "2024-01-02T00:00:00.000000+00:00"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": [
+          {
+            "uuid": "{workspace-uuid-1}",
+            "name": "Test Workspace 1",
+            "slug": "test-workspace-1"
+          },
+          {
+            "uuid": "{workspace-uuid-2}",
+            "name": "Test Workspace 2",
+            "slug": "test-workspace-2"
+          }
+        ]
+      }
+    },
+    {
+      "name": "handles empty workspace list",
+      "input": {},
+      "mock": {
+        "method": "GET",
+        "path": "/workspaces",
+        "status": 200,
+        "response": {
+          "pagelen": 10,
+          "page": 1,
+          "size": 0,
+          "values": []
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": []
+      }
+    },
+    {
+      "name": "handles unauthorized error for list_workspaces",
+      "input": {},
+      "mock": {
+        "method": "GET",
+        "path": "/workspaces",
+        "status": 401,
+        "response": {
+          "type": "error",
+          "error": {
+            "message": "Unauthorized"
+          }
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    }
+  ]
+}

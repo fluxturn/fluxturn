@@ -1,0 +1,102 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-300000000012",
+  "name": "WooCommerce Order Twitter Notification",
+  "description": "Get WooCommerce order details and post a thank you tweet",
+  "category": "ecommerce",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Get Order",
+          "config": {
+            "order_id": "{{order_id}}"
+          },
+          "category": "action",
+          "connector": "woocommerce",
+          "connectorType": "woocommerce",
+          "connectorDisplayName": "WooCommerce",
+          "description": "Fetch order details from WooCommerce",
+          "action": "get_order",
+          "actionId": "get_order",
+          "actionName": "Get Order"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Create Tweet",
+          "config": {
+            "text": "Thank you for your order! We just received order #{{order_id}} and we're preparing it with care. Your support means everything to us! #CustomerAppreciation #ThankYou"
+          },
+          "category": "action",
+          "connector": "twitter",
+          "connectorType": "twitter",
+          "connectorDisplayName": "Twitter/X",
+          "description": "Post thank you tweet for order",
+          "action": "create_tweet",
+          "actionId": "create_tweet",
+          "actionName": "Create Tweet"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [],
+  "conditions": [],
+  "variables": [
+    {
+      "name": "order_id",
+      "type": "string",
+      "description": "The WooCommerce order ID"
+    }
+  ],
+  "outputs": [],
+  "required_connectors": ["woocommerce", "twitter"],
+  "tags": ["ecommerce", "woocommerce", "twitter", "social", "notification"],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "Get WooCommerce order and post thank you tweet",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Get WooCommerce order details and post a thank you tweet"
+}

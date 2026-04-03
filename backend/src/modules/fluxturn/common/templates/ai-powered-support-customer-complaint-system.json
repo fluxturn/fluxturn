@@ -1,0 +1,1517 @@
+{
+  "id": "a6924949-869c-4d9c-a1cb-6c59ff67399b",
+  "name": "AI-Powered Support Customer complaint System",
+  "description": "Automatically categorize incoming complain emails, generate AI responses, and track in database and reply email",
+  "category": "monitoring",
+  "canvas": {
+    "edges": [
+      {
+        "id": "xy-edge__node_1source-1-openai_chat_complete_1762338881986target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "openai_chat_complete_1762338881986",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__openai_chat_complete_1762338881986source-1-postgresql_insert_rows_1762338929802target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "openai_chat_complete_1762338881986",
+        "target": "postgresql_insert_rows_1762338929802",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__postgresql_insert_rows_1762338929802source-1-openai_chat_complete_1762338971201target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "postgresql_insert_rows_1762338929802",
+        "target": "openai_chat_complete_1762338971201",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__openai_chat_complete_1762338971201source-1-slack_send_message_1762339023065target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "openai_chat_complete_1762338971201",
+        "target": "slack_send_message_1762339023065",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__slack_send_message_1762339023065source-1-gmail_send_email_1762339052393target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "slack_send_message_1762339023065",
+        "target": "gmail_send_email_1762339052393",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "node_1",
+        "data": {
+          "icon": "connector",
+          "label": "When New Complaint Email Received",
+          "config": {},
+          "trigger": "email_received",
+          "category": "trigger",
+          "connector": "gmail",
+          "eventType": "message",
+          "triggerId": "email_received",
+          "description": "Triggered when a new email is received (polling mode)",
+          "inputSchema": {
+            "sender": {
+              "type": "string",
+              "label": "From",
+              "required": false,
+              "description": "Filter by sender email address (e.g., user@example.com)",
+              "placeholder": "sender@example.com"
+            },
+            "simple": {
+              "type": "boolean",
+              "label": "Simple Mode",
+              "default": true,
+              "required": false,
+              "description": "Return simplified message data (metadata only, faster)"
+            },
+            "labelIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "label": "Labels",
+              "required": false,
+              "description": "Filter by Gmail label IDs (e.g., INBOX, IMPORTANT)"
+            },
+            "readStatus": {
+              "type": "select",
+              "label": "Read Status",
+              "default": "all",
+              "options": [
+                {
+                  "label": "All emails",
+                  "value": "all"
+                },
+                {
+                  "label": "Unread only",
+                  "value": "unread"
+                },
+                {
+                  "label": "Read only",
+                  "value": "read"
+                }
+              ],
+              "required": false,
+              "description": "Filter by read status"
+            },
+            "searchQuery": {
+              "type": "string",
+              "label": "Search Query",
+              "required": false,
+              "description": "Custom Gmail search query (uses Gmail search syntax)",
+              "placeholder": "subject:important OR from:boss@company.com"
+            },
+            "pollingInterval": {
+              "type": "select",
+              "label": "Polling Interval",
+              "default": "5",
+              "options": [
+                {
+                  "label": "Every minute",
+                  "value": "1"
+                },
+                {
+                  "label": "Every 5 minutes",
+                  "value": "5"
+                },
+                {
+                  "label": "Every 15 minutes",
+                  "value": "15"
+                },
+                {
+                  "label": "Every 30 minutes",
+                  "value": "30"
+                },
+                {
+                  "label": "Every hour",
+                  "value": "60"
+                }
+              ],
+              "required": false,
+              "description": "How often to check for new emails"
+            },
+            "includeSpamTrash": {
+              "type": "boolean",
+              "label": "Include Spam/Trash",
+              "default": false,
+              "required": false,
+              "description": "Include emails from Spam and Trash folders"
+            }
+          },
+          "triggerName": "Email Received",
+          "configSchema": {
+            "sender": {
+              "type": "string",
+              "label": "From",
+              "required": false,
+              "description": "Filter by sender email address (e.g., user@example.com)",
+              "placeholder": "sender@example.com"
+            },
+            "simple": {
+              "type": "boolean",
+              "label": "Simple Mode",
+              "default": true,
+              "required": false,
+              "description": "Return simplified message data (metadata only, faster)"
+            },
+            "labelIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "label": "Labels",
+              "required": false,
+              "description": "Filter by Gmail label IDs (e.g., INBOX, IMPORTANT)"
+            },
+            "readStatus": {
+              "type": "select",
+              "label": "Read Status",
+              "default": "all",
+              "options": [
+                {
+                  "label": "All emails",
+                  "value": "all"
+                },
+                {
+                  "label": "Unread only",
+                  "value": "unread"
+                },
+                {
+                  "label": "Read only",
+                  "value": "read"
+                }
+              ],
+              "required": false,
+              "description": "Filter by read status"
+            },
+            "searchQuery": {
+              "type": "string",
+              "label": "Search Query",
+              "required": false,
+              "description": "Custom Gmail search query (uses Gmail search syntax)",
+              "placeholder": "subject:important OR from:boss@company.com"
+            },
+            "pollingInterval": {
+              "type": "select",
+              "label": "Polling Interval",
+              "default": "5",
+              "options": [
+                {
+                  "label": "Every minute",
+                  "value": "1"
+                },
+                {
+                  "label": "Every 5 minutes",
+                  "value": "5"
+                },
+                {
+                  "label": "Every 15 minutes",
+                  "value": "15"
+                },
+                {
+                  "label": "Every 30 minutes",
+                  "value": "30"
+                },
+                {
+                  "label": "Every hour",
+                  "value": "60"
+                }
+              ],
+              "required": false,
+              "description": "How often to check for new emails"
+            },
+            "includeSpamTrash": {
+              "type": "boolean",
+              "label": "Include Spam/Trash",
+              "default": false,
+              "required": false,
+              "description": "Include emails from Spam and Trash folders"
+            }
+          },
+          "outputSchema": {
+            "cc": {
+              "type": "string",
+              "description": "CC email addresses"
+            },
+            "to": {
+              "type": "string",
+              "description": "Recipient email addresses"
+            },
+            "bcc": {
+              "type": "string",
+              "description": "BCC email addresses"
+            },
+            "date": {
+              "type": "string",
+              "description": "Email date"
+            },
+            "from": {
+              "type": "string",
+              "description": "Sender email address"
+            },
+            "headers": {
+              "type": "object",
+              "description": "Email headers"
+            },
+            "payload": {
+              "type": "object",
+              "description": "Full email payload (if simple=false)"
+            },
+            "snippet": {
+              "type": "string",
+              "description": "Email preview text"
+            },
+            "subject": {
+              "type": "string",
+              "description": "Email subject"
+            },
+            "labelIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Gmail labels"
+            },
+            "threadId": {
+              "type": "string",
+              "description": "Thread ID"
+            },
+            "messageId": {
+              "type": "string",
+              "description": "Message ID"
+            },
+            "internalDate": {
+              "type": "string",
+              "description": "Internal Gmail timestamp"
+            }
+          },
+          "connectorType": "gmail",
+          "webhookRequired": false,
+          "connectorDisplayName": "Gmail"
+        },
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 210,
+          "y": 120
+        }
+      },
+      {
+        "id": "openai_chat_complete_1762338881986",
+        "data": {
+          "icon": "Zap",
+          "label": "Chat Completion",
+          "actionId": "chat_complete",
+          "description": "Create a chat completion using GPT models (gpt-4, gpt-3.5-turbo, etc.)",
+          "inputSchema": {
+            "n": {
+              "max": 10,
+              "min": 1,
+              "type": "number",
+              "label": "Number of Completions",
+              "default": 1,
+              "description": "How many completions to generate"
+            },
+            "topP": {
+              "max": 1,
+              "min": 0,
+              "step": 0.1,
+              "type": "number",
+              "label": "Top P",
+              "default": 1,
+              "description": "Nucleus sampling parameter (0-1)"
+            },
+            "model": {
+              "type": "select",
+              "label": "Model",
+              "default": "gpt-3.5-turbo",
+              "options": [
+                {
+                  "label": "GPT-4 Turbo",
+                  "value": "gpt-4-turbo-preview"
+                },
+                {
+                  "label": "GPT-4",
+                  "value": "gpt-4"
+                },
+                {
+                  "label": "GPT-3.5 Turbo",
+                  "value": "gpt-3.5-turbo"
+                },
+                {
+                  "label": "GPT-3.5 Turbo 16K",
+                  "value": "gpt-3.5-turbo-16k"
+                }
+              ],
+              "required": true,
+              "description": "The model to use for chat completion"
+            },
+            "messages": {
+              "type": "array",
+              "label": "Messages",
+              "required": true,
+              "itemSchema": {
+                "role": {
+                  "type": "select",
+                  "label": "Role",
+                  "default": "user",
+                  "options": [
+                    {
+                      "label": "System",
+                      "value": "system"
+                    },
+                    {
+                      "label": "User",
+                      "value": "user"
+                    },
+                    {
+                      "label": "Assistant",
+                      "value": "assistant"
+                    }
+                  ],
+                  "required": true
+                },
+                "content": {
+                  "type": "string",
+                  "label": "Content",
+                  "required": true,
+                  "inputType": "textarea",
+                  "placeholder": "Enter message content..."
+                }
+              },
+              "description": "Array of message objects for the conversation"
+            },
+            "maxTokens": {
+              "max": 32768,
+              "min": 1,
+              "type": "number",
+              "label": "Max Tokens",
+              "default": 16,
+              "description": "Maximum number of tokens to generate"
+            },
+            "temperature": {
+              "max": 2,
+              "min": 0,
+              "step": 0.1,
+              "type": "number",
+              "label": "Temperature",
+              "default": 1,
+              "description": "Controls randomness (0-2). Lower is more deterministic"
+            },
+            "presencePenalty": {
+              "max": 2,
+              "min": -2,
+              "step": 0.1,
+              "type": "number",
+              "label": "Presence Penalty",
+              "default": 0,
+              "description": "Encourage new topics (-2 to 2)"
+            },
+            "frequencyPenalty": {
+              "max": 2,
+              "min": -2,
+              "step": 0.1,
+              "type": "number",
+              "label": "Frequency Penalty",
+              "default": 0,
+              "description": "Penalize repeated tokens (-2 to 2)"
+            }
+          },
+          "connectorType": "openai"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 615,
+          "y": 15
+        }
+      },
+      {
+        "id": "postgresql_insert_rows_1762338929802",
+        "data": {
+          "icon": "Zap",
+          "label": "Insert rows in a table",
+          "actionId": "insert_rows",
+          "description": "Insert one or more rows into a table",
+          "inputSchema": {
+            "table": {
+              "type": "string",
+              "label": "Table Name",
+              "order": 2,
+              "required": true,
+              "description": "Name of the table to insert into",
+              "placeholder": "users",
+              "loadOptionsResource": "tables",
+              "loadOptionsDependsOn": [
+                "schema"
+              ],
+              "loadOptionsDescription": "Fetch tables from selected schema"
+            },
+            "schema": {
+              "type": "string",
+              "label": "Schema",
+              "order": 1,
+              "default": "public",
+              "required": false,
+              "description": "Database schema",
+              "placeholder": "public",
+              "loadOptionsResource": "schemas",
+              "loadOptionsDescription": "Fetch schemas from database"
+            },
+            "returning": {
+              "type": "string",
+              "label": "Returning",
+              "order": 4,
+              "required": false,
+              "description": "Columns to return from inserted rows",
+              "placeholder": "*"
+            },
+            "columnMappings": {
+              "type": "fixedCollection",
+              "items": {
+                "mappings": {
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "label": "Value",
+                      "required": true,
+                      "description": "Value or expression to insert",
+                      "placeholder": "{{ $json.email }}"
+                    },
+                    "column": {
+                      "type": "string",
+                      "label": "Column",
+                      "required": true,
+                      "description": "Column name to insert into",
+                      "loadOptionsResource": "table-columns",
+                      "loadOptionsDependsOn": [
+                        "schema",
+                        "table"
+                      ],
+                      "loadOptionsDescription": "Fetch columns from selected table"
+                    }
+                  }
+                }
+              },
+              "label": "Column Mappings",
+              "order": 3,
+              "required": true,
+              "description": "Map data to table columns",
+              "placeholder": "Add Column Mapping"
+            }
+          },
+          "connectorType": "postgresql"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 435,
+          "y": 360
+        }
+      },
+      {
+        "id": "openai_chat_complete_1762338971201",
+        "data": {
+          "icon": "Zap",
+          "label": "Chat Completion",
+          "actionId": "chat_complete",
+          "description": "Create a chat completion using GPT models (gpt-4, gpt-3.5-turbo, etc.)",
+          "inputSchema": {
+            "n": {
+              "max": 10,
+              "min": 1,
+              "type": "number",
+              "label": "Number of Completions",
+              "default": 1,
+              "description": "How many completions to generate"
+            },
+            "topP": {
+              "max": 1,
+              "min": 0,
+              "step": 0.1,
+              "type": "number",
+              "label": "Top P",
+              "default": 1,
+              "description": "Nucleus sampling parameter (0-1)"
+            },
+            "model": {
+              "type": "select",
+              "label": "Model",
+              "default": "gpt-3.5-turbo",
+              "options": [
+                {
+                  "label": "GPT-4 Turbo",
+                  "value": "gpt-4-turbo-preview"
+                },
+                {
+                  "label": "GPT-4",
+                  "value": "gpt-4"
+                },
+                {
+                  "label": "GPT-3.5 Turbo",
+                  "value": "gpt-3.5-turbo"
+                },
+                {
+                  "label": "GPT-3.5 Turbo 16K",
+                  "value": "gpt-3.5-turbo-16k"
+                }
+              ],
+              "required": true,
+              "description": "The model to use for chat completion"
+            },
+            "messages": {
+              "type": "array",
+              "label": "Messages",
+              "required": true,
+              "itemSchema": {
+                "role": {
+                  "type": "select",
+                  "label": "Role",
+                  "default": "user",
+                  "options": [
+                    {
+                      "label": "System",
+                      "value": "system"
+                    },
+                    {
+                      "label": "User",
+                      "value": "user"
+                    },
+                    {
+                      "label": "Assistant",
+                      "value": "assistant"
+                    }
+                  ],
+                  "required": true
+                },
+                "content": {
+                  "type": "string",
+                  "label": "Content",
+                  "required": true,
+                  "inputType": "textarea",
+                  "placeholder": "Enter message content..."
+                }
+              },
+              "description": "Array of message objects for the conversation"
+            },
+            "maxTokens": {
+              "max": 32768,
+              "min": 1,
+              "type": "number",
+              "label": "Max Tokens",
+              "default": 16,
+              "description": "Maximum number of tokens to generate"
+            },
+            "temperature": {
+              "max": 2,
+              "min": 0,
+              "step": 0.1,
+              "type": "number",
+              "label": "Temperature",
+              "default": 1,
+              "description": "Controls randomness (0-2). Lower is more deterministic"
+            },
+            "presencePenalty": {
+              "max": 2,
+              "min": -2,
+              "step": 0.1,
+              "type": "number",
+              "label": "Presence Penalty",
+              "default": 0,
+              "description": "Encourage new topics (-2 to 2)"
+            },
+            "frequencyPenalty": {
+              "max": 2,
+              "min": -2,
+              "step": 0.1,
+              "type": "number",
+              "label": "Frequency Penalty",
+              "default": 0,
+              "description": "Penalize repeated tokens (-2 to 2)"
+            }
+          },
+          "connectorType": "openai"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 765,
+          "y": 210
+        }
+      },
+      {
+        "id": "slack_send_message_1762339023065",
+        "data": {
+          "icon": "Mail",
+          "label": "Send Message",
+          "actionId": "send_message",
+          "description": "Send a message to a Slack channel or direct message to a user",
+          "inputSchema": {
+            "text": {
+              "type": "string",
+              "label": "Message Text",
+              "helpText": "You can use *bold*, _italic_, ~strikethrough~, `code`, and ```code blocks```",
+              "required": true,
+              "inputType": "textarea",
+              "description": "The text content of your message (supports Slack markdown formatting)",
+              "placeholder": "Enter your message here..."
+            },
+            "threadTs": {
+              "type": "string",
+              "label": "Reply in Thread (Optional)",
+              "helpText": "Leave empty to send as a new message. Use output from previous message node to reply in thread.",
+              "description": "To reply in a thread, provide the timestamp of the parent message",
+              "placeholder": "1234567890.123456"
+            },
+            "channelId": {
+              "type": "string",
+              "label": "Channel or User ID",
+              "helpText": "Right-click on a channel in Slack → View channel details → Copy channel ID",
+              "required": true,
+              "description": "The ID of the channel (starts with C) or user (starts with U) to send the message to",
+              "placeholder": "C01234ABCDE or U01234ABCDE"
+            }
+          },
+          "connectorType": "slack"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1020,
+          "y": 45
+        }
+      },
+      {
+        "id": "gmail_send_email_1762339052393",
+        "data": {
+          "icon": "Mail",
+          "label": "Send Email",
+          "actionId": "send_email",
+          "description": "Send an email via Gmail",
+          "inputSchema": {
+            "cc": {
+              "type": "string",
+              "label": "CC",
+              "description": "CC recipients (comma-separated)",
+              "placeholder": "cc@example.com"
+            },
+            "to": {
+              "type": "string",
+              "label": "To",
+              "required": true,
+              "description": "Recipient email addresses (comma-separated)",
+              "placeholder": "recipient@example.com"
+            },
+            "bcc": {
+              "type": "string",
+              "label": "BCC",
+              "description": "BCC recipients (comma-separated)",
+              "placeholder": "bcc@example.com"
+            },
+            "body": {
+              "type": "string",
+              "label": "Body",
+              "required": true,
+              "inputType": "richtext",
+              "description": "Email body content (supports HTML)"
+            },
+            "subject": {
+              "type": "string",
+              "label": "Subject",
+              "required": true,
+              "description": "Email subject line"
+            },
+            "attachments": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "string"
+                  },
+                  "filename": {
+                    "type": "string"
+                  },
+                  "mimeType": {
+                    "type": "string"
+                  }
+                }
+              },
+              "label": "Attachments",
+              "description": "File attachments (optional)"
+            }
+          },
+          "connectorType": "gmail"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1320,
+          "y": 240
+        }
+      }
+    ]
+  },
+  "steps": [
+    {
+      "id": "openai_chat_complete_1762338881986",
+      "action": "execute",
+      "params": {
+        "icon": "Zap",
+        "label": "Chat Completion",
+        "actionId": "chat_complete",
+        "description": "Create a chat completion using GPT models (gpt-4, gpt-3.5-turbo, etc.)",
+        "inputSchema": {
+          "n": {
+            "max": 10,
+            "min": 1,
+            "type": "number",
+            "label": "Number of Completions",
+            "default": 1,
+            "description": "How many completions to generate"
+          },
+          "topP": {
+            "max": 1,
+            "min": 0,
+            "step": 0.1,
+            "type": "number",
+            "label": "Top P",
+            "default": 1,
+            "description": "Nucleus sampling parameter (0-1)"
+          },
+          "model": {
+            "type": "select",
+            "label": "Model",
+            "default": "gpt-3.5-turbo",
+            "options": [
+              {
+                "label": "GPT-4 Turbo",
+                "value": "gpt-4-turbo-preview"
+              },
+              {
+                "label": "GPT-4",
+                "value": "gpt-4"
+              },
+              {
+                "label": "GPT-3.5 Turbo",
+                "value": "gpt-3.5-turbo"
+              },
+              {
+                "label": "GPT-3.5 Turbo 16K",
+                "value": "gpt-3.5-turbo-16k"
+              }
+            ],
+            "required": true,
+            "description": "The model to use for chat completion"
+          },
+          "messages": {
+            "type": "array",
+            "label": "Messages",
+            "required": true,
+            "itemSchema": {
+              "role": {
+                "type": "select",
+                "label": "Role",
+                "default": "user",
+                "options": [
+                  {
+                    "label": "System",
+                    "value": "system"
+                  },
+                  {
+                    "label": "User",
+                    "value": "user"
+                  },
+                  {
+                    "label": "Assistant",
+                    "value": "assistant"
+                  }
+                ],
+                "required": true
+              },
+              "content": {
+                "type": "string",
+                "label": "Content",
+                "required": true,
+                "inputType": "textarea",
+                "placeholder": "Enter message content..."
+              }
+            },
+            "description": "Array of message objects for the conversation"
+          },
+          "maxTokens": {
+            "max": 32768,
+            "min": 1,
+            "type": "number",
+            "label": "Max Tokens",
+            "default": 16,
+            "description": "Maximum number of tokens to generate"
+          },
+          "temperature": {
+            "max": 2,
+            "min": 0,
+            "step": 0.1,
+            "type": "number",
+            "label": "Temperature",
+            "default": 1,
+            "description": "Controls randomness (0-2). Lower is more deterministic"
+          },
+          "presencePenalty": {
+            "max": 2,
+            "min": -2,
+            "step": 0.1,
+            "type": "number",
+            "label": "Presence Penalty",
+            "default": 0,
+            "description": "Encourage new topics (-2 to 2)"
+          },
+          "frequencyPenalty": {
+            "max": 2,
+            "min": -2,
+            "step": 0.1,
+            "type": "number",
+            "label": "Frequency Penalty",
+            "default": 0,
+            "description": "Penalize repeated tokens (-2 to 2)"
+          }
+        },
+        "connectorType": "openai"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "postgresql_insert_rows_1762338929802",
+      "action": "execute",
+      "params": {
+        "icon": "Zap",
+        "label": "Insert rows in a table",
+        "actionId": "insert_rows",
+        "description": "Insert one or more rows into a table",
+        "inputSchema": {
+          "table": {
+            "type": "string",
+            "label": "Table Name",
+            "order": 2,
+            "required": true,
+            "description": "Name of the table to insert into",
+            "placeholder": "users",
+            "loadOptionsResource": "tables",
+            "loadOptionsDependsOn": [
+              "schema"
+            ],
+            "loadOptionsDescription": "Fetch tables from selected schema"
+          },
+          "schema": {
+            "type": "string",
+            "label": "Schema",
+            "order": 1,
+            "default": "public",
+            "required": false,
+            "description": "Database schema",
+            "placeholder": "public",
+            "loadOptionsResource": "schemas",
+            "loadOptionsDescription": "Fetch schemas from database"
+          },
+          "returning": {
+            "type": "string",
+            "label": "Returning",
+            "order": 4,
+            "required": false,
+            "description": "Columns to return from inserted rows",
+            "placeholder": "*"
+          },
+          "columnMappings": {
+            "type": "fixedCollection",
+            "items": {
+              "mappings": {
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "label": "Value",
+                    "required": true,
+                    "description": "Value or expression to insert",
+                    "placeholder": "{{ $json.email }}"
+                  },
+                  "column": {
+                    "type": "string",
+                    "label": "Column",
+                    "required": true,
+                    "description": "Column name to insert into",
+                    "loadOptionsResource": "table-columns",
+                    "loadOptionsDependsOn": [
+                      "schema",
+                      "table"
+                    ],
+                    "loadOptionsDescription": "Fetch columns from selected table"
+                  }
+                }
+              }
+            },
+            "label": "Column Mappings",
+            "order": 3,
+            "required": true,
+            "description": "Map data to table columns",
+            "placeholder": "Add Column Mapping"
+          }
+        },
+        "connectorType": "postgresql"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "openai_chat_complete_1762338971201",
+      "action": "execute",
+      "params": {
+        "icon": "Zap",
+        "label": "Chat Completion",
+        "actionId": "chat_complete",
+        "description": "Create a chat completion using GPT models (gpt-4, gpt-3.5-turbo, etc.)",
+        "inputSchema": {
+          "n": {
+            "max": 10,
+            "min": 1,
+            "type": "number",
+            "label": "Number of Completions",
+            "default": 1,
+            "description": "How many completions to generate"
+          },
+          "topP": {
+            "max": 1,
+            "min": 0,
+            "step": 0.1,
+            "type": "number",
+            "label": "Top P",
+            "default": 1,
+            "description": "Nucleus sampling parameter (0-1)"
+          },
+          "model": {
+            "type": "select",
+            "label": "Model",
+            "default": "gpt-3.5-turbo",
+            "options": [
+              {
+                "label": "GPT-4 Turbo",
+                "value": "gpt-4-turbo-preview"
+              },
+              {
+                "label": "GPT-4",
+                "value": "gpt-4"
+              },
+              {
+                "label": "GPT-3.5 Turbo",
+                "value": "gpt-3.5-turbo"
+              },
+              {
+                "label": "GPT-3.5 Turbo 16K",
+                "value": "gpt-3.5-turbo-16k"
+              }
+            ],
+            "required": true,
+            "description": "The model to use for chat completion"
+          },
+          "messages": {
+            "type": "array",
+            "label": "Messages",
+            "required": true,
+            "itemSchema": {
+              "role": {
+                "type": "select",
+                "label": "Role",
+                "default": "user",
+                "options": [
+                  {
+                    "label": "System",
+                    "value": "system"
+                  },
+                  {
+                    "label": "User",
+                    "value": "user"
+                  },
+                  {
+                    "label": "Assistant",
+                    "value": "assistant"
+                  }
+                ],
+                "required": true
+              },
+              "content": {
+                "type": "string",
+                "label": "Content",
+                "required": true,
+                "inputType": "textarea",
+                "placeholder": "Enter message content..."
+              }
+            },
+            "description": "Array of message objects for the conversation"
+          },
+          "maxTokens": {
+            "max": 32768,
+            "min": 1,
+            "type": "number",
+            "label": "Max Tokens",
+            "default": 16,
+            "description": "Maximum number of tokens to generate"
+          },
+          "temperature": {
+            "max": 2,
+            "min": 0,
+            "step": 0.1,
+            "type": "number",
+            "label": "Temperature",
+            "default": 1,
+            "description": "Controls randomness (0-2). Lower is more deterministic"
+          },
+          "presencePenalty": {
+            "max": 2,
+            "min": -2,
+            "step": 0.1,
+            "type": "number",
+            "label": "Presence Penalty",
+            "default": 0,
+            "description": "Encourage new topics (-2 to 2)"
+          },
+          "frequencyPenalty": {
+            "max": 2,
+            "min": -2,
+            "step": 0.1,
+            "type": "number",
+            "label": "Frequency Penalty",
+            "default": 0,
+            "description": "Penalize repeated tokens (-2 to 2)"
+          }
+        },
+        "connectorType": "openai"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "slack_send_message_1762339023065",
+      "action": "execute",
+      "params": {
+        "icon": "Mail",
+        "label": "Send Message",
+        "actionId": "send_message",
+        "description": "Send a message to a Slack channel or direct message to a user",
+        "inputSchema": {
+          "text": {
+            "type": "string",
+            "label": "Message Text",
+            "helpText": "You can use *bold*, _italic_, ~strikethrough~, `code`, and ```code blocks```",
+            "required": true,
+            "inputType": "textarea",
+            "description": "The text content of your message (supports Slack markdown formatting)",
+            "placeholder": "Enter your message here..."
+          },
+          "threadTs": {
+            "type": "string",
+            "label": "Reply in Thread (Optional)",
+            "helpText": "Leave empty to send as a new message. Use output from previous message node to reply in thread.",
+            "description": "To reply in a thread, provide the timestamp of the parent message",
+            "placeholder": "1234567890.123456"
+          },
+          "channelId": {
+            "type": "string",
+            "label": "Channel or User ID",
+            "helpText": "Right-click on a channel in Slack → View channel details → Copy channel ID",
+            "required": true,
+            "description": "The ID of the channel (starts with C) or user (starts with U) to send the message to",
+            "placeholder": "C01234ABCDE or U01234ABCDE"
+          }
+        },
+        "connectorType": "slack"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "gmail_send_email_1762339052393",
+      "action": "execute",
+      "params": {
+        "icon": "Mail",
+        "label": "Send Email",
+        "actionId": "send_email",
+        "description": "Send an email via Gmail",
+        "inputSchema": {
+          "cc": {
+            "type": "string",
+            "label": "CC",
+            "description": "CC recipients (comma-separated)",
+            "placeholder": "cc@example.com"
+          },
+          "to": {
+            "type": "string",
+            "label": "To",
+            "required": true,
+            "description": "Recipient email addresses (comma-separated)",
+            "placeholder": "recipient@example.com"
+          },
+          "bcc": {
+            "type": "string",
+            "label": "BCC",
+            "description": "BCC recipients (comma-separated)",
+            "placeholder": "bcc@example.com"
+          },
+          "body": {
+            "type": "string",
+            "label": "Body",
+            "required": true,
+            "inputType": "richtext",
+            "description": "Email body content (supports HTML)"
+          },
+          "subject": {
+            "type": "string",
+            "label": "Subject",
+            "required": true,
+            "description": "Email subject line"
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "string"
+                },
+                "filename": {
+                  "type": "string"
+                },
+                "mimeType": {
+                  "type": "string"
+                }
+              }
+            },
+            "label": "Attachments",
+            "description": "File attachments (optional)"
+          }
+        },
+        "connectorType": "gmail"
+      },
+      "connector": "CONNECTOR_ACTION"
+    }
+  ],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "icon": "connector",
+        "label": "When New Complaint Email Received",
+        "config": {},
+        "trigger": "email_received",
+        "category": "trigger",
+        "connector": "gmail",
+        "eventType": "message",
+        "triggerId": "email_received",
+        "description": "Triggered when a new email is received (polling mode)",
+        "inputSchema": {
+          "sender": {
+            "type": "string",
+            "label": "From",
+            "required": false,
+            "description": "Filter by sender email address (e.g., user@example.com)",
+            "placeholder": "sender@example.com"
+          },
+          "simple": {
+            "type": "boolean",
+            "label": "Simple Mode",
+            "default": true,
+            "required": false,
+            "description": "Return simplified message data (metadata only, faster)"
+          },
+          "labelIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "label": "Labels",
+            "required": false,
+            "description": "Filter by Gmail label IDs (e.g., INBOX, IMPORTANT)"
+          },
+          "readStatus": {
+            "type": "select",
+            "label": "Read Status",
+            "default": "all",
+            "options": [
+              {
+                "label": "All emails",
+                "value": "all"
+              },
+              {
+                "label": "Unread only",
+                "value": "unread"
+              },
+              {
+                "label": "Read only",
+                "value": "read"
+              }
+            ],
+            "required": false,
+            "description": "Filter by read status"
+          },
+          "searchQuery": {
+            "type": "string",
+            "label": "Search Query",
+            "required": false,
+            "description": "Custom Gmail search query (uses Gmail search syntax)",
+            "placeholder": "subject:important OR from:boss@company.com"
+          },
+          "pollingInterval": {
+            "type": "select",
+            "label": "Polling Interval",
+            "default": "5",
+            "options": [
+              {
+                "label": "Every minute",
+                "value": "1"
+              },
+              {
+                "label": "Every 5 minutes",
+                "value": "5"
+              },
+              {
+                "label": "Every 15 minutes",
+                "value": "15"
+              },
+              {
+                "label": "Every 30 minutes",
+                "value": "30"
+              },
+              {
+                "label": "Every hour",
+                "value": "60"
+              }
+            ],
+            "required": false,
+            "description": "How often to check for new emails"
+          },
+          "includeSpamTrash": {
+            "type": "boolean",
+            "label": "Include Spam/Trash",
+            "default": false,
+            "required": false,
+            "description": "Include emails from Spam and Trash folders"
+          }
+        },
+        "triggerName": "Email Received",
+        "configSchema": {
+          "sender": {
+            "type": "string",
+            "label": "From",
+            "required": false,
+            "description": "Filter by sender email address (e.g., user@example.com)",
+            "placeholder": "sender@example.com"
+          },
+          "simple": {
+            "type": "boolean",
+            "label": "Simple Mode",
+            "default": true,
+            "required": false,
+            "description": "Return simplified message data (metadata only, faster)"
+          },
+          "labelIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "label": "Labels",
+            "required": false,
+            "description": "Filter by Gmail label IDs (e.g., INBOX, IMPORTANT)"
+          },
+          "readStatus": {
+            "type": "select",
+            "label": "Read Status",
+            "default": "all",
+            "options": [
+              {
+                "label": "All emails",
+                "value": "all"
+              },
+              {
+                "label": "Unread only",
+                "value": "unread"
+              },
+              {
+                "label": "Read only",
+                "value": "read"
+              }
+            ],
+            "required": false,
+            "description": "Filter by read status"
+          },
+          "searchQuery": {
+            "type": "string",
+            "label": "Search Query",
+            "required": false,
+            "description": "Custom Gmail search query (uses Gmail search syntax)",
+            "placeholder": "subject:important OR from:boss@company.com"
+          },
+          "pollingInterval": {
+            "type": "select",
+            "label": "Polling Interval",
+            "default": "5",
+            "options": [
+              {
+                "label": "Every minute",
+                "value": "1"
+              },
+              {
+                "label": "Every 5 minutes",
+                "value": "5"
+              },
+              {
+                "label": "Every 15 minutes",
+                "value": "15"
+              },
+              {
+                "label": "Every 30 minutes",
+                "value": "30"
+              },
+              {
+                "label": "Every hour",
+                "value": "60"
+              }
+            ],
+            "required": false,
+            "description": "How often to check for new emails"
+          },
+          "includeSpamTrash": {
+            "type": "boolean",
+            "label": "Include Spam/Trash",
+            "default": false,
+            "required": false,
+            "description": "Include emails from Spam and Trash folders"
+          }
+        },
+        "outputSchema": {
+          "cc": {
+            "type": "string",
+            "description": "CC email addresses"
+          },
+          "to": {
+            "type": "string",
+            "description": "Recipient email addresses"
+          },
+          "bcc": {
+            "type": "string",
+            "description": "BCC email addresses"
+          },
+          "date": {
+            "type": "string",
+            "description": "Email date"
+          },
+          "from": {
+            "type": "string",
+            "description": "Sender email address"
+          },
+          "headers": {
+            "type": "object",
+            "description": "Email headers"
+          },
+          "payload": {
+            "type": "object",
+            "description": "Full email payload (if simple=false)"
+          },
+          "snippet": {
+            "type": "string",
+            "description": "Email preview text"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Email subject"
+          },
+          "labelIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Gmail labels"
+          },
+          "threadId": {
+            "type": "string",
+            "description": "Thread ID"
+          },
+          "messageId": {
+            "type": "string",
+            "description": "Message ID"
+          },
+          "internalDate": {
+            "type": "string",
+            "description": "Internal Gmail timestamp"
+          }
+        },
+        "connectorType": "gmail",
+        "webhookRequired": false,
+        "connectorDisplayName": "Gmail"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "CONNECTOR_ACTION"
+  ],
+  "tags": [],
+  "verified": true,
+  "is_public": true,
+  "metadata": {},
+  "ai_prompt": null
+}

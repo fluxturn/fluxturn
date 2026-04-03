@@ -1,0 +1,108 @@
+{
+  "id": "a7b8c9d0-e1f2-4345-a7b8-c9d0e1f23456",
+  "name": "Zoom Cloud Recording Email Notification",
+  "description": "Email participants when cloud recording becomes available. Nodes: Zoom Trigger, SendGrid Action",
+  "category": "collaboration",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Recording Available",
+          "config": {},
+          "trigger": "recording_completed",
+          "category": "trigger",
+          "connector": "zoom",
+          "eventType": "webhook",
+          "triggerId": "recording_completed",
+          "description": "Triggered when Zoom cloud recording is ready",
+          "connectorType": "zoom",
+          "connectorDisplayName": "Zoom"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Email Recording Link",
+          "action": "send_email",
+          "config": {
+            "to": "{{trigger.participant_emails}}",
+            "subject": "Recording Available: {{trigger.topic}}",
+            "html": "<p>Your meeting recording is ready!</p><p>Watch: <a href='{{trigger.share_url}}'>{{trigger.topic}}</a></p>"
+          },
+          "actionId": "send_email",
+          "category": "action",
+          "connector": "sendgrid",
+          "actionName": "Send Email",
+          "description": "Send email via SendGrid",
+          "connectorType": "sendgrid",
+          "connectorDisplayName": "SendGrid"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "zoom",
+        "triggerId": "recording_completed"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "zoom",
+    "sendgrid"
+  ],
+  "tags": [
+    "collaboration",
+    "automation",
+    "zoom",
+    "sendgrid",
+    "recording",
+    "email"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow emails participants when Zoom recording is ready using zoom, sendgrid",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"recording email notification\" that triggers when Zoom recording completes and emails participants"
+}

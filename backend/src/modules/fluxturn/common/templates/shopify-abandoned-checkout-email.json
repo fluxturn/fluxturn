@@ -1,0 +1,72 @@
+{
+  "id": "3f08755f-04d9-4eff-a733-6346f158dff9",
+  "name": "Shopify Abandoned Checkout Recovery Email",
+  "description": "Send recovery emails for abandoned Shopify checkouts",
+  "category": "ecommerce",
+  "difficulty": "intermediate",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": ["shopify", "sendgrid"],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "shopify_trigger_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": { "x": 100, "y": 100 },
+        "data": {
+          "label": "Abandoned Checkout",
+          "connector": "shopify",
+          "triggerId": "checkout_abandoned",
+          "icon": "shopping-cart",
+          "category": "trigger",
+          "description": "Triggers when checkout is abandoned",
+          "config": {
+            "delayMinutes": 60
+          },
+          "outputSchema": {
+            "email": { "type": "string" },
+            "abandoned_checkout_url": { "type": "string" },
+            "total_price": { "type": "string" }
+          }
+        }
+      },
+      {
+        "id": "sendgrid_action_1",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 450, "y": 100 },
+        "data": {
+          "label": "Send Recovery Email",
+          "connector": "sendgrid",
+          "actionId": "send_email",
+          "icon": "mail",
+          "category": "action",
+          "description": "Send abandoned cart recovery email",
+          "config": {
+            "to": "={{$json.email}}",
+            "from": "{{store_email}}",
+            "subject": "Did you forget something? Complete your purchase!",
+            "html": "<h1>You left items in your cart!</h1><p>Hi there,</p><p>We noticed you didn't complete your purchase of ${{$json.total_price}}.</p><p><a href='{{$json.abandoned_checkout_url}}'>Complete your order now</a></p><p>Need help? Reply to this email!</p>"
+          },
+          "inputSchema": {
+            "to": { "type": "string", "required": true, "label": "To" },
+            "from": { "type": "string", "required": true, "label": "From" },
+            "subject": { "type": "string", "required": true, "label": "Subject" },
+            "html": { "type": "string", "label": "HTML Content" }
+          },
+          "outputSchema": {
+            "messageId": { "type": "string" }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1",
+        "source": "shopify_trigger_1",
+        "target": "sendgrid_action_1",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

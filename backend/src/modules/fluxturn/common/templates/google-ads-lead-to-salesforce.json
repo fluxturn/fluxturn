@@ -1,0 +1,109 @@
+{
+  "id": "56bb1d9a-bff5-4dcb-a2bb-a556382bd9df",
+  "name": "Google Ads Lead to Salesforce",
+  "description": "Create Salesforce leads from Google Ads conversions automatically. Nodes: Google Ads Trigger, Salesforce Action",
+  "category": "marketing",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Conversion Tracked",
+          "config": {},
+          "category": "trigger",
+          "connector": "google_ads",
+          "connectorType": "google_ads",
+          "connectorDisplayName": "Google Ads",
+          "description": "Triggered on ad conversion",
+          "trigger": "conversion_tracked",
+          "triggerId": "conversion_tracked",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Lead",
+          "config": {
+            "firstName": "{{trigger.first_name}}",
+            "lastName": "{{trigger.last_name}}",
+            "email": "{{trigger.email}}",
+            "company": "{{trigger.company}}",
+            "leadSource": "Google Ads"
+          },
+          "category": "action",
+          "connector": "salesforce",
+          "connectorType": "salesforce",
+          "connectorDisplayName": "Salesforce",
+          "description": "Create Salesforce lead",
+          "action": "create_lead",
+          "actionId": "create_lead",
+          "actionName": "Create Lead"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_ads",
+        "triggerId": "conversion_tracked"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_ads",
+    "salesforce"
+  ],
+  "tags": [
+    "marketing",
+    "automation",
+    "google_ads",
+    "salesforce",
+    "leads"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow create salesforce leads from google ads conversions automatically. nodes: google ads trigger, salesforce action using google_ads, salesforce",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"ad conversion to lead\" that triggers on Google Ads conversion and creates Salesforce lead"
+}

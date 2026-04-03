@@ -1,0 +1,149 @@
+{
+  "id": "b11b09c8-1560-4b1f-bf3e-9bdef074e9e3",
+  "name": "Meeting Notes Distribution",
+  "description": "Automatically meeting notes distribution. Nodes: Google Docs Trigger, SMTP Action, Slack Action",
+  "category": "document_management",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Document Created in Folder",
+          "config": {},
+          "trigger": "document_created",
+          "category": "trigger",
+          "connector": "google_docs",
+          "eventType": "polling",
+          "triggerId": "document_created",
+          "description": "Triggered when document created in folder",
+          "connectorType": "google_docs",
+          "connectorDisplayName": "Google Docs"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Send to Attendees",
+          "action": "send_email",
+          "config": {
+            "to": "{{recipient_email}}",
+            "subject": "{{email_subject}}",
+            "body": "{{email_body}}"
+          },
+          "actionId": "send_email",
+          "category": "action",
+          "connector": "smtp",
+          "actionName": "Send to Attendees",
+          "description": "Send to Attendees",
+          "connectorType": "smtp",
+          "connectorDisplayName": "SMTP"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Post Summary",
+          "action": "send_message",
+          "config": {
+            "channel": "{{channel_id}}",
+            "text": "{{text}}"
+          },
+          "actionId": "send_message",
+          "category": "action",
+          "connector": "slack",
+          "actionName": "Post Summary",
+          "description": "Post Summary",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#14b8a6",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#14b8a6",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_docs",
+        "triggerId": "document_created"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_docs",
+    "smtp",
+    "slack"
+  ],
+  "tags": [
+    "document_management",
+    "automation",
+    "google_docs",
+    "smtp",
+    "slack"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow meeting notes distribution using google_docs, smtp, slack",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"meeting notes distribution\" that triggers when triggered when document created in folder and then Send to Attendees via SMTP, Post Summary via Slack"
+}

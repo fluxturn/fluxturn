@@ -1,0 +1,68 @@
+{
+  "id": "e56679aa-cf03-45d8-bac8-de05e3a03f2a",
+  "name": "Shopify Fulfillment to Microsoft Teams",
+  "description": "Notify Microsoft Teams when orders are fulfilled",
+  "category": "ecommerce",
+  "difficulty": "beginner",
+  "estimatedSetupTime": "5 min",
+  "requiredConnectors": ["shopify", "teams"],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "shopify_trigger_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": { "x": 100, "y": 100 },
+        "data": {
+          "label": "Order Fulfilled",
+          "connector": "shopify",
+          "triggerId": "fulfillment_created",
+          "icon": "truck",
+          "category": "trigger",
+          "description": "Triggers when order is fulfilled",
+          "config": {},
+          "outputSchema": {
+            "order_number": { "type": "string" },
+            "tracking_number": { "type": "string" },
+            "tracking_company": { "type": "string" }
+          }
+        }
+      },
+      {
+        "id": "teams_action_1",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 450, "y": 100 },
+        "data": {
+          "label": "Notify Teams",
+          "connector": "teams",
+          "actionId": "send_channel_message",
+          "icon": "message-square",
+          "category": "action",
+          "description": "Send fulfillment notification to Teams",
+          "config": {
+            "teamId": "{{teams_team_id}}",
+            "channelId": "{{teams_channel_id}}",
+            "message": "📦 **Order Shipped!**\n\nOrder #{{$json.order_number}} has been fulfilled.\n\n**Tracking:** {{$json.tracking_company}} - {{$json.tracking_number}}\n**Customer:** {{$json.destination.name}}\n**Address:** {{$json.destination.city}}, {{$json.destination.province}}"
+          },
+          "inputSchema": {
+            "teamId": { "type": "string", "required": true, "label": "Team ID" },
+            "channelId": { "type": "string", "required": true, "label": "Channel ID" },
+            "message": { "type": "string", "required": true, "label": "Message" }
+          },
+          "outputSchema": {
+            "id": { "type": "string" }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1",
+        "source": "shopify_trigger_1",
+        "target": "teams_action_1",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

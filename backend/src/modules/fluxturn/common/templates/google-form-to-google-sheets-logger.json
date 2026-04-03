@@ -1,0 +1,108 @@
+{
+  "id": "d000aa52-624a-44b4-a1f8-8b3bdbfbd9bc",
+  "name": "Google Form to Google Sheets Logger",
+  "description": "Log all form submissions to spreadsheet. Nodes: Google Forms Trigger, Google Sheets Action",
+  "category": "analytics",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Response",
+          "config": {},
+          "category": "trigger",
+          "connector": "google_forms",
+          "connectorType": "google_forms",
+          "connectorDisplayName": "Google Forms",
+          "trigger": "new_response",
+          "triggerId": "new_response",
+          "eventType": "webhook",
+          "description": "Triggered when new response"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Log Response",
+          "config": {
+            "spreadsheetId": "{{sheet_id}}",
+            "values": [
+              [
+                "{{response}}"
+              ]
+            ]
+          },
+          "category": "action",
+          "connector": "google_sheets",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets",
+          "action": "append_row",
+          "actionId": "append_row",
+          "actionName": "Log Response",
+          "description": "Log Response"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_forms",
+        "triggerId": "new_response"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_forms",
+    "google_sheets"
+  ],
+  "tags": [
+    "analytics",
+    "google_forms",
+    "google_sheets"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow log all form submissions to spreadsheet. nodes: google forms trigger, google sheets action using google_forms, google_sheets",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"google form to google sheets logger\" that log all form submissions to spreadsheet. nodes: google forms trigger, google sheets action"
+}

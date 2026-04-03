@@ -1,0 +1,677 @@
+{
+  "id": "0944fe21-5c78-4a50-b254-f809dc79e0e3",
+  "name": "E-commerce Order Fulfillment",
+  "description": "Process Shopify orders from payment to shipping notification.",
+  "category": "other",
+  "canvas": {
+    "edges": [
+      {
+        "id": "xy-edge__WEBHOOK_TRIGGER_1762339677855source-1-stripe_charge_get_1762339757319target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "WEBHOOK_TRIGGER_1762339677855",
+        "target": "stripe_charge_get_1762339757319",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__stripe_charge_get_1762339757319source-1-mysql_insert_rows_1762339814983target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "stripe_charge_get_1762339757319",
+        "target": "mysql_insert_rows_1762339814983",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__mysql_insert_rows_1762339814983source-1-shopify_update_order_1762339875647target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "mysql_insert_rows_1762339814983",
+        "target": "shopify_update_order_1762339875647",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__shopify_update_order_1762339875647source-1-gmail_send_email_1762339925631target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "shopify_update_order_1762339875647",
+        "target": "gmail_send_email_1762339925631",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__gmail_send_email_1762339925631source-1-slack_send_message_1762339964798target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "gmail_send_email_1762339925631",
+        "target": "slack_send_message_1762339964798",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "WEBHOOK_TRIGGER_1762339677855",
+        "data": {
+          "icon": "W",
+          "color": "#06b6d4",
+          "label": "Webhook",
+          "authType": "none",
+          "category": "trigger",
+          "corsOrigin": "*",
+          "httpMethod": "POST",
+          "ignoreBots": false,
+          "corsEnabled": true,
+          "description": "Receive HTTP webhooks from any service (Stripe, GitHub, etc.)",
+          "ipWhitelist": "[]",
+          "responseBody": "{\"success\": true}",
+          "responseCode": 200,
+          "responseMode": "onReceived",
+          "responseHeaders": "{}"
+        },
+        "type": "WEBHOOK_TRIGGER",
+        "position": {
+          "x": 195,
+          "y": 225
+        }
+      },
+      {
+        "id": "stripe_charge_get_1762339757319",
+        "data": {
+          "icon": "Search",
+          "label": "Get Charge",
+          "actionId": "charge_get",
+          "description": "Retrieve details of a specific charge",
+          "inputSchema": {
+            "chargeId": {
+              "type": "string",
+              "label": "Charge ID",
+              "required": true,
+              "description": "The ID of the charge to retrieve",
+              "placeholder": "ch_..."
+            }
+          },
+          "connectorType": "stripe"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 435,
+          "y": 45
+        }
+      },
+      {
+        "id": "mysql_insert_rows_1762339814983",
+        "data": {
+          "icon": "Zap",
+          "label": "Insert",
+          "actionId": "insert_rows",
+          "description": "Insert one or more rows into a table",
+          "inputSchema": {
+            "table": {
+              "type": "string",
+              "label": "Table Name",
+              "order": 1,
+              "required": true,
+              "description": "Name of the table to insert into",
+              "placeholder": "users",
+              "loadOptionsResource": "tables",
+              "loadOptionsDescription": "Fetch tables from database"
+            },
+            "dataMode": {
+              "type": "select",
+              "label": "Data Mode",
+              "order": 2,
+              "default": "autoMapInputData",
+              "options": [
+                "autoMapInputData",
+                "defineBelow"
+              ],
+              "required": false,
+              "description": "Auto-map input data or define columns manually"
+            },
+            "priority": {
+              "type": "select",
+              "label": "Priority",
+              "order": 4,
+              "options": [
+                "LOW_PRIORITY",
+                "HIGH_PRIORITY"
+              ],
+              "required": false,
+              "description": "Insert priority"
+            },
+            "columnMappings": {
+              "type": "fixedCollection",
+              "items": {
+                "mappings": {
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "label": "Value",
+                      "required": true,
+                      "description": "Value or expression to insert",
+                      "placeholder": "{{ $json.email }}"
+                    },
+                    "column": {
+                      "type": "string",
+                      "label": "Column",
+                      "required": true,
+                      "description": "Column name to insert into",
+                      "loadOptionsResource": "table-columns",
+                      "loadOptionsDependsOn": [
+                        "table"
+                      ]
+                    }
+                  }
+                }
+              },
+              "label": "Column Mappings",
+              "order": 3,
+              "required": false,
+              "description": "Map data to table columns",
+              "placeholder": "Add Column Mapping"
+            },
+            "skipOnConflict": {
+              "type": "boolean",
+              "label": "Skip On Conflict",
+              "order": 5,
+              "default": false,
+              "required": false,
+              "description": "Skip row if unique constraint violated (INSERT IGNORE)"
+            }
+          },
+          "connectorType": "mysql"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 735,
+          "y": -45
+        }
+      },
+      {
+        "id": "shopify_update_order_1762339875647",
+        "data": {
+          "icon": "Edit",
+          "label": "Update Order",
+          "actionId": "update_order",
+          "description": "Update an existing order",
+          "inputSchema": {
+            "note": {
+              "type": "string",
+              "label": "Note",
+              "order": 3
+            },
+            "tags": {
+              "type": "string",
+              "label": "Tags",
+              "order": 4,
+              "description": "Comma-separated tags"
+            },
+            "email": {
+              "type": "string",
+              "label": "Email",
+              "order": 2
+            },
+            "orderId": {
+              "type": "string",
+              "label": "Order ID",
+              "order": 1,
+              "required": true,
+              "placeholder": "12345"
+            }
+          },
+          "connectorType": "shopify"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 540,
+          "y": 360
+        }
+      },
+      {
+        "id": "gmail_send_email_1762339925631",
+        "data": {
+          "icon": "Mail",
+          "label": "Send Email",
+          "actionId": "send_email",
+          "description": "Send an email via Gmail",
+          "inputSchema": {
+            "cc": {
+              "type": "string",
+              "label": "CC",
+              "description": "CC recipients (comma-separated)",
+              "placeholder": "cc@example.com"
+            },
+            "to": {
+              "type": "string",
+              "label": "To",
+              "required": true,
+              "description": "Recipient email addresses (comma-separated)",
+              "placeholder": "recipient@example.com"
+            },
+            "bcc": {
+              "type": "string",
+              "label": "BCC",
+              "description": "BCC recipients (comma-separated)",
+              "placeholder": "bcc@example.com"
+            },
+            "body": {
+              "type": "string",
+              "label": "Body",
+              "required": true,
+              "inputType": "richtext",
+              "description": "Email body content (supports HTML)"
+            },
+            "subject": {
+              "type": "string",
+              "label": "Subject",
+              "required": true,
+              "description": "Email subject line"
+            },
+            "attachments": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "string"
+                  },
+                  "filename": {
+                    "type": "string"
+                  },
+                  "mimeType": {
+                    "type": "string"
+                  }
+                }
+              },
+              "label": "Attachments",
+              "description": "File attachments (optional)"
+            }
+          },
+          "connectorType": "gmail"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 960,
+          "y": 165
+        }
+      },
+      {
+        "id": "slack_send_message_1762339964798",
+        "data": {
+          "icon": "Mail",
+          "label": "Send Message",
+          "actionId": "send_message",
+          "description": "Send a message to a Slack channel or direct message to a user",
+          "inputSchema": {
+            "text": {
+              "type": "string",
+              "label": "Message Text",
+              "helpText": "You can use *bold*, _italic_, ~strikethrough~, `code`, and ```code blocks```",
+              "required": true,
+              "inputType": "textarea",
+              "description": "The text content of your message (supports Slack markdown formatting)",
+              "placeholder": "Enter your message here..."
+            },
+            "threadTs": {
+              "type": "string",
+              "label": "Reply in Thread (Optional)",
+              "helpText": "Leave empty to send as a new message. Use output from previous message node to reply in thread.",
+              "description": "To reply in a thread, provide the timestamp of the parent message",
+              "placeholder": "1234567890.123456"
+            },
+            "channelId": {
+              "type": "string",
+              "label": "Channel or User ID",
+              "helpText": "Right-click on a channel in Slack → View channel details → Copy channel ID",
+              "required": true,
+              "description": "The ID of the channel (starts with C) or user (starts with U) to send the message to",
+              "placeholder": "C01234ABCDE or U01234ABCDE"
+            }
+          },
+          "connectorType": "slack"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1215,
+          "y": 15
+        }
+      }
+    ]
+  },
+  "steps": [
+    {
+      "id": "stripe_charge_get_1762339757319",
+      "action": "execute",
+      "params": {
+        "icon": "Search",
+        "label": "Get Charge",
+        "actionId": "charge_get",
+        "description": "Retrieve details of a specific charge",
+        "inputSchema": {
+          "chargeId": {
+            "type": "string",
+            "label": "Charge ID",
+            "required": true,
+            "description": "The ID of the charge to retrieve",
+            "placeholder": "ch_..."
+          }
+        },
+        "connectorType": "stripe"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "mysql_insert_rows_1762339814983",
+      "action": "execute",
+      "params": {
+        "icon": "Zap",
+        "label": "Insert",
+        "actionId": "insert_rows",
+        "description": "Insert one or more rows into a table",
+        "inputSchema": {
+          "table": {
+            "type": "string",
+            "label": "Table Name",
+            "order": 1,
+            "required": true,
+            "description": "Name of the table to insert into",
+            "placeholder": "users",
+            "loadOptionsResource": "tables",
+            "loadOptionsDescription": "Fetch tables from database"
+          },
+          "dataMode": {
+            "type": "select",
+            "label": "Data Mode",
+            "order": 2,
+            "default": "autoMapInputData",
+            "options": [
+              "autoMapInputData",
+              "defineBelow"
+            ],
+            "required": false,
+            "description": "Auto-map input data or define columns manually"
+          },
+          "priority": {
+            "type": "select",
+            "label": "Priority",
+            "order": 4,
+            "options": [
+              "LOW_PRIORITY",
+              "HIGH_PRIORITY"
+            ],
+            "required": false,
+            "description": "Insert priority"
+          },
+          "columnMappings": {
+            "type": "fixedCollection",
+            "items": {
+              "mappings": {
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "label": "Value",
+                    "required": true,
+                    "description": "Value or expression to insert",
+                    "placeholder": "{{ $json.email }}"
+                  },
+                  "column": {
+                    "type": "string",
+                    "label": "Column",
+                    "required": true,
+                    "description": "Column name to insert into",
+                    "loadOptionsResource": "table-columns",
+                    "loadOptionsDependsOn": [
+                      "table"
+                    ]
+                  }
+                }
+              }
+            },
+            "label": "Column Mappings",
+            "order": 3,
+            "required": false,
+            "description": "Map data to table columns",
+            "placeholder": "Add Column Mapping"
+          },
+          "skipOnConflict": {
+            "type": "boolean",
+            "label": "Skip On Conflict",
+            "order": 5,
+            "default": false,
+            "required": false,
+            "description": "Skip row if unique constraint violated (INSERT IGNORE)"
+          }
+        },
+        "connectorType": "mysql"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "shopify_update_order_1762339875647",
+      "action": "execute",
+      "params": {
+        "icon": "Edit",
+        "label": "Update Order",
+        "actionId": "update_order",
+        "description": "Update an existing order",
+        "inputSchema": {
+          "note": {
+            "type": "string",
+            "label": "Note",
+            "order": 3
+          },
+          "tags": {
+            "type": "string",
+            "label": "Tags",
+            "order": 4,
+            "description": "Comma-separated tags"
+          },
+          "email": {
+            "type": "string",
+            "label": "Email",
+            "order": 2
+          },
+          "orderId": {
+            "type": "string",
+            "label": "Order ID",
+            "order": 1,
+            "required": true,
+            "placeholder": "12345"
+          }
+        },
+        "connectorType": "shopify"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "gmail_send_email_1762339925631",
+      "action": "execute",
+      "params": {
+        "icon": "Mail",
+        "label": "Send Email",
+        "actionId": "send_email",
+        "description": "Send an email via Gmail",
+        "inputSchema": {
+          "cc": {
+            "type": "string",
+            "label": "CC",
+            "description": "CC recipients (comma-separated)",
+            "placeholder": "cc@example.com"
+          },
+          "to": {
+            "type": "string",
+            "label": "To",
+            "required": true,
+            "description": "Recipient email addresses (comma-separated)",
+            "placeholder": "recipient@example.com"
+          },
+          "bcc": {
+            "type": "string",
+            "label": "BCC",
+            "description": "BCC recipients (comma-separated)",
+            "placeholder": "bcc@example.com"
+          },
+          "body": {
+            "type": "string",
+            "label": "Body",
+            "required": true,
+            "inputType": "richtext",
+            "description": "Email body content (supports HTML)"
+          },
+          "subject": {
+            "type": "string",
+            "label": "Subject",
+            "required": true,
+            "description": "Email subject line"
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "string"
+                },
+                "filename": {
+                  "type": "string"
+                },
+                "mimeType": {
+                  "type": "string"
+                }
+              }
+            },
+            "label": "Attachments",
+            "description": "File attachments (optional)"
+          }
+        },
+        "connectorType": "gmail"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "slack_send_message_1762339964798",
+      "action": "execute",
+      "params": {
+        "icon": "Mail",
+        "label": "Send Message",
+        "actionId": "send_message",
+        "description": "Send a message to a Slack channel or direct message to a user",
+        "inputSchema": {
+          "text": {
+            "type": "string",
+            "label": "Message Text",
+            "helpText": "You can use *bold*, _italic_, ~strikethrough~, `code`, and ```code blocks```",
+            "required": true,
+            "inputType": "textarea",
+            "description": "The text content of your message (supports Slack markdown formatting)",
+            "placeholder": "Enter your message here..."
+          },
+          "threadTs": {
+            "type": "string",
+            "label": "Reply in Thread (Optional)",
+            "helpText": "Leave empty to send as a new message. Use output from previous message node to reply in thread.",
+            "description": "To reply in a thread, provide the timestamp of the parent message",
+            "placeholder": "1234567890.123456"
+          },
+          "channelId": {
+            "type": "string",
+            "label": "Channel or User ID",
+            "helpText": "Right-click on a channel in Slack → View channel details → Copy channel ID",
+            "required": true,
+            "description": "The ID of the channel (starts with C) or user (starts with U) to send the message to",
+            "placeholder": "C01234ABCDE or U01234ABCDE"
+          }
+        },
+        "connectorType": "slack"
+      },
+      "connector": "CONNECTOR_ACTION"
+    }
+  ],
+  "triggers": [
+    {
+      "id": "WEBHOOK_TRIGGER_1762339677855",
+      "type": "WEBHOOK_TRIGGER",
+      "config": {
+        "icon": "W",
+        "color": "#06b6d4",
+        "label": "Webhook",
+        "authType": "none",
+        "category": "trigger",
+        "corsOrigin": "*",
+        "httpMethod": "POST",
+        "ignoreBots": false,
+        "corsEnabled": true,
+        "description": "Receive HTTP webhooks from any service (Stripe, GitHub, etc.)",
+        "ipWhitelist": "[]",
+        "responseBody": "{\"success\": true}",
+        "responseCode": 200,
+        "responseMode": "onReceived",
+        "responseHeaders": "{}"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "CONNECTOR_ACTION"
+  ],
+  "tags": [],
+  "verified": true,
+  "is_public": true,
+  "metadata": {},
+  "ai_prompt": null
+}

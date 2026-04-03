@@ -1,0 +1,106 @@
+{
+  "id": "cde0ebcc-68a2-4c65-80ef-54d0cfd7fbf8",
+  "name": "Salesforce Opportunity Stage Change Alert",
+  "description": "Track opportunity progress with stage change notifications. Nodes: Salesforce Trigger, Slack Action",
+  "category": "sales",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Stage Changed",
+          "config": {},
+          "category": "trigger",
+          "connector": "salesforce",
+          "connectorType": "salesforce",
+          "connectorDisplayName": "Salesforce",
+          "description": "Triggered on stage change",
+          "trigger": "opportunity_stage_updated",
+          "triggerId": "opportunity_stage_updated",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Notify Team",
+          "config": {
+            "channel": "{{channel_id}}",
+            "text": "📊 Opportunity Update:\n{{trigger.Name}} moved to {{trigger.StageName}}\nAmount: ${{trigger.Amount}}"
+          },
+          "category": "action",
+          "connector": "slack",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack",
+          "description": "Post update to Slack",
+          "action": "send_message",
+          "actionId": "send_message",
+          "actionName": "Notify Team"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "salesforce",
+        "triggerId": "opportunity_stage_updated"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "salesforce",
+    "slack"
+  ],
+  "tags": [
+    "sales",
+    "automation",
+    "salesforce",
+    "slack",
+    "opportunities"
+  ],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow track opportunity progress with stage change notifications. nodes: salesforce trigger, slack action using salesforce, slack",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"stage change tracking\" that triggers on Salesforce opportunity stage change and notifies Slack"
+}

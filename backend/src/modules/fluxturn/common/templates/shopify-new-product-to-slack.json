@@ -1,0 +1,66 @@
+{
+  "id": "1e33a1d9-11cb-46fd-8469-71040973e250",
+  "name": "Shopify New Product to Slack",
+  "description": "Notify team on Slack when a new product is added to Shopify",
+  "category": "ecommerce",
+  "difficulty": "beginner",
+  "estimatedSetupTime": "5 min",
+  "requiredConnectors": ["shopify", "slack"],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "shopify_trigger_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": { "x": 100, "y": 100 },
+        "data": {
+          "label": "New Product Created",
+          "connector": "shopify",
+          "triggerId": "product_created",
+          "icon": "package",
+          "category": "trigger",
+          "description": "Triggers when a new product is created",
+          "config": {},
+          "outputSchema": {
+            "id": { "type": "string" },
+            "title": { "type": "string" },
+            "vendor": { "type": "string" }
+          }
+        }
+      },
+      {
+        "id": "slack_action_1",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 450, "y": 100 },
+        "data": {
+          "label": "Notify Team",
+          "connector": "slack",
+          "actionId": "send_message",
+          "icon": "message-square",
+          "category": "action",
+          "description": "Send new product notification to Slack",
+          "config": {
+            "channel": "{{products_channel}}",
+            "text": "📦 New Product Added!\n\nTitle: {{$json.title}}\nVendor: {{$json.vendor}}\nType: {{$json.product_type}}\nPrice: ${{$json.variants[0].price}}"
+          },
+          "inputSchema": {
+            "channel": { "type": "string", "required": true, "label": "Channel" },
+            "text": { "type": "string", "required": true, "label": "Message" }
+          },
+          "outputSchema": {
+            "ts": { "type": "string" }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1",
+        "source": "shopify_trigger_1",
+        "target": "slack_action_1",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

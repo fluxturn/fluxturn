@@ -1,0 +1,91 @@
+{
+  "action": "get_responses",
+  "baseUrl": "https://api.typeform.com",
+  "testCases": [
+    {
+      "name": "gets responses successfully",
+      "input": {
+        "form_id": "form-123"
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/forms/form-123/responses",
+        "status": 200,
+        "response": {
+          "total_items": 2,
+          "page_count": 1,
+          "items": [
+            {
+              "response_id": "resp-1",
+              "submitted_at": "2024-01-15T10:00:00Z",
+              "answers": [
+                {
+                  "field": { "id": "field-1", "type": "short_text" },
+                  "type": "text",
+                  "text": "John Doe"
+                }
+              ]
+            },
+            {
+              "response_id": "resp-2",
+              "submitted_at": "2024-01-15T11:00:00Z",
+              "answers": [
+                {
+                  "field": { "id": "field-1", "type": "short_text" },
+                  "type": "text",
+                  "text": "Jane Smith"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "total_items": 2
+        }
+      }
+    },
+    {
+      "name": "handles empty responses",
+      "input": {
+        "form_id": "empty-form"
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/forms/empty-form/responses",
+        "status": 200,
+        "response": {
+          "total_items": 0,
+          "page_count": 0,
+          "items": []
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "total_items": 0
+        }
+      }
+    },
+    {
+      "name": "handles form not found",
+      "input": {
+        "form_id": "nonexistent"
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/forms/nonexistent/responses",
+        "status": 404,
+        "response": {
+          "code": "NOT_FOUND",
+          "description": "Form not found"
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    }
+  ]
+}

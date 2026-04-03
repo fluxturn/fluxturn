@@ -1,0 +1,149 @@
+{
+  "id": "b5982d43-73c5-4e96-94fa-88e86fbd5a16",
+  "name": "Google Forms Duplicate Response Filter",
+  "description": "Check for duplicate form submissions and alert. Nodes: Google Forms Trigger, Google Sheets Action, Slack Action",
+  "category": "productivity",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Form Submitted",
+          "config": {},
+          "category": "trigger",
+          "connector": "google_forms",
+          "connectorType": "google_forms",
+          "connectorDisplayName": "Google Forms",
+          "description": "Triggered on new response",
+          "trigger": "new_response",
+          "triggerId": "new_response",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Check Duplicates",
+          "config": {
+            "spreadsheetId": "{{spreadsheet_id}}",
+            "range": "Responses!A:Z",
+            "query": "{{trigger.respondent_email}}"
+          },
+          "category": "action",
+          "connector": "google_sheets",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets",
+          "description": "Search for existing entry",
+          "action": "search_rows",
+          "actionId": "search_rows",
+          "actionName": "Check Duplicates"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Alert Duplicate",
+          "config": {
+            "channel": "{{channel_id}}",
+            "text": "⚠️ Duplicate submission detected from {{trigger.respondent_email}}"
+          },
+          "category": "action",
+          "connector": "slack",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack",
+          "description": "Notify about duplicate",
+          "action": "send_message",
+          "actionId": "send_message",
+          "actionName": "Alert Duplicate"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_forms",
+        "triggerId": "new_response"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_forms",
+    "google_sheets",
+    "slack"
+  ],
+  "tags": [
+    "productivity",
+    "automation",
+    "google_forms",
+    "google_sheets",
+    "slack"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow check for duplicate form submissions and alert. nodes: google forms trigger, google sheets action, slack action using google_forms, google_sheets, slack",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"duplicate detection\" that checks Google Forms responses against sheet and alerts Slack"
+}

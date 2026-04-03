@@ -1,0 +1,164 @@
+{
+  "baseUrl": "https://api.jotform.com",
+  "testCases": {
+    "get_form_submissions": [
+      {
+        "name": "gets form submissions successfully",
+        "input": {
+          "formId": "123456789012345"
+        },
+        "mock": {
+          "method": "GET",
+          "path": "/form/123456789012345/submissions",
+          "status": 200,
+          "response": {
+            "responseCode": 200,
+            "message": "success",
+            "content": [
+              {
+                "id": "sub-1",
+                "form_id": "123456789012345",
+                "ip": "192.168.1.1",
+                "created_at": "2024-01-15 10:00:00",
+                "status": "ACTIVE",
+                "new": "1",
+                "answers": {
+                  "1": { "name": "name", "answer": "John Doe" },
+                  "2": { "name": "email", "answer": "john@example.com" }
+                }
+              }
+            ]
+          }
+        },
+        "expected": {
+          "success": true
+        }
+      }
+    ],
+    "get_submission": [
+      {
+        "name": "gets submission successfully",
+        "input": {
+          "submissionId": "sub-123"
+        },
+        "mock": {
+          "method": "GET",
+          "path": "/submission/sub-123",
+          "status": 200,
+          "response": {
+            "responseCode": 200,
+            "message": "success",
+            "content": {
+              "id": "sub-123",
+              "form_id": "123456789012345",
+              "ip": "192.168.1.1",
+              "created_at": "2024-01-15 10:00:00",
+              "status": "ACTIVE",
+              "answers": {
+                "1": { "name": "name", "answer": "John Doe" }
+              }
+            }
+          }
+        },
+        "expected": {
+          "success": true,
+          "data": {
+            "id": "sub-123"
+          }
+        }
+      },
+      {
+        "name": "handles submission not found",
+        "input": {
+          "submissionId": "nonexistent"
+        },
+        "mock": {
+          "method": "GET",
+          "path": "/submission/nonexistent",
+          "status": 404,
+          "response": {
+            "responseCode": 404,
+            "message": "Submission not found"
+          }
+        },
+        "expected": {
+          "success": false
+        }
+      }
+    ],
+    "create_submission": [
+      {
+        "name": "creates submission successfully",
+        "input": {
+          "formId": "123456789012345",
+          "submissionData": {
+            "q1_name": "John Doe",
+            "q2_email": "john@example.com"
+          }
+        },
+        "mock": {
+          "method": "POST",
+          "path": "/form/123456789012345/submissions",
+          "status": 200,
+          "response": {
+            "responseCode": 200,
+            "message": "success",
+            "content": {
+              "submissionID": "new-sub-123"
+            }
+          }
+        },
+        "expected": {
+          "success": true,
+          "data": {
+            "submissionID": "new-sub-123"
+          }
+        }
+      }
+    ],
+    "update_submission": [
+      {
+        "name": "updates submission successfully",
+        "input": {
+          "submissionId": "sub-123",
+          "submissionData": {
+            "q1_name": "Jane Doe"
+          }
+        },
+        "mock": {
+          "method": "POST",
+          "path": "/submission/sub-123",
+          "status": 200,
+          "response": {
+            "responseCode": 200,
+            "message": "success",
+            "content": {}
+          }
+        },
+        "expected": {
+          "success": true
+        }
+      }
+    ],
+    "delete_submission": [
+      {
+        "name": "deletes submission successfully",
+        "input": {
+          "submissionId": "sub-123"
+        },
+        "mock": {
+          "method": "DELETE",
+          "path": "/submission/sub-123",
+          "status": 200,
+          "response": {
+            "responseCode": 200,
+            "message": "success"
+          }
+        },
+        "expected": {
+          "success": true
+        }
+      }
+    ]
+  }
+}

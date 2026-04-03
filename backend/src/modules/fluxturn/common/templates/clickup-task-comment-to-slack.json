@@ -1,0 +1,106 @@
+{
+  "id": "7a2f21c6-5419-4e1d-a9cd-195dd529ef33",
+  "name": "ClickUp Task Comment to Slack",
+  "description": "Sync task comments to Slack for better team communication. Nodes: ClickUp Trigger, Slack Action",
+  "category": "collaboration",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Comment Added",
+          "config": {},
+          "category": "trigger",
+          "connector": "clickup",
+          "connectorType": "clickup",
+          "connectorDisplayName": "Clickup",
+          "description": "Triggered on new comment",
+          "trigger": "task_comment_posted",
+          "triggerId": "task_comment_posted",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Post to Slack",
+          "config": {
+            "channel": "{{channel_id}}",
+            "text": "💬 New comment on \"{{trigger.task_name}}\":\n{{trigger.comment}}\n- {{trigger.user}}"
+          },
+          "category": "action",
+          "connector": "slack",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack",
+          "description": "Post comment to Slack",
+          "action": "send_message",
+          "actionId": "send_message",
+          "actionName": "Post to Slack"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "clickup",
+        "triggerId": "task_comment_posted"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "clickup",
+    "slack"
+  ],
+  "tags": [
+    "collaboration",
+    "automation",
+    "clickup",
+    "slack",
+    "comments"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow sync task comments to slack for better team communication. nodes: clickup trigger, slack action using clickup, slack",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"comment sync\" that triggers on ClickUp comment and posts to Slack"
+}

@@ -1,0 +1,175 @@
+{
+  "id": "9b3bb356-3125-41e0-8ae6-d1c2ba94fb46",
+  "name": "Stripe Payment to Customer DB",
+  "description": "Auto-update customer database on successful payments",
+  "category": "sales",
+  "difficulty": "beginner",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": [
+    "stripe",
+    "airtable",
+    "sendgrid"
+  ],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_22_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 100
+        },
+        "data": {
+          "label": "Payment Success",
+          "category": "trigger",
+          "config": {},
+          "connector": "stripe",
+          "triggerId": "payment_succeeded",
+          "inputSchema": {
+            "pollInterval": {
+              "type": "number",
+              "label": "Poll Interval",
+              "default": 300
+            }
+          },
+          "configSchema": {
+            "pollInterval": {
+              "type": "number",
+              "label": "Poll Interval",
+              "default": 300
+            }
+          },
+          "outputSchema": {
+            "data": {
+              "type": "object",
+              "description": "Trigger event data"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_22_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "label": "Update Customer",
+          "category": "action",
+          "config": {
+            "baseId": "{{your_base_id}}",
+            "tableId": "Customers",
+            "fields": "={{$json}}"
+          },
+          "connector": "airtable",
+          "actionId": "create_record",
+          "action": "create_record",
+          "actionName": "Create Record",
+          "description": "Create a new record in Airtable",
+          "icon": "plus",
+          "connectorType": "airtable",
+          "connectorDisplayName": "Airtable",
+          "inputSchema": {
+            "baseId": {
+              "type": "string",
+              "required": true,
+              "label": "Base ID"
+            },
+            "tableId": {
+              "type": "string",
+              "required": true,
+              "label": "Table ID"
+            },
+            "fields": {
+              "type": "object",
+              "required": true,
+              "label": "Fields"
+            }
+          },
+          "configSchema": {
+            "baseId": {
+              "type": "string",
+              "required": true,
+              "label": "Base ID"
+            },
+            "tableId": {
+              "type": "string",
+              "required": true,
+              "label": "Table ID"
+            },
+            "fields": {
+              "type": "object",
+              "required": true,
+              "label": "Fields"
+            }
+          },
+          "outputSchema": {
+            "id": {
+              "type": "string"
+            },
+            "fields": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_22_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 700,
+          "y": 100
+        },
+        "data": {
+          "label": "Thank You Email",
+          "category": "action",
+          "config": {
+            "to": "={{$json.customer.email}}",
+            "subject": "Thank you!",
+            "content": "Payment received"
+          },
+          "connector": "sendgrid",
+          "actionId": "send_email",
+          "inputSchema": {
+            "data": {
+              "type": "object",
+              "label": "Data",
+              "description": "Action input data"
+            }
+          },
+          "configSchema": {
+            "data": {
+              "type": "object",
+              "label": "Data",
+              "description": "Action input data"
+            }
+          },
+          "outputSchema": {
+            "result": {
+              "type": "object",
+              "description": "Action result"
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_1",
+        "source": "node_22_1",
+        "target": "node_22_2",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_2",
+        "source": "node_22_2",
+        "target": "node_22_3",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

@@ -1,0 +1,197 @@
+{
+  "id": "cd482de6-8e4c-48e7-8a99-bb2e296c77ff",
+  "name": "Code Documentation Generator",
+  "description": "Automatically generate and update code documentation using AI when files change in your GitHub repository",
+  "category": "developer",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "File Changed",
+          "config": {},
+          "trigger": "file_changed",
+          "category": "trigger",
+          "connector": "github",
+          "eventType": "polling",
+          "triggerId": "file_changed",
+          "description": "Triggered when file changed",
+          "connectorType": "github",
+          "connectorDisplayName": "GitHub"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Generate Docs",
+          "action": "chat_complete",
+          "config": {
+            "model": "gpt-4",
+            "messages": [
+              {
+                "role": "user",
+                "content": "Generate documentation for the following code: {{$node.node_1.json.content}}"
+              }
+            ]
+          },
+          "actionId": "chat_complete",
+          "category": "action",
+          "connector": "openai",
+          "actionName": "Generate Docs",
+          "description": "Generate Docs",
+          "connectorType": "openai",
+          "connectorDisplayName": "ChatGPT"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Get File SHA",
+          "action": "get_file_content",
+          "config": {
+            "owner": "{{$node.node_1.json.owner}}",
+            "repository": "{{$node.node_1.json.repository}}",
+            "path": "README.md"
+          },
+          "actionId": "get_file_content",
+          "category": "action",
+          "connector": "github",
+          "actionName": "Get File Content",
+          "description": "Get current file SHA",
+          "connectorType": "github",
+          "connectorDisplayName": "GitHub"
+        }
+      },
+      {
+        "id": "node_4",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1095,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Update File",
+          "action": "update_file",
+          "config": {
+            "owner": "{{$node.node_1.json.owner}}",
+            "repository": "{{$node.node_1.json.repository}}",
+            "path": "README.md",
+            "message": "Update documentation with AI-generated content",
+            "content": "{{$node.node_2.json.text}}",
+            "sha": "{{$node.node_3.json.sha}}"
+          },
+          "actionId": "update_file",
+          "category": "action",
+          "connector": "github",
+          "actionName": "Update File",
+          "description": "Update file with generated docs",
+          "connectorType": "github",
+          "connectorDisplayName": "GitHub"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#14b8a6",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#14b8a6",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_3",
+        "type": "default",
+        "style": {
+          "stroke": "#f59e0b",
+          "strokeWidth": 2
+        },
+        "source": "node_3",
+        "target": "node_4",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#f59e0b",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "github",
+        "triggerId": "file_changed"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "github",
+    "openai"
+  ],
+  "tags": [
+    "developer",
+    "automation",
+    "github",
+    "openai"
+  ],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow code documentation generator using github, openai",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"code documentation generator\" that triggers when file changed, generates documentation via ChatGPT, gets current file SHA via GitHub, and updates the file with new documentation"
+}

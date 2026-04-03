@@ -1,0 +1,70 @@
+{
+  "id": "832b9223-74f3-4db5-871c-6b96fa584701",
+  "name": "Shopify Orders Backup to Google Drive",
+  "description": "Automatically backup Shopify orders as JSON files to Google Drive",
+  "category": "ecommerce",
+  "difficulty": "intermediate",
+  "estimatedSetupTime": "15 min",
+  "requiredConnectors": ["shopify", "google_drive"],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "shopify_trigger_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": { "x": 100, "y": 100 },
+        "data": {
+          "label": "New Shopify Order",
+          "connector": "shopify",
+          "triggerId": "order_created",
+          "icon": "shopping-cart",
+          "category": "trigger",
+          "description": "Triggers when a new order is created",
+          "config": {},
+          "outputSchema": {
+            "id": { "type": "string" },
+            "order_number": { "type": "string" }
+          }
+        }
+      },
+      {
+        "id": "gdrive_action_1",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 450, "y": 100 },
+        "data": {
+          "label": "Save to Google Drive",
+          "connector": "google_drive",
+          "actionId": "create_file",
+          "icon": "hard-drive",
+          "category": "action",
+          "description": "Create backup file in Google Drive",
+          "config": {
+            "folderId": "{{backup_folder_id}}",
+            "fileName": "order_{{$json.order_number}}_{{$json.created_at}}.json",
+            "content": "={{JSON.stringify($json, null, 2)}}",
+            "mimeType": "application/json"
+          },
+          "inputSchema": {
+            "folderId": { "type": "string", "required": true, "label": "Folder ID" },
+            "fileName": { "type": "string", "required": true, "label": "File Name" },
+            "content": { "type": "string", "required": true, "label": "Content" },
+            "mimeType": { "type": "string", "label": "MIME Type" }
+          },
+          "outputSchema": {
+            "id": { "type": "string" },
+            "name": { "type": "string" }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1",
+        "source": "shopify_trigger_1",
+        "target": "gdrive_action_1",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

@@ -1,0 +1,74 @@
+{
+  "id": "2a3957e5-dce1-4fb6-b1d3-85912ec1aff7",
+  "name": "Shopify Orders to Google Sheets Logger",
+  "description": "Automatically log all Shopify orders to a Google Sheets spreadsheet",
+  "category": "ecommerce",
+  "difficulty": "beginner",
+  "estimatedSetupTime": "5 min",
+  "requiredConnectors": ["shopify", "google_sheets"],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "shopify_trigger_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": { "x": 100, "y": 100 },
+        "data": {
+          "label": "New Shopify Order",
+          "connector": "shopify",
+          "triggerId": "order_created",
+          "icon": "shopping-cart",
+          "category": "trigger",
+          "description": "Triggers when a new order is created",
+          "config": {},
+          "outputSchema": {
+            "order_id": { "type": "string" },
+            "email": { "type": "string" },
+            "total_price": { "type": "string" }
+          }
+        }
+      },
+      {
+        "id": "sheets_action_1",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 450, "y": 100 },
+        "data": {
+          "label": "Log to Google Sheets",
+          "connector": "google_sheets",
+          "actionId": "append_row",
+          "icon": "table",
+          "category": "action",
+          "description": "Append order data to spreadsheet",
+          "config": {
+            "spreadsheetId": "{{your_spreadsheet_id}}",
+            "sheetName": "Orders",
+            "values": {
+              "Order ID": "={{$json.order_number}}",
+              "Date": "={{$json.created_at}}",
+              "Customer": "={{$json.customer.email}}",
+              "Total": "={{$json.total_price}}",
+              "Status": "={{$json.financial_status}}"
+            }
+          },
+          "inputSchema": {
+            "spreadsheetId": { "type": "string", "required": true, "label": "Spreadsheet ID" },
+            "sheetName": { "type": "string", "label": "Sheet Name" },
+            "values": { "type": "object", "required": true, "label": "Values" }
+          },
+          "outputSchema": {
+            "rowNumber": { "type": "number" }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1",
+        "source": "shopify_trigger_1",
+        "target": "sheets_action_1",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

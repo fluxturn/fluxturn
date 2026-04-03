@@ -1,0 +1,151 @@
+{
+  "id": "e0336dcd-bb1e-470f-a43b-90c3ea46a536",
+  "name": "Multi-Platform Lead Enrichment Pipeline",
+  "description": "Enrich leads from forms through Salesforce to Slack. Nodes: Google Forms Trigger, Salesforce Action, Slack Action",
+  "category": "sales",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Form Submitted",
+          "config": {},
+          "category": "trigger",
+          "connector": "google_forms",
+          "connectorType": "google_forms",
+          "connectorDisplayName": "Google Forms",
+          "description": "Triggered on form submission",
+          "trigger": "new_response",
+          "triggerId": "new_response",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create/Update Lead",
+          "config": {
+            "email": "{{trigger.respondent_email}}",
+            "firstName": "{{trigger.responses.first_name}}",
+            "lastName": "{{trigger.responses.last_name}}",
+            "company": "{{trigger.responses.company}}"
+          },
+          "category": "action",
+          "connector": "salesforce",
+          "connectorType": "salesforce",
+          "connectorDisplayName": "Salesforce",
+          "description": "Upsert Salesforce lead",
+          "action": "upsert_lead",
+          "actionId": "upsert_lead",
+          "actionName": "Create/Update Lead"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Notify Sales",
+          "config": {
+            "channel": "{{channel_id}}",
+            "text": "🎯 Lead enriched!\nName: {{node_2.output.Name}}\nCompany: {{node_2.output.Company}}\nSF Link: {{node_2.output.link}}"
+          },
+          "category": "action",
+          "connector": "slack",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack",
+          "description": "Notify team on Slack",
+          "action": "send_message",
+          "actionId": "send_message",
+          "actionName": "Notify Sales"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_forms",
+        "triggerId": "new_response"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_forms",
+    "salesforce",
+    "slack"
+  ],
+  "tags": [
+    "sales",
+    "automation",
+    "google_forms",
+    "salesforce",
+    "slack",
+    "leads"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow enrich leads from forms through salesforce to slack. nodes: google forms trigger, salesforce action, slack action using google_forms, salesforce, slack",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"lead enrichment\" that triggers on Google Forms submission, creates Salesforce lead, and notifies Slack"
+}

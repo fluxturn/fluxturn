@@ -1,0 +1,107 @@
+{
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567813",
+  "name": "OpenAI Slack File Analyzer",
+  "description": "Analyze files shared in Slack using AI and provide summaries. Nodes: Slack Trigger, OpenAI Action, Slack Action",
+  "category": "ai",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "File Shared",
+          "config": {},
+          "trigger": "file_shared",
+          "category": "trigger",
+          "connector": "slack",
+          "eventType": "webhook",
+          "triggerId": "file_shared",
+          "description": "Triggered when a file is shared",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Chat Completion",
+          "action": "chat_complete",
+          "config": {
+            "model": "gpt-4",
+            "messages": "{{messages}}"
+          },
+          "actionId": "chat_complete",
+          "category": "action",
+          "connector": "openai",
+          "actionName": "Chat Completion",
+          "description": "Analyze file content",
+          "connectorType": "openai",
+          "connectorDisplayName": "OpenAI"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Send Message",
+          "action": "send_message",
+          "config": {},
+          "actionId": "send_message",
+          "category": "action",
+          "connector": "slack",
+          "actionName": "Send Message",
+          "description": "Share file analysis",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#14b8a6", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#14b8a6", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": { "connector": "slack", "triggerId": "file_shared" }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": ["slack", "openai"],
+  "tags": ["ai", "automation", "slack", "openai", "file-analysis"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow analyzes Slack files using OpenAI and shares summaries",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"OpenAI Slack file analyzer\" that triggers when files are shared, analyzes them with AI, and posts summaries"
+}

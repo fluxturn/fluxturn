@@ -1,0 +1,106 @@
+{
+  "id": "62f9bff9-6a18-4e54-8d03-cfdc2e5a5872",
+  "name": "Calendar Event to GitHub Issue",
+  "description": "Automatically calendar event to github issue. Nodes: Google Calendar Trigger, GitHub Action",
+  "category": "project_management",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Event",
+          "config": {},
+          "trigger": "event_created",
+          "category": "trigger",
+          "connector": "google_calendar",
+          "eventType": "polling",
+          "triggerId": "event_created",
+          "description": "Triggered when new event",
+          "connectorType": "google_calendar",
+          "connectorDisplayName": "Google Calendar"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Issue",
+          "action": "create_issue",
+          "config": {
+            "repository": "{{repository}}",
+            "title": "{{title}}",
+            "body": "{{body}}"
+          },
+          "actionId": "create_issue",
+          "category": "action",
+          "connector": "github",
+          "actionName": "Create Issue",
+          "description": "Create Issue",
+          "connectorType": "github",
+          "connectorDisplayName": "GitHub"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_calendar",
+        "triggerId": "event_created"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_calendar",
+    "github"
+  ],
+  "tags": [
+    "project_management",
+    "automation",
+    "google_calendar",
+    "github"
+  ],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow calendar event to github issue using google_calendar, github",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"calendar event to github issue\" that triggers when triggered when new event and then Create Issue via GitHub"
+}

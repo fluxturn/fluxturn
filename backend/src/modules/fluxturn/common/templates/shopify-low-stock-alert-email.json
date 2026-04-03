@@ -1,0 +1,71 @@
+{
+  "id": "9fe36cf1-005f-43e5-aaf8-8f147b1e4b5e",
+  "name": "Shopify Low Stock Alert Email",
+  "description": "Send email alerts when Shopify product inventory is running low",
+  "category": "ecommerce",
+  "difficulty": "beginner",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": ["shopify", "gmail"],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "shopify_action_1",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 100, "y": 100 },
+        "data": {
+          "label": "Get All Products",
+          "connector": "shopify",
+          "actionId": "get_all_products",
+          "icon": "package",
+          "category": "action",
+          "description": "Retrieve all products to check inventory",
+          "config": {
+            "returnAll": true
+          },
+          "inputSchema": {
+            "returnAll": { "type": "boolean", "label": "Return All", "default": true }
+          },
+          "outputSchema": {
+            "products": { "type": "array" }
+          }
+        }
+      },
+      {
+        "id": "gmail_action_1",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 450, "y": 100 },
+        "data": {
+          "label": "Send Low Stock Alert",
+          "connector": "gmail",
+          "actionId": "send_email",
+          "icon": "mail",
+          "category": "action",
+          "description": "Send email notification for low stock items",
+          "config": {
+            "to": "{{inventory_manager_email}}",
+            "subject": "Low Stock Alert - Action Required",
+            "body": "The following products are running low on inventory:\n\n{{$json.low_stock_items}}"
+          },
+          "inputSchema": {
+            "to": { "type": "string", "required": true, "label": "To" },
+            "subject": { "type": "string", "required": true, "label": "Subject" },
+            "body": { "type": "string", "required": true, "label": "Body" }
+          },
+          "outputSchema": {
+            "messageId": { "type": "string" }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1",
+        "source": "shopify_action_1",
+        "target": "gmail_action_1",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

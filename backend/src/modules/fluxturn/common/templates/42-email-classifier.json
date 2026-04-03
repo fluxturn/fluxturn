@@ -1,0 +1,268 @@
+{
+  "id": "5ff65e7b-895f-424a-a81c-9f084136e612",
+  "name": "Email Classifier",
+  "description": "Classify Gmail emails with AI and apply labels",
+  "category": "ai",
+  "difficulty": "intermediate",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": [
+    "gmail",
+    "openai"
+  ],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_42_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 100
+        },
+        "data": {
+          "label": "New Email",
+          "category": "trigger",
+          "config": {},
+          "connector": "gmail",
+          "triggerId": "email_received",
+          "trigger": "email_received",
+          "triggerName": "Email Received",
+          "description": "Triggers when a new email is received",
+          "eventType": "polling",
+          "icon": "mail",
+          "connectorType": "gmail",
+          "connectorDisplayName": "Gmail",
+          "webhookRequired": false,
+          "inputSchema": {
+            "labelName": {
+              "type": "string",
+              "label": "Label Name",
+              "description": "Gmail label to monitor"
+            },
+            "pollInterval": {
+              "type": "number",
+              "label": "Poll Interval (seconds)",
+              "default": 300
+            }
+          },
+          "configSchema": {
+            "labelName": {
+              "type": "string",
+              "label": "Label Name",
+              "description": "Gmail label to monitor"
+            },
+            "pollInterval": {
+              "type": "number",
+              "label": "Poll Interval (seconds)",
+              "default": 300
+            }
+          },
+          "outputSchema": {
+            "from": {
+              "type": "string",
+              "description": "Sender email"
+            },
+            "subject": {
+              "type": "string",
+              "description": "Email subject"
+            },
+            "body": {
+              "type": "string",
+              "description": "Email body"
+            },
+            "snippet": {
+              "type": "string",
+              "description": "Email snippet"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_42_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "label": "Classify Email",
+          "category": "action",
+          "config": {
+            "model": "gpt-4",
+            "messages": [
+              {
+                "role": "user",
+                "content": "Classify this email as: urgent, important, or low-priority. Email: {{$json.subject}} - {{$json.snippet}}"
+              }
+            ]
+          },
+          "connector": "openai",
+          "actionId": "chat_completion",
+          "action": "create_chat_completion",
+          "actionName": "Create Chat Completion",
+          "description": "Generate text using OpenAI",
+          "icon": "brain",
+          "connectorType": "openai",
+          "connectorDisplayName": "Openai",
+          "inputSchema": {
+            "model": {
+              "type": "string",
+              "required": true,
+              "label": "Model",
+              "default": "gpt-4"
+            },
+            "messages": {
+              "type": "array",
+              "required": true,
+              "label": "Messages"
+            }
+          },
+          "configSchema": {
+            "model": {
+              "type": "string",
+              "required": true,
+              "label": "Model",
+              "default": "gpt-4"
+            },
+            "messages": {
+              "type": "array",
+              "required": true,
+              "label": "Messages"
+            }
+          },
+          "outputSchema": {
+            "choices": {
+              "type": "array",
+              "description": "AI responses"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_42_3",
+        "type": "RUN_CODE",
+        "position": {
+          "x": 700,
+          "y": 100
+        },
+        "data": {
+          "label": "Extract Label",
+          "category": "utility",
+          "config": {
+            "code": "const classification = $json.choices[0].message.content.toLowerCase(); return { label: classification };"
+          },
+          "configSchema": {
+            "code": {
+              "type": "string",
+              "label": "JavaScript Code",
+              "inputType": "textarea",
+              "required": true,
+              "description": "JavaScript code to execute"
+            }
+          },
+          "inputSchema": {
+            "input": {
+              "type": "object",
+              "required": false
+            }
+          },
+          "outputSchema": {
+            "output": {
+              "type": "object",
+              "description": "Code execution result"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_42_4",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1000,
+          "y": 100
+        },
+        "data": {
+          "label": "Apply Label",
+          "category": "action",
+          "config": {
+            "messageId": "={{$node[\"New Email\"].json.id}}",
+            "label": "={{$json.label}}"
+          },
+          "connector": "gmail",
+          "actionId": "send_email",
+          "action": "send_email",
+          "actionName": "Send Email",
+          "description": "Send an email via Gmail",
+          "icon": "send",
+          "connectorType": "gmail",
+          "connectorDisplayName": "Gmail",
+          "inputSchema": {
+            "to": {
+              "type": "string",
+              "required": true,
+              "label": "To"
+            },
+            "subject": {
+              "type": "string",
+              "required": true,
+              "label": "Subject"
+            },
+            "message": {
+              "type": "string",
+              "required": true,
+              "label": "Message",
+              "inputType": "textarea"
+            }
+          },
+          "configSchema": {
+            "to": {
+              "type": "string",
+              "required": true,
+              "label": "To"
+            },
+            "subject": {
+              "type": "string",
+              "required": true,
+              "label": "Subject"
+            },
+            "message": {
+              "type": "string",
+              "required": true,
+              "label": "Message",
+              "inputType": "textarea"
+            }
+          },
+          "outputSchema": {
+            "messageId": {
+              "type": "string",
+              "description": "Sent message ID"
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_1",
+        "source": "node_42_1",
+        "target": "node_42_2",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_2",
+        "source": "node_42_2",
+        "target": "node_42_3",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_3",
+        "source": "node_42_3",
+        "target": "node_42_4",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

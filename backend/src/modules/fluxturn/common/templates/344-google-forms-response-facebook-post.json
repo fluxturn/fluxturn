@@ -1,0 +1,113 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-300000000044",
+  "name": "Google Forms Response to Facebook Page Post",
+  "description": "Post Google Forms responses to Facebook Page for community engagement",
+  "category": "forms",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "List Form Responses",
+          "config": {
+            "formId": "{{form_id}}"
+          },
+          "category": "action",
+          "connector": "google_forms",
+          "connectorType": "google_forms",
+          "connectorDisplayName": "Google Forms",
+          "description": "Get all responses from the form",
+          "action": "responses_list",
+          "actionId": "responses_list",
+          "actionName": "List Responses"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Create Facebook Post",
+          "config": {
+            "pageId": "{{facebook_page_id}}",
+            "message": "{{post_message}}\n\n{{node_2.output.responses}}"
+          },
+          "category": "action",
+          "connector": "facebook_graph",
+          "connectorType": "facebook_graph",
+          "connectorDisplayName": "Facebook",
+          "description": "Post to Facebook Page",
+          "action": "create_page_post",
+          "actionId": "create_page_post",
+          "actionName": "Create Page Post"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [],
+  "conditions": [],
+  "variables": [
+    {
+      "name": "form_id",
+      "type": "string",
+      "description": "Google Form ID"
+    },
+    {
+      "name": "facebook_page_id",
+      "type": "string",
+      "description": "Facebook Page ID to post to"
+    },
+    {
+      "name": "post_message",
+      "type": "string",
+      "description": "Message text for the Facebook post"
+    }
+  ],
+  "outputs": [],
+  "required_connectors": ["google_forms", "facebook_graph"],
+  "tags": ["forms", "google-forms", "facebook", "social", "community", "sharing"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "Post Google Forms responses to Facebook Page",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Post to Facebook Page when a Google Forms response is submitted"
+}

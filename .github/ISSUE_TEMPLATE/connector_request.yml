@@ -1,0 +1,81 @@
+name: Connector Request
+description: Request a new connector integration
+title: "[Connector]: "
+labels: ["connector", "enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Request a new connector for FluxTurn. We prioritize connectors based on community demand.
+
+  - type: input
+    id: service
+    attributes:
+      label: Service Name
+      description: The name of the service you'd like to connect.
+      placeholder: e.g., Notion, Airtable, Jira
+    validations:
+      required: true
+
+  - type: input
+    id: website
+    attributes:
+      label: Service Website
+      description: Link to the service.
+      placeholder: https://example.com
+
+  - type: input
+    id: api_docs
+    attributes:
+      label: API Documentation
+      description: Link to the service's API documentation (if available).
+      placeholder: https://example.com/api/docs
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - CRM & Sales
+        - Marketing & Email
+        - Developer Tools
+        - Project Management
+        - Communication
+        - AI & Machine Learning
+        - Cloud & Infrastructure
+        - E-commerce
+        - Finance & Payments
+        - HR & Recruiting
+        - Social Media
+        - Analytics
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Use Case
+      description: How would you use this connector in your workflows?
+      placeholder: I want to automate...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: auth_type
+    attributes:
+      label: Authentication Type
+      description: How does this service authenticate? (Check their API docs)
+      options:
+        - OAuth2
+        - API Key
+        - Basic Auth
+        - Webhook
+        - Not sure
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Would you like to contribute?
+      options:
+        - label: I'm willing to help implement this connector

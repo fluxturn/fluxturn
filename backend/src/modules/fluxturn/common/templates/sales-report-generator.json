@@ -1,0 +1,153 @@
+{
+  "id": "f48037c3-939b-41fc-abf8-c67bfb8f8c84",
+  "name": "Sales Report Generator",
+  "description": "Automatically sales report generator. Nodes: Google Calendar Trigger, Google Sheets Action, Google Docs Action",
+  "category": "sales",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "End of Month",
+          "config": {},
+          "trigger": "end_of_month",
+          "category": "trigger",
+          "connector": "google_calendar",
+          "eventType": "polling",
+          "triggerId": "end_of_month",
+          "description": "Triggered when end of month",
+          "connectorType": "google_calendar",
+          "connectorDisplayName": "Google Calendar"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Compile Sales Data",
+          "action": "append_row",
+          "config": {
+            "spreadsheetId": "{{spreadsheet_id}}",
+            "sheetName": "Sheet1",
+            "values": [
+              [
+                "{{data}}"
+              ]
+            ]
+          },
+          "actionId": "append_row",
+          "category": "action",
+          "connector": "google_sheets",
+          "actionName": "Compile Sales Data",
+          "description": "Compile Sales Data",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Report",
+          "action": "create_report",
+          "config": {
+            "title": "{{document_title}}",
+            "content": "{{document_content}}"
+          },
+          "actionId": "create_report",
+          "category": "action",
+          "connector": "google_docs",
+          "actionName": "Create Report",
+          "description": "Create Report",
+          "connectorType": "google_docs",
+          "connectorDisplayName": "Google Docs"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#14b8a6",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#14b8a6",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_calendar",
+        "triggerId": "end_of_month"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_calendar",
+    "google_sheets",
+    "google_docs"
+  ],
+  "tags": [
+    "sales",
+    "automation",
+    "google_calendar",
+    "google_sheets",
+    "google_docs"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow sales report generator using google_calendar, google_sheets, google_docs",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"sales report generator\" that triggers when triggered when end of month and then Compile Sales Data via Google Sheets, Create Report via Google Docs"
+}

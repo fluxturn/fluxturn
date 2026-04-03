@@ -1,0 +1,119 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-300000000033",
+  "name": "Google Forms Response to Discord Alert",
+  "description": "Send Discord alerts when new Google Forms responses are submitted - perfect for community surveys",
+  "category": "forms",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Get Form Response",
+          "config": {
+            "formId": "{{form_id}}",
+            "responseId": "{{response_id}}"
+          },
+          "category": "action",
+          "connector": "google_forms",
+          "connectorType": "google_forms",
+          "connectorDisplayName": "Google Forms",
+          "description": "Retrieve form response details",
+          "action": "response_get",
+          "actionId": "response_get",
+          "actionName": "Get Response"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Send Discord Message",
+          "config": {
+            "channelId": "{{discord_channel_id}}",
+            "content": "🎯 **New Survey Response!**\n\n📋 Form: {{form_name}}\n⏰ Time: {{node_2.output.createTime}}\n\n**Answers:**\n{{node_2.output.answers}}"
+          },
+          "category": "action",
+          "connector": "discord",
+          "connectorType": "discord",
+          "connectorDisplayName": "Discord",
+          "description": "Send alert to Discord channel",
+          "action": "send_message",
+          "actionId": "send_message",
+          "actionName": "Send Message"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [],
+  "conditions": [],
+  "variables": [
+    {
+      "name": "form_id",
+      "type": "string",
+      "description": "Google Form ID"
+    },
+    {
+      "name": "response_id",
+      "type": "string",
+      "description": "Response ID to retrieve"
+    },
+    {
+      "name": "form_name",
+      "type": "string",
+      "description": "Name of the form for display"
+    },
+    {
+      "name": "discord_channel_id",
+      "type": "string",
+      "description": "Discord channel ID to send message to"
+    }
+  ],
+  "outputs": [],
+  "required_connectors": ["google_forms", "discord"],
+  "tags": ["forms", "google-forms", "discord", "alerts", "community", "surveys"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "Send Discord alerts for Google Forms responses",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Alert Discord channel when someone submits a Google Forms response"
+}

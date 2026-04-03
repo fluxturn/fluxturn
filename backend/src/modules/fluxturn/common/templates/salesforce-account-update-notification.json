@@ -1,0 +1,107 @@
+{
+  "id": "1594269b-6e07-4729-810b-b0e3ba2b1748",
+  "name": "Salesforce Account Update Notification",
+  "description": "Get notified when important account fields are updated. Nodes: Salesforce Trigger, Gmail Action",
+  "category": "sales",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Account Updated",
+          "config": {},
+          "category": "trigger",
+          "connector": "salesforce",
+          "connectorType": "salesforce",
+          "connectorDisplayName": "Salesforce",
+          "description": "Triggered on account update",
+          "trigger": "account_updated",
+          "triggerId": "account_updated",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Email Account Manager",
+          "config": {
+            "to": "{{trigger.Owner.Email}}",
+            "subject": "Account Updated: {{trigger.Name}}",
+            "body": "Account {{trigger.Name}} has been updated.\nChanges: {{trigger.changes}}"
+          },
+          "category": "action",
+          "connector": "gmail",
+          "connectorType": "gmail",
+          "connectorDisplayName": "Gmail",
+          "description": "Send update notification",
+          "action": "send_email",
+          "actionId": "send_email",
+          "actionName": "Email Account Manager"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "salesforce",
+        "triggerId": "account_updated"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "salesforce",
+    "gmail"
+  ],
+  "tags": [
+    "sales",
+    "automation",
+    "salesforce",
+    "gmail",
+    "accounts"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow get notified when important account fields are updated. nodes: salesforce trigger, gmail action using salesforce, gmail",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"account change notification\" that triggers on Salesforce account update and emails owner"
+}

@@ -1,0 +1,171 @@
+{
+  "name": "Telegram Command Bot",
+  "description": "A bot that responds to different commands with appropriate actions",
+  "nodes": [
+    {
+      "id": "telegram_trigger_1",
+      "type": "CONNECTOR_TRIGGER",
+      "position": { "x": 250, "y": 400 },
+      "data": {
+        "label": "New Message",
+        "description": "Triggers when a new message is received",
+        "connectorType": "telegram",
+        "triggerId": "new_message",
+        "triggerConfig": {
+          "messageType": "text"
+        }
+      }
+    },
+    {
+      "id": "switch_1",
+      "type": "SWITCH",
+      "position": { "x": 500, "y": 400 },
+      "data": {
+        "label": "Check Command",
+        "description": "Route based on command",
+        "conditions": [
+          {
+            "id": "cond_1",
+            "field": "{{$json.telegramEvent.message.text}}",
+            "operator": "equals",
+            "value": "/start"
+          },
+          {
+            "id": "cond_2",
+            "field": "{{$json.telegramEvent.message.text}}",
+            "operator": "equals",
+            "value": "/help"
+          },
+          {
+            "id": "cond_3",
+            "field": "{{$json.telegramEvent.message.text}}",
+            "operator": "starts_with",
+            "value": "/weather"
+          }
+        ]
+      }
+    },
+    {
+      "id": "telegram_start_1",
+      "type": "CONNECTOR_ACTION",
+      "position": { "x": 750, "y": 250 },
+      "data": {
+        "label": "Send Welcome",
+        "description": "Send welcome message for /start",
+        "connectorType": "telegram",
+        "actionId": "send_message",
+        "actionParams": {
+          "chatId": "{{$json.telegramEvent.message.chat.id}}",
+          "text": "*Welcome to Fluxturn Bot!* 🚀\\n\\nI'm here to help you with automation.\\n\\nAvailable commands:\\n• `/start` - Show this message\\n• `/help` - Get help\\n• `/weather <city>` - Get weather info\\n\\nLet's get started!",
+          "parseMode": "Markdown"
+        }
+      }
+    },
+    {
+      "id": "telegram_help_1",
+      "type": "CONNECTOR_ACTION",
+      "position": { "x": 750, "y": 400 },
+      "data": {
+        "label": "Send Help",
+        "description": "Send help message",
+        "connectorType": "telegram",
+        "actionId": "send_message",
+        "actionParams": {
+          "chatId": "{{$json.telegramEvent.message.chat.id}}",
+          "text": "*Help Menu* 📚\\n\\nHere's how to use this bot:\\n\\n1. Send `/start` to begin\\n2. Send `/help` for this help menu\\n3. Send `/weather London` to get weather\\n\\nFor support, contact @your_support",
+          "parseMode": "Markdown"
+        }
+      }
+    },
+    {
+      "id": "http_weather_1",
+      "type": "HTTP_REQUEST",
+      "position": { "x": 750, "y": 550 },
+      "data": {
+        "label": "Get Weather",
+        "description": "Fetch weather data",
+        "method": "GET",
+        "url": "https://api.openweathermap.org/data/2.5/weather",
+        "queryParams": {
+          "q": "{{$json.telegramEvent.message.text.replace('/weather ', '')}}",
+          "appid": "YOUR_OPENWEATHER_API_KEY",
+          "units": "metric"
+        }
+      }
+    },
+    {
+      "id": "telegram_weather_1",
+      "type": "CONNECTOR_ACTION",
+      "position": { "x": 1000, "y": 550 },
+      "data": {
+        "label": "Send Weather",
+        "description": "Send weather information",
+        "connectorType": "telegram",
+        "actionId": "send_message",
+        "actionParams": {
+          "chatId": "{{$json.telegramEvent.message.chat.id}}",
+          "text": "🌤️ *Weather in {{$node.http_weather_1.data.name}}*\\n\\n🌡️ Temperature: {{$node.http_weather_1.data.main.temp}}°C\\n☁️ Condition: {{$node.http_weather_1.data.weather[0].description}}\\n💧 Humidity: {{$node.http_weather_1.data.main.humidity}}%\\n💨 Wind: {{$node.http_weather_1.data.wind.speed}} m/s",
+          "parseMode": "Markdown"
+        }
+      }
+    },
+    {
+      "id": "telegram_default_1",
+      "type": "CONNECTOR_ACTION",
+      "position": { "x": 750, "y": 700 },
+      "data": {
+        "label": "Unknown Command",
+        "description": "Response for unknown commands",
+        "connectorType": "telegram",
+        "actionId": "send_message",
+        "actionParams": {
+          "chatId": "{{$json.telegramEvent.message.chat.id}}",
+          "text": "❓ Sorry, I don't understand that command.\\n\\nTry `/help` to see available commands.",
+          "parseMode": "Markdown"
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge_1",
+      "source": "telegram_trigger_1",
+      "target": "switch_1",
+      "type": "default"
+    },
+    {
+      "id": "edge_2",
+      "source": "switch_1",
+      "sourceHandle": "cond_1",
+      "target": "telegram_start_1",
+      "type": "default"
+    },
+    {
+      "id": "edge_3",
+      "source": "switch_1",
+      "sourceHandle": "cond_2",
+      "target": "telegram_help_1",
+      "type": "default"
+    },
+    {
+      "id": "edge_4",
+      "source": "switch_1",
+      "sourceHandle": "cond_3",
+      "target": "http_weather_1",
+      "type": "default"
+    },
+    {
+      "id": "edge_5",
+      "source": "switch_1",
+      "sourceHandle": "default",
+      "target": "telegram_default_1",
+      "type": "default"
+    },
+    {
+      "id": "edge_6",
+      "source": "http_weather_1",
+      "target": "telegram_weather_1",
+      "type": "default"
+    }
+  ]
+}

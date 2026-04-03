@@ -1,0 +1,105 @@
+{
+  "id": "8089c427-7007-4dc6-b5c3-f2817aae20ef",
+  "name": "Campaign Performance Alert",
+  "description": "Automatically campaign performance alert. Nodes: Google Analytics Trigger, Slack Action",
+  "category": "marketing",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Traffic Spike",
+          "config": {},
+          "trigger": "traffic_spike",
+          "category": "trigger",
+          "connector": "google_analytics",
+          "eventType": "polling",
+          "triggerId": "traffic_spike",
+          "description": "Triggered when traffic spike",
+          "connectorType": "google_analytics",
+          "connectorDisplayName": "Google Analytics"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Alert Marketing Team",
+          "action": "send_message",
+          "config": {
+            "channel": "{{channel_id}}",
+            "text": "{{text}}"
+          },
+          "actionId": "send_message",
+          "category": "action",
+          "connector": "slack",
+          "actionName": "Alert Marketing Team",
+          "description": "Alert Marketing Team",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_analytics",
+        "triggerId": "traffic_spike"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_analytics",
+    "slack"
+  ],
+  "tags": [
+    "marketing",
+    "automation",
+    "google_analytics",
+    "slack"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow campaign performance alert using google_analytics, slack",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"campaign performance alert\" that triggers when triggered when traffic spike and then Alert Marketing Team via Slack"
+}

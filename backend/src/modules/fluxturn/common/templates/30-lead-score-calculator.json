@@ -1,0 +1,183 @@
+{
+  "id": "6ba73e1e-2fee-46bf-a139-37cb003f5cfc",
+  "name": "Lead Score Calculator",
+  "description": "Auto-calculate and update lead scores in Airtable",
+  "category": "sales",
+  "difficulty": "advanced",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": [
+    "airtable"
+  ],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_30_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 100
+        },
+        "data": {
+          "label": "New Contact",
+          "category": "trigger",
+          "config": {
+            "tableId": "Contacts"
+          },
+          "connector": "airtable",
+          "triggerId": "record_created",
+          "trigger": "record_created",
+          "triggerName": "Record Created",
+          "description": "Triggers when a record is created",
+          "eventType": "polling",
+          "icon": "plus-circle",
+          "connectorType": "airtable",
+          "connectorDisplayName": "Airtable",
+          "webhookRequired": false,
+          "inputSchema": {
+            "tableId": {
+              "type": "string",
+              "required": true,
+              "label": "Table ID"
+            }
+          },
+          "configSchema": {
+            "tableId": {
+              "type": "string",
+              "required": true,
+              "label": "Table ID"
+            }
+          },
+          "outputSchema": {
+            "id": {
+              "type": "string"
+            },
+            "fields": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_30_2",
+        "type": "RUN_CODE",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "label": "Calculate Score",
+          "category": "utility",
+          "config": {
+            "code": "let score = 0; if ($json.fields.JobTitle?.includes(\"CEO\")) score += 30; if ($json.fields.CompanySize > 50) score += 20; if ($json.fields.Industry === \"Technology\") score += 15; return { score };"
+          },
+          "configSchema": {
+            "code": {
+              "type": "string",
+              "label": "JavaScript Code",
+              "inputType": "textarea",
+              "required": true,
+              "description": "JavaScript code to execute"
+            }
+          },
+          "inputSchema": {
+            "input": {
+              "type": "object",
+              "required": false
+            }
+          },
+          "outputSchema": {
+            "output": {
+              "type": "object",
+              "description": "Code execution result"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_30_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 700,
+          "y": 100
+        },
+        "data": {
+          "label": "Update Score",
+          "category": "action",
+          "config": {
+            "recordId": "={{$node[\"New Contact\"].json.id}}",
+            "fields": {
+              "LeadScore": "={{$json.score}}"
+            }
+          },
+          "connector": "airtable",
+          "actionId": "create_record",
+          "action": "create_record",
+          "actionName": "Create Record",
+          "description": "Create a new record in Airtable",
+          "icon": "plus",
+          "connectorType": "airtable",
+          "connectorDisplayName": "Airtable",
+          "inputSchema": {
+            "baseId": {
+              "type": "string",
+              "required": true,
+              "label": "Base ID"
+            },
+            "tableId": {
+              "type": "string",
+              "required": true,
+              "label": "Table ID"
+            },
+            "fields": {
+              "type": "object",
+              "required": true,
+              "label": "Fields"
+            }
+          },
+          "configSchema": {
+            "baseId": {
+              "type": "string",
+              "required": true,
+              "label": "Base ID"
+            },
+            "tableId": {
+              "type": "string",
+              "required": true,
+              "label": "Table ID"
+            },
+            "fields": {
+              "type": "object",
+              "required": true,
+              "label": "Fields"
+            }
+          },
+          "outputSchema": {
+            "id": {
+              "type": "string"
+            },
+            "fields": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_1",
+        "source": "node_30_1",
+        "target": "node_30_2",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_2",
+        "source": "node_30_2",
+        "target": "node_30_3",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

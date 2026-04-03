@@ -1,0 +1,198 @@
+{
+  "id": "094eff4e-d4d0-4f53-8df7-4af940d6bd8c",
+  "name": "Twitter Trend Alerter",
+  "description": "Monitor Twitter trends and alert team via Slack",
+  "category": "social",
+  "difficulty": "beginner",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": [
+    "twitter",
+    "slack"
+  ],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_19_1",
+        "type": "MANUAL_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 100
+        },
+        "data": {
+          "label": "Hourly",
+          "category": "trigger",
+          "config": {
+            "cronExpression": "0 * * * *"
+          },
+          "description": "Manually trigger this workflow",
+          "icon": "play",
+          "configSchema": {},
+          "outputSchema": {
+            "timestamp": {
+              "type": "string",
+              "description": "Execution timestamp"
+            }
+          },
+          "inputSchema": {}
+        }
+      },
+      {
+        "id": "node_19_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "label": "Get Trends",
+          "category": "action",
+          "config": {
+            "location": "worldwide"
+          },
+          "connector": "twitter",
+          "actionId": "create_tweet",
+          "action": "create_tweet",
+          "actionName": "Create Tweet",
+          "description": "Post a tweet",
+          "icon": "twitter",
+          "connectorType": "twitter",
+          "connectorDisplayName": "Twitter",
+          "inputSchema": {
+            "text": {
+              "type": "string",
+              "required": true,
+              "label": "Tweet Text"
+            }
+          },
+          "configSchema": {
+            "text": {
+              "type": "string",
+              "required": true,
+              "label": "Tweet Text"
+            }
+          },
+          "outputSchema": {
+            "tweetId": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_19_3",
+        "type": "RUN_CODE",
+        "position": {
+          "x": 700,
+          "y": 100
+        },
+        "data": {
+          "label": "Filter Relevant",
+          "category": "utility",
+          "config": {
+            "code": "const keywords = [\"tech\", \"ai\", \"startup\"]; return $json.filter(t => keywords.some(k => t.name.toLowerCase().includes(k)));"
+          },
+          "configSchema": {
+            "code": {
+              "type": "string",
+              "label": "JavaScript Code",
+              "inputType": "textarea",
+              "required": true,
+              "description": "JavaScript code to execute"
+            }
+          },
+          "inputSchema": {
+            "input": {
+              "type": "object",
+              "required": false
+            }
+          },
+          "outputSchema": {
+            "output": {
+              "type": "object",
+              "description": "Code execution result"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_19_4",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1000,
+          "y": 100
+        },
+        "data": {
+          "label": "Alert",
+          "category": "action",
+          "config": {
+            "channel": "#marketing",
+            "message": "🔥 Trending: {{$json}}"
+          },
+          "connector": "slack",
+          "actionId": "send_message",
+          "action": "send_message",
+          "actionName": "Send Message",
+          "description": "Send a message to a Slack channel",
+          "icon": "send",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack",
+          "inputSchema": {
+            "channel": {
+              "type": "string",
+              "required": true,
+              "label": "Channel"
+            },
+            "message": {
+              "type": "string",
+              "required": true,
+              "label": "Message",
+              "inputType": "textarea"
+            }
+          },
+          "configSchema": {
+            "channel": {
+              "type": "string",
+              "required": true,
+              "label": "Channel"
+            },
+            "message": {
+              "type": "string",
+              "required": true,
+              "label": "Message",
+              "inputType": "textarea"
+            }
+          },
+          "outputSchema": {
+            "messageId": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_1",
+        "source": "node_19_1",
+        "target": "node_19_2",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_2",
+        "source": "node_19_2",
+        "target": "node_19_3",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_3",
+        "source": "node_19_3",
+        "target": "node_19_4",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

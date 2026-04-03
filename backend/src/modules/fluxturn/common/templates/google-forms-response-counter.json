@@ -1,0 +1,149 @@
+{
+  "id": "6206ecdc-6060-4f12-8926-87158f52ed14",
+  "name": "Google Forms Response Counter Dashboard",
+  "description": "Track form response counts and update dashboard. Nodes: Google Forms Trigger, Google Sheets Action, Slack Action",
+  "category": "analytics",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Response Received",
+          "config": {},
+          "category": "trigger",
+          "connector": "google_forms",
+          "connectorType": "google_forms",
+          "connectorDisplayName": "Google Forms",
+          "description": "Triggered on form submission",
+          "trigger": "new_response",
+          "triggerId": "new_response",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Update Counter",
+          "config": {
+            "spreadsheetId": "{{spreadsheet_id}}",
+            "range": "Dashboard!B2",
+            "value": "={{B2}}+1"
+          },
+          "category": "action",
+          "connector": "google_sheets",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets",
+          "description": "Increment counter in sheet",
+          "action": "update_cell",
+          "actionId": "update_cell",
+          "actionName": "Update Counter"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Report Milestone",
+          "config": {
+            "channel": "{{channel_id}}",
+            "text": "🎉 Response #{{node_2.output.value}} received!"
+          },
+          "category": "action",
+          "connector": "slack",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack",
+          "description": "Post update to Slack",
+          "action": "send_message",
+          "actionId": "send_message",
+          "actionName": "Report Milestone"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_forms",
+        "triggerId": "new_response"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_forms",
+    "google_sheets",
+    "slack"
+  ],
+  "tags": [
+    "analytics",
+    "automation",
+    "google_forms",
+    "google_sheets",
+    "slack"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow track form response counts and update dashboard. nodes: google forms trigger, google sheets action, slack action using google_forms, google_sheets, slack",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"response tracking\" that counts Google Forms submissions and reports to Slack"
+}

@@ -1,0 +1,191 @@
+{
+  "id": "a3c3660b-01a0-4ee0-a0fc-6dba59818d59",
+  "name": "Jotform Lead to CRM Pipeline",
+  "description": "Capture Jotform submissions and route to sales team",
+  "category": "sales",
+  "difficulty": "beginner",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": [
+    "jotform",
+    "airtable",
+    "slack"
+  ],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_21_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 100
+        },
+        "data": {
+          "label": "New Submission",
+          "category": "trigger",
+          "config": {},
+          "connector": "jotform",
+          "triggerId": "form_submission",
+          "inputSchema": {
+            "pollInterval": {
+              "type": "number",
+              "label": "Poll Interval",
+              "default": 300
+            }
+          },
+          "configSchema": {
+            "pollInterval": {
+              "type": "number",
+              "label": "Poll Interval",
+              "default": 300
+            }
+          },
+          "outputSchema": {
+            "data": {
+              "type": "object",
+              "description": "Trigger event data"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_21_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "label": "Add to CRM",
+          "category": "action",
+          "config": {
+            "baseId": "{{your_base_id}}",
+            "tableId": "Leads",
+            "fields": "={{$json.answers}}"
+          },
+          "connector": "airtable",
+          "actionId": "create_record",
+          "action": "create_record",
+          "actionName": "Create Record",
+          "description": "Create a new record in Airtable",
+          "icon": "plus",
+          "connectorType": "airtable",
+          "connectorDisplayName": "Airtable",
+          "inputSchema": {
+            "baseId": {
+              "type": "string",
+              "required": true,
+              "label": "Base ID"
+            },
+            "tableId": {
+              "type": "string",
+              "required": true,
+              "label": "Table ID"
+            },
+            "fields": {
+              "type": "object",
+              "required": true,
+              "label": "Fields"
+            }
+          },
+          "configSchema": {
+            "baseId": {
+              "type": "string",
+              "required": true,
+              "label": "Base ID"
+            },
+            "tableId": {
+              "type": "string",
+              "required": true,
+              "label": "Table ID"
+            },
+            "fields": {
+              "type": "object",
+              "required": true,
+              "label": "Fields"
+            }
+          },
+          "outputSchema": {
+            "id": {
+              "type": "string"
+            },
+            "fields": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_21_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 700,
+          "y": 100
+        },
+        "data": {
+          "label": "Notify Sales",
+          "category": "action",
+          "config": {
+            "channel": "#sales",
+            "message": "🎯 New lead: {{$json.answers.name}}"
+          },
+          "connector": "slack",
+          "actionId": "send_message",
+          "action": "send_message",
+          "actionName": "Send Message",
+          "description": "Send a message to a Slack channel",
+          "icon": "send",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack",
+          "inputSchema": {
+            "channel": {
+              "type": "string",
+              "required": true,
+              "label": "Channel"
+            },
+            "message": {
+              "type": "string",
+              "required": true,
+              "label": "Message",
+              "inputType": "textarea"
+            }
+          },
+          "configSchema": {
+            "channel": {
+              "type": "string",
+              "required": true,
+              "label": "Channel"
+            },
+            "message": {
+              "type": "string",
+              "required": true,
+              "label": "Message",
+              "inputType": "textarea"
+            }
+          },
+          "outputSchema": {
+            "messageId": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_1",
+        "source": "node_21_1",
+        "target": "node_21_2",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_2",
+        "source": "node_21_2",
+        "target": "node_21_3",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

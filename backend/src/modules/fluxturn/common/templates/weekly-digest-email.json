@@ -1,0 +1,154 @@
+{
+  "id": "f80dd08e-1c95-4a52-ad6b-c3e47a6ccbed",
+  "name": "Weekly Digest Email",
+  "description": "Automatically weekly digest email. Nodes: Google Calendar Trigger, Google Sheets Action, SMTP Action",
+  "category": "email",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Weekly Schedule",
+          "config": {},
+          "trigger": "weekly_schedule",
+          "category": "trigger",
+          "connector": "google_calendar",
+          "eventType": "polling",
+          "triggerId": "weekly_schedule",
+          "description": "Triggered when weekly schedule",
+          "connectorType": "google_calendar",
+          "connectorDisplayName": "Google Calendar"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Get Data",
+          "action": "append_row",
+          "config": {
+            "spreadsheetId": "{{spreadsheet_id}}",
+            "sheetName": "Sheet1",
+            "values": [
+              [
+                "{{data}}"
+              ]
+            ]
+          },
+          "actionId": "append_row",
+          "category": "action",
+          "connector": "google_sheets",
+          "actionName": "Get Data",
+          "description": "Get Data",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Send Digest",
+          "action": "send_email",
+          "config": {
+            "to": "{{recipient_email}}",
+            "subject": "{{email_subject}}",
+            "body": "{{email_body}}"
+          },
+          "actionId": "send_email",
+          "category": "action",
+          "connector": "smtp",
+          "actionName": "Send Digest",
+          "description": "Send Digest",
+          "connectorType": "smtp",
+          "connectorDisplayName": "SMTP"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#14b8a6",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#14b8a6",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_calendar",
+        "triggerId": "weekly_schedule"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_calendar",
+    "google_sheets",
+    "smtp"
+  ],
+  "tags": [
+    "email",
+    "automation",
+    "google_calendar",
+    "google_sheets",
+    "smtp"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow weekly digest email using google_calendar, google_sheets, smtp",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"weekly digest email\" that triggers when triggered when weekly schedule and then Get Data via Google Sheets, Send Digest via SMTP"
+}

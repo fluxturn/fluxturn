@@ -1,0 +1,105 @@
+{
+  "id": "d37f02b5-db6e-480d-8ff8-f45711b87908",
+  "name": "Discord Announcement to Slack",
+  "description": "Automatically discord announcement to slack. Nodes: Discord Trigger, Slack Action",
+  "category": "collaboration",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Message in Channel",
+          "config": {},
+          "trigger": "new_message",
+          "category": "trigger",
+          "connector": "discord",
+          "eventType": "polling",
+          "triggerId": "new_message",
+          "description": "Triggered when new message in channel",
+          "connectorType": "discord",
+          "connectorDisplayName": "Discord"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Post Message",
+          "action": "send_message",
+          "config": {
+            "channel": "{{channel_id}}",
+            "text": "{{message}}"
+          },
+          "actionId": "send_message",
+          "category": "action",
+          "connector": "slack",
+          "actionName": "Post Message",
+          "description": "Post Message",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "discord",
+        "triggerId": "new_message"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "discord",
+    "slack"
+  ],
+  "tags": [
+    "collaboration",
+    "automation",
+    "discord",
+    "slack"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow discord announcement to slack using discord, slack",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"discord announcement to slack\" that triggers when triggered when new message in channel and then Post Message via Slack"
+}

@@ -1,0 +1,107 @@
+{
+  "id": "2b919cd6-0019-42ae-b08c-3c1893f15ec0",
+  "name": "Salesforce New Contact to Google Sheets",
+  "description": "Log new Salesforce contacts to Google Sheets for tracking. Nodes: Salesforce Trigger, Google Sheets Action",
+  "category": "sales",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Contact Created",
+          "config": {},
+          "category": "trigger",
+          "connector": "salesforce",
+          "connectorType": "salesforce",
+          "connectorDisplayName": "Salesforce",
+          "description": "Triggered on new contact",
+          "trigger": "contact_created",
+          "triggerId": "contact_created",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Log Contact",
+          "config": {
+            "spreadsheetId": "{{spreadsheet_id}}",
+            "range": "Contacts!A:Z",
+            "values": "{{trigger.Name}},{{trigger.Email}},{{trigger.Phone}},{{trigger.Account.Name}}"
+          },
+          "category": "action",
+          "connector": "google_sheets",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets",
+          "description": "Append to sheet",
+          "action": "append_row",
+          "actionId": "append_row",
+          "actionName": "Log Contact"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "salesforce",
+        "triggerId": "contact_created"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "salesforce",
+    "google_sheets"
+  ],
+  "tags": [
+    "sales",
+    "automation",
+    "salesforce",
+    "google_sheets",
+    "contacts"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow log new salesforce contacts to google sheets for tracking. nodes: salesforce trigger, google sheets action using salesforce, google_sheets",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"contact logging\" that triggers on Salesforce contact creation and logs to Google Sheets"
+}

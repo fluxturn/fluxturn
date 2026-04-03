@@ -1,0 +1,106 @@
+{
+  "id": "dae8245f-b9b5-4656-9ab5-2c3212992a29",
+  "name": "ClickUp High Priority Task Alert",
+  "description": "Immediate alerts for high-priority task creation. Nodes: ClickUp Trigger, Slack Action",
+  "category": "project_management",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "High Priority Task",
+          "config": {},
+          "category": "trigger",
+          "connector": "clickup",
+          "connectorType": "clickup",
+          "connectorDisplayName": "Clickup",
+          "description": "Triggered on high priority task",
+          "trigger": "task_created",
+          "triggerId": "task_created",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Urgent Alert",
+          "config": {
+            "channel": "{{channel_id}}",
+            "text": "🚨 HIGH PRIORITY: {{trigger.name}}\nAssigned to: {{trigger.assignee}}\nDue: {{trigger.due_date}}"
+          },
+          "category": "action",
+          "connector": "slack",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack",
+          "description": "Post urgent alert",
+          "action": "send_message",
+          "actionId": "send_message",
+          "actionName": "Urgent Alert"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "clickup",
+        "triggerId": "task_created"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "clickup",
+    "slack"
+  ],
+  "tags": [
+    "project_management",
+    "automation",
+    "clickup",
+    "slack",
+    "alerts"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow immediate alerts for high-priority task creation. nodes: clickup trigger, slack action using clickup, slack",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"high priority alert\" that triggers on urgent ClickUp task and posts to Slack"
+}

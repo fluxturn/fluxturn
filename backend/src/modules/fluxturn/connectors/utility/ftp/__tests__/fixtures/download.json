@@ -1,0 +1,77 @@
+{
+  "action": "download",
+  "baseUrl": "",
+  "testCases": [
+    {
+      "name": "should download a file successfully",
+      "input": {
+        "path": "/public/document.pdf",
+        "binaryPropertyName": "data",
+        "timeout": 10000
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/public/document.pdf",
+        "status": 200,
+        "response": {}
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "data": "base64-encoded-file-data-would-be-here",
+          "fileName": "document.pdf",
+          "mimeType": "application/octet-stream"
+        }
+      }
+    },
+    {
+      "name": "should download with custom binary property name",
+      "input": {
+        "path": "/files/image.png",
+        "binaryPropertyName": "file",
+        "timeout": 10000
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/files/image.png",
+        "status": 200,
+        "response": {}
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "file": {
+            "data": "base64-encoded-file-data-would-be-here",
+            "fileName": "image.png",
+            "mimeType": "application/octet-stream"
+          }
+        }
+      }
+    },
+    {
+      "name": "should download with concurrent reads enabled (SFTP)",
+      "input": {
+        "path": "/large-file.zip",
+        "binaryPropertyName": "data",
+        "enableConcurrentReads": true,
+        "maxConcurrentReads": 5,
+        "chunkSize": 64,
+        "timeout": 10000
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/large-file.zip",
+        "status": 200,
+        "response": {}
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "data": "base64-encoded-file-data-would-be-here",
+          "fileName": "large-file.zip",
+          "mimeType": "application/octet-stream"
+        }
+      }
+    }
+  ]
+}

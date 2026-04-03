@@ -1,0 +1,196 @@
+{
+  "id": "a9a37a8e-0f06-49b6-a658-9d241f4518d0",
+  "name": "Comprehensive Project Kickoff Automation",
+  "description": "Complete project setup across multiple platforms. Nodes: Jotform Trigger, Salesforce Action, ClickUp Action, Zoom Action",
+  "category": "project_management",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Project Request",
+          "config": {},
+          "category": "trigger",
+          "connector": "jotform",
+          "connectorType": "jotform",
+          "connectorDisplayName": "Jotform",
+          "description": "Triggered on project form submission",
+          "trigger": "new_submission",
+          "triggerId": "new_submission",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Opportunity",
+          "config": {
+            "name": "{{form.project_name}}",
+            "amount": "{{form.budget}}",
+            "stageName": "Prospecting",
+            "closeDate": "{{form.target_date}}"
+          },
+          "category": "action",
+          "connector": "salesforce",
+          "connectorType": "salesforce",
+          "connectorDisplayName": "Salesforce",
+          "description": "Create Salesforce opportunity",
+          "action": "create_opportunity",
+          "actionId": "create_opportunity",
+          "actionName": "Create Opportunity"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Project",
+          "config": {
+            "folderId": "{{folder_id}}",
+            "name": "{{form.project_name}}",
+            "description": "Budget: {{form.budget}}\nSF ID: {{node_2.output.Id}}"
+          },
+          "category": "action",
+          "connector": "clickup",
+          "connectorType": "clickup",
+          "connectorDisplayName": "Clickup",
+          "description": "Create ClickUp project",
+          "action": "create_list",
+          "actionId": "create_list",
+          "actionName": "Create Project"
+        }
+      },
+      {
+        "id": "node_4",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1095,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Schedule Kickoff",
+          "config": {
+            "topic": "Kickoff: {{form.project_name}}",
+            "type": 2,
+            "duration": 60,
+            "agenda": "Project kickoff meeting for {{form.project_name}}"
+          },
+          "category": "action",
+          "connector": "zoom",
+          "connectorType": "zoom",
+          "connectorDisplayName": "Zoom",
+          "description": "Schedule Zoom meeting",
+          "action": "create_meeting",
+          "actionId": "create_meeting",
+          "actionName": "Schedule Kickoff"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_3",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_3",
+        "target": "node_4",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "jotform",
+        "triggerId": "new_submission"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "jotform",
+    "salesforce",
+    "clickup",
+    "zoom"
+  ],
+  "tags": [
+    "project_management",
+    "automation",
+    "jotform",
+    "salesforce",
+    "clickup",
+    "zoom"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow complete project setup across multiple platforms. nodes: jotform trigger, salesforce action, clickup action, zoom action using jotform, salesforce, clickup, zoom",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"project kickoff\" that triggers on form submission, creates Salesforce opportunity, ClickUp project, and Zoom meeting"
+}

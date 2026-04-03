@@ -1,0 +1,99 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-100000000020",
+  "name": "Clear Sheets Range and Log to Docs",
+  "description": "Clear a range in Google Sheets and log the action to Google Docs. Nodes: Manual Trigger, Google Sheets Action, Google Docs Action",
+  "category": "productivity",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Clear Range",
+          "config": {
+            "spreadsheetId": "{{spreadsheet_id}}",
+            "sheetName": "{{sheet_name}}",
+            "range": "{{range}}"
+          },
+          "category": "action",
+          "connector": "google_sheets",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets",
+          "description": "Clear values from a range",
+          "action": "clear",
+          "actionId": "clear",
+          "actionName": "Clear Range"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Append Text",
+          "config": {
+            "documentId": "{{document_id}}",
+            "text": "Cleared range {{range}} in sheet {{sheet_name}} at {{node_2.output.clearedRange}}\n\n"
+          },
+          "category": "action",
+          "connector": "google_docs",
+          "connectorType": "google_docs",
+          "connectorDisplayName": "Google Docs",
+          "description": "Append text to the end of a document",
+          "action": "append_text",
+          "actionId": "append_text",
+          "actionName": "Append Text"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [{ "id": "node_1", "type": "MANUAL_TRIGGER", "config": {} }],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": ["google_sheets", "google_docs"],
+  "tags": ["productivity", "automation", "google_sheets", "google_docs", "maintenance"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow clears a Google Sheets range and logs to Google Docs using manual trigger, google_sheets, google_docs",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow to clear a range in Google Sheets and log the action to Google Docs"
+}

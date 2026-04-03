@@ -1,0 +1,202 @@
+{
+  "id": "c293dee0-70b8-436d-9e77-7a9b8e15c9f2",
+  "name": "Gmail Attachment Backup",
+  "description": "Save Gmail attachments to Google Drive automatically",
+  "category": "communication",
+  "difficulty": "beginner",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": [
+    "gmail",
+    "google_drive",
+    "google_sheets"
+  ],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_09_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 100
+        },
+        "data": {
+          "label": "Email with Attachment",
+          "category": "trigger",
+          "config": {
+            "hasAttachment": true
+          },
+          "connector": "gmail",
+          "triggerId": "email_received",
+          "trigger": "email_received",
+          "triggerName": "Email Received",
+          "description": "Triggers when a new email is received",
+          "eventType": "polling",
+          "icon": "mail",
+          "connectorType": "gmail",
+          "connectorDisplayName": "Gmail",
+          "webhookRequired": false,
+          "inputSchema": {
+            "labelName": {
+              "type": "string",
+              "label": "Label Name",
+              "description": "Gmail label to monitor"
+            },
+            "pollInterval": {
+              "type": "number",
+              "label": "Poll Interval (seconds)",
+              "default": 300
+            }
+          },
+          "configSchema": {
+            "labelName": {
+              "type": "string",
+              "label": "Label Name",
+              "description": "Gmail label to monitor"
+            },
+            "pollInterval": {
+              "type": "number",
+              "label": "Poll Interval (seconds)",
+              "default": 300
+            }
+          },
+          "outputSchema": {
+            "from": {
+              "type": "string",
+              "description": "Sender email"
+            },
+            "subject": {
+              "type": "string",
+              "description": "Email subject"
+            },
+            "body": {
+              "type": "string",
+              "description": "Email body"
+            },
+            "snippet": {
+              "type": "string",
+              "description": "Email snippet"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_09_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "label": "Save to Drive",
+          "category": "action",
+          "config": {
+            "folderId": "{{your_folder_id}}",
+            "file": "={{$json.attachments[0]}}"
+          },
+          "connector": "google_drive",
+          "actionId": "upload_file",
+          "inputSchema": {
+            "data": {
+              "type": "object",
+              "label": "Data",
+              "description": "Action input data"
+            }
+          },
+          "configSchema": {
+            "data": {
+              "type": "object",
+              "label": "Data",
+              "description": "Action input data"
+            }
+          },
+          "outputSchema": {
+            "result": {
+              "type": "object",
+              "description": "Action result"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_09_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 700,
+          "y": 100
+        },
+        "data": {
+          "label": "Log File",
+          "category": "action",
+          "config": {
+            "spreadsheetId": "{{your_sheet_id}}",
+            "values": "={{$json}}"
+          },
+          "connector": "google_sheets",
+          "actionId": "append_row",
+          "action": "append_row",
+          "actionName": "Append Row",
+          "description": "Append a row to a Google Sheet",
+          "icon": "table",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets",
+          "inputSchema": {
+            "spreadsheetId": {
+              "type": "string",
+              "required": true,
+              "label": "Spreadsheet ID"
+            },
+            "sheetName": {
+              "type": "string",
+              "label": "Sheet Name",
+              "default": "Sheet1"
+            },
+            "values": {
+              "type": "object",
+              "required": true,
+              "label": "Values"
+            }
+          },
+          "configSchema": {
+            "spreadsheetId": {
+              "type": "string",
+              "required": true,
+              "label": "Spreadsheet ID"
+            },
+            "sheetName": {
+              "type": "string",
+              "label": "Sheet Name",
+              "default": "Sheet1"
+            },
+            "values": {
+              "type": "object",
+              "required": true,
+              "label": "Values"
+            }
+          },
+          "outputSchema": {
+            "rowNumber": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_1",
+        "source": "node_09_1",
+        "target": "node_09_2",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_2",
+        "source": "node_09_2",
+        "target": "node_09_3",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

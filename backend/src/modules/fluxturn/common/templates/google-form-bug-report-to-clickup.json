@@ -1,0 +1,104 @@
+{
+  "id": "cb0e9df5-8ad3-4b3f-a591-43173f045329",
+  "name": "Google Form Bug Report to ClickUp",
+  "description": "Create bug tracking tasks from form. Nodes: Google Forms Trigger, ClickUp Action",
+  "category": "development",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Bug Report",
+          "config": {},
+          "category": "trigger",
+          "connector": "google_forms",
+          "connectorType": "google_forms",
+          "connectorDisplayName": "Google Forms",
+          "trigger": "new_response",
+          "triggerId": "new_response",
+          "eventType": "webhook",
+          "description": "Triggered when bug report"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Bug Task",
+          "config": {
+            "name": "Bug: {{response.title}}",
+            "priority": 3
+          },
+          "category": "action",
+          "connector": "clickup",
+          "connectorType": "clickup",
+          "connectorDisplayName": "Clickup",
+          "action": "create_task",
+          "actionId": "create_task",
+          "actionName": "Create Bug Task",
+          "description": "Create Bug Task"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_forms",
+        "triggerId": "new_response"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_forms",
+    "clickup"
+  ],
+  "tags": [
+    "development",
+    "google_forms",
+    "clickup"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow create bug tracking tasks from form. nodes: google forms trigger, clickup action using google_forms, clickup",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"google form bug report to clickup\" that create bug tracking tasks from form. nodes: google forms trigger, clickup action"
+}

@@ -1,0 +1,80 @@
+{
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567819",
+  "name": "OpenAI Google Drive Document Summarizer",
+  "description": "Automatically summarize new documents uploaded to Google Drive. Nodes: Google Drive Trigger, OpenAI Action",
+  "category": "ai",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "File Created",
+          "config": {},
+          "trigger": "file_created",
+          "category": "trigger",
+          "connector": "google_drive",
+          "eventType": "polling",
+          "triggerId": "file_created",
+          "description": "Triggered when a file is created",
+          "connectorType": "google_drive",
+          "connectorDisplayName": "Google Drive"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Chat Completion",
+          "action": "chat_complete",
+          "config": {
+            "model": "gpt-4",
+            "messages": "{{messages}}"
+          },
+          "actionId": "chat_complete",
+          "category": "action",
+          "connector": "openai",
+          "actionName": "Chat Completion",
+          "description": "Summarize document",
+          "connectorType": "openai",
+          "connectorDisplayName": "OpenAI"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": { "connector": "google_drive", "triggerId": "file_created" }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": ["google_drive", "openai"],
+  "tags": ["ai", "automation", "google_drive", "openai", "summarization"],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow summarizes new Google Drive documents using OpenAI",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"OpenAI Google Drive document summarizer\" that triggers when files are created and summarizes them with AI"
+}

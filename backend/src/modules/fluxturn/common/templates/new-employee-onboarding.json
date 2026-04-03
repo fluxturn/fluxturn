@@ -1,0 +1,146 @@
+{
+  "id": "4a5e28d9-8df9-4bb7-ae14-6ccc29ae425c",
+  "name": "New Employee Onboarding",
+  "description": "Automatically new employee onboarding. Nodes: Google Sheets Trigger, SMTP Action, Google Calendar Action",
+  "category": "hr",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Hire Added",
+          "config": {},
+          "trigger": "row_added",
+          "category": "trigger",
+          "connector": "google_sheets",
+          "eventType": "polling",
+          "triggerId": "row_added",
+          "description": "Triggered when new hire added",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Send Welcome Package",
+          "action": "send_email",
+          "config": {
+            "to": "{{recipient_email}}",
+            "subject": "{{email_subject}}",
+            "body": "{{email_body}}"
+          },
+          "actionId": "send_email",
+          "category": "action",
+          "connector": "smtp",
+          "actionName": "Send Welcome Package",
+          "description": "Send Welcome Package",
+          "connectorType": "smtp",
+          "connectorDisplayName": "SMTP"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Schedule Orientation",
+          "action": "create_event",
+          "config": {},
+          "actionId": "create_event",
+          "category": "action",
+          "connector": "google_calendar",
+          "actionName": "Schedule Orientation",
+          "description": "Schedule Orientation",
+          "connectorType": "google_calendar",
+          "connectorDisplayName": "Google Calendar"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#14b8a6",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#14b8a6",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_sheets",
+        "triggerId": "row_added"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_sheets",
+    "smtp",
+    "google_calendar"
+  ],
+  "tags": [
+    "hr",
+    "automation",
+    "google_sheets",
+    "smtp",
+    "google_calendar"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow new employee onboarding using google_sheets, smtp, google_calendar",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"new employee onboarding\" that triggers when triggered when new hire added and then Send Welcome Package via SMTP, Schedule Orientation via Google Calendar"
+}

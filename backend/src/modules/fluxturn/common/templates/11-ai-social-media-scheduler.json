@@ -1,0 +1,212 @@
+{
+  "id": "cdfc8993-0048-4cfd-ad05-496b2f682ed7",
+  "name": "AI Social Media Scheduler",
+  "description": "Generate and post AI content to Twitter, LinkedIn, and Facebook",
+  "category": "social",
+  "difficulty": "intermediate",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": [
+    "openai",
+    "twitter",
+    "linkedin",
+    "facebook_graph"
+  ],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_11_1",
+        "type": "MANUAL_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 100
+        },
+        "data": {
+          "label": "Daily at 9 AM",
+          "category": "trigger",
+          "config": {
+            "cronExpression": "0 9 * * *"
+          },
+          "description": "Manually trigger this workflow",
+          "icon": "play",
+          "configSchema": {},
+          "outputSchema": {
+            "timestamp": {
+              "type": "string",
+              "description": "Execution timestamp"
+            }
+          },
+          "inputSchema": {}
+        }
+      },
+      {
+        "id": "node_11_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "label": "Generate Content",
+          "category": "action",
+          "config": {
+            "model": "gpt-4",
+            "messages": [
+              {
+                "role": "user",
+                "content": "Write an engaging social media post about productivity"
+              }
+            ]
+          },
+          "connector": "openai",
+          "actionId": "chat_completion",
+          "action": "create_chat_completion",
+          "actionName": "Create Chat Completion",
+          "description": "Generate text using OpenAI",
+          "icon": "brain",
+          "connectorType": "openai",
+          "connectorDisplayName": "Openai",
+          "inputSchema": {
+            "model": {
+              "type": "string",
+              "required": true,
+              "label": "Model",
+              "default": "gpt-4"
+            },
+            "messages": {
+              "type": "array",
+              "required": true,
+              "label": "Messages"
+            }
+          },
+          "configSchema": {
+            "model": {
+              "type": "string",
+              "required": true,
+              "label": "Model",
+              "default": "gpt-4"
+            },
+            "messages": {
+              "type": "array",
+              "required": true,
+              "label": "Messages"
+            }
+          },
+          "outputSchema": {
+            "choices": {
+              "type": "array",
+              "description": "AI responses"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_11_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 700,
+          "y": 100
+        },
+        "data": {
+          "label": "Post to Twitter",
+          "category": "action",
+          "config": {
+            "text": "={{$json.choices[0].message.content}}"
+          },
+          "connector": "twitter",
+          "actionId": "create_tweet",
+          "action": "create_tweet",
+          "actionName": "Create Tweet",
+          "description": "Post a tweet",
+          "icon": "twitter",
+          "connectorType": "twitter",
+          "connectorDisplayName": "Twitter",
+          "inputSchema": {
+            "text": {
+              "type": "string",
+              "required": true,
+              "label": "Tweet Text"
+            }
+          },
+          "configSchema": {
+            "text": {
+              "type": "string",
+              "required": true,
+              "label": "Tweet Text"
+            }
+          },
+          "outputSchema": {
+            "tweetId": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_11_4",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1000,
+          "y": 100
+        },
+        "data": {
+          "label": "Post to LinkedIn",
+          "category": "action",
+          "config": {
+            "text": "={{$node[\"Generate Content\"].json.choices[0].message.content}}"
+          },
+          "connector": "linkedin",
+          "actionId": "create_post",
+          "action": "create_post",
+          "actionName": "Create Post",
+          "description": "Create a LinkedIn post",
+          "icon": "linkedin",
+          "connectorType": "linkedin",
+          "connectorDisplayName": "Linkedin",
+          "inputSchema": {
+            "text": {
+              "type": "string",
+              "required": true,
+              "label": "Post Text"
+            }
+          },
+          "configSchema": {
+            "text": {
+              "type": "string",
+              "required": true,
+              "label": "Post Text"
+            }
+          },
+          "outputSchema": {
+            "postId": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_1",
+        "source": "node_11_1",
+        "target": "node_11_2",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_2",
+        "source": "node_11_2",
+        "target": "node_11_3",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_3",
+        "source": "node_11_3",
+        "target": "node_11_4",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

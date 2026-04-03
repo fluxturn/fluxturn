@@ -1,0 +1,99 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-100000000008",
+  "name": "Twitter DM and Log",
+  "description": "Send a Twitter DM and log it to Google Sheets. Nodes: Manual Trigger, Twitter Action, Google Sheets Action",
+  "category": "social",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Send Direct Message",
+          "config": {
+            "userId": "{{recipient_user_id}}",
+            "text": "{{message_text}}"
+          },
+          "category": "action",
+          "connector": "twitter",
+          "connectorType": "twitter",
+          "connectorDisplayName": "Twitter/X",
+          "description": "Send a direct message to a user",
+          "action": "send_direct_message",
+          "actionId": "send_direct_message",
+          "actionName": "Send Direct Message"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Append Row",
+          "config": {
+            "spreadsheetId": "{{spreadsheet_id}}",
+            "sheetName": "{{sheet_name}}",
+            "values": ["{{recipient_user_id}}", "{{message_text}}", "{{node_2.output.created_at}}"]
+          },
+          "category": "action",
+          "connector": "google_sheets",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets",
+          "description": "Add a new row to the end of a sheet",
+          "action": "append_row",
+          "actionId": "append_row",
+          "actionName": "Append Row"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [{ "id": "node_1", "type": "MANUAL_TRIGGER", "config": {} }],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": ["twitter", "google_sheets"],
+  "tags": ["social", "automation", "twitter", "google_sheets", "messaging"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow sends Twitter DMs and logs to Google Sheets using manual trigger, twitter, google_sheets",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow to send Twitter DMs and log them to Google Sheets"
+}

@@ -1,0 +1,99 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-100000000017",
+  "name": "Update Sheets from Docs",
+  "description": "Get document content and update specific row in Google Sheets. Nodes: Manual Trigger, Google Docs Action, Google Sheets Action",
+  "category": "productivity",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Get Document",
+          "config": {
+            "documentId": "{{document_id}}"
+          },
+          "category": "action",
+          "connector": "google_docs",
+          "connectorType": "google_docs",
+          "connectorDisplayName": "Google Docs",
+          "description": "Retrieve a Google Docs document content",
+          "action": "get_document",
+          "actionId": "get_document",
+          "actionName": "Get Document"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Update Row",
+          "config": {
+            "spreadsheetId": "{{spreadsheet_id}}",
+            "sheetName": "{{sheet_name}}",
+            "range": "{{range}}",
+            "values": ["{{node_2.output.title}}", "{{node_2.output.body}}"]
+          },
+          "category": "action",
+          "connector": "google_sheets",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets",
+          "description": "Update an existing row in a sheet",
+          "action": "update_row",
+          "actionId": "update_row",
+          "actionName": "Update Row"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [{ "id": "node_1", "type": "MANUAL_TRIGGER", "config": {} }],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": ["google_docs", "google_sheets"],
+  "tags": ["productivity", "automation", "google_docs", "google_sheets", "update"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow updates Google Sheets row from Google Docs content using manual trigger, google_docs, google_sheets",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow to get document content and update specific row in Google Sheets"
+}

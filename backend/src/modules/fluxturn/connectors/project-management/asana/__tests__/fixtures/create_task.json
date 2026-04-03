@@ -1,0 +1,108 @@
+{
+  "action": "create_task",
+  "baseUrl": "https://app.asana.com/api/1.0",
+  "testCases": [
+    {
+      "name": "creates task successfully",
+      "input": {
+        "title": "Complete project documentation",
+        "description": "Write API documentation for the new features",
+        "projectId": "1234567890"
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/tasks",
+        "status": 201,
+        "response": {
+          "data": {
+            "gid": "task-123456",
+            "name": "Complete project documentation",
+            "notes": "Write API documentation for the new features",
+            "permalink_url": "https://app.asana.com/0/project/task-123456",
+            "completed": false,
+            "projects": [{ "gid": "1234567890" }]
+          }
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "id": "task-123456"
+        }
+      }
+    },
+    {
+      "name": "creates task with assignee and due date",
+      "input": {
+        "title": "Review pull request",
+        "assigneeId": "user-789",
+        "dueDate": "2024-03-15"
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/tasks",
+        "status": 201,
+        "response": {
+          "data": {
+            "gid": "task-789012",
+            "name": "Review pull request",
+            "assignee": { "gid": "user-789" },
+            "due_on": "2024-03-15",
+            "completed": false,
+            "permalink_url": "https://app.asana.com/0/0/task-789012"
+          }
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "id": "task-789012"
+        }
+      }
+    },
+    {
+      "name": "handles validation error - missing title",
+      "input": {
+        "description": "Task without title"
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/tasks",
+        "status": 400,
+        "response": {
+          "errors": [
+            {
+              "message": "name: Missing required field",
+              "help": "For more information on API status codes, see https://developers.asana.com/docs"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    },
+    {
+      "name": "handles rate limit error",
+      "input": {
+        "title": "Rate limited task"
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/tasks",
+        "status": 429,
+        "response": {
+          "errors": [
+            {
+              "message": "Rate limit exceeded",
+              "help": "Retry after some time"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    }
+  ]
+}

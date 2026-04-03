@@ -1,0 +1,12 @@
+# Ignore all backup files except the structure
+# The GitHub Action will commit backups automatically
+
+# Don't ignore the backups directory itself
+!backups/
+
+# Don't ignore SQL backup files (GitHub Action will add them)
+!backups/*.sql
+
+# Ignore temporary files
+*.tmp
+*.log

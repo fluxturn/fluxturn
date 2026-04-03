@@ -1,0 +1,108 @@
+{
+  "id": "e1f708cb-2584-4c8b-aaf3-968da591b774",
+  "name": "Zoom Meeting to Calendar Event",
+  "description": "Sync Zoom meetings to Google Calendar. Nodes: Zoom Trigger, Google Calendar Action",
+  "category": "productivity",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Meeting Created",
+          "config": {},
+          "trigger": "meeting_created",
+          "category": "trigger",
+          "connector": "zoom",
+          "eventType": "webhook",
+          "triggerId": "meeting_created",
+          "description": "Triggered when Zoom meeting is created",
+          "connectorType": "zoom",
+          "connectorDisplayName": "Zoom"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Add to Calendar",
+          "action": "create_event",
+          "config": {
+            "summary": "{{trigger.topic}}",
+            "start": "{{trigger.start_time}}",
+            "end": "{{trigger.end_time}}",
+            "description": "Join URL: {{trigger.join_url}}"
+          },
+          "actionId": "create_event",
+          "category": "action",
+          "connector": "google_calendar",
+          "actionName": "Create Event",
+          "description": "Create calendar event",
+          "connectorType": "google_calendar",
+          "connectorDisplayName": "Google Calendar"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "zoom",
+        "triggerId": "meeting_created"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "zoom",
+    "google_calendar"
+  ],
+  "tags": [
+    "productivity",
+    "automation",
+    "zoom",
+    "google_calendar",
+    "sync"
+  ],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow sync zoom meetings to google calendar. nodes: zoom trigger, google calendar action using zoom, google_calendar",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"zoom meeting to calendar event\" that sync zoom meetings to google calendar. nodes: zoom trigger, google calendar action"
+}

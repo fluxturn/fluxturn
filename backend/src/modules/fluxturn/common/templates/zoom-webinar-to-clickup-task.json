@@ -1,0 +1,107 @@
+{
+  "id": "94f39cee-4e61-4d55-88f2-bcfc6437ca9f",
+  "name": "Zoom Webinar to ClickUp Task",
+  "description": "Create follow-up tasks for webinars. Nodes: Zoom Trigger, ClickUp Action",
+  "category": "project_management",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Webinar Created",
+          "config": {},
+          "trigger": "webinar_created",
+          "category": "trigger",
+          "connector": "zoom",
+          "eventType": "webhook",
+          "triggerId": "webinar_created",
+          "description": "Triggered when webinar is created",
+          "connectorType": "zoom",
+          "connectorDisplayName": "Zoom"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "plus-circle",
+          "label": "Create Follow-up Task",
+          "action": "task_create",
+          "config": {
+            "name": "Follow up: {{trigger.topic}}",
+            "description": "Post-webinar follow-up for {{trigger.topic}}\nDate: {{trigger.start_time}}",
+            "listId": "{{list_id}}"
+          },
+          "actionId": "task_create",
+          "category": "action",
+          "connector": "clickup",
+          "actionName": "Create Task",
+          "description": "Create ClickUp task",
+          "connectorType": "clickup",
+          "connectorDisplayName": "ClickUp"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "zoom",
+        "triggerId": "webinar_created"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "zoom",
+    "clickup"
+  ],
+  "tags": [
+    "project_management",
+    "automation",
+    "zoom",
+    "clickup",
+    "webinar"
+  ],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow create follow-up tasks for webinars. nodes: zoom trigger, clickup action using zoom, clickup",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"zoom webinar to clickup task\" that create follow-up tasks for webinars. nodes: zoom trigger, clickup action"
+}

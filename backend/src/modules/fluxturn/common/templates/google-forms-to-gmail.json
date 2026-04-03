@@ -1,0 +1,107 @@
+{
+  "id": "2e359f54-ee41-48be-b0bf-fa4008da9fba",
+  "name": "Google Forms Email Confirmation",
+  "description": "Send personalized email confirmations to form respondents. Nodes: Google Forms Trigger, Gmail Action",
+  "category": "communication",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Response Received",
+          "config": {},
+          "category": "trigger",
+          "connector": "google_forms",
+          "connectorType": "google_forms",
+          "connectorDisplayName": "Google Forms",
+          "description": "Triggered on form submission",
+          "trigger": "new_response",
+          "triggerId": "new_response",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Send Confirmation",
+          "config": {
+            "to": "{{trigger.respondent_email}}",
+            "subject": "Thank you for your submission",
+            "body": "Thank you for submitting the form. We have received your response."
+          },
+          "category": "action",
+          "connector": "gmail",
+          "connectorType": "gmail",
+          "connectorDisplayName": "Gmail",
+          "description": "Send email via Gmail",
+          "action": "send_email",
+          "actionId": "send_email",
+          "actionName": "Send Confirmation"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_forms",
+        "triggerId": "new_response"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_forms",
+    "gmail"
+  ],
+  "tags": [
+    "communication",
+    "automation",
+    "google_forms",
+    "gmail",
+    "email"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow send personalized email confirmations to form respondents. nodes: google forms trigger, gmail action using google_forms, gmail",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"form confirmation email\" that triggers on Google Forms response and emails respondent"
+}

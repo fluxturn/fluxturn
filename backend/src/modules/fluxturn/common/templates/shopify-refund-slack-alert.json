@@ -1,0 +1,66 @@
+{
+  "id": "99d7e94e-1a74-43d0-8d2f-4c2e97e3f6f2",
+  "name": "Shopify Refund Slack Alert",
+  "description": "Get Slack notifications when refunds are processed",
+  "category": "ecommerce",
+  "difficulty": "beginner",
+  "estimatedSetupTime": "5 min",
+  "requiredConnectors": ["shopify", "slack"],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "shopify_trigger_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": { "x": 100, "y": 100 },
+        "data": {
+          "label": "Refund Created",
+          "connector": "shopify",
+          "triggerId": "refund_created",
+          "icon": "dollar-sign",
+          "category": "trigger",
+          "description": "Triggers when a refund is processed",
+          "config": {},
+          "outputSchema": {
+            "order_id": { "type": "string" },
+            "amount": { "type": "string" },
+            "reason": { "type": "string" }
+          }
+        }
+      },
+      {
+        "id": "slack_action_1",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 450, "y": 100 },
+        "data": {
+          "label": "Alert Finance Team",
+          "connector": "slack",
+          "actionId": "send_message",
+          "icon": "message-square",
+          "category": "action",
+          "description": "Send refund alert to Slack",
+          "config": {
+            "channel": "{{finance_channel}}",
+            "text": "💸 *Refund Processed*\n\nOrder: #{{$json.order_number}}\nAmount: ${{$json.refund_amount}}\nReason: {{$json.reason || 'Not specified'}}\nProcessed by: {{$json.processed_by}}"
+          },
+          "inputSchema": {
+            "channel": { "type": "string", "required": true, "label": "Channel" },
+            "text": { "type": "string", "required": true, "label": "Message" }
+          },
+          "outputSchema": {
+            "ts": { "type": "string" }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1",
+        "source": "shopify_trigger_1",
+        "target": "slack_action_1",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

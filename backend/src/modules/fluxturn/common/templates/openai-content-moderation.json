@@ -1,0 +1,77 @@
+{
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567807",
+  "name": "OpenAI Content Moderation",
+  "description": "Automatically moderate Slack messages for inappropriate content using OpenAI moderation API. Nodes: Slack Trigger, OpenAI Action",
+  "category": "ai",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "New Message",
+          "config": {},
+          "trigger": "message",
+          "category": "trigger",
+          "connector": "slack",
+          "eventType": "webhook",
+          "triggerId": "message",
+          "description": "Triggered when a message is posted",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Moderate Text",
+          "action": "text_moderate",
+          "config": {},
+          "actionId": "text_moderate",
+          "category": "action",
+          "connector": "openai",
+          "actionName": "Moderate Text",
+          "description": "Check content for policy violations",
+          "connectorType": "openai",
+          "connectorDisplayName": "OpenAI"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": { "connector": "slack", "triggerId": "message" }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": ["slack", "openai"],
+  "tags": ["ai", "automation", "slack", "openai", "moderation", "safety"],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow moderates Slack messages using OpenAI moderation API",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"OpenAI content moderation\" that triggers on Slack messages and checks them for policy violations"
+}

@@ -1,0 +1,107 @@
+{
+  "id": "e12f2051-fa0b-4d23-a563-a8377f3c7bea",
+  "name": "Zoom Recording Ready Notification",
+  "description": "Notify attendees when recording is available. Nodes: Zoom Trigger, Gmail Action",
+  "category": "communication",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Recording Ready",
+          "config": {},
+          "trigger": "recording_completed",
+          "category": "trigger",
+          "connector": "zoom",
+          "eventType": "webhook",
+          "triggerId": "recording_completed",
+          "description": "Triggered when recording is ready",
+          "connectorType": "zoom",
+          "connectorDisplayName": "Zoom"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Send Email",
+          "action": "send_email",
+          "config": {
+            "to": "{{trigger.participants_emails}}",
+            "subject": "Recording Available: {{trigger.topic}}",
+            "body": "The recording for {{trigger.topic}} is now available.\nView: {{trigger.share_url}}"
+          },
+          "actionId": "send_email",
+          "category": "action",
+          "connector": "gmail",
+          "actionName": "Send Email",
+          "description": "Send email via Gmail",
+          "connectorType": "gmail",
+          "connectorDisplayName": "Gmail"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "zoom",
+        "triggerId": "recording_completed"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "zoom",
+    "gmail"
+  ],
+  "tags": [
+    "communication",
+    "automation",
+    "zoom",
+    "gmail",
+    "recording"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow notify attendees when recording is available. nodes: zoom trigger, gmail action using zoom, gmail",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"zoom recording ready notification\" that notify attendees when recording is available. nodes: zoom trigger, gmail action"
+}

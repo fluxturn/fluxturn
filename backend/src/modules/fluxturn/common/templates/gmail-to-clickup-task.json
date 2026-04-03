@@ -1,0 +1,108 @@
+{
+  "id": "34dd88d5-7c34-4705-81d9-b7c122ff2283",
+  "name": "Gmail Email to ClickUp Task",
+  "description": "Create ClickUp tasks from important emails automatically. Nodes: Gmail Trigger, ClickUp Action",
+  "category": "productivity",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Email Received",
+          "config": {},
+          "category": "trigger",
+          "connector": "gmail",
+          "connectorType": "gmail",
+          "connectorDisplayName": "Gmail",
+          "description": "Triggered when new email arrives",
+          "trigger": "new_email",
+          "triggerId": "new_email",
+          "eventType": "polling"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Task",
+          "config": {
+            "listId": "{{list_id}}",
+            "name": "Email: {{trigger.subject}}",
+            "description": "From: {{trigger.from}}\n\n{{trigger.body}}",
+            "status": "To Do"
+          },
+          "category": "action",
+          "connector": "clickup",
+          "connectorType": "clickup",
+          "connectorDisplayName": "Clickup",
+          "description": "Create task in ClickUp",
+          "action": "create_task",
+          "actionId": "create_task",
+          "actionName": "Create Task"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "gmail",
+        "triggerId": "new_email"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "gmail",
+    "clickup"
+  ],
+  "tags": [
+    "productivity",
+    "automation",
+    "gmail",
+    "clickup",
+    "tasks"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow create clickup tasks from important emails automatically. nodes: gmail trigger, clickup action using gmail, clickup",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"email to task\" that triggers on Gmail email and creates ClickUp task"
+}

@@ -1,0 +1,107 @@
+{
+  "id": "2f811f06-3c71-4e0a-b8ee-d98500f67926",
+  "name": "Google Forms Priority Response Alert",
+  "description": "Send urgent notifications for high-priority form submissions. Nodes: Google Forms Trigger, Gmail Action",
+  "category": "communication",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Form Submitted",
+          "config": {},
+          "category": "trigger",
+          "connector": "google_forms",
+          "connectorType": "google_forms",
+          "connectorDisplayName": "Google Forms",
+          "description": "Triggered on new form response",
+          "trigger": "new_response",
+          "triggerId": "new_response",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Send Alert",
+          "config": {
+            "to": "{{admin_email}}",
+            "subject": "🚨 Priority Form Response",
+            "body": "Urgent form response received:\n{{trigger.summary}}"
+          },
+          "category": "action",
+          "connector": "gmail",
+          "connectorType": "gmail",
+          "connectorDisplayName": "Gmail",
+          "description": "Email urgent notification",
+          "action": "send_email",
+          "actionId": "send_email",
+          "actionName": "Send Alert"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_forms",
+        "triggerId": "new_response"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_forms",
+    "gmail"
+  ],
+  "tags": [
+    "communication",
+    "automation",
+    "google_forms",
+    "gmail",
+    "alerts"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow send urgent notifications for high-priority form submissions. nodes: google forms trigger, gmail action using google_forms, gmail",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"urgent form alert\" that triggers on priority Google Forms response and emails admin"
+}

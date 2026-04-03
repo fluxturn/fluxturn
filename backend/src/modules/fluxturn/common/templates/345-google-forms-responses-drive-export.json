@@ -1,0 +1,121 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-abcd-300000000045",
+  "name": "Google Forms Responses to Drive Export",
+  "description": "Export all Google Forms responses to a file in Google Drive for backup and sharing",
+  "category": "forms",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "MANUAL_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "category": "trigger",
+          "description": "Manually execute the workflow"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "List Form Responses",
+          "config": {
+            "formId": "{{form_id}}",
+            "returnAll": true
+          },
+          "category": "action",
+          "connector": "google_forms",
+          "connectorType": "google_forms",
+          "connectorDisplayName": "Google Forms",
+          "description": "Get all responses from the form",
+          "action": "responses_list",
+          "actionId": "responses_list",
+          "actionName": "List Responses"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 750, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Upload to Drive",
+          "config": {
+            "folderId": "{{drive_folder_id}}",
+            "name": "{{form_name}}_responses_{{timestamp}}.json",
+            "content": "{{node_2.output.responses}}",
+            "mimeType": "application/json"
+          },
+          "category": "action",
+          "connector": "google_drive",
+          "connectorType": "google_drive",
+          "connectorDisplayName": "Google Drive",
+          "description": "Save responses to Google Drive",
+          "action": "upload_file",
+          "actionId": "upload_file",
+          "actionName": "Upload File"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [],
+  "conditions": [],
+  "variables": [
+    {
+      "name": "form_id",
+      "type": "string",
+      "description": "Google Form ID to export responses from"
+    },
+    {
+      "name": "form_name",
+      "type": "string",
+      "description": "Name of the form for the export filename"
+    },
+    {
+      "name": "drive_folder_id",
+      "type": "string",
+      "description": "Google Drive folder ID to save export to"
+    },
+    {
+      "name": "timestamp",
+      "type": "string",
+      "description": "Timestamp for unique filename"
+    }
+  ],
+  "outputs": [],
+  "required_connectors": ["google_forms", "google_drive"],
+  "tags": ["forms", "google-forms", "google-drive", "export", "backup", "storage"],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "Export Google Forms responses to Google Drive",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Export all Google Forms responses to a file in Google Drive"
+}

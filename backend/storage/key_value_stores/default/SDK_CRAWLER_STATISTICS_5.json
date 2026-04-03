@@ -1,0 +1,40 @@
+{
+  "requestsFinished": 1,
+  "requestsFailed": 0,
+  "requestsRetries": 1,
+  "requestsFailedPerMinute": 0,
+  "requestsFinishedPerMinute": 3,
+  "requestMinDurationMillis": 18629,
+  "requestMaxDurationMillis": 18629,
+  "requestTotalFailedDurationMillis": 0,
+  "requestTotalFinishedDurationMillis": 18629,
+  "crawlerStartedAt": "2025-12-15T04:59:15.732Z",
+  "crawlerFinishedAt": "2025-12-15T04:59:37.684Z",
+  "statsPersistedAt": "2025-12-15T04:59:37.684Z",
+  "crawlerRuntimeMillis": 22335,
+  "crawlerLastStartTimestamp": 1765774755349,
+  "requestRetryHistogram": [
+    null,
+    1
+  ],
+  "statsId": 5,
+  "requestAvgFailedDurationMillis": null,
+  "requestAvgFinishedDurationMillis": 18629,
+  "requestTotalDurationMillis": 18629,
+  "requestsTotal": 1,
+  "requestsWithStatusCode": {
+    "429": 1
+  },
+  "errors": {},
+  "retryErrors": {
+    "C:\\Users\\mdsha\\OneDrive\\Desktop\\fluxturn\\backend\\node_modules\\@crawlee\\src\\internals\\utils\\playwright-utils.ts:241:17": {
+      "missing error code": {
+        "Error": {
+          "page.goto: net::ERR_EMPTY_RESPONSE at https://linkedin.com/company/fitbit/posts/": {
+            "count": 1
+          }
+        }
+      }
+    }
+  }
+}

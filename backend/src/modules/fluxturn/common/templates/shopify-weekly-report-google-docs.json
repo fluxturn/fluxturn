@@ -1,0 +1,94 @@
+{
+  "id": "58534df1-2a82-4d6a-80b1-c42ce2fb782b",
+  "name": "Shopify Weekly Sales Report to Google Docs",
+  "description": "Generate weekly sales reports in Google Docs",
+  "category": "ecommerce",
+  "difficulty": "intermediate",
+  "estimatedSetupTime": "15 min",
+  "requiredConnectors": ["shopify", "google_docs"],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "schedule_trigger_1",
+        "type": "SCHEDULE_TRIGGER",
+        "position": { "x": 100, "y": 100 },
+        "data": {
+          "label": "Every Monday 9 AM",
+          "category": "trigger",
+          "description": "Run weekly on Monday",
+          "config": {
+            "cron": "0 9 * * 1"
+          },
+          "outputSchema": {
+            "timestamp": { "type": "string" }
+          }
+        }
+      },
+      {
+        "id": "shopify_action_1",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 400, "y": 100 },
+        "data": {
+          "label": "Get Last Week Orders",
+          "connector": "shopify",
+          "actionId": "get_all_orders",
+          "icon": "list",
+          "category": "action",
+          "description": "Retrieve last week's orders",
+          "config": {
+            "createdAtMin": "={{new Date(Date.now() - 7*24*60*60*1000).toISOString()}}",
+            "returnAll": true
+          },
+          "inputSchema": {
+            "createdAtMin": { "type": "string", "label": "Created After" },
+            "returnAll": { "type": "boolean", "label": "Return All" }
+          },
+          "outputSchema": {
+            "orders": { "type": "array" }
+          }
+        }
+      },
+      {
+        "id": "gdocs_action_1",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 700, "y": 100 },
+        "data": {
+          "label": "Create Report Document",
+          "connector": "google_docs",
+          "actionId": "create_document",
+          "icon": "file-text",
+          "category": "action",
+          "description": "Create weekly report in Google Docs",
+          "config": {
+            "title": "Weekly Sales Report - {{new Date().toLocaleDateString()}}",
+            "content": "Weekly Sales Report\n\nPeriod: Last 7 days\nGenerated: {{new Date().toLocaleString()}}\n\n---\n\nTotal Orders: {{$json.orders.length}}\nTotal Revenue: ${{$json.orders.reduce((sum, o) => sum + parseFloat(o.total_price), 0).toFixed(2)}}\nAverage Order Value: ${{($json.orders.reduce((sum, o) => sum + parseFloat(o.total_price), 0) / $json.orders.length).toFixed(2)}}\n\n---\n\nOrder Details included in appendix."
+          },
+          "inputSchema": {
+            "title": { "type": "string", "required": true, "label": "Document Title" },
+            "content": { "type": "string", "required": true, "label": "Content" }
+          },
+          "outputSchema": {
+            "documentId": { "type": "string" }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1",
+        "source": "schedule_trigger_1",
+        "target": "shopify_action_1",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e2",
+        "source": "shopify_action_1",
+        "target": "gdocs_action_1",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": true
+}

@@ -1,0 +1,108 @@
+{
+  "description": "Brevo webhook event payloads for testing",
+  "events": [
+    {
+      "type": "delivered",
+      "payload": {
+        "event": "delivered",
+        "email": "recipient@example.com",
+        "id": 12345,
+        "date": "2024-01-15T10:30:00.000Z",
+        "message-id": "<msg123@smtp.brevo.com>",
+        "subject": "Test Email",
+        "tag": "welcome",
+        "ts_event": 1705315800
+      }
+    },
+    {
+      "type": "opened",
+      "payload": {
+        "event": "opened",
+        "email": "recipient@example.com",
+        "id": 12345,
+        "date": "2024-01-15T10:35:00.000Z",
+        "message-id": "<msg123@smtp.brevo.com>",
+        "ts_event": 1705316100
+      }
+    },
+    {
+      "type": "click",
+      "payload": {
+        "event": "click",
+        "email": "recipient@example.com",
+        "id": 12345,
+        "date": "2024-01-15T10:36:00.000Z",
+        "message-id": "<msg123@smtp.brevo.com>",
+        "link": "https://example.com/offer",
+        "ts_event": 1705316160
+      }
+    },
+    {
+      "type": "hardBounce",
+      "payload": {
+        "event": "hard_bounce",
+        "email": "invalid@nonexistent.com",
+        "id": 12346,
+        "date": "2024-01-15T10:31:00.000Z",
+        "message-id": "<msg124@smtp.brevo.com>",
+        "reason": "User unknown",
+        "ts_event": 1705315860
+      }
+    },
+    {
+      "type": "softBounce",
+      "payload": {
+        "event": "soft_bounce",
+        "email": "fullbox@example.com",
+        "id": 12347,
+        "date": "2024-01-15T10:32:00.000Z",
+        "message-id": "<msg125@smtp.brevo.com>",
+        "reason": "Mailbox full",
+        "ts_event": 1705315920
+      }
+    },
+    {
+      "type": "spam",
+      "payload": {
+        "event": "spam",
+        "email": "user@example.com",
+        "id": 12348,
+        "date": "2024-01-15T11:00:00.000Z",
+        "message-id": "<msg126@smtp.brevo.com>",
+        "ts_event": 1705317600
+      }
+    },
+    {
+      "type": "unsubscribed",
+      "payload": {
+        "event": "unsubscribed",
+        "email": "unsubscribed@example.com",
+        "id": 12349,
+        "date": "2024-01-15T11:05:00.000Z",
+        "message-id": "<msg127@smtp.brevo.com>",
+        "ts_event": 1705317900
+      }
+    },
+    {
+      "type": "listAddition",
+      "payload": {
+        "event": "listAddition",
+        "email": "newcontact@example.com",
+        "id": 12350,
+        "date": "2024-01-15T12:00:00.000Z",
+        "listId": [1, 5],
+        "ts_event": 1705320000
+      }
+    },
+    {
+      "type": "contactUpdated",
+      "payload": {
+        "event": "contactUpdated",
+        "email": "updated@example.com",
+        "id": 12351,
+        "date": "2024-01-15T12:15:00.000Z",
+        "ts_event": 1705320900
+      }
+    }
+  ]
+}

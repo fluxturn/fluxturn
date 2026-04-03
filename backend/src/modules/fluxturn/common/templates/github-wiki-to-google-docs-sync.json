@@ -1,0 +1,105 @@
+{
+  "id": "fd0db9a3-9b5d-4f2c-8477-06330e639850",
+  "name": "GitHub Wiki to Google Docs Sync",
+  "description": "Automatically github wiki to google docs sync. Nodes: GitHub Trigger, Google Docs Action",
+  "category": "document_management",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Wiki Page Updated",
+          "config": {},
+          "trigger": "wiki_page_updated",
+          "category": "trigger",
+          "connector": "github",
+          "eventType": "polling",
+          "triggerId": "wiki_page_updated",
+          "description": "Triggered when wiki page updated",
+          "connectorType": "github",
+          "connectorDisplayName": "GitHub"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Update Document",
+          "action": "update_document",
+          "config": {
+            "title": "{{document_title}}",
+            "content": "{{document_content}}"
+          },
+          "actionId": "update_document",
+          "category": "action",
+          "connector": "google_docs",
+          "actionName": "Update Document",
+          "description": "Update Document",
+          "connectorType": "google_docs",
+          "connectorDisplayName": "Google Docs"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "github",
+        "triggerId": "wiki_page_updated"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "github",
+    "google_docs"
+  ],
+  "tags": [
+    "document_management",
+    "automation",
+    "github",
+    "google_docs"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow github wiki to google docs sync using github, google_docs",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"github wiki to google docs sync\" that triggers when triggered when wiki page updated and then Update Document via Google Docs"
+}

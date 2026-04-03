@@ -1,0 +1,2386 @@
+{
+  "id": "63388c90-a1bb-491c-8f1e-3a1dc0727bf5",
+  "name": "Email Campaign Tracker",
+  "description": "Track email campaigns and analyze performance with AI insights.",
+  "category": "other",
+  "canvas": {
+    "edges": [
+      {
+        "id": "xy-edge__MANUAL_TRIGGER_1762836220957source-1-node_2target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "MANUAL_TRIGGER_1762836220957",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__node_2source-1-node_3target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__node_3source-1-RUN_CODE_1762839301725target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_3",
+        "target": "RUN_CODE_1762839301725",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__RUN_CODE_1762839301725source-1-google_sheets_append_row_1762427124089target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "RUN_CODE_1762839301725",
+        "target": "google_sheets_append_row_1762427124089",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "xy-edge__google_sheets_append_row_1762427124089source-1-slack_send_message_1762427149186target-1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "google_sheets_append_row_1762427124089",
+        "target": "slack_send_message_1762427149186",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "node_2",
+        "data": {
+          "icon": "connector",
+          "label": "Track with Google Analytics",
+          "action": "get_ga4_report",
+          "config": {
+            "metrics": "users, sessions",
+            "dimensions": "campaign, medium",
+            "propertyId": "<your_property_id>"
+          },
+          "status": "success",
+          "actionId": "get_ga4_report",
+          "category": "action",
+          "connector": "google_analytics",
+          "inputData": [
+            {
+              "json": {
+                "test": true,
+                "executedAt": "2025-11-11T06:03:49.987Z"
+              }
+            }
+          ],
+          "startTime": 1762841030048,
+          "actionName": "Get GA4 Report",
+          "lastResult": {
+            "error": {
+              "code": "GA4_REQUEST_FAILED",
+              "message": "Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project."
+            },
+            "action": "get_ga4_report",
+            "success": false,
+            "connector": "google_analytics",
+            "executedAt": "2025-11-11T06:03:50.505Z"
+          },
+          "outputData": {
+            "error": {
+              "code": "GA4_REQUEST_FAILED",
+              "message": "Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project."
+            },
+            "action": "get_ga4_report",
+            "success": false,
+            "connector": "google_analytics",
+            "executedAt": "2025-11-11T06:03:50.505Z"
+          },
+          "description": "Get analytics data from Google Analytics 4 property",
+          "inputSchema": {
+            "limit": {
+              "max": 100000,
+              "min": 1,
+              "type": "number",
+              "label": "Limit",
+              "order": 8,
+              "default": 100,
+              "description": "Maximum number of results (only when Return All is false)",
+              "displayOptions": {
+                "show": {
+                  "returnAll": [
+                    false
+                  ]
+                }
+              }
+            },
+            "simple": {
+              "type": "boolean",
+              "label": "Simplify Response",
+              "order": 9,
+              "default": true,
+              "description": "Convert nested GA4 response into flat objects"
+            },
+            "endDate": {
+              "type": "string",
+              "label": "End Date",
+              "order": 4,
+              "description": "End date in YYYY-MM-DD format (only for Custom Range)",
+              "placeholder": "2025-01-31",
+              "displayOptions": {
+                "show": {
+                  "dateRange": [
+                    "custom"
+                  ]
+                }
+              }
+            },
+            "metrics": {
+              "type": "array",
+              "label": "Metrics",
+              "order": 5,
+              "default": [
+                "activeUsers",
+                "sessions"
+              ],
+              "required": true,
+              "description": "GA4 metrics to retrieve (e.g., activeUsers, sessions, conversions)"
+            },
+            "dateRange": {
+              "type": "select",
+              "label": "Date Range",
+              "order": 2,
+              "default": "last7days",
+              "options": [
+                {
+                  "label": "Today",
+                  "value": "today"
+                },
+                {
+                  "label": "Yesterday",
+                  "value": "yesterday"
+                },
+                {
+                  "label": "Last 7 Days",
+                  "value": "last7days"
+                },
+                {
+                  "label": "Last 30 Days",
+                  "value": "last30days"
+                },
+                {
+                  "label": "Last 90 Days",
+                  "value": "last90days"
+                },
+                {
+                  "label": "This Month",
+                  "value": "thisMonth"
+                },
+                {
+                  "label": "Last Month",
+                  "value": "lastMonth"
+                },
+                {
+                  "label": "This Year",
+                  "value": "thisYear"
+                },
+                {
+                  "label": "Last Year",
+                  "value": "lastYear"
+                },
+                {
+                  "label": "Custom Range",
+                  "value": "custom"
+                }
+              ],
+              "required": true,
+              "description": "Time period for the report"
+            },
+            "returnAll": {
+              "type": "boolean",
+              "label": "Return All Results",
+              "order": 7,
+              "default": false,
+              "description": "Get all results or limit to a specific number"
+            },
+            "startDate": {
+              "type": "string",
+              "label": "Start Date",
+              "order": 3,
+              "description": "Start date in YYYY-MM-DD format (only for Custom Range)",
+              "placeholder": "2025-01-01",
+              "displayOptions": {
+                "show": {
+                  "dateRange": [
+                    "custom"
+                  ]
+                }
+              }
+            },
+            "dimensions": {
+              "type": "array",
+              "label": "Dimensions",
+              "order": 6,
+              "default": [
+                "date"
+              ],
+              "description": "GA4 dimensions to group by (e.g., date, country, city, browser)"
+            },
+            "propertyId": {
+              "type": "string",
+              "label": "GA4 Property ID",
+              "order": 1,
+              "required": true,
+              "description": "Your GA4 Property ID (found in Admin → Property Settings)",
+              "placeholder": "123456789"
+            },
+            "currencyCode": {
+              "type": "string",
+              "label": "Currency Code",
+              "order": 10,
+              "description": "Currency code for monetary values (e.g., USD, EUR, GBP)",
+              "placeholder": "USD"
+            }
+          },
+          "actionParams": {
+            "limit": 100,
+            "simple": true,
+            "metrics": [
+              "activeUsers",
+              "sessions"
+            ],
+            "dateRange": "last7days",
+            "returnAll": true,
+            "dimensions": [
+              "date"
+            ],
+            "propertyId": "511753977"
+          },
+          "configSchema": {
+            "limit": {
+              "max": 100000,
+              "min": 1,
+              "type": "number",
+              "label": "Limit",
+              "order": 8,
+              "default": 100,
+              "description": "Maximum number of results (only when Return All is false)",
+              "displayOptions": {
+                "show": {
+                  "returnAll": [
+                    false
+                  ]
+                }
+              }
+            },
+            "simple": {
+              "type": "boolean",
+              "label": "Simplify Response",
+              "order": 9,
+              "default": true,
+              "description": "Convert nested GA4 response into flat objects"
+            },
+            "endDate": {
+              "type": "string",
+              "label": "End Date",
+              "order": 4,
+              "description": "End date in YYYY-MM-DD format (only for Custom Range)",
+              "placeholder": "2025-01-31",
+              "displayOptions": {
+                "show": {
+                  "dateRange": [
+                    "custom"
+                  ]
+                }
+              }
+            },
+            "metrics": {
+              "type": "array",
+              "label": "Metrics",
+              "order": 5,
+              "default": [
+                "activeUsers",
+                "sessions"
+              ],
+              "required": true,
+              "description": "GA4 metrics to retrieve (e.g., activeUsers, sessions, conversions)"
+            },
+            "dateRange": {
+              "type": "select",
+              "label": "Date Range",
+              "order": 2,
+              "default": "last7days",
+              "options": [
+                {
+                  "label": "Today",
+                  "value": "today"
+                },
+                {
+                  "label": "Yesterday",
+                  "value": "yesterday"
+                },
+                {
+                  "label": "Last 7 Days",
+                  "value": "last7days"
+                },
+                {
+                  "label": "Last 30 Days",
+                  "value": "last30days"
+                },
+                {
+                  "label": "Last 90 Days",
+                  "value": "last90days"
+                },
+                {
+                  "label": "This Month",
+                  "value": "thisMonth"
+                },
+                {
+                  "label": "Last Month",
+                  "value": "lastMonth"
+                },
+                {
+                  "label": "This Year",
+                  "value": "thisYear"
+                },
+                {
+                  "label": "Last Year",
+                  "value": "lastYear"
+                },
+                {
+                  "label": "Custom Range",
+                  "value": "custom"
+                }
+              ],
+              "required": true,
+              "description": "Time period for the report"
+            },
+            "returnAll": {
+              "type": "boolean",
+              "label": "Return All Results",
+              "order": 7,
+              "default": false,
+              "description": "Get all results or limit to a specific number"
+            },
+            "startDate": {
+              "type": "string",
+              "label": "Start Date",
+              "order": 3,
+              "description": "Start date in YYYY-MM-DD format (only for Custom Range)",
+              "placeholder": "2025-01-01",
+              "displayOptions": {
+                "show": {
+                  "dateRange": [
+                    "custom"
+                  ]
+                }
+              }
+            },
+            "dimensions": {
+              "type": "array",
+              "label": "Dimensions",
+              "order": 6,
+              "default": [
+                "date"
+              ],
+              "description": "GA4 dimensions to group by (e.g., date, country, city, browser)"
+            },
+            "propertyId": {
+              "type": "string",
+              "label": "GA4 Property ID",
+              "order": 1,
+              "required": true,
+              "description": "Your GA4 Property ID (found in Admin → Property Settings)",
+              "placeholder": "123456789"
+            },
+            "currencyCode": {
+              "type": "string",
+              "label": "Currency Code",
+              "order": 10,
+              "description": "Currency code for monetary values (e.g., USD, EUR, GBP)",
+              "placeholder": "USD"
+            }
+          },
+          "credentialId": "4d71ad1d-fdc7-4454-b145-49902f2f99e1",
+          "outputSchema": {
+            "type": "object",
+            "properties": {
+              "rows": {
+                "type": "array",
+                "description": "Array of data rows with dimensions and metrics"
+              },
+              "rowCount": {
+                "type": "number",
+                "description": "Total number of rows"
+              },
+              "metricHeaders": {
+                "type": "array",
+                "description": "Metric column headers"
+              },
+              "dimensionHeaders": {
+                "type": "array",
+                "description": "Dimension column headers"
+              }
+            }
+          },
+          "connectorType": "google_analytics",
+          "executionTime": 457,
+          "lastExecutedAt": "2025-11-11T06:03:54.864Z",
+          "credentialAuthType": "standard",
+          "connectorDisplayName": "Google Analytics"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 285,
+          "y": 15
+        }
+      },
+      {
+        "id": "node_3",
+        "data": {
+          "icon": "connector",
+          "label": "Generate AI Insights",
+          "action": "chat_complete",
+          "config": {
+            "model": "gpt-4",
+            "messages": [
+              {
+                "role": "system",
+                "content": "You are an expert email marketing analyst. Analyze the email campaign data and Google Analytics metrics to provide actionable insights."
+              },
+              {
+                "role": "user",
+                "content": "Email Campaign Analysis Request:\n\nEmail Details:\n- From: {{$node.node_1.json.from}}\n- Subject: {{$node.node_1.json.subject}}\n- Date: {{$node.node_1.json.date}}\n- Preview: {{$node.node_1.json.snippet}}\n\nGoogle Analytics Data:\n{{$node.node_2.json}}\n\nPlease analyze this email campaign and provide:\n1. Key performance metrics\n2. Audience engagement insights\n3. Actionable recommendations for improvement"
+              }
+            ]
+          },
+          "status": "success",
+          "actionId": "chat_complete",
+          "category": "action",
+          "connector": "openai",
+          "inputData": [
+            {
+              "json": {
+                "error": {
+                  "code": "GA4_REQUEST_FAILED",
+                  "message": "Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project."
+                },
+                "action": "get_ga4_report",
+                "success": false,
+                "connector": "google_analytics",
+                "executedAt": "2025-11-11T06:03:50.505Z"
+              }
+            }
+          ],
+          "startTime": 1762841030505,
+          "actionName": "Chat Completion",
+          "lastResult": {
+            "text": "{\n  \"emailCampaign\": {\n    \"name\": \"Spring Sale Email Campaign\",\n    \"startDate\": \"2022-04-01\",\n    \"endDate\": \"2022-04-15\",\n    \"campaignID\": \"ABC123\",\n    \"utmSource\": \"email\",\n    \"utmMedium\": \"campaign\",\n    \"utmCampaign\": \"spring_sale\",\n    \"utmContent\": \"promo_email\",\n    \"utmTerm\": \"spring_sale_discount\",\n    \"metrics\": {\n      \"sessions\": 500,\n      \"pageViews\": 1000,\n      \"uniquePageViews\": 800,\n      \"averageSessionDuration\": \"00:02:30\",\n      \"bounceRate\": \"30%\",\n      \"conversionRate\": \"5%\"\n    },\n    \"goals\": {\n      \"goal1\": {\n        \"name\": \"Purchase\",\n        \"completions\": 25,\n        \"conversionRate\": \"5%\"\n      },\n      \"goal2\": {\n        \"name\": \"Sign up\",\n        \"completions\": 50,\n        \"conversionRate\": \"10%\"\n      }\n    },\n    \"ecommerce\": {\n      \"revenue\": \"$10,000\",\n      \"transactions\": 50,\n      \"averageOrderValue\": \"$200\"\n    }\n  }\n}",
+            "action": "chat_complete",
+            "success": true,
+            "connector": "openai",
+            "executedAt": "2025-11-11T06:03:52.879Z"
+          },
+          "outputData": {
+            "text": "{\n  \"emailCampaign\": {\n    \"name\": \"Spring Sale Email Campaign\",\n    \"startDate\": \"2022-04-01\",\n    \"endDate\": \"2022-04-15\",\n    \"campaignID\": \"ABC123\",\n    \"utmSource\": \"email\",\n    \"utmMedium\": \"campaign\",\n    \"utmCampaign\": \"spring_sale\",\n    \"utmContent\": \"promo_email\",\n    \"utmTerm\": \"spring_sale_discount\",\n    \"metrics\": {\n      \"sessions\": 500,\n      \"pageViews\": 1000,\n      \"uniquePageViews\": 800,\n      \"averageSessionDuration\": \"00:02:30\",\n      \"bounceRate\": \"30%\",\n      \"conversionRate\": \"5%\"\n    },\n    \"goals\": {\n      \"goal1\": {\n        \"name\": \"Purchase\",\n        \"completions\": 25,\n        \"conversionRate\": \"5%\"\n      },\n      \"goal2\": {\n        \"name\": \"Sign up\",\n        \"completions\": 50,\n        \"conversionRate\": \"10%\"\n      }\n    },\n    \"ecommerce\": {\n      \"revenue\": \"$10,000\",\n      \"transactions\": 50,\n      \"averageOrderValue\": \"$200\"\n    }\n  }\n}",
+            "action": "chat_complete",
+            "success": true,
+            "connector": "openai",
+            "executedAt": "2025-11-11T06:03:52.879Z"
+          },
+          "description": "Create a chat completion using GPT models (gpt-4, gpt-3.5-turbo, etc.)",
+          "inputSchema": {
+            "n": {
+              "max": 10,
+              "min": 1,
+              "type": "number",
+              "label": "Number of Completions",
+              "default": 1,
+              "description": "How many completions to generate"
+            },
+            "topP": {
+              "max": 1,
+              "min": 0,
+              "step": 0.1,
+              "type": "number",
+              "label": "Top P",
+              "default": 1,
+              "description": "Nucleus sampling parameter (0-1)"
+            },
+            "model": {
+              "type": "select",
+              "label": "Model",
+              "default": "gpt-3.5-turbo",
+              "options": [
+                {
+                  "label": "GPT-4 Turbo",
+                  "value": "gpt-4-turbo-preview"
+                },
+                {
+                  "label": "GPT-4",
+                  "value": "gpt-4"
+                },
+                {
+                  "label": "GPT-3.5 Turbo",
+                  "value": "gpt-3.5-turbo"
+                },
+                {
+                  "label": "GPT-3.5 Turbo 16K",
+                  "value": "gpt-3.5-turbo-16k"
+                }
+              ],
+              "required": true,
+              "description": "The model to use for chat completion"
+            },
+            "messages": {
+              "type": "array",
+              "label": "Messages",
+              "required": true,
+              "itemSchema": {
+                "role": {
+                  "type": "select",
+                  "label": "Role",
+                  "default": "user",
+                  "options": [
+                    {
+                      "label": "System",
+                      "value": "system"
+                    },
+                    {
+                      "label": "User",
+                      "value": "user"
+                    },
+                    {
+                      "label": "Assistant",
+                      "value": "assistant"
+                    }
+                  ],
+                  "required": true
+                },
+                "content": {
+                  "type": "string",
+                  "label": "Content",
+                  "required": true,
+                  "inputType": "textarea",
+                  "placeholder": "Enter message content..."
+                }
+              },
+              "description": "Array of message objects for the conversation"
+            },
+            "maxTokens": {
+              "max": 32768,
+              "min": 1,
+              "type": "number",
+              "label": "Max Tokens",
+              "default": 16,
+              "description": "Maximum number of tokens to generate"
+            },
+            "temperature": {
+              "max": 2,
+              "min": 0,
+              "step": 0.1,
+              "type": "number",
+              "label": "Temperature",
+              "default": 1,
+              "description": "Controls randomness (0-2). Lower is more deterministic"
+            },
+            "presencePenalty": {
+              "max": 2,
+              "min": -2,
+              "step": 0.1,
+              "type": "number",
+              "label": "Presence Penalty",
+              "default": 0,
+              "description": "Encourage new topics (-2 to 2)"
+            },
+            "frequencyPenalty": {
+              "max": 2,
+              "min": -2,
+              "step": 0.1,
+              "type": "number",
+              "label": "Frequency Penalty",
+              "default": 0,
+              "description": "Penalize repeated tokens (-2 to 2)"
+            }
+          },
+          "actionParams": {
+            "n": 1,
+            "topP": 1,
+            "model": "gpt-3.5-turbo",
+            "messages": "give a json file about email campain google analytics in this format \"{ \"emailCampaign\": { \"name\": \"Spring Sale Email Campaign\", \"startDate\": \"2022-04-01\", \"endDate\": \"2022-04-15\", \"campaignID\": \"ABC123\", \"utmSource\": \"email\", \"utmMedium\": \"campaign\", \"utmCampaign\": \"spring_sale\", \"utmContent\": \"promo_email\", \"utmTerm\": \"spring_sale_discount\", \"metrics\": { \"sessions\": 500, \"pageViews\": 1000, \"uniquePageViews\": 800, \"averageSessionDuration\": \"00:02:30\", \"bounceRate\": \"30%\", \"conversionRate\": \"5%\" }, \"goals\": { \"goal1\": { \"name\": \"Purchase\", \"completions\": 25, \"conversionRate\": \"5%\" }, \"goal2\": { \"name\": \"Sign up\", \"completions\": 50, \"conversionRate\": \"10%\" } }, \"ecommerce\": { \"revenue\": \"$10,000\", \"transactions\": 50, \"averageOrderValue\": \"$200\" } } }\"",
+            "maxTokens": 1000,
+            "temperature": 1,
+            "presencePenalty": 0,
+            "frequencyPenalty": 0
+          },
+          "configSchema": {
+            "n": {
+              "max": 10,
+              "min": 1,
+              "type": "number",
+              "label": "Number of Completions",
+              "default": 1,
+              "description": "How many completions to generate"
+            },
+            "topP": {
+              "max": 1,
+              "min": 0,
+              "step": 0.1,
+              "type": "number",
+              "label": "Top P",
+              "default": 1,
+              "description": "Nucleus sampling parameter (0-1)"
+            },
+            "model": {
+              "type": "select",
+              "label": "Model",
+              "default": "gpt-3.5-turbo",
+              "options": [
+                {
+                  "label": "GPT-4 Turbo",
+                  "value": "gpt-4-turbo-preview"
+                },
+                {
+                  "label": "GPT-4",
+                  "value": "gpt-4"
+                },
+                {
+                  "label": "GPT-3.5 Turbo",
+                  "value": "gpt-3.5-turbo"
+                },
+                {
+                  "label": "GPT-3.5 Turbo 16K",
+                  "value": "gpt-3.5-turbo-16k"
+                }
+              ],
+              "required": true,
+              "description": "The model to use for chat completion"
+            },
+            "messages": {
+              "type": "array",
+              "label": "Messages",
+              "required": true,
+              "itemSchema": {
+                "role": {
+                  "type": "select",
+                  "label": "Role",
+                  "default": "user",
+                  "options": [
+                    {
+                      "label": "System",
+                      "value": "system"
+                    },
+                    {
+                      "label": "User",
+                      "value": "user"
+                    },
+                    {
+                      "label": "Assistant",
+                      "value": "assistant"
+                    }
+                  ],
+                  "required": true
+                },
+                "content": {
+                  "type": "string",
+                  "label": "Content",
+                  "required": true,
+                  "inputType": "textarea",
+                  "placeholder": "Enter message content..."
+                }
+              },
+              "description": "Array of message objects for the conversation"
+            },
+            "maxTokens": {
+              "max": 32768,
+              "min": 1,
+              "type": "number",
+              "label": "Max Tokens",
+              "default": 16,
+              "description": "Maximum number of tokens to generate"
+            },
+            "temperature": {
+              "max": 2,
+              "min": 0,
+              "step": 0.1,
+              "type": "number",
+              "label": "Temperature",
+              "default": 1,
+              "description": "Controls randomness (0-2). Lower is more deterministic"
+            },
+            "presencePenalty": {
+              "max": 2,
+              "min": -2,
+              "step": 0.1,
+              "type": "number",
+              "label": "Presence Penalty",
+              "default": 0,
+              "description": "Encourage new topics (-2 to 2)"
+            },
+            "frequencyPenalty": {
+              "max": 2,
+              "min": -2,
+              "step": 0.1,
+              "type": "number",
+              "label": "Frequency Penalty",
+              "default": 0,
+              "description": "Penalize repeated tokens (-2 to 2)"
+            }
+          },
+          "credentialId": "004268de-a6e3-446e-917e-4ccc0c561101",
+          "connectorType": "openai",
+          "executionTime": 2374,
+          "lastExecutedAt": "2025-11-11T06:03:54.864Z",
+          "credentialAuthType": "standard",
+          "connectorDisplayName": "OpenAI"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 480,
+          "y": 180
+        }
+      },
+      {
+        "id": "google_sheets_append_row_1762427124089",
+        "data": {
+          "icon": "Zap",
+          "label": "Append Row",
+          "config": {
+            "values": [
+              [
+                "{{$node.node_1.json.from}}",
+                "{{$node.node_1.json.subject}}",
+                "{{$node.node_1.json.date}}",
+                "{{$node.node_2.json.sessions || 'N/A'}}",
+                "{{$node.node_2.json.users || 'N/A'}}",
+                "{{$node.node_3.json.choices[0].message.content}}"
+              ]
+            ],
+            "sheetName": "Campaign Tracker",
+            "spreadsheetId": "your_spreadsheet_id_here",
+            "valueInputOption": "USER_ENTERED"
+          },
+          "status": "success",
+          "actionId": "append_row",
+          "inputData": [
+            {
+              "json": {
+                "values": [
+                  [
+                    "Spring Sale Email Campaign",
+                    "2022-04-01",
+                    "2022-04-15",
+                    "ABC123",
+                    "email",
+                    "campaign",
+                    "spring_sale",
+                    "promo_email",
+                    "spring_sale_discount",
+                    500,
+                    1000,
+                    800,
+                    "00:02:30",
+                    "30%",
+                    "5%",
+                    "Purchase",
+                    25,
+                    "5%",
+                    "Sign up",
+                    50,
+                    "10%",
+                    "$10,000",
+                    50,
+                    "$200"
+                  ]
+                ]
+              }
+            }
+          ],
+          "startTime": 1762841032888,
+          "lastResult": {
+            "data": {
+              "updatedRows": 1,
+              "updatedCells": 24,
+              "updatedRange": "Sheet2!A5:X5",
+              "spreadsheetId": "1VnwEZZuHu9VZSGXja7S8D1hAN1I4VauntHQgZWFeASA",
+              "updatedColumns": 24
+            },
+            "action": "append_row",
+            "success": true,
+            "connector": "google_sheets",
+            "executedAt": "2025-11-11T06:03:54.064Z"
+          },
+          "outputData": {
+            "data": {
+              "updatedRows": 1,
+              "updatedCells": 24,
+              "updatedRange": "Sheet2!A5:X5",
+              "spreadsheetId": "1VnwEZZuHu9VZSGXja7S8D1hAN1I4VauntHQgZWFeASA",
+              "updatedColumns": 24
+            },
+            "action": "append_row",
+            "success": true,
+            "connector": "google_sheets",
+            "executedAt": "2025-11-11T06:03:54.064Z"
+          },
+          "description": "Add a new row to the end of a sheet",
+          "inputSchema": {
+            "values": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "label": "Values",
+              "order": 3,
+              "required": true,
+              "description": "Row data as array of values"
+            },
+            "sheetName": {
+              "type": "string",
+              "label": "Sheet",
+              "order": 2,
+              "required": true,
+              "description": "Select a sheet from the spreadsheet",
+              "loadOptionsResource": "sheets",
+              "loadOptionsDependsOn": [
+                "spreadsheetId"
+              ],
+              "loadOptionsDescription": "Fetch sheets from selected spreadsheet"
+            },
+            "spreadsheetId": {
+              "type": "string",
+              "label": "Spreadsheet",
+              "order": 1,
+              "required": true,
+              "description": "Select a spreadsheet from your Google Drive",
+              "loadOptionsResource": "spreadsheets",
+              "loadOptionsDescription": "Fetch spreadsheets from Google Drive"
+            },
+            "valueInputOption": {
+              "type": "select",
+              "label": "Value Input Option",
+              "order": 4,
+              "default": "USER_ENTERED",
+              "options": [
+                {
+                  "label": "User Entered (Formatted)",
+                  "value": "USER_ENTERED"
+                },
+                {
+                  "label": "Raw",
+                  "value": "RAW"
+                }
+              ],
+              "description": "How to interpret the input values"
+            }
+          },
+          "actionParams": {
+            "values": "{{$node[\"Run Code\"].json.values}}",
+            "sheetName": "Sheet2",
+            "spreadsheetId": "1VnwEZZuHu9VZSGXja7S8D1hAN1I4VauntHQgZWFeASA",
+            "valueInputOption": "RAW"
+          },
+          "credentialId": "94a149b2-ff1b-4957-b5bb-de56ed7410cc",
+          "connectorType": "google_sheets",
+          "executionTime": 1176,
+          "lastExecutedAt": "2025-11-11T06:03:54.864Z",
+          "credentialAuthType": "standard"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1020,
+          "y": 120
+        }
+      },
+      {
+        "id": "slack_send_message_1762427149186",
+        "data": {
+          "icon": "Mail",
+          "label": "Send Message",
+          "config": {
+            "text": "📧 *Email Campaign Analysis Complete*\n\n*Email Details:*\n• From: {{$node.node_1.json.from}}\n• Subject: {{$node.node_1.json.subject}}\n• Received: {{$node.node_1.json.date}}\n\n*Google Analytics Summary:*\n• Sessions: {{$node.node_2.json.sessions || 'N/A'}}\n• Users: {{$node.node_2.json.users || 'N/A'}}\n\n*AI Insights:*\n{{$node.node_3.json.choices[0].message.content}}\n\n✅ Data logged to Google Sheets",
+            "channelId": "your_channel_id_here"
+          },
+          "status": "success",
+          "actionId": "send_message",
+          "inputData": [
+            {
+              "json": {
+                "data": {
+                  "updatedRows": 1,
+                  "updatedCells": 24,
+                  "updatedRange": "Sheet2!A5:X5",
+                  "spreadsheetId": "1VnwEZZuHu9VZSGXja7S8D1hAN1I4VauntHQgZWFeASA",
+                  "updatedColumns": 24
+                },
+                "action": "append_row",
+                "success": true,
+                "connector": "google_sheets",
+                "executedAt": "2025-11-11T06:03:54.064Z"
+              }
+            }
+          ],
+          "startTime": 1762841034065,
+          "lastResult": {
+            "data": {
+              "ok": true,
+              "ts": "1762841034.230539",
+              "channel": "D09KY337ULF",
+              "message": {
+                "ts": "1762841034.230539",
+                "team": "T93QV84TE",
+                "text": "Google Analytics data is collected. Check spreadsheet",
+                "type": "message",
+                "user": "U09LBE8BH62",
+                "app_id": "A09LS43QCFK",
+                "blocks": [
+                  {
+                    "type": "rich_text",
+                    "block_id": "EthbK",
+                    "elements": [
+                      {
+                        "type": "rich_text_section",
+                        "elements": [
+                          {
+                            "text": "Google Analytics data is collected. Check spreadsheet",
+                            "type": "text"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "bot_id": "B09LH352RTN",
+                "bot_profile": {
+                  "id": "B09LH352RTN",
+                  "name": "Rumman",
+                  "icons": {
+                    "image_36": "https://a.slack-edge.com/80588/img/plugins/app/bot_36.png",
+                    "image_48": "https://a.slack-edge.com/80588/img/plugins/app/bot_48.png",
+                    "image_72": "https://a.slack-edge.com/80588/img/plugins/app/service_72.png"
+                  },
+                  "app_id": "A09LS43QCFK",
+                  "deleted": false,
+                  "team_id": "T93QV84TE",
+                  "updated": 1760438902,
+                  "user_id": "U09LBE8BH62"
+                }
+              }
+            },
+            "action": "send_message",
+            "success": true,
+            "connector": "slack",
+            "executedAt": "2025-11-11T06:03:54.812Z"
+          },
+          "outputData": {
+            "data": {
+              "ok": true,
+              "ts": "1762841034.230539",
+              "channel": "D09KY337ULF",
+              "message": {
+                "ts": "1762841034.230539",
+                "team": "T93QV84TE",
+                "text": "Google Analytics data is collected. Check spreadsheet",
+                "type": "message",
+                "user": "U09LBE8BH62",
+                "app_id": "A09LS43QCFK",
+                "blocks": [
+                  {
+                    "type": "rich_text",
+                    "block_id": "EthbK",
+                    "elements": [
+                      {
+                        "type": "rich_text_section",
+                        "elements": [
+                          {
+                            "text": "Google Analytics data is collected. Check spreadsheet",
+                            "type": "text"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "bot_id": "B09LH352RTN",
+                "bot_profile": {
+                  "id": "B09LH352RTN",
+                  "name": "Rumman",
+                  "icons": {
+                    "image_36": "https://a.slack-edge.com/80588/img/plugins/app/bot_36.png",
+                    "image_48": "https://a.slack-edge.com/80588/img/plugins/app/bot_48.png",
+                    "image_72": "https://a.slack-edge.com/80588/img/plugins/app/service_72.png"
+                  },
+                  "app_id": "A09LS43QCFK",
+                  "deleted": false,
+                  "team_id": "T93QV84TE",
+                  "updated": 1760438902,
+                  "user_id": "U09LBE8BH62"
+                }
+              }
+            },
+            "action": "send_message",
+            "success": true,
+            "connector": "slack",
+            "executedAt": "2025-11-11T06:03:54.812Z"
+          },
+          "description": "Send a message to a Slack channel or direct message to a user",
+          "inputSchema": {
+            "text": {
+              "type": "string",
+              "label": "Message Text",
+              "helpText": "You can use *bold*, _italic_, ~strikethrough~, `code`, and ```code blocks```",
+              "required": true,
+              "inputType": "textarea",
+              "description": "The text content of your message (supports Slack markdown formatting)",
+              "placeholder": "Enter your message here..."
+            },
+            "threadTs": {
+              "type": "string",
+              "label": "Reply in Thread (Optional)",
+              "helpText": "Leave empty to send as a new message. Use output from previous message node to reply in thread.",
+              "description": "To reply in a thread, provide the timestamp of the parent message",
+              "placeholder": "1234567890.123456"
+            },
+            "channelId": {
+              "type": "string",
+              "label": "Channel or User ID",
+              "helpText": "Right-click on a channel in Slack → View channel details → Copy channel ID",
+              "required": true,
+              "description": "The ID of the channel (starts with C) or user (starts with U) to send the message to",
+              "placeholder": "C01234ABCDE or U01234ABCDE"
+            }
+          },
+          "actionParams": {
+            "text": "Google Analytics data is collected. Check spreadsheet",
+            "channelId": "U09BHAKAS8L"
+          },
+          "credentialId": "3c72ddc7-dc63-4638-84c0-f8ef5c5ec6e5",
+          "connectorType": "slack",
+          "executionTime": 747,
+          "lastExecutedAt": "2025-11-11T06:03:54.864Z",
+          "credentialAuthType": "standard"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1365,
+          "y": 75
+        }
+      },
+      {
+        "id": "MANUAL_TRIGGER_1762836220957",
+        "data": {
+          "icon": "M",
+          "color": "#06b6d4",
+          "label": "Manual Trigger",
+          "status": "success",
+          "category": "trigger",
+          "inputData": [
+            {
+              "json": {
+                "test": true,
+                "executedAt": "2025-11-11T06:03:49.987Z"
+              }
+            }
+          ],
+          "startTime": 1762841030046,
+          "lastResult": {
+            "test": true,
+            "executedAt": "2025-11-11T06:03:49.987Z"
+          },
+          "outputData": {
+            "test": true,
+            "executedAt": "2025-11-11T06:03:49.987Z"
+          },
+          "description": "Manually execute the workflow",
+          "executionTime": 1,
+          "lastExecutedAt": "2025-11-11T06:03:54.864Z"
+        },
+        "type": "MANUAL_TRIGGER",
+        "position": {
+          "x": 30,
+          "y": 120
+        }
+      },
+      {
+        "id": "RUN_CODE_1762839301725",
+        "data": {
+          "code": "const responseData = JSON.parse(data.text);\n  const campaign = responseData.emailCampaign;\n  const metrics = campaign.metrics || {};\n  const goals = campaign.goals || {};\n  const ecommerce = campaign.ecommerce || {};\n\n  // Extract goal data\n  const goal1 = goals.goal1 || {};\n  const goal2 = goals.goal2 || {};\n\n  // Create row for Google Sheets with comprehensive data\n  return {\n    values: [[\n      campaign.name,\n      campaign.startDate,\n      campaign.endDate,\n      campaign.campaignID,\n      campaign.utmSource,\n      campaign.utmMedium,\n      campaign.utmCampaign,\n      campaign.utmContent,\n      campaign.utmTerm,\n      metrics.sessions,\n      metrics.pageViews,\n      metrics.uniquePageViews,\n      metrics.averageSessionDuration,\n      metrics.bounceRate,\n      metrics.conversionRate,\n      goal1.name || '',\n      goal1.completions || 0,\n      goal1.conversionRate || '0%',\n      goal2.name || '',\n      goal2.completions || 0,\n      goal2.conversionRate || '0%',\n      ecommerce.revenue,\n      ecommerce.transactions,\n      ecommerce.averageOrderValue\n    ]]\n  };\n",
+          "icon": "R",
+          "color": "#14b8a6",
+          "label": "Run Code",
+          "status": "success",
+          "category": "action",
+          "inputData": [
+            {
+              "json": {
+                "text": "{\n  \"emailCampaign\": {\n    \"name\": \"Spring Sale Email Campaign\",\n    \"startDate\": \"2022-04-01\",\n    \"endDate\": \"2022-04-15\",\n    \"campaignID\": \"ABC123\",\n    \"utmSource\": \"email\",\n    \"utmMedium\": \"campaign\",\n    \"utmCampaign\": \"spring_sale\",\n    \"utmContent\": \"promo_email\",\n    \"utmTerm\": \"spring_sale_discount\",\n    \"metrics\": {\n      \"sessions\": 500,\n      \"pageViews\": 1000,\n      \"uniquePageViews\": 800,\n      \"averageSessionDuration\": \"00:02:30\",\n      \"bounceRate\": \"30%\",\n      \"conversionRate\": \"5%\"\n    },\n    \"goals\": {\n      \"goal1\": {\n        \"name\": \"Purchase\",\n        \"completions\": 25,\n        \"conversionRate\": \"5%\"\n      },\n      \"goal2\": {\n        \"name\": \"Sign up\",\n        \"completions\": 50,\n        \"conversionRate\": \"10%\"\n      }\n    },\n    \"ecommerce\": {\n      \"revenue\": \"$10,000\",\n      \"transactions\": 50,\n      \"averageOrderValue\": \"$200\"\n    }\n  }\n}",
+                "action": "chat_complete",
+                "success": true,
+                "connector": "openai",
+                "executedAt": "2025-11-11T06:03:52.879Z"
+              }
+            }
+          ],
+          "startTime": 1762841032882,
+          "lastResult": {
+            "values": [
+              [
+                "Spring Sale Email Campaign",
+                "2022-04-01",
+                "2022-04-15",
+                "ABC123",
+                "email",
+                "campaign",
+                "spring_sale",
+                "promo_email",
+                "spring_sale_discount",
+                500,
+                1000,
+                800,
+                "00:02:30",
+                "30%",
+                "5%",
+                "Purchase",
+                25,
+                "5%",
+                "Sign up",
+                50,
+                "10%",
+                "$10,000",
+                50,
+                "$200"
+              ]
+            ]
+          },
+          "outputData": {
+            "values": [
+              [
+                "Spring Sale Email Campaign",
+                "2022-04-01",
+                "2022-04-15",
+                "ABC123",
+                "email",
+                "campaign",
+                "spring_sale",
+                "promo_email",
+                "spring_sale_discount",
+                500,
+                1000,
+                800,
+                "00:02:30",
+                "30%",
+                "5%",
+                "Purchase",
+                25,
+                "5%",
+                "Sign up",
+                50,
+                "10%",
+                "$10,000",
+                50,
+                "$200"
+              ]
+            ]
+          },
+          "description": "Execute custom JavaScript code",
+          "executionTime": 5,
+          "lastExecutedAt": "2025-11-11T06:03:54.864Z"
+        },
+        "type": "RUN_CODE",
+        "position": {
+          "x": 765,
+          "y": 60
+        }
+      }
+    ]
+  },
+  "steps": [
+    {
+      "id": "node_2",
+      "action": "get_ga4_report",
+      "params": {
+        "icon": "connector",
+        "label": "Track with Google Analytics",
+        "action": "get_ga4_report",
+        "config": {
+          "metrics": "users, sessions",
+          "dimensions": "campaign, medium",
+          "propertyId": "<your_property_id>"
+        },
+        "status": "success",
+        "actionId": "get_ga4_report",
+        "category": "action",
+        "connector": "google_analytics",
+        "inputData": [
+          {
+            "json": {
+              "test": true,
+              "executedAt": "2025-11-11T06:03:49.987Z"
+            }
+          }
+        ],
+        "startTime": 1762841030048,
+        "actionName": "Get GA4 Report",
+        "lastResult": {
+          "error": {
+            "code": "GA4_REQUEST_FAILED",
+            "message": "Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project."
+          },
+          "action": "get_ga4_report",
+          "success": false,
+          "connector": "google_analytics",
+          "executedAt": "2025-11-11T06:03:50.505Z"
+        },
+        "outputData": {
+          "error": {
+            "code": "GA4_REQUEST_FAILED",
+            "message": "Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project."
+          },
+          "action": "get_ga4_report",
+          "success": false,
+          "connector": "google_analytics",
+          "executedAt": "2025-11-11T06:03:50.505Z"
+        },
+        "description": "Get analytics data from Google Analytics 4 property",
+        "inputSchema": {
+          "limit": {
+            "max": 100000,
+            "min": 1,
+            "type": "number",
+            "label": "Limit",
+            "order": 8,
+            "default": 100,
+            "description": "Maximum number of results (only when Return All is false)",
+            "displayOptions": {
+              "show": {
+                "returnAll": [
+                  false
+                ]
+              }
+            }
+          },
+          "simple": {
+            "type": "boolean",
+            "label": "Simplify Response",
+            "order": 9,
+            "default": true,
+            "description": "Convert nested GA4 response into flat objects"
+          },
+          "endDate": {
+            "type": "string",
+            "label": "End Date",
+            "order": 4,
+            "description": "End date in YYYY-MM-DD format (only for Custom Range)",
+            "placeholder": "2025-01-31",
+            "displayOptions": {
+              "show": {
+                "dateRange": [
+                  "custom"
+                ]
+              }
+            }
+          },
+          "metrics": {
+            "type": "array",
+            "label": "Metrics",
+            "order": 5,
+            "default": [
+              "activeUsers",
+              "sessions"
+            ],
+            "required": true,
+            "description": "GA4 metrics to retrieve (e.g., activeUsers, sessions, conversions)"
+          },
+          "dateRange": {
+            "type": "select",
+            "label": "Date Range",
+            "order": 2,
+            "default": "last7days",
+            "options": [
+              {
+                "label": "Today",
+                "value": "today"
+              },
+              {
+                "label": "Yesterday",
+                "value": "yesterday"
+              },
+              {
+                "label": "Last 7 Days",
+                "value": "last7days"
+              },
+              {
+                "label": "Last 30 Days",
+                "value": "last30days"
+              },
+              {
+                "label": "Last 90 Days",
+                "value": "last90days"
+              },
+              {
+                "label": "This Month",
+                "value": "thisMonth"
+              },
+              {
+                "label": "Last Month",
+                "value": "lastMonth"
+              },
+              {
+                "label": "This Year",
+                "value": "thisYear"
+              },
+              {
+                "label": "Last Year",
+                "value": "lastYear"
+              },
+              {
+                "label": "Custom Range",
+                "value": "custom"
+              }
+            ],
+            "required": true,
+            "description": "Time period for the report"
+          },
+          "returnAll": {
+            "type": "boolean",
+            "label": "Return All Results",
+            "order": 7,
+            "default": false,
+            "description": "Get all results or limit to a specific number"
+          },
+          "startDate": {
+            "type": "string",
+            "label": "Start Date",
+            "order": 3,
+            "description": "Start date in YYYY-MM-DD format (only for Custom Range)",
+            "placeholder": "2025-01-01",
+            "displayOptions": {
+              "show": {
+                "dateRange": [
+                  "custom"
+                ]
+              }
+            }
+          },
+          "dimensions": {
+            "type": "array",
+            "label": "Dimensions",
+            "order": 6,
+            "default": [
+              "date"
+            ],
+            "description": "GA4 dimensions to group by (e.g., date, country, city, browser)"
+          },
+          "propertyId": {
+            "type": "string",
+            "label": "GA4 Property ID",
+            "order": 1,
+            "required": true,
+            "description": "Your GA4 Property ID (found in Admin → Property Settings)",
+            "placeholder": "123456789"
+          },
+          "currencyCode": {
+            "type": "string",
+            "label": "Currency Code",
+            "order": 10,
+            "description": "Currency code for monetary values (e.g., USD, EUR, GBP)",
+            "placeholder": "USD"
+          }
+        },
+        "actionParams": {
+          "limit": 100,
+          "simple": true,
+          "metrics": [
+            "activeUsers",
+            "sessions"
+          ],
+          "dateRange": "last7days",
+          "returnAll": true,
+          "dimensions": [
+            "date"
+          ],
+          "propertyId": "511753977"
+        },
+        "configSchema": {
+          "limit": {
+            "max": 100000,
+            "min": 1,
+            "type": "number",
+            "label": "Limit",
+            "order": 8,
+            "default": 100,
+            "description": "Maximum number of results (only when Return All is false)",
+            "displayOptions": {
+              "show": {
+                "returnAll": [
+                  false
+                ]
+              }
+            }
+          },
+          "simple": {
+            "type": "boolean",
+            "label": "Simplify Response",
+            "order": 9,
+            "default": true,
+            "description": "Convert nested GA4 response into flat objects"
+          },
+          "endDate": {
+            "type": "string",
+            "label": "End Date",
+            "order": 4,
+            "description": "End date in YYYY-MM-DD format (only for Custom Range)",
+            "placeholder": "2025-01-31",
+            "displayOptions": {
+              "show": {
+                "dateRange": [
+                  "custom"
+                ]
+              }
+            }
+          },
+          "metrics": {
+            "type": "array",
+            "label": "Metrics",
+            "order": 5,
+            "default": [
+              "activeUsers",
+              "sessions"
+            ],
+            "required": true,
+            "description": "GA4 metrics to retrieve (e.g., activeUsers, sessions, conversions)"
+          },
+          "dateRange": {
+            "type": "select",
+            "label": "Date Range",
+            "order": 2,
+            "default": "last7days",
+            "options": [
+              {
+                "label": "Today",
+                "value": "today"
+              },
+              {
+                "label": "Yesterday",
+                "value": "yesterday"
+              },
+              {
+                "label": "Last 7 Days",
+                "value": "last7days"
+              },
+              {
+                "label": "Last 30 Days",
+                "value": "last30days"
+              },
+              {
+                "label": "Last 90 Days",
+                "value": "last90days"
+              },
+              {
+                "label": "This Month",
+                "value": "thisMonth"
+              },
+              {
+                "label": "Last Month",
+                "value": "lastMonth"
+              },
+              {
+                "label": "This Year",
+                "value": "thisYear"
+              },
+              {
+                "label": "Last Year",
+                "value": "lastYear"
+              },
+              {
+                "label": "Custom Range",
+                "value": "custom"
+              }
+            ],
+            "required": true,
+            "description": "Time period for the report"
+          },
+          "returnAll": {
+            "type": "boolean",
+            "label": "Return All Results",
+            "order": 7,
+            "default": false,
+            "description": "Get all results or limit to a specific number"
+          },
+          "startDate": {
+            "type": "string",
+            "label": "Start Date",
+            "order": 3,
+            "description": "Start date in YYYY-MM-DD format (only for Custom Range)",
+            "placeholder": "2025-01-01",
+            "displayOptions": {
+              "show": {
+                "dateRange": [
+                  "custom"
+                ]
+              }
+            }
+          },
+          "dimensions": {
+            "type": "array",
+            "label": "Dimensions",
+            "order": 6,
+            "default": [
+              "date"
+            ],
+            "description": "GA4 dimensions to group by (e.g., date, country, city, browser)"
+          },
+          "propertyId": {
+            "type": "string",
+            "label": "GA4 Property ID",
+            "order": 1,
+            "required": true,
+            "description": "Your GA4 Property ID (found in Admin → Property Settings)",
+            "placeholder": "123456789"
+          },
+          "currencyCode": {
+            "type": "string",
+            "label": "Currency Code",
+            "order": 10,
+            "description": "Currency code for monetary values (e.g., USD, EUR, GBP)",
+            "placeholder": "USD"
+          }
+        },
+        "credentialId": "4d71ad1d-fdc7-4454-b145-49902f2f99e1",
+        "outputSchema": {
+          "type": "object",
+          "properties": {
+            "rows": {
+              "type": "array",
+              "description": "Array of data rows with dimensions and metrics"
+            },
+            "rowCount": {
+              "type": "number",
+              "description": "Total number of rows"
+            },
+            "metricHeaders": {
+              "type": "array",
+              "description": "Metric column headers"
+            },
+            "dimensionHeaders": {
+              "type": "array",
+              "description": "Dimension column headers"
+            }
+          }
+        },
+        "connectorType": "google_analytics",
+        "executionTime": 457,
+        "lastExecutedAt": "2025-11-11T06:03:54.864Z",
+        "credentialAuthType": "standard",
+        "connectorDisplayName": "Google Analytics"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "node_3",
+      "action": "chat_complete",
+      "params": {
+        "icon": "connector",
+        "label": "Generate AI Insights",
+        "action": "chat_complete",
+        "config": {
+          "model": "gpt-4",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are an expert email marketing analyst. Analyze the email campaign data and Google Analytics metrics to provide actionable insights."
+            },
+            {
+              "role": "user",
+              "content": "Email Campaign Analysis Request:\n\nEmail Details:\n- From: {{$node.node_1.json.from}}\n- Subject: {{$node.node_1.json.subject}}\n- Date: {{$node.node_1.json.date}}\n- Preview: {{$node.node_1.json.snippet}}\n\nGoogle Analytics Data:\n{{$node.node_2.json}}\n\nPlease analyze this email campaign and provide:\n1. Key performance metrics\n2. Audience engagement insights\n3. Actionable recommendations for improvement"
+            }
+          ]
+        },
+        "status": "success",
+        "actionId": "chat_complete",
+        "category": "action",
+        "connector": "openai",
+        "inputData": [
+          {
+            "json": {
+              "error": {
+                "code": "GA4_REQUEST_FAILED",
+                "message": "Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project."
+              },
+              "action": "get_ga4_report",
+              "success": false,
+              "connector": "google_analytics",
+              "executedAt": "2025-11-11T06:03:50.505Z"
+            }
+          }
+        ],
+        "startTime": 1762841030505,
+        "actionName": "Chat Completion",
+        "lastResult": {
+          "text": "{\n  \"emailCampaign\": {\n    \"name\": \"Spring Sale Email Campaign\",\n    \"startDate\": \"2022-04-01\",\n    \"endDate\": \"2022-04-15\",\n    \"campaignID\": \"ABC123\",\n    \"utmSource\": \"email\",\n    \"utmMedium\": \"campaign\",\n    \"utmCampaign\": \"spring_sale\",\n    \"utmContent\": \"promo_email\",\n    \"utmTerm\": \"spring_sale_discount\",\n    \"metrics\": {\n      \"sessions\": 500,\n      \"pageViews\": 1000,\n      \"uniquePageViews\": 800,\n      \"averageSessionDuration\": \"00:02:30\",\n      \"bounceRate\": \"30%\",\n      \"conversionRate\": \"5%\"\n    },\n    \"goals\": {\n      \"goal1\": {\n        \"name\": \"Purchase\",\n        \"completions\": 25,\n        \"conversionRate\": \"5%\"\n      },\n      \"goal2\": {\n        \"name\": \"Sign up\",\n        \"completions\": 50,\n        \"conversionRate\": \"10%\"\n      }\n    },\n    \"ecommerce\": {\n      \"revenue\": \"$10,000\",\n      \"transactions\": 50,\n      \"averageOrderValue\": \"$200\"\n    }\n  }\n}",
+          "action": "chat_complete",
+          "success": true,
+          "connector": "openai",
+          "executedAt": "2025-11-11T06:03:52.879Z"
+        },
+        "outputData": {
+          "text": "{\n  \"emailCampaign\": {\n    \"name\": \"Spring Sale Email Campaign\",\n    \"startDate\": \"2022-04-01\",\n    \"endDate\": \"2022-04-15\",\n    \"campaignID\": \"ABC123\",\n    \"utmSource\": \"email\",\n    \"utmMedium\": \"campaign\",\n    \"utmCampaign\": \"spring_sale\",\n    \"utmContent\": \"promo_email\",\n    \"utmTerm\": \"spring_sale_discount\",\n    \"metrics\": {\n      \"sessions\": 500,\n      \"pageViews\": 1000,\n      \"uniquePageViews\": 800,\n      \"averageSessionDuration\": \"00:02:30\",\n      \"bounceRate\": \"30%\",\n      \"conversionRate\": \"5%\"\n    },\n    \"goals\": {\n      \"goal1\": {\n        \"name\": \"Purchase\",\n        \"completions\": 25,\n        \"conversionRate\": \"5%\"\n      },\n      \"goal2\": {\n        \"name\": \"Sign up\",\n        \"completions\": 50,\n        \"conversionRate\": \"10%\"\n      }\n    },\n    \"ecommerce\": {\n      \"revenue\": \"$10,000\",\n      \"transactions\": 50,\n      \"averageOrderValue\": \"$200\"\n    }\n  }\n}",
+          "action": "chat_complete",
+          "success": true,
+          "connector": "openai",
+          "executedAt": "2025-11-11T06:03:52.879Z"
+        },
+        "description": "Create a chat completion using GPT models (gpt-4, gpt-3.5-turbo, etc.)",
+        "inputSchema": {
+          "n": {
+            "max": 10,
+            "min": 1,
+            "type": "number",
+            "label": "Number of Completions",
+            "default": 1,
+            "description": "How many completions to generate"
+          },
+          "topP": {
+            "max": 1,
+            "min": 0,
+            "step": 0.1,
+            "type": "number",
+            "label": "Top P",
+            "default": 1,
+            "description": "Nucleus sampling parameter (0-1)"
+          },
+          "model": {
+            "type": "select",
+            "label": "Model",
+            "default": "gpt-3.5-turbo",
+            "options": [
+              {
+                "label": "GPT-4 Turbo",
+                "value": "gpt-4-turbo-preview"
+              },
+              {
+                "label": "GPT-4",
+                "value": "gpt-4"
+              },
+              {
+                "label": "GPT-3.5 Turbo",
+                "value": "gpt-3.5-turbo"
+              },
+              {
+                "label": "GPT-3.5 Turbo 16K",
+                "value": "gpt-3.5-turbo-16k"
+              }
+            ],
+            "required": true,
+            "description": "The model to use for chat completion"
+          },
+          "messages": {
+            "type": "array",
+            "label": "Messages",
+            "required": true,
+            "itemSchema": {
+              "role": {
+                "type": "select",
+                "label": "Role",
+                "default": "user",
+                "options": [
+                  {
+                    "label": "System",
+                    "value": "system"
+                  },
+                  {
+                    "label": "User",
+                    "value": "user"
+                  },
+                  {
+                    "label": "Assistant",
+                    "value": "assistant"
+                  }
+                ],
+                "required": true
+              },
+              "content": {
+                "type": "string",
+                "label": "Content",
+                "required": true,
+                "inputType": "textarea",
+                "placeholder": "Enter message content..."
+              }
+            },
+            "description": "Array of message objects for the conversation"
+          },
+          "maxTokens": {
+            "max": 32768,
+            "min": 1,
+            "type": "number",
+            "label": "Max Tokens",
+            "default": 16,
+            "description": "Maximum number of tokens to generate"
+          },
+          "temperature": {
+            "max": 2,
+            "min": 0,
+            "step": 0.1,
+            "type": "number",
+            "label": "Temperature",
+            "default": 1,
+            "description": "Controls randomness (0-2). Lower is more deterministic"
+          },
+          "presencePenalty": {
+            "max": 2,
+            "min": -2,
+            "step": 0.1,
+            "type": "number",
+            "label": "Presence Penalty",
+            "default": 0,
+            "description": "Encourage new topics (-2 to 2)"
+          },
+          "frequencyPenalty": {
+            "max": 2,
+            "min": -2,
+            "step": 0.1,
+            "type": "number",
+            "label": "Frequency Penalty",
+            "default": 0,
+            "description": "Penalize repeated tokens (-2 to 2)"
+          }
+        },
+        "actionParams": {
+          "n": 1,
+          "topP": 1,
+          "model": "gpt-3.5-turbo",
+          "messages": "give a json file about email campain google analytics in this format \"{ \"emailCampaign\": { \"name\": \"Spring Sale Email Campaign\", \"startDate\": \"2022-04-01\", \"endDate\": \"2022-04-15\", \"campaignID\": \"ABC123\", \"utmSource\": \"email\", \"utmMedium\": \"campaign\", \"utmCampaign\": \"spring_sale\", \"utmContent\": \"promo_email\", \"utmTerm\": \"spring_sale_discount\", \"metrics\": { \"sessions\": 500, \"pageViews\": 1000, \"uniquePageViews\": 800, \"averageSessionDuration\": \"00:02:30\", \"bounceRate\": \"30%\", \"conversionRate\": \"5%\" }, \"goals\": { \"goal1\": { \"name\": \"Purchase\", \"completions\": 25, \"conversionRate\": \"5%\" }, \"goal2\": { \"name\": \"Sign up\", \"completions\": 50, \"conversionRate\": \"10%\" } }, \"ecommerce\": { \"revenue\": \"$10,000\", \"transactions\": 50, \"averageOrderValue\": \"$200\" } } }\"",
+          "maxTokens": 1000,
+          "temperature": 1,
+          "presencePenalty": 0,
+          "frequencyPenalty": 0
+        },
+        "configSchema": {
+          "n": {
+            "max": 10,
+            "min": 1,
+            "type": "number",
+            "label": "Number of Completions",
+            "default": 1,
+            "description": "How many completions to generate"
+          },
+          "topP": {
+            "max": 1,
+            "min": 0,
+            "step": 0.1,
+            "type": "number",
+            "label": "Top P",
+            "default": 1,
+            "description": "Nucleus sampling parameter (0-1)"
+          },
+          "model": {
+            "type": "select",
+            "label": "Model",
+            "default": "gpt-3.5-turbo",
+            "options": [
+              {
+                "label": "GPT-4 Turbo",
+                "value": "gpt-4-turbo-preview"
+              },
+              {
+                "label": "GPT-4",
+                "value": "gpt-4"
+              },
+              {
+                "label": "GPT-3.5 Turbo",
+                "value": "gpt-3.5-turbo"
+              },
+              {
+                "label": "GPT-3.5 Turbo 16K",
+                "value": "gpt-3.5-turbo-16k"
+              }
+            ],
+            "required": true,
+            "description": "The model to use for chat completion"
+          },
+          "messages": {
+            "type": "array",
+            "label": "Messages",
+            "required": true,
+            "itemSchema": {
+              "role": {
+                "type": "select",
+                "label": "Role",
+                "default": "user",
+                "options": [
+                  {
+                    "label": "System",
+                    "value": "system"
+                  },
+                  {
+                    "label": "User",
+                    "value": "user"
+                  },
+                  {
+                    "label": "Assistant",
+                    "value": "assistant"
+                  }
+                ],
+                "required": true
+              },
+              "content": {
+                "type": "string",
+                "label": "Content",
+                "required": true,
+                "inputType": "textarea",
+                "placeholder": "Enter message content..."
+              }
+            },
+            "description": "Array of message objects for the conversation"
+          },
+          "maxTokens": {
+            "max": 32768,
+            "min": 1,
+            "type": "number",
+            "label": "Max Tokens",
+            "default": 16,
+            "description": "Maximum number of tokens to generate"
+          },
+          "temperature": {
+            "max": 2,
+            "min": 0,
+            "step": 0.1,
+            "type": "number",
+            "label": "Temperature",
+            "default": 1,
+            "description": "Controls randomness (0-2). Lower is more deterministic"
+          },
+          "presencePenalty": {
+            "max": 2,
+            "min": -2,
+            "step": 0.1,
+            "type": "number",
+            "label": "Presence Penalty",
+            "default": 0,
+            "description": "Encourage new topics (-2 to 2)"
+          },
+          "frequencyPenalty": {
+            "max": 2,
+            "min": -2,
+            "step": 0.1,
+            "type": "number",
+            "label": "Frequency Penalty",
+            "default": 0,
+            "description": "Penalize repeated tokens (-2 to 2)"
+          }
+        },
+        "credentialId": "004268de-a6e3-446e-917e-4ccc0c561101",
+        "connectorType": "openai",
+        "executionTime": 2374,
+        "lastExecutedAt": "2025-11-11T06:03:54.864Z",
+        "credentialAuthType": "standard",
+        "connectorDisplayName": "OpenAI"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "google_sheets_append_row_1762427124089",
+      "action": "execute",
+      "params": {
+        "icon": "Zap",
+        "label": "Append Row",
+        "config": {
+          "values": [
+            [
+              "{{$node.node_1.json.from}}",
+              "{{$node.node_1.json.subject}}",
+              "{{$node.node_1.json.date}}",
+              "{{$node.node_2.json.sessions || 'N/A'}}",
+              "{{$node.node_2.json.users || 'N/A'}}",
+              "{{$node.node_3.json.choices[0].message.content}}"
+            ]
+          ],
+          "sheetName": "Campaign Tracker",
+          "spreadsheetId": "your_spreadsheet_id_here",
+          "valueInputOption": "USER_ENTERED"
+        },
+        "status": "success",
+        "actionId": "append_row",
+        "inputData": [
+          {
+            "json": {
+              "values": [
+                [
+                  "Spring Sale Email Campaign",
+                  "2022-04-01",
+                  "2022-04-15",
+                  "ABC123",
+                  "email",
+                  "campaign",
+                  "spring_sale",
+                  "promo_email",
+                  "spring_sale_discount",
+                  500,
+                  1000,
+                  800,
+                  "00:02:30",
+                  "30%",
+                  "5%",
+                  "Purchase",
+                  25,
+                  "5%",
+                  "Sign up",
+                  50,
+                  "10%",
+                  "$10,000",
+                  50,
+                  "$200"
+                ]
+              ]
+            }
+          }
+        ],
+        "startTime": 1762841032888,
+        "lastResult": {
+          "data": {
+            "updatedRows": 1,
+            "updatedCells": 24,
+            "updatedRange": "Sheet2!A5:X5",
+            "spreadsheetId": "1VnwEZZuHu9VZSGXja7S8D1hAN1I4VauntHQgZWFeASA",
+            "updatedColumns": 24
+          },
+          "action": "append_row",
+          "success": true,
+          "connector": "google_sheets",
+          "executedAt": "2025-11-11T06:03:54.064Z"
+        },
+        "outputData": {
+          "data": {
+            "updatedRows": 1,
+            "updatedCells": 24,
+            "updatedRange": "Sheet2!A5:X5",
+            "spreadsheetId": "1VnwEZZuHu9VZSGXja7S8D1hAN1I4VauntHQgZWFeASA",
+            "updatedColumns": 24
+          },
+          "action": "append_row",
+          "success": true,
+          "connector": "google_sheets",
+          "executedAt": "2025-11-11T06:03:54.064Z"
+        },
+        "description": "Add a new row to the end of a sheet",
+        "inputSchema": {
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "label": "Values",
+            "order": 3,
+            "required": true,
+            "description": "Row data as array of values"
+          },
+          "sheetName": {
+            "type": "string",
+            "label": "Sheet",
+            "order": 2,
+            "required": true,
+            "description": "Select a sheet from the spreadsheet",
+            "loadOptionsResource": "sheets",
+            "loadOptionsDependsOn": [
+              "spreadsheetId"
+            ],
+            "loadOptionsDescription": "Fetch sheets from selected spreadsheet"
+          },
+          "spreadsheetId": {
+            "type": "string",
+            "label": "Spreadsheet",
+            "order": 1,
+            "required": true,
+            "description": "Select a spreadsheet from your Google Drive",
+            "loadOptionsResource": "spreadsheets",
+            "loadOptionsDescription": "Fetch spreadsheets from Google Drive"
+          },
+          "valueInputOption": {
+            "type": "select",
+            "label": "Value Input Option",
+            "order": 4,
+            "default": "USER_ENTERED",
+            "options": [
+              {
+                "label": "User Entered (Formatted)",
+                "value": "USER_ENTERED"
+              },
+              {
+                "label": "Raw",
+                "value": "RAW"
+              }
+            ],
+            "description": "How to interpret the input values"
+          }
+        },
+        "actionParams": {
+          "values": "{{$node[\"Run Code\"].json.values}}",
+          "sheetName": "Sheet2",
+          "spreadsheetId": "1VnwEZZuHu9VZSGXja7S8D1hAN1I4VauntHQgZWFeASA",
+          "valueInputOption": "RAW"
+        },
+        "credentialId": "94a149b2-ff1b-4957-b5bb-de56ed7410cc",
+        "connectorType": "google_sheets",
+        "executionTime": 1176,
+        "lastExecutedAt": "2025-11-11T06:03:54.864Z",
+        "credentialAuthType": "standard"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "slack_send_message_1762427149186",
+      "action": "execute",
+      "params": {
+        "icon": "Mail",
+        "label": "Send Message",
+        "config": {
+          "text": "📧 *Email Campaign Analysis Complete*\n\n*Email Details:*\n• From: {{$node.node_1.json.from}}\n• Subject: {{$node.node_1.json.subject}}\n• Received: {{$node.node_1.json.date}}\n\n*Google Analytics Summary:*\n• Sessions: {{$node.node_2.json.sessions || 'N/A'}}\n• Users: {{$node.node_2.json.users || 'N/A'}}\n\n*AI Insights:*\n{{$node.node_3.json.choices[0].message.content}}\n\n✅ Data logged to Google Sheets",
+          "channelId": "your_channel_id_here"
+        },
+        "status": "success",
+        "actionId": "send_message",
+        "inputData": [
+          {
+            "json": {
+              "data": {
+                "updatedRows": 1,
+                "updatedCells": 24,
+                "updatedRange": "Sheet2!A5:X5",
+                "spreadsheetId": "1VnwEZZuHu9VZSGXja7S8D1hAN1I4VauntHQgZWFeASA",
+                "updatedColumns": 24
+              },
+              "action": "append_row",
+              "success": true,
+              "connector": "google_sheets",
+              "executedAt": "2025-11-11T06:03:54.064Z"
+            }
+          }
+        ],
+        "startTime": 1762841034065,
+        "lastResult": {
+          "data": {
+            "ok": true,
+            "ts": "1762841034.230539",
+            "channel": "D09KY337ULF",
+            "message": {
+              "ts": "1762841034.230539",
+              "team": "T93QV84TE",
+              "text": "Google Analytics data is collected. Check spreadsheet",
+              "type": "message",
+              "user": "U09LBE8BH62",
+              "app_id": "A09LS43QCFK",
+              "blocks": [
+                {
+                  "type": "rich_text",
+                  "block_id": "EthbK",
+                  "elements": [
+                    {
+                      "type": "rich_text_section",
+                      "elements": [
+                        {
+                          "text": "Google Analytics data is collected. Check spreadsheet",
+                          "type": "text"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "bot_id": "B09LH352RTN",
+              "bot_profile": {
+                "id": "B09LH352RTN",
+                "name": "Rumman",
+                "icons": {
+                  "image_36": "https://a.slack-edge.com/80588/img/plugins/app/bot_36.png",
+                  "image_48": "https://a.slack-edge.com/80588/img/plugins/app/bot_48.png",
+                  "image_72": "https://a.slack-edge.com/80588/img/plugins/app/service_72.png"
+                },
+                "app_id": "A09LS43QCFK",
+                "deleted": false,
+                "team_id": "T93QV84TE",
+                "updated": 1760438902,
+                "user_id": "U09LBE8BH62"
+              }
+            }
+          },
+          "action": "send_message",
+          "success": true,
+          "connector": "slack",
+          "executedAt": "2025-11-11T06:03:54.812Z"
+        },
+        "outputData": {
+          "data": {
+            "ok": true,
+            "ts": "1762841034.230539",
+            "channel": "D09KY337ULF",
+            "message": {
+              "ts": "1762841034.230539",
+              "team": "T93QV84TE",
+              "text": "Google Analytics data is collected. Check spreadsheet",
+              "type": "message",
+              "user": "U09LBE8BH62",
+              "app_id": "A09LS43QCFK",
+              "blocks": [
+                {
+                  "type": "rich_text",
+                  "block_id": "EthbK",
+                  "elements": [
+                    {
+                      "type": "rich_text_section",
+                      "elements": [
+                        {
+                          "text": "Google Analytics data is collected. Check spreadsheet",
+                          "type": "text"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "bot_id": "B09LH352RTN",
+              "bot_profile": {
+                "id": "B09LH352RTN",
+                "name": "Rumman",
+                "icons": {
+                  "image_36": "https://a.slack-edge.com/80588/img/plugins/app/bot_36.png",
+                  "image_48": "https://a.slack-edge.com/80588/img/plugins/app/bot_48.png",
+                  "image_72": "https://a.slack-edge.com/80588/img/plugins/app/service_72.png"
+                },
+                "app_id": "A09LS43QCFK",
+                "deleted": false,
+                "team_id": "T93QV84TE",
+                "updated": 1760438902,
+                "user_id": "U09LBE8BH62"
+              }
+            }
+          },
+          "action": "send_message",
+          "success": true,
+          "connector": "slack",
+          "executedAt": "2025-11-11T06:03:54.812Z"
+        },
+        "description": "Send a message to a Slack channel or direct message to a user",
+        "inputSchema": {
+          "text": {
+            "type": "string",
+            "label": "Message Text",
+            "helpText": "You can use *bold*, _italic_, ~strikethrough~, `code`, and ```code blocks```",
+            "required": true,
+            "inputType": "textarea",
+            "description": "The text content of your message (supports Slack markdown formatting)",
+            "placeholder": "Enter your message here..."
+          },
+          "threadTs": {
+            "type": "string",
+            "label": "Reply in Thread (Optional)",
+            "helpText": "Leave empty to send as a new message. Use output from previous message node to reply in thread.",
+            "description": "To reply in a thread, provide the timestamp of the parent message",
+            "placeholder": "1234567890.123456"
+          },
+          "channelId": {
+            "type": "string",
+            "label": "Channel or User ID",
+            "helpText": "Right-click on a channel in Slack → View channel details → Copy channel ID",
+            "required": true,
+            "description": "The ID of the channel (starts with C) or user (starts with U) to send the message to",
+            "placeholder": "C01234ABCDE or U01234ABCDE"
+          }
+        },
+        "actionParams": {
+          "text": "Google Analytics data is collected. Check spreadsheet",
+          "channelId": "U09BHAKAS8L"
+        },
+        "credentialId": "3c72ddc7-dc63-4638-84c0-f8ef5c5ec6e5",
+        "connectorType": "slack",
+        "executionTime": 747,
+        "lastExecutedAt": "2025-11-11T06:03:54.864Z",
+        "credentialAuthType": "standard"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "RUN_CODE_1762839301725",
+      "action": "execute",
+      "params": {
+        "code": "const responseData = JSON.parse(data.text);\n  const campaign = responseData.emailCampaign;\n  const metrics = campaign.metrics || {};\n  const goals = campaign.goals || {};\n  const ecommerce = campaign.ecommerce || {};\n\n  // Extract goal data\n  const goal1 = goals.goal1 || {};\n  const goal2 = goals.goal2 || {};\n\n  // Create row for Google Sheets with comprehensive data\n  return {\n    values: [[\n      campaign.name,\n      campaign.startDate,\n      campaign.endDate,\n      campaign.campaignID,\n      campaign.utmSource,\n      campaign.utmMedium,\n      campaign.utmCampaign,\n      campaign.utmContent,\n      campaign.utmTerm,\n      metrics.sessions,\n      metrics.pageViews,\n      metrics.uniquePageViews,\n      metrics.averageSessionDuration,\n      metrics.bounceRate,\n      metrics.conversionRate,\n      goal1.name || '',\n      goal1.completions || 0,\n      goal1.conversionRate || '0%',\n      goal2.name || '',\n      goal2.completions || 0,\n      goal2.conversionRate || '0%',\n      ecommerce.revenue,\n      ecommerce.transactions,\n      ecommerce.averageOrderValue\n    ]]\n  };\n",
+        "icon": "R",
+        "color": "#14b8a6",
+        "label": "Run Code",
+        "status": "success",
+        "category": "action",
+        "inputData": [
+          {
+            "json": {
+              "text": "{\n  \"emailCampaign\": {\n    \"name\": \"Spring Sale Email Campaign\",\n    \"startDate\": \"2022-04-01\",\n    \"endDate\": \"2022-04-15\",\n    \"campaignID\": \"ABC123\",\n    \"utmSource\": \"email\",\n    \"utmMedium\": \"campaign\",\n    \"utmCampaign\": \"spring_sale\",\n    \"utmContent\": \"promo_email\",\n    \"utmTerm\": \"spring_sale_discount\",\n    \"metrics\": {\n      \"sessions\": 500,\n      \"pageViews\": 1000,\n      \"uniquePageViews\": 800,\n      \"averageSessionDuration\": \"00:02:30\",\n      \"bounceRate\": \"30%\",\n      \"conversionRate\": \"5%\"\n    },\n    \"goals\": {\n      \"goal1\": {\n        \"name\": \"Purchase\",\n        \"completions\": 25,\n        \"conversionRate\": \"5%\"\n      },\n      \"goal2\": {\n        \"name\": \"Sign up\",\n        \"completions\": 50,\n        \"conversionRate\": \"10%\"\n      }\n    },\n    \"ecommerce\": {\n      \"revenue\": \"$10,000\",\n      \"transactions\": 50,\n      \"averageOrderValue\": \"$200\"\n    }\n  }\n}",
+              "action": "chat_complete",
+              "success": true,
+              "connector": "openai",
+              "executedAt": "2025-11-11T06:03:52.879Z"
+            }
+          }
+        ],
+        "startTime": 1762841032882,
+        "lastResult": {
+          "values": [
+            [
+              "Spring Sale Email Campaign",
+              "2022-04-01",
+              "2022-04-15",
+              "ABC123",
+              "email",
+              "campaign",
+              "spring_sale",
+              "promo_email",
+              "spring_sale_discount",
+              500,
+              1000,
+              800,
+              "00:02:30",
+              "30%",
+              "5%",
+              "Purchase",
+              25,
+              "5%",
+              "Sign up",
+              50,
+              "10%",
+              "$10,000",
+              50,
+              "$200"
+            ]
+          ]
+        },
+        "outputData": {
+          "values": [
+            [
+              "Spring Sale Email Campaign",
+              "2022-04-01",
+              "2022-04-15",
+              "ABC123",
+              "email",
+              "campaign",
+              "spring_sale",
+              "promo_email",
+              "spring_sale_discount",
+              500,
+              1000,
+              800,
+              "00:02:30",
+              "30%",
+              "5%",
+              "Purchase",
+              25,
+              "5%",
+              "Sign up",
+              50,
+              "10%",
+              "$10,000",
+              50,
+              "$200"
+            ]
+          ]
+        },
+        "description": "Execute custom JavaScript code",
+        "executionTime": 5,
+        "lastExecutedAt": "2025-11-11T06:03:54.864Z"
+      },
+      "connector": "RUN_CODE"
+    }
+  ],
+  "triggers": [
+    {
+      "id": "MANUAL_TRIGGER_1762836220957",
+      "type": "MANUAL_TRIGGER",
+      "config": {
+        "icon": "M",
+        "color": "#06b6d4",
+        "label": "Manual Trigger",
+        "status": "success",
+        "category": "trigger",
+        "inputData": [
+          {
+            "json": {
+              "test": true,
+              "executedAt": "2025-11-11T06:03:49.987Z"
+            }
+          }
+        ],
+        "startTime": 1762841030046,
+        "lastResult": {
+          "test": true,
+          "executedAt": "2025-11-11T06:03:49.987Z"
+        },
+        "outputData": {
+          "test": true,
+          "executedAt": "2025-11-11T06:03:49.987Z"
+        },
+        "description": "Manually execute the workflow",
+        "executionTime": 1,
+        "lastExecutedAt": "2025-11-11T06:03:54.864Z"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "CONNECTOR_ACTION",
+    "RUN_CODE"
+  ],
+  "tags": [],
+  "verified": true,
+  "is_public": true,
+  "metadata": {},
+  "ai_prompt": " You need Gmail Trigger to detect incoming campaign emails, then use Google Analytics action to track performance, and finally utilize OpenAI to generate insights. That's 3 nodes total."
+}

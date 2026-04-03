@@ -1,0 +1,107 @@
+{
+  "id": "e5f6a7b8-c9d0-4123-e5f6-a7b8c9d01234",
+  "name": "Zoom Meeting Started Notification",
+  "description": "Notify team channel when important meetings start. Nodes: Zoom Trigger, Slack Action",
+  "category": "collaboration",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Meeting Started",
+          "config": {},
+          "trigger": "meeting_started",
+          "category": "trigger",
+          "connector": "zoom",
+          "eventType": "webhook",
+          "triggerId": "meeting_started",
+          "description": "Triggered when Zoom meeting starts",
+          "connectorType": "zoom",
+          "connectorDisplayName": "Zoom"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Notify Team",
+          "action": "send_message",
+          "config": {
+            "channel": "{{channel_id}}",
+            "text": "🎥 Meeting Started: {{trigger.topic}}\nJoin URL: {{trigger.join_url}}"
+          },
+          "actionId": "send_message",
+          "category": "action",
+          "connector": "slack",
+          "actionName": "Post Message",
+          "description": "Post message to Slack",
+          "connectorType": "slack",
+          "connectorDisplayName": "Slack"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "zoom",
+        "triggerId": "meeting_started"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "zoom",
+    "slack"
+  ],
+  "tags": [
+    "collaboration",
+    "automation",
+    "zoom",
+    "slack",
+    "meetings",
+    "notifications"
+  ],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow notifies Slack when Zoom meetings start using zoom, slack",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"meeting start notification\" that triggers when Zoom meeting starts and posts to Slack"
+}

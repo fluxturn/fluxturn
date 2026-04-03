@@ -1,0 +1,80 @@
+{
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567803",
+  "name": "OpenAI Form Response Analyzer",
+  "description": "Analyze Jotform submissions with AI to extract insights and sentiment. Nodes: Jotform Trigger, OpenAI Action",
+  "category": "ai",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": { "x": 60, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Form Submission",
+          "config": {},
+          "trigger": "form_submission",
+          "category": "trigger",
+          "connector": "jotform",
+          "eventType": "webhook",
+          "triggerId": "form_submission",
+          "description": "Triggered when form is submitted",
+          "connectorType": "jotform",
+          "connectorDisplayName": "Jotform"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 405, "y": 200 },
+        "data": {
+          "icon": "connector",
+          "label": "Chat Completion",
+          "action": "chat_complete",
+          "config": {
+            "model": "gpt-3.5-turbo",
+            "messages": "{{messages}}"
+          },
+          "actionId": "chat_complete",
+          "category": "action",
+          "connector": "openai",
+          "actionName": "Chat Completion",
+          "description": "Analyze form response with AI",
+          "connectorType": "openai",
+          "connectorDisplayName": "OpenAI"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": { "stroke": "#06b6d4", "strokeWidth": 2 },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": { "type": "arrowclosed", "color": "#06b6d4", "width": 20, "height": 20 }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": { "connector": "jotform", "triggerId": "form_submission" }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": ["jotform", "openai"],
+  "tags": ["ai", "automation", "forms", "openai", "jotform", "analysis"],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow analyzes form submissions using OpenAI",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"OpenAI form response analyzer\" that triggers when a Jotform submission is received and analyzes it with OpenAI"
+}

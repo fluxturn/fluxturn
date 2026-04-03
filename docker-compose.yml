@@ -1,0 +1,104 @@
+version: "3.8"
+
+# FluxTurn - Full Stack Setup
+# Usage: docker compose --env-file .env.docker up
+# Then visit http://localhost:5185 (frontend) and http://localhost:5005 (backend API)
+
+services:
+  # ─── Infrastructure ───────────────────────────────────────────
+  postgres:
+    image: postgres:15-alpine
+    container_name: fluxturn-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-fluxturn_platform}
+    ports:
+      - "${POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: fluxturn-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: fluxturn-qdrant
+    restart: unless-stopped
+    ports:
+      - "${QDRANT_PORT:-6333}:6333"
+      - "${QDRANT_GRPC_PORT:-6334}:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    environment:
+      - QDRANT__SERVICE__GRPC_PORT=6334
+
+  # ─── Application ──────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: fluxturn-backend
+    restart: unless-stopped
+    ports:
+      - "${BACKEND_PORT:-5005}:5005"
+    env_file:
+      - ./backend/.env
+    environment:
+      - NODE_ENV=production
+      - PLATFORM_DB_HOST=postgres
+      - PLATFORM_DB_PORT=5432
+      - PLATFORM_DB_USER=${POSTGRES_USER:-postgres}
+      - PLATFORM_DB_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+      - PLATFORM_DB_NAME=${POSTGRES_DB:-fluxturn_platform}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - QDRANT_HOST=qdrant
+      - QDRANT_PORT=6333
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: fluxturn-frontend
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-5185}:80"
+    environment:
+      - VITE_API_BASE_URL=http://localhost:${BACKEND_PORT:-5005}
+      - VITE_WS_URL=ws://localhost:${BACKEND_PORT:-5005}
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  qdrant_data:
+    driver: local

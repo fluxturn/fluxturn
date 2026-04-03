@@ -1,0 +1,126 @@
+{
+  "id": "d62c6bb6-966e-4bc6-8e8e-2ad73ddb6c77",
+  "name": "LinkedIn Lead Capture",
+  "description": "Capture LinkedIn post commenters as leads in Airtable",
+  "category": "social",
+  "difficulty": "intermediate",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": [
+    "linkedin",
+    "airtable",
+    "sendgrid"
+  ],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_14_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 100
+        },
+        "data": {
+          "label": "New Comment",
+          "category": "trigger",
+          "config": {},
+          "connector": "linkedin",
+          "triggerId": "post_comment",
+          "inputSchema": {
+            "pollInterval": {
+              "type": "number",
+              "label": "Poll Interval",
+              "default": 300
+            }
+          },
+          "configSchema": {
+            "pollInterval": {
+              "type": "number",
+              "label": "Poll Interval",
+              "default": 300
+            }
+          },
+          "outputSchema": {
+            "data": {
+              "type": "object",
+              "description": "Trigger event data"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_14_2",
+        "type": "RUN_CODE",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "label": "Extract Lead Info",
+          "category": "utility",
+          "config": {
+            "code": "return { name: $json.author.name, profile: $json.author.profileUrl, comment: $json.text };"
+          },
+          "inputSchema": {},
+          "configSchema": {},
+          "outputSchema": {}
+        }
+      },
+      {
+        "id": "node_14_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 700,
+          "y": 100
+        },
+        "data": {
+          "label": "Save Lead",
+          "category": "action",
+          "config": {
+            "baseId": "{{your_base_id}}",
+            "tableId": "Leads",
+            "fields": "={{$json}}"
+          },
+          "connector": "airtable",
+          "actionId": "create_record",
+          "inputSchema": {
+            "data": {
+              "type": "object",
+              "label": "Data",
+              "description": "Action input data"
+            }
+          },
+          "configSchema": {
+            "data": {
+              "type": "object",
+              "label": "Data",
+              "description": "Action input data"
+            }
+          },
+          "outputSchema": {
+            "result": {
+              "type": "object",
+              "description": "Action result"
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_1",
+        "source": "node_14_1",
+        "target": "node_14_2",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_2",
+        "source": "node_14_2",
+        "target": "node_14_3",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

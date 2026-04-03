@@ -1,0 +1,1669 @@
+{
+  "id": "43806622-124c-46be-b483-7ba12f60e23a",
+  "name": "LinkedIn Post Idea Generator",
+  "description": "Get daily AI-generated post ideas based on your niche",
+  "category": "personal",
+  "canvas": {
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_3",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_3",
+        "target": "node_4",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_4",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_4",
+        "target": "node_5",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_5",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_5",
+        "target": "node_6",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "xy-edge__OPENAI_CHAT_MODEL_1762167348989source-1-node_4chatModel",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "OPENAI_CHAT_MODEL_1762167348989",
+        "target": "node_4",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        },
+        "sourceHandle": "source-1",
+        "targetHandle": "chatModel"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "node_1",
+        "data": {
+          "cron": "0 7 * * *",
+          "icon": "clock",
+          "label": "Run Daily at 7 AM",
+          "category": "trigger",
+          "timezone": "UTC",
+          "description": "Trigger workflow on a schedule (cron)",
+          "inputSchema": {},
+          "configSchema": {
+            "cron": {
+              "type": "string",
+              "required": true
+            },
+            "timezone": {
+              "type": "string"
+            }
+          },
+          "outputSchema": {
+            "triggeredAt": {
+              "type": "string"
+            }
+          }
+        },
+        "type": "SCHEDULE_TRIGGER",
+        "position": {
+          "x": 90,
+          "y": 120
+        }
+      },
+      {
+        "id": "node_2",
+        "data": {
+          "icon": "connector",
+          "label": "Check Twitter for Trending Topics",
+          "action": "search_tweets",
+          "config": {
+            "count": 10,
+            "query": "#trending"
+          },
+          "actionId": "search_tweets",
+          "category": "action",
+          "connector": "twitter",
+          "actionName": "Search Tweets",
+          "description": "Search for tweets from the last seven days",
+          "inputSchema": {
+            "query": {
+              "type": "string",
+              "label": "Search Query",
+              "required": true,
+              "description": "Search query using Twitter search operators (max 500 characters)",
+              "placeholder": "automation OR workflow"
+            },
+            "endTime": {
+              "type": "string",
+              "label": "End Time",
+              "inputType": "datetime",
+              "description": "Tweets before this time (ISO 8601 format)"
+            },
+            "sortOrder": {
+              "type": "select",
+              "label": "Sort Order",
+              "default": "recency",
+              "options": [
+                {
+                  "label": "Recent",
+                  "value": "recency"
+                },
+                {
+                  "label": "Relevant",
+                  "value": "relevancy"
+                }
+              ],
+              "description": "Order to return results"
+            },
+            "startTime": {
+              "type": "string",
+              "label": "Start Time",
+              "inputType": "datetime",
+              "description": "Tweets after this time (ISO 8601 format, within last 7 days)"
+            },
+            "maxResults": {
+              "max": 100,
+              "min": 10,
+              "type": "number",
+              "label": "Max Results",
+              "default": 10,
+              "description": "Maximum number of tweets to return (10-100)"
+            },
+            "tweetFields": {
+              "type": "array",
+              "items": {
+                "type": "select",
+                "options": [
+                  {
+                    "label": "Attachments",
+                    "value": "attachments"
+                  },
+                  {
+                    "label": "Author ID",
+                    "value": "author_id"
+                  },
+                  {
+                    "label": "Created At",
+                    "value": "created_at"
+                  },
+                  {
+                    "label": "Public Metrics",
+                    "value": "public_metrics"
+                  },
+                  {
+                    "label": "Entities",
+                    "value": "entities"
+                  },
+                  {
+                    "label": "Geo",
+                    "value": "geo"
+                  },
+                  {
+                    "label": "Language",
+                    "value": "lang"
+                  }
+                ]
+              },
+              "label": "Tweet Fields",
+              "description": "Additional fields to return"
+            }
+          },
+          "configSchema": {
+            "query": {
+              "type": "string",
+              "label": "Search Query",
+              "required": true,
+              "description": "Search query using Twitter search operators (max 500 characters)",
+              "placeholder": "automation OR workflow"
+            },
+            "endTime": {
+              "type": "string",
+              "label": "End Time",
+              "inputType": "datetime",
+              "description": "Tweets before this time (ISO 8601 format)"
+            },
+            "sortOrder": {
+              "type": "select",
+              "label": "Sort Order",
+              "default": "recency",
+              "options": [
+                {
+                  "label": "Recent",
+                  "value": "recency"
+                },
+                {
+                  "label": "Relevant",
+                  "value": "relevancy"
+                }
+              ],
+              "description": "Order to return results"
+            },
+            "startTime": {
+              "type": "string",
+              "label": "Start Time",
+              "inputType": "datetime",
+              "description": "Tweets after this time (ISO 8601 format, within last 7 days)"
+            },
+            "maxResults": {
+              "max": 100,
+              "min": 10,
+              "type": "number",
+              "label": "Max Results",
+              "default": 10,
+              "description": "Maximum number of tweets to return (10-100)"
+            },
+            "tweetFields": {
+              "type": "array",
+              "items": {
+                "type": "select",
+                "options": [
+                  {
+                    "label": "Attachments",
+                    "value": "attachments"
+                  },
+                  {
+                    "label": "Author ID",
+                    "value": "author_id"
+                  },
+                  {
+                    "label": "Created At",
+                    "value": "created_at"
+                  },
+                  {
+                    "label": "Public Metrics",
+                    "value": "public_metrics"
+                  },
+                  {
+                    "label": "Entities",
+                    "value": "entities"
+                  },
+                  {
+                    "label": "Geo",
+                    "value": "geo"
+                  },
+                  {
+                    "label": "Language",
+                    "value": "lang"
+                  }
+                ]
+              },
+              "label": "Tweet Fields",
+              "description": "Additional fields to return"
+            }
+          },
+          "connectorType": "twitter",
+          "connectorDisplayName": "Twitter/X"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 270,
+          "y": 285
+        }
+      },
+      {
+        "id": "node_3",
+        "data": {
+          "icon": "connector",
+          "label": "Scan Reddit for Discussions",
+          "action": "post_search",
+          "config": {
+            "sort": "hot",
+            "query": "discussion",
+            "subreddit": "all"
+          },
+          "actionId": "post_search",
+          "category": "action",
+          "connector": "reddit",
+          "actionName": "Search Posts",
+          "description": "Search for posts in a subreddit or across Reddit",
+          "inputSchema": {
+            "sort": {
+              "type": "select",
+              "label": "Sort By",
+              "default": "relevance",
+              "options": [
+                {
+                  "label": "Relevance",
+                  "value": "relevance"
+                },
+                {
+                  "label": "Hot",
+                  "value": "hot"
+                },
+                {
+                  "label": "Top",
+                  "value": "top"
+                },
+                {
+                  "label": "New",
+                  "value": "new"
+                },
+                {
+                  "label": "Comments",
+                  "value": "comments"
+                }
+              ],
+              "description": "How to sort search results"
+            },
+            "time": {
+              "type": "select",
+              "label": "Time Filter",
+              "default": "all",
+              "options": [
+                {
+                  "label": "All Time",
+                  "value": "all"
+                },
+                {
+                  "label": "Past Hour",
+                  "value": "hour"
+                },
+                {
+                  "label": "Past Day",
+                  "value": "day"
+                },
+                {
+                  "label": "Past Week",
+                  "value": "week"
+                },
+                {
+                  "label": "Past Month",
+                  "value": "month"
+                },
+                {
+                  "label": "Past Year",
+                  "value": "year"
+                }
+              ],
+              "description": "Time period for search"
+            },
+            "limit": {
+              "type": "number",
+              "label": "Limit",
+              "default": 25,
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Number of results to retrieve (max 100)"
+            },
+            "query": {
+              "type": "string",
+              "label": "Search Query",
+              "required": true,
+              "description": "Keywords to search for",
+              "placeholder": "machine learning"
+            },
+            "location": {
+              "type": "select",
+              "label": "Search Location",
+              "default": "subreddit",
+              "options": [
+                {
+                  "label": "Specific Subreddit",
+                  "value": "subreddit"
+                },
+                {
+                  "label": "All of Reddit",
+                  "value": "all"
+                }
+              ],
+              "required": true,
+              "description": "Where to search for posts"
+            },
+            "subreddit": {
+              "type": "string",
+              "label": "Subreddit",
+              "description": "The subreddit to search (without r/)",
+              "placeholder": "askscience",
+              "displayCondition": {
+                "location": "subreddit"
+              }
+            }
+          },
+          "configSchema": {
+            "sort": {
+              "type": "select",
+              "label": "Sort By",
+              "default": "relevance",
+              "options": [
+                {
+                  "label": "Relevance",
+                  "value": "relevance"
+                },
+                {
+                  "label": "Hot",
+                  "value": "hot"
+                },
+                {
+                  "label": "Top",
+                  "value": "top"
+                },
+                {
+                  "label": "New",
+                  "value": "new"
+                },
+                {
+                  "label": "Comments",
+                  "value": "comments"
+                }
+              ],
+              "description": "How to sort search results"
+            },
+            "time": {
+              "type": "select",
+              "label": "Time Filter",
+              "default": "all",
+              "options": [
+                {
+                  "label": "All Time",
+                  "value": "all"
+                },
+                {
+                  "label": "Past Hour",
+                  "value": "hour"
+                },
+                {
+                  "label": "Past Day",
+                  "value": "day"
+                },
+                {
+                  "label": "Past Week",
+                  "value": "week"
+                },
+                {
+                  "label": "Past Month",
+                  "value": "month"
+                },
+                {
+                  "label": "Past Year",
+                  "value": "year"
+                }
+              ],
+              "description": "Time period for search"
+            },
+            "limit": {
+              "type": "number",
+              "label": "Limit",
+              "default": 25,
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Number of results to retrieve (max 100)"
+            },
+            "query": {
+              "type": "string",
+              "label": "Search Query",
+              "required": true,
+              "description": "Keywords to search for",
+              "placeholder": "machine learning"
+            },
+            "location": {
+              "type": "select",
+              "label": "Search Location",
+              "default": "subreddit",
+              "options": [
+                {
+                  "label": "Specific Subreddit",
+                  "value": "subreddit"
+                },
+                {
+                  "label": "All of Reddit",
+                  "value": "all"
+                }
+              ],
+              "required": true,
+              "description": "Where to search for posts"
+            },
+            "subreddit": {
+              "type": "string",
+              "label": "Subreddit",
+              "description": "The subreddit to search (without r/)",
+              "placeholder": "askscience",
+              "displayCondition": {
+                "location": "subreddit"
+              }
+            }
+          },
+          "connectorType": "reddit",
+          "connectorDisplayName": "Reddit"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 600,
+          "y": 105
+        }
+      },
+      {
+        "id": "node_4",
+        "data": {
+          "icon": "brain",
+          "label": "Generate Post Ideas",
+          "category": "action",
+          "maxTokens": 50,
+          "description": "AI Agent that can use tools and maintain conversation memory",
+          "inputSchema": {
+            "input": {
+              "type": "string",
+              "required": true
+            },
+            "tools": {
+              "type": "array",
+              "required": false
+            },
+            "memory": {
+              "type": "object",
+              "required": false
+            },
+            "chatModel": {
+              "type": "object",
+              "required": true
+            }
+          },
+          "temperature": 0.7,
+          "configSchema": {
+            "maxTokens": {
+              "type": "number",
+              "required": false
+            },
+            "temperature": {
+              "type": "number",
+              "required": false
+            },
+            "systemPrompt": {
+              "type": "string",
+              "required": false
+            }
+          },
+          "outputSchema": {
+            "response": {
+              "type": "string"
+            },
+            "toolCalls": {
+              "type": "array"
+            }
+          },
+          "systemPrompt": "Generate ideas for posts based on the trending topics and discussions."
+        },
+        "type": "AI_AGENT",
+        "position": {
+          "x": 900,
+          "y": 285
+        }
+      },
+      {
+        "id": "node_5",
+        "data": {
+          "icon": "connector",
+          "label": "Save Ideas to Google Sheets",
+          "action": "append_row",
+          "config": {
+            "valueRange": [
+              [
+                "Ideas"
+              ],
+              [
+                "{{node_4.output}}"
+              ]
+            ],
+            "spreadsheetId": "your_spreadsheet_id"
+          },
+          "actionId": "append_row",
+          "category": "action",
+          "connector": "google_sheets",
+          "actionName": "Append Row",
+          "description": "Add a new row to the end of a sheet",
+          "inputSchema": {
+            "values": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "label": "Values",
+              "required": true,
+              "description": "Row data as array of values"
+            },
+            "sheetName": {
+              "type": "string",
+              "label": "Sheet Name",
+              "default": "Sheet1",
+              "required": true,
+              "description": "Name of the sheet tab",
+              "loadOptionsResource": "sheets",
+              "loadOptionsDependsOn": [
+                "spreadsheetId"
+              ],
+              "loadOptionsDescription": "Fetch sheets from selected spreadsheet"
+            },
+            "spreadsheetId": {
+              "type": "string",
+              "label": "Spreadsheet ID",
+              "required": true,
+              "description": "The ID of the spreadsheet",
+              "placeholder": "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms",
+              "loadOptionsResource": "spreadsheets",
+              "loadOptionsDescription": "Fetch spreadsheets from Google Drive"
+            },
+            "valueInputOption": {
+              "type": "select",
+              "label": "Value Input Option",
+              "default": "USER_ENTERED",
+              "options": [
+                {
+                  "label": "User Entered (Formatted)",
+                  "value": "USER_ENTERED"
+                },
+                {
+                  "label": "Raw",
+                  "value": "RAW"
+                }
+              ]
+            }
+          },
+          "configSchema": {
+            "values": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "label": "Values",
+              "required": true,
+              "description": "Row data as array of values"
+            },
+            "sheetName": {
+              "type": "string",
+              "label": "Sheet Name",
+              "default": "Sheet1",
+              "required": true,
+              "description": "Name of the sheet tab",
+              "loadOptionsResource": "sheets",
+              "loadOptionsDependsOn": [
+                "spreadsheetId"
+              ],
+              "loadOptionsDescription": "Fetch sheets from selected spreadsheet"
+            },
+            "spreadsheetId": {
+              "type": "string",
+              "label": "Spreadsheet ID",
+              "required": true,
+              "description": "The ID of the spreadsheet",
+              "placeholder": "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms",
+              "loadOptionsResource": "spreadsheets",
+              "loadOptionsDescription": "Fetch spreadsheets from Google Drive"
+            },
+            "valueInputOption": {
+              "type": "select",
+              "label": "Value Input Option",
+              "default": "USER_ENTERED",
+              "options": [
+                {
+                  "label": "User Entered (Formatted)",
+                  "value": "USER_ENTERED"
+                },
+                {
+                  "label": "Raw",
+                  "value": "RAW"
+                }
+              ]
+            }
+          },
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1140,
+          "y": 120
+        }
+      },
+      {
+        "id": "node_6",
+        "data": {
+          "icon": "connector",
+          "label": "Send Ideas to Telegram",
+          "action": "send_message",
+          "config": {
+            "text": "Here are the new post ideas: {{node_4.output}}",
+            "chat_id": "your_chat_id",
+            "reply_markup": {
+              "inline_keyboard": [
+                [
+                  {
+                    "text": "Idea 1",
+                    "callback_data": "idea_1"
+                  }
+                ],
+                [
+                  {
+                    "text": "Idea 2",
+                    "callback_data": "idea_2"
+                  }
+                ]
+              ]
+            }
+          },
+          "actionId": "send_message",
+          "category": "action",
+          "connector": "telegram",
+          "actionName": "Send Message",
+          "description": "Send a text message to a Telegram chat",
+          "inputSchema": {
+            "text": {
+              "type": "string",
+              "label": "Message Text",
+              "required": true,
+              "inputType": "textarea",
+              "description": "Text of the message to be sent (1-4096 characters)"
+            },
+            "chatId": {
+              "type": "string",
+              "label": "Chat ID",
+              "required": true,
+              "description": "Unique identifier for the target chat or username",
+              "placeholder": "@username or -123456789"
+            },
+            "parseMode": {
+              "type": "select",
+              "label": "Parse Mode",
+              "default": "none",
+              "options": [
+                {
+                  "label": "Plain Text",
+                  "value": "none"
+                },
+                {
+                  "label": "Markdown",
+                  "value": "Markdown"
+                },
+                {
+                  "label": "HTML",
+                  "value": "HTML"
+                }
+              ],
+              "description": "How to parse entities in the message"
+            },
+            "disableNotification": {
+              "type": "boolean",
+              "label": "Silent Message",
+              "default": false,
+              "description": "Send message silently without notification"
+            }
+          },
+          "configSchema": {
+            "text": {
+              "type": "string",
+              "label": "Message Text",
+              "required": true,
+              "inputType": "textarea",
+              "description": "Text of the message to be sent (1-4096 characters)"
+            },
+            "chatId": {
+              "type": "string",
+              "label": "Chat ID",
+              "required": true,
+              "description": "Unique identifier for the target chat or username",
+              "placeholder": "@username or -123456789"
+            },
+            "parseMode": {
+              "type": "select",
+              "label": "Parse Mode",
+              "default": "none",
+              "options": [
+                {
+                  "label": "Plain Text",
+                  "value": "none"
+                },
+                {
+                  "label": "Markdown",
+                  "value": "Markdown"
+                },
+                {
+                  "label": "HTML",
+                  "value": "HTML"
+                }
+              ],
+              "description": "How to parse entities in the message"
+            },
+            "disableNotification": {
+              "type": "boolean",
+              "label": "Silent Message",
+              "default": false,
+              "description": "Send message silently without notification"
+            }
+          },
+          "connectorType": "telegram",
+          "connectorDisplayName": "Telegram"
+        },
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 1410,
+          "y": 345
+        }
+      },
+      {
+        "id": "OPENAI_CHAT_MODEL_1762167348989",
+        "data": {
+          "icon": "O",
+          "topP": 1,
+          "color": "#14b8a6",
+          "label": "OpenAI Chat Model",
+          "model": "gpt-4o-mini",
+          "category": "action",
+          "maxTokens": 4096,
+          "description": "Provides OpenAI GPT model configuration for AI Agent",
+          "temperature": 0.7,
+          "presencePenalty": 0,
+          "frequencyPenalty": 0
+        },
+        "type": "OPENAI_CHAT_MODEL",
+        "position": {
+          "x": 540,
+          "y": 480
+        }
+      }
+    ]
+  },
+  "steps": [
+    {
+      "id": "node_2",
+      "action": "search_tweets",
+      "params": {
+        "icon": "connector",
+        "label": "Check Twitter for Trending Topics",
+        "action": "search_tweets",
+        "config": {
+          "count": 10,
+          "query": "#trending"
+        },
+        "actionId": "search_tweets",
+        "category": "action",
+        "connector": "twitter",
+        "actionName": "Search Tweets",
+        "description": "Search for tweets from the last seven days",
+        "inputSchema": {
+          "query": {
+            "type": "string",
+            "label": "Search Query",
+            "required": true,
+            "description": "Search query using Twitter search operators (max 500 characters)",
+            "placeholder": "automation OR workflow"
+          },
+          "endTime": {
+            "type": "string",
+            "label": "End Time",
+            "inputType": "datetime",
+            "description": "Tweets before this time (ISO 8601 format)"
+          },
+          "sortOrder": {
+            "type": "select",
+            "label": "Sort Order",
+            "default": "recency",
+            "options": [
+              {
+                "label": "Recent",
+                "value": "recency"
+              },
+              {
+                "label": "Relevant",
+                "value": "relevancy"
+              }
+            ],
+            "description": "Order to return results"
+          },
+          "startTime": {
+            "type": "string",
+            "label": "Start Time",
+            "inputType": "datetime",
+            "description": "Tweets after this time (ISO 8601 format, within last 7 days)"
+          },
+          "maxResults": {
+            "max": 100,
+            "min": 10,
+            "type": "number",
+            "label": "Max Results",
+            "default": 10,
+            "description": "Maximum number of tweets to return (10-100)"
+          },
+          "tweetFields": {
+            "type": "array",
+            "items": {
+              "type": "select",
+              "options": [
+                {
+                  "label": "Attachments",
+                  "value": "attachments"
+                },
+                {
+                  "label": "Author ID",
+                  "value": "author_id"
+                },
+                {
+                  "label": "Created At",
+                  "value": "created_at"
+                },
+                {
+                  "label": "Public Metrics",
+                  "value": "public_metrics"
+                },
+                {
+                  "label": "Entities",
+                  "value": "entities"
+                },
+                {
+                  "label": "Geo",
+                  "value": "geo"
+                },
+                {
+                  "label": "Language",
+                  "value": "lang"
+                }
+              ]
+            },
+            "label": "Tweet Fields",
+            "description": "Additional fields to return"
+          }
+        },
+        "configSchema": {
+          "query": {
+            "type": "string",
+            "label": "Search Query",
+            "required": true,
+            "description": "Search query using Twitter search operators (max 500 characters)",
+            "placeholder": "automation OR workflow"
+          },
+          "endTime": {
+            "type": "string",
+            "label": "End Time",
+            "inputType": "datetime",
+            "description": "Tweets before this time (ISO 8601 format)"
+          },
+          "sortOrder": {
+            "type": "select",
+            "label": "Sort Order",
+            "default": "recency",
+            "options": [
+              {
+                "label": "Recent",
+                "value": "recency"
+              },
+              {
+                "label": "Relevant",
+                "value": "relevancy"
+              }
+            ],
+            "description": "Order to return results"
+          },
+          "startTime": {
+            "type": "string",
+            "label": "Start Time",
+            "inputType": "datetime",
+            "description": "Tweets after this time (ISO 8601 format, within last 7 days)"
+          },
+          "maxResults": {
+            "max": 100,
+            "min": 10,
+            "type": "number",
+            "label": "Max Results",
+            "default": 10,
+            "description": "Maximum number of tweets to return (10-100)"
+          },
+          "tweetFields": {
+            "type": "array",
+            "items": {
+              "type": "select",
+              "options": [
+                {
+                  "label": "Attachments",
+                  "value": "attachments"
+                },
+                {
+                  "label": "Author ID",
+                  "value": "author_id"
+                },
+                {
+                  "label": "Created At",
+                  "value": "created_at"
+                },
+                {
+                  "label": "Public Metrics",
+                  "value": "public_metrics"
+                },
+                {
+                  "label": "Entities",
+                  "value": "entities"
+                },
+                {
+                  "label": "Geo",
+                  "value": "geo"
+                },
+                {
+                  "label": "Language",
+                  "value": "lang"
+                }
+              ]
+            },
+            "label": "Tweet Fields",
+            "description": "Additional fields to return"
+          }
+        },
+        "connectorType": "twitter",
+        "connectorDisplayName": "Twitter/X"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "node_3",
+      "action": "post_search",
+      "params": {
+        "icon": "connector",
+        "label": "Scan Reddit for Discussions",
+        "action": "post_search",
+        "config": {
+          "sort": "hot",
+          "query": "discussion",
+          "subreddit": "all"
+        },
+        "actionId": "post_search",
+        "category": "action",
+        "connector": "reddit",
+        "actionName": "Search Posts",
+        "description": "Search for posts in a subreddit or across Reddit",
+        "inputSchema": {
+          "sort": {
+            "type": "select",
+            "label": "Sort By",
+            "default": "relevance",
+            "options": [
+              {
+                "label": "Relevance",
+                "value": "relevance"
+              },
+              {
+                "label": "Hot",
+                "value": "hot"
+              },
+              {
+                "label": "Top",
+                "value": "top"
+              },
+              {
+                "label": "New",
+                "value": "new"
+              },
+              {
+                "label": "Comments",
+                "value": "comments"
+              }
+            ],
+            "description": "How to sort search results"
+          },
+          "time": {
+            "type": "select",
+            "label": "Time Filter",
+            "default": "all",
+            "options": [
+              {
+                "label": "All Time",
+                "value": "all"
+              },
+              {
+                "label": "Past Hour",
+                "value": "hour"
+              },
+              {
+                "label": "Past Day",
+                "value": "day"
+              },
+              {
+                "label": "Past Week",
+                "value": "week"
+              },
+              {
+                "label": "Past Month",
+                "value": "month"
+              },
+              {
+                "label": "Past Year",
+                "value": "year"
+              }
+            ],
+            "description": "Time period for search"
+          },
+          "limit": {
+            "type": "number",
+            "label": "Limit",
+            "default": 25,
+            "maximum": 100,
+            "minimum": 1,
+            "description": "Number of results to retrieve (max 100)"
+          },
+          "query": {
+            "type": "string",
+            "label": "Search Query",
+            "required": true,
+            "description": "Keywords to search for",
+            "placeholder": "machine learning"
+          },
+          "location": {
+            "type": "select",
+            "label": "Search Location",
+            "default": "subreddit",
+            "options": [
+              {
+                "label": "Specific Subreddit",
+                "value": "subreddit"
+              },
+              {
+                "label": "All of Reddit",
+                "value": "all"
+              }
+            ],
+            "required": true,
+            "description": "Where to search for posts"
+          },
+          "subreddit": {
+            "type": "string",
+            "label": "Subreddit",
+            "description": "The subreddit to search (without r/)",
+            "placeholder": "askscience",
+            "displayCondition": {
+              "location": "subreddit"
+            }
+          }
+        },
+        "configSchema": {
+          "sort": {
+            "type": "select",
+            "label": "Sort By",
+            "default": "relevance",
+            "options": [
+              {
+                "label": "Relevance",
+                "value": "relevance"
+              },
+              {
+                "label": "Hot",
+                "value": "hot"
+              },
+              {
+                "label": "Top",
+                "value": "top"
+              },
+              {
+                "label": "New",
+                "value": "new"
+              },
+              {
+                "label": "Comments",
+                "value": "comments"
+              }
+            ],
+            "description": "How to sort search results"
+          },
+          "time": {
+            "type": "select",
+            "label": "Time Filter",
+            "default": "all",
+            "options": [
+              {
+                "label": "All Time",
+                "value": "all"
+              },
+              {
+                "label": "Past Hour",
+                "value": "hour"
+              },
+              {
+                "label": "Past Day",
+                "value": "day"
+              },
+              {
+                "label": "Past Week",
+                "value": "week"
+              },
+              {
+                "label": "Past Month",
+                "value": "month"
+              },
+              {
+                "label": "Past Year",
+                "value": "year"
+              }
+            ],
+            "description": "Time period for search"
+          },
+          "limit": {
+            "type": "number",
+            "label": "Limit",
+            "default": 25,
+            "maximum": 100,
+            "minimum": 1,
+            "description": "Number of results to retrieve (max 100)"
+          },
+          "query": {
+            "type": "string",
+            "label": "Search Query",
+            "required": true,
+            "description": "Keywords to search for",
+            "placeholder": "machine learning"
+          },
+          "location": {
+            "type": "select",
+            "label": "Search Location",
+            "default": "subreddit",
+            "options": [
+              {
+                "label": "Specific Subreddit",
+                "value": "subreddit"
+              },
+              {
+                "label": "All of Reddit",
+                "value": "all"
+              }
+            ],
+            "required": true,
+            "description": "Where to search for posts"
+          },
+          "subreddit": {
+            "type": "string",
+            "label": "Subreddit",
+            "description": "The subreddit to search (without r/)",
+            "placeholder": "askscience",
+            "displayCondition": {
+              "location": "subreddit"
+            }
+          }
+        },
+        "connectorType": "reddit",
+        "connectorDisplayName": "Reddit"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "node_4",
+      "action": "execute",
+      "params": {
+        "icon": "brain",
+        "label": "Generate Post Ideas",
+        "category": "action",
+        "maxTokens": 50,
+        "description": "AI Agent that can use tools and maintain conversation memory",
+        "inputSchema": {
+          "input": {
+            "type": "string",
+            "required": true
+          },
+          "tools": {
+            "type": "array",
+            "required": false
+          },
+          "memory": {
+            "type": "object",
+            "required": false
+          },
+          "chatModel": {
+            "type": "object",
+            "required": true
+          }
+        },
+        "temperature": 0.7,
+        "configSchema": {
+          "maxTokens": {
+            "type": "number",
+            "required": false
+          },
+          "temperature": {
+            "type": "number",
+            "required": false
+          },
+          "systemPrompt": {
+            "type": "string",
+            "required": false
+          }
+        },
+        "outputSchema": {
+          "response": {
+            "type": "string"
+          },
+          "toolCalls": {
+            "type": "array"
+          }
+        },
+        "systemPrompt": "Generate ideas for posts based on the trending topics and discussions."
+      },
+      "connector": "AI_AGENT"
+    },
+    {
+      "id": "node_5",
+      "action": "append_row",
+      "params": {
+        "icon": "connector",
+        "label": "Save Ideas to Google Sheets",
+        "action": "append_row",
+        "config": {
+          "valueRange": [
+            [
+              "Ideas"
+            ],
+            [
+              "{{node_4.output}}"
+            ]
+          ],
+          "spreadsheetId": "your_spreadsheet_id"
+        },
+        "actionId": "append_row",
+        "category": "action",
+        "connector": "google_sheets",
+        "actionName": "Append Row",
+        "description": "Add a new row to the end of a sheet",
+        "inputSchema": {
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "label": "Values",
+            "required": true,
+            "description": "Row data as array of values"
+          },
+          "sheetName": {
+            "type": "string",
+            "label": "Sheet Name",
+            "default": "Sheet1",
+            "required": true,
+            "description": "Name of the sheet tab",
+            "loadOptionsResource": "sheets",
+            "loadOptionsDependsOn": [
+              "spreadsheetId"
+            ],
+            "loadOptionsDescription": "Fetch sheets from selected spreadsheet"
+          },
+          "spreadsheetId": {
+            "type": "string",
+            "label": "Spreadsheet ID",
+            "required": true,
+            "description": "The ID of the spreadsheet",
+            "placeholder": "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms",
+            "loadOptionsResource": "spreadsheets",
+            "loadOptionsDescription": "Fetch spreadsheets from Google Drive"
+          },
+          "valueInputOption": {
+            "type": "select",
+            "label": "Value Input Option",
+            "default": "USER_ENTERED",
+            "options": [
+              {
+                "label": "User Entered (Formatted)",
+                "value": "USER_ENTERED"
+              },
+              {
+                "label": "Raw",
+                "value": "RAW"
+              }
+            ]
+          }
+        },
+        "configSchema": {
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "label": "Values",
+            "required": true,
+            "description": "Row data as array of values"
+          },
+          "sheetName": {
+            "type": "string",
+            "label": "Sheet Name",
+            "default": "Sheet1",
+            "required": true,
+            "description": "Name of the sheet tab",
+            "loadOptionsResource": "sheets",
+            "loadOptionsDependsOn": [
+              "spreadsheetId"
+            ],
+            "loadOptionsDescription": "Fetch sheets from selected spreadsheet"
+          },
+          "spreadsheetId": {
+            "type": "string",
+            "label": "Spreadsheet ID",
+            "required": true,
+            "description": "The ID of the spreadsheet",
+            "placeholder": "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms",
+            "loadOptionsResource": "spreadsheets",
+            "loadOptionsDescription": "Fetch spreadsheets from Google Drive"
+          },
+          "valueInputOption": {
+            "type": "select",
+            "label": "Value Input Option",
+            "default": "USER_ENTERED",
+            "options": [
+              {
+                "label": "User Entered (Formatted)",
+                "value": "USER_ENTERED"
+              },
+              {
+                "label": "Raw",
+                "value": "RAW"
+              }
+            ]
+          }
+        },
+        "connectorType": "google_sheets",
+        "connectorDisplayName": "Google Sheets"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "node_6",
+      "action": "send_message",
+      "params": {
+        "icon": "connector",
+        "label": "Send Ideas to Telegram",
+        "action": "send_message",
+        "config": {
+          "text": "Here are the new post ideas: {{node_4.output}}",
+          "chat_id": "your_chat_id",
+          "reply_markup": {
+            "inline_keyboard": [
+              [
+                {
+                  "text": "Idea 1",
+                  "callback_data": "idea_1"
+                }
+              ],
+              [
+                {
+                  "text": "Idea 2",
+                  "callback_data": "idea_2"
+                }
+              ]
+            ]
+          }
+        },
+        "actionId": "send_message",
+        "category": "action",
+        "connector": "telegram",
+        "actionName": "Send Message",
+        "description": "Send a text message to a Telegram chat",
+        "inputSchema": {
+          "text": {
+            "type": "string",
+            "label": "Message Text",
+            "required": true,
+            "inputType": "textarea",
+            "description": "Text of the message to be sent (1-4096 characters)"
+          },
+          "chatId": {
+            "type": "string",
+            "label": "Chat ID",
+            "required": true,
+            "description": "Unique identifier for the target chat or username",
+            "placeholder": "@username or -123456789"
+          },
+          "parseMode": {
+            "type": "select",
+            "label": "Parse Mode",
+            "default": "none",
+            "options": [
+              {
+                "label": "Plain Text",
+                "value": "none"
+              },
+              {
+                "label": "Markdown",
+                "value": "Markdown"
+              },
+              {
+                "label": "HTML",
+                "value": "HTML"
+              }
+            ],
+            "description": "How to parse entities in the message"
+          },
+          "disableNotification": {
+            "type": "boolean",
+            "label": "Silent Message",
+            "default": false,
+            "description": "Send message silently without notification"
+          }
+        },
+        "configSchema": {
+          "text": {
+            "type": "string",
+            "label": "Message Text",
+            "required": true,
+            "inputType": "textarea",
+            "description": "Text of the message to be sent (1-4096 characters)"
+          },
+          "chatId": {
+            "type": "string",
+            "label": "Chat ID",
+            "required": true,
+            "description": "Unique identifier for the target chat or username",
+            "placeholder": "@username or -123456789"
+          },
+          "parseMode": {
+            "type": "select",
+            "label": "Parse Mode",
+            "default": "none",
+            "options": [
+              {
+                "label": "Plain Text",
+                "value": "none"
+              },
+              {
+                "label": "Markdown",
+                "value": "Markdown"
+              },
+              {
+                "label": "HTML",
+                "value": "HTML"
+              }
+            ],
+            "description": "How to parse entities in the message"
+          },
+          "disableNotification": {
+            "type": "boolean",
+            "label": "Silent Message",
+            "default": false,
+            "description": "Send message silently without notification"
+          }
+        },
+        "connectorType": "telegram",
+        "connectorDisplayName": "Telegram"
+      },
+      "connector": "CONNECTOR_ACTION"
+    },
+    {
+      "id": "OPENAI_CHAT_MODEL_1762167348989",
+      "action": "execute",
+      "params": {
+        "icon": "O",
+        "topP": 1,
+        "color": "#14b8a6",
+        "label": "OpenAI Chat Model",
+        "model": "gpt-4o-mini",
+        "category": "action",
+        "maxTokens": 4096,
+        "description": "Provides OpenAI GPT model configuration for AI Agent",
+        "temperature": 0.7,
+        "presencePenalty": 0,
+        "frequencyPenalty": 0
+      },
+      "connector": "OPENAI_CHAT_MODEL"
+    }
+  ],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "SCHEDULE_TRIGGER",
+      "config": {
+        "cron": "0 7 * * *",
+        "icon": "clock",
+        "label": "Run Daily at 7 AM",
+        "category": "trigger",
+        "timezone": "UTC",
+        "description": "Trigger workflow on a schedule (cron)",
+        "inputSchema": {},
+        "configSchema": {
+          "cron": {
+            "type": "string",
+            "required": true
+          },
+          "timezone": {
+            "type": "string"
+          }
+        },
+        "outputSchema": {
+          "triggeredAt": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "CONNECTOR_ACTION",
+    "AI_AGENT",
+    "OPENAI_CHAT_MODEL"
+  ],
+  "tags": [],
+  "verified": false,
+  "is_public": true,
+  "metadata": {},
+  "ai_prompt": null
+}

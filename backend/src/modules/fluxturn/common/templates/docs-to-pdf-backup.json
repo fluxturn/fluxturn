@@ -1,0 +1,102 @@
+{
+  "id": "53f8f7c1-159b-4f1b-a031-a83f2001e2c9",
+  "name": "Docs to PDF Backup",
+  "description": "Automatically docs to pdf backup. Nodes: Google Docs Trigger, Google Drive Action",
+  "category": "document_management",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Document Updated",
+          "config": {},
+          "trigger": "document_updated",
+          "category": "trigger",
+          "connector": "google_docs",
+          "eventType": "polling",
+          "triggerId": "document_updated",
+          "description": "Triggered when document updated",
+          "connectorType": "google_docs",
+          "connectorDisplayName": "Google Docs"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Export as PDF",
+          "action": "export_as_pdf",
+          "config": {},
+          "actionId": "export_as_pdf",
+          "category": "action",
+          "connector": "google_drive",
+          "actionName": "Export as PDF",
+          "description": "Export as PDF",
+          "connectorType": "google_drive",
+          "connectorDisplayName": "Google Drive"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_docs",
+        "triggerId": "document_updated"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_docs",
+    "google_drive"
+  ],
+  "tags": [
+    "document_management",
+    "automation",
+    "google_docs",
+    "google_drive"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow docs to pdf backup using google_docs, google_drive",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"docs to pdf backup\" that triggers when triggered when document updated and then Export as PDF via Google Drive"
+}

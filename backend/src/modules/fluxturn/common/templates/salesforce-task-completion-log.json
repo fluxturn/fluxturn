@@ -1,0 +1,107 @@
+{
+  "id": "a0ace5ae-d39a-4279-83f7-870c29d7e27d",
+  "name": "Salesforce Task Completion Logger",
+  "description": "Log completed Salesforce tasks to Google Sheets for reporting. Nodes: Salesforce Trigger, Google Sheets Action",
+  "category": "analytics",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Task Completed",
+          "config": {},
+          "category": "trigger",
+          "connector": "salesforce",
+          "connectorType": "salesforce",
+          "connectorDisplayName": "Salesforce",
+          "description": "Triggered on task completion",
+          "trigger": "task_completed",
+          "triggerId": "task_completed",
+          "eventType": "webhook"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Log Activity",
+          "config": {
+            "spreadsheetId": "{{spreadsheet_id}}",
+            "range": "Activities!A:Z",
+            "values": "{{trigger.Subject}},{{trigger.Owner.Name}},{{trigger.CompletedDateTime}},{{trigger.WhoId}}"
+          },
+          "category": "action",
+          "connector": "google_sheets",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets",
+          "description": "Log to sheet",
+          "action": "append_row",
+          "actionId": "append_row",
+          "actionName": "Log Activity"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "salesforce",
+        "triggerId": "task_completed"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "salesforce",
+    "google_sheets"
+  ],
+  "tags": [
+    "analytics",
+    "automation",
+    "salesforce",
+    "google_sheets",
+    "tasks"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow log completed salesforce tasks to google sheets for reporting. nodes: salesforce trigger, google sheets action using salesforce, google_sheets",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"task activity logging\" that triggers on Salesforce task completion and logs to Google Sheets"
+}

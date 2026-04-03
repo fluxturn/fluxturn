@@ -1,0 +1,110 @@
+{
+  "id": "d4e5f6a7-b8c9-4012-d4e5-f6a7b8c90123",
+  "name": "New Salesforce Opportunity Creates Zoom Meeting",
+  "description": "Auto-schedule kickoff calls for new sales opportunities. Nodes: Salesforce Trigger, Zoom Action",
+  "category": "sales",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Opportunity",
+          "config": {},
+          "trigger": "opportunity_created",
+          "category": "trigger",
+          "connector": "salesforce",
+          "eventType": "webhook",
+          "triggerId": "opportunity_created",
+          "description": "Triggered when new Salesforce opportunity is created",
+          "connectorType": "salesforce",
+          "connectorDisplayName": "Salesforce"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Kickoff Meeting",
+          "action": "create_meeting",
+          "config": {
+            "topic": "Kickoff Call - {{trigger.Name}}",
+            "type": 2,
+            "duration": 60,
+            "timezone": "UTC",
+            "agenda": "Discuss opportunity: {{trigger.Name}}\nAmount: {{trigger.Amount}}"
+          },
+          "actionId": "create_meeting",
+          "category": "action",
+          "connector": "zoom",
+          "actionName": "Create Meeting",
+          "description": "Create a new Zoom meeting",
+          "connectorType": "zoom",
+          "connectorDisplayName": "Zoom"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "salesforce",
+        "triggerId": "opportunity_created"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "salesforce",
+    "zoom"
+  ],
+  "tags": [
+    "sales",
+    "automation",
+    "salesforce",
+    "zoom",
+    "opportunities",
+    "meetings"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow creates Zoom meetings for new Salesforce opportunities using salesforce, zoom",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"opportunity kickoff meeting\" that triggers when Salesforce opportunity is created and creates a Zoom meeting"
+}

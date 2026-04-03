@@ -1,0 +1,101 @@
+{
+  "id": "7b5874dc-eaf8-4f5d-ab30-fa5ce9a53752",
+  "name": "Shopify High Value Order Alert",
+  "description": "Get notified via Slack and email for high-value orders",
+  "category": "ecommerce",
+  "difficulty": "intermediate",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": ["shopify", "slack", "gmail"],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "shopify_trigger_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": { "x": 100, "y": 100 },
+        "data": {
+          "label": "New High Value Order",
+          "connector": "shopify",
+          "triggerId": "order_created",
+          "icon": "shopping-cart",
+          "category": "trigger",
+          "description": "Triggers for orders above threshold",
+          "config": {
+            "minAmount": 500
+          },
+          "outputSchema": {
+            "order_number": { "type": "string" },
+            "total_price": { "type": "string" },
+            "customer": { "type": "object" }
+          }
+        }
+      },
+      {
+        "id": "slack_action_1",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 400, "y": 50 },
+        "data": {
+          "label": "Alert Slack",
+          "connector": "slack",
+          "actionId": "send_message",
+          "icon": "message-square",
+          "category": "action",
+          "description": "Send high-value order alert to Slack",
+          "config": {
+            "channel": "{{vip_orders_channel}}",
+            "text": "💰 *HIGH VALUE ORDER!*\n\nOrder #{{$json.order_number}}\nAmount: *${{$json.total_price}}*\nCustomer: {{$json.customer.first_name}} {{$json.customer.last_name}}\nEmail: {{$json.customer.email}}"
+          },
+          "inputSchema": {
+            "channel": { "type": "string", "required": true, "label": "Channel" },
+            "text": { "type": "string", "required": true, "label": "Message" }
+          },
+          "outputSchema": {
+            "ts": { "type": "string" }
+          }
+        }
+      },
+      {
+        "id": "gmail_action_1",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 400, "y": 200 },
+        "data": {
+          "label": "Email Sales Team",
+          "connector": "gmail",
+          "actionId": "send_email",
+          "icon": "mail",
+          "category": "action",
+          "description": "Email sales team about VIP order",
+          "config": {
+            "to": "{{sales_team_email}}",
+            "subject": "🎉 High Value Order #{{$json.order_number}} - ${{$json.total_price}}",
+            "body": "A high-value order has been placed!\n\nOrder Details:\n- Order #: {{$json.order_number}}\n- Total: ${{$json.total_price}}\n- Customer: {{$json.customer.first_name}} {{$json.customer.last_name}}\n- Email: {{$json.customer.email}}\n\nPlease prioritize this order for fulfillment."
+          },
+          "inputSchema": {
+            "to": { "type": "string", "required": true, "label": "To" },
+            "subject": { "type": "string", "required": true, "label": "Subject" },
+            "body": { "type": "string", "required": true, "label": "Body" }
+          },
+          "outputSchema": {
+            "messageId": { "type": "string" }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1",
+        "source": "shopify_trigger_1",
+        "target": "slack_action_1",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e2",
+        "source": "shopify_trigger_1",
+        "target": "gmail_action_1",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

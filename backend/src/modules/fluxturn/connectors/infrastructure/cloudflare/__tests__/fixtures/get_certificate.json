@@ -1,0 +1,63 @@
+{
+  "action": "get_certificate",
+  "baseUrl": "https://api.cloudflare.com/client/v4",
+  "testCases": [
+    {
+      "name": "retrieves certificate successfully",
+      "input": {
+        "zoneId": "023e105f4ecef8ad9ca31a8372d0c353",
+        "certificateId": "328578533"
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/zones/023e105f4ecef8ad9ca31a8372d0c353/origin_tls_client_auth/328578533",
+        "status": 200,
+        "response": {
+          "success": true,
+          "errors": [],
+          "messages": [],
+          "result": {
+            "id": "328578533",
+            "certificate": "-----BEGIN CERTIFICATE-----\nMIIDtTCCAp2gAwIBAgIJAMHAwfXZ5/PWMA0GCSqGSIb3DQEBBQUAME4xCzAJBgNV\nBAYTAlVTMRMwEQYDVQQIDApDYWxpZm9ybmlhMRYwFAYDVQQHDA1TYW4gRnJhbmNp\nc2NvMRIwEAYDVQQKDAlCYWRTU0wgQ0EwHhcNMTIwNzEyMDMxNjQxWhcNMTIwODEx\nMDMxNjQxWjBSMQswCQYDVQQGEwJVUzETMBEGA1UECAwKQ2FsaWZvcm5pYTEWMBQG\nA1UEBwwNU2FuIEZyYW5jaXNjbzEWMBQGA1UEAwwNKi5iYWRzc2wuY29tMIIBIjAN\nBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5a1XVjkPF8DXDQEBBQUAME4xCzAJ\nBgNVBAYTAlVTMRMwEQYDVQQIDApDYWxpZm9ybmlhMRYwFAYDVQQHDA1TYW4gRnJh\nbmNpc2NvMRIwEAYDVQQKDAlCYWRTU0wgQ0EwHhcNMTIwNzEyMDMxNjQxWhcNMTIw\nODExMDMxNjQxWjBSMQswCQYDVQQGEwJVUzETMBEGA1UECAwKQ2FsaWZvcm5pYTEW\n-----END CERTIFICATE-----",
+            "expires_on": "2025-12-31",
+            "uploaded_on": "2024-01-01",
+            "status": "active"
+          }
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "id": "328578533",
+          "status": "active"
+        }
+      }
+    },
+    {
+      "name": "handles certificate not found error",
+      "input": {
+        "zoneId": "023e105f4ecef8ad9ca31a8372d0c353",
+        "certificateId": "invalid-id"
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/zones/023e105f4ecef8ad9ca31a8372d0c353/origin_tls_client_auth/invalid-id",
+        "status": 404,
+        "response": {
+          "success": false,
+          "errors": [
+            {
+              "code": 1003,
+              "message": "Certificate not found"
+            }
+          ],
+          "messages": [],
+          "result": null
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    }
+  ]
+}

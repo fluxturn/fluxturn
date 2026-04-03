@@ -1,0 +1,154 @@
+{
+  "id": "3d58550b-49b7-403d-ae16-a4b33daca917",
+  "name": "Email Response Auto-Draft",
+  "description": "Automatically email response auto-draft. Nodes: IMAP Trigger, ChatGPT Action, SMTP Action",
+  "category": "email",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Email Received",
+          "config": {},
+          "trigger": "new_email",
+          "category": "trigger",
+          "connector": "imap",
+          "eventType": "polling",
+          "triggerId": "new_email",
+          "description": "Triggered when new email received",
+          "connectorType": "imap",
+          "connectorDisplayName": "IMAP"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Generate Response",
+          "action": "chat_complete",
+          "config": {
+            "model": "gpt-4",
+            "messages": [
+              {
+                "role": "user",
+                "content": "{{prompt}}"
+              }
+            ]
+          },
+          "actionId": "chat_complete",
+          "category": "action",
+          "connector": "openai",
+          "actionName": "Generate Response",
+          "description": "Generate Response",
+          "connectorType": "openai",
+          "connectorDisplayName": "ChatGPT"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Send Email",
+          "action": "send_email",
+          "config": {
+            "to": "{{recipient_email}}",
+            "subject": "{{email_subject}}",
+            "body": "{{email_body}}"
+          },
+          "actionId": "send_email",
+          "category": "action",
+          "connector": "smtp",
+          "actionName": "Send Email",
+          "description": "Send Email",
+          "connectorType": "smtp",
+          "connectorDisplayName": "SMTP"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#14b8a6",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#14b8a6",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "imap",
+        "triggerId": "new_email"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "imap",
+    "openai",
+    "smtp"
+  ],
+  "tags": [
+    "email",
+    "automation",
+    "imap",
+    "openai",
+    "smtp"
+  ],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow email response auto-draft using imap, openai, smtp",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"email response auto-draft\" that triggers when triggered when new email received and then Generate Response via ChatGPT, Send Email via SMTP"
+}

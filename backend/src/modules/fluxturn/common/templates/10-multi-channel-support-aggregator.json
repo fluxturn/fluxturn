@@ -1,0 +1,201 @@
+{
+  "id": "8f719339-e25c-45c9-be1a-637543ee68d0",
+  "name": "Multi-Channel Support Aggregator",
+  "description": "Centralize support messages from Gmail, Slack, and Telegram",
+  "category": "communication",
+  "difficulty": "intermediate",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": [
+    "gmail",
+    "slack",
+    "telegram",
+    "google_sheets"
+  ],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_10_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 100,
+          "y": 100
+        },
+        "data": {
+          "label": "Gmail Support",
+          "category": "trigger",
+          "config": {
+            "labelName": "Support"
+          },
+          "connector": "gmail",
+          "triggerId": "email_received",
+          "trigger": "email_received",
+          "triggerName": "Email Received",
+          "description": "Triggers when a new email is received",
+          "eventType": "polling",
+          "icon": "mail",
+          "connectorType": "gmail",
+          "connectorDisplayName": "Gmail",
+          "webhookRequired": false,
+          "inputSchema": {
+            "labelName": {
+              "type": "string",
+              "label": "Label Name",
+              "description": "Gmail label to monitor"
+            },
+            "pollInterval": {
+              "type": "number",
+              "label": "Poll Interval (seconds)",
+              "default": 300
+            }
+          },
+          "configSchema": {
+            "labelName": {
+              "type": "string",
+              "label": "Label Name",
+              "description": "Gmail label to monitor"
+            },
+            "pollInterval": {
+              "type": "number",
+              "label": "Poll Interval (seconds)",
+              "default": 300
+            }
+          },
+          "outputSchema": {
+            "from": {
+              "type": "string",
+              "description": "Sender email"
+            },
+            "subject": {
+              "type": "string",
+              "description": "Email subject"
+            },
+            "body": {
+              "type": "string",
+              "description": "Email body"
+            },
+            "snippet": {
+              "type": "string",
+              "description": "Email snippet"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_10_2",
+        "type": "RUN_CODE",
+        "position": {
+          "x": 400,
+          "y": 100
+        },
+        "data": {
+          "label": "Normalize Data",
+          "category": "utility",
+          "config": {
+            "code": "return { channel: \"Gmail\", from: $json.from, message: $json.body, timestamp: new Date() };"
+          },
+          "configSchema": {
+            "code": {
+              "type": "string",
+              "label": "JavaScript Code",
+              "inputType": "textarea",
+              "required": true,
+              "description": "JavaScript code to execute"
+            }
+          },
+          "inputSchema": {
+            "input": {
+              "type": "object",
+              "required": false
+            }
+          },
+          "outputSchema": {
+            "output": {
+              "type": "object",
+              "description": "Code execution result"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_10_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 700,
+          "y": 100
+        },
+        "data": {
+          "label": "Central Log",
+          "category": "action",
+          "config": {
+            "spreadsheetId": "{{your_sheet_id}}",
+            "values": "={{$json}}"
+          },
+          "connector": "google_sheets",
+          "actionId": "append_row",
+          "action": "append_row",
+          "actionName": "Append Row",
+          "description": "Append a row to a Google Sheet",
+          "icon": "table",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets",
+          "inputSchema": {
+            "spreadsheetId": {
+              "type": "string",
+              "required": true,
+              "label": "Spreadsheet ID"
+            },
+            "sheetName": {
+              "type": "string",
+              "label": "Sheet Name",
+              "default": "Sheet1"
+            },
+            "values": {
+              "type": "object",
+              "required": true,
+              "label": "Values"
+            }
+          },
+          "configSchema": {
+            "spreadsheetId": {
+              "type": "string",
+              "required": true,
+              "label": "Spreadsheet ID"
+            },
+            "sheetName": {
+              "type": "string",
+              "label": "Sheet Name",
+              "default": "Sheet1"
+            },
+            "values": {
+              "type": "object",
+              "required": true,
+              "label": "Values"
+            }
+          },
+          "outputSchema": {
+            "rowNumber": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_1",
+        "source": "node_10_1",
+        "target": "node_10_2",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e_2",
+        "source": "node_10_2",
+        "target": "node_10_3",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

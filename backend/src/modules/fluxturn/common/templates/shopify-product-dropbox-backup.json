@@ -1,0 +1,95 @@
+{
+  "id": "5431caf8-1092-4fc3-a491-ce7acd26e124",
+  "name": "Shopify Products Backup to Dropbox",
+  "description": "Backup Shopify product catalog to Dropbox automatically",
+  "category": "ecommerce",
+  "difficulty": "intermediate",
+  "estimatedSetupTime": "10 min",
+  "requiredConnectors": ["shopify", "dropbox"],
+  "canvas": {
+    "nodes": [
+      {
+        "id": "schedule_trigger_1",
+        "type": "SCHEDULE_TRIGGER",
+        "position": { "x": 100, "y": 100 },
+        "data": {
+          "label": "Daily Backup",
+          "category": "trigger",
+          "description": "Run daily at midnight",
+          "config": {
+            "cron": "0 0 * * *"
+          },
+          "outputSchema": {
+            "timestamp": { "type": "string" }
+          }
+        }
+      },
+      {
+        "id": "shopify_action_1",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 400, "y": 100 },
+        "data": {
+          "label": "Get All Products",
+          "connector": "shopify",
+          "actionId": "get_all_products",
+          "icon": "package",
+          "category": "action",
+          "description": "Retrieve all products",
+          "config": {
+            "returnAll": true
+          },
+          "inputSchema": {
+            "returnAll": { "type": "boolean", "label": "Return All" }
+          },
+          "outputSchema": {
+            "products": { "type": "array" }
+          }
+        }
+      },
+      {
+        "id": "dropbox_action_1",
+        "type": "CONNECTOR_ACTION",
+        "position": { "x": 700, "y": 100 },
+        "data": {
+          "label": "Upload to Dropbox",
+          "connector": "dropbox",
+          "actionId": "file_upload",
+          "icon": "upload-cloud",
+          "category": "action",
+          "description": "Upload backup file to Dropbox",
+          "config": {
+            "path": "/Shopify Backups/products_{{new Date().toISOString().split('T')[0]}}.json",
+            "contents": "={{JSON.stringify($json.products, null, 2)}}",
+            "mode": "overwrite"
+          },
+          "inputSchema": {
+            "path": { "type": "string", "required": true, "label": "Path" },
+            "contents": { "type": "string", "required": true, "label": "Contents" },
+            "mode": { "type": "string", "label": "Mode" }
+          },
+          "outputSchema": {
+            "id": { "type": "string" },
+            "name": { "type": "string" }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1",
+        "source": "schedule_trigger_1",
+        "target": "shopify_action_1",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      },
+      {
+        "id": "e2",
+        "source": "shopify_action_1",
+        "target": "dropbox_action_1",
+        "sourceHandle": "source-1",
+        "targetHandle": "target-1"
+      }
+    ]
+  },
+  "verified": false
+}

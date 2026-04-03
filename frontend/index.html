@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="FluxTurn - AI-Powered Workflow Automation Platform. Connect apps, automate workflows with natural language, and streamline your business processes." />
+    <meta name="google-site-verification" content="9nqt2ULmK1jcs_l7cKp23uxADQaMkb_DrVslIX06MVs" />
+    <title>FluxTurn - Workflow Automation Platform</title>
+
+    <!-- Google Analytics 4 -->
+    <script>
+      // Only load GA4 if measurement ID is configured
+      const GA_ID = 'G-RDZ2PVB4TX'; // Fluxturn GA4 Measurement ID
+      if (GA_ID && GA_ID !== 'G-XXXXXXXXXX') {
+        // Google tag (gtag.js)
+        const gaScript = document.createElement('script');
+        gaScript.async = true;
+        gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+        document.head.appendChild(gaScript);
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', GA_ID, {
+          send_page_view: false // We'll manually track page views for SPA
+        });
+      }
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-T8SPRS48');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Analytics Tracking Script -->
+    <script>
+    (function() {
+      var script = document.createElement('script');
+      script.src = 'https://api.promoatonce.com/api/v1/analytics/tracker.js';
+      script.async = true;
+      document.head.appendChild(script);
+    })();
+    </script>
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8SPRS48"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

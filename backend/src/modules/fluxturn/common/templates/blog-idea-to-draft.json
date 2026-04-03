@@ -1,0 +1,153 @@
+{
+  "id": "23d14825-e061-4933-a0ea-93cac175da85",
+  "name": "Blog Idea to Draft",
+  "description": "Transform blog ideas into complete drafts automatically. Nodes: Google Sheets Trigger (new row), OpenAI Action (generate outline), Google Docs Action (create document)",
+  "category": "ai_automation",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Row",
+          "config": {},
+          "trigger": "row_added",
+          "category": "trigger",
+          "connector": "google_sheets",
+          "eventType": "polling",
+          "triggerId": "row_added",
+          "description": "Triggered when new row",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Generate Outline",
+          "action": "chat_complete",
+          "config": {
+            "model": "gpt-4",
+            "messages": [
+              {
+                "role": "user",
+                "content": "{{prompt}}"
+              }
+            ]
+          },
+          "actionId": "chat_complete",
+          "category": "action",
+          "connector": "openai",
+          "actionName": "Generate Outline",
+          "description": "Generate Outline",
+          "connectorType": "openai",
+          "connectorDisplayName": "ChatGPT"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Document",
+          "action": "create_document",
+          "config": {
+            "title": "{{document_title}}",
+            "content": "{{document_content}}"
+          },
+          "actionId": "create_document",
+          "category": "action",
+          "connector": "google_docs",
+          "actionName": "Create Document",
+          "description": "Create Document",
+          "connectorType": "google_docs",
+          "connectorDisplayName": "Google Docs"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#14b8a6",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#14b8a6",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_sheets",
+        "triggerId": "row_added"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_sheets",
+    "openai",
+    "google_docs"
+  ],
+  "tags": [
+    "ai_automation",
+    "automation",
+    "google_sheets",
+    "openai",
+    "google_docs"
+  ],
+  "verified": true,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow blog idea to draft using google_sheets, openai, google_docs",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow that monitors Google Sheets for new blog ideas, uses OpenAI to generate a detailed outline, and automatically creates a draft document in Google Docs"
+}

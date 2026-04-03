@@ -1,0 +1,104 @@
+{
+  "id": "d0f114e1-5929-40ff-bd9f-8e0b919d06c5",
+  "name": "Google Form Event Registration",
+  "description": "Add event registrations to calendar. Nodes: Google Forms Trigger, Google Calendar Action",
+  "category": "events",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "New Registration",
+          "config": {},
+          "category": "trigger",
+          "connector": "google_forms",
+          "connectorType": "google_forms",
+          "connectorDisplayName": "Google Forms",
+          "trigger": "new_response",
+          "triggerId": "new_response",
+          "eventType": "webhook",
+          "description": "Triggered when new registration"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Add to Calendar",
+          "config": {
+            "summary": "{{response.event_name}}",
+            "start": "{{response.event_date}}"
+          },
+          "category": "action",
+          "connector": "google_calendar",
+          "connectorType": "google_calendar",
+          "connectorDisplayName": "Google Calendar",
+          "action": "create_event",
+          "actionId": "create_event",
+          "actionName": "Add to Calendar",
+          "description": "Add to Calendar"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_forms",
+        "triggerId": "new_response"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_forms",
+    "google_calendar"
+  ],
+  "tags": [
+    "events",
+    "google_forms",
+    "google_calendar"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow add event registrations to calendar. nodes: google forms trigger, google calendar action using google_forms, google_calendar",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"google form event registration\" that add event registrations to calendar. nodes: google forms trigger, google calendar action"
+}

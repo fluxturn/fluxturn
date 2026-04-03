@@ -1,0 +1,153 @@
+{
+  "id": "8f095006-f48b-445b-a3ab-afc0e0c787b9",
+  "name": "Weekly Review Generator",
+  "description": "Automatically weekly review generator. Nodes: Google Calendar Trigger, Google Sheets Action, Google Docs Action",
+  "category": "productivity",
+  "canvas": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "CONNECTOR_TRIGGER",
+        "position": {
+          "x": 60,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Friday",
+          "config": {},
+          "trigger": "friday",
+          "category": "trigger",
+          "connector": "google_calendar",
+          "eventType": "polling",
+          "triggerId": "friday",
+          "description": "Triggered when friday",
+          "connectorType": "google_calendar",
+          "connectorDisplayName": "Google Calendar"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 405,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Compile Week Data",
+          "action": "append_row",
+          "config": {
+            "spreadsheetId": "{{spreadsheet_id}}",
+            "sheetName": "Sheet1",
+            "values": [
+              [
+                "{{data}}"
+              ]
+            ]
+          },
+          "actionId": "append_row",
+          "category": "action",
+          "connector": "google_sheets",
+          "actionName": "Compile Week Data",
+          "description": "Compile Week Data",
+          "connectorType": "google_sheets",
+          "connectorDisplayName": "Google Sheets"
+        }
+      },
+      {
+        "id": "node_3",
+        "type": "CONNECTOR_ACTION",
+        "position": {
+          "x": 750,
+          "y": 200
+        },
+        "data": {
+          "icon": "connector",
+          "label": "Create Summary",
+          "action": "create_summary",
+          "config": {
+            "title": "{{document_title}}",
+            "content": "{{document_content}}"
+          },
+          "actionId": "create_summary",
+          "category": "action",
+          "connector": "google_docs",
+          "actionName": "Create Summary",
+          "description": "Create Summary",
+          "connectorType": "google_docs",
+          "connectorDisplayName": "Google Docs"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "type": "default",
+        "style": {
+          "stroke": "#06b6d4",
+          "strokeWidth": 2
+        },
+        "source": "node_1",
+        "target": "node_2",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#06b6d4",
+          "width": 20,
+          "height": 20
+        }
+      },
+      {
+        "id": "edge_2",
+        "type": "default",
+        "style": {
+          "stroke": "#14b8a6",
+          "strokeWidth": 2
+        },
+        "source": "node_2",
+        "target": "node_3",
+        "animated": true,
+        "markerEnd": {
+          "type": "arrowclosed",
+          "color": "#14b8a6",
+          "width": 20,
+          "height": 20
+        }
+      }
+    ]
+  },
+  "steps": [],
+  "triggers": [
+    {
+      "id": "node_1",
+      "type": "CONNECTOR_TRIGGER",
+      "config": {
+        "connector": "google_calendar",
+        "triggerId": "friday"
+      }
+    }
+  ],
+  "conditions": [],
+  "variables": [],
+  "outputs": [],
+  "required_connectors": [
+    "google_calendar",
+    "google_sheets",
+    "google_docs"
+  ],
+  "tags": [
+    "productivity",
+    "automation",
+    "google_calendar",
+    "google_sheets",
+    "google_docs"
+  ],
+  "verified": false,
+  "is_public": true,
+  "metadata": {
+    "flow_description": "This workflow weekly review generator using google_calendar, google_sheets, google_docs",
+    "created_from": "template_generator"
+  },
+  "ai_prompt": "Create a workflow for \"weekly review generator\" that triggers when triggered when friday and then Compile Week Data via Google Sheets, Create Summary via Google Docs"
+}
