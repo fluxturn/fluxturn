@@ -53,6 +53,8 @@ FluxTurn is an open-source workflow automation platform that lets you connect ap
 
 ### Docker (Recommended)
 
+Run these commands from the project root:
+
 ```bash
 git clone https://github.com/fluxturn/fluxturn.git
 cd fluxturn
@@ -61,7 +63,7 @@ cp backend/.env.example backend/.env
 docker compose up -d
 ```
 
-Access the app at `http://localhost:5173` and the API at `http://localhost:5005`.
+That's it! Access the app at `http://localhost:5173` and the API at `http://localhost:5005`.
 
 ### Manual Setup
 
@@ -151,6 +153,16 @@ We welcome contributions! See our [Contributing Guide](CONTRIBUTING.md) to get s
 - Add new connectors (see the [Connector Development Guide](docs/guides/connector-development.md))
 - Improve documentation
 - Add translations
+
+## Contributors
+
+Thank you to all the amazing people who have contributed to FluxTurn! 🎉
+
+<a href="https://github.com/fluxturn/fluxturn/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=fluxturn/fluxturn" />
+</a>
+
+Want to see your face here? Check out our [Contributing Guide](CONTRIBUTING.md) and start contributing today!
 
 ## Community
 
