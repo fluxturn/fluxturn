@@ -138,7 +138,7 @@
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "pdf-lib": "^1.17.1",
-    "pdf-parse": "^1.1.1",
+    "pdf-parse": "^2.4.5",
     "pg": "^8.11.0",
     "pg-listen": "^1.7.0",
     "playwright": "^1.57.0",
