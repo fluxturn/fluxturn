@@ -64,7 +64,7 @@
     "@kafkajs/confluent-schema-registry": "^3.9.0",
     "@langchain/core": "^0.3.75",
     "@langchain/openai": "^0.6.11",
-    "@langchain/textsplitters": "^0.1.0",
+    "@langchain/textsplitters": "^1.0.1",
     "@mailchimp/mailchimp_marketing": "^3.0.80",
     "@nestjs/axios": "^4.0.1",
     "@nestjs/common": "^10.0.0",
