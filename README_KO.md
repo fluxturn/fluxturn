@@ -53,7 +53,7 @@ FluxTurn은 앱 연결, 프로세스 자동화, AI 기반 워크플로우 구축
 
 - **AI 워크플로우 생성** -- 간단한 한국어로 원하는 것을 설명하면 작동하는 워크플로우를 얻을 수 있습니다
 - **비주얼 워크플로우 빌더** -- ReactFlow 기반의 드래그 앤 드롭 인터페이스
-- **80개 이상의 커넥터** -- Slack, Gmail, Shopify, HubSpot, Jira, Stripe, OpenAI 등
+- **120개 이상의 커넥터** -- Slack, Gmail, Shopify, HubSpot, Jira, Stripe, OpenAI 등
 - **실시간 실행** -- 상세한 로그와 모니터링으로 워크플로우 실행 관찰
 - **자체 호스팅** -- Docker를 사용하여 자체 인프라에서 실행
 
@@ -120,26 +120,33 @@ npm run dev
 
 **프론트엔드** (`/frontend`) -- React 19, Vite, TailwindCSS, ReactFlow, i18next, CodeMirror
 
-**백엔드** (`/backend`) -- NestJS, PostgreSQL (raw SQL), Redis, Socket.IO, LangChain, 80개 이상의 커넥터
+**백엔드** (`/backend`) -- NestJS, PostgreSQL (raw SQL), Redis, Socket.IO, LangChain, 120개 이상의 커넥터
 
 ## 커넥터
 
-FluxTurn은 다음 카테고리에서 80개 이상의 커넥터를 제공합니다:
+FluxTurn은 다음 카테고리에서 120개 이상의 커넥터를 제공합니다:
 
 | 카테고리 | 커넥터 |
 |----------|-----------|
-| **커뮤니케이션** | Slack, Gmail, Outlook, Telegram, Discord, Twilio, SendGrid, Microsoft Teams |
-| **CRM 및 영업** | HubSpot, Salesforce, Pipedrive, Zoho CRM, Airtable |
-| **전자상거래** | Shopify, Stripe, PayPal, WooCommerce, Paddle, Gumroad |
-| **프로젝트 관리** | Jira, Asana, Trello, Notion, Linear, ClickUp |
-| **소셜** | Twitter/X, Facebook, Instagram, TikTok, LinkedIn, Pinterest |
-| **AI 및 ML** | OpenAI, Anthropic, Google AI, AWS Bedrock, Ollama, Replicate |
-| **분석** | PostHog, Mixpanel, Segment, Grafana, Metabase, Splunk |
-| **스토리지** | Google Drive, Dropbox, AWS S3, PostgreSQL, Snowflake, Supabase |
-| **지원** | Zendesk, Intercom, ServiceNow, PagerDuty, Sentry |
-| **금융** | QuickBooks, Plaid, Chargebee, Wise |
-| **마케팅** | Mailchimp, Klaviyo, Facebook Ads |
+| **AI 및 ML** | OpenAI, OpenAI Chatbot, Anthropic, Google AI, Google Gemini, AWS Bedrock |
+| **분석** | Google Analytics, Grafana, Metabase, Mixpanel, PostHog, Segment, Splunk |
 | **CMS** | WordPress, Contentful, Ghost, Medium, Webflow |
+| **커뮤니케이션** | Slack, Gmail, Microsoft Teams, Telegram, Discord, Twilio, WhatsApp, AWS SES, SMTP, IMAP, POP3, Google Calendar, Calendly, Discourse, Matrix, Mattermost |
+| **CRM 및 영업** | HubSpot, Salesforce, Pipedrive, Zoho CRM, Airtable, Monday.com |
+| **데이터 처리** | Supabase, Scrapfly, Extract From File |
+| **데이터베이스** | Elasticsearch |
+| **개발** | GitHub, GitLab, Bitbucket, Git, Jenkins, Travis CI, Netlify, n8n, npm |
+| **전자상거래** | Shopify, Stripe, PayPal, WooCommerce, Magento, Paddle, Gumroad |
+| **금융** | QuickBooks, Plaid, Chargebee, Wise, Xero |
+| **양식** | Google Forms, Jotform, Typeform |
+| **마케팅** | Mailchimp, Klaviyo, SendGrid, Brevo, ActiveCampaign, Google Ads, Facebook Ads |
+| **생산성** | Figma, Todoist, Spotify, Clockify, Toggl, Harvest |
+| **프로젝트 관리** | Jira, Asana, Trello, Notion, Linear, ClickUp |
+| **소셜** | Twitter/X, Facebook, Instagram, TikTok, LinkedIn, Pinterest, Reddit |
+| **스토리지** | Google Drive, Google Docs, Google Sheets, Dropbox, AWS S3, PostgreSQL, MySQL, MongoDB, Redis, Snowflake |
+| **지원** | Zendesk, Intercom, Freshdesk, ServiceNow, PagerDuty, Sentry |
+| **유틸리티** | Bitly, DeepL, FTP, SSH, Execute Command |
+| **비디오** | YouTube, Zoom |
 
 [모든 커넥터 보기 &rarr;](docs/connectors.md)
 

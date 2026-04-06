@@ -53,7 +53,7 @@ FluxTurn是一个开源工作流自动化平台，让您能够连接应用、自
 
 - **AI工作流生成** -- 用简单的中文描述您想要的，获得一个可运行的工作流
 - **可视化工作流构建器** -- 由ReactFlow驱动的拖放界面
-- **80+连接器** -- Slack、Gmail、Shopify、HubSpot、Jira、Stripe、OpenAI等
+- **120+连接器** -- Slack、Gmail、Shopify、HubSpot、Jira、Stripe、OpenAI等
 - **实时执行** -- 通过详细日志和监控观察工作流运行
 - **自托管** -- 使用Docker在您自己的基础设施上运行
 
@@ -120,26 +120,33 @@ npm run dev
 
 **前端** (`/frontend`) -- React 19、Vite、TailwindCSS、ReactFlow、i18next、CodeMirror
 
-**后端** (`/backend`) -- NestJS、PostgreSQL（原始SQL）、Redis、Socket.IO、LangChain、80+连接器
+**后端** (`/backend`) -- NestJS、PostgreSQL（原始SQL）、Redis、Socket.IO、LangChain、120+连接器
 
 ## 连接器
 
-FluxTurn提供这些类别的80+连接器：
+FluxTurn提供这些类别的120+连接器：
 
 | 类别 | 连接器 |
 |----------|-----------|
-| **通信** | Slack、Gmail、Outlook、Telegram、Discord、Twilio、SendGrid、Microsoft Teams |
-| **CRM与销售** | HubSpot、Salesforce、Pipedrive、Zoho CRM、Airtable |
-| **电子商务** | Shopify、Stripe、PayPal、WooCommerce、Paddle、Gumroad |
-| **项目管理** | Jira、Asana、Trello、Notion、Linear、ClickUp |
-| **社交** | Twitter/X、Facebook、Instagram、TikTok、LinkedIn、Pinterest |
-| **AI与ML** | OpenAI、Anthropic、Google AI、AWS Bedrock、Ollama、Replicate |
-| **分析** | PostHog、Mixpanel、Segment、Grafana、Metabase、Splunk |
-| **存储** | Google Drive、Dropbox、AWS S3、PostgreSQL、Snowflake、Supabase |
-| **支持** | Zendesk、Intercom、ServiceNow、PagerDuty、Sentry |
-| **财务** | QuickBooks、Plaid、Chargebee、Wise |
-| **营销** | Mailchimp、Klaviyo、Facebook Ads |
+| **AI与ML** | OpenAI、OpenAI Chatbot、Anthropic、Google AI、Google Gemini、AWS Bedrock |
+| **分析** | Google Analytics、Grafana、Metabase、Mixpanel、PostHog、Segment、Splunk |
 | **CMS** | WordPress、Contentful、Ghost、Medium、Webflow |
+| **通信** | Slack、Gmail、Microsoft Teams、Telegram、Discord、Twilio、WhatsApp、AWS SES、SMTP、IMAP、POP3、Google Calendar、Calendly、Discourse、Matrix、Mattermost |
+| **CRM与销售** | HubSpot、Salesforce、Pipedrive、Zoho CRM、Airtable、Monday.com |
+| **数据处理** | Supabase、Scrapfly、Extract From File |
+| **数据库** | Elasticsearch |
+| **开发** | GitHub、GitLab、Bitbucket、Git、Jenkins、Travis CI、Netlify、n8n、npm |
+| **电子商务** | Shopify、Stripe、PayPal、WooCommerce、Magento、Paddle、Gumroad |
+| **财务** | QuickBooks、Plaid、Chargebee、Wise、Xero |
+| **表单** | Google Forms、Jotform、Typeform |
+| **营销** | Mailchimp、Klaviyo、SendGrid、Brevo、ActiveCampaign、Google Ads、Facebook Ads |
+| **生产力** | Figma、Todoist、Spotify、Clockify、Toggl、Harvest |
+| **项目管理** | Jira、Asana、Trello、Notion、Linear、ClickUp |
+| **社交** | Twitter/X、Facebook、Instagram、TikTok、LinkedIn、Pinterest、Reddit |
+| **存储** | Google Drive、Google Docs、Google Sheets、Dropbox、AWS S3、PostgreSQL、MySQL、MongoDB、Redis、Snowflake |
+| **支持** | Zendesk、Intercom、Freshdesk、ServiceNow、PagerDuty、Sentry |
+| **实用工具** | Bitly、DeepL、FTP、SSH、Execute Command |
+| **视频** | YouTube、Zoom |
 
 [查看所有连接器 &rarr;](docs/connectors.md)
 

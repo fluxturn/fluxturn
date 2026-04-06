@@ -53,7 +53,7 @@ FluxTurn is an open-source workflow automation platform that lets you connect ap
 
 - **AI Workflow Generation** -- Describe what you want in plain English, get a working workflow
 - **Visual Workflow Builder** -- Drag-and-drop interface powered by ReactFlow
-- **80+ Connectors** -- Slack, Gmail, Shopify, HubSpot, Jira, Stripe, OpenAI, and many more
+- **120+ Connectors** -- Slack, Gmail, Shopify, HubSpot, Jira, Stripe, OpenAI, and many more
 - **Real-Time Execution** -- Watch workflows run with detailed logs and monitoring
 - **Self-Hosted** -- Run on your own infrastructure with Docker
 
@@ -120,26 +120,33 @@ npm run dev
 
 **Frontend** (`/frontend`) -- React 19, Vite, TailwindCSS, ReactFlow, i18next, CodeMirror
 
-**Backend** (`/backend`) -- NestJS, PostgreSQL (raw SQL), Redis, Socket.IO, LangChain, 80+ connectors
+**Backend** (`/backend`) -- NestJS, PostgreSQL (raw SQL), Redis, Socket.IO, LangChain, 120+ connectors
 
 ## Connectors
 
-FluxTurn ships with 80+ connectors across these categories:
+FluxTurn ships with 120+ connectors across these categories:
 
 | Category | Connectors |
 |----------|-----------|
-| **Communication** | Slack, Gmail, Outlook, Telegram, Discord, Twilio, SendGrid, Microsoft Teams |
-| **CRM & Sales** | HubSpot, Salesforce, Pipedrive, Zoho CRM, Airtable |
-| **E-Commerce** | Shopify, Stripe, PayPal, WooCommerce, Paddle, Gumroad |
-| **Project Management** | Jira, Asana, Trello, Notion, Linear, ClickUp |
-| **Social** | Twitter/X, Facebook, Instagram, TikTok, LinkedIn, Pinterest |
-| **AI & ML** | OpenAI, Anthropic, Google AI, AWS Bedrock, Ollama, Replicate |
-| **Analytics** | PostHog, Mixpanel, Segment, Grafana, Metabase, Splunk |
-| **Storage** | Google Drive, Dropbox, AWS S3, PostgreSQL, Snowflake, Supabase |
-| **Support** | Zendesk, Intercom, ServiceNow, PagerDuty, Sentry |
-| **Finance** | QuickBooks, Plaid, Chargebee, Wise |
-| **Marketing** | Mailchimp, Klaviyo, Facebook Ads |
+| **AI & ML** | OpenAI, OpenAI Chatbot, Anthropic, Google AI, Google Gemini, AWS Bedrock |
+| **Analytics** | Google Analytics, Grafana, Metabase, Mixpanel, PostHog, Segment, Splunk |
 | **CMS** | WordPress, Contentful, Ghost, Medium, Webflow |
+| **Communication** | Slack, Gmail, Microsoft Teams, Telegram, Discord, Twilio, WhatsApp, AWS SES, SMTP, IMAP, POP3, Google Calendar, Calendly, Discourse, Matrix, Mattermost |
+| **CRM & Sales** | HubSpot, Salesforce, Pipedrive, Zoho CRM, Airtable, Monday.com |
+| **Data Processing** | Supabase, Scrapfly, Extract From File |
+| **Database** | Elasticsearch |
+| **Development** | GitHub, GitLab, Bitbucket, Git, Jenkins, Travis CI, Netlify, n8n, npm |
+| **E-Commerce** | Shopify, Stripe, PayPal, WooCommerce, Magento, Paddle, Gumroad |
+| **Finance** | QuickBooks, Plaid, Chargebee, Wise, Xero |
+| **Forms** | Google Forms, Jotform, Typeform |
+| **Marketing** | Mailchimp, Klaviyo, SendGrid, Brevo, ActiveCampaign, Google Ads, Facebook Ads |
+| **Productivity** | Figma, Todoist, Spotify, Clockify, Toggl, Harvest |
+| **Project Management** | Jira, Asana, Trello, Notion, Linear, ClickUp |
+| **Social** | Twitter/X, Facebook, Instagram, TikTok, LinkedIn, Pinterest, Reddit |
+| **Storage** | Google Drive, Google Docs, Google Sheets, Dropbox, AWS S3, PostgreSQL, MySQL, MongoDB, Redis, Snowflake |
+| **Support** | Zendesk, Intercom, Freshdesk, ServiceNow, PagerDuty, Sentry |
+| **Utility** | Bitly, DeepL, FTP, SSH, Execute Command |
+| **Video** | YouTube, Zoom |
 
 [View all connectors &rarr;](docs/connectors.md)
 

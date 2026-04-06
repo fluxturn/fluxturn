@@ -53,7 +53,7 @@ FluxTurn -- это платформа автоматизации рабочих 
 
 - **Генерация Рабочих Процессов с ИИ** -- Опишите на простом русском, что вы хотите, получите рабочий процесс
 - **Визуальный Конструктор Рабочих Процессов** -- Интерфейс перетаскивания на базе ReactFlow
-- **Более 80 Коннекторов** -- Slack, Gmail, Shopify, HubSpot, Jira, Stripe, OpenAI и многое другое
+- **Более 120 Коннекторов** -- Slack, Gmail, Shopify, HubSpot, Jira, Stripe, OpenAI и многое другое
 - **Выполнение в Реальном Времени** -- Наблюдайте за выполнением рабочих процессов с подробными логами и мониторингом
 - **Самостоятельный Хостинг** -- Запускайте на собственной инфраструктуре с Docker
 
@@ -120,26 +120,33 @@ npm run dev
 
 **Frontend** (`/frontend`) -- React 19, Vite, TailwindCSS, ReactFlow, i18next, CodeMirror
 
-**Backend** (`/backend`) -- NestJS, PostgreSQL (raw SQL), Redis, Socket.IO, LangChain, более 80 коннекторов
+**Backend** (`/backend`) -- NestJS, PostgreSQL (raw SQL), Redis, Socket.IO, LangChain, более 120 коннекторов
 
 ## Коннекторы
 
-FluxTurn поставляется с более чем 80 коннекторами в этих категориях:
+FluxTurn поставляется с более чем 120 коннекторами в этих категориях:
 
 | Категория | Коннекторы |
 |----------|-----------|
-| **Коммуникация** | Slack, Gmail, Outlook, Telegram, Discord, Twilio, SendGrid, Microsoft Teams |
-| **CRM и Продажи** | HubSpot, Salesforce, Pipedrive, Zoho CRM, Airtable |
-| **Электронная Коммерция** | Shopify, Stripe, PayPal, WooCommerce, Paddle, Gumroad |
-| **Управление Проектами** | Jira, Asana, Trello, Notion, Linear, ClickUp |
-| **Социальные Сети** | Twitter/X, Facebook, Instagram, TikTok, LinkedIn, Pinterest |
-| **ИИ и ML** | OpenAI, Anthropic, Google AI, AWS Bedrock, Ollama, Replicate |
-| **Аналитика** | PostHog, Mixpanel, Segment, Grafana, Metabase, Splunk |
-| **Хранилище** | Google Drive, Dropbox, AWS S3, PostgreSQL, Snowflake, Supabase |
-| **Поддержка** | Zendesk, Intercom, ServiceNow, PagerDuty, Sentry |
-| **Финансы** | QuickBooks, Plaid, Chargebee, Wise |
-| **Маркетинг** | Mailchimp, Klaviyo, Facebook Ads |
+| **ИИ и ML** | OpenAI, OpenAI Chatbot, Anthropic, Google AI, Google Gemini, AWS Bedrock |
+| **Аналитика** | Google Analytics, Grafana, Metabase, Mixpanel, PostHog, Segment, Splunk |
 | **CMS** | WordPress, Contentful, Ghost, Medium, Webflow |
+| **Коммуникация** | Slack, Gmail, Microsoft Teams, Telegram, Discord, Twilio, WhatsApp, AWS SES, SMTP, IMAP, POP3, Google Calendar, Calendly, Discourse, Matrix, Mattermost |
+| **CRM и Продажи** | HubSpot, Salesforce, Pipedrive, Zoho CRM, Airtable, Monday.com |
+| **Обработка Данных** | Supabase, Scrapfly, Extract From File |
+| **База Данных** | Elasticsearch |
+| **Разработка** | GitHub, GitLab, Bitbucket, Git, Jenkins, Travis CI, Netlify, n8n, npm |
+| **Электронная Коммерция** | Shopify, Stripe, PayPal, WooCommerce, Magento, Paddle, Gumroad |
+| **Финансы** | QuickBooks, Plaid, Chargebee, Wise, Xero |
+| **Формы** | Google Forms, Jotform, Typeform |
+| **Маркетинг** | Mailchimp, Klaviyo, SendGrid, Brevo, ActiveCampaign, Google Ads, Facebook Ads |
+| **Продуктивность** | Figma, Todoist, Spotify, Clockify, Toggl, Harvest |
+| **Управление Проектами** | Jira, Asana, Trello, Notion, Linear, ClickUp |
+| **Социальные Сети** | Twitter/X, Facebook, Instagram, TikTok, LinkedIn, Pinterest, Reddit |
+| **Хранилище** | Google Drive, Google Docs, Google Sheets, Dropbox, AWS S3, PostgreSQL, MySQL, MongoDB, Redis, Snowflake |
+| **Поддержка** | Zendesk, Intercom, Freshdesk, ServiceNow, PagerDuty, Sentry |
+| **Утилиты** | Bitly, DeepL, FTP, SSH, Execute Command |
+| **Видео** | YouTube, Zoom |
 
 [Просмотреть все коннекторы &rarr;](docs/connectors.md)
 

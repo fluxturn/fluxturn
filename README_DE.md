@@ -53,7 +53,7 @@ FluxTurn ist eine Open-Source-Workflow-Automatisierungsplattform, mit der Sie Ap
 
 - **KI-Workflow-Generierung** -- Beschreiben Sie auf einfachem Deutsch, was Sie wollen, erhalten Sie einen funktionierenden Workflow
 - **Visueller Workflow-Builder** -- Drag-and-Drop-Oberfläche powered by ReactFlow
-- **Über 80 Konnektoren** -- Slack, Gmail, Shopify, HubSpot, Jira, Stripe, OpenAI und viele mehr
+- **Über 120 Konnektoren** -- Slack, Gmail, Shopify, HubSpot, Jira, Stripe, OpenAI und viele mehr
 - **Echtzeit-Ausführung** -- Beobachten Sie Workflows mit detaillierten Logs und Monitoring
 - **Selbst gehostet** -- Betreiben Sie auf Ihrer eigenen Infrastruktur mit Docker
 
@@ -120,26 +120,33 @@ npm run dev
 
 **Frontend** (`/frontend`) -- React 19, Vite, TailwindCSS, ReactFlow, i18next, CodeMirror
 
-**Backend** (`/backend`) -- NestJS, PostgreSQL (raw SQL), Redis, Socket.IO, LangChain, über 80 Konnektoren
+**Backend** (`/backend`) -- NestJS, PostgreSQL (raw SQL), Redis, Socket.IO, LangChain, über 120 Konnektoren
 
 ## Konnektoren
 
-FluxTurn wird mit über 80 Konnektoren in diesen Kategorien geliefert:
+FluxTurn wird mit über 120 Konnektoren in diesen Kategorien geliefert:
 
 | Kategorie | Konnektoren |
 |----------|-----------|
-| **Kommunikation** | Slack, Gmail, Outlook, Telegram, Discord, Twilio, SendGrid, Microsoft Teams |
-| **CRM & Vertrieb** | HubSpot, Salesforce, Pipedrive, Zoho CRM, Airtable |
-| **E-Commerce** | Shopify, Stripe, PayPal, WooCommerce, Paddle, Gumroad |
-| **Projektmanagement** | Jira, Asana, Trello, Notion, Linear, ClickUp |
-| **Soziale Medien** | Twitter/X, Facebook, Instagram, TikTok, LinkedIn, Pinterest |
-| **KI & ML** | OpenAI, Anthropic, Google AI, AWS Bedrock, Ollama, Replicate |
-| **Analytik** | PostHog, Mixpanel, Segment, Grafana, Metabase, Splunk |
-| **Speicher** | Google Drive, Dropbox, AWS S3, PostgreSQL, Snowflake, Supabase |
-| **Support** | Zendesk, Intercom, ServiceNow, PagerDuty, Sentry |
-| **Finanzen** | QuickBooks, Plaid, Chargebee, Wise |
-| **Marketing** | Mailchimp, Klaviyo, Facebook Ads |
+| **KI & ML** | OpenAI, OpenAI Chatbot, Anthropic, Google AI, Google Gemini, AWS Bedrock |
+| **Analytik** | Google Analytics, Grafana, Metabase, Mixpanel, PostHog, Segment, Splunk |
 | **CMS** | WordPress, Contentful, Ghost, Medium, Webflow |
+| **Kommunikation** | Slack, Gmail, Microsoft Teams, Telegram, Discord, Twilio, WhatsApp, AWS SES, SMTP, IMAP, POP3, Google Calendar, Calendly, Discourse, Matrix, Mattermost |
+| **CRM & Vertrieb** | HubSpot, Salesforce, Pipedrive, Zoho CRM, Airtable, Monday.com |
+| **Datenverarbeitung** | Supabase, Scrapfly, Extract From File |
+| **Datenbank** | Elasticsearch |
+| **Entwicklung** | GitHub, GitLab, Bitbucket, Git, Jenkins, Travis CI, Netlify, n8n, npm |
+| **E-Commerce** | Shopify, Stripe, PayPal, WooCommerce, Magento, Paddle, Gumroad |
+| **Finanzen** | QuickBooks, Plaid, Chargebee, Wise, Xero |
+| **Formulare** | Google Forms, Jotform, Typeform |
+| **Marketing** | Mailchimp, Klaviyo, SendGrid, Brevo, ActiveCampaign, Google Ads, Facebook Ads |
+| **Produktivität** | Figma, Todoist, Spotify, Clockify, Toggl, Harvest |
+| **Projektmanagement** | Jira, Asana, Trello, Notion, Linear, ClickUp |
+| **Soziale Medien** | Twitter/X, Facebook, Instagram, TikTok, LinkedIn, Pinterest, Reddit |
+| **Speicher** | Google Drive, Google Docs, Google Sheets, Dropbox, AWS S3, PostgreSQL, MySQL, MongoDB, Redis, Snowflake |
+| **Support** | Zendesk, Intercom, Freshdesk, ServiceNow, PagerDuty, Sentry |
+| **Dienstprogramme** | Bitly, DeepL, FTP, SSH, Execute Command |
+| **Video** | YouTube, Zoom |
 
 [Alle Konnektoren anzeigen &rarr;](docs/connectors.md)
 
