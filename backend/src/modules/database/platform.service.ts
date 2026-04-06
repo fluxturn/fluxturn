@@ -56,6 +56,7 @@ export class PlatformService implements OnModuleInit, OnModuleDestroy {
 
   async onModuleInit() {
     await this.initializePool();
+    await this.initializePlatformDatabase();
   }
 
   async onModuleDestroy() {
