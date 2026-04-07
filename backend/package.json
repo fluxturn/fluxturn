@@ -61,7 +61,7 @@
     "@elastic/elasticsearch": "^8.15.0",
     "@google-cloud/vision": "^4.0.0",
     "@google/generative-ai": "^0.24.1",
-    "@kafkajs/confluent-schema-registry": "^3.9.0",
+    "@kafkajs/confluent-schema-registry": "^4.0.8",
     "@langchain/core": "^0.3.75",
     "@langchain/openai": "^0.6.11",
     "@langchain/textsplitters": "^1.0.1",
