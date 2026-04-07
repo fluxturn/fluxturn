@@ -19,7 +19,7 @@
   <a href="https://github.com/fluxturn/fluxturn/stargazers"><img src="https://img.shields.io/github/stars/fluxturn/fluxturn?style=social" alt="GitHub Stars"></a>
   <a href="https://github.com/fluxturn/fluxturn/issues"><img src="https://img.shields.io/github/issues/fluxturn/fluxturn" alt="Issues"></a>
   <a href="https://github.com/fluxturn/fluxturn/pulls"><img src="https://img.shields.io/github/issues-pr/fluxturn/fluxturn" alt="Pull Requests"></a>
-  <a href="https://discord.gg/fluxturn"><img src="https://img.shields.io/discord/YOUR_DISCORD_ID?label=Discord&logo=discord&logoColor=white" alt="Discord"></a>
+  <a href="https://discord.gg/fluxturn"><img src="https://img.shields.io/badge/Discord-Join-5865F2?logo=discord&logoColor=white" alt="Discord"></a>
 </p>
 
 <p align="center">
@@ -39,8 +39,7 @@
   <a href="./README_DE.md">Deutsch</a> |
   <a href="./README_PT-BR.md">Português</a> |
   <a href="./README_RU.md">Русский</a> |
-  <a href="./README_HI.md">हिन्दी</a> |
-  <a href="./README_BN.md">বাংলা</a>
+  <a href="./README_HI.md">हिन्दी</a>
 </p>
 
 ---
@@ -71,7 +70,7 @@ cp backend/.env.example backend/.env
 docker compose up -d
 ```
 
-That's it! Access the app at `http://localhost:5173` and the API at `http://localhost:5005`.
+That's it! Access the app at `http://localhost:5185` and the API at `http://localhost:5005`.
 
 ### Manual Setup
 
@@ -100,7 +99,7 @@ npm run dev
 ```
                     +------------------+
                     |    Frontend      |  React 19 + Vite + Tailwind
-                    |  (Port 5173)     |  Visual Workflow Builder
+                    |  (Port 5185)     |  Visual Workflow Builder
                     +--------+---------+  AI Chat Interface
                              |
                              v
@@ -174,7 +173,7 @@ We welcome contributions! See our [Contributing Guide](CONTRIBUTING.md) to get s
 Thank you to all the amazing people who have contributed to FluxTurn! 🎉
 
 <a href="https://github.com/fluxturn/fluxturn/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=fluxturn/fluxturn" />
+  <img src="https://contrib.rocks/image?repo=fluxturn/fluxturn&anon=1&max=100&columns=10" />
 </a>
 
 Want to see your face here? Check out our [Contributing Guide](CONTRIBUTING.md) and start contributing today!
