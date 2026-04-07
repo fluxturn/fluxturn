@@ -67,10 +67,10 @@ git clone https://github.com/fluxturn/fluxturn.git
 cd fluxturn
 cp backend/.env.example backend/.env
 # Edit backend/.env with your database credentials and JWT secret
-docker compose up -d
+docker compose --env-file .env.docker up -d
 ```
 
-That's it! Access the app at `http://localhost:5173` and the API at `http://localhost:5005`.
+That's it! Access the app at `http://localhost:5185` and the API at `http://localhost:5005`.
 
 ### Manual Setup
 
@@ -99,7 +99,7 @@ npm run dev
 ```
                     +------------------+
                     |    Frontend      |  React 19 + Vite + Tailwind
-                    |  (Port 5173)     |  Visual Workflow Builder
+                    |  (Port 5185)     |  Visual Workflow Builder
                     +--------+---------+  AI Chat Interface
                              |
                              v
