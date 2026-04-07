@@ -31,7 +31,7 @@ const getMultiTenantHeaders = (): Record<string, string> => {
 // Create base API instance
 export const createApiInstance = (baseURL: string = ''): AxiosInstance => {
   const instance = axios.create({
-    baseURL: baseURL || import.meta.env.VITE_API_URL || 'https://api.fluxturn.com/api/v1',
+    baseURL: baseURL || import.meta.env.VITE_API_URL || 'http://localhost:5005/api/v1',
     headers: {
       'Content-Type': 'application/json',
     },
