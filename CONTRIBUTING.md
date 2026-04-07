@@ -116,6 +116,42 @@ This is one of the most valuable ways to contribute. See the [Connector Developm
 5. Add tests in a `__tests__/` directory
 6. Add a connector icon to `frontend/public/icons/connectors/`
 
+## Documenting a Connector
+
+We're documenting all 126 FluxTurn connectors. Each connector gets one markdown file in [`docs/connectors/`](docs/connectors/). This is one of the easiest ways to make a first contribution — no code required.
+
+**To document a connector:**
+
+1. **Find one that needs documenting** in the [connector docs tracking issue](https://github.com/fluxturn/fluxturn/issues) (look for the issue tagged `documentation`), or browse [`docs/connectors/README.md`](docs/connectors/README.md) for the full checklist. Comment on the tracking issue to claim a connector before starting.
+
+2. **Read the template** at [`docs/connectors/_template.md`](docs/connectors/_template.md) and at least one of the three reference docs:
+   - [`telegram.md`](docs/connectors/telegram.md) — simple API key auth
+   - [`gmail.md`](docs/connectors/gmail.md) — OAuth2 with polling triggers
+   - [`slack.md`](docs/connectors/slack.md) — Bearer token with webhook (Events API) triggers
+
+3. **Read the connector source** to find real action IDs, trigger IDs, and required fields. The source path follows this pattern:
+   ```
+   backend/src/modules/fluxturn/connectors/<category>/<name>/<name>.connector.ts
+   ```
+   Look at `getMetadata()`, `getActions()`, and `getTriggers()` for the authoritative list of capabilities.
+
+4. **Create your doc file** by copying the template:
+   ```bash
+   cp docs/connectors/_template.md docs/connectors/<connector-name>.md
+   ```
+   Use lowercase, hyphenated names: `google-sheets.md`, not `Google Sheets.md`.
+
+5. **Fill in every section**, deleting the `> ` instructional notes as you go. Don't skip "Common gotchas" — those are the most useful part for users hitting real problems.
+
+6. **Open a PR** against `main` with the title `docs(connectors): add documentation for <Connector>`. One connector per PR keeps reviews fast.
+
+7. **Update the checklist** in the tracking issue (or the maintainer will).
+
+**Tips:**
+- Document only what's actually in the source. If `getActions()` lists 5 actions, your doc should have 5 actions — don't make up features that don't exist.
+- Use placeholder URLs (`https://your-instance.com`) instead of any specific deployment URL.
+- For gotchas, draw on real experience if you've used the service. If you haven't, check the service's official docs and Stack Overflow for the most common pitfalls.
+
 ## Adding Translations
 
 FluxTurn uses [i18next](https://i18next.com) for internationalization.

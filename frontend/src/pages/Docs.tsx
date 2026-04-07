@@ -642,6 +642,55 @@ const docsContent: Record<string, { title: string; content: React.ReactNode }> =
           <li><strong>Webhooks:</strong> Real-time event notifications</li>
         </ul>
 
+        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Per-Connector Setup Guides</h3>
+        <p className="text-gray-700 mb-4">
+          Detailed setup instructions, action/trigger references, and example workflows for each connector live
+          in markdown files in the repository, where they're easy to read on GitHub and easy to contribute to.
+        </p>
+        <div className="bg-gray-50 rounded-lg p-4 mb-4">
+          <p className="text-gray-700 mb-2">
+            Browse all connector docs:
+          </p>
+          <a
+            href="https://github.com/fluxturn/fluxturn/tree/main/docs/connectors"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-cyan-600 hover:underline font-mono text-sm break-all"
+          >
+            github.com/fluxturn/fluxturn/tree/main/docs/connectors
+          </a>
+        </div>
+        <p className="text-gray-700 mb-4">
+          Reference docs (use these as the gold standard for new contributions):
+        </p>
+        <ul className="list-disc list-inside space-y-2 text-gray-700 mb-4">
+          <li>
+            <a href="https://github.com/fluxturn/fluxturn/blob/main/docs/connectors/telegram.md" target="_blank" rel="noopener noreferrer" className="text-cyan-600 hover:underline">
+              Telegram
+            </a>{" "}
+            — simple API key auth
+          </li>
+          <li>
+            <a href="https://github.com/fluxturn/fluxturn/blob/main/docs/connectors/gmail.md" target="_blank" rel="noopener noreferrer" className="text-cyan-600 hover:underline">
+              Gmail
+            </a>{" "}
+            — OAuth2 with polling triggers
+          </li>
+          <li>
+            <a href="https://github.com/fluxturn/fluxturn/blob/main/docs/connectors/slack.md" target="_blank" rel="noopener noreferrer" className="text-cyan-600 hover:underline">
+              Slack
+            </a>{" "}
+            — Bearer token with webhook (Events API) triggers
+          </li>
+        </ul>
+        <p className="text-gray-700">
+          Want to help document a connector? See the{" "}
+          <a href="https://github.com/fluxturn/fluxturn/blob/main/CONTRIBUTING.md#documenting-a-connector" target="_blank" rel="noopener noreferrer" className="text-cyan-600 hover:underline">
+            Documenting a Connector
+          </a>{" "}
+          section in CONTRIBUTING.md.
+        </p>
+
         <div className="bg-cyan-50 border-l-4 border-cyan-500 p-4 mt-6 rounded-r-lg">
           <p className="text-cyan-800">
             Can't find your service? Use the <Link to="/docs/http-request" className="underline">HTTP Request</Link> node to connect to any REST API.
