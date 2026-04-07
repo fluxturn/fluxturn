@@ -285,7 +285,7 @@ export class OrganizationService {
 
         await this.emailService.sendEmail({
           to: [email],
-          from: process.env.EMAIL_FROM || 'noreply@fluxturn.com',
+          from: process.env.EMAIL_FROM || 'noreply@localhost',
           subject: `You've been invited to join ${organization.name}`,
           html,
           organizationId,
@@ -513,7 +513,7 @@ export class OrganizationService {
 
         await this.emailService.sendEmail({
           to: [invitation.email],
-          from: process.env.EMAIL_FROM || 'noreply@fluxturn.com',
+          from: process.env.EMAIL_FROM || 'noreply@localhost',
           subject: `Reminder: You've been invited to join ${organization.name}`,
           html,
           organizationId: invitation.organization_id,

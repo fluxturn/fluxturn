@@ -40,23 +40,18 @@ export default defineConfig(({ mode }) => {
       },
     },
     define: {
-      // API Base URL (without /api/v1)
+      // API Base URL (without /api/v1) — local-only by default.
+      // Production deployments MUST set VITE_API_BASE_URL explicitly at build time.
       "import.meta.env.VITE_API_BASE_URL": JSON.stringify(
-        mode === "production"
-          ? "https://api.fluxturn.com"
-          : env.VITE_API_BASE_URL || "http://localhost:3000"
+        env.VITE_API_BASE_URL || "http://localhost:5005"
       ),
       // API URL with version (base + /api/v1)
       "import.meta.env.VITE_API_URL": JSON.stringify(
-        mode === "production"
-          ? "https://api.fluxturn.com/api/v1"
-          : `${env.VITE_API_BASE_URL || "http://localhost:3000"}/api/v1`
+        `${env.VITE_API_BASE_URL || "http://localhost:5005"}/api/v1`
       ),
-      // WebSocket URL
+      // WebSocket URL — local-only by default.
       "import.meta.env.VITE_WS_URL": JSON.stringify(
-        mode === "production"
-          ? "wss://api.fluxturn.com"
-          : env.VITE_WS_URL || "ws://localhost:3000"
+        env.VITE_WS_URL || "ws://localhost:5005"
       ),
     },
   };
