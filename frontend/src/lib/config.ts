@@ -24,21 +24,16 @@ export interface AppConfig {
 }
 
 /**
- * Get environment base URL for OAuth callbacks and API calls
+ * Get environment base URL for OAuth callbacks and API calls.
+ * Local-only: never falls back to a hosted API.
  */
 export const getEnvironmentBaseUrl = (): string => {
   if (typeof window !== 'undefined') {
-    // Frontend environment - use VITE env variable if available
-    const apiUrl = import.meta.env.VITE_API_BASE_URL;
-    if (apiUrl) return apiUrl;
-
-    const isDev = window.location.hostname === 'localhost';
-    return isDev ? 'http://localhost:5005' : 'https://api.fluxturn.com';
+    // Frontend environment - use VITE env variable, then sensible local fallback
+    return import.meta.env.VITE_API_BASE_URL || 'http://localhost:5005';
   } else {
     // Backend environment
-    return process.env.NODE_ENV === 'production'
-      ? 'https://api.fluxturn.com'
-      : process.env.API_BASE_URL || 'http://localhost:5005';
+    return process.env.API_BASE_URL || 'http://localhost:5005';
   }
 };
 
@@ -55,20 +50,16 @@ export const getOAuthCallbackUrl = (provider: string): string => {
  */
 export const getAppConfig = (): AppConfig => {
   const isProd = process.env.NODE_ENV === 'production';
-  const isDev = process.env.NODE_ENV === 'development';
 
-  // Read from VITE environment variables
-  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ||
-    (isProd ? 'https://api.fluxturn.com' : 'http://localhost:5005');
+  // Read from VITE environment variables — local-only fallback.
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5005';
 
   return {
     api: {
       baseUrl: apiBaseUrl
     },
     oauth: {
-      callbackUrl: isProd
-        ? 'https://fluxturn.com/auth/callback'
-        : 'http://localhost:5173/auth/callback'
+      callbackUrl: import.meta.env.VITE_OAUTH_CALLBACK_URL || 'http://localhost:5185/auth/callback'
     },
     mfa: {
       issuer: 'FluxTurn',
@@ -79,7 +70,7 @@ export const getAppConfig = (): AppConfig => {
       secure: isProd // Secure cookies only in production
     },
     email: {
-      defaultSender: isProd ? 'noreply@fluxturn.com' : 'dev-noreply@fluxturn.com'
+      defaultSender: 'noreply@localhost'
     }
   };
 };

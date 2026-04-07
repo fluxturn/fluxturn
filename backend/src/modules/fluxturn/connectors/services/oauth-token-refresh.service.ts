@@ -431,7 +431,7 @@ export class OAuthTokenRefreshService implements OnModuleInit {
     // Send email notification (only if user email is available)
     if (credential.user_email) {
       try {
-        const frontendUrl = this.configService.get<string>('FRONTEND_URL', 'https://app.fluxturn.com');
+        const frontendUrl = this.configService.get<string>('FRONTEND_URL', 'http://localhost:5185');
         await this.emailService.sendEmail({
           to: credential.user_email,
           subject: `Action Required: ${credential.connector_name} Connection Expired`,
