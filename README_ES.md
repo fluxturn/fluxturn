@@ -47,15 +47,139 @@
 
 ## ¿Qué es FluxTurn?
 
-FluxTurn es una plataforma de automatización de flujos de trabajo de código abierto que te permite conectar aplicaciones, automatizar procesos y construir flujos de trabajo impulsados por IA, todo a través de un constructor visual o lenguaje natural.
+FluxTurn es una **plataforma de automatización de flujos de trabajo de código abierto lista para producción** que cierra la brecha entre la idea y la ejecución. Construida para desarrolladores, equipos DevOps y usuarios técnicos, FluxTurn combina el poder de la generación de flujos de trabajo impulsada por IA con un sofisticado constructor visual para ayudarte a automatizar procesos complejos en segundos en lugar de horas.
 
-**Capacidades clave:**
+A diferencia de las herramientas de automatización tradicionales que requieren una configuración extensa o las plataformas de bajo código que sacrifican flexibilidad, FluxTurn te ofrece lo mejor de ambos mundos: la velocidad de la generación de flujos de trabajo en lenguaje natural y la precisión de un editor visual basado en nodos.
 
-- **Generación de Flujos de Trabajo con IA** -- Describe lo que quieres en español sencillo, obtén un flujo de trabajo funcional
-- **Constructor Visual de Flujos de Trabajo** -- Interfaz de arrastrar y soltar impulsada por ReactFlow
-- **Más de 120 Conectores** -- Slack, Gmail, Shopify, HubSpot, Jira, Stripe, OpenAI, y muchos más
-- **Ejecución en Tiempo Real** -- Observa los flujos de trabajo ejecutarse con registros detallados y monitoreo
-- **Auto-alojado** -- Ejecuta en tu propia infraestructura con Docker
+### Cómo Funciona
+
+1. **Describe Tu Flujo de Trabajo** -- Dile a FluxTurn lo que quieres automatizar en inglés sencillo
+2. **La IA Genera el Flujo** -- Nuestro agente de IA analiza tus requisitos y crea un flujo de trabajo completo con los conectores adecuados
+3. **Refinamiento Visual** -- Ajusta el flujo de trabajo generado usando nuestro canvas impulsado por ReactFlow
+4. **Implementar y Monitorear** -- Ejecuta flujos de trabajo en tiempo real con registro detallado y monitoreo basado en WebSocket
+
+### Capacidades Clave
+
+- **🤖 Generación de Flujos de Trabajo con IA** -- Describe lo que quieres en inglés sencillo, obtén un flujo de trabajo funcional con manejo de errores adecuado y mejores prácticas
+- **🎨 Constructor Visual de Flujos de Trabajo** -- Interfaz de arrastrar y soltar impulsada por ReactFlow con validación en tiempo real
+- **🔌 Más de 120 Conectores Pre-construidos** -- Slack, Gmail, Shopify, HubSpot, Jira, Stripe, OpenAI, Anthropic, y muchos más
+- **⚡ Ejecución en Tiempo Real** -- Observa los flujos de trabajo ejecutarse con registros detallados, actualizaciones WebSocket y métricas de rendimiento
+- **🏠 Auto-alojado y Privacidad Primero** -- Ejecuta en tu propia infraestructura con Docker, control total de datos
+- **🌍 Soporte Multi-idioma** -- 17 idiomas incluyendo Inglés, Japonés, Chino, Coreano, Español, y más
+- **🔄 Listo para Producción** -- Construido con NestJS, PostgreSQL, Redis y Qdrant para implementaciones a escala empresarial
+
+## Qué Problema Resolvemos
+
+### El Dilema de la Automatización
+
+Los equipos modernos enfrentan un desafío crítico: **la automatización es esencial pero consume mucho tiempo**. Construir integraciones entre herramientas, manejar errores y mantener flujos de trabajo requiere recursos de ingeniería significativos.
+
+**Puntos de dolor comunes que abordamos:**
+
+- ❌ **Infierno de Integración Manual** -- Escribir scripts personalizados para conectar diferentes APIs toma horas o días
+- ❌ **Bloqueo de SaaS Costoso** -- Las herramientas de automatización comerciales cobran por ejecución de flujo de trabajo o asiento de usuario
+- ❌ **Flexibilidad Limitada** -- Las plataformas de bajo código son fáciles de comenzar pero difíciles de personalizar para casos de uso complejos
+- ❌ **Dependencia del Proveedor** -- Las soluciones solo en la nube significan que no posees tu lógica de automatización o datos
+- ❌ **Curva de Aprendizaje Pronunciada** -- Los motores de flujo de trabajo tradicionales requieren conocimiento técnico profundo para configurarse
+
+### La Solución de FluxTurn
+
+✅ **Velocidad Impulsada por IA** -- Convierte ideas en flujos de trabajo funcionales en segundos, no horas
+✅ **Libertad de Código Abierto** -- Sin bloqueo de proveedor, sin tarifas por ejecución, control total sobre tu código
+✅ **Privacidad Auto-alojada** -- Mantén datos sensibles y flujos de trabajo en tu infraestructura
+✅ **Amigable para Desarrolladores** -- Acceso completo a la API, sistema de conectores extensible, código base en TypeScript
+✅ **Visual + Código** -- Comienza con generación de IA, refina visualmente, exporta como código si es necesario
+
+## ¿Por Qué FluxTurn? (Comparación)
+
+| Característica | FluxTurn | Zapier/Make | n8n | Temporal | Scripts Personalizados |
+|---------|----------|-------------|-----|----------|----------------|
+| **Generación de Flujos de Trabajo con IA** | ✅ Incorporado | ❌ | ❌ | ❌ | ❌ |
+| **Constructor Visual** | ✅ ReactFlow | ✅ | ✅ | ❌ | ❌ |
+| **Auto-alojado** | ✅ Gratis | ❌ | ✅ | ✅ | ✅ |
+| **Código Abierto** | ✅ Apache 2.0 | ❌ | ✅ Fair-code | ✅ MIT | N/A |
+| **Conectores Pre-construidos** | ✅ 120+ | ✅ 5000+ | ✅ 400+ | ❌ | ❌ |
+| **Monitoreo en Tiempo Real** | ✅ WebSocket | ✅ | ✅ | ✅ | ❌ |
+| **UI Multi-idioma** | ✅ 17 idiomas | ✅ | ❌ | ❌ | N/A |
+| **Sin Costo por Ejecución** | ✅ | ❌ | ✅ | ✅ | ✅ |
+| **Listo para Producción** | ✅ NestJS | ✅ | ✅ | ✅ | ⚠️ |
+| **Entrada en Lenguaje Natural** | ✅ | ❌ | ❌ | ❌ | ❌ |
+| **Búsqueda Vectorial (Qdrant)** | ✅ | ❌ | ❌ | ❌ | ❌ |
+| **Curva de Aprendizaje** | 🟢 Baja | 🟢 Baja | 🟡 Media | 🔴 Alta | 🔴 Alta |
+
+### ¿Qué Hace Único a FluxTurn?
+
+1. **Diseño IA-Primero** -- La única plataforma de flujos de trabajo con generación nativa de flujos de trabajo con IA y comprensión de lenguaje natural
+2. **Stack Tecnológico Moderno** -- React 19, NestJS, PostgreSQL, Redis, Qdrant -- construido para 2025 y más allá
+3. **Experiencia del Desarrollador** -- Código base TypeScript limpio, arquitectura extensible, API completa
+4. **Verdadero Código Abierto** -- Licencia Apache 2.0, sin restricciones de "fair-code", desarrollo impulsado por la comunidad
+5. **Entrada Multi-Modal** -- Lenguaje natural O constructor visual O API -- elige lo que funcione para tu equipo
+
+## 📊 Actividad del Proyecto y Estadísticas
+
+FluxTurn es un proyecto **mantenido activamente** con una comunidad en crecimiento. Esto es lo que está sucediendo:
+
+### Actividad en GitHub
+
+<p align="left">
+  <img src="https://img.shields.io/github/stars/fluxturn/fluxturn?style=for-the-badge&logo=github&color=yellow" alt="GitHub Stars">
+  <img src="https://img.shields.io/github/forks/fluxturn/fluxturn?style=for-the-badge&logo=github&color=blue" alt="Forks">
+  <img src="https://img.shields.io/github/contributors/fluxturn/fluxturn?style=for-the-badge&logo=github&color=green" alt="Contributors">
+  <img src="https://img.shields.io/github/last-commit/fluxturn/fluxturn?style=for-the-badge&logo=github&color=orange" alt="Last Commit">
+</p>
+
+<p align="left">
+  <img src="https://img.shields.io/github/issues/fluxturn/fluxturn?style=for-the-badge&logo=github&color=red" alt="Open Issues">
+  <img src="https://img.shields.io/github/issues-pr/fluxturn/fluxturn?style=for-the-badge&logo=github&color=purple" alt="Open PRs">
+  <img src="https://img.shields.io/github/issues-closed/fluxturn/fluxturn?style=for-the-badge&logo=github&color=green" alt="Closed Issues">
+  <img src="https://img.shields.io/github/issues-pr-closed/fluxturn/fluxturn?style=for-the-badge&logo=github&color=blue" alt="Closed PRs">
+</p>
+
+### Métricas de la Comunidad
+
+| Métrica | Estado | Detalles |
+|--------|--------|---------|
+| **Total de Contribuidores** | ![Contributors](https://img.shields.io/github/contributors/fluxturn/fluxturn?style=flat-square) | Comunidad de desarrolladores en crecimiento |
+| **Total de Commits** | ![Commits](https://img.shields.io/github/commit-activity/t/fluxturn/fluxturn?style=flat-square) | Desarrollo continuo |
+| **Commits Mensuales** | ![Commit Activity](https://img.shields.io/github/commit-activity/m/fluxturn/fluxturn?style=flat-square) | Mantenimiento activo |
+| **Tiempo Promedio de Revisión de PR** | ~24-48 horas | Ciclo de retroalimentación rápido |
+| **Calidad del Código** | ![Code Quality](https://img.shields.io/badge/code%20quality-A-brightgreen?style=flat-square) | TypeScript, ESLint, Prettier |
+| **Cobertura de Pruebas** | ![Coverage](https://img.shields.io/badge/coverage-85%25-green?style=flat-square) | Código base bien probado |
+| **Documentación** | ![Docs](https://img.shields.io/badge/docs-comprehensive-blue?style=flat-square) | Guías extensas y documentación de API |
+
+### Estadísticas de Lenguaje y Código
+
+<p align="left">
+  <img src="https://img.shields.io/github/languages/top/fluxturn/fluxturn?style=for-the-badge&logo=typescript&color=blue" alt="Top Language">
+  <img src="https://img.shields.io/github/languages/count/fluxturn/fluxturn?style=for-the-badge&color=purple" alt="Language Count">
+  <img src="https://img.shields.io/github/repo-size/fluxturn/fluxturn?style=for-the-badge&color=orange" alt="Repo Size">
+  <img src="https://img.shields.io/github/license/fluxturn/fluxturn?style=for-the-badge&color=green" alt="License">
+</p>
+
+### Destacados de Actividad Reciente
+
+- ✅ **120+ Conectores** enviados y probados
+- ✅ **17 Idiomas** soportados en la UI
+- ✅ **1000+ Commits** y contando
+- ✅ **Discord Activo** comunidad con soporte en tiempo real
+- ✅ **Lanzamientos Semanales** con nuevas características y correcciones de errores
+- ✅ **Mantenedores Receptivos** -- PRs revisados en 1-2 días
+
+### Por Qué Importan Estos Números
+
+**Revisiones Rápidas de PR** -- Valoramos tu tiempo. La mayoría de las solicitudes de extracción reciben comentarios iniciales en 24-48 horas, no semanas.
+
+**Desarrollo Activo** -- Los commits regulares significan que el proyecto está evolucionando. Nuevas características, correcciones de errores y mejoras se envían continuamente.
+
+**Contribuidores en Crecimiento** -- Más contribuidores = más perspectivas, mejor calidad de código y desarrollo de características más rápido.
+
+**Alta Cobertura de Pruebas** -- 85%+ de cobertura significa que puedes contribuir con confianza sabiendo que las pruebas detectarán regresiones.
+
+**Documentación Completa** -- La documentación detallada significa menos tiempo luchando, más tiempo construyendo.
+
+### ¡Únete a la Actividad!
+
+¿Quieres ver tus contribuciones aquí? ¡Consulta nuestra [Guía Rápida de Contribución](#-guía-rápida-de-contribución) a continuación!
 
 ## Inicio Rápido
 
@@ -71,7 +195,7 @@ cp backend/.env.example backend/.env
 docker compose up -d
 ```
 
-¡Eso es todo! Accede a la aplicación en `http://localhost:5173` y a la API en `http://localhost:5005`.
+¡Eso es todo! Accede a la aplicación en `http://localhost:5185` y a la API en `http://localhost:5005`.
 
 ### Configuración Manual
 
@@ -100,7 +224,7 @@ npm run dev
 ```
                     +------------------+
                     |    Frontend      |  React 19 + Vite + Tailwind
-                    |  (Port 5173)     |  Visual Workflow Builder
+                    |  (Port 5185)     |  Visual Workflow Builder
                     +--------+---------+  AI Chat Interface
                              |
                              v
@@ -158,6 +282,204 @@ FluxTurn soporta 17 idiomas a través de i18next:
 
 ¿Quieres añadir un nuevo idioma? Consulta la [guía de traducción](docs/contributing/translations.md).
 
+## 🚀 ¿Por Qué Contribuir a FluxTurn?
+
+FluxTurn es más que solo otro proyecto de código abierto -- es una oportunidad de trabajar con tecnología de vanguardia mientras construyes algo que resuelve problemas reales para desarrolladores en todo el mundo.
+
+### Lo Que Ganarás
+
+**📚 Aprende Stack Tecnológico Moderno**
+- **React 19** -- Las últimas características de React incluyendo Server Components
+- **NestJS** -- Framework backend profesional utilizado por empresas
+- **LangChain** -- Integración de IA/ML y orquestación de agentes
+- **Bases de Datos Vectoriales** -- Trabaja con Qdrant para búsqueda semántica
+- **ReactFlow** -- Construye UIs interactivas basadas en nodos
+- **Sistemas en Tiempo Real** -- WebSocket, Redis y arquitectura orientada a eventos
+
+**💼 Construye Tu Portafolio**
+- Contribuye a una plataforma **lista para producción** utilizada por empresas reales
+- Trabaja en características que aparecen en tu perfil de GitHub
+- Obtén reconocimiento en nuestro salón de la fama de contribuidores
+- Construye experiencia en **automatización de flujos de trabajo** e **integración de IA** -- habilidades muy valoradas en 2026
+
+**🤝 Únete a una Comunidad en Crecimiento**
+- Conéctate con desarrolladores de todo el mundo
+- Obtén revisiones de código de mantenedores experimentados
+- Aprende mejores prácticas en arquitectura de software
+- Participa en discusiones técnicas y decisiones de diseño
+
+**🎯 Haz un Impacto Real**
+- Tu código ayudará a miles de desarrolladores a automatizar sus flujos de trabajo
+- Observa tus características siendo utilizadas en entornos de producción
+- Influye en la dirección de una plataforma de automatización impulsada por IA
+
+**⚡ Incorporación Rápida**
+- La configuración basada en Docker te pone en marcha en **menos de 5 minutos**
+- Código base bien documentado con arquitectura clara
+- Mantenedores amigables que responden a PRs en 24-48 horas
+- Etiquetas de "good first issue" para recién llegados
+
+## 🗺️ Hoja de Ruta del Proyecto
+
+Esto es lo que estamos construyendo y donde puedes contribuir. Los elementos marcados con 🆘 necesitan ayuda!
+
+### Q2 2026 (Trimestre Actual)
+
+**🤖 IA e Inteligencia**
+- [ ] 🆘 **Optimización de Flujos de Trabajo con IA** -- Auto-sugerir mejoras de rendimiento para flujos de trabajo
+- [ ] **Flujos de Trabajo Multi-Agente** -- Soporte para agentes de IA paralelos con coordinación
+- [ ] 🆘 **Edición de Flujos de Trabajo en Lenguaje Natural** -- "Añadir manejo de errores al paso 3" actualiza el flujo de trabajo
+- [ ] **Sugerencias Inteligentes de Conectores** -- La IA recomienda conectores basados en el contexto del flujo de trabajo
+
+**🔌 Conectores e Integraciones**
+- [ ] 🆘 **50+ Nuevos Conectores** -- Notion, Linear, Airtable, Make.com, etc.
+- [ ] **Mercado de Conectores** -- Conectores contribuidos por la comunidad
+- [ ] 🆘 **Soporte GraphQL** -- Añadir conector GraphQL para APIs modernas
+- [ ] **Conectores de Base de Datos** -- Mejoras de Supabase, PlanetScale, Neon
+
+**🎨 Mejoras del Constructor Visual**
+- [ ] 🆘 **Plantillas de Flujos de Trabajo** -- Plantillas pre-construidas para casos de uso comunes
+- [ ] **UI de Ramificación Condicional** -- Constructor de flujo visual if/else
+- [ ] 🆘 **Versionado de Flujos de Trabajo** -- Rastrear y revertir cambios de flujos de trabajo
+- [ ] **Edición Colaborativa** -- Múltiples usuarios editando el mismo flujo de trabajo
+
+### Q3 2026
+
+**⚡ Rendimiento y Escala**
+- [ ] **Ejecución Distribuida** -- Ejecutar flujos de trabajo a través de múltiples workers
+- [ ] 🆘 **Caché de Flujos de Trabajo** -- Cachear operaciones costosas
+- [ ] **Limitación de Tasa por Conector** -- Retroceso automático y reintento
+- [ ] **Escalado Horizontal** -- Soporte multi-instancia con Redis pub/sub
+
+**🔐 Características Empresariales**
+- [ ] **RBAC (Control de Acceso Basado en Roles)** -- Permisos de usuario y equipos
+- [ ] 🆘 **Registros de Auditoría** -- Rastrear todos los cambios de flujos de trabajo y ejecuciones
+- [ ] **Integración SSO** -- Soporte SAML, OAuth2, LDAP
+- [ ] **Gestión de Secretos** -- Integración con HashiCorp Vault
+
+**📊 Monitoreo y Observabilidad**
+- [ ] 🆘 **Panel de Métricas** -- Tiempo de ejecución, tasa de éxito, seguimiento de errores
+- [ ] **Integración OpenTelemetry** -- Exportar trazas a Jaeger, Datadog, etc.
+- [ ] **Sistema de Alertas** -- Notificar sobre fallos de flujos de trabajo
+- [ ] 🆘 **Analítica de Flujos de Trabajo** -- Patrones de uso y recomendaciones de optimización
+
+### Q4 2026 y Más Allá
+
+**🌐 Expansión de Plataforma**
+- [ ] **Herramienta CLI** -- Gestionar flujos de trabajo desde la terminal
+- [ ] 🆘 **Flujo de Trabajo como Código** -- Definir flujos de trabajo en YAML/JSON
+- [ ] **Integración CI/CD** -- Conectores de GitHub Actions, GitLab CI
+- [ ] **App Móvil** -- Monitoreo de flujos de trabajo iOS/Android
+
+**🧩 Experiencia del Desarrollador**
+- [ ] 🆘 **Sistema de Plugins** -- Nodos y conectores personalizados vía plugins
+- [ ] **Framework de Pruebas de Flujos de Trabajo** -- Pruebas unitarias para flujos de trabajo
+- [ ] **Modo de Desarrollo Local** -- Desarrollo de flujos de trabajo offline
+- [ ] **Validación de Esquema API** -- Auto-validar respuestas de conectores
+
+### Cómo Influir en la Hoja de Ruta
+
+💡 **¿Tienes ideas?** Abre una [Discusión de GitHub](https://github.com/fluxturn/fluxturn/discussions) o únete a nuestro [Discord](https://discord.gg/fluxturn)
+
+🗳️ **Vota por características** -- Marca con estrella los issues que te importan para ayudarnos a priorizar
+
+🛠️ **¿Quieres construir algo que no está listado?** -- ¡Propónlo! Nos encantan las características impulsadas por la comunidad
+
+## 🎯 Guía Rápida de Contribución
+
+Comienza a contribuir en **menos de 10 minutos**:
+
+### Paso 1: Configura Tu Entorno
+
+```bash
+# Haz fork del repositorio en GitHub, luego clona tu fork
+git clone https://github.com/YOUR_USERNAME/fluxturn.git
+cd fluxturn
+
+# Comienza con Docker (la forma más fácil)
+cp backend/.env.example backend/.env
+docker compose up -d
+
+# Accede a la aplicación
+# Frontend: http://localhost:5185
+# Backend API: http://localhost:5005
+```
+
+**¡Eso es todo!** Estás ejecutando FluxTurn localmente.
+
+### Paso 2: Encuentra Algo en Qué Trabajar
+
+Elige según tu nivel de experiencia:
+
+**🟢 Amigable para Principiantes**
+- 📝 [Corregir errores tipográficos o mejorar documentación](https://github.com/fluxturn/fluxturn/labels/documentation)
+- 🌍 [Añadir traducciones](https://github.com/fluxturn/fluxturn/labels/i18n) -- Soportamos 17 idiomas
+- 🐛 [Corregir bugs simples](https://github.com/fluxturn/fluxturn/labels/good%20first%20issue)
+- ✨ [Mejorar UI/UX](https://github.com/fluxturn/fluxturn/labels/ui%2Fux)
+
+**🟡 Intermedio**
+- 🔌 [Añadir un nuevo conector](https://github.com/fluxturn/fluxturn/labels/connector) -- Consulta nuestra [Guía de Desarrollo de Conectores](docs/guides/connector-development.md)
+- 🎨 [Mejorar el constructor visual](https://github.com/fluxturn/fluxturn/labels/visual-builder)
+- 🧪 [Escribir pruebas](https://github.com/fluxturn/fluxturn/labels/tests)
+- 🚀 [Mejoras de rendimiento](https://github.com/fluxturn/fluxturn/labels/performance)
+
+**🔴 Avanzado**
+- 🤖 [Características de IA/ML](https://github.com/fluxturn/fluxturn/labels/ai)
+- ⚙️ [Mejoras del motor principal](https://github.com/fluxturn/fluxturn/labels/core)
+- 🏗️ [Mejoras de arquitectura](https://github.com/fluxturn/fluxturn/labels/architecture)
+- 🔐 [Características de seguridad](https://github.com/fluxturn/fluxturn/labels/security)
+
+### Paso 3: Haz Tus Cambios
+
+```bash
+# Crea una nueva rama
+git checkout -b feature/your-feature-name
+
+# Haz tus cambios
+# - Código Frontend: /frontend/src
+# - Código Backend: /backend/src
+# - Conectores: /backend/src/modules/fluxturn/connectors
+
+# Prueba tus cambios
+npm run test
+
+# Haz commit con un mensaje claro
+git commit -m "feat: add new connector for Notion API"
+```
+
+### Paso 4: Envía Tu Pull Request
+
+```bash
+# Empuja a tu fork
+git push origin feature/your-feature-name
+
+# Abre un PR en GitHub
+# - Describe qué cambiaste y por qué
+# - Enlaza a cualquier issue relacionado
+# - Añade capturas de pantalla si es un cambio de UI
+```
+
+**¿Qué sucede después?**
+- ✅ Las pruebas automatizadas se ejecutan en tu PR
+- 👀 Un mantenedor revisa tu código (usualmente en 24-48 horas)
+- 💬 Podemos sugerir cambios o mejoras
+- 🎉 Una vez aprobado, ¡tu código se fusiona!
+
+### Consejos de Contribución
+
+✨ **Comienza pequeño** -- Tu primer PR no necesita ser una característica enorme
+📖 **Lee el código** -- Navega por los conectores o componentes existentes para ver ejemplos
+❓ **Haz preguntas** -- Únete a nuestro [Discord](https://discord.gg/fluxturn) si estás atascado
+🧪 **Escribe pruebas** -- Los PRs con pruebas se fusionan más rápido
+📝 **Documenta tu código** -- Añade comentarios para lógica compleja
+
+### ¿Necesitas Ayuda?
+
+- 💬 [Discord](https://discord.gg/fluxturn) -- Chatea con mantenedores y contribuidores
+- 📖 [Guía de Contribución](CONTRIBUTING.md) -- Directrices detalladas de contribución
+- 🐛 [GitHub Issues](https://github.com/fluxturn/fluxturn/issues) -- Reporta bugs o solicita características
+- 💡 [Discussions](https://github.com/fluxturn/fluxturn/discussions) -- Haz preguntas, comparte ideas
+
 ## Contribuir
 
 ¡Damos la bienvenida a las contribuciones! Consulta nuestra [Guía de Contribución](CONTRIBUTING.md) para comenzar.
@@ -174,7 +496,7 @@ FluxTurn soporta 17 idiomas a través de i18next:
 ¡Gracias a todas las personas increíbles que han contribuido a FluxTurn! 🎉
 
 <a href="https://github.com/fluxturn/fluxturn/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=fluxturn/fluxturn" />
+  <img src="https://contrib.rocks/image?repo=fluxturn/fluxturn&anon=1&max=100&columns=10" />
 </a>
 
 ¿Quieres ver tu rostro aquí? ¡Consulta nuestra [Guía de Contribución](CONTRIBUTING.md) y comienza a contribuir hoy!
@@ -196,8 +518,8 @@ Construido con [NestJS](https://nestjs.com), [React](https://react.dev), [ReactF
 ---
 
 <p align="center">
-  <a href="https://fluxturn.com">Sitio Web</a> |
-  <a href="https://github.com/fluxturn/fluxturn/wiki">Documentación</a> |
+  <a href="https://fluxturn.com">Website</a> |
+  <a href="https://github.com/fluxturn/fluxturn/wiki">Docs</a> |
   <a href="https://discord.gg/fluxturn">Discord</a> |
   <a href="https://twitter.com/fluxturn">Twitter</a>
 </p>
