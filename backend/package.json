@@ -125,7 +125,7 @@
     "mailparser": "^3.7.5",
     "mammoth": "^1.10.0",
     "mixpanel": "^0.20.0",
-    "mongodb": "^6.19.0",
+    "mongodb": "^7.1.1",
     "mysql2": "^3.14.4",
     "node-cron": "^4.2.1",
     "node-qpdf2": "^6.0.0",
