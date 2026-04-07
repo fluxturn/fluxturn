@@ -51,6 +51,12 @@ FluxTurn é uma **plataforma de automação de fluxos de trabalho de código abe
 
 Ao contrário das ferramentas de automação tradicionais que exigem configuração extensa ou plataformas de low-code que sacrificam flexibilidade, o FluxTurn oferece o melhor dos dois mundos: a velocidade da geração de fluxos de trabalho em linguagem natural e a precisão de um editor visual baseado em nós.
 
+<p align="center">
+  <img src="frontend/public/fluxturn_demo.png" alt="FluxTurn Visual Workflow Builder" width="800">
+  <br>
+  <em>Construtor visual de fluxos de trabalho do FluxTurn mostrando um fluxo de trabalho de agente de IA com memória de chat</em>
+</p>
+
 ### Como Funciona
 
 1. **Descreva Seu Fluxo de Trabalho** -- Diga ao FluxTurn o que você quer automatizar em português simples
@@ -501,11 +507,39 @@ Obrigado a todas as pessoas incríveis que contribuíram para o FluxTurn! 🎉
 
 Quer ver seu rosto aqui? Confira nosso [Guia de Contribuição](CONTRIBUTING.md) e comece a contribuir hoje!
 
-## Comunidade
+## 💬 Junte-se à Nossa Comunidade
 
-- [Discord](https://discord.gg/fluxturn) -- Converse com a equipe e a comunidade
-- [GitHub Discussions](https://github.com/fluxturn/fluxturn/discussions) -- Faça perguntas, compartilhe ideias
-- [Twitter/X](https://twitter.com/fluxturn) -- Siga-nos para atualizações
+Conecte-se com desenvolvedores, obtenha ajuda e fique atualizado sobre os últimos desenvolvimentos do FluxTurn!
+
+<p align="center">
+  <a href="https://discord.gg/fluxturn">
+    <img src="https://img.shields.io/badge/Discord-Join%20Our%20Server-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord">
+  </a>
+  <a href="https://github.com/fluxturn/fluxturn/discussions">
+    <img src="https://img.shields.io/badge/GitHub-Discussions-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Discussions">
+  </a>
+  <a href="https://twitter.com/fluxturn">
+    <img src="https://img.shields.io/badge/Twitter-Follow%20Us-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter">
+  </a>
+</p>
+
+### Onde Nos Encontrar
+
+| Plataforma | Propósito | Link |
+|----------|---------|------|
+| 💬 **Discord** | Chat em tempo real, obter ajuda, discutir recursos | [Entrar no Servidor](https://discord.gg/fluxturn) |
+| 💡 **GitHub Discussions** | Fazer perguntas, compartilhar ideias, solicitar recursos | [Iniciar Discussão](https://github.com/fluxturn/fluxturn/discussions) |
+| 🐦 **Twitter/X** | Atualizações de produtos, anúncios, dicas | [@fluxturn](https://twitter.com/fluxturn) |
+| 📧 **Email** | Contato direto com mantenedores | hello@fluxturn.com |
+| 🌐 **Website** | Documentação, guias, blog | [fluxturn.com](https://fluxturn.com) |
+
+### Diretrizes da Comunidade
+
+- 🤝 **Seja Respeitoso** -- Trate todos com respeito e gentileza
+- 💡 **Compartilhe Conhecimento** -- Ajude outros a aprender e crescer
+- 🐛 **Reporte Problemas** -- Encontrou um bug? Nos avise no GitHub Issues
+- 🎉 **Celebre Vitórias** -- Compartilhe seus fluxos de trabalho e histórias de sucesso
+- 🌍 **Pense Globalmente** -- Somos uma comunidade mundial com mais de 17 idiomas
 
 ## Licença
 
@@ -522,4 +556,18 @@ Construído com [NestJS](https://nestjs.com), [React](https://react.dev), [React
   <a href="https://github.com/fluxturn/fluxturn/wiki">Documentação</a> |
   <a href="https://discord.gg/fluxturn">Discord</a> |
   <a href="https://twitter.com/fluxturn">Twitter</a>
+</p>
+
+---
+
+<p align="center">
+  <strong>Construído com ❤️ pela comunidade <a href="https://fluxturn.com">fluxturn</a> </strong>
+</p>
+
+<p align="center">
+  Se você acha este projeto útil, considere dar uma estrela! ⭐
+  <br><br>
+  <a href="https://github.com/fluxturn/fluxturn/stargazers">
+    <img src="https://img.shields.io/github/stars/fluxturn/fluxturn?style=social" alt="Star on GitHub">
+  </a>
 </p>
