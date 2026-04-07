@@ -67,7 +67,7 @@ git clone https://github.com/fluxturn/fluxturn.git
 cd fluxturn
 cp backend/.env.example backend/.env
 # Edit backend/.env with your database credentials and JWT secret
-docker compose --env-file .env.docker up -d
+docker compose up -d
 ```
 
 That's it! Access the app at `http://localhost:5185` and the API at `http://localhost:5005`.
@@ -173,7 +173,7 @@ We welcome contributions! See our [Contributing Guide](CONTRIBUTING.md) to get s
 Thank you to all the amazing people who have contributed to FluxTurn! 🎉
 
 <a href="https://github.com/fluxturn/fluxturn/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=fluxturn/fluxturn&v=2" />
+  <img src="https://contrib.rocks/image?repo=fluxturn/fluxturn&anon=1&max=100&columns=10" />
 </a>
 
 Want to see your face here? Check out our [Contributing Guide](CONTRIBUTING.md) and start contributing today!
