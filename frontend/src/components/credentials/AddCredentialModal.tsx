@@ -366,8 +366,8 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
 
       // Listen for OAuth success message from popup
       const handleMessage = (event: MessageEvent) => {
-        // Verify origin for security
-        if (!event.origin.includes('localhost') && !event.origin.includes('fluxturn.com')) {
+        // Verify origin for security — local-only.
+        if (!event.origin.includes('localhost')) {
           return;
         }
 

@@ -83,13 +83,14 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      # Vite inlines these at build time — must be build args, not runtime env.
+      args:
+        VITE_API_BASE_URL: http://localhost:${BACKEND_PORT:-5005}
+        VITE_WS_URL: ws://localhost:${BACKEND_PORT:-5005}
     container_name: fluxturn-frontend
     restart: unless-stopped
     ports:
       - "${FRONTEND_PORT:-5185}:80"
-    environment:
-      - VITE_API_BASE_URL=http://localhost:${BACKEND_PORT:-5005}
-      - VITE_WS_URL=ws://localhost:${BACKEND_PORT:-5005}
     depends_on:
       - backend
 

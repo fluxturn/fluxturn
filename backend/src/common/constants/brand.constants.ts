@@ -18,8 +18,8 @@ export const BRAND = {
   // URLs (override via env vars for self-hosted deployments)
   website: process.env.SITE_DOMAIN
     ? `https://${process.env.SITE_DOMAIN}`
-    : 'https://fluxturn.com',
-  docs: 'https://docs.fluxturn.com',
+    : 'http://localhost:5185',
+  docs: process.env.DOCS_URL || 'http://localhost:5185/docs',
 
   // Legal
   companyName: 'FluxTurn Contributors',

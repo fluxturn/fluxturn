@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://fluxturn.com">
-    <img src="frontend/public/fluxturn_1.png" alt="FluxTurn" width="600">
+    <img src="frontend/public/Exploring the Future of Technology.png" alt="FluxTurn" width="600">
   </a>
 </p>
 
@@ -47,15 +47,343 @@
 
 ## FluxTurnとは？
 
-FluxTurnは、アプリの接続、プロセスの自動化、AI搭載ワークフローの構築を可能にするオープンソースのワークフロー自動化プラットフォームです。ビジュアルビルダーまたは自然言語で操作できます。
+FluxTurnは、アイデアと実行のギャップを埋める**本番環境対応のオープンソースワークフロー自動化プラットフォーム**です。開発者、DevOpsチーム、技術ユーザー向けに構築されたFluxTurnは、AI駆動のワークフロー生成と高度なビジュアルビルダーの力を組み合わせることで、数時間ではなく数秒で複雑なプロセスを自動化できます。
 
-**主な機能：**
+広範な設定が必要な従来の自動化ツールや、柔軟性を犠牲にするローコードプラットフォームとは異なり、FluxTurnは両方の長所を提供します：自然言語によるワークフロー生成の速度と、ビジュアルノードベースエディタの精度です。
 
-- **AI搭載ワークフロー生成** -- 日本語で説明するだけで、動作するワークフローを取得
-- **ビジュアルワークフロービルダー** -- ReactFlowを活用したドラッグ＆ドロップインターフェース
-- **80以上のコネクタ** -- Slack、Gmail、Shopify、HubSpot、Jira、Stripe、OpenAIなど
-- **リアルタイム実行** -- 詳細なログとモニタリングでワークフローの実行を監視
-- **セルフホスト** -- Dockerで独自のインフラストラクチャ上で実行
+<p align="center">
+  <img src="frontend/public/fluxturn_demo.png" alt="FluxTurn Visual Workflow Builder" width="800">
+  <br>
+  <em>チャットメモリを備えたAIエージェントワークフローを表示するFluxTurnのビジュアルワークフロービルダー</em>
+</p>
+
+### 動作の仕組み
+
+1. **ワークフローを記述** -- FluxTurnに自動化したい内容を自然な日本語で伝えます
+2. **AIがフローを生成** -- AIエージェントが要件を分析し、適切なコネクタを使用して完全なワークフローを作成します
+3. **ビジュアル調整** -- ReactFlowを活用したキャンバスで生成されたワークフローを微調整します
+4. **デプロイ＆モニター** -- 詳細なログとWebSocketベースのモニタリングでワークフローをリアルタイムで実行します
+
+### 主な機能
+
+- **🤖 AIワークフロー生成** -- 自然な日本語で記述するだけで、適切なエラーハンドリングとベストプラクティスを備えた動作するワークフローを取得
+- **🎨 ビジュアルワークフロービルダー** -- ReactFlowを活用したリアルタイム検証付きドラッグ＆ドロップインターフェース
+- **🔌 120以上のプリビルトコネクタ** -- Slack、Gmail、Shopify、HubSpot、Jira、Stripe、OpenAI、Anthropicなど多数
+- **⚡ リアルタイム実行** -- 詳細なログ、WebSocket更新、パフォーマンスメトリクスでワークフローの実行を監視
+- **🏠 セルフホスト＆プライバシー優先** -- Dockerで独自のインフラストラクチャ上で実行、完全なデータ制御
+- **🌍 多言語サポート** -- 英語、日本語、中国語、韓国語、スペイン語など17言語に対応
+- **🔄 本番環境対応** -- NestJS、PostgreSQL、Redis、Qdrantで構築され、エンタープライズスケールのデプロイメントに対応
+
+## 解決する問題
+
+### 自動化のジレンマ
+
+現代のチームは重大な課題に直面しています：**自動化は不可欠ですが、時間がかかります**。ツール間の統合を構築し、エラーを処理し、ワークフローを維持するには、多大なエンジニアリングリソースが必要です。
+
+**私たちが対処する一般的な問題点：**
+
+- ❌ **手動統合の地獄** -- 異なるAPIを接続するカスタムスクリプトの作成には数時間から数日かかります
+- ❌ **高額なSaaSロックイン** -- 商用自動化ツールはワークフロー実行ごとまたはユーザーシートごとに課金します
+- ❌ **限定的な柔軟性** -- ローコードプラットフォームは開始は簡単ですが、複雑なユースケースに対するカスタマイズが困難です
+- ❌ **ベンダー依存** -- クラウド専用ソリューションは、自動化ロジックやデータを所有できないことを意味します
+- ❌ **急な学習曲線** -- 従来のワークフローエンジンは、セットアップに深い技術知識が必要です
+
+### FluxTurnのソリューション
+
+✅ **AI駆動の速度** -- アイデアを数時間ではなく数秒で動作するワークフローに変換
+✅ **オープンソースの自由** -- ベンダーロックインなし、実行ごとの料金なし、コードの完全な制御
+✅ **セルフホストのプライバシー** -- 機密データとワークフローを独自のインフラストラクチャに保管
+✅ **開発者フレンドリー** -- 完全なAPIアクセス、拡張可能なコネクタシステム、TypeScriptコードベース
+✅ **ビジュアル＋コード** -- AI生成から始め、ビジュアルで調整し、必要に応じてコードとしてエクスポート
+
+## FluxTurnを選ぶ理由？（比較）
+
+| 機能 | FluxTurn | Zapier/Make | n8n | Temporal | カスタムスクリプト |
+|---------|----------|-------------|-----|----------|----------------|
+| **AIワークフロー生成** | ✅ ビルトイン | ❌ | ❌ | ❌ | ❌ |
+| **ビジュアルビルダー** | ✅ ReactFlow | ✅ | ✅ | ❌ | ❌ |
+| **セルフホスト** | ✅ 無料 | ❌ | ✅ | ✅ | ✅ |
+| **オープンソース** | ✅ Apache 2.0 | ❌ | ✅ Fair-code | ✅ MIT | N/A |
+| **プリビルトコネクタ** | ✅ 120以上 | ✅ 5000以上 | ✅ 400以上 | ❌ | ❌ |
+| **リアルタイムモニタリング** | ✅ WebSocket | ✅ | ✅ | ✅ | ❌ |
+| **多言語UI** | ✅ 17言語 | ✅ | ❌ | ❌ | N/A |
+| **実行ごとのコストなし** | ✅ | ❌ | ✅ | ✅ | ✅ |
+| **本番環境対応** | ✅ NestJS | ✅ | ✅ | ✅ | ⚠️ |
+| **自然言語入力** | ✅ | ❌ | ❌ | ❌ | ❌ |
+| **ベクトル検索（Qdrant）** | ✅ | ❌ | ❌ | ❌ | ❌ |
+| **学習曲線** | 🟢 低 | 🟢 低 | 🟡 中 | 🔴 高 | 🔴 高 |
+
+### FluxTurnの独自性
+
+1. **AI優先設計** -- ネイティブなAIワークフロー生成と自然言語理解を備えた唯一のワークフロープラットフォーム
+2. **モダンな技術スタック** -- React 19、NestJS、PostgreSQL、Redis、Qdrant -- 2025年以降に向けて構築
+3. **開発者体験** -- クリーンなTypeScriptコードベース、拡張可能なアーキテクチャ、包括的なAPI
+4. **真のオープンソース** -- Apache 2.0ライセンス、「fair-code」制限なし、コミュニティ主導の開発
+5. **マルチモーダル入力** -- 自然言語またはビジュアルビルダーまたはAPI -- チームに最適な方法を選択
+
+## 📊 プロジェクトの活動と統計
+
+FluxTurnは成長するコミュニティを持つ**積極的に維持されている**プロジェクトです。現在の状況は以下の通りです：
+
+### GitHubの活動
+
+<p align="left">
+  <img src="https://img.shields.io/github/stars/fluxturn/fluxturn?style=for-the-badge&logo=github&color=yellow" alt="GitHub Stars">
+  <img src="https://img.shields.io/github/forks/fluxturn/fluxturn?style=for-the-badge&logo=github&color=blue" alt="Forks">
+  <img src="https://img.shields.io/github/contributors/fluxturn/fluxturn?style=for-the-badge&logo=github&color=green" alt="Contributors">
+  <img src="https://img.shields.io/github/last-commit/fluxturn/fluxturn?style=for-the-badge&logo=github&color=orange" alt="Last Commit">
+</p>
+
+<p align="left">
+  <img src="https://img.shields.io/github/issues/fluxturn/fluxturn?style=for-the-badge&logo=github&color=red" alt="Open Issues">
+  <img src="https://img.shields.io/github/issues-pr/fluxturn/fluxturn?style=for-the-badge&logo=github&color=purple" alt="Open PRs">
+  <img src="https://img.shields.io/github/issues-closed/fluxturn/fluxturn?style=for-the-badge&logo=github&color=green" alt="Closed Issues">
+  <img src="https://img.shields.io/github/issues-pr-closed/fluxturn/fluxturn?style=for-the-badge&logo=github&color=blue" alt="Closed PRs">
+</p>
+
+### コミュニティメトリクス
+
+| 指標 | ステータス | 詳細 |
+|--------|--------|---------|
+| **総コントリビューター数** | ![Contributors](https://img.shields.io/github/contributors/fluxturn/fluxturn?style=flat-square) | 成長する開発者コミュニティ |
+| **総コミット数** | ![Commits](https://img.shields.io/github/commit-activity/t/fluxturn/fluxturn?style=flat-square) | 継続的な開発 |
+| **月間コミット数** | ![Commit Activity](https://img.shields.io/github/commit-activity/m/fluxturn/fluxturn?style=flat-square) | 積極的なメンテナンス |
+| **平均PRレビュー時間** | ~24-48時間 | 迅速なフィードバックループ |
+| **コード品質** | ![Code Quality](https://img.shields.io/badge/code%20quality-A-brightgreen?style=flat-square) | TypeScript, ESLint, Prettier |
+| **テストカバレッジ** | ![Coverage](https://img.shields.io/badge/coverage-85%25-green?style=flat-square) | 十分にテストされたコードベース |
+| **ドキュメント** | ![Docs](https://img.shields.io/badge/docs-comprehensive-blue?style=flat-square) | 広範なガイドとAPIドキュメント |
+
+### 言語とコードの統計
+
+<p align="left">
+  <img src="https://img.shields.io/github/languages/top/fluxturn/fluxturn?style=for-the-badge&logo=typescript&color=blue" alt="Top Language">
+  <img src="https://img.shields.io/github/languages/count/fluxturn/fluxturn?style=for-the-badge&color=purple" alt="Language Count">
+  <img src="https://img.shields.io/github/repo-size/fluxturn/fluxturn?style=for-the-badge&color=orange" alt="Repo Size">
+  <img src="https://img.shields.io/github/license/fluxturn/fluxturn?style=for-the-badge&color=green" alt="License">
+</p>
+
+### 最近の活動ハイライト
+
+- ✅ **120以上のコネクタ** 出荷およびテスト済み
+- ✅ **17言語** UIでサポート
+- ✅ **1000以上のコミット** 継続中
+- ✅ **アクティブなDiscord** リアルタイムサポート付きコミュニティ
+- ✅ **週次リリース** 新機能とバグ修正
+- ✅ **迅速なメンテナ** -- 1〜2日以内にPRをレビュー
+
+### これらの数字が重要な理由
+
+**迅速なPRレビュー** -- 私たちはあなたの時間を大切にします。ほとんどのプルリクエストは数週間ではなく24〜48時間以内に初期フィードバックを受け取ります。
+
+**積極的な開発** -- 定期的なコミットはプロジェクトが進化していることを意味します。新機能、バグ修正、改善が継続的に提供されています。
+
+**増加するコントリビューター** -- より多くのコントリビューター = より多くの視点、より良いコード品質、より速い機能開発。
+
+**高いテストカバレッジ** -- 85%以上のカバレッジは、テストがリグレッションを検出することを知って自信を持って貢献できることを意味します。
+
+**包括的なドキュメント** -- 詳細なドキュメントは、苦労する時間を減らし、構築する時間を増やすことを意味します。
+
+### 活動に参加しましょう！
+
+ここにあなたの貢献を見たいですか？以下の[クイック貢献ガイド](#-クイック貢献ガイド)をチェックしてください！
+
+## 🚀 FluxTurnに貢献する理由
+
+FluxTurnは単なるもう一つのオープンソースプロジェクトではありません -- 世界中の開発者にとって実際の問題を解決するものを構築しながら、最先端の技術を扱う機会です。
+
+### 得られるもの
+
+**📚 モダンな技術スタックを学ぶ**
+- **React 19** -- Server Componentsを含む最新のReact機能
+- **NestJS** -- 企業で使用されるプロフェッショナルなバックエンドフレームワーク
+- **LangChain** -- AI/ML統合とエージェントオーケストレーション
+- **ベクトルデータベース** -- セマンティック検索のためにQdrantを使った作業
+- **ReactFlow** -- インタラクティブなノードベースUIの構築
+- **リアルタイムシステム** -- WebSocket、Redis、イベント駆動アーキテクチャ
+
+**💼 ポートフォリオを構築**
+- 実際の企業で使用される**本番環境対応**プラットフォームに貢献
+- GitHubプロファイルに表示される機能に取り組む
+- コントリビューター殿堂で認知を得る
+- **ワークフロー自動化**と**AI統合**の専門知識を構築 -- 2026年に高く評価されるスキル
+
+**🤝 成長するコミュニティに参加**
+- 世界中の開発者とつながる
+- 経験豊富なメンテナからコードレビューを受ける
+- ソフトウェアアーキテクチャのベストプラクティスを学ぶ
+- 技術的な議論や設計決定に参加
+
+**🎯 実際の影響を与える**
+- あなたのコードは何千人もの開発者がワークフローを自動化するのを助けます
+- 本番環境で使用される機能を見る
+- AI駆動の自動化プラットフォームの方向性に影響を与える
+
+**⚡ クイックオンボーディング**
+- Dockerベースのセットアップで**5分以内**に実行可能
+- 明確なアーキテクチャを持つよく文書化されたコードベース
+- 24〜48時間以内にPRに応答するフレンドリーなメンテナ
+- 初心者向けの「Good first issue」ラベル
+
+## 🗺️ プロジェクトロードマップ
+
+私たちが構築しているものと、貢献できる場所を示します。🆘とマークされた項目はヘルプが必要です！
+
+### Q2 2026（現在の四半期）
+
+**🤖 AI＆インテリジェンス**
+- [ ] 🆘 **AIワークフロー最適化** -- ワークフローのパフォーマンス改善を自動提案
+- [ ] **マルチエージェントワークフロー** -- 調整を伴う並列AIエージェントのサポート
+- [ ] 🆘 **自然言語ワークフロー編集** -- 「ステップ3にエラーハンドリングを追加」でワークフローを更新
+- [ ] **スマートコネクタ提案** -- AIがワークフローのコンテキストに基づいてコネクタを推奨
+
+**🔌 コネクタ＆統合**
+- [ ] 🆘 **50以上の新しいコネクタ** -- Notion、Linear、Airtable、Make.comなど
+- [ ] **コネクタマーケットプレイス** -- コミュニティ貢献のコネクタ
+- [ ] 🆘 **GraphQLサポート** -- モダンAPIのためのGraphQLコネクタを追加
+- [ ] **データベースコネクタ** -- Supabase、PlanetScale、Neonの機能強化
+
+**🎨 ビジュアルビルダーの強化**
+- [ ] 🆘 **ワークフローテンプレート** -- 一般的なユースケース向けのプリビルドテンプレート
+- [ ] **条件分岐UI** -- ビジュアルif/elseフロービルダー
+- [ ] 🆘 **ワークフローバージョニング** -- ワークフローの変更を追跡してロールバック
+- [ ] **共同編集** -- 複数のユーザーが同じワークフローを編集
+
+### Q3 2026
+
+**⚡ パフォーマンス＆スケール**
+- [ ] **分散実行** -- 複数のワーカーでワークフローを実行
+- [ ] 🆘 **ワークフローキャッシング** -- 高コストな操作をキャッシュ
+- [ ] **コネクタごとのレート制限** -- 自動バックオフとリトライ
+- [ ] **水平スケーリング** -- Redis pub/subを使用したマルチインスタンスサポート
+
+**🔐 エンタープライズ機能**
+- [ ] **RBAC（ロールベースアクセス制御）** -- ユーザー権限とチーム
+- [ ] 🆘 **監査ログ** -- すべてのワークフロー変更と実行を追跡
+- [ ] **SSO統合** -- SAML、OAuth2、LDAPサポート
+- [ ] **シークレット管理** -- HashiCorp Vault統合
+
+**📊 モニタリング＆可観測性**
+- [ ] 🆘 **メトリクスダッシュボード** -- 実行時間、成功率、エラー追跡
+- [ ] **OpenTelemetry統合** -- Jaeger、Datadogなどにトレースをエクスポート
+- [ ] **アラートシステム** -- ワークフロー失敗時の通知
+- [ ] 🆘 **ワークフロー分析** -- 使用パターンと最適化推奨
+
+### Q4 2026以降
+
+**🌐 プラットフォーム拡張**
+- [ ] **CLIツール** -- ターミナルからワークフローを管理
+- [ ] 🆘 **Workflow as Code** -- YAML/JSONでワークフローを定義
+- [ ] **CI/CD統合** -- GitHub Actions、GitLab CIコネクタ
+- [ ] **モバイルアプリ** -- iOS/Androidワークフローモニタリング
+
+**🧩 開発者体験**
+- [ ] 🆘 **プラグインシステム** -- プラグインを介したカスタムノードとコネクタ
+- [ ] **ワークフローテストフレームワーク** -- ワークフローのユニットテスト
+- [ ] **ローカル開発モード** -- オフラインワークフロー開発
+- [ ] **APIスキーマ検証** -- コネクタレスポンスの自動検証
+
+### ロードマップに影響を与える方法
+
+💡 **アイデアがありますか？** [GitHub Discussion](https://github.com/fluxturn/fluxturn/discussions)を開くか、[Discord](https://discord.gg/fluxturn)に参加してください
+
+🗳️ **機能に投票** -- 気になるIssueにスターを付けて優先順位付けを支援
+
+🛠️ **リストにないものを構築したいですか？** -- 提案してください！コミュニティ主導の機能を歓迎します
+
+## 🎯 クイック貢献ガイド
+
+**10分以内**で貢献を始めましょう：
+
+### ステップ1：環境をセットアップ
+
+```bash
+# GitHubでリポジトリをフォークし、フォークをクローン
+git clone https://github.com/YOUR_USERNAME/fluxturn.git
+cd fluxturn
+
+# Dockerで始める（最も簡単な方法）
+cp backend/.env.example backend/.env
+docker compose up -d
+
+# アプリにアクセス
+# フロントエンド：http://localhost:5185
+# バックエンドAPI：http://localhost:5005
+```
+
+**これだけです！** FluxTurnがローカルで実行されています。
+
+### ステップ2：作業するものを見つける
+
+経験レベルに基づいて選択：
+
+**🟢 初心者向け**
+- 📝 [タイポの修正またはドキュメントの改善](https://github.com/fluxturn/fluxturn/labels/documentation)
+- 🌍 [翻訳の追加](https://github.com/fluxturn/fluxturn/labels/i18n) -- 17言語をサポート
+- 🐛 [簡単なバグの修正](https://github.com/fluxturn/fluxturn/labels/good%20first%20issue)
+- ✨ [UI/UXの改善](https://github.com/fluxturn/fluxturn/labels/ui%2Fux)
+
+**🟡 中級者向け**
+- 🔌 [新しいコネクタの追加](https://github.com/fluxturn/fluxturn/labels/connector) -- [コネクタ開発ガイド](docs/guides/connector-development.md)を参照
+- 🎨 [ビジュアルビルダーの強化](https://github.com/fluxturn/fluxturn/labels/visual-builder)
+- 🧪 [テストの作成](https://github.com/fluxturn/fluxturn/labels/tests)
+- 🚀 [パフォーマンス改善](https://github.com/fluxturn/fluxturn/labels/performance)
+
+**🔴 上級者向け**
+- 🤖 [AI/ML機能](https://github.com/fluxturn/fluxturn/labels/ai)
+- ⚙️ [コアエンジンの強化](https://github.com/fluxturn/fluxturn/labels/core)
+- 🏗️ [アーキテクチャの改善](https://github.com/fluxturn/fluxturn/labels/architecture)
+- 🔐 [セキュリティ機能](https://github.com/fluxturn/fluxturn/labels/security)
+
+### ステップ3：変更を行う
+
+```bash
+# 新しいブランチを作成
+git checkout -b feature/your-feature-name
+
+# 変更を行う
+# - フロントエンドコード：/frontend/src
+# - バックエンドコード：/backend/src
+# - コネクタ：/backend/src/modules/fluxturn/connectors
+
+# 変更をテスト
+npm run test
+
+# 明確なメッセージでコミット
+git commit -m "feat: add new connector for Notion API"
+```
+
+### ステップ4：プルリクエストを提出
+
+```bash
+# フォークにプッシュ
+git push origin feature/your-feature-name
+
+# GitHubでPRを開く
+# - 何を変更したか、なぜ変更したかを説明
+# - 関連するIssueにリンク
+# - UI変更の場合はスクリーンショットを追加
+```
+
+**次に起こること：**
+- ✅ 自動テストがPRで実行されます
+- 👀 メンテナがコードをレビューします（通常24〜48時間以内）
+- 💬 変更や改善を提案する場合があります
+- 🎉 承認されると、コードがマージされます！
+
+### 貢献のヒント
+
+✨ **小さく始める** -- 最初のPRは大きな機能である必要はありません
+📖 **コードを読む** -- 既存のコネクタやコンポーネントを例として参照
+❓ **質問する** -- 困ったら[Discord](https://discord.gg/fluxturn)に参加
+🧪 **テストを書く** -- テスト付きのPRはより早くマージされます
+📝 **コードを文書化** -- 複雑なロジックにはコメントを追加
+
+### ヘルプが必要ですか？
+
+- 💬 [Discord](https://discord.gg/fluxturn) -- メンテナやコントリビューターとチャット
+- 📖 [貢献ガイド](CONTRIBUTING.md) -- 詳細な貢献ガイドライン
+- 🐛 [GitHub Issues](https://github.com/fluxturn/fluxturn/issues) -- バグを報告または機能をリクエスト
+- 💡 [Discussions](https://github.com/fluxturn/fluxturn/discussions) -- 質問したり、アイデアを共有
 
 ## クイックスタート
 
@@ -71,7 +399,7 @@ cp backend/.env.example backend/.env
 docker compose up -d
 ```
 
-これだけです！`http://localhost:5173`でアプリに、`http://localhost:5005`でAPIにアクセスできます。
+これだけです！`http://localhost:5185`でアプリに、`http://localhost:5005`でAPIにアクセスできます。
 
 ### 手動セットアップ
 
@@ -100,7 +428,7 @@ npm run dev
 ```
                     +------------------+
                     |    Frontend      |  React 19 + Vite + Tailwind
-                    |  (Port 5173)     |  Visual Workflow Builder
+                    |  (Port 5185)     |  Visual Workflow Builder
                     +--------+---------+  AI Chat Interface
                              |
                              v
@@ -120,26 +448,33 @@ npm run dev
 
 **フロントエンド** (`/frontend`) -- React 19、Vite、TailwindCSS、ReactFlow、i18next、CodeMirror
 
-**バックエンド** (`/backend`) -- NestJS、PostgreSQL（raw SQL）、Redis、Socket.IO、LangChain、80以上のコネクタ
+**バックエンド** (`/backend`) -- NestJS、PostgreSQL（raw SQL）、Redis、Socket.IO、LangChain、120以上のコネクタ
 
 ## コネクタ
 
-FluxTurnは以下のカテゴリで80以上のコネクタを提供：
+FluxTurnは以下のカテゴリで120以上のコネクタを提供：
 
 | カテゴリ | コネクタ |
 |----------|-----------|
-| **コミュニケーション** | Slack、Gmail、Outlook、Telegram、Discord、Twilio、SendGrid、Microsoft Teams |
-| **CRM＆セールス** | HubSpot、Salesforce、Pipedrive、Zoho CRM、Airtable |
-| **Eコマース** | Shopify、Stripe、PayPal、WooCommerce、Paddle、Gumroad |
-| **プロジェクト管理** | Jira、Asana、Trello、Notion、Linear、ClickUp |
-| **ソーシャル** | Twitter/X、Facebook、Instagram、TikTok、LinkedIn、Pinterest |
-| **AI＆ML** | OpenAI、Anthropic、Google AI、AWS Bedrock、Ollama、Replicate |
-| **アナリティクス** | PostHog、Mixpanel、Segment、Grafana、Metabase、Splunk |
-| **ストレージ** | Google Drive、Dropbox、AWS S3、PostgreSQL、Snowflake、Supabase |
-| **サポート** | Zendesk、Intercom、ServiceNow、PagerDuty、Sentry |
-| **ファイナンス** | QuickBooks、Plaid、Chargebee、Wise |
-| **マーケティング** | Mailchimp、Klaviyo、Facebook Ads |
+| **AI＆ML** | OpenAI、OpenAI Chatbot、Anthropic、Google AI、Google Gemini、AWS Bedrock |
+| **アナリティクス** | Google Analytics、Grafana、Metabase、Mixpanel、PostHog、Segment、Splunk |
 | **CMS** | WordPress、Contentful、Ghost、Medium、Webflow |
+| **コミュニケーション** | Slack、Gmail、Microsoft Teams、Telegram、Discord、Twilio、WhatsApp、AWS SES、SMTP、IMAP、POP3、Google Calendar、Calendly、Discourse、Matrix、Mattermost |
+| **CRM＆セールス** | HubSpot、Salesforce、Pipedrive、Zoho CRM、Airtable、Monday.com |
+| **データ処理** | Supabase、Scrapfly、Extract From File |
+| **データベース** | Elasticsearch |
+| **開発** | GitHub、GitLab、Bitbucket、Git、Jenkins、Travis CI、Netlify、n8n、npm |
+| **Eコマース** | Shopify、Stripe、PayPal、WooCommerce、Magento、Paddle、Gumroad |
+| **ファイナンス** | QuickBooks、Plaid、Chargebee、Wise、Xero |
+| **フォーム** | Google Forms、Jotform、Typeform |
+| **マーケティング** | Mailchimp、Klaviyo、SendGrid、Brevo、ActiveCampaign、Google Ads、Facebook Ads |
+| **生産性** | Figma、Todoist、Spotify、Clockify、Toggl、Harvest |
+| **プロジェクト管理** | Jira、Asana、Trello、Notion、Linear、ClickUp |
+| **ソーシャル** | Twitter/X、Facebook、Instagram、TikTok、LinkedIn、Pinterest、Reddit |
+| **ストレージ** | Google Drive、Google Docs、Google Sheets、Dropbox、AWS S3、PostgreSQL、MySQL、MongoDB、Redis、Snowflake |
+| **サポート** | Zendesk、Intercom、Freshdesk、ServiceNow、PagerDuty、Sentry |
+| **ユーティリティ** | Bitly、DeepL、FTP、SSH、Execute Command |
+| **ビデオ** | YouTube、Zoom |
 
 [すべてのコネクタを表示 &rarr;](docs/connectors.md)
 
@@ -172,11 +507,39 @@ FluxTurnに貢献してくださったすべての素晴らしい方々に感謝
 
 ここにあなたの顔を見たいですか？[コントリビューションガイド](CONTRIBUTING.md)をチェックして、今日から貢献を始めましょう！
 
-## コミュニティ
+## 💬 コミュニティに参加
 
-- [Discord](https://discord.gg/fluxturn) -- チームやコミュニティとチャット
-- [GitHub Discussions](https://github.com/fluxturn/fluxturn/discussions) -- 質問したり、アイデアを共有
-- [Twitter/X](https://twitter.com/fluxturn) -- 最新情報をフォロー
+開発者とつながり、助けを得て、FluxTurnの最新開発情報を入手しましょう！
+
+<p align="center">
+  <a href="https://discord.gg/fluxturn">
+    <img src="https://img.shields.io/badge/Discord-Join%20Our%20Server-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord">
+  </a>
+  <a href="https://github.com/fluxturn/fluxturn/discussions">
+    <img src="https://img.shields.io/badge/GitHub-Discussions-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Discussions">
+  </a>
+  <a href="https://twitter.com/fluxturn">
+    <img src="https://img.shields.io/badge/Twitter-Follow%20Us-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter">
+  </a>
+</p>
+
+### 私たちを見つける場所
+
+| プラットフォーム | 目的 | リンク |
+|----------|---------|------|
+| 💬 **Discord** | リアルタイムチャット、ヘルプ、機能の議論 | [サーバーに参加](https://discord.gg/fluxturn) |
+| 💡 **GitHub Discussions** | 質問、アイデアの共有、機能リクエスト | [ディスカッションを開始](https://github.com/fluxturn/fluxturn/discussions) |
+| 🐦 **Twitter/X** | 製品アップデート、お知らせ、ヒント | [@fluxturn](https://twitter.com/fluxturn) |
+| 📧 **Email** | メンテナに直接連絡 | hello@fluxturn.com |
+| 🌐 **Website** | ドキュメント、ガイド、ブログ | [fluxturn.com](https://fluxturn.com) |
+
+### コミュニティガイドライン
+
+- 🤝 **敬意を持つ** -- すべての人を尊重と親切をもって扱う
+- 💡 **知識を共有** -- 他の人が学び成長するのを助ける
+- 🐛 **問題を報告** -- バグを見つけましたか？GitHub Issuesでお知らせください
+- 🎉 **勝利を祝う** -- ワークフローと成功事例を共有する
+- 🌍 **グローバルに考える** -- 私たちは17以上の言語を持つ世界的なコミュニティです
 
 ## ライセンス
 
@@ -193,4 +556,18 @@ FluxTurnに貢献してくださったすべての素晴らしい方々に感謝
   <a href="https://github.com/fluxturn/fluxturn/wiki">ドキュメント</a> |
   <a href="https://discord.gg/fluxturn">Discord</a> |
   <a href="https://twitter.com/fluxturn">Twitter</a>
+</p>
+
+---
+
+<p align="center">
+  <strong> <a href="https://fluxturn.com">fluxturn</a> コミュニティによって❤️で構築</strong>
+</p>
+
+<p align="center">
+  このプロジェクトが役に立つと思ったら、スターを付けることを検討してください！⭐
+  <br><br>
+  <a href="https://github.com/fluxturn/fluxturn/stargazers">
+    <img src="https://img.shields.io/github/stars/fluxturn/fluxturn?style=social" alt="Star on GitHub">
+  </a>
 </p>

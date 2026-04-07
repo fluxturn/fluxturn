@@ -12,6 +12,14 @@ RUN npm ci
 # Copy source code
 COPY . .
 
+# Build-time API URLs — Vite inlines these at build time, so they MUST be
+# passed as --build-arg or via docker-compose's build.args (NOT environment).
+# Defaults are local-only. Production builds MUST override these.
+ARG VITE_API_BASE_URL=http://localhost:5005
+ARG VITE_WS_URL=ws://localhost:5005
+ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
+ENV VITE_WS_URL=$VITE_WS_URL
+
 # Build the application
 ENV NODE_OPTIONS="--max-old-space-size=4096"
 RUN npm run build

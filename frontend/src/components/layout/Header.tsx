@@ -24,6 +24,7 @@ import {
   Zap,
   Heart,
   Sparkles,
+  Github,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "../../lib/utils";
@@ -42,6 +43,23 @@ export function Header() {
   const navigate = useNavigate();
   const { organizationId } = useParams();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const { data: repoData } = useQuery({
+    queryKey: ["github-stars", "fluxturn/fluxturn"],
+    queryFn: async () => {
+      const res = await fetch("https://api.github.com/repos/fluxturn/fluxturn");
+      if (!res.ok) throw new Error("GitHub API failed");
+      return res.json() as Promise<{ stargazers_count: number }>;
+    },
+    staleTime: 1000 * 60 * 60,
+    gcTime: 1000 * 60 * 60 * 24,
+    retry: 1,
+    refetchOnWindowFocus: false,
+  });
+
+  const starCount = repoData?.stargazers_count;
+  const formatStars = (n: number) =>
+    n >= 1000 ? `${(n / 1000).toFixed(1)}k` : n.toLocaleString();
 
   const handleLogout = () => {
     logout();
@@ -165,6 +183,22 @@ export function Header() {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
+            <a
+              href="https://github.com/fluxturn/fluxturn"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={
+                starCount !== undefined
+                  ? `Star fluxturn on GitHub (${starCount.toLocaleString()} stars)`
+                  : "Star fluxturn on GitHub"
+              }
+              className="flex items-center gap-2 px-3 py-1.5 rounded-md border border-emerald-500/20 bg-gray-800/40 hover:bg-gray-800/60 hover:border-emerald-500/40 transition-colors"
+            >
+              <Github className="h-4 w-4 text-gray-300" />
+              <span className="text-sm font-medium text-gray-200 tabular-nums min-w-[2ch]">
+                {starCount !== undefined ? formatStars(starCount) : "—"}
+              </span>
+            </a>
             <LanguageSwitcher variant="header" showFlag={true} />
             {isAuthenticated ? (
               <>
@@ -274,6 +308,28 @@ export function Header() {
               );
             })}
             <div className="pt-4 space-y-2">
+              <a
+                href="https://github.com/fluxturn/fluxturn"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={
+                  starCount !== undefined
+                    ? `Star fluxturn on GitHub (${starCount.toLocaleString()} stars)`
+                    : "Star fluxturn on GitHub"
+                }
+                className="mx-3 flex items-center justify-center gap-2 px-3 py-2 rounded-md border border-emerald-500/20 bg-gray-800/40 hover:bg-gray-800/60 hover:border-emerald-500/40 transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <Github className="h-4 w-4 text-gray-300" />
+                <span className="text-sm font-medium text-gray-200 tabular-nums">
+                  Star on GitHub
+                  {starCount !== undefined && (
+                    <span className="ml-2 text-gray-400">
+                      ({formatStars(starCount)})
+                    </span>
+                  )}
+                </span>
+              </a>
               <div className="px-3 py-2">
                 <LanguageSwitcher variant="header" showFlag={true} showLabel={true} />
               </div>

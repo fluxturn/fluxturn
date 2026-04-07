@@ -480,7 +480,7 @@ export class AuthService {
 
         await this.emailService.sendEmail({
           to: [email],
-          from: process.env.EMAIL_FROM || "noreply@fluxturn.com",
+          from: process.env.EMAIL_FROM || "noreply@localhost",
           subject: `You've been invited to join ${project.name}`,
           templateId: "invitation",
           templateData: {
@@ -536,7 +536,7 @@ export class AuthService {
           try {
             await this.emailService.sendEmail({
               to: [user.email],
-              from: process.env.EMAIL_FROM || "noreply@fluxturn.com",
+              from: process.env.EMAIL_FROM || "noreply@localhost",
               subject: "Welcome to the project!",
               templateId: "welcome",
               templateData: {
@@ -745,7 +745,7 @@ export class AuthService {
         try {
           await this.emailService.sendEmail({
             to: [user.email],
-            from: process.env.EMAIL_FROM || "noreply@fluxturn.com",
+            from: process.env.EMAIL_FROM || "noreply@localhost",
             subject: "Password Reset Successful",
             templateId: "notification",
             templateData: {
@@ -845,7 +845,7 @@ export class AuthService {
     userName: string
   ): Promise<void> {
     try {
-      const verificationUrl = `${process.env.FRONTEND_URL || "https://fluxturn.com"}/verify-email?token=${token}`;
+      const verificationUrl = `${process.env.FRONTEND_URL || "http://localhost:5185"}/verify-email?token=${token}`;
       const displayName = userName || email.split("@")[0];
 
       // Create HTML email content
@@ -904,7 +904,7 @@ export class AuthService {
 
       await this.emailService.sendEmail({
         to: [email],
-        from: process.env.EMAIL_FROM || "noreply@fluxturn.com",
+        from: process.env.EMAIL_FROM || "noreply@localhost",
         subject: "Verify your email for FluxTurn",
         html: htmlContent,
         text: textContent,
@@ -923,7 +923,7 @@ export class AuthService {
     userName: string
   ): Promise<void> {
     try {
-      const resetUrl = `${process.env.FRONTEND_URL || "https://fluxturn.com"}/reset-password?token=${token}`;
+      const resetUrl = `${process.env.FRONTEND_URL || "http://localhost:5185"}/reset-password?token=${token}`;
       const displayName = userName || email.split("@")[0];
 
       // Create HTML email content
@@ -982,7 +982,7 @@ export class AuthService {
 
       await this.emailService.sendEmail({
         to: [email],
-        from: process.env.EMAIL_FROM || "noreply@fluxturn.com",
+        from: process.env.EMAIL_FROM || "noreply@localhost",
         subject: "Password Reset Request for FluxTurn",
         html: htmlContent,
         text: textContent,

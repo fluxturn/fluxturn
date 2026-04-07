@@ -59,7 +59,7 @@ export class SESService {
     };
 
     this.sesClient = new SESClient(sesConfig);
-    this.defaultFrom = this.configService.get('EMAIL_DEFAULT_FROM', 'noreply@fluxturn.com');
+    this.defaultFrom = this.configService.get('EMAIL_DEFAULT_FROM', 'noreply@localhost');
     this.configurationSet = this.configService.get('SES_CONFIGURATION_SET');
 
     this.logger.log('SES Service initialized with region:', sesConfig.region);
