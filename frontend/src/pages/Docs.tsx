@@ -134,10 +134,10 @@ const docsContent: Record<string, { title: string; content: React.ReactNode }> =
         <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Key Features</h3>
         <ul className="list-disc list-inside space-y-3 text-gray-700">
           <li><strong>Visual Workflow Builder:</strong> Drag-and-drop interface for creating workflows</li>
-          <li><strong>500+ Integrations:</strong> Connect to popular apps and services</li>
+          <li><strong>120+ Integrations:</strong> Connect to popular apps and services</li>
           <li><strong>Custom Code:</strong> Write JavaScript and Python for custom logic</li>
-          <li><strong>Self-Hosted or Cloud:</strong> Deploy on your infrastructure or use our cloud</li>
-          <li><strong>Enterprise Ready:</strong> SSO, SAML, source control, and more</li>
+          <li><strong>AI-Powered:</strong> Build workflows with natural language and run AI agents</li>
+          <li><strong>Self-Hosted:</strong> Deploy on your own infrastructure with Docker</li>
         </ul>
 
         <div className="bg-cyan-50 border-l-4 border-cyan-500 p-6 mt-8 rounded-r-lg">
@@ -158,16 +158,26 @@ const docsContent: Record<string, { title: string; content: React.ReactNode }> =
           Get up and running with FluxTurn in just a few minutes. This guide will walk you through creating your first workflow.
         </p>
 
-        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Step 1: Sign Up</h3>
+        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Step 1: Run FluxTurn Locally</h3>
         <p className="text-gray-700 leading-relaxed">
-          Create a free account at <Link to="/register" className="text-cyan-600 hover:underline">FluxTurn Cloud</Link> or
-          self-host using Docker.
+          Clone the repository and start everything with Docker Compose. This brings up the backend, frontend,
+          PostgreSQL, Redis, and Qdrant in a single command.
         </p>
 
-        <div className="bg-gray-900 text-gray-100 p-6 rounded-lg font-mono text-sm my-4">
-          <div className="text-gray-400 mb-2"># Using Docker</div>
-          docker run -it --rm --name fluxturn -p 5678:5678 fluxturn/fluxturn
+        <div className="bg-gray-900 text-gray-100 p-6 rounded-lg font-mono text-sm my-4 space-y-1">
+          <div>git clone https://github.com/fluxturn/fluxturn.git</div>
+          <div>cd fluxturn</div>
+          <div>cp backend/.env.example backend/.env</div>
+          <div className="text-gray-400"># edit backend/.env to set JWT_SECRET, CONNECTOR_ENCRYPTION_KEY, etc.</div>
+          <div>docker compose up -d</div>
         </div>
+
+        <p className="text-gray-700 leading-relaxed">
+          Once the containers are up, the frontend is at{" "}
+          <code className="bg-gray-100 px-1 rounded">http://localhost:5185</code> and the backend API is at{" "}
+          <code className="bg-gray-100 px-1 rounded">http://localhost:5005</code>. Then visit{" "}
+          <Link to="/register" className="text-cyan-600 hover:underline">/register</Link> to create your first account.
+        </p>
 
         <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Step 2: Create Your First Workflow</h3>
         <ol className="list-decimal list-inside space-y-3 text-gray-700">
@@ -200,36 +210,47 @@ const docsContent: Record<string, { title: string; content: React.ReactNode }> =
     content: (
       <div className="space-y-6">
         <p className="text-lg text-gray-700 leading-relaxed">
-          Get FluxTurn running on your infrastructure or use our cloud platform.
+          FluxTurn is self-hosted. The recommended way to install it is with Docker Compose, which brings up
+          the backend, frontend, PostgreSQL, Redis, and Qdrant together in one command.
         </p>
 
-        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Cloud (Recommended)</h3>
-        <p className="text-gray-700 leading-relaxed mb-4">
-          The fastest way to start. Sign up at <Link to="/register" className="text-cyan-600 hover:underline">fluxturn.com/register</Link> and you're ready in seconds.
-        </p>
+        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Prerequisites</h3>
+        <ul className="list-disc list-inside space-y-2 text-gray-700 mb-4">
+          <li>Docker and Docker Compose installed</li>
+          <li>~4GB free RAM and ~5GB disk space</li>
+          <li>Ports <code className="bg-gray-100 px-1 rounded">5005</code>, <code className="bg-gray-100 px-1 rounded">5185</code>, and <code className="bg-gray-100 px-1 rounded">5433</code> available on the host</li>
+        </ul>
 
-        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Self-Hosted with Docker</h3>
-        <div className="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm mb-4">
-          <div className="text-gray-400"># Quick start</div>
-          <div>docker run -d --name fluxturn \</div>
-          <div className="pl-4">-p 5678:5678 \</div>
-          <div className="pl-4">-v fluxturn_data:/data \</div>
-          <div className="pl-4">fluxturn/fluxturn</div>
+        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Quick Start with Docker Compose</h3>
+        <div className="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm mb-4 space-y-1">
+          <div>git clone https://github.com/fluxturn/fluxturn.git</div>
+          <div>cd fluxturn</div>
+          <div>cp backend/.env.example backend/.env</div>
+          <div className="text-gray-400"># edit backend/.env — at minimum set JWT_SECRET and CONNECTOR_ENCRYPTION_KEY</div>
+          <div>docker compose up -d</div>
         </div>
 
-        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Docker Compose</h3>
-        <div className="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm mb-4">
-          <div className="text-cyan-400">version: '3.8'</div>
-          <div className="text-cyan-400">services:</div>
-          <div className="pl-2">fluxturn:</div>
-          <div className="pl-4">image: fluxturn/fluxturn:latest</div>
-          <div className="pl-4">ports:</div>
-          <div className="pl-6">- "5678:5678"</div>
-          <div className="pl-4">environment:</div>
-          <div className="pl-6">- JWT_SECRET=your-secret-key</div>
-          <div className="pl-6">- DATABASE_URL=postgres://...</div>
-          <div className="pl-4">volumes:</div>
-          <div className="pl-6">- fluxturn_data:/data</div>
+        <p className="text-gray-700 leading-relaxed">
+          When everything is up, open <code className="bg-gray-100 px-1 rounded">http://localhost:5185</code> in
+          your browser and register a new account. The backend API is at{" "}
+          <code className="bg-gray-100 px-1 rounded">http://localhost:5005</code>.
+        </p>
+
+        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Manual Setup (without Docker)</h3>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          You'll need Node.js 18+, PostgreSQL 14+, and Redis 7+ running on your host first.
+        </p>
+        <div className="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm mb-4 space-y-1">
+          <div className="text-gray-400"># backend</div>
+          <div>cd backend</div>
+          <div>cp .env.example .env</div>
+          <div>npm install</div>
+          <div>npm run start:dev</div>
+          <div className="mt-2 text-gray-400"># frontend (new terminal)</div>
+          <div>cd frontend</div>
+          <div>cp .env.example .env</div>
+          <div>npm install</div>
+          <div>npm run dev</div>
         </div>
 
         <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Workspace Setup</h3>
@@ -241,7 +262,8 @@ const docsContent: Record<string, { title: string; content: React.ReactNode }> =
 
         <div className="bg-cyan-50 border-l-4 border-cyan-500 p-4 mt-6 rounded-r-lg">
           <p className="text-cyan-800">
-            See <Link to="/docs/environment-variables" className="underline">Environment Variables</Link> for all configuration options.
+            See <Link to="/docs/environment-variables" className="underline">Environment Variables</Link> for all configuration options
+            and <Link to="/docs/docker" className="underline">Docker Deployment</Link> for production tips.
           </p>
         </div>
       </div>
@@ -354,7 +376,7 @@ const docsContent: Record<string, { title: string; content: React.ReactNode }> =
             { name: "Webhook Trigger", desc: "Triggered by HTTP requests to unique URL" },
             { name: "Form Trigger", desc: "Triggered by form submissions" },
             { name: "Chat Trigger", desc: "Triggered by chat messages for AI workflows" },
-            { name: "Connector Trigger", desc: "Events from 140+ connected apps" }
+            { name: "Connector Trigger", desc: "Events from 120+ connected apps" }
           ].map((node, idx) => (
             <div key={idx} className="bg-gray-50 rounded-lg p-3">
               <span className="font-semibold text-gray-900">{node.name}</span>
@@ -368,7 +390,7 @@ const docsContent: Record<string, { title: string; content: React.ReactNode }> =
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
           {[
             { name: "HTTP Request", desc: "Make API calls to any endpoint" },
-            { name: "Connector Action", desc: "Actions from 140+ integrations" },
+            { name: "Connector Action", desc: "Actions from 120+ integrations" },
             { name: "Database Query", desc: "Execute SQL queries" },
             { name: "Transform Data", desc: "Map and transform data fields" },
             { name: "Run Code", desc: "Execute custom JavaScript" },
@@ -574,7 +596,7 @@ const docsContent: Record<string, { title: string; content: React.ReactNode }> =
     content: (
       <div className="space-y-6">
         <p className="text-lg text-gray-700 leading-relaxed">
-          FluxTurn supports 500+ integrations with popular apps and services. Each integration provides pre-built nodes
+          FluxTurn supports 120+ integrations with popular apps and services. Each integration provides pre-built nodes
           for common actions and triggers.
         </p>
 
@@ -608,7 +630,7 @@ const docsContent: Record<string, { title: string; content: React.ReactNode }> =
     content: (
       <div className="space-y-6">
         <p className="text-lg text-gray-700 leading-relaxed">
-          Connect to 140+ services across all major categories. Each connector provides triggers and actions.
+          Connect to 120+ services across all major categories. Each connector provides triggers and actions.
         </p>
 
         <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Available Connectors by Category</h3>
@@ -723,11 +745,17 @@ const docsContent: Record<string, { title: string; content: React.ReactNode }> =
         </ol>
 
         <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Webhook URL Format</h3>
+        <p className="text-gray-700 mb-4">
+          Webhook URLs are scoped to your FluxTurn instance. Replace the host with wherever your backend is reachable
+          (your domain in production, or <code className="bg-gray-100 px-1 rounded">localhost:5005</code> in local development).
+        </p>
         <div className="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm mb-4">
-          <div className="text-gray-400"># Production URL</div>
-          <div>https://app.fluxturn.com/webhook/abc123</div>
+          <div className="text-gray-400"># Active workflow URL</div>
+          <div>https://your-instance.com/webhook/{"<webhook-id>"}</div>
           <div className="mt-2 text-gray-400"># Test URL (for development)</div>
-          <div>https://app.fluxturn.com/webhook-test/abc123</div>
+          <div>https://your-instance.com/webhook-test/{"<webhook-id>"}</div>
+          <div className="mt-2 text-gray-400"># Local example</div>
+          <div>http://localhost:5005/webhook/{"<webhook-id>"}</div>
         </div>
 
         <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">HTTP Methods</h3>
@@ -1100,10 +1128,13 @@ const docsContent: Record<string, { title: string; content: React.ReactNode }> =
         </p>
 
         <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Base URL</h3>
+        <p className="text-gray-700 mb-4">
+          The API is served from your FluxTurn backend. Replace the host with your deployment URL.
+        </p>
         <div className="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm mb-4">
-          <div className="text-gray-400"># Cloud</div>
-          <div>https://api.fluxturn.com/api/v1</div>
-          <div className="mt-2 text-gray-400"># Self-hosted</div>
+          <div className="text-gray-400"># Local development</div>
+          <div>http://localhost:5005/api/v1</div>
+          <div className="mt-2 text-gray-400"># Self-hosted production</div>
           <div>https://your-instance.com/api/v1</div>
         </div>
 
@@ -1125,8 +1156,8 @@ const docsContent: Record<string, { title: string; content: React.ReactNode }> =
 
         <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Quick Example</h3>
         <div className="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm">
-          <div className="text-gray-400"># Execute a workflow</div>
-          <div>curl -X POST https://api.fluxturn.com/api/v1/workflow/{"<id>"}/execute \</div>
+          <div className="text-gray-400"># Execute a workflow (replace host with your instance)</div>
+          <div>curl -X POST http://localhost:5005/api/v1/workflow/{"<id>"}/execute \</div>
           <div className="pl-4">-H "Authorization: Bearer {"<token>"}" \</div>
           <div className="pl-4">-H "Content-Type: application/json" \</div>
           <div className="pl-4">-d '{"{ \"data\": { \"key\": \"value\" } }"}'</div>
@@ -1300,21 +1331,23 @@ const docsContent: Record<string, { title: string; content: React.ReactNode }> =
         </ul>
 
         <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Quick Start</h3>
-        <div className="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm mb-4">
-          <div className="text-gray-400"># Clone and run</div>
+        <div className="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm mb-4 space-y-1">
+          <div className="text-gray-400"># Clone, configure, and start</div>
           <div>git clone https://github.com/fluxturn/fluxturn.git</div>
           <div>cd fluxturn</div>
-          <div>docker-compose up -d</div>
+          <div>cp backend/.env.example backend/.env</div>
+          <div>docker compose up -d</div>
         </div>
 
         <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Production Checklist</h3>
         <ul className="list-disc list-inside space-y-2 text-gray-700">
-          <li>Set strong <code className="bg-gray-100 px-1 rounded">JWT_SECRET</code></li>
-          <li>Configure PostgreSQL with backups</li>
-          <li>Set up Redis for production workloads</li>
+          <li>Generate strong values for <code className="bg-gray-100 px-1 rounded">JWT_SECRET</code>, <code className="bg-gray-100 px-1 rounded">CONNECTOR_ENCRYPTION_KEY</code>, and <code className="bg-gray-100 px-1 rounded">SESSION_SECRET</code></li>
+          <li>Set <code className="bg-gray-100 px-1 rounded">FRONTEND_URL</code> and <code className="bg-gray-100 px-1 rounded">VITE_API_BASE_URL</code> to your public domain</li>
+          <li>Use a managed PostgreSQL with backups (or back up the <code className="bg-gray-100 px-1 rounded">postgres_data</code> volume)</li>
+          <li>Set up Redis persistence for queues and caching</li>
           <li>Enable HTTPS with valid certificates</li>
-          <li>Configure reverse proxy (nginx/Caddy)</li>
-          <li>Set up monitoring and logging</li>
+          <li>Put a reverse proxy (nginx, Caddy, Traefik) in front of the backend and frontend containers</li>
+          <li>Set up monitoring and log aggregation</li>
         </ul>
 
         <div className="bg-cyan-50 border-l-4 border-cyan-500 p-4 mt-6 rounded-r-lg">
@@ -1330,49 +1363,64 @@ const docsContent: Record<string, { title: string; content: React.ReactNode }> =
     content: (
       <div className="space-y-6">
         <p className="text-lg text-gray-700 leading-relaxed">
-          Deploy FluxTurn using Docker for easy setup and management.
+          FluxTurn ships with a <code className="bg-gray-100 px-1 rounded">docker-compose.yml</code> at the
+          repository root that brings up the entire stack: the NestJS backend, the React frontend (built and
+          served by nginx), PostgreSQL, Redis, and Qdrant. The backend and frontend images are built locally
+          from the Dockerfiles in <code className="bg-gray-100 px-1 rounded">backend/</code> and{" "}
+          <code className="bg-gray-100 px-1 rounded">frontend/</code> — there is no pre-built image to pull.
         </p>
 
-        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Single Container</h3>
-        <div className="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm mb-4">
-          <div>docker run -d \</div>
-          <div className="pl-4">--name fluxturn \</div>
-          <div className="pl-4">-p 5678:5678 \</div>
-          <div className="pl-4">-e JWT_SECRET=your-secret-key \</div>
-          <div className="pl-4">-e DATABASE_URL=postgres://... \</div>
-          <div className="pl-4">-v fluxturn_data:/data \</div>
-          <div className="pl-4">fluxturn/fluxturn:latest</div>
+        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Services and Ports</h3>
+        <div className="bg-gray-50 rounded-lg p-4 mb-6 space-y-2 font-mono text-sm">
+          <div><span className="text-cyan-600">frontend</span> — nginx serving the built React app on host port <strong>5185</strong></div>
+          <div><span className="text-cyan-600">backend</span> — NestJS API + WebSocket gateway on host port <strong>5005</strong></div>
+          <div><span className="text-cyan-600">postgres</span> — PostgreSQL 15 on host port <strong>5433</strong></div>
+          <div><span className="text-cyan-600">redis</span> — Redis 7 on host port <strong>6379</strong></div>
+          <div><span className="text-cyan-600">qdrant</span> — Qdrant vector DB on host port <strong>6333</strong></div>
         </div>
 
-        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Docker Compose (Recommended)</h3>
-        <div className="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm mb-4">
-          <div className="text-cyan-400">version: '3.8'</div>
-          <div className="text-cyan-400">services:</div>
-          <div className="pl-2">fluxturn:</div>
-          <div className="pl-4">image: fluxturn/fluxturn:latest</div>
-          <div className="pl-4">restart: always</div>
-          <div className="pl-4">ports:</div>
-          <div className="pl-6">- "5678:5678"</div>
-          <div className="pl-4">environment:</div>
-          <div className="pl-6">- JWT_SECRET=${"JWT_SECRET"}</div>
-          <div className="pl-6">- DATABASE_URL=postgres://postgres:pass@db:5432/fluxturn</div>
-          <div className="pl-4">depends_on:</div>
-          <div className="pl-6">- db</div>
-          <div className="pl-2">db:</div>
-          <div className="pl-4">image: postgres:15</div>
-          <div className="pl-4">volumes:</div>
-          <div className="pl-6">- postgres_data:/var/lib/postgresql/data</div>
-          <div className="pl-4">environment:</div>
-          <div className="pl-6">- POSTGRES_PASSWORD=pass</div>
-          <div className="pl-6">- POSTGRES_DB=fluxturn</div>
-          <div className="text-cyan-400">volumes:</div>
-          <div className="pl-2">postgres_data:</div>
+        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Starting the Stack</h3>
+        <div className="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm mb-4 space-y-1">
+          <div className="text-gray-400"># From the repo root</div>
+          <div>cp backend/.env.example backend/.env</div>
+          <div className="text-gray-400"># Edit backend/.env to set JWT_SECRET, CONNECTOR_ENCRYPTION_KEY, etc.</div>
+          <div>docker compose up -d</div>
         </div>
+        <p className="text-gray-700 mb-4">
+          The first run will build the backend and frontend images, which takes a few minutes. Subsequent
+          runs are cached and start in seconds. The PostgreSQL container automatically applies the initial
+          schema on first boot via an init script.
+        </p>
+
+        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Frontend API URL (build-time)</h3>
+        <p className="text-gray-700 mb-4">
+          The frontend uses Vite, which inlines API URLs at <strong>build time</strong>, not runtime. To point
+          a self-hosted frontend at a non-default backend, you must pass build args when the image is built:
+        </p>
+        <div className="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm mb-4 space-y-1">
+          <div className="text-gray-400"># In docker-compose.yml under frontend.build.args</div>
+          <div>args:</div>
+          <div className="pl-2">VITE_API_BASE_URL: https://api.your-instance.com</div>
+          <div className="pl-2">VITE_WS_URL: wss://api.your-instance.com</div>
+        </div>
+        <p className="text-gray-700 mb-4">
+          Then rebuild with <code className="bg-gray-100 px-1 rounded">docker compose build --no-cache frontend</code>{" "}
+          and <code className="bg-gray-100 px-1 rounded">docker compose up -d frontend</code>.
+        </p>
 
         <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Updating</h3>
-        <div className="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm">
-          <div>docker-compose pull</div>
-          <div>docker-compose up -d</div>
+        <div className="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm space-y-1">
+          <div className="text-gray-400"># Pull new code, rebuild, restart</div>
+          <div>git pull</div>
+          <div>docker compose build</div>
+          <div>docker compose up -d</div>
+        </div>
+
+        <div className="bg-cyan-50 border-l-4 border-cyan-500 p-4 mt-6 rounded-r-lg">
+          <p className="text-cyan-800">
+            See <Link to="/docs/environment-variables" className="underline">Environment Variables</Link> for
+            the full list of configuration options.
+          </p>
         </div>
       </div>
     )
@@ -1382,68 +1430,143 @@ const docsContent: Record<string, { title: string; content: React.ReactNode }> =
     content: (
       <div className="space-y-6">
         <p className="text-lg text-gray-700 leading-relaxed">
-          Configure FluxTurn using environment variables for security and flexibility.
+          The backend reads configuration from <code className="bg-gray-100 px-1 rounded">backend/.env</code>.
+          Copy <code className="bg-gray-100 px-1 rounded">backend/.env.example</code> as a starting point and
+          fill in the values below.
         </p>
 
-        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Required Variables</h3>
+        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Required Secrets</h3>
         <div className="bg-gray-50 rounded-lg p-4 mb-6 space-y-3 font-mono text-sm">
-          <div className="flex justify-between">
-            <span className="text-cyan-600">JWT_SECRET</span>
-            <span className="text-gray-600">Secret key for JWT tokens</span>
+          <div className="flex justify-between gap-4">
+            <span className="text-cyan-600 whitespace-nowrap">JWT_SECRET</span>
+            <span className="text-gray-600 text-right">Signing key for auth tokens. Generate with <code>openssl rand -hex 64</code></span>
           </div>
-          <div className="flex justify-between">
-            <span className="text-cyan-600">DATABASE_URL</span>
-            <span className="text-gray-600">PostgreSQL connection string</span>
+          <div className="flex justify-between gap-4">
+            <span className="text-cyan-600 whitespace-nowrap">CONNECTOR_ENCRYPTION_KEY</span>
+            <span className="text-gray-600 text-right">Encrypts stored connector credentials. Generate with <code>openssl rand -hex 32</code></span>
+          </div>
+          <div className="flex justify-between gap-4">
+            <span className="text-cyan-600 whitespace-nowrap">SESSION_SECRET</span>
+            <span className="text-gray-600 text-right">Signing key for sessions</span>
           </div>
         </div>
 
-        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Server Configuration</h3>
+        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Server</h3>
         <div className="bg-gray-50 rounded-lg p-4 mb-6 space-y-3 font-mono text-sm">
-          <div className="flex justify-between">
-            <span className="text-cyan-600">API_PREFIX</span>
-            <span className="text-gray-600">API path prefix (default: api)</span>
+          <div className="flex justify-between gap-4">
+            <span className="text-cyan-600 whitespace-nowrap">PORT</span>
+            <span className="text-gray-600 text-right">Backend port (default: <strong>5005</strong>)</span>
           </div>
-          <div className="flex justify-between">
-            <span className="text-cyan-600">NODE_ENV</span>
-            <span className="text-gray-600">development | production</span>
+          <div className="flex justify-between gap-4">
+            <span className="text-cyan-600 whitespace-nowrap">NODE_ENV</span>
+            <span className="text-gray-600 text-right">development | production</span>
           </div>
-          <div className="flex justify-between">
-            <span className="text-cyan-600">PORT</span>
-            <span className="text-gray-600">Server port (default: 3004)</span>
+          <div className="flex justify-between gap-4">
+            <span className="text-cyan-600 whitespace-nowrap">LOG_LEVEL</span>
+            <span className="text-gray-600 text-right">debug | info | warn | error</span>
+          </div>
+          <div className="flex justify-between gap-4">
+            <span className="text-cyan-600 whitespace-nowrap">FRONTEND_URL</span>
+            <span className="text-gray-600 text-right">Frontend URL used for CORS, email links, and OAuth callbacks (default: http://localhost:5185)</span>
+          </div>
+          <div className="flex justify-between gap-4">
+            <span className="text-cyan-600 whitespace-nowrap">APP_URL</span>
+            <span className="text-gray-600 text-right">Public URL of the backend (default: http://localhost:5005)</span>
           </div>
         </div>
 
-        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Authentication</h3>
+        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">PostgreSQL</h3>
         <div className="bg-gray-50 rounded-lg p-4 mb-6 space-y-3 font-mono text-sm">
-          <div className="flex justify-between">
-            <span className="text-cyan-600">JWT_EXPIRATION</span>
-            <span className="text-gray-600">Token expiry (default: 7d)</span>
+          <div className="flex justify-between gap-4">
+            <span className="text-cyan-600 whitespace-nowrap">PLATFORM_DB_HOST</span>
+            <span className="text-gray-600 text-right">Hostname (default: localhost)</span>
           </div>
-          <div className="flex justify-between">
-            <span className="text-cyan-600">SWAGGER_USER</span>
-            <span className="text-gray-600">Swagger UI username</span>
+          <div className="flex justify-between gap-4">
+            <span className="text-cyan-600 whitespace-nowrap">PLATFORM_DB_PORT</span>
+            <span className="text-gray-600 text-right">Port (default: 5432)</span>
           </div>
-          <div className="flex justify-between">
-            <span className="text-cyan-600">SWAGGER_PASSWORD</span>
-            <span className="text-gray-600">Swagger UI password</span>
+          <div className="flex justify-between gap-4">
+            <span className="text-cyan-600 whitespace-nowrap">PLATFORM_DB_NAME</span>
+            <span className="text-gray-600 text-right">Database name (default: fluxturn_platform)</span>
+          </div>
+          <div className="flex justify-between gap-4">
+            <span className="text-cyan-600 whitespace-nowrap">PLATFORM_DB_USER</span>
+            <span className="text-gray-600 text-right">Database user</span>
+          </div>
+          <div className="flex justify-between gap-4">
+            <span className="text-cyan-600 whitespace-nowrap">PLATFORM_DB_PASSWORD</span>
+            <span className="text-gray-600 text-right">Database password</span>
           </div>
         </div>
 
-        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">External Services</h3>
-        <div className="bg-gray-50 rounded-lg p-4 space-y-3 font-mono text-sm">
-          <div className="flex justify-between">
-            <span className="text-cyan-600">REDIS_URL</span>
-            <span className="text-gray-600">Redis connection (optional)</span>
+        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Redis & Qdrant</h3>
+        <div className="bg-gray-50 rounded-lg p-4 mb-6 space-y-3 font-mono text-sm">
+          <div className="flex justify-between gap-4">
+            <span className="text-cyan-600 whitespace-nowrap">REDIS_HOST</span>
+            <span className="text-gray-600 text-right">Redis hostname</span>
           </div>
-          <div className="flex justify-between">
-            <span className="text-cyan-600">FRONTEND_URL</span>
-            <span className="text-gray-600">Frontend app URL for CORS</span>
+          <div className="flex justify-between gap-4">
+            <span className="text-cyan-600 whitespace-nowrap">REDIS_PORT</span>
+            <span className="text-gray-600 text-right">Redis port (default: 6379)</span>
+          </div>
+          <div className="flex justify-between gap-4">
+            <span className="text-cyan-600 whitespace-nowrap">QDRANT_HOST</span>
+            <span className="text-gray-600 text-right">Qdrant hostname</span>
+          </div>
+          <div className="flex justify-between gap-4">
+            <span className="text-cyan-600 whitespace-nowrap">QDRANT_PORT</span>
+            <span className="text-gray-600 text-right">Qdrant HTTP port (default: 6333)</span>
+          </div>
+        </div>
+
+        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Email (SMTP)</h3>
+        <div className="bg-gray-50 rounded-lg p-4 mb-6 space-y-3 font-mono text-sm">
+          <div className="flex justify-between gap-4">
+            <span className="text-cyan-600 whitespace-nowrap">MAIL_HOST</span>
+            <span className="text-gray-600 text-right">SMTP server hostname</span>
+          </div>
+          <div className="flex justify-between gap-4">
+            <span className="text-cyan-600 whitespace-nowrap">MAIL_PORT</span>
+            <span className="text-gray-600 text-right">SMTP port (587 for STARTTLS, 465 for TLS)</span>
+          </div>
+          <div className="flex justify-between gap-4">
+            <span className="text-cyan-600 whitespace-nowrap">MAIL_USERNAME / MAIL_PASSWORD</span>
+            <span className="text-gray-600 text-right">SMTP credentials</span>
+          </div>
+          <div className="flex justify-between gap-4">
+            <span className="text-cyan-600 whitespace-nowrap">EMAIL_DEFAULT_FROM</span>
+            <span className="text-gray-600 text-right">Default sender address (e.g. noreply@yourdomain.com)</span>
+          </div>
+        </div>
+
+        <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Frontend (Vite — build time)</h3>
+        <p className="text-gray-700 mb-2">
+          These are read by the frontend's Vite build at <strong>build time</strong>, not runtime. Set them in{" "}
+          <code className="bg-gray-100 px-1 rounded">frontend/.env</code> for local dev, or as build args in
+          <code className="bg-gray-100 px-1 rounded"> docker-compose.yml</code> for the docker frontend.
+        </p>
+        <div className="bg-gray-50 rounded-lg p-4 mb-6 space-y-3 font-mono text-sm">
+          <div className="flex justify-between gap-4">
+            <span className="text-cyan-600 whitespace-nowrap">VITE_API_BASE_URL</span>
+            <span className="text-gray-600 text-right">Backend base URL (default: http://localhost:5005)</span>
+          </div>
+          <div className="flex justify-between gap-4">
+            <span className="text-cyan-600 whitespace-nowrap">VITE_WS_URL</span>
+            <span className="text-gray-600 text-right">WebSocket URL (default: ws://localhost:5005)</span>
           </div>
         </div>
 
         <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 mt-6 rounded-r-lg">
           <p className="text-yellow-800">
-            <strong>Security:</strong> Never commit secrets to version control. Use .env files or secret management systems.
+            <strong>Security:</strong> Never commit <code>.env</code> files. They're already in <code>.gitignore</code> —
+            keep it that way. Use a secrets manager (Vault, AWS Secrets Manager, Doppler, etc.) for production deployments.
+          </p>
+        </div>
+
+        <div className="bg-cyan-50 border-l-4 border-cyan-500 p-4 mt-4 rounded-r-lg">
+          <p className="text-cyan-800">
+            See <code>backend/.env.example</code> in the repository for the complete list of variables, including
+            optional ones for AWS, Cloudflare R2, AI providers, OAuth integrations, and Stripe billing.
           </p>
         </div>
       </div>
