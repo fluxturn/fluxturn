@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://fluxturn.com">
-    <img src="frontend/public/fluxturn_1.png" alt="FluxTurn" width="600">
+    <img src="frontend/public/Exploring the Future of Technology.png" alt="FluxTurn" width="600">
   </a>
 </p>
 
