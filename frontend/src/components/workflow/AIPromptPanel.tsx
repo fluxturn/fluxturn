@@ -1,13 +1,13 @@
-import { useState, useEffect, useRef, useReducer } from "react";
-import { X, Sparkles, Send, Trash2, MessageSquare, Zap } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { ChatMessage, ChatMessageBubble, ProgressStep } from "./ChatMessageBubble";
-import { TypingIndicator } from "./TypingIndicator";
-import { api } from "@/lib/api";
-import { toast } from "sonner";
-import { v4 as uuidv4 } from "uuid";
+import { useState, useEffect, useRef, useReducer } from 'react';
+import { X, Sparkles, Send, Trash2, MessageSquare, Zap } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { ChatMessage, ChatMessageBubble, ProgressStep } from './ChatMessageBubble';
+import { TypingIndicator } from './TypingIndicator';
+import { api } from '@/lib/api';
+import { toast } from 'sonner';
+import { v4 as uuidv4 } from 'uuid';
 
 // State Management Types
 type AIMode = 'chat' | 'build';
@@ -102,22 +102,30 @@ interface AIPromptPanelProps {
   };
 }
 
-export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowSaved, workflowId, onConfigureNode, context }: AIPromptPanelProps) {
+export function AIPromptPanel({
+  isOpen,
+  onClose,
+  onGenerateWorkflow,
+  onWorkflowSaved,
+  workflowId,
+  onConfigureNode,
+  context,
+}: AIPromptPanelProps) {
   const [mode, setMode] = useState<AIMode>('build');
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [isLoadingConversation, setIsLoadingConversation] = useState(false);
   const [acceptedMessageIds, setAcceptedMessageIds] = useState<Set<string>>(new Set());
   const [workflowState, dispatchWorkflow] = useReducer(workflowReducer, initialWorkflowState);
-  const [useMultiAgent, setUseMultiAgent] = useState(false); // 🆕 Toggle for multi-agent vs classic (default: Classic mode ON)
+  const [useMultiAgent, setUseMultiAgent] = useState(false); // false = Classic mode (default), true = Multi-Agent mode
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // Auto-scroll to bottom when messages change
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
   // Load or create conversation when panel opens, workflow changes, or mode changes
@@ -146,24 +154,26 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
 
     try {
       // Show typing indicator
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
       const assistantMessageId = uuidv4();
 
       // 🆕 Different progress steps for Multi-Agent vs Classic
-      const progressSteps: ProgressStep[] = useMultiAgent ? [
-        { id: 'intent', label: 'Agent 1: Detecting intent...', status: 'active' },
-        { id: 'connectors', label: 'Agent 2: Selecting connectors...', status: 'pending' },
-        { id: 'nodes', label: 'Agent 3: Generating nodes...', status: 'pending' },
-        { id: 'connections', label: 'Agent 4: Building connections...', status: 'pending' },
-        { id: 'validate', label: 'Agent 5: Validating & auto-fixing...', status: 'pending' },
-      ] : [
-        { id: 'embed', label: 'Embedding your prompt...', status: 'active' },
-        { id: 'search', label: 'Searching for similar workflows...', status: 'pending' },
-        { id: 'similarity', label: 'Finding best matches...', status: 'pending' },
-        { id: 'generate', label: 'Generating workflow...', status: 'pending' },
-        { id: 'validate', label: 'Validating nodes and edges...', status: 'pending' },
-      ];
+      const progressSteps: ProgressStep[] = useMultiAgent
+        ? [
+            { id: 'intent', label: 'Agent 1: Detecting intent...', status: 'active' },
+            { id: 'connectors', label: 'Agent 2: Selecting connectors...', status: 'pending' },
+            { id: 'nodes', label: 'Agent 3: Generating nodes...', status: 'pending' },
+            { id: 'connections', label: 'Agent 4: Building connections...', status: 'pending' },
+            { id: 'validate', label: 'Agent 5: Validating & auto-fixing...', status: 'pending' },
+          ]
+        : [
+            { id: 'embed', label: 'Embedding your prompt...', status: 'active' },
+            { id: 'search', label: 'Searching for similar workflows...', status: 'pending' },
+            { id: 'similarity', label: 'Finding best matches...', status: 'pending' },
+            { id: 'generate', label: 'Generating workflow...', status: 'pending' },
+            { id: 'validate', label: 'Validating nodes and edges...', status: 'pending' },
+          ];
 
       const assistantMessage: ChatMessage = {
         id: assistantMessageId,
@@ -176,24 +186,24 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
         },
       };
 
-      setMessages(prev => [...prev, assistantMessage]);
+      setMessages((prev) => [...prev, assistantMessage]);
 
       // Progress update helper
       const updateProgress = (stepId: string, status: ProgressStep['status']) => {
-        setMessages(prev =>
-          prev.map(msg =>
+        setMessages((prev) =>
+          prev.map((msg) =>
             msg.id === assistantMessageId
               ? {
                   ...msg,
                   metadata: {
                     ...msg.metadata,
-                    progressSteps: msg.metadata?.progressSteps?.map(step =>
-                      step.id === stepId ? { ...step, status } : step
+                    progressSteps: msg.metadata?.progressSteps?.map((step) =>
+                      step.id === stepId ? { ...step, status } : step,
                     ),
                   },
                 }
-              : msg
-          )
+              : msg,
+          ),
         );
       };
 
@@ -202,19 +212,19 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
 
       if (useMultiAgent) {
         // NEW Multi-Agent System (95% accuracy, 75% cheaper)
-        await new Promise(resolve => setTimeout(resolve, 800));
+        await new Promise((resolve) => setTimeout(resolve, 800));
         updateProgress('intent', 'completed');
         updateProgress('connectors', 'active');
 
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         updateProgress('connectors', 'completed');
         updateProgress('nodes', 'active');
 
-        await new Promise(resolve => setTimeout(resolve, 1200));
+        await new Promise((resolve) => setTimeout(resolve, 1200));
         updateProgress('nodes', 'completed');
         updateProgress('connections', 'active');
 
-        await new Promise(resolve => setTimeout(resolve, 600));
+        await new Promise((resolve) => setTimeout(resolve, 600));
         updateProgress('connections', 'completed');
         updateProgress('validate', 'active');
 
@@ -226,27 +236,29 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
         // Transform response to match expected format
         if (multiAgentResult.success) {
           // Transform nodes to ReactFlow format (with data field)
-          const transformedNodes = multiAgentResult.workflow?.nodes?.map((node: any) => {
-            const { id, type, position, ...rest } = node;
+          const transformedNodes =
+            multiAgentResult.workflow?.nodes?.map((node: any) => {
+              const { id, type, position, ...rest } = node;
 
-            return {
-              id,
-              type,
-              position: position || { x: 0, y: 0 },
-              data: {
-                ...rest,  // All other properties go into data field
-              },
-            };
-          }) || [];
+              return {
+                id,
+                type,
+                position: position || { x: 0, y: 0 },
+                data: {
+                  ...rest, // All other properties go into data field
+                },
+              };
+            }) || [];
 
           // Transform connections to edges format
-          const transformedEdges = multiAgentResult.workflow?.connections?.map((conn: any) => ({
-            id: `${conn.source}-${conn.target}`,
-            source: conn.source,
-            target: conn.target,
-            sourceHandle: conn.sourcePort || 'main',
-            targetHandle: conn.targetPort || 'main',
-          })) || [];
+          const transformedEdges =
+            multiAgentResult.workflow?.connections?.map((conn: any) => ({
+              id: `${conn.source}-${conn.target}`,
+              source: conn.source,
+              target: conn.target,
+              sourceHandle: conn.sourcePort || 'main',
+              targetHandle: conn.targetPort || 'main',
+            })) || [];
 
           workflowResult = {
             success: true,
@@ -273,26 +285,26 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
         }
       } else {
         // OLD Classic System (75% accuracy)
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise((resolve) => setTimeout(resolve, 500));
         updateProgress('embed', 'completed');
         updateProgress('search', 'active');
 
-        await new Promise(resolve => setTimeout(resolve, 700));
+        await new Promise((resolve) => setTimeout(resolve, 700));
         updateProgress('search', 'completed');
         updateProgress('similarity', 'active');
 
-        await new Promise(resolve => setTimeout(resolve, 600));
+        await new Promise((resolve) => setTimeout(resolve, 600));
         updateProgress('similarity', 'completed');
         updateProgress('generate', 'active');
 
         // Call the OLD workflow generation
         workflowResult = await onGenerateWorkflow?.(prompt, conversationId);
 
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise((resolve) => setTimeout(resolve, 500));
         updateProgress('generate', 'completed');
         updateProgress('validate', 'active');
 
-        await new Promise(resolve => setTimeout(resolve, 300));
+        await new Promise((resolve) => setTimeout(resolve, 300));
         updateProgress('validate', 'completed');
       }
 
@@ -309,23 +321,23 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
         const systemBadge = useMultiAgent ? '🚀 Multi-Agent' : '📊 Classic';
         const confidenceEmoji = (workflowResult.confidence || 90) >= 90 ? '🎯' : '✓';
 
-        finalContent = `${systemBadge} ${confidenceEmoji} I've successfully created your workflow!\n\n` +
+        finalContent =
+          `${systemBadge} ${confidenceEmoji} I've successfully created your workflow!\n\n` +
           `**Confidence:** ${workflowResult.confidence || 90}% ${useMultiAgent ? '(Multi-Agent System)' : '(Classic System)'}\n` +
           `**Nodes:** ${workflowResult.workflow?.canvas?.nodes?.length || 0}\n` +
           `**Connections:** ${workflowResult.workflow?.canvas?.edges?.length || 0}\n\n` +
-          (workflowResult.analysis?.reasoning ? `**Reasoning:** ${workflowResult.analysis.reasoning}\n\n` : '') +
+          (workflowResult.analysis?.reasoning
+            ? `**Reasoning:** ${workflowResult.analysis.reasoning}\n\n`
+            : '') +
           `The workflow is ready on the canvas. Click "Accept workflow" to save it, or ask me to make changes.`;
 
-        quickReplies = [
-          "Accept workflow",
-          "Add error handling",
-          "Add scheduling",
-          "Modify nodes",
-        ];
+        quickReplies = ['Accept workflow', 'Add error handling', 'Add scheduling', 'Modify nodes'];
         requiresUserChoice = true;
       } else if (workflowResult?.responseType === 'error') {
-        finalContent = workflowResult.message || 'I encountered an issue generating the workflow. Could you provide more details or rephrase your request?';
-        quickReplies = workflowResult.canRetry ? ["Try again", "More details"] : ["More details"];
+        finalContent =
+          workflowResult.message ||
+          'I encountered an issue generating the workflow. Could you provide more details or rephrase your request?';
+        quickReplies = workflowResult.canRetry ? ['Try again', 'More details'] : ['More details'];
         requiresUserChoice = false;
       } else if (workflowResult?.responseType === 'conversational') {
         finalContent = workflowResult.message || 'Let me help you with that.';
@@ -336,12 +348,14 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
         finalContent = workflowResult?.success
           ? `I've successfully created your workflow!\n\nThe workflow is on the canvas. Would you like to make any changes?`
           : 'I encountered an issue generating the workflow. Could you provide more details or rephrase your request?';
-        quickReplies = workflowResult?.success ? ["Looks great!", "Add error handling"] : ["Try again", "More details"];
+        quickReplies = workflowResult?.success
+          ? ['Looks great!', 'Add error handling']
+          : ['Try again', 'More details'];
         requiresUserChoice = true;
       }
 
-      setMessages(prev =>
-        prev.map(msg =>
+      setMessages((prev) =>
+        prev.map((msg) =>
           msg.id === assistantMessageId
             ? {
                 ...msg,
@@ -354,8 +368,8 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
                   workflowResult,
                 },
               }
-            : msg
-        )
+            : msg,
+        ),
       );
 
       // Save assistant message to backend
@@ -378,7 +392,7 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
             workflowResult.workflow,
             context?.organizationId,
             context?.projectId,
-            context?.appId
+            context?.appId,
           );
 
           // console.log('✅ Workflow saved to conversation successfully');
@@ -402,25 +416,26 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
 
       // 🎯 Add configuration message if nodes need setup
       if (workflowResult?.nodesToConfigure && workflowResult.nodesToConfigure.length > 0) {
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise((resolve) => setTimeout(resolve, 500));
 
         const configMessage: ChatMessage = {
           id: uuidv4(),
           role: 'assistant',
-          content: `⚙️ **Configuration Needed**\n\nSome nodes in your workflow need additional configuration:\n\n` +
-            workflowResult.nodesToConfigure.map((node: any, idx: number) =>
-              `${idx + 1}. **${node.nodeName}** - ${node.reason}`
-            ).join('\n') +
+          content:
+            `⚙️ **Configuration Needed**\n\nSome nodes in your workflow need additional configuration:\n\n` +
+            workflowResult.nodesToConfigure
+              .map((node: any, idx: number) => `${idx + 1}. **${node.nodeName}** - ${node.reason}`)
+              .join('\n') +
             `\n\nClick "Configure Nodes" to set them up now, or you can configure them later by clicking on each node.`,
           timestamp: new Date().toISOString(),
           metadata: {
-            quickReplies: ["Configure Nodes", "Configure Later"],
+            quickReplies: ['Configure Nodes', 'Configure Later'],
             nodesToConfigure: workflowResult.nodesToConfigure,
             requiresUserChoice: true,
           },
         };
 
-        setMessages(prev => [...prev, configMessage]);
+        setMessages((prev) => [...prev, configMessage]);
 
         // Save config message to backend
         await api.addMessageToConversation(conversationId, {
@@ -429,9 +444,8 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
           metadata: configMessage.metadata,
         });
       }
-
     } catch (error: any) {
-      console.error("Failed to execute workflow:", error);
+      console.error('Failed to execute workflow:', error);
 
       const errorMessage: ChatMessage = {
         id: uuidv4(),
@@ -440,7 +454,7 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
         timestamp: new Date().toISOString(),
       };
 
-      setMessages(prev => [...prev, errorMessage]);
+      setMessages((prev) => [...prev, errorMessage]);
       toast.error('Failed to generate workflow');
     } finally {
       setIsGenerating(false);
@@ -532,8 +546,8 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
     };
 
     // Add user message to UI immediately
-    setMessages(prev => [...prev, userMessage]);
-    setInput("");
+    setMessages((prev) => [...prev, userMessage]);
+    setInput('');
     setIsGenerating(true);
 
     try {
@@ -546,7 +560,7 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
       // 🎯 CHAT MODE: Simple Q&A, no workflow generation
       if (mode === 'chat') {
         // Show typing indicator
-        await new Promise(resolve => setTimeout(resolve, 800));
+        await new Promise((resolve) => setTimeout(resolve, 800));
 
         // Call a simple chat API (not workflow generation)
         // TODO: Create a dedicated chat endpoint for general Fluxturn questions
@@ -563,7 +577,7 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
           timestamp: new Date().toISOString(),
         };
 
-        setMessages(prev => [...prev, assistantMessage]);
+        setMessages((prev) => [...prev, assistantMessage]);
 
         // Save assistant message to backend
         await api.addMessageToConversation(conversationId, {
@@ -581,7 +595,7 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
       dispatchWorkflow({ type: 'START_ANALYSIS', payload: { prompt: userMessage.content } });
 
       // Show typing indicator first (like real chat apps)
-      await new Promise(resolve => setTimeout(resolve, 800));
+      await new Promise((resolve) => setTimeout(resolve, 800));
 
       // Create analysis message with progress
       const assistantMessageId = uuidv4();
@@ -601,29 +615,29 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
         },
       };
 
-      setMessages(prev => [...prev, assistantMessage]);
+      setMessages((prev) => [...prev, assistantMessage]);
 
       // Simulate progress updates
       const updateProgress = (stepId: string, status: ProgressStep['status']) => {
-        setMessages(prev =>
-          prev.map(msg =>
+        setMessages((prev) =>
+          prev.map((msg) =>
             msg.id === assistantMessageId
               ? {
                   ...msg,
                   metadata: {
                     ...msg.metadata,
-                    progressSteps: msg.metadata?.progressSteps?.map(step =>
-                      step.id === stepId ? { ...step, status } : step
+                    progressSteps: msg.metadata?.progressSteps?.map((step) =>
+                      step.id === stepId ? { ...step, status } : step,
                     ),
                   },
                 }
-              : msg
-          )
+              : msg,
+          ),
         );
       };
 
       // Progress: Analyzing
-      await new Promise(resolve => setTimeout(resolve, 800));
+      await new Promise((resolve) => setTimeout(resolve, 800));
       updateProgress('analyzing', 'completed');
       updateProgress('planning', 'active');
 
@@ -633,14 +647,15 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
         conversationId,
       });
 
-      await new Promise(resolve => setTimeout(resolve, 600));
+      await new Promise((resolve) => setTimeout(resolve, 600));
       updateProgress('planning', 'completed');
 
       // Update state with analysis result
       dispatchWorkflow({ type: 'ANALYSIS_COMPLETE', payload: { analysis: analysisResult } });
 
       // Build conversational analysis message
-      const finalContent = analysisResult.understanding +
+      const finalContent =
+        analysisResult.understanding +
         `\n\n**Technical breakdown:**\n` +
         analysisResult.plan.map((step, idx) => `${idx + 1}. ${step}`).join('\n') +
         `\n\n` +
@@ -649,11 +664,11 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
           : '') +
         `Would you like me to proceed with building this workflow?`;
 
-      const quickReplies = ["Execute Workflow", "Modify Prompt", "Cancel"];
+      const quickReplies = ['Execute Workflow', 'Modify Prompt', 'Cancel'];
       const requiresUserChoice = true;
 
-      setMessages(prev =>
-        prev.map(msg =>
+      setMessages((prev) =>
+        prev.map((msg) =>
           msg.id === assistantMessageId
             ? {
                 ...msg,
@@ -667,8 +682,8 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
                   requiresUserChoice,
                 },
               }
-            : msg
-        )
+            : msg,
+        ),
       );
 
       // Save assistant message to backend
@@ -681,9 +696,8 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
           quickReplies,
         },
       });
-
     } catch (error: any) {
-      console.error("Failed to analyze prompt:", error);
+      console.error('Failed to analyze prompt:', error);
 
       // Reset workflow state on error
       dispatchWorkflow({ type: 'RESET' });
@@ -695,11 +709,11 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
         content: `Sorry, I encountered an error while analyzing your request: ${error.message || 'Unknown error'}. Please try again or rephrase your prompt.`,
         timestamp: new Date().toISOString(),
         metadata: {
-          quickReplies: ["Try again", "Help"],
+          quickReplies: ['Try again', 'Help'],
         },
       };
 
-      setMessages(prev => [...prev, errorMessage]);
+      setMessages((prev) => [...prev, errorMessage]);
       toast.error('Failed to analyze prompt');
     } finally {
       setIsGenerating(false);
@@ -708,16 +722,16 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
 
   const handleQuickReply = async (reply: string, metadata?: any, messageId?: string) => {
     // Handle special buttons
-    if (reply === "Accept workflow") {
+    if (reply === 'Accept workflow') {
       // Mark this message as accepted
       if (messageId) {
-        setAcceptedMessageIds(prev => new Set(prev).add(messageId));
+        setAcceptedMessageIds((prev) => new Set(prev).add(messageId));
       }
       toast.success('Workflow accepted! You can now save it.');
       return;
     }
 
-    if (reply === "Execute Workflow") {
+    if (reply === 'Execute Workflow') {
       // 🎯 Execute the workflow using the PLAN (not the original prompt)
       // This ensures AI uses the analyzed and refined plan with proper node constraints
       const analysisData = metadata?.analysisData || workflowState.analysisResult;
@@ -742,7 +756,7 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
       return;
     }
 
-    if (reply === "Modify Prompt") {
+    if (reply === 'Modify Prompt') {
       // Allow user to modify the prompt
       if (metadata?.pendingPrompt) {
         setInput(metadata.pendingPrompt);
@@ -754,16 +768,16 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
       return;
     }
 
-    if (reply === "Cancel") {
+    if (reply === 'Cancel') {
       // Cancel the analysis
       dispatchWorkflow({ type: 'CANCEL_ANALYSIS' });
       toast.info('Analysis cancelled');
       return;
     }
 
-    if (reply === "Try again") {
+    if (reply === 'Try again') {
       // Auto-resend the last user message without setting input field
-      const lastUserMessage = [...messages].reverse().find(m => m.role === 'user');
+      const lastUserMessage = [...messages].reverse().find((m) => m.role === 'user');
       if (lastUserMessage) {
         // Temporarily set input, send, then clear
         const originalInput = input;
@@ -778,7 +792,7 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
       return;
     }
 
-    if (reply === "Configure Nodes") {
+    if (reply === 'Configure Nodes') {
       // Open configuration modal for nodes that need setup
       const nodesToConfigure = metadata?.nodesToConfigure || [];
 
@@ -796,13 +810,13 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
       return;
     }
 
-    if (reply === "Configure Later") {
+    if (reply === 'Configure Later') {
       // User wants to configure nodes later
       toast.info('You can configure nodes anytime by clicking on them in the canvas');
       return;
     }
 
-    if (reply === "Looks great!") {
+    if (reply === 'Looks great!') {
       toast.success('Great! Your workflow is ready on the canvas.');
       onClose();
       return;
@@ -848,7 +862,7 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
           timestamp: new Date().toISOString(),
         };
 
-        setMessages(prev => [...prev, confirmationMessage]);
+        setMessages((prev) => [...prev, confirmationMessage]);
 
         await api.addMessageToConversation(conversationId, {
           role: 'assistant',
@@ -871,7 +885,7 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
         {
           id: uuidv4(),
           role: 'assistant',
-          content: "Conversation cleared. How can I help you create a workflow?",
+          content: 'Conversation cleared. How can I help you create a workflow?',
           timestamp: new Date().toISOString(),
         },
       ]);
@@ -894,10 +908,7 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
   return (
     <>
       {/* Backdrop */}
-      <div
-        className="fixed inset-0 bg-black/50 z-40"
-        onClick={onClose}
-      />
+      <div className="fixed inset-0 bg-black/50 z-40" onClick={onClose} />
 
       {/* Side Panel */}
       <div className="fixed right-0 top-0 h-full w-[32rem] glass border-l border-white/10 z-50 flex flex-col shadow-2xl">
@@ -913,16 +924,20 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
                   onClick={() => setUseMultiAgent(!useMultiAgent)}
                   disabled={isGenerating}
                   className={cn(
-                    "flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-medium transition-all",
+                    'flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-medium transition-all',
                     useMultiAgent
-                      ? "bg-gradient-to-r from-emerald-500/20 to-teal-500/20 text-emerald-300 border border-emerald-500/30"
-                      : "bg-white/5 text-gray-400 border border-white/10",
-                    isGenerating && "opacity-50 cursor-not-allowed"
+                      ? 'bg-gradient-to-r from-emerald-500/20 to-teal-500/20 text-emerald-300 border border-emerald-500/30'
+                      : 'bg-white/5 text-gray-400 border border-white/10',
+                    isGenerating && 'opacity-50 cursor-not-allowed',
                   )}
-                  title={useMultiAgent ? "Using NEW Multi-Agent (95% accuracy)" : "Using OLD System (75% accuracy)"}
+                  title={
+                    useMultiAgent
+                      ? 'Using NEW Multi-Agent (95% accuracy)'
+                      : 'Using OLD System (75% accuracy)'
+                  }
                 >
                   <Zap className="w-3 h-3" />
-                  {useMultiAgent ? "Multi-Agent" : "Classic"}
+                  {useMultiAgent ? 'Multi-Agent' : 'Classic'}
                 </button>
               )}
             </div>
@@ -950,10 +965,10 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
               onClick={() => handleModeChange('chat')}
               disabled={isGenerating}
               className={cn(
-                "flex-1 px-3 py-1.5 rounded-md text-sm font-medium transition-all",
+                'flex-1 px-3 py-1.5 rounded-md text-sm font-medium transition-all',
                 mode === 'chat'
-                  ? "bg-cyan-500/20 text-cyan-300 shadow-sm"
-                  : "text-gray-400 hover:text-gray-300 hover:bg-white/5"
+                  ? 'bg-cyan-500/20 text-cyan-300 shadow-sm'
+                  : 'text-gray-400 hover:text-gray-300 hover:bg-white/5',
               )}
             >
               Chat
@@ -962,10 +977,10 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
               onClick={() => handleModeChange('build')}
               disabled={isGenerating}
               className={cn(
-                "flex-1 px-3 py-1.5 rounded-md text-sm font-medium transition-all",
+                'flex-1 px-3 py-1.5 rounded-md text-sm font-medium transition-all',
                 mode === 'build'
-                  ? "bg-cyan-500/20 text-cyan-300 shadow-sm"
-                  : "text-gray-400 hover:text-gray-300 hover:bg-white/5"
+                  ? 'bg-cyan-500/20 text-cyan-300 shadow-sm'
+                  : 'text-gray-400 hover:text-gray-300 hover:bg-white/5',
               )}
             >
               Build
@@ -981,9 +996,7 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
                   : 'Create workflows with AI'}
             </p>
             {workflowId && (
-              <p className="text-xs text-gray-500">
-                Workflow: {workflowId.slice(0, 8)}...
-              </p>
+              <p className="text-xs text-gray-500">Workflow: {workflowId.slice(0, 8)}...</p>
             )}
           </div>
         </div>
@@ -993,16 +1006,12 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
           {isLoadingConversation ? (
             <div className="flex flex-col items-center justify-center h-full text-center">
               <div className="w-12 h-12 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin mb-4" />
-              <p className="text-gray-400 text-sm">
-                Loading conversation...
-              </p>
+              <p className="text-gray-400 text-sm">Loading conversation...</p>
             </div>
           ) : messages.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center">
               <MessageSquare className="w-12 h-12 text-gray-500 mb-4" />
-              <p className="text-gray-400 text-sm">
-                Initializing conversation...
-              </p>
+              <p className="text-gray-400 text-sm">Initializing conversation...</p>
             </div>
           ) : (
             <>
@@ -1034,8 +1043,8 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
               onKeyDown={handleKeyDown}
               placeholder={
                 mode === 'chat'
-                  ? "Ask me anything about Fluxturn... (Shift+Enter for new line)"
-                  : "Describe your workflow or ask for changes... (Shift+Enter for new line)"
+                  ? 'Ask me anything about Fluxturn... (Shift+Enter for new line)'
+                  : 'Describe your workflow or ask for changes... (Shift+Enter for new line)'
               }
               className="min-h-[60px] max-h-[120px] bg-white/5 border-white/10 text-white placeholder:text-gray-400 resize-none"
               disabled={isGenerating}
