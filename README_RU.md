@@ -19,13 +19,13 @@
   <a href="https://github.com/fluxturn/fluxturn/stargazers"><img src="https://img.shields.io/github/stars/fluxturn/fluxturn?style=social" alt="GitHub Stars"></a>
   <a href="https://github.com/fluxturn/fluxturn/issues"><img src="https://img.shields.io/github/issues/fluxturn/fluxturn" alt="Issues"></a>
   <a href="https://github.com/fluxturn/fluxturn/pulls"><img src="https://img.shields.io/github/issues-pr/fluxturn/fluxturn" alt="Pull Requests"></a>
-  <a href="https://discord.gg/fluxturn"><img src="https://img.shields.io/discord/YOUR_DISCORD_ID?label=Discord&logo=discord&logoColor=white" alt="Discord"></a>
+  <a href="https://discord.gg/tpJZ9J3q"><img src="https://img.shields.io/discord/YOUR_DISCORD_ID?label=Discord&logo=discord&logoColor=white" alt="Discord"></a>
 </p>
 
 <p align="center">
   <a href="https://github.com/fluxturn/fluxturn/wiki">Документация</a> |
   <a href="#quick-start">Быстрый Старт</a> |
-  <a href="https://discord.gg/fluxturn">Discord</a> |
+  <a href="https://discord.gg/tpJZ9J3q">Discord</a> |
   <a href="CONTRIBUTING.md">Вклад</a>
 </p>
 
@@ -181,7 +181,7 @@ FluxTurn поддерживает 17 языков через i18next:
 
 ## Сообщество
 
-- [Discord](https://discord.gg/fluxturn) -- Общайтесь с командой и сообществом
+- [Discord](https://discord.gg/tpJZ9J3q) -- Общайтесь с командой и сообществом
 - [GitHub Discussions](https://github.com/fluxturn/fluxturn/discussions) -- Задавайте вопросы, делитесь идеями
 - [Twitter/X](https://twitter.com/fluxturn) -- Следите за обновлениями
 
@@ -198,6 +198,6 @@ FluxTurn поддерживает 17 языков через i18next:
 <p align="center">
   <a href="https://fluxturn.com">Веб-сайт</a> |
   <a href="https://github.com/fluxturn/fluxturn/wiki">Документация</a> |
-  <a href="https://discord.gg/fluxturn">Discord</a> |
+  <a href="https://discord.gg/tpJZ9J3q">Discord</a> |
   <a href="https://twitter.com/fluxturn">Twitter</a>
 </p>

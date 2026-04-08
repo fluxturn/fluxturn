@@ -19,13 +19,13 @@
   <a href="https://github.com/fluxturn/fluxturn/stargazers"><img src="https://img.shields.io/github/stars/fluxturn/fluxturn?style=social" alt="GitHub Stars"></a>
   <a href="https://github.com/fluxturn/fluxturn/issues"><img src="https://img.shields.io/github/issues/fluxturn/fluxturn" alt="Issues"></a>
   <a href="https://github.com/fluxturn/fluxturn/pulls"><img src="https://img.shields.io/github/issues-pr/fluxturn/fluxturn" alt="Pull Requests"></a>
-  <a href="https://discord.gg/fluxturn"><img src="https://img.shields.io/discord/YOUR_DISCORD_ID?label=Discord&logo=discord&logoColor=white" alt="Discord"></a>
+  <a href="https://discord.gg/tpJZ9J3q"><img src="https://img.shields.io/discord/YOUR_DISCORD_ID?label=Discord&logo=discord&logoColor=white" alt="Discord"></a>
 </p>
 
 <p align="center">
   <a href="https://github.com/fluxturn/fluxturn/wiki">ডকুমেন্টেশন</a> |
   <a href="#quick-start">দ্রুত শুরু</a> |
-  <a href="https://discord.gg/fluxturn">Discord</a> |
+  <a href="https://discord.gg/tpJZ9J3q">Discord</a> |
   <a href="CONTRIBUTING.md">অবদান</a>
 </p>
 
@@ -181,7 +181,7 @@ FluxTurn-এ অবদান রাখা সকল অসাধারণ মা
 
 ## কমিউনিটি
 
-- [Discord](https://discord.gg/fluxturn) -- টিম এবং কমিউনিটির সাথে চ্যাট করুন
+- [Discord](https://discord.gg/tpJZ9J3q) -- টিম এবং কমিউনিটির সাথে চ্যাট করুন
 - [GitHub Discussions](https://github.com/fluxturn/fluxturn/discussions) -- প্রশ্ন জিজ্ঞাসা করুন, ধারণা শেয়ার করুন
 - [Twitter/X](https://twitter.com/fluxturn) -- আপডেটের জন্য ফলো করুন
 
@@ -198,6 +198,6 @@ FluxTurn-এ অবদান রাখা সকল অসাধারণ মা
 <p align="center">
   <a href="https://fluxturn.com">ওয়েবসাইট</a> |
   <a href="https://github.com/fluxturn/fluxturn/wiki">ডক্স</a> |
-  <a href="https://discord.gg/fluxturn">Discord</a> |
+  <a href="https://discord.gg/tpJZ9J3q">Discord</a> |
   <a href="https://twitter.com/fluxturn">Twitter</a>
 </p>

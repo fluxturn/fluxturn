@@ -19,13 +19,13 @@
   <a href="https://github.com/fluxturn/fluxturn/stargazers"><img src="https://img.shields.io/github/stars/fluxturn/fluxturn?style=social" alt="GitHub Stars"></a>
   <a href="https://github.com/fluxturn/fluxturn/issues"><img src="https://img.shields.io/github/issues/fluxturn/fluxturn" alt="Issues"></a>
   <a href="https://github.com/fluxturn/fluxturn/pulls"><img src="https://img.shields.io/github/issues-pr/fluxturn/fluxturn" alt="Pull Requests"></a>
-  <a href="https://discord.gg/fluxturn"><img src="https://img.shields.io/discord/YOUR_DISCORD_ID?label=Discord&logo=discord&logoColor=white" alt="Discord"></a>
+  <a href="https://discord.gg/tpJZ9J3q"><img src="https://img.shields.io/discord/YOUR_DISCORD_ID?label=Discord&logo=discord&logoColor=white" alt="Discord"></a>
 </p>
 
 <p align="center">
   <a href="https://github.com/fluxturn/fluxturn/wiki">문서</a> |
   <a href="#quick-start">빠른 시작</a> |
-  <a href="https://discord.gg/fluxturn">Discord</a> |
+  <a href="https://discord.gg/tpJZ9J3q">Discord</a> |
   <a href="CONTRIBUTING.md">기여하기</a>
 </p>
 
@@ -181,7 +181,7 @@ FluxTurn에 기여해주신 모든 훌륭한 분들께 감사드립니다! 🎉
 
 ## 커뮤니티
 
-- [Discord](https://discord.gg/fluxturn) -- 팀 및 커뮤니티와 채팅
+- [Discord](https://discord.gg/tpJZ9J3q) -- 팀 및 커뮤니티와 채팅
 - [GitHub Discussions](https://github.com/fluxturn/fluxturn/discussions) -- 질문하고 아이디어 공유
 - [Twitter/X](https://twitter.com/fluxturn) -- 업데이트를 위해 팔로우
 
@@ -198,6 +198,6 @@ FluxTurn에 기여해주신 모든 훌륭한 분들께 감사드립니다! 🎉
 <p align="center">
   <a href="https://fluxturn.com">웹사이트</a> |
   <a href="https://github.com/fluxturn/fluxturn/wiki">문서</a> |
-  <a href="https://discord.gg/fluxturn">Discord</a> |
+  <a href="https://discord.gg/tpJZ9J3q">Discord</a> |
   <a href="https://twitter.com/fluxturn">Twitter</a>
 </p>

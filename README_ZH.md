@@ -19,13 +19,13 @@
   <a href="https://github.com/fluxturn/fluxturn/stargazers"><img src="https://img.shields.io/github/stars/fluxturn/fluxturn?style=social" alt="GitHub Stars"></a>
   <a href="https://github.com/fluxturn/fluxturn/issues"><img src="https://img.shields.io/github/issues/fluxturn/fluxturn" alt="Issues"></a>
   <a href="https://github.com/fluxturn/fluxturn/pulls"><img src="https://img.shields.io/github/issues-pr/fluxturn/fluxturn" alt="Pull Requests"></a>
-  <a href="https://discord.gg/fluxturn"><img src="https://img.shields.io/discord/YOUR_DISCORD_ID?label=Discord&logo=discord&logoColor=white" alt="Discord"></a>
+  <a href="https://discord.gg/tpJZ9J3q"><img src="https://img.shields.io/discord/YOUR_DISCORD_ID?label=Discord&logo=discord&logoColor=white" alt="Discord"></a>
 </p>
 
 <p align="center">
   <a href="https://github.com/fluxturn/fluxturn/wiki">文档</a> |
   <a href="#quick-start">快速开始</a> |
-  <a href="https://discord.gg/fluxturn">Discord</a> |
+  <a href="https://discord.gg/tpJZ9J3q">Discord</a> |
   <a href="CONTRIBUTING.md">贡献</a>
 </p>
 
@@ -181,7 +181,7 @@ FluxTurn通过i18next支持17种语言：
 
 ## 社区
 
-- [Discord](https://discord.gg/fluxturn) -- 与团队和社区聊天
+- [Discord](https://discord.gg/tpJZ9J3q) -- 与团队和社区聊天
 - [GitHub Discussions](https://github.com/fluxturn/fluxturn/discussions) -- 提问、分享想法
 - [Twitter/X](https://twitter.com/fluxturn) -- 关注获取更新
 
@@ -198,6 +198,6 @@ FluxTurn通过i18next支持17种语言：
 <p align="center">
   <a href="https://fluxturn.com">网站</a> |
   <a href="https://github.com/fluxturn/fluxturn/wiki">文档</a> |
-  <a href="https://discord.gg/fluxturn">Discord</a> |
+  <a href="https://discord.gg/tpJZ9J3q">Discord</a> |
   <a href="https://twitter.com/fluxturn">Twitter</a>
 </p>

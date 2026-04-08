@@ -19,13 +19,13 @@
   <a href="https://github.com/fluxturn/fluxturn/stargazers"><img src="https://img.shields.io/github/stars/fluxturn/fluxturn?style=social" alt="GitHub Stars"></a>
   <a href="https://github.com/fluxturn/fluxturn/issues"><img src="https://img.shields.io/github/issues/fluxturn/fluxturn" alt="Issues"></a>
   <a href="https://github.com/fluxturn/fluxturn/pulls"><img src="https://img.shields.io/github/issues-pr/fluxturn/fluxturn" alt="Pull Requests"></a>
-  <a href="https://discord.gg/fluxturn"><img src="https://img.shields.io/discord/YOUR_DISCORD_ID?label=Discord&logo=discord&logoColor=white" alt="Discord"></a>
+  <a href="https://discord.gg/tpJZ9J3q"><img src="https://img.shields.io/discord/YOUR_DISCORD_ID?label=Discord&logo=discord&logoColor=white" alt="Discord"></a>
 </p>
 
 <p align="center">
   <a href="https://github.com/fluxturn/fluxturn/wiki">दस्तावेज़ीकरण</a> |
   <a href="#quick-start">त्वरित शुरुआत</a> |
-  <a href="https://discord.gg/fluxturn">Discord</a> |
+  <a href="https://discord.gg/tpJZ9J3q">Discord</a> |
   <a href="CONTRIBUTING.md">योगदान</a>
 </p>
 
@@ -181,7 +181,7 @@ FluxTurn में योगदान देने वाले सभी अद
 
 ## समुदाय
 
-- [Discord](https://discord.gg/fluxturn) -- टीम और समुदाय के साथ चैट करें
+- [Discord](https://discord.gg/tpJZ9J3q) -- टीम और समुदाय के साथ चैट करें
 - [GitHub Discussions](https://github.com/fluxturn/fluxturn/discussions) -- प्रश्न पूछें, विचार साझा करें
 - [Twitter/X](https://twitter.com/fluxturn) -- अपडेट के लिए फॉलो करें
 
@@ -198,6 +198,6 @@ FluxTurn में योगदान देने वाले सभी अद
 <p align="center">
   <a href="https://fluxturn.com">वेबसाइट</a> |
   <a href="https://github.com/fluxturn/fluxturn/wiki">दस्तावेज़</a> |
-  <a href="https://discord.gg/fluxturn">Discord</a> |
+  <a href="https://discord.gg/tpJZ9J3q">Discord</a> |
   <a href="https://twitter.com/fluxturn">Twitter</a>
 </p>

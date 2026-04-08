@@ -19,13 +19,13 @@
   <a href="https://github.com/fluxturn/fluxturn/stargazers"><img src="https://img.shields.io/github/stars/fluxturn/fluxturn?style=social" alt="GitHub Stars"></a>
   <a href="https://github.com/fluxturn/fluxturn/issues"><img src="https://img.shields.io/github/issues/fluxturn/fluxturn" alt="Issues"></a>
   <a href="https://github.com/fluxturn/fluxturn/pulls"><img src="https://img.shields.io/github/issues-pr/fluxturn/fluxturn" alt="Pull Requests"></a>
-  <a href="https://discord.gg/fluxturn"><img src="https://img.shields.io/badge/Discord-Join-5865F2?logo=discord&logoColor=white" alt="Discord"></a>
+  <a href="https://discord.gg/tpJZ9J3q"><img src="https://img.shields.io/badge/Discord-Join-5865F2?logo=discord&logoColor=white" alt="Discord"></a>
 </p>
 
 <p align="center">
   <a href="https://github.com/fluxturn/fluxturn/wiki">Documentation</a> |
   <a href="#quick-start">Quick Start</a> |
-  <a href="https://discord.gg/fluxturn">Discord</a> |
+  <a href="https://discord.gg/tpJZ9J3q">Discord</a> |
   <a href="CONTRIBUTING.md">Contributing</a>
 </p>
 
@@ -180,7 +180,7 @@ Want to see your face here? Check out our [Contributing Guide](CONTRIBUTING.md) 
 
 ## Community
 
-- [Discord](https://discord.gg/fluxturn) -- Chat with the team and community
+- [Discord](https://discord.gg/tpJZ9J3q) -- Chat with the team and community
 - [GitHub Discussions](https://github.com/fluxturn/fluxturn/discussions) -- Ask questions, share ideas
 - [Twitter/X](https://twitter.com/fluxturn) -- Follow for updates
 
@@ -197,6 +197,6 @@ Built with [NestJS](https://nestjs.com), [React](https://react.dev), [ReactFlow]
 <p align="center">
   <a href="https://fluxturn.com">Website</a> |
   <a href="https://github.com/fluxturn/fluxturn/wiki">Docs</a> |
-  <a href="https://discord.gg/fluxturn">Discord</a> |
+  <a href="https://discord.gg/tpJZ9J3q">Discord</a> |
   <a href="https://twitter.com/fluxturn">Twitter</a>
 </p>

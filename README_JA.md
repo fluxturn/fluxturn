@@ -19,13 +19,13 @@
   <a href="https://github.com/fluxturn/fluxturn/stargazers"><img src="https://img.shields.io/github/stars/fluxturn/fluxturn?style=social" alt="GitHub Stars"></a>
   <a href="https://github.com/fluxturn/fluxturn/issues"><img src="https://img.shields.io/github/issues/fluxturn/fluxturn" alt="Issues"></a>
   <a href="https://github.com/fluxturn/fluxturn/pulls"><img src="https://img.shields.io/github/issues-pr/fluxturn/fluxturn" alt="Pull Requests"></a>
-  <a href="https://discord.gg/fluxturn"><img src="https://img.shields.io/discord/YOUR_DISCORD_ID?label=Discord&logo=discord&logoColor=white" alt="Discord"></a>
+  <a href="https://discord.gg/tpJZ9J3q"><img src="https://img.shields.io/discord/YOUR_DISCORD_ID?label=Discord&logo=discord&logoColor=white" alt="Discord"></a>
 </p>
 
 <p align="center">
   <a href="https://github.com/fluxturn/fluxturn/wiki">ドキュメント</a> |
   <a href="#quick-start">クイックスタート</a> |
-  <a href="https://discord.gg/fluxturn">Discord</a> |
+  <a href="https://discord.gg/tpJZ9J3q">Discord</a> |
   <a href="CONTRIBUTING.md">コントリビュート</a>
 </p>
 
@@ -181,7 +181,7 @@ FluxTurnに貢献してくださったすべての素晴らしい方々に感謝
 
 ## コミュニティ
 
-- [Discord](https://discord.gg/fluxturn) -- チームやコミュニティとチャット
+- [Discord](https://discord.gg/tpJZ9J3q) -- チームやコミュニティとチャット
 - [GitHub Discussions](https://github.com/fluxturn/fluxturn/discussions) -- 質問したり、アイデアを共有
 - [Twitter/X](https://twitter.com/fluxturn) -- 最新情報をフォロー
 
@@ -198,6 +198,6 @@ FluxTurnに貢献してくださったすべての素晴らしい方々に感謝
 <p align="center">
   <a href="https://fluxturn.com">ウェブサイト</a> |
   <a href="https://github.com/fluxturn/fluxturn/wiki">ドキュメント</a> |
-  <a href="https://discord.gg/fluxturn">Discord</a> |
+  <a href="https://discord.gg/tpJZ9J3q">Discord</a> |
   <a href="https://twitter.com/fluxturn">Twitter</a>
 </p>
