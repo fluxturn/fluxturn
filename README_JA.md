@@ -19,13 +19,13 @@
   <a href="https://github.com/fluxturn/fluxturn/stargazers"><img src="https://img.shields.io/github/stars/fluxturn/fluxturn?style=social" alt="GitHub Stars"></a>
   <a href="https://github.com/fluxturn/fluxturn/issues"><img src="https://img.shields.io/github/issues/fluxturn/fluxturn" alt="Issues"></a>
   <a href="https://github.com/fluxturn/fluxturn/pulls"><img src="https://img.shields.io/github/issues-pr/fluxturn/fluxturn" alt="Pull Requests"></a>
-  <a href="https://discord.gg/fluxturn"><img src="https://img.shields.io/discord/YOUR_DISCORD_ID?label=Discord&logo=discord&logoColor=white" alt="Discord"></a>
+  <a href="https://discord.gg/tpJZ9J3q"><img src="https://img.shields.io/discord/YOUR_DISCORD_ID?label=Discord&logo=discord&logoColor=white" alt="Discord"></a>
 </p>
 
 <p align="center">
   <a href="https://github.com/fluxturn/fluxturn/wiki">ドキュメント</a> |
   <a href="#quick-start">クイックスタート</a> |
-  <a href="https://discord.gg/fluxturn">Discord</a> |
+  <a href="https://discord.gg/tpJZ9J3q">Discord</a> |
   <a href="CONTRIBUTING.md">コントリビュート</a>
 </p>
 
@@ -284,7 +284,7 @@ FluxTurnは単なるもう一つのオープンソースプロジェクトでは
 
 ### ロードマップに影響を与える方法
 
-💡 **アイデアがありますか？** [GitHub Discussion](https://github.com/fluxturn/fluxturn/discussions)を開くか、[Discord](https://discord.gg/fluxturn)に参加してください
+💡 **アイデアがありますか？** [GitHub Discussion](https://github.com/fluxturn/fluxturn/discussions)を開くか、[Discord](https://discord.gg/tpJZ9J3q)に参加してください
 
 🗳️ **機能に投票** -- 気になるIssueにスターを付けて優先順位付けを支援
 
@@ -374,13 +374,13 @@ git push origin feature/your-feature-name
 
 ✨ **小さく始める** -- 最初のPRは大きな機能である必要はありません
 📖 **コードを読む** -- 既存のコネクタやコンポーネントを例として参照
-❓ **質問する** -- 困ったら[Discord](https://discord.gg/fluxturn)に参加
+❓ **質問する** -- 困ったら[Discord](https://discord.gg/tpJZ9J3q)に参加
 🧪 **テストを書く** -- テスト付きのPRはより早くマージされます
 📝 **コードを文書化** -- 複雑なロジックにはコメントを追加
 
 ### ヘルプが必要ですか？
 
-- 💬 [Discord](https://discord.gg/fluxturn) -- メンテナやコントリビューターとチャット
+- 💬 [Discord](https://discord.gg/tpJZ9J3q) -- メンテナやコントリビューターとチャット
 - 📖 [貢献ガイド](CONTRIBUTING.md) -- 詳細な貢献ガイドライン
 - 🐛 [GitHub Issues](https://github.com/fluxturn/fluxturn/issues) -- バグを報告または機能をリクエスト
 - 💡 [Discussions](https://github.com/fluxturn/fluxturn/discussions) -- 質問したり、アイデアを共有
@@ -512,7 +512,7 @@ FluxTurnに貢献してくださったすべての素晴らしい方々に感謝
 開発者とつながり、助けを得て、FluxTurnの最新開発情報を入手しましょう！
 
 <p align="center">
-  <a href="https://discord.gg/fluxturn">
+  <a href="https://discord.gg/tpJZ9J3q">
     <img src="https://img.shields.io/badge/Discord-Join%20Our%20Server-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord">
   </a>
   <a href="https://github.com/fluxturn/fluxturn/discussions">
@@ -527,7 +527,7 @@ FluxTurnに貢献してくださったすべての素晴らしい方々に感謝
 
 | プラットフォーム | 目的 | リンク |
 |----------|---------|------|
-| 💬 **Discord** | リアルタイムチャット、ヘルプ、機能の議論 | [サーバーに参加](https://discord.gg/fluxturn) |
+| 💬 **Discord** | リアルタイムチャット、ヘルプ、機能の議論 | [サーバーに参加](https://discord.gg/tpJZ9J3q) |
 | 💡 **GitHub Discussions** | 質問、アイデアの共有、機能リクエスト | [ディスカッションを開始](https://github.com/fluxturn/fluxturn/discussions) |
 | 🐦 **Twitter/X** | 製品アップデート、お知らせ、ヒント | [@fluxturn](https://twitter.com/fluxturn) |
 | 📧 **Email** | メンテナに直接連絡 | hello@fluxturn.com |
@@ -554,7 +554,7 @@ FluxTurnに貢献してくださったすべての素晴らしい方々に感謝
 <p align="center">
   <a href="https://fluxturn.com">ウェブサイト</a> |
   <a href="https://github.com/fluxturn/fluxturn/wiki">ドキュメント</a> |
-  <a href="https://discord.gg/fluxturn">Discord</a> |
+  <a href="https://discord.gg/tpJZ9J3q">Discord</a> |
   <a href="https://twitter.com/fluxturn">Twitter</a>
 </p>
 
