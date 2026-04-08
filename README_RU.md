@@ -19,13 +19,13 @@
   <a href="https://github.com/fluxturn/fluxturn/stargazers"><img src="https://img.shields.io/github/stars/fluxturn/fluxturn?style=social" alt="GitHub Stars"></a>
   <a href="https://github.com/fluxturn/fluxturn/issues"><img src="https://img.shields.io/github/issues/fluxturn/fluxturn" alt="Issues"></a>
   <a href="https://github.com/fluxturn/fluxturn/pulls"><img src="https://img.shields.io/github/issues-pr/fluxturn/fluxturn" alt="Pull Requests"></a>
-  <a href="https://discord.gg/fluxturn"><img src="https://img.shields.io/discord/YOUR_DISCORD_ID?label=Discord&logo=discord&logoColor=white" alt="Discord"></a>
+  <a href="https://discord.gg/tpJZ9J3q"><img src="https://img.shields.io/discord/YOUR_DISCORD_ID?label=Discord&logo=discord&logoColor=white" alt="Discord"></a>
 </p>
 
 <p align="center">
   <a href="https://github.com/fluxturn/fluxturn/wiki">Документация</a> |
   <a href="#quick-start">Быстрый Старт</a> |
-  <a href="https://discord.gg/fluxturn">Discord</a> |
+  <a href="https://discord.gg/tpJZ9J3q">Discord</a> |
   <a href="CONTRIBUTING.md">Вклад</a>
 </p>
 
@@ -385,7 +385,7 @@ FluxTurn -- это больше, чем просто очередной open-sou
 
 ### Как Повлиять на Дорожную Карту
 
-💡 **Есть идеи?** Откройте [GitHub Discussion](https://github.com/fluxturn/fluxturn/discussions) или присоединитесь к нашему [Discord](https://discord.gg/fluxturn)
+💡 **Есть идеи?** Откройте [GitHub Discussion](https://github.com/fluxturn/fluxturn/discussions) или присоединитесь к нашему [Discord](https://discord.gg/tpJZ9J3q)
 
 🗳️ **Голосуйте за функции** -- Отмечайте звездочкой issues, которые вам важны, чтобы помочь нам расставить приоритеты
 
@@ -475,13 +475,13 @@ git push origin feature/your-feature-name
 
 ✨ **Начните с малого** -- Ваш первый PR не должен быть огромной функцией
 📖 **Читайте код** -- Просмотрите существующие коннекторы или компоненты для примеров
-❓ **Задавайте вопросы** -- Присоединяйтесь к нашему [Discord](https://discord.gg/fluxturn), если застряли
+❓ **Задавайте вопросы** -- Присоединяйтесь к нашему [Discord](https://discord.gg/tpJZ9J3q), если застряли
 🧪 **Пишите тесты** -- PR с тестами сливаются быстрее
 📝 **Документируйте свой код** -- Добавляйте комментарии для сложной логики
 
 ### Нужна Помощь?
 
-- 💬 [Discord](https://discord.gg/fluxturn) -- Общайтесь с мейнтейнерами и контрибьюторами
+- 💬 [Discord](https://discord.gg/tpJZ9J3q) -- Общайтесь с мейнтейнерами и контрибьюторами
 - 📖 [Руководство по Вкладу](CONTRIBUTING.md) -- Подробные рекомендации по внесению вклада
 - 🐛 [GitHub Issues](https://github.com/fluxturn/fluxturn/issues) -- Сообщайте об ошибках или запрашивайте функции
 - 💡 [Discussions](https://github.com/fluxturn/fluxturn/discussions) -- Задавайте вопросы, делитесь идеями
@@ -512,7 +512,7 @@ git push origin feature/your-feature-name
 Общайтесь с разработчиками, получайте помощь и будьте в курсе последних разработок FluxTurn!
 
 <p align="center">
-  <a href="https://discord.gg/fluxturn">
+  <a href="https://discord.gg/tpJZ9J3q">
     <img src="https://img.shields.io/badge/Discord-Join%20Our%20Server-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord">
   </a>
   <a href="https://github.com/fluxturn/fluxturn/discussions">
@@ -527,7 +527,7 @@ git push origin feature/your-feature-name
 
 | Платформа | Назначение | Ссылка |
 |----------|---------|------|
-| 💬 **Discord** | Чат в реальном времени, получение помощи, обсуждение функций | [Присоединиться к Серверу](https://discord.gg/fluxturn) |
+| 💬 **Discord** | Чат в реальном времени, получение помощи, обсуждение функций | [Присоединиться к Серверу](https://discord.gg/tpJZ9J3q) |
 | 💡 **GitHub Discussions** | Задавать вопросы, делиться идеями, запрашивать функции | [Начать Обсуждение](https://github.com/fluxturn/fluxturn/discussions) |
 | 🐦 **Twitter/X** | Обновления продукта, объявления, советы | [@fluxturn](https://twitter.com/fluxturn) |
 | 📧 **Email** | Прямой контакт с мейнтейнерами | hello@fluxturn.com |
@@ -554,7 +554,7 @@ git push origin feature/your-feature-name
 <p align="center">
   <a href="https://fluxturn.com">Веб-сайт</a> |
   <a href="https://github.com/fluxturn/fluxturn/wiki">Документация</a> |
-  <a href="https://discord.gg/fluxturn">Discord</a> |
+  <a href="https://discord.gg/tpJZ9J3q">Discord</a> |
   <a href="https://twitter.com/fluxturn">Twitter</a>
 </p>
 
