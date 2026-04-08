@@ -196,6 +196,6 @@ npm run typecheck           # Type check
 ## Questions?
 
 - Open a [Discussion](https://github.com/fluxturn/fluxturn/discussions)
-- Join our [Discord](https://discord.gg/fluxturn)
+- Join our [Discord](https://discord.gg/tpJZ9J3q)
 
 Thank you for contributing!
