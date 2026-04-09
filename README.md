@@ -1,10 +1,7 @@
 <p align="center">
   <a href="https://fluxturn.com">
-    <img src="frontend/public/Exploring the Future of Technology.png" alt="FluxTurn">
+    <img src="frontend/public/logo.png" alt="FluxTurn" width="80">
   </a>
-</p>
-
-<p align="center">
   <h1 align="center">FluxTurn</h1>
   <p align="center">
     <strong>Open-source AI-powered workflow automation platform</strong>
