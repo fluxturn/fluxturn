@@ -19,13 +19,13 @@
   <a href="https://github.com/fluxturn/fluxturn/stargazers"><img src="https://img.shields.io/github/stars/fluxturn/fluxturn?style=social" alt="GitHub Stars"></a>
   <a href="https://github.com/fluxturn/fluxturn/issues"><img src="https://img.shields.io/github/issues/fluxturn/fluxturn" alt="Issues"></a>
   <a href="https://github.com/fluxturn/fluxturn/pulls"><img src="https://img.shields.io/github/issues-pr/fluxturn/fluxturn" alt="Pull Requests"></a>
-  <a href="https://discord.gg/fluxturn"><img src="https://img.shields.io/discord/YOUR_DISCORD_ID?label=Discord&logo=discord&logoColor=white" alt="Discord"></a>
+  <a href="https://discord.gg/tpJZ9J3q"><img src="https://img.shields.io/discord/YOUR_DISCORD_ID?label=Discord&logo=discord&logoColor=white" alt="Discord"></a>
 </p>
 
 <p align="center">
   <a href="https://github.com/fluxturn/fluxturn/wiki">Dokumentation</a> |
   <a href="#quick-start">Schnellstart</a> |
-  <a href="https://discord.gg/fluxturn">Discord</a> |
+  <a href="https://discord.gg/tpJZ9J3q">Discord</a> |
   <a href="CONTRIBUTING.md">Mitwirken</a>
 </p>
 
@@ -385,7 +385,7 @@ Hier ist, was wir entwickeln und wo Sie beitragen können. Mit 🆘 markierte Pu
 
 ### Wie Sie die Roadmap beeinflussen können
 
-💡 **Haben Sie Ideen?** Öffnen Sie eine [GitHub Discussion](https://github.com/fluxturn/fluxturn/discussions) oder treten Sie unserem [Discord](https://discord.gg/fluxturn) bei
+💡 **Haben Sie Ideen?** Öffnen Sie eine [GitHub Discussion](https://github.com/fluxturn/fluxturn/discussions) oder treten Sie unserem [Discord](https://discord.gg/tpJZ9J3q) bei
 
 🗳️ **Stimmen Sie für Features ab** -- Markieren Sie Issues, die Ihnen wichtig sind, um uns bei der Priorisierung zu helfen
 
@@ -475,13 +475,13 @@ git push origin feature/ihr-feature-name
 
 ✨ **Klein anfangen** -- Ihr erster PR muss kein riesiges Feature sein
 📖 **Lesen Sie den Code** -- Durchsuchen Sie vorhandene Konnektoren oder Komponenten nach Beispielen
-❓ **Stellen Sie Fragen** -- Treten Sie unserem [Discord](https://discord.gg/fluxturn) bei, wenn Sie feststecken
+❓ **Stellen Sie Fragen** -- Treten Sie unserem [Discord](https://discord.gg/tpJZ9J3q) bei, wenn Sie feststecken
 🧪 **Schreiben Sie Tests** -- PRs mit Tests werden schneller gemerged
 📝 **Dokumentieren Sie Ihren Code** -- Fügen Sie Kommentare für komplexe Logik hinzu
 
 ### Benötigen Sie Hilfe?
 
-- 💬 [Discord](https://discord.gg/fluxturn) -- Chatten Sie mit Maintainern und Mitwirkenden
+- 💬 [Discord](https://discord.gg/tpJZ9J3q) -- Chatten Sie mit Maintainern und Mitwirkenden
 - 📖 [Beitragsleitfaden](CONTRIBUTING.md) -- Detaillierte Beitragsrichtlinien
 - 🐛 [GitHub Issues](https://github.com/fluxturn/fluxturn/issues) -- Melden Sie Bugs oder fordern Sie Features an
 - 💡 [Discussions](https://github.com/fluxturn/fluxturn/discussions) -- Stellen Sie Fragen, teilen Sie Ideen
@@ -512,7 +512,7 @@ Möchten Sie Ihr Gesicht hier sehen? Schauen Sie sich unseren [Beitragsleitfaden
 Verbinden Sie sich mit Entwicklern, erhalten Sie Hilfe und bleiben Sie über die neuesten Entwicklungen von FluxTurn auf dem Laufenden!
 
 <p align="center">
-  <a href="https://discord.gg/fluxturn">
+  <a href="https://discord.gg/tpJZ9J3q">
     <img src="https://img.shields.io/badge/Discord-Join%20Our%20Server-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord">
   </a>
   <a href="https://github.com/fluxturn/fluxturn/discussions">
@@ -527,10 +527,10 @@ Verbinden Sie sich mit Entwicklern, erhalten Sie Hilfe und bleiben Sie über die
 
 | Plattform | Zweck | Link |
 |----------|---------|------|
-| 💬 **Discord** | Echtzeit-Chat, Hilfe erhalten, Funktionen diskutieren | [Server Beitreten](https://discord.gg/fluxturn) |
+| 💬 **Discord** | Echtzeit-Chat, Hilfe erhalten, Funktionen diskutieren | [Server Beitreten](https://discord.gg/tpJZ9J3q) |
 | 💡 **GitHub Discussions** | Fragen stellen, Ideen teilen, Funktionen anfordern | [Diskussion Starten](https://github.com/fluxturn/fluxturn/discussions) |
 | 🐦 **Twitter/X** | Produkt-Updates, Ankündigungen, Tipps | [@fluxturn](https://twitter.com/fluxturn) |
-| 📧 **Email** | Direkter Kontakt mit Maintainern | hello@fluxturn.com |
+| 📧 **Email** | Direkter Kontakt mit Maintainern | support@fluxturn.com |
 | 🌐 **Website** | Dokumentation, Anleitungen, Blog | [fluxturn.com](https://fluxturn.com) |
 
 ### Community-Richtlinien
@@ -554,7 +554,7 @@ Erstellt mit [NestJS](https://nestjs.com), [React](https://react.dev), [ReactFlo
 <p align="center">
   <a href="https://fluxturn.com">Website</a> |
   <a href="https://github.com/fluxturn/fluxturn/wiki">Dokumentation</a> |
-  <a href="https://discord.gg/fluxturn">Discord</a> |
+  <a href="https://discord.gg/tpJZ9J3q">Discord</a> |
   <a href="https://twitter.com/fluxturn">Twitter</a>
 </p>
 

@@ -20,7 +20,7 @@ export const BRAND = {
   github: 'https://github.com/fluxturn/fluxturn',
 
   // Community
-  discord: 'https://discord.gg/fluxturn',
+  discord: 'https://discord.gg/tpJZ9J3q',
   twitter: 'https://twitter.com/fluxturn',
 
   // Contact
