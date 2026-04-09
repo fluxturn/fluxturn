@@ -9,6 +9,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 
+const logger = new Logger("Bootstrap");
+
 async function bootstrap() {
   try {
     const app = await NestFactory.create(AppModule, {
@@ -150,7 +152,7 @@ async function bootstrap() {
 
     await app.listen(port, "0.0.0.0");
 
-    console.log(`
+    logger.log(`
     ========================================
     🚀 FluxTurn Backend is running!
     ========================================
@@ -162,13 +164,13 @@ async function bootstrap() {
     ========================================
     `);
   } catch (error) {
-    console.error("❌ Error starting application:", error);
-    console.error("Stack trace:", error.stack);
+    logger.error("Error starting application:", error);
+    logger.error("Stack trace:", error.stack);
     process.exit(1);
   }
 }
 
 bootstrap().catch((error) => {
-  console.error("❌ Fatal error during bootstrap:", error);
+  logger.error("Fatal error during bootstrap:", error);
   process.exit(1);
 });
