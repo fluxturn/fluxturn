@@ -8,7 +8,6 @@ import {
   FeaturesSection,
   IntegrationsSection,
   WhyFluxTurnSection,
-  PricingSection,
   BlogSection,
   CTASection,
   FAQSection
@@ -45,9 +44,6 @@ const Landing = () => {
 
       {/* Why Choose FluxTurn Section */}
       <WhyFluxTurnSection />
-
-      {/* Pricing Section */}
-      <PricingSection />
 
       {/* Blog Section */}
       <BlogSection />

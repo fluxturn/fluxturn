@@ -489,15 +489,6 @@ export function DocsLayout({ children }: DocsLayoutProps) {
                       Features
                     </a>
                   </li>
-                  <li>
-                    <a
-                      href="/#pricing"
-                      onClick={(e) => handleLandingPageLink(e, '/#pricing')}
-                      className="text-gray-400 hover:text-emerald-400 transition-colors cursor-pointer"
-                    >
-                      Pricing
-                    </a>
-                  </li>
                   <li><Link to="/docs" className="text-gray-400 hover:text-emerald-400 transition-colors">Documentation</Link></li>
                   <li>
                     <a

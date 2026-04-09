@@ -88,7 +88,6 @@ export const SimpleMegaMenu: React.FC = () => {
                               currentPath.includes('/ai-service') ||
                               currentPath.includes('/settings') ||
                               currentPath.includes('/members') ||
-                              currentPath.includes('/billing') ||
                               currentPath.includes('/integrations') ||
                               currentPath.includes('/collaborators') ||
                               currentPath.includes('/deployments') ||
@@ -280,20 +279,6 @@ export const SimpleMegaMenu: React.FC = () => {
                                     <div className="flex-1 min-w-0">
                                       <div className="text-sm font-medium text-white">Members</div>
                                       <div className="text-xs text-white/60">Manage team members</div>
-                                    </div>
-                                    <ArrowRight className="w-3 h-3 text-white/40 group-hover:text-white/60 transition-colors" />
-                                  </button>
-                                  <button
-                                    onClick={() => {
-                                      navigate(`/org/${menuData.selectedOrganization.id}/billing`)
-                                      setShowOrgDropdown(false)
-                                    }}
-                                    className="flex items-center space-x-3 w-full px-3 py-2 rounded-lg text-left hover:bg-white/10 transition-all group"
-                                  >
-                                    <Users className="w-4 h-4 text-primary" />
-                                    <div className="flex-1 min-w-0">
-                                      <div className="text-sm font-medium text-white">Billing</div>
-                                      <div className="text-xs text-white/60">Manage billing</div>
                                     </div>
                                     <ArrowRight className="w-3 h-3 text-white/40 group-hover:text-white/60 transition-colors" />
                                   </button>

@@ -12,7 +12,6 @@ export { UseCasesSection } from './UseCasesSection';
 export { WhyFluxTurnSection } from './WhyFluxTurnSection';
 export { TestimonialsSection } from './TestimonialsSection';
 export { ReadyToStartSection } from './ReadyToStartSection';
-export { PricingSection } from './PricingSection';
 export { BlogSection } from './BlogSection';
 export { CTASection } from './CTASection';
 export { FAQSection } from './FAQSection';

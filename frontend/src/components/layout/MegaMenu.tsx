@@ -25,7 +25,6 @@ import {
   Key,
   User,
   LogOut,
-  CreditCard,
   HelpCircle,
   Plus,
   Check,
@@ -118,7 +117,6 @@ const getOrganizationMenuSections = (orgId: string): MenuSection[] => [
       { title: 'Overview', description: 'Organization dashboard', href: `/org/${orgId}`, icon: <LayoutGrid className="w-5 h-5" /> },
       { title: 'Settings', description: 'Organization settings', href: `/org/${orgId}/settings`, icon: <Settings className="w-5 h-5" /> },
       { title: 'Members', description: 'Manage team members', href: `/org/${orgId}/members`, icon: <Users className="w-5 h-5" /> },
-      { title: 'Billing', description: 'Plans and billing', href: `/org/${orgId}/billing`, icon: <CreditCard className="w-5 h-5" /> },
     ]
   },
   {
@@ -876,17 +874,6 @@ export const MegaMenu: React.FC = () => {
                       >
                         <User className="w-4 h-4 text-muted-foreground" />
                         <span className="text-sm">Profile Settings</span>
-                      </button>
-                      
-                      <button
-                        onClick={() => {
-                          navigate('/settings/billing')
-                          setShowUserMenu(false)
-                        }}
-                        className="flex items-center space-x-3 w-full px-3 py-2 hover:bg-white/10 rounded-lg transition-all"
-                      >
-                        <CreditCard className="w-4 h-4 text-muted-foreground" />
-                        <span className="text-sm">Billing & Plans</span>
                       </button>
                       
                       <button

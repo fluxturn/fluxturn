@@ -70,7 +70,6 @@ export function Header() {
     { key: "features", href: "/features" },
     { key: "tutorials", href: "/tutorials" },
     { key: "templates", href: "/templates" },
-    { key: "pricing", href: "/#pricing" },
     { key: "documents", href: "/docs" },
     { key: "blog", href: "/blog" },
   ];

@@ -86,7 +86,6 @@ export function Footer() {
       { key: 'visualBuilders', href: '/docs/visual-builder' },
       { key: 'aiPlatform', href: '/docs/ai' },
       { key: 'integrations', href: '/docs/integrations-overview' },
-      { key: 'pricing', href: '/pricing' },
     ],
     developers: [
       { key: 'documentation', href: '/docs' },

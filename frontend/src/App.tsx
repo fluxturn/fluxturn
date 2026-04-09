@@ -36,7 +36,6 @@ import Landing from "./pages/Landing";
 import { PublicLayout } from "./components/layout/PublicLayout";
 
 // Public pages
-import { Pricing } from "./pages/Pricing";
 import { Privacy } from "./pages/Privacy";
 import { Terms } from "./pages/Terms";
 import { Security } from "./pages/Security";
@@ -58,7 +57,6 @@ import { CreateOrganizationSimple } from "./pages/organizations/CreateOrganizati
 import { OrganizationDashboard } from "./pages/organizations/OrganizationDashboard";
 import { OrganizationMembers } from "./pages/organizations/OrganizationMembers";
 import { OrganizationSettings } from "./pages/organizations/OrganizationSettings";
-import { OrganizationBillingPage } from "./pages/organizations/OrganizationBillingPage";
 import { OrganizationIntegrations } from "./pages/organizations/OrganizationIntegrations";
 import { AcceptInvitationPage } from "./pages/organizations/AcceptInvitationPage";
 
@@ -114,7 +112,6 @@ function App() {
             <Route path="/" element={<Landing />} />
             <Route path="/features" element={<Features />} />
             <Route path="/tutorials" element={<Tutorials />} />
-            <Route path="/pricing" element={<Pricing />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/security" element={<Security />} />
@@ -216,17 +213,6 @@ function App() {
               <ProtectedRoute>
                 <Layout>
                   <OrganizationSettings />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/org/:organizationId/billing"
-            element={
-              <ProtectedRoute>
-                <Layout>
-                  <OrganizationBillingPage />
                 </Layout>
               </ProtectedRoute>
             }
