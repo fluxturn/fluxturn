@@ -530,7 +530,7 @@ FluxTurn-এ অবদান রাখা সকল অসাধারণ মা
 | 💬 **Discord** | রিয়েল-টাইম চ্যাট, সাহায্য পান, ফিচার নিয়ে আলোচনা করুন | [সার্ভারে যোগ দিন](https://discord.gg/tpJZ9J3q) |
 | 💡 **GitHub Discussions** | প্রশ্ন জিজ্ঞাসা করুন, ধারণা শেয়ার করুন, ফিচার অনুরোধ করুন | [আলোচনা শুরু করুন](https://github.com/fluxturn/fluxturn/discussions) |
 | 🐦 **Twitter/X** | পণ্য আপডেট, ঘোষণা, টিপস | [@fluxturn](https://twitter.com/fluxturn) |
-| 📧 **Email** | রক্ষণাবেক্ষণকারীদের সাথে সরাসরি যোগাযোগ | hello@fluxturn.com |
+| 📧 **Email** | রক্ষণাবেক্ষণকারীদের সাথে সরাসরি যোগাযোগ | support@fluxturn.com |
 | 🌐 **Website** | ডকুমেন্টেশন, গাইড, ব্লগ | [fluxturn.com](https://fluxturn.com) |
 
 ### কমিউনিটি নির্দেশিকা

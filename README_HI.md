@@ -530,7 +530,7 @@ FluxTurn में योगदान देने वाले सभी अद
 | 💬 **Discord** | रियल-टाइम चैट, मदद प्राप्त करें, सुविधाओं पर चर्चा करें | [सर्वर में शामिल हों](https://discord.gg/tpJZ9J3q) |
 | 💡 **GitHub Discussions** | प्रश्न पूछें, विचार साझा करें, सुविधाओं का अनुरोध करें | [चर्चा शुरू करें](https://github.com/fluxturn/fluxturn/discussions) |
 | 🐦 **Twitter/X** | उत्पाद अपडेट, घोषणाएं, सुझाव | [@fluxturn](https://twitter.com/fluxturn) |
-| 📧 **Email** | रखरखावकर्ताओं से सीधा संपर्क | hello@fluxturn.com |
+| 📧 **Email** | रखरखावकर्ताओं से सीधा संपर्क | support@fluxturn.com |
 | 🌐 **Website** | दस्तावेज़ीकरण, गाइड, ब्लॉग | [fluxturn.com](https://fluxturn.com) |
 
 ### समुदाय दिशानिर्देश

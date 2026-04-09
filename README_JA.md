@@ -530,7 +530,7 @@ FluxTurnに貢献してくださったすべての素晴らしい方々に感謝
 | 💬 **Discord** | リアルタイムチャット、ヘルプ、機能の議論 | [サーバーに参加](https://discord.gg/tpJZ9J3q) |
 | 💡 **GitHub Discussions** | 質問、アイデアの共有、機能リクエスト | [ディスカッションを開始](https://github.com/fluxturn/fluxturn/discussions) |
 | 🐦 **Twitter/X** | 製品アップデート、お知らせ、ヒント | [@fluxturn](https://twitter.com/fluxturn) |
-| 📧 **Email** | メンテナに直接連絡 | hello@fluxturn.com |
+| 📧 **Email** | メンテナに直接連絡 | support@fluxturn.com |
 | 🌐 **Website** | ドキュメント、ガイド、ブログ | [fluxturn.com](https://fluxturn.com) |
 
 ### コミュニティガイドライン

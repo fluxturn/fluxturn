@@ -530,7 +530,7 @@ FluxTurn에 기여해주신 모든 훌륭한 분들께 감사드립니다! 🎉
 | 💬 **Discord** | 실시간 채팅, 도움 받기, 기능 토론 | [서버 참여](https://discord.gg/tpJZ9J3q) |
 | 💡 **GitHub Discussions** | 질문하기, 아이디어 공유, 기능 요청 | [토론 시작](https://github.com/fluxturn/fluxturn/discussions) |
 | 🐦 **Twitter/X** | 제품 업데이트, 공지사항, 팁 | [@fluxturn](https://twitter.com/fluxturn) |
-| 📧 **Email** | 관리자에게 직접 연락 | hello@fluxturn.com |
+| 📧 **Email** | 관리자에게 직접 연락 | support@fluxturn.com |
 | 🌐 **Website** | 문서, 가이드, 블로그 | [fluxturn.com](https://fluxturn.com) |
 
 ### 커뮤니티 가이드라인

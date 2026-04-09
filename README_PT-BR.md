@@ -530,7 +530,7 @@ Conecte-se com desenvolvedores, obtenha ajuda e fique atualizado sobre os últim
 | 💬 **Discord** | Chat em tempo real, obter ajuda, discutir recursos | [Entrar no Servidor](https://discord.gg/tpJZ9J3q) |
 | 💡 **GitHub Discussions** | Fazer perguntas, compartilhar ideias, solicitar recursos | [Iniciar Discussão](https://github.com/fluxturn/fluxturn/discussions) |
 | 🐦 **Twitter/X** | Atualizações de produtos, anúncios, dicas | [@fluxturn](https://twitter.com/fluxturn) |
-| 📧 **Email** | Contato direto com mantenedores | hello@fluxturn.com |
+| 📧 **Email** | Contato direto com mantenedores | support@fluxturn.com |
 | 🌐 **Website** | Documentação, guias, blog | [fluxturn.com](https://fluxturn.com) |
 
 ### Diretrizes da Comunidade

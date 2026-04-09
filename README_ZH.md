@@ -530,7 +530,7 @@ git push origin feature/your-feature-name
 | 💬 **Discord** | 实时聊天、获取帮助、讨论功能 | [加入服务器](https://discord.gg/tpJZ9J3q) |
 | 💡 **GitHub Discussions** | 提问、分享想法、功能请求 | [开始讨论](https://github.com/fluxturn/fluxturn/discussions) |
 | 🐦 **Twitter/X** | 产品更新、公告、提示 | [@fluxturn](https://twitter.com/fluxturn) |
-| 📧 **Email** | 直接联系维护者 | hello@fluxturn.com |
+| 📧 **Email** | 直接联系维护者 | support@fluxturn.com |
 | 🌐 **Website** | 文档、指南、博客 | [fluxturn.com](https://fluxturn.com) |
 
 ### 社区准则

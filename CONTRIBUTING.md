@@ -27,12 +27,12 @@ Open a [Feature Request](https://github.com/fluxturn/fluxturn/issues/new?templat
 ### Submitting Pull Requests
 
 1. Fork the repository
-2. Create a feature branch from `develop`: `git checkout -b feature/your-feature`
+2. Create a feature branch from `main`: `git checkout -b feature/your-feature`
 3. Make your changes
 4. Run tests: `cd backend && npm test`
 5. Run linting: `cd frontend && npm run lint`
 6. Commit with a descriptive message
-7. Push and open a Pull Request against `develop`
+7. Push and open a Pull Request against `main`
 
 ## Development Setup
 
@@ -77,7 +77,7 @@ fluxturn/
         auth/                 # Authentication (JWT, OAuth, API keys)
         database/             # PostgreSQL platform service
         fluxturn/
-          connectors/         # 80+ connector implementations
+          connectors/         # 120+ connector implementations
           workflow/            # Workflow engine
           conversations/      # AI conversations
         ai/                   # AI services (OpenAI, LangChain)
@@ -105,11 +105,11 @@ fluxturn/
 
 ## Adding a New Connector
 
-This is one of the most valuable ways to contribute. See the [Connector Development Guide](backend/.claude/CONNECTOR_TESTING_GUIDE.md) for the full pattern.
+This is one of the most valuable ways to contribute. See the [Connector Development Guide](docs/guides/connector-development.md) for the full pattern.
 
 **Quick overview:**
 
-1. Add the connector definition to `backend/src/common/constants/connector.constants.ts`
+1. Add the connector definition to `backend/src/modules/fluxturn/common/constants/connector.constants.ts`
 2. Create the connector class in `backend/src/modules/fluxturn/connectors/<category>/`
 3. Extend `BaseConnector` and implement the category interface
 4. Register in the connectors module
@@ -118,7 +118,7 @@ This is one of the most valuable ways to contribute. See the [Connector Developm
 
 ## Documenting a Connector
 
-We're documenting all 126 FluxTurn connectors. Each connector gets one markdown file in [`docs/connectors/`](docs/connectors/). This is one of the easiest ways to make a first contribution — no code required.
+We're documenting all 120+ FluxTurn connectors. Each connector gets one markdown file in [`docs/connectors/`](docs/connectors/). This is one of the easiest ways to make a first contribution — no code required.
 
 **To document a connector:**
 

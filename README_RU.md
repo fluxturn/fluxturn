@@ -530,7 +530,7 @@ git push origin feature/your-feature-name
 | 💬 **Discord** | Чат в реальном времени, получение помощи, обсуждение функций | [Присоединиться к Серверу](https://discord.gg/tpJZ9J3q) |
 | 💡 **GitHub Discussions** | Задавать вопросы, делиться идеями, запрашивать функции | [Начать Обсуждение](https://github.com/fluxturn/fluxturn/discussions) |
 | 🐦 **Twitter/X** | Обновления продукта, объявления, советы | [@fluxturn](https://twitter.com/fluxturn) |
-| 📧 **Email** | Прямой контакт с мейнтейнерами | hello@fluxturn.com |
+| 📧 **Email** | Прямой контакт с мейнтейнерами | support@fluxturn.com |
 | 🌐 **Website** | Документация, руководства, блог | [fluxturn.com](https://fluxturn.com) |
 
 ### Правила Сообщества

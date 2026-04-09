@@ -530,7 +530,7 @@ git push origin feature/your-feature-name
 | 💬 **Discord** | Chat en tiempo real, obtener ayuda, discutir características | [Unirse al Servidor](https://discord.gg/tpJZ9J3q) |
 | 💡 **GitHub Discussions** | Hacer preguntas, compartir ideas, solicitar características | [Iniciar Discusión](https://github.com/fluxturn/fluxturn/discussions) |
 | 🐦 **Twitter/X** | Actualizaciones de productos, anuncios, consejos | [@fluxturn](https://twitter.com/fluxturn) |
-| 📧 **Email** | Contacto directo con mantenedores | hello@fluxturn.com |
+| 📧 **Email** | Contacto directo con mantenedores | support@fluxturn.com |
 | 🌐 **Website** | Documentación, guías, blog | [fluxturn.com](https://fluxturn.com) |
 
 ### Directrices de la Comunidad
