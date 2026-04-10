@@ -371,7 +371,6 @@ Here's what we're building and where you can contribute. Items marked with 🆘 
 - [ ] **CLI Tool** -- Manage workflows from terminal
 - [ ] 🆘 **Workflow as Code** -- Define workflows in YAML/JSON
 - [ ] **CI/CD Integration** -- GitHub Actions, GitLab CI connectors
-- [ ] **Mobile App** -- iOS/Android workflow monitoring
 
 **🧩 Developer Experience**
 - [ ] 🆘 **Plugin System** -- Custom nodes and connectors via plugins
