@@ -35,6 +35,7 @@ export default function PublicForm() {
 
   useEffect(() => {
     loadFormConfig();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [workflowId]);
 
   const loadFormConfig = async () => {

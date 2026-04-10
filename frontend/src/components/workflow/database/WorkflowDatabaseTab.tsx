@@ -57,6 +57,7 @@ export function WorkflowDatabaseTab({ databaseNodes, panelHeight }: WorkflowData
     if (selectedNode && !showManualForm) {
       loadTables();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedNode, schema, showManualForm]);
 
   // Load data when table changes
@@ -65,6 +66,7 @@ export function WorkflowDatabaseTab({ databaseNodes, panelHeight }: WorkflowData
       loadColumns();
       loadData(1);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTable, selectedNode, showManualForm]);
 
   const loadTables = async () => {

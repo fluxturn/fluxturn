@@ -42,6 +42,9 @@ export const ContextProviders: React.FC<ContextProvidersProps> = ({ children }) 
 
 // Export individual contexts
 export { AuthProvider, AuthContext } from './AuthContext';
+// eslint-disable-next-line react-refresh/only-export-components
 export { WebSocketProvider, useWebSocket } from './WebSocketContext';
+// eslint-disable-next-line react-refresh/only-export-components
 export { OrganizationProvider, useOrganization, useOrganizationFromParams } from './OrganizationContext';
+// eslint-disable-next-line react-refresh/only-export-components
 export { ProjectProvider, useProject, useProjectFromParams } from './ProjectContext';

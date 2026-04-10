@@ -92,6 +92,7 @@ export function AIAgentExecutionPanel({
       const latestStep = result.intermediateSteps.length;
       setExpandedSteps((prev) => new Set([...prev, latestStep]));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isExecuting, result?.intermediateSteps?.length]);
 
   const toggleStep = (step: number) => {

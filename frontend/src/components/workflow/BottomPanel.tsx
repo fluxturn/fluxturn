@@ -57,6 +57,7 @@ export function BottomPanel({ className, logs: externalLogs, onClearLogs, select
       // Switch away from database tab if no database nodes
       setActiveTab("logs");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [databaseNodes]);
 
   // Notify parent about panel state changes

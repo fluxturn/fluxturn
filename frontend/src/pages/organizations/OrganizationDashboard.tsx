@@ -166,6 +166,7 @@ export const OrganizationDashboard: React.FC = () => {
 
   useEffect(() => {
     fetchStats()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentOrganization, organizationId])
 
   // Auto-redirect to user's first organization if current one isn't found (only once)

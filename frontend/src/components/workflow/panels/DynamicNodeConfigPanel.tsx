@@ -130,6 +130,7 @@ export function DynamicNodeConfigPanel({
     };
 
     loadCredentials();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [node?.data?.connectorType, isOpen]);
 
   useEffect(() => {
@@ -173,6 +174,7 @@ export function DynamicNodeConfigPanel({
         }
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [node, inputSchema, selectedCredential]);
 
   // Auto-switch mode based on AI Agent connection
@@ -185,6 +187,7 @@ export function DynamicNodeConfigPanel({
       // Clear AI-controlled fields when disconnected
       setAiControlledFields(new Set());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isConnectedToAIToolsHandle]);
 
   const loadDynamicOptions = async (fieldKey: string, field: InputSchemaField) => {

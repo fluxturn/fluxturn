@@ -110,6 +110,7 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useProject = () => {
   const context = useContext(ProjectContext);
   if (context === undefined) {
@@ -122,6 +123,7 @@ export const useProject = () => {
  * Hook that automatically sets project ID from URL params
  * Use this in any page component that has :projectId in the route
  */
+// eslint-disable-next-line react-refresh/only-export-components
 export const useProjectFromParams = () => {
   const context = useProject();
   const params = useParams<{ projectId?: string }>();
@@ -135,6 +137,7 @@ export const useProjectFromParams = () => {
   return context;
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useProjectRequired = () => {
   const context = useProject();
   if (!context.projectId) {

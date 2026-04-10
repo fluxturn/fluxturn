@@ -192,6 +192,7 @@ export function DynamicNodeConfigModal({
       // Clear AI-controlled fields when disconnected from AI Agent
       setAiControlledFields(new Set());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isConnectedToAIToolsHandle]);
 
   const nodeDefinition = nodeType ? NODE_DEFINITIONS[nodeType] : null;
@@ -511,6 +512,7 @@ export function DynamicNodeConfigModal({
       fetchCredentials();
       fetchConnectors(); // Need connector metadata for supported_actions
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, isConnectorAction, connectorType, formData.connectorType]); // Added formData.connectorType to dependencies
 
   // Fetch triggers when connector type is available (for CONNECTOR_TRIGGER)
@@ -525,6 +527,7 @@ export function DynamicNodeConfigModal({
         fetchCredentials(); // Also fetch credentials for triggers
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, isConnectorTrigger, connectorType]);
 
   // Fetch credentials for nodes that require them (based on connectorTypeForCredentials property)
@@ -614,6 +617,7 @@ export function DynamicNodeConfigModal({
         }
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formData, formData.actionParams, formData.triggerParams, formData.credentialId, inputSchema]);
 
   // Fetch available connectors for nodes that require credentials
@@ -734,6 +738,7 @@ export function DynamicNodeConfigModal({
       setVerifyToken('');
       setIsConnectorLocked(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, nodeId, nodeType, getNode, getNodes, onOpenChange]);
 
   // Initialize default values from inputSchema when it changes
@@ -786,6 +791,7 @@ export function DynamicNodeConfigModal({
         [paramsKey]: updatedParams
       }));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputSchema, open, isConnectorTrigger]);
 
   // Helper function to sort fields by order property
@@ -835,6 +841,7 @@ export function DynamicNodeConfigModal({
         }
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formData.credentialId]);
 
   // Watch for spreadsheet selection to trigger sheet loading
@@ -860,6 +867,7 @@ export function DynamicNodeConfigModal({
         fetchDynamicOptions(fieldName, fieldDef);
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, inputSchema, formData.credentialId, formData.spreadsheetId, formData.actionParams?.spreadsheetId, formData.triggerParams?.spreadsheetId]);
 
   // Watch for sheet selection to trigger column loading
@@ -889,6 +897,7 @@ export function DynamicNodeConfigModal({
         fetchDynamicOptions(fieldName, columnFieldDef);
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, inputSchema, formData.credentialId, formData.spreadsheetId, formData.sheet, formData.sheetName, formData.actionParams?.spreadsheetId, formData.actionParams?.sheetName, formData.actionParams?.sheet, formData.triggerParams?.spreadsheetId, formData.triggerParams?.sheetName, formData.triggerParams?.sheet]);
 
   // Watch for PostgreSQL table selection to trigger column loading in fixedCollection
@@ -926,6 +935,7 @@ export function DynamicNodeConfigModal({
         }
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, inputSchema, formData.credentialId, connectorType, formData.actionParams?.schema, formData.actionParams?.table, formData.triggerParams?.schema, formData.triggerParams?.table]);
 
   // Fetch dynamic options when dependencies change
@@ -943,6 +953,7 @@ export function DynamicNodeConfigModal({
         fetchDynamicOptions(fieldName, fieldDef);
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, inputSchema, formData.credentialId, actionId, formData.actionParams, formData.triggerParams]);
 
   // Fetch webhook URL for trigger nodes

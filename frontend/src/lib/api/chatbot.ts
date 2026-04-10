@@ -98,7 +98,7 @@ export interface CreateChatbotConfigDto {
   uiConfig?: Record<string, unknown>;
 }
 
-export interface UpdateChatbotConfigDto extends Partial<CreateChatbotConfigDto> {}
+export type UpdateChatbotConfigDto = Partial<CreateChatbotConfigDto>
 
 export const chatbotConfigApi = {
   // Get chatbot configurations by context

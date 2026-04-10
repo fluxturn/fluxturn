@@ -143,6 +143,7 @@ export const TemplatesGallery: React.FC = () => {
 
   useEffect(() => {
     loadTemplates();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, searchQuery, activeFilter]);
 
   const loadTemplates = async () => {

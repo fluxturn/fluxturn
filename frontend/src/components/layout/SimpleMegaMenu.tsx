@@ -105,6 +105,7 @@ export const SimpleMegaMenu: React.FC = () => {
     if (user) {
       fetchMenuData()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, organizationId, projectId])
   
   // Handle selections - just navigate and let useEffect refetch

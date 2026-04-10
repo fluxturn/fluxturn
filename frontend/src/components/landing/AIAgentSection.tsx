@@ -167,6 +167,8 @@ function ExecutionLog() {
   const [visibleSteps, setVisibleSteps] = useState<number[]>([]);
   const [, setCurrentStep] = useState(0);
 
+  const isStepsEmpty = visibleSteps.length === 0;
+
   useEffect(() => {
     const timers: NodeJS.Timeout[] = [];
 
@@ -186,7 +188,7 @@ function ExecutionLog() {
     timers.push(resetTimer);
 
     return () => timers.forEach(t => clearTimeout(t));
-  }, [visibleSteps.length === 0]);
+  }, [isStepsEmpty]);
 
   const getStepIcon = (type: string, isVisible: boolean) => {
     if (!isVisible) return <Circle className="w-3 h-3 text-gray-300" />;
@@ -342,6 +344,8 @@ export function AIAgentSection() {
   const isAuthenticated = authContext?.isAuthenticated ?? false;
   const organizations = authContext?.organizations ?? [];
 
+  const isActiveNodeNull = activeNode === null;
+
   // Animate active node based on execution
   useEffect(() => {
     const sequence = [
@@ -362,7 +366,7 @@ export function AIAgentSection() {
     timers.push(resetTimer);
 
     return () => timers.forEach(t => clearTimeout(t));
-  }, [activeNode === null]);
+  }, [isActiveNodeNull]);
 
   const createAIAgentWorkflow = async () => {
     try {

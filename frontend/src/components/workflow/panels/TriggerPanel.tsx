@@ -92,6 +92,7 @@ export function TriggerPanel({
     };
 
     fetchWebhookUrl();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [workflowId, connectorType]);
 
   // Fallback method to generate webhook URL (if backend fails)

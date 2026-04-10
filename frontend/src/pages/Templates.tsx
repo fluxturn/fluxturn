@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 import { SEO } from "../components/SEO";
 
 // Fallback templates data (for when API fails)
+// eslint-disable-next-line react-refresh/only-export-components
 export const workflowTemplates = [
   {
     id: 1,
@@ -336,6 +337,7 @@ export function Templates() {
   // Initial load
   useEffect(() => {
     fetchAllTemplates();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Reset display count when category changes

@@ -102,6 +102,7 @@ const WorkflowBuilderInner: React.FC = () => {
     if (!searchParams.get('tab')) {
       setSearchParams({ tab: activeTab }, { replace: true });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Only run on mount
 
   // Handle OAuth callback success/error on workflow editor
@@ -163,6 +164,7 @@ const WorkflowBuilderInner: React.FC = () => {
       newSearchParams.delete('error');
       setSearchParams(newSearchParams, { replace: true });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Only run on mount
 
   // Handle auto-trigger AI generation from landing page
@@ -197,6 +199,7 @@ const WorkflowBuilderInner: React.FC = () => {
         }, 500);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]); // Re-check when searchParams change
 
   // Listen to node execution WebSocket events
@@ -380,7 +383,7 @@ const WorkflowBuilderInner: React.FC = () => {
 
     document.addEventListener('paste', handlePaste);
     return () => document.removeEventListener('paste', handlePaste);
-  }, [setNodes, setEdges]);
+  }, [setNodes, setEdges, normalizeEdge]);
 
   // Handle OAuth workflow auto-save
   useEffect(() => {
@@ -755,6 +758,7 @@ const WorkflowBuilderInner: React.FC = () => {
     };
 
     loadWorkflow();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, setNodes, setEdges]);
 
   // Track changes to nodes and edges
@@ -774,7 +778,7 @@ const WorkflowBuilderInner: React.FC = () => {
   }, [nodes, edges, initialLoadComplete]);
 
   // Utility function to normalize edge styling
-  const normalizeEdge = (edge: Edge | Connection) => {
+  const normalizeEdge = useCallback((edge: Edge | Connection) => {
     return {
       ...edge,
       type: edge.type || 'default',
@@ -790,14 +794,14 @@ const WorkflowBuilderInner: React.FC = () => {
         stroke: '#06b6d4', // cyan-500
       },
     };
-  };
+  }, []);
 
   const onConnect = useCallback(
     (params: Connection) => {
       const edge = normalizeEdge(params);
       setEdges((eds) => addEdge(edge, eds));
     },
-    [setEdges]
+    [setEdges, normalizeEdge]
   );
 
   const handleNodeClick = useCallback((event: React.MouseEvent, node: Node) => {

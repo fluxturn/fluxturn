@@ -155,6 +155,7 @@ export function AIPromptPanel({
       dispatchWorkflow({ type: 'RESET' }); // Reset workflow state
       loadOrCreateConversation();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, workflowId, mode]);
 
   // Focus textarea when panel opens

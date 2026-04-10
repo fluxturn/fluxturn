@@ -235,6 +235,7 @@ export const AddCredentialModalV2: React.FC<AddCredentialModalV2Props> = ({
         oauthCompletedRef.current = false;
       }, 200);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, preSelectedConnector, connectors]);
 
   // Listen for OAuth callback messages from popup

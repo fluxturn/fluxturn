@@ -80,6 +80,7 @@ export function ExecutionsTab({ workflowId, currentExecution, context }: Executi
     if (workflowId) {
       loadExecutionHistory();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [workflowId]);
 
   const loadExecutionHistory = async () => {

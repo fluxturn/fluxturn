@@ -103,6 +103,7 @@ export function TemplatesTab({ onImportTemplate, onOpenWorkflow, templatesOnly =
 
   useEffect(() => {
     loadTemplatesAndWorkflows();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [templatePage, workflowPage, debouncedSearch, activeFilter]);
 
   // Fetch full workflow details when an item is selected

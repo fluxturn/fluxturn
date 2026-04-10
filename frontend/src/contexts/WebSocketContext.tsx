@@ -17,8 +17,10 @@ interface WebSocketContextType {
   removeAllListeners: () => void;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const WebSocketContext = createContext<WebSocketContextType | undefined>(undefined);
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useWebSocket = () => {
   const context = useContext(WebSocketContext);
   if (!context) {

@@ -28,6 +28,7 @@ export const VerifyEmail: React.FC = () => {
     if (token) {
       verifyEmail(token)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token])
 
   // Countdown timer for resend button

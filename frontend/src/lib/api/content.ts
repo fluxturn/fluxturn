@@ -449,24 +449,16 @@ export const contentApi = {
    * Archive content item
    */
   async archiveContent(contentId: string): Promise<ContentItem> {
-    try {
-      const response = await this.updateContent(contentId, { status: 'archived' });
-      return response;
-    } catch (error: unknown) {
-      throw error;
-    }
+    const response = await this.updateContent(contentId, { status: 'archived' });
+    return response;
   },
 
   /**
    * Publish content item
    */
   async publishContent(contentId: string): Promise<ContentItem> {
-    try {
-      const response = await this.updateContent(contentId, { status: 'published' });
-      return response;
-    } catch (error: unknown) {
-      throw error;
-    }
+    const response = await this.updateContent(contentId, { status: 'published' });
+    return response;
   },
 
   /**

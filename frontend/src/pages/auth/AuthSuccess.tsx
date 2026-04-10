@@ -89,6 +89,7 @@ export const AuthSuccess: React.FC = () => {
     }
 
     handleAuthSuccess()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

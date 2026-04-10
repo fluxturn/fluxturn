@@ -524,8 +524,8 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
 
       // Track if OAuth completed successfully
       let oauthCompleted = false;
-      let popupCheckInterval: ReturnType<typeof setInterval>;
-      let timeout: ReturnType<typeof setTimeout>;
+      const popupCheckInterval: ReturnType<typeof setInterval>;
+      const timeout: ReturnType<typeof setTimeout>;
 
       // Cleanup function to delete credential and clear sessionStorage
       const cleanupOnFailure = async () => {

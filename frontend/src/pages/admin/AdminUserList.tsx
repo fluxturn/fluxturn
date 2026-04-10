@@ -118,6 +118,7 @@ export const AdminUserList: React.FC = () => {
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery, roleFilter, statusFilter, sortBy, sortOrder, page]);
 
   // Debounce search

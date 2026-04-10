@@ -251,7 +251,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
           </div>
         );
 
-      case 'switch':
+      case 'switch': {
         const cases = config.cases || [];
         return (
           <div className="space-y-4">
@@ -333,6 +333,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
             </div>
           </div>
         );
+      }
 
       case 'parallel':
         return (

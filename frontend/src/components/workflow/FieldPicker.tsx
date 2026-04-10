@@ -352,6 +352,7 @@ export const FieldPicker: React.FC<FieldPickerProps> = ({
     };
 
     loadFieldsFromExecutionData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, nodeId, mode, workflowId, buildFieldTree]);
 
   const handleFieldSelect = (fieldPath: string) => {

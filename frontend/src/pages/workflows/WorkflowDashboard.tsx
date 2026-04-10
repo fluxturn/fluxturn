@@ -132,6 +132,7 @@ export const WorkflowDashboard: React.FC = () => {
     if (activeTab === 'executions') {
       fetchExecutions();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab, executionsPagination.page, executionStatusFilter]);
 
   useEffect(() => {
@@ -152,6 +153,7 @@ export const WorkflowDashboard: React.FC = () => {
         if (timer) clearTimeout(timer);
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [executionSearchQuery]);
 
   const fetchWorkflows = async () => {

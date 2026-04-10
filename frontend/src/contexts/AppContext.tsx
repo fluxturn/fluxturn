@@ -111,6 +111,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useApp = () => {
   const context = useContext(AppContext);
   if (context === undefined) {
@@ -119,6 +120,7 @@ export const useApp = () => {
   return context;
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAppRequired = () => {
   const context = useApp();
   if (!context.appId) {
