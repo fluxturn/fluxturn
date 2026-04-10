@@ -1,10 +1,11 @@
 import { api } from '../api';
+import type { JsonObject } from '../../types/json';
 
 // Types based on backend DTOs and extended for frontend needs
 export interface SendToQueueDto {
-  body: Record<string, any>;
+  body: JsonObject;
   queueUrl: string;
-  attributes?: Record<string, any>;
+  attributes?: JsonObject;
   messageGroupId?: string;
   delaySeconds?: number;
 }
@@ -25,8 +26,8 @@ export interface DeleteFromQueueDto {
 export interface QueueMessage {
   messageId: string;
   receiptHandle: string;
-  body: Record<string, any>;
-  attributes?: Record<string, any>;
+  body: JsonObject;
+  attributes?: JsonObject;
   messageGroupId?: string;
   timestamp: string;
   approximateReceiveCount: number;
@@ -69,7 +70,7 @@ export interface JobDefinition {
   name: string;
   type: 'immediate' | 'delayed' | 'recurring';
   queueUrl: string;
-  payload: Record<string, any>;
+  payload: JsonObject;
   schedule?: string; // cron expression for recurring jobs
   delaySeconds?: number;
   priority?: number;
@@ -115,7 +116,7 @@ export interface JobLog {
   timestamp: string;
   level: 'info' | 'warn' | 'error' | 'debug';
   message: string;
-  metadata?: Record<string, any>;
+  metadata?: JsonObject;
 }
 
 export interface QueueWorker {
@@ -159,7 +160,7 @@ export interface CreateJobDto {
   name: string;
   type: 'immediate' | 'delayed' | 'recurring';
   queueUrl: string;
-  payload: Record<string, any>;
+  payload: JsonObject;
   schedule?: string;
   delaySeconds?: number;
   priority?: number;

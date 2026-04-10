@@ -49,11 +49,11 @@ export const CreateProjectSimple: React.FC = () => {
       } else {
         throw new Error('Failed to create project')
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error creating project:', error)
-      
+
       // The server now sends user-friendly error messages
-      let errorMessage = error.message || 'Failed to create project. Please try again.';
+      let errorMessage = error instanceof Error ? error.message : 'Failed to create project. Please try again.';
       
       // Additional client-side handling for specific cases
       if (errorMessage.includes('already exists') || errorMessage.includes('already taken')) {

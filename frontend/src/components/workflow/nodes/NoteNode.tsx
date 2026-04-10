@@ -25,8 +25,8 @@ export const NoteNode = memo((props: NodeProps) => {
   const { setNodes, setEdges } = useReactFlow();
   const [isEditing, setIsEditing] = useState(false);
   const [showColorPicker, setShowColorPicker] = useState(false);
-  const [content, setContent] = useState(((data as any)?.content as string) || "I'm a note\n\nDouble click to edit me.");
-  const [colorIndex, setColorIndex] = useState(parseInt(((data as any)?.color as string) || '0'));
+  const [content, setContent] = useState(((data as Record<string, unknown>)?.content as string) || "I'm a note\n\nDouble click to edit me.");
+  const [colorIndex, setColorIndex] = useState(parseInt(((data as Record<string, unknown>)?.color as string) || '0'));
 
   const handleDoubleClick = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();

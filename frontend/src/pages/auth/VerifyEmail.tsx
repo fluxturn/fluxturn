@@ -53,7 +53,7 @@ export const VerifyEmail: React.FC = () => {
       setTimeout(() => {
         navigate('/login')
       }, 3000)
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Email verification failed:', error)
       setState('error')
     }
@@ -72,7 +72,7 @@ export const VerifyEmail: React.FC = () => {
       } else {
         throw new Error('Email address is required to resend verification')
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to resend email:', error)
       // You could set an error state here if needed
     } finally {

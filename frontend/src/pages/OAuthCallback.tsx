@@ -128,7 +128,7 @@ export const OAuthCallback: React.FC = () => {
 
       try {
         // Send code to backend
-        const payload: any = {
+        const payload: { code: string; state: string; code_verifier?: string } = {
           code,
           state
         };
@@ -168,10 +168,11 @@ export const OAuthCallback: React.FC = () => {
           }
         }, 2000);
 
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error('OAuth callback error:', error);
         setStatus('error');
-        setMessage(error.response?.data?.message || 'Failed to complete OAuth flow');
+        const errObj = error as { response?: { data?: { message?: string } } };
+        setMessage(errObj.response?.data?.message || 'Failed to complete OAuth flow');
 
         // Clean up sessionStorage - credential was already deleted by backend
         sessionStorage.removeItem('oauth_state');

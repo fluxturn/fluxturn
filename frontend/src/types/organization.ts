@@ -1,3 +1,5 @@
+import type { JsonObject } from './json';
+
 export interface Organization {
   id: string;
   name: string;
@@ -5,7 +7,7 @@ export interface Organization {
   website?: string;
   logo?: string;
   plan?: string;
-  settings?: Record<string, any>;
+  settings?: JsonObject;
   createdAt: string; // Backend returns camelCase
   updatedAt: string; // Backend returns camelCase
   _count?: {

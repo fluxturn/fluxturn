@@ -57,7 +57,7 @@ interface App {
   name: string
   framework: string
   status: string
-  _count?: any
+  _count?: Record<string, number>
 }
 
 interface MenuCategory {
@@ -91,7 +91,7 @@ const addToRecent = (type: 'organizations' | 'projects', item: Organization | Pr
 
   const key = `recent-${type}`
   const current = JSON.parse(localStorage.getItem(key) || '[]')
-  const updated = [item, ...current.filter((i: any) => i.id !== item.id)].slice(0, 5)
+  const updated = [item, ...current.filter((i: { id: string }) => i.id !== item.id)].slice(0, 5)
   localStorage.setItem(key, JSON.stringify(updated))
 }
 

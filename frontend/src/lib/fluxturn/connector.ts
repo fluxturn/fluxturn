@@ -1,24 +1,25 @@
 import { api } from '../api';
+import type { JsonObject } from '../../types/json';
 
 export class ConnectorAPI {
   /**
    * Get available connector types (platform-level, no tenant context needed)
    */
-  static async getAvailableConnectors(): Promise<any> {
+  static async getAvailableConnectors(): Promise<unknown> {
     return api.get('/workflow/connectors');
   }
 
   /**
    * Get available connector types list (platform-level, no tenant context needed)
    */
-  static async getAvailableConnectorsList(): Promise<any> {
+  static async getAvailableConnectorsList(): Promise<unknown> {
     return api.get('/connectors/available/list');
   }
 
   /**
    * Get user's configured connector instances (tenant-scoped)
    */
-  static async getConnectorConfigs(organizationId?: string, projectId?: string, appId?: string): Promise<any> {
+  static async getConnectorConfigs(organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
     if (organizationId) api.setOrganizationId(organizationId);
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);
@@ -32,8 +33,8 @@ export class ConnectorAPI {
   static async createConnectorConfig(config: {
     connectorType: string;
     name: string;
-    config: any;
-  }, organizationId?: string, projectId?: string, appId?: string): Promise<any> {
+    config: JsonObject;
+  }, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
     if (organizationId) api.setOrganizationId(organizationId);
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);
@@ -44,7 +45,7 @@ export class ConnectorAPI {
   /**
    * Update a connector config (tenant-scoped)
    */
-  static async updateConnectorConfig(configId: string, config: any, organizationId?: string, projectId?: string, appId?: string): Promise<any> {
+  static async updateConnectorConfig(configId: string, config: JsonObject, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
     if (organizationId) api.setOrganizationId(organizationId);
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);
@@ -55,7 +56,7 @@ export class ConnectorAPI {
   /**
    * Delete a connector config (tenant-scoped)
    */
-  static async deleteConnectorConfig(configId: string, organizationId?: string, projectId?: string, appId?: string): Promise<any> {
+  static async deleteConnectorConfig(configId: string, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
     if (organizationId) api.setOrganizationId(organizationId);
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);
@@ -66,7 +67,7 @@ export class ConnectorAPI {
   /**
    * Test a connector config (tenant-scoped)
    */
-  static async testConnectorConfig(configId: string, organizationId?: string, projectId?: string, appId?: string): Promise<any> {
+  static async testConnectorConfig(configId: string, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
     if (organizationId) api.setOrganizationId(organizationId);
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);
@@ -77,7 +78,7 @@ export class ConnectorAPI {
   /**
    * Execute a connector config (tenant-scoped)
    */
-  static async executeConnector(configId: string, params: any, organizationId?: string, projectId?: string, appId?: string): Promise<any> {
+  static async executeConnector(configId: string, params: JsonObject, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
     if (organizationId) api.setOrganizationId(organizationId);
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);

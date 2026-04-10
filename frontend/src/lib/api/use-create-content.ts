@@ -5,14 +5,14 @@ import { api } from '../api';
 export interface CreateContentDto {
   prompt: string;
   contentType: 'blog_post' | 'caption' | 'email' | 'summary' | 'custom';
-  parameters?: any;
-  metadata?: any;
+  parameters?: Record<string, unknown>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface CreateContentResponse {
   content: string;
   title?: string;
-  metadata?: any;
+  metadata?: Record<string, unknown>;
 }
 
 export function useCreateContent(projectId: string) {
@@ -20,20 +20,20 @@ export function useCreateContent(projectId: string) {
 
   return useMutation<CreateContentResponse, Error, CreateContentDto>({
     mutationFn: async (data) => {
-      let response: any;
-      
+      let response: Record<string, unknown>;
+
       // Based on content type, call different AI endpoints
       switch (data.contentType) {
         case 'blog_post':
-          response = await api.post<any>('/ai/blog-post', {
+          response = await api.post<Record<string, unknown>>('/ai/blog-post', {
             topic: data.prompt,
             keywords: data.parameters?.keywords || [],
             tone: data.parameters?.tone,
           });
           return {
-            content: response.blogPost,
+            content: response.blogPost as string,
             title: `Blog Post: ${data.prompt}`,
-            metadata: { 
+            metadata: {
               contentType: 'blog_post',
               keywords: data.parameters?.keywords,
               tone: data.parameters?.tone,
@@ -41,14 +41,14 @@ export function useCreateContent(projectId: string) {
           };
           
         case 'caption':
-          response = await api.post<any>('/ai/caption', {
+          response = await api.post<Record<string, unknown>>('/ai/caption', {
             content: data.prompt,
             platform: data.parameters?.platform || 'general',
             hashtags: data.parameters?.hashtags || [],
             tone: data.parameters?.tone,
           });
           return {
-            content: response.caption,
+            content: response.caption as string,
             title: `Caption for ${data.parameters?.platform || 'social media'}`,
             metadata: { 
               contentType: 'caption',
@@ -58,13 +58,13 @@ export function useCreateContent(projectId: string) {
           };
           
         case 'email':
-          response = await api.post<any>('/ai/email-reply', {
+          response = await api.post<Record<string, unknown>>('/ai/email-reply', {
             originalEmail: data.prompt,
             context: data.parameters?.context,
             tone: data.parameters?.tone,
           });
           return {
-            content: response.emailReply,
+            content: response.emailReply as string,
             title: 'Email Reply',
             metadata: { 
               contentType: 'email',
@@ -73,14 +73,14 @@ export function useCreateContent(projectId: string) {
           };
           
         case 'summary':
-          response = await api.post<any>('/ai/summarize', {
+          response = await api.post<Record<string, unknown>>('/ai/summarize', {
             text: data.prompt,
             maxLength: data.parameters?.maxLength,
             style: data.parameters?.style || 'paragraph',
             focus: data.parameters?.focus,
           });
           return {
-            content: response.summary,
+            content: response.summary as string,
             title: 'Summary',
             metadata: { 
               contentType: 'summary',
@@ -90,14 +90,14 @@ export function useCreateContent(projectId: string) {
           };
           
         default:
-          response = await api.post<any>('/ai/text', {
+          response = await api.post<Record<string, unknown>>('/ai/text', {
             prompt: data.prompt,
             model: data.parameters?.model,
             temperature: data.parameters?.temperature,
             maxTokens: data.parameters?.maxTokens,
           });
           return {
-            content: response.result,
+            content: response.result as string,
             title: 'Generated Text',
             metadata: { 
               contentType: 'text',

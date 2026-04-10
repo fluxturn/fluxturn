@@ -14,6 +14,7 @@ import type {
   SearchQuery,
   SearchResponse
 } from '../../types/fluxturn';
+import type { JsonValue } from '../../types/json';
 
 // =============================================================================
 // CONTENT MANAGEMENT ENDPOINTS
@@ -30,12 +31,12 @@ export const contentApi = {
   async createContent(data: ContentCreateRequest): Promise<ContentItem> {
     try {
       const response = await fluxturnApi.post<ApiResponse<ContentItem>>('/content', data);
-      return ((response as any).data || response) as ContentItem;
-    } catch (error: any) {
-      if (error.statusCode === 400) {
+      return ((response as unknown as { data?: unknown }).data || response) as ContentItem;
+    } catch (error: unknown) {
+      if ((error as { statusCode?: number }).statusCode === 400) {
         throw new Error('Invalid content data. Please check your input and try again.');
       }
-      if (error.statusCode === 403) {
+      if ((error as { statusCode?: number }).statusCode === 403) {
         throw new Error('You do not have permission to create content.');
       }
       throw error;
@@ -54,12 +55,12 @@ export const contentApi = {
       const response = await fluxturnApi.get<ApiResponse<ContentItem>>(
         `/content/${contentId}${query ? `?${query}` : ''}`
       );
-      return ((response as any).data || response) as ContentItem;
-    } catch (error: any) {
-      if (error.statusCode === 404) {
+      return ((response as unknown as { data?: unknown }).data || response) as ContentItem;
+    } catch (error: unknown) {
+      if ((error as { statusCode?: number }).statusCode === 404) {
         throw new Error('Content not found.');
       }
-      if (error.statusCode === 403) {
+      if ((error as { statusCode?: number }).statusCode === 403) {
         throw new Error('You do not have permission to view this content.');
       }
       throw error;
@@ -72,15 +73,15 @@ export const contentApi = {
   async updateContent(contentId: string, data: ContentUpdateRequest): Promise<ContentItem> {
     try {
       const response = await fluxturnApi.put<ApiResponse<ContentItem>>(`/content/${contentId}`, data);
-      return ((response as any).data || response) as ContentItem;
-    } catch (error: any) {
-      if (error.statusCode === 404) {
+      return ((response as unknown as { data?: unknown }).data || response) as ContentItem;
+    } catch (error: unknown) {
+      if ((error as { statusCode?: number }).statusCode === 404) {
         throw new Error('Content not found.');
       }
-      if (error.statusCode === 403) {
+      if ((error as { statusCode?: number }).statusCode === 403) {
         throw new Error('You do not have permission to edit this content.');
       }
-      if (error.statusCode === 409) {
+      if ((error as { statusCode?: number }).statusCode === 409) {
         throw new Error('Content has been modified by another user. Please refresh and try again.');
       }
       throw error;
@@ -93,11 +94,11 @@ export const contentApi = {
   async deleteContent(contentId: string): Promise<void> {
     try {
       await fluxturnApi.delete(`/content/${contentId}`);
-    } catch (error: any) {
-      if (error.statusCode === 404) {
+    } catch (error: unknown) {
+      if ((error as { statusCode?: number }).statusCode === 404) {
         throw new Error('Content not found.');
       }
-      if (error.statusCode === 403) {
+      if ((error as { statusCode?: number }).statusCode === 403) {
         throw new Error('You do not have permission to delete this content.');
       }
       throw error;
@@ -142,8 +143,8 @@ export const contentApi = {
         `/content${query ? `?${query}` : ''}`
       );
 
-      return ((response as any).data || response) as PaginatedResponse<ContentItem>;
-    } catch (error: any) {
+      return ((response as unknown as { data?: unknown }).data || response) as PaginatedResponse<ContentItem>;
+    } catch (error: unknown) {
       // Return empty results on error
       // console.warn('Content list API failed, returning empty results:', error);
       return {
@@ -162,8 +163,8 @@ export const contentApi = {
   async searchContent(query: SearchQuery): Promise<SearchResponse<ContentItem>> {
     try {
       const response = await fluxturnApi.post<SearchResponse<ContentItem>>('/content/search', query);
-      return ((response as any).data || response) as SearchResponse<ContentItem>;
-    } catch (error: any) {
+      return ((response as unknown as { data?: unknown }).data || response) as SearchResponse<ContentItem>;
+    } catch (error: unknown) {
       // console.warn('Content search API failed, falling back to list with search:', error);
       
       // Fallback to list API with search parameter
@@ -171,7 +172,7 @@ export const contentApi = {
         search: query.q,
         page: query.page,
         limit: query.limit,
-        sortBy: query.sortBy as any,
+        sortBy: query.sortBy as 'createdAt' | 'updatedAt' | 'title' | 'version' | undefined,
         sortOrder: query.sortOrder
       });
       
@@ -205,9 +206,9 @@ export const contentApi = {
         `/content/${contentId}/versions${query ? `?${query}` : ''}`
       );
 
-      return ((response as any).data || response) as PaginatedResponse<ContentVersion>;
-    } catch (error: any) {
-      if (error.statusCode === 404) {
+      return ((response as unknown as { data?: unknown }).data || response) as PaginatedResponse<ContentVersion>;
+    } catch (error: unknown) {
+      if ((error as { statusCode?: number }).statusCode === 404) {
         throw new Error('Content not found.');
       }
       throw error;
@@ -222,9 +223,9 @@ export const contentApi = {
       const response = await fluxturnApi.get<ApiResponse<ContentVersion>>(
         `/content/${contentId}/versions/${version}`
       );
-      return ((response as any).data || response) as ContentVersion;
-    } catch (error: any) {
-      if (error.statusCode === 404) {
+      return ((response as unknown as { data?: unknown }).data || response) as ContentVersion;
+    } catch (error: unknown) {
+      if ((error as { statusCode?: number }).statusCode === 404) {
         throw new Error('Content version not found.');
       }
       throw error;
@@ -240,12 +241,12 @@ export const contentApi = {
         `/content/${contentId}/versions/${version}/restore`,
         { changeDescription }
       );
-      return ((response as any).data || response) as ContentItem;
-    } catch (error: any) {
-      if (error.statusCode === 404) {
+      return ((response as unknown as { data?: unknown }).data || response) as ContentItem;
+    } catch (error: unknown) {
+      if ((error as { statusCode?: number }).statusCode === 404) {
         throw new Error('Content or version not found.');
       }
-      if (error.statusCode === 403) {
+      if ((error as { statusCode?: number }).statusCode === 403) {
         throw new Error('You do not have permission to restore this content.');
       }
       throw error;
@@ -260,17 +261,17 @@ export const contentApi = {
     changes: Array<{
       type: 'added' | 'removed' | 'modified';
       field: string;
-      oldValue?: any;
-      newValue?: any;
+      oldValue?: JsonValue;
+      newValue?: JsonValue;
     }>;
   }> {
     try {
-      const response = await fluxturnApi.get<ApiResponse<any>>(
+      const response = await fluxturnApi.get<ApiResponse<{ diff: string; changes: Array<{ type: 'added' | 'removed' | 'modified'; field: string; oldValue?: JsonValue; newValue?: JsonValue }> }>>(
         `/content/${contentId}/versions/compare?from=${fromVersion}&to=${toVersion}`
       );
-      return ((response as any).data || response) as { diff: string; changes: Array<{ type: 'added' | 'removed' | 'modified'; field: string; oldValue?: any; newValue?: any; }>; };
-    } catch (error: any) {
-      if (error.statusCode === 404) {
+      return ((response as unknown as { data?: unknown }).data || response) as { diff: string; changes: Array<{ type: 'added' | 'removed' | 'modified'; field: string; oldValue?: JsonValue; newValue?: JsonValue; }>; };
+    } catch (error: unknown) {
+      if ((error as { statusCode?: number }).statusCode === 404) {
         throw new Error('Content or versions not found.');
       }
       throw error;
@@ -286,9 +287,9 @@ export const contentApi = {
    */
   async getCategories(): Promise<Array<{ name: string; count: number; description?: string }>> {
     try {
-      const response = await fluxturnApi.get<ApiResponse<any>>('/content/categories');
-      return ((response as any).data || response) as Array<{ name: string; count: number; description?: string }>;
-    } catch (error: any) {
+      const response = await fluxturnApi.get<ApiResponse<unknown>>('/content/categories');
+      return ((response as unknown as { data?: unknown }).data || response) as Array<{ name: string; count: number; description?: string }>;
+    } catch (error: unknown) {
       // Return default categories if API fails
       return [
         { name: 'Documents', count: 0, description: 'Text documents and articles' },
@@ -304,9 +305,9 @@ export const contentApi = {
    */
   async getTags(limit: number = 50): Promise<Array<{ name: string; count: number }>> {
     try {
-      const response = await fluxturnApi.get<ApiResponse<any>>(`/content/tags?limit=${limit}`);
-      return ((response as any).data || response) as Array<{ name: string; count: number }>;
-    } catch (error: any) {
+      const response = await fluxturnApi.get<ApiResponse<unknown>>(`/content/tags?limit=${limit}`);
+      return ((response as unknown as { data?: unknown }).data || response) as Array<{ name: string; count: number }>;
+    } catch (error: unknown) {
       // Return empty tags if API fails
       return [];
     }
@@ -321,11 +322,11 @@ export const contentApi = {
       if (parentId) params.append('parentId', parentId);
 
       const query = params.toString();
-      const response = await fluxturnApi.get<ApiResponse<any>>(
+      const response = await fluxturnApi.get<ApiResponse<unknown>>(
         `/content/tree${query ? `?${query}` : ''}`
       );
-      return ((response as any).data || response) as Array<ContentItem & { children?: ContentItem[] }>;
-    } catch (error: any) {
+      return ((response as unknown as { data?: unknown }).data || response) as Array<ContentItem & { children?: ContentItem[] }>;
+    } catch (error: unknown) {
       // console.warn('Content tree API failed, returning flat list:', error);
       
       // Fallback to flat list
@@ -350,11 +351,11 @@ export const contentApi = {
   }): Promise<void> {
     try {
       await fluxturnApi.post(`/content/${contentId}/share`, data);
-    } catch (error: any) {
-      if (error.statusCode === 404) {
+    } catch (error: unknown) {
+      if ((error as { statusCode?: number }).statusCode === 404) {
         throw new Error('Content not found.');
       }
-      if (error.statusCode === 403) {
+      if ((error as { statusCode?: number }).statusCode === 403) {
         throw new Error('You do not have permission to share this content.');
       }
       throw error;
@@ -376,10 +377,10 @@ export const contentApi = {
     publicUrl?: string;
   }> {
     try {
-      const response = await fluxturnApi.get<ApiResponse<any>>(`/content/${contentId}/sharing`);
-      return ((response as any).data || response) as { visibility: 'public' | 'private' | 'shared'; sharedWith: Array<{ userId?: string; email?: string; permission: string; sharedAt: string; expiresAt?: string; }>; publicUrl?: string; };
-    } catch (error: any) {
-      if (error.statusCode === 404) {
+      const response = await fluxturnApi.get<ApiResponse<unknown>>(`/content/${contentId}/sharing`);
+      return ((response as unknown as { data?: unknown }).data || response) as { visibility: 'public' | 'private' | 'shared'; sharedWith: Array<{ userId?: string; email?: string; permission: string; sharedAt: string; expiresAt?: string; }>; publicUrl?: string; };
+    } catch (error: unknown) {
+      if ((error as { statusCode?: number }).statusCode === 404) {
         throw new Error('Content not found.');
       }
       throw error;
@@ -396,11 +397,11 @@ export const contentApi = {
   }): Promise<void> {
     try {
       await fluxturnApi.patch(`/content/${contentId}/sharing`, data);
-    } catch (error: any) {
-      if (error.statusCode === 404) {
+    } catch (error: unknown) {
+      if ((error as { statusCode?: number }).statusCode === 404) {
         throw new Error('Content not found.');
       }
-      if (error.statusCode === 403) {
+      if ((error as { statusCode?: number }).statusCode === 403) {
         throw new Error('You do not have permission to change sharing settings.');
       }
       throw error;
@@ -420,9 +421,9 @@ export const contentApi = {
         `/content/${contentId}/duplicate`,
         { newTitle }
       );
-      return ((response as any).data || response) as ContentItem;
-    } catch (error: any) {
-      if (error.statusCode === 404) {
+      return ((response as unknown as { data?: unknown }).data || response) as ContentItem;
+    } catch (error: unknown) {
+      if ((error as { statusCode?: number }).statusCode === 404) {
         throw new Error('Content not found.');
       }
       throw error;
@@ -438,9 +439,9 @@ export const contentApi = {
         `/content/${contentId}/move`,
         { parentId: newParentId }
       );
-      return ((response as any).data || response) as ContentItem;
-    } catch (error: any) {
-      if (error.statusCode === 404) {
+      return ((response as unknown as { data?: unknown }).data || response) as ContentItem;
+    } catch (error: unknown) {
+      if ((error as { statusCode?: number }).statusCode === 404) {
         throw new Error('Content not found.');
       }
       throw error;
@@ -454,7 +455,7 @@ export const contentApi = {
     try {
       const response = await this.updateContent(contentId, { status: 'archived' });
       return response;
-    } catch (error: any) {
+    } catch (error: unknown) {
       throw error;
     }
   },
@@ -466,7 +467,7 @@ export const contentApi = {
     try {
       const response = await this.updateContent(contentId, { status: 'published' });
       return response;
-    } catch (error: any) {
+    } catch (error: unknown) {
       throw error;
     }
   },
@@ -494,11 +495,11 @@ export const contentApi = {
       if (timeRange?.endDate) params.append('endDate', timeRange.endDate);
 
       const query = params.toString();
-      const response = await fluxturnApi.get<ApiResponse<any>>(
+      const response = await fluxturnApi.get<ApiResponse<unknown>>(
         `/content/${contentId}/analytics${query ? `?${query}` : ''}`
       );
-      return ((response as any).data || response) as { views: number; downloads: number; shares: number; edits: number; timeline: Array<{ date: string; views: number; downloads: number; }>; };
-    } catch (error: any) {
+      return ((response as unknown as { data?: unknown }).data || response) as { views: number; downloads: number; shares: number; edits: number; timeline: Array<{ date: string; views: number; downloads: number; }>; };
+    } catch (error: unknown) {
       // Return mock analytics if API fails
       return {
         views: 0,

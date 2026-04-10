@@ -28,12 +28,26 @@ import { nodeComponents } from '@/config/workflow';
 import { useNavigate, useParams } from 'react-router-dom';
 import { extractRouteContext } from '@/lib/navigation-utils';
 
+/** Workflow canvas shape used by templates and saved workflows. */
+interface TemplateWorkflow {
+  canvas?: { nodes?: unknown[]; edges?: unknown[] };
+  nodes?: unknown[];
+  edges?: unknown[];
+  connections?: unknown[];
+  steps?: Array<{ id?: string; type?: string; action?: string; name?: string; title?: string; description?: string; [key: string]: unknown }>;
+  triggers?: unknown[];
+  conditions?: unknown[];
+  variables?: unknown[];
+  outputs?: unknown[];
+  [key: string]: unknown;
+}
+
 interface Template {
   id: string;
   name: string;
   description: string;
   category?: string;
-  workflow: any;
+  workflow: TemplateWorkflow;
   created_at: string;
   is_template: boolean;
   verified?: boolean;
@@ -104,7 +118,7 @@ export function TemplatesTab({ onImportTemplate, onOpenWorkflow, templatesOnly =
 
       // Update the selected item with full workflow data
       setSelectedItem(fullWorkflow);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to load workflow details:', error);
       toast.error('Failed to load workflow details');
     } finally {
@@ -159,7 +173,7 @@ export function TemplatesTab({ onImportTemplate, onOpenWorkflow, templatesOnly =
           setTemplateTotal(templatesData.total || templatesData.templates.length);
           setTemplateTotalPages(templatesData.totalPages || 1);
           
-          const processedTemplates = templatesData.templates.map((template: any) => ({
+          const processedTemplates = templatesData.templates.map((template: Record<string, unknown>) => ({
             id: template.id,
             name: template.name,
             description: template.description,
@@ -222,7 +236,7 @@ export function TemplatesTab({ onImportTemplate, onOpenWorkflow, templatesOnly =
         setSavedWorkflows([]);
       }
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to load templates and workflows:', error);
       toast.error('Failed to load data');
     } finally {
@@ -332,7 +346,7 @@ export function TemplatesTab({ onImportTemplate, onOpenWorkflow, templatesOnly =
     });
   };
 
-  const getNodeCount = (workflow: any) => {
+  const getNodeCount = (workflow: TemplateWorkflow | undefined) => {
     if (!workflow) return 0;
 
     // Try different possible locations for nodes
@@ -345,14 +359,10 @@ export function TemplatesTab({ onImportTemplate, onOpenWorkflow, templatesOnly =
     if (workflow.steps?.length) {
       return workflow.steps.length;
     }
-    if (Array.isArray(workflow) && workflow.length) {
-      return workflow.length;
-    }
-
     return 0;
   };
 
-  const getEdgeCount = (workflow: any) => {
+  const getEdgeCount = (workflow: TemplateWorkflow | undefined) => {
     if (!workflow) return 0;
 
     // Try different possible locations for edges/connections
@@ -369,7 +379,7 @@ export function TemplatesTab({ onImportTemplate, onOpenWorkflow, templatesOnly =
     return 0;
   };
 
-  const getWorkflowNodes = (workflow: any): any[] => {
+  const getWorkflowNodes = (workflow: TemplateWorkflow | undefined): unknown[] => {
     if (!workflow) return [];
 
     // Try different possible locations for nodes
@@ -381,7 +391,7 @@ export function TemplatesTab({ onImportTemplate, onOpenWorkflow, templatesOnly =
     }
     if (workflow.steps?.length) {
       // Transform steps to node-like objects
-      return workflow.steps.map((step: any, index: number) => ({
+      return workflow.steps.map((step, index: number) => ({
         id: step.id || `step-${index}`,
         type: step.type || step.action || 'step',
         data: {

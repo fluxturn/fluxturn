@@ -13,7 +13,7 @@ export interface TenantUser {
   updatedAt: string;
   lastLoginAt?: string;
   loginCount?: number;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface TenantAuthResponse {
@@ -73,7 +73,7 @@ export interface SecurityEvent {
   description: string;
   ipAddress?: string;
   userAgent?: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
   createdAt: string;
 }
 
@@ -134,7 +134,7 @@ export interface RegisterData {
   email: string;
   password: string;
   fullName?: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
   frontendUrl?: string;
 }
 
@@ -156,7 +156,7 @@ export interface ResetPasswordData {
 export interface CreateTeamData {
   name: string;
   description?: string;
-  settings?: Record<string, any>;
+  settings?: Record<string, unknown>;
 }
 
 export interface InviteMemberData {
@@ -282,8 +282,8 @@ export class TenantAuthAPI {
     });
   }
 
-  async getAuthAnalytics(period: string): Promise<any> {
-    return api.request<any>(`/tenant-auth/analytics?period=${period}`, {
+  async getAuthAnalytics(period: string): Promise<unknown> {
+    return api.request<unknown>(`/tenant-auth/analytics?period=${period}`, {
       method: 'GET',
     });
   }

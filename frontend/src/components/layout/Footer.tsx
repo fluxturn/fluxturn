@@ -47,12 +47,13 @@ export function Footer() {
       setSubscribeStatus('success')
       setSubscribeMessage(response.data.message || 'Successfully subscribed to newsletter')
       setEmail('')
-    } catch (error: any) {
+    } catch (error: unknown) {
       setSubscribeStatus('error')
-      if (error.response?.status === 409) {
+      const errObj = error as { response?: { status?: number; data?: { message?: string } } }
+      if (errObj.response?.status === 409) {
         setSubscribeMessage('Email already subscribed')
       } else {
-        setSubscribeMessage(error.response?.data?.message || 'Something went wrong. Please try again.')
+        setSubscribeMessage(errObj.response?.data?.message || 'Something went wrong. Please try again.')
       }
     } finally {
       setIsSubscribing(false)

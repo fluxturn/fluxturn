@@ -104,18 +104,19 @@ export const Register: React.FC = () => {
           email: form.email
         }
       })
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Registration failed:', error)
+      const errMsg = error instanceof Error ? error.message : '';
 
       // Handle specific validation errors from backend
-      if (error.message?.includes('email')) {
-        setErrors({ email: error.message })
-      } else if (error.message?.includes('password')) {
-        setErrors({ password: error.message })
-      } else if (error.message?.includes('name')) {
-        setErrors({ name: error.message })
+      if (errMsg?.includes('email')) {
+        setErrors({ email: errMsg })
+      } else if (errMsg?.includes('password')) {
+        setErrors({ password: errMsg })
+      } else if (errMsg?.includes('name')) {
+        setErrors({ name: errMsg })
       } else {
-        setApiError(error.message || t('auth.errors.registrationFailed'))
+        setApiError(errMsg || t('auth.errors.registrationFailed'))
       }
     } finally {
       setIsLoading(false)

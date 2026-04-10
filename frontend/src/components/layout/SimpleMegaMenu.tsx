@@ -42,11 +42,14 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { api } from '../../lib/api'
 import { PreviewBadge } from '../ui/PreviewBadge'
 
+interface OrgItem { id: string; name: string; description?: string; [key: string]: unknown }
+interface ProjectItem { id: string; name: string; description?: string; organizationId?: string; [key: string]: unknown }
+
 interface MenuData {
-  organizations: any[]
-  selectedOrganization: any | null
-  projects: any[]
-  selectedProject: any | null
+  organizations: OrgItem[]
+  selectedOrganization: OrgItem | null
+  projects: ProjectItem[]
+  selectedProject: ProjectItem | null
 }
 
 export const SimpleMegaMenu: React.FC = () => {
@@ -124,12 +127,12 @@ export const SimpleMegaMenu: React.FC = () => {
   }, [user, organizationId, projectId])
   
   // Handle selections - just navigate and let useEffect refetch
-  const handleOrganizationSelect = (org: any) => {
+  const handleOrganizationSelect = (org: OrgItem) => {
     navigate(`/org/${org.id}`)
     setShowOrgDropdown(false)
   }
   
-  const handleProjectSelect = (project: any) => {
+  const handleProjectSelect = (project: ProjectItem) => {
     if (menuData.selectedOrganization) {
       navigate(`/org/${menuData.selectedOrganization.id}/project/${project.id}`)
     }

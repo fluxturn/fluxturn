@@ -42,7 +42,7 @@ export const ProjectSettings: React.FC = () => {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
 
   // Project data from API
-  const [project, setProject] = useState<any>(null)
+  const [project, setProject] = useState<Record<string, unknown> | null>(null)
   const [projectName, setProjectName] = useState('')
   const [projectDescription, setProjectDescription] = useState('')
   const [projectUrl, setProjectUrl] = useState('')
@@ -85,9 +85,9 @@ export const ProjectSettings: React.FC = () => {
         setProjectName(projectData.name || '')
         setProjectDescription(projectData.description || '')
         setProjectUrl(projectData.projectUrl || '')
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error('Failed to load project:', error)
-        toast.error(error.message || 'Failed to load project')
+        toast.error(error instanceof Error ? error.message : 'Failed to load project')
       } finally {
         setLoading(false)
       }
@@ -112,9 +112,9 @@ export const ProjectSettings: React.FC = () => {
       // Refresh project data
       const response = await api.getProject(projectId)
       setProject(response.project)
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to update project:', error)
-      toast.error(error.message || 'Failed to update project')
+      toast.error(error instanceof Error ? error.message : 'Failed to update project')
     } finally {
       setSaving(false)
     }
@@ -131,9 +131,9 @@ export const ProjectSettings: React.FC = () => {
 
       // Navigate back to org projects page
       navigate(`/org/${organizationId}/projects`)
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to delete project:', error)
-      toast.error(error.message || 'Failed to delete project')
+      toast.error(error instanceof Error ? error.message : 'Failed to delete project')
       setDeleting(false)
     }
   }

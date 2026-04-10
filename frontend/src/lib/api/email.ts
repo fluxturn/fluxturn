@@ -20,7 +20,7 @@ export interface SendEmailDto {
 export interface SendTemplatedEmailDto {
   templateName: string;
   to: string | string[];
-  templateData: Record<string, any>;
+  templateData: Record<string, unknown>;
   from?: string;
 }
 
@@ -32,13 +32,13 @@ export interface QueueEmailDto extends SendEmailDto {
 export interface BulkEmailDto {
   recipients: BulkEmailRecipient[];
   templateName: string;
-  commonData?: Record<string, any>;
+  commonData?: Record<string, unknown>;
   batchSize?: number;
 }
 
 export interface BulkEmailRecipient {
   email: string;
-  data?: Record<string, any>;
+  data?: Record<string, unknown>;
 }
 
 export interface VerifyEmailDto {
@@ -219,7 +219,7 @@ export interface EmailRecipient {
   email: string;
   firstName?: string;
   lastName?: string;
-  customFields: Record<string, any>;
+  customFields: Record<string, unknown>;
   status: 'active' | 'unsubscribed' | 'bounced' | 'complained';
   tags: string[];
   subscriptionDate: string;
@@ -278,16 +278,16 @@ export const emailApi = {
   async getTemplates(projectId?: string, appId?: string): Promise<EmailTemplate[]> {
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);
-    
-    const response = await api.get('/email/templates');
+
+    const response = await api.get<{ data: EmailTemplate[] }>('/email/templates');
     return response.data;
   },
 
   async getTemplate(id: string, projectId?: string, appId?: string): Promise<EmailTemplate> {
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);
-    
-    const response = await api.get(`/email/templates/${id}`);
+
+    const response = await api.get<{ data: EmailTemplate }>(`/email/templates/${id}`);
     return response.data;
   },
 
@@ -316,16 +316,16 @@ export const emailApi = {
   async getCampaigns(projectId?: string, appId?: string): Promise<EmailCampaign[]> {
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);
-    
-    const response = await api.get('/email/campaigns');
+
+    const response = await api.get<{ data: EmailCampaign[] }>('/email/campaigns');
     return response.data;
   },
 
   async getCampaign(id: string, projectId?: string, appId?: string): Promise<EmailCampaign> {
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);
-    
-    const response = await api.get(`/email/campaigns/${id}`);
+
+    const response = await api.get<{ data: EmailCampaign }>(`/email/campaigns/${id}`);
     return response.data;
   },
 
@@ -382,25 +382,25 @@ export const emailApi = {
   async getMetrics(dateRange?: { from: string; to: string }, projectId?: string, appId?: string): Promise<EmailMetrics> {
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);
-    
+
     const queryString = dateRange ? `?from=${dateRange.from}&to=${dateRange.to}` : '';
-    const response = await api.get(`/email/metrics${queryString}`);
+    const response = await api.get<{ data: EmailMetrics }>(`/email/metrics${queryString}`);
     return response.data;
   },
 
   async getCampaignMetrics(campaignId: string, projectId?: string, appId?: string) {
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);
-    
-    const response = await api.get(`/email/campaigns/${campaignId}/metrics`);
+
+    const response = await api.get<{ data: unknown }>(`/email/campaigns/${campaignId}/metrics`);
     return response.data;
   },
 
   async getTemplateMetrics(templateId: string, projectId?: string, appId?: string) {
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);
-    
-    const response = await api.get(`/email/templates/${templateId}/metrics`);
+
+    const response = await api.get<{ data: unknown }>(`/email/templates/${templateId}/metrics`);
     return response.data;
   },
 
@@ -417,16 +417,25 @@ export const emailApi = {
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);
     
-    const queryString = filters ? new URLSearchParams(filters as any).toString() : '';
-    const response = await api.get(`/email/logs${queryString ? '?' + queryString : ''}`);
+    const params = new URLSearchParams();
+    if (filters?.campaignId) params.append('campaignId', filters.campaignId);
+    if (filters?.templateId) params.append('templateId', filters.templateId);
+    if (filters?.status) params.append('status', filters.status);
+    if (filters?.email) params.append('email', filters.email);
+    if (filters?.dateRange?.from) params.append('from', filters.dateRange.from);
+    if (filters?.dateRange?.to) params.append('to', filters.dateRange.to);
+    if (filters?.limit) params.append('limit', String(filters.limit));
+    if (filters?.offset) params.append('offset', String(filters.offset));
+    const queryString = params.toString();
+    const response = await api.get<{ data: { logs: EmailLog[]; total: number } }>(`/email/logs${queryString ? '?' + queryString : ''}`);
     return response.data;
   },
 
   async getLogDetails(logId: string, projectId?: string, appId?: string): Promise<EmailLog> {
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);
-    
-    const response = await api.get(`/email/logs/${logId}`);
+
+    const response = await api.get<{ data: EmailLog }>(`/email/logs/${logId}`);
     return response.data;
   },
 
@@ -434,8 +443,8 @@ export const emailApi = {
   async getSettings(projectId?: string, appId?: string): Promise<EmailSettings> {
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);
-    
-    const response = await api.get('/email/settings');
+
+    const response = await api.get<{ data: EmailSettings }>('/email/settings');
     return response.data;
   },
 
@@ -463,8 +472,8 @@ export const emailApi = {
   async getDomains(projectId?: string, appId?: string): Promise<EmailDomain[]> {
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);
-    
-    const response = await api.get('/email/domains');
+
+    const response = await api.get<{ data: EmailDomain[] }>('/email/domains');
     return response.data;
   },
 
@@ -493,8 +502,8 @@ export const emailApi = {
   async getSuppressionLists(projectId?: string, appId?: string): Promise<SuppressionList[]> {
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);
-    
-    const response = await api.get('/email/suppression-lists');
+
+    const response = await api.get<{ data: SuppressionList[] }>('/email/suppression-lists');
     return response.data;
   },
 
@@ -534,8 +543,8 @@ export const emailApi = {
   async getRecipientLists(projectId?: string, appId?: string): Promise<RecipientList[]> {
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);
-    
-    const response = await api.get('/email/recipient-lists');
+
+    const response = await api.get<{ data: RecipientList[] }>('/email/recipient-lists');
     return response.data;
   },
 
@@ -556,8 +565,14 @@ export const emailApi = {
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);
     
-    const queryString = filters ? new URLSearchParams(filters as any).toString() : '';
-    const response = await api.get(`/email/recipient-lists/${listId}/recipients${queryString ? '?' + queryString : ''}`);
+    const recipientParams = new URLSearchParams();
+    if (filters?.search) recipientParams.append('search', filters.search);
+    if (filters?.status) recipientParams.append('status', filters.status);
+    if (filters?.tags?.length) recipientParams.append('tags', filters.tags.join(','));
+    if (filters?.limit) recipientParams.append('limit', String(filters.limit));
+    if (filters?.offset) recipientParams.append('offset', String(filters.offset));
+    const queryString = recipientParams.toString();
+    const response = await api.get<{ data: { recipients: EmailRecipient[]; total: number } }>(`/email/recipient-lists/${listId}/recipients${queryString ? '?' + queryString : ''}`);
     return response.data;
   },
 
@@ -594,8 +609,8 @@ export const emailApi = {
   async getWebhooks(projectId?: string, appId?: string) {
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);
-    
-    const response = await api.get('/email/webhooks');
+
+    const response = await api.get<{ data: unknown }>('/email/webhooks');
     return response.data;
   },
 

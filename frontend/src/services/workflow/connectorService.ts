@@ -1,5 +1,21 @@
 import { api } from '@/lib/api';
 
+export interface ConnectorAction {
+  id: string;
+  name: string;
+  description?: string;
+  inputSchema?: Record<string, unknown>;
+}
+
+export interface ConnectorTrigger {
+  id: string;
+  name: string;
+  description?: string;
+  eventType?: string;
+  webhookRequired?: boolean;
+  outputSchema?: Record<string, unknown>;
+}
+
 export interface ConnectorConfig {
   id: string;
   name: string;
@@ -22,11 +38,11 @@ export interface AvailableConnector {
   description: string;
   category: string;
   auth_type: string;
-  auth_fields?: Record<string, any>;
+  auth_fields?: Record<string, unknown>;
   supported_actions?: string[];
   supported_triggers?: string[];
   webhook_support?: boolean;
-  rate_limits?: Record<string, any>;
+  rate_limits?: Record<string, unknown>;
   sandbox_available?: boolean;
   verified?: boolean; // Indicates if the connector is verified and working
 }
@@ -93,7 +109,7 @@ export const connectorService = {
   /**
    * Get actions for a specific connector type
    */
-  async getConnectorActions(connectorType: string): Promise<any[]> {
+  async getConnectorActions(connectorType: string): Promise<ConnectorAction[]> {
     const response = await api.get(`/connectors/available/${connectorType}/actions`);
     return response;
   },
@@ -101,7 +117,7 @@ export const connectorService = {
   /**
    * Get triggers for a specific connector type
    */
-  async getConnectorTriggers(connectorType: string): Promise<any[]> {
+  async getConnectorTriggers(connectorType: string): Promise<ConnectorTrigger[]> {
     const response = await api.get(`/connectors/available/${connectorType}/triggers`);
     return response;
   },

@@ -1,5 +1,5 @@
 import { NodeType, NodeTypeDefinition, NODE_DEFINITIONS } from "@/config/workflow";
-import { getActionIcon, generateConfigFields } from "./dynamicNodeUtils";
+import { getActionIcon, generateConfigFields, type FieldSchema } from "./dynamicNodeUtils";
 
 // Store for dynamically created node definitions
 export const dynamicNodeDefinitions = new Map<string, NodeTypeDefinition>();
@@ -8,8 +8,8 @@ export const dynamicNodeDefinitions = new Map<string, NodeTypeDefinition>();
  * Create and register a dynamic node type for a connector action
  */
 export function createAndRegisterActionNodeType(
-  connector: any,
-  action: any
+  connector: { name: string },
+  action: { id: string; name: string; description: string; inputSchema?: Record<string, FieldSchema> }
 ): string {
   // Create a unique node type identifier
   const nodeTypeId = `${connector.name.toUpperCase()}_${action.id.toUpperCase()}`;

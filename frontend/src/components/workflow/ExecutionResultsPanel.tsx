@@ -3,23 +3,33 @@ import { X, ChevronDown, ChevronRight, CheckCircle, XCircle, Clock, Brain } from
 import { cn } from '@/lib/utils';
 import { AIAgentExecutionPanel } from './panels/AIAgentExecutionPanel';
 
+interface NodeResultData {
+  error?: { message?: string };
+  data?: unknown[][];
+  inputData?: unknown;
+  executionTime?: number;
+  intermediateSteps?: unknown;
+  finishReason?: string;
+  toolCalls?: unknown[];
+}
+
 interface ExecutionResult {
   id: string;
   workflow_id: string;
   execution_number: number;
   status: 'completed' | 'failed' | 'running';
-  input_data: any;
-  output_data?: any;
+  input_data: unknown;
+  output_data?: unknown;
   result?: {
     success: boolean;
-    data: Record<string, any>;
+    data: Record<string, NodeResultData>;
     lastNodeExecuted?: string;
     executedNodes?: number;
     totalNodes?: number;
   };
   started_at: string;
   completed_at?: string;
-  error?: any;
+  error?: unknown;
   message?: string;
 }
 
@@ -132,7 +142,7 @@ export function ExecutionResultsPanel({ result, onClose }: ExecutionResultsPanel
       <div className="flex-1 overflow-y-auto p-4 space-y-3">
         <h4 className="text-gray-400 text-sm font-medium mb-3">Node Results</h4>
 
-        {result.result?.data && Object.entries(result.result.data).map(([nodeId, nodeData]: [string, any]) => {
+        {result.result?.data && Object.entries(result.result.data).map(([nodeId, nodeData]: [string, NodeResultData]) => {
           const isExpanded = expandedNodes.has(nodeId);
           const hasError = nodeData.error;
           // Check if this is an AI Agent node by looking for agent-specific data

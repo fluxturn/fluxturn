@@ -50,7 +50,7 @@ import { LanguageProvider } from '../../contexts/LanguageContext'
 interface NavItem {
   title: string
   href?: string
-  icon?: any
+  icon?: React.ComponentType<{ className?: string }>
   items?: NavItem[]
   badge?: string
   isNew?: boolean

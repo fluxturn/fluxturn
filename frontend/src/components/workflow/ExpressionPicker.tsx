@@ -21,7 +21,7 @@ interface ExpressionPickerProps {
    */
   nodes: Array<{
     id: string;
-    data: any;
+    data: Record<string, unknown>;
   }>;
 
   /**
@@ -124,7 +124,7 @@ export const ExpressionPicker: React.FC<ExpressionPickerProps> = ({
     // setOpen(false);
   };
 
-  const getNodeOutputFields = (node: any) => {
+  const getNodeOutputFields = (node: { id: string; data: Record<string, unknown> }) => {
     const connectorType = node.data?.connectorType || node.data?.connector;
 
     // Get connector-specific fields or use defaults

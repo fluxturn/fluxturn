@@ -84,7 +84,7 @@ export const OrganizationDashboard: React.FC = () => {
   const [stats, setStats] = useState<OrganizationStats | null>(null)
   const [loadingStats, setLoadingStats] = useState(false)
   const [attemptedRedirect, setAttemptedRedirect] = useState(false)
-  const [projects, setProjects] = useState<any[]>([])
+  const [projects, setProjects] = useState<Array<{ id: string; name: string; description?: string; [key: string]: unknown }>>([])
 
   // Set organization ID from URL params - this triggers the fetch in context
   useEffect(() => {
@@ -132,7 +132,7 @@ export const OrganizationDashboard: React.FC = () => {
           storageMB: '0',
           storageGB: '0',
           emailsSent30d: 0,
-          activeUsers30d: members.filter((m: any) => m.status === 'online' || m.status === 'away').length
+          activeUsers30d: members.filter((m: { status?: string }) => m.status === 'online' || m.status === 'away').length
         },
         workflows: {
           totalExecutions: 0,
@@ -145,7 +145,7 @@ export const OrganizationDashboard: React.FC = () => {
           breakdown: []
         },
         recentActivity: [],
-        teamMembers: members.map((member: any) => ({
+        teamMembers: members.map((member: { userId?: string; id?: string; role?: string; user?: { email?: string; firstName?: string; lastName?: string; username?: string }; email?: string; joinedAt?: string }) => ({
           id: member.userId || member.id,
           role: member.role,
           email: member.user?.email || member.email,
@@ -488,7 +488,7 @@ export const OrganizationDashboard: React.FC = () => {
             </div>
           ) : projects && projects.length > 0 ? (
             <div className="space-y-3">
-              {projects.slice(0, 5).map((project: any) => (
+              {projects.slice(0, 5).map((project) => (
                 <div
                   key={project.id}
                   onClick={() => navigate(`/org/${organizationId}/project/${project.id}`)}

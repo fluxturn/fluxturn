@@ -15,8 +15,8 @@ export interface StorageFile {
   projectId?: string;
   appId?: string;
   userId?: string;
-  tags?: any[];
-  metadata?: Record<string, any>;
+  tags?: string[];
+  metadata?: Record<string, unknown>;
   createdAt: string;
   updatedAt: string;
 }
@@ -43,7 +43,7 @@ export interface UploadOptions {
   public?: boolean;
   process?: ProcessingOptions;
   bucket?: string;
-  metadata?: any;
+  metadata?: Record<string, unknown>;
   folder?: string;
 }
 

@@ -9,9 +9,9 @@ const API_BASE_URL = (import.meta.env?.VITE_API_URL as string);
 export class VideoApiError extends Error {
   public statusCode: number;
   public code?: string;
-  public details?: any;
+  public details?: unknown;
 
-  constructor(message: string, statusCode: number, code?: string, details?: any) {
+  constructor(message: string, statusCode: number, code?: string, details?: unknown) {
     super(message);
     this.name = 'VideoApiError';
     this.statusCode = statusCode;
@@ -58,13 +58,13 @@ export interface VideoThumbnailOptions {
 }
 
 export interface VideoExportOptions {
-  clips: any[];
+  clips: unknown[];
   format: 'mp4' | 'mov' | 'webm' | 'avi' | 'mkv';
   quality: 'low' | 'medium' | 'high' | '4k';
   resolution: { width: number; height: number };
   framerate?: number;
   bitrate?: string;
-  audioTracks?: any[];
+  audioTracks?: unknown[];
   backgroundColor?: string;
   audioCodec?: 'auto' | 'aac' | 'mp3' | 'opus';
   videoCodec?: 'auto' | 'h264' | 'h265' | 'vp9';
@@ -100,7 +100,7 @@ export interface VideoSession {
 export interface VideoSessionData {
   id?: string;
   name: string;
-  timelineData: any;
+  timelineData: unknown;
   thumbnail?: string;
   lastModified?: string;
   createdAt?: string;
@@ -124,7 +124,7 @@ export interface ProcessedVideoResponse {
   size: number;
   mimeType: string;
   createdAt: string;
-  processingParams?: any;
+  processingParams?: unknown;
   processingTime?: number;
 }
 
@@ -143,7 +143,7 @@ export interface VideoFile {
   url: string;
   contentType: string;
   size: number;
-  metadata?: any;
+  metadata?: Record<string, unknown>;
   tags?: string[];
   createdAt: string;
   updatedAt?: string;
@@ -662,7 +662,7 @@ class VideoAPI {
    */
   async saveSession(sessionData: {
     name: string;
-    timelineData: any;
+    timelineData: unknown;
     thumbnail?: string;
   }): Promise<{ id: string; createdAt: string }> {
     const response = await fetch(`${API_BASE_URL}/videos/save`, {
@@ -704,7 +704,7 @@ class VideoAPI {
 
     // Transform backend response to match expected interface
     return {
-      sessions: data.data?.map((session: any) => ({
+      sessions: data.data?.map((session: { id: string; title: string; metadata?: { thumbnail?: string }; created_at: string; updated_at: string }) => ({
         id: session.id,
         name: session.title,
         thumbnail: session.metadata?.thumbnail,
@@ -741,7 +741,7 @@ class VideoAPI {
       name: data.title,
       thumbnail: data.metadata?.thumbnail,
       clipCount: data.content?.clips?.length || 0,
-      duration: Math.max(...(data.content?.clips || []).map((c: any) => c.endTime || 0), 0),
+      duration: Math.max(...(data.content?.clips || []).map((c: { endTime?: number }) => c.endTime || 0), 0),
       createdAt: data.created_at,
       updatedAt: data.updated_at,
       timelineData: data.content || {},
@@ -753,7 +753,7 @@ class VideoAPI {
    */
   async updateSession(sessionId: string, sessionData: {
     name?: string;
-    timelineData?: any;
+    timelineData?: unknown;
     thumbnail?: string;
   }): Promise<{ id: string; updated: boolean; updatedAt: string }> {
     const response = await fetch(`${API_BASE_URL}/videos/save`, {

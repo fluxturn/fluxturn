@@ -7,7 +7,7 @@ import { BaseHandle } from "../../base/BaseHandle";
 
 export const RedisMemoryNode = memo((props: NodeProps) => {
   const { id, data: rawData } = props;
-  const data = rawData as any;
+  const data = rawData as Record<string, unknown>;
   const { setNodes, setEdges } = useReactFlow();
 
   const label = data?.label || "Redis Chat Memory";

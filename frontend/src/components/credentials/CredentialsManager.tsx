@@ -25,7 +25,7 @@ interface AuthField {
   type: 'text' | 'password' | 'secret' | 'email' | 'url' | 'select' | 'textarea' | 'number';
   placeholder?: string;
   required?: boolean;
-  defaultValue?: any;
+  defaultValue?: string | number | boolean;
   description?: string;
   helpUrl?: string;
   helpText?: string;
@@ -109,9 +109,9 @@ export const CredentialsManager: React.FC = () => {
       } else {
         setCredentials([]);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to fetch credentials:', error);
-      toast.error(error.message || 'Failed to load credentials');
+      toast.error(error instanceof Error ? error.message : 'Failed to load credentials');
       setCredentials([]);
     } finally {
       setLoading(false);
@@ -123,7 +123,7 @@ export const CredentialsManager: React.FC = () => {
       const data = await api.get<Connector[]>('/connectors/available');
       // console.log('Available connectors:', data);
       setConnectors(data || []);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to fetch connectors:', error);
       toast.error('Failed to load available connectors');
     }
@@ -154,17 +154,18 @@ export const CredentialsManager: React.FC = () => {
                     setCredentials(credentials.filter(c => c.id !== id));
                     toast.dismiss();
                     toast.success(`"${name}" deleted successfully`);
-                  } catch (err: any) {
+                  } catch (err: unknown) {
                     toast.dismiss();
 
+                    const errObj = err as { statusCode?: number; message?: string };
                     // Handle 404 specifically - credential was already deleted or doesn't exist
-                    if (err.statusCode === 404 || err.message?.includes('not found')) {
+                    if (errObj.statusCode === 404 || errObj.message?.includes('not found')) {
                       toast.warning(`"${name}" was already deleted or doesn't exist. Refreshing list...`);
                       // Refresh to sync with backend
                       await fetchCredentials();
                     } else {
                       // Other errors
-                      toast.error(err.message || 'Failed to delete credential');
+                      toast.error(errObj.message || 'Failed to delete credential');
                     }
                   }
                 }}

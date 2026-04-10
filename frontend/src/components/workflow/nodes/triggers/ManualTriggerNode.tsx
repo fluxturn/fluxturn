@@ -21,7 +21,7 @@ export const ManualTriggerNode = memo((props: NodeProps) => {
       icon={MousePointerClick}
       name="Manual Trigger"
       description="Click to execute"
-      status={(data as any).status || 'initial'}
+      status={(data as Record<string, unknown>).status as string || 'initial'}
       onSettings={handleOpenSettings}
       onDoubleClick={handleOpenSettings}
     />

@@ -32,7 +32,7 @@ export const CustomEdge = memo(({
   };
 
   // Check if edge was executed successfully
-  const isExecuted = (data as any)?.executed === true;
+  const isExecuted = (data as Record<string, unknown> | undefined)?.executed === true;
 
   // Apply green color for executed edges with animation
   const edgeStyle = isExecuted ? {

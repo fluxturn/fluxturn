@@ -189,7 +189,7 @@ class MarketingApi {
     postIds: string[],
     projectId?: string,
     appId?: string
-  ): Promise<{ successful: number; failed: number; results: any[] }> {
+  ): Promise<{ successful: number; failed: number; results: unknown[] }> {
     if (projectId) this.api.setProjectId(projectId);
     if (appId) this.api.setAppId(appId);
 

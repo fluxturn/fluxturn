@@ -6,14 +6,28 @@ import { Card } from '../../ui/card';
 import { Badge } from '../../ui/badge';
 import { Settings, Play, AlertCircle, CheckCircle, Loader2 } from 'lucide-react';
 import type { WorkflowNode } from '../../../types/workflow';
+import type { JsonValue } from '../../../types/json';
 import { ConnectorConfigModal } from '../ConnectorConfigModal';
+
+interface ConnectorInput {
+  id: string;
+  name: string;
+  type: string;
+  required?: boolean;
+}
+
+interface ConnectorOutput {
+  id: string;
+  name: string;
+  type: string;
+}
 
 interface ConnectorNodeData {
   label: string;
   connectorType?: string;
-  config?: Record<string, any>;
-  inputs?: Array<{ id: string; name: string; type: string; required?: boolean }>;
-  outputs?: Array<{ id: string; name: string; type: string }>;
+  config?: Record<string, JsonValue>;
+  inputs?: ConnectorInput[];
+  outputs?: ConnectorOutput[];
   status?: 'idle' | 'running' | 'success' | 'error';
   error?: string;
   icon?: string;
@@ -136,7 +150,7 @@ export const ConnectorNode = memo<NodeProps>(({ id, data, selected }) => {
         </div>
 
         {/* Input Handles */}
-        {inputs.map((input: any, index: number) => (
+        {inputs.map((input: ConnectorInput, index: number) => (
           <Handle
             key={input.id}
             type="target"
@@ -152,7 +166,7 @@ export const ConnectorNode = memo<NodeProps>(({ id, data, selected }) => {
         ))}
 
         {/* Output Handles */}
-        {outputs.map((output: any, index: number) => (
+        {outputs.map((output: ConnectorOutput, index: number) => (
           <Handle
             key={output.id}
             type="source"
@@ -193,7 +207,7 @@ export const ConnectorNode = memo<NodeProps>(({ id, data, selected }) => {
         nodeId={id}
         connectorType={connectorType || 'unknown'}
         currentConfig={config}
-        onConfigUpdate={(newConfig: Record<string, any>) => {
+        onConfigUpdate={(newConfig: Record<string, JsonValue>) => {
           // This would be handled by the parent workflow builder
           // console.log('Config updated:', newConfig);
         }}

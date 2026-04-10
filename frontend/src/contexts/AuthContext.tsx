@@ -17,7 +17,7 @@ interface User {
   website?: string;
   location?: string;
   twoFactorEnabled?: boolean;
-  organization?: any;
+  organization?: { id: string; name: string; [key: string]: unknown };
   organizationId?: string;
   projectId?: string;
 }
@@ -79,11 +79,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // Check if token is expired (basic check - you might want to decode JWT)
       try {
         // Try to get profile with the token
-        const response = await api.getProfile() as any;
-        // console.log('Profile from API:', response);
-        
+        const response = await api.getProfile() as { user?: Record<string, string | undefined>; [key: string]: unknown };
+
         // The /auth/me endpoint returns: { user: { ... } }
-        const profile = response.user || response;
+        const profile = (response.user || response) as Record<string, string | undefined>;
         
         const userData: User = {
           id: profile.id,
@@ -105,12 +104,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         
         // Load organizations after user is authenticated
         await loadUserData();
-      } catch (error: any) {
+      } catch (error: unknown) {
         // Token might be expired or invalid
         console.error('Auth check failed:', error);
-        
+        const errMsg = error instanceof Error ? error.message : '';
+
         // If we get a 401, token is invalid/expired
-        if (error.message?.includes('Unauthorized') || error.message?.includes('401')) {
+        if (errMsg?.includes('Unauthorized') || errMsg?.includes('401')) {
           // Try to refresh the token if we have a refresh token
           const refreshToken = localStorage.getItem('refreshToken');
           if (refreshToken) {
@@ -368,11 +368,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const refreshUser = async () => {
     try {
-      const response = await api.getProfile() as any;
-      // console.log('Profile response in refreshUser:', response);
+      const response = await api.getProfile() as { user?: Record<string, string | undefined>; [key: string]: unknown };
 
       // The /auth/me endpoint returns: { user: { ... } }
-      const profile = response.user || response;
+      const profile = (response.user || response) as Record<string, string | undefined>;
 
       if (!profile) {
         console.error('No profile data received');

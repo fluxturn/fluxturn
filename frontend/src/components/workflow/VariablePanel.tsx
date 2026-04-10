@@ -29,6 +29,7 @@ import {
   FileText,
   List
 } from 'lucide-react';
+import type { JsonValue } from '../../types/json';
 import type { WorkflowDefinition, WorkflowNode, WorkflowVariable } from '../../types/workflow';
 
 interface VariablePanelProps {
@@ -130,7 +131,7 @@ export const VariablePanel: React.FC<VariablePanelProps> = ({
     }
   };
 
-  const formatVariableValue = (value: any, type: WorkflowVariable['type']) => {
+  const formatVariableValue = (value: JsonValue, type: WorkflowVariable['type']) => {
     switch (type) {
       case 'object':
       case 'array':
@@ -359,7 +360,7 @@ export const VariablePanel: React.FC<VariablePanelProps> = ({
               key={id}
               size="sm"
               variant={selectedTab === id ? "default" : "ghost"}
-              onClick={() => setSelectedTab(id as any)}
+              onClick={() => setSelectedTab(id as typeof selectedTab)}
               className={`text-xs gap-1 ${
                 selectedTab === id 
                   ? "bg-purple-600 text-white" 
@@ -482,7 +483,7 @@ export const VariablePanel: React.FC<VariablePanelProps> = ({
                   <label className="text-sm font-medium">Type</label>
                   <select
                     value={newVariable.type}
-                    onChange={(e) => setNewVariable({ ...newVariable, type: e.target.value as any })}
+                    onChange={(e) => setNewVariable({ ...newVariable, type: e.target.value as WorkflowVariable['type'] })}
                     className="w-full mt-1 p-2 bg-white/10 border border-white/20 rounded text-white"
                   >
                     <option value="string">String</option>
@@ -508,7 +509,7 @@ export const VariablePanel: React.FC<VariablePanelProps> = ({
                   <label className="text-sm font-medium">Scope</label>
                   <select
                     value={newVariable.scope}
-                    onChange={(e) => setNewVariable({ ...newVariable, scope: e.target.value as any })}
+                    onChange={(e) => setNewVariable({ ...newVariable, scope: e.target.value as WorkflowVariable['scope'] })}
                     className="w-full mt-1 p-2 bg-white/10 border border-white/20 rounded text-white"
                   >
                     <option value="global">Global</option>

@@ -33,7 +33,7 @@ export const OrganizationList: React.FC = () => {
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc')
   const [viewMode, setViewMode] = useState<ViewMode>('grid')
   const [showFilters, setShowFilters] = useState(false)
-  const [organizations, setOrganizations] = useState<any[]>([])
+  const [organizations, setOrganizations] = useState<Array<{ id: string; name: string; description: string; status?: string; createdAt?: string; [key: string]: unknown }>>([])
   const [loading, setLoading] = useState(true)
   const [deleteDialog, setDeleteDialog] = useState<{ open: boolean; organizationId: string | null; organizationName: string }>({
     open: false,
@@ -48,7 +48,7 @@ export const OrganizationList: React.FC = () => {
         setLoading(true)
         const response = await organizationApi.getUserOrganizations()
         setOrganizations(response.data || [])
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error('Failed to fetch organizations:', error)
         toast.error('Failed to load organizations')
         // Fallback to empty array
@@ -81,8 +81,8 @@ export const OrganizationList: React.FC = () => {
     })
 
     filtered.sort((a, b) => {
-      let aValue: any = a[sortField]
-      let bValue: any = b[sortField]
+      let aValue: unknown = a[sortField]
+      let bValue: unknown = b[sortField]
 
       if (sortField === 'createdAt') {
         aValue = new Date(aValue).getTime()
@@ -139,9 +139,10 @@ export const OrganizationList: React.FC = () => {
 
       // Close dialog
       setDeleteDialog({ open: false, organizationId: null, organizationName: '' })
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to delete organization:', error)
-      toast.error(error.response?.data?.message || 'Failed to delete organization')
+      const errObj = error as { response?: { data?: { message?: string } } }
+      toast.error(errObj.response?.data?.message || 'Failed to delete organization')
     }
   }
 

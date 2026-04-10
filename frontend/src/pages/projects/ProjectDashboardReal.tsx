@@ -66,7 +66,7 @@ export const ProjectDashboardReal: React.FC = () => {
   const { currentProject, projectId, loading: projectLoading, error: projectError, refreshProject } = useProjectFromParams()
   const { currentOrganization } = useOrganizationFromParams()
 
-  const [workflows, setWorkflows] = useState<any[]>([])
+  const [workflows, setWorkflows] = useState<Array<{ id: string; name: string; is_active?: boolean; [key: string]: unknown }>>([])
   const [workflowStats, setWorkflowStats] = useState<WorkflowStats>({ total: 0, active: 0, paused: 0, failed: 0 })
   const [executionStats, setExecutionStats] = useState<ExecutionStats>({
     total: 0,
@@ -108,8 +108,8 @@ export const ProjectDashboardReal: React.FC = () => {
       // Calculate workflow stats
       const stats = {
         total: workflowsData.length,
-        active: workflowsData.filter((w: any) => w.is_active).length,
-        paused: workflowsData.filter((w: any) => !w.is_active).length,
+        active: workflowsData.filter((w: { is_active?: boolean }) => w.is_active).length,
+        paused: workflowsData.filter((w: { is_active?: boolean }) => !w.is_active).length,
         failed: 0
       }
       // console.log('📊 Workflow stats:', stats)
@@ -131,10 +131,10 @@ export const ProjectDashboardReal: React.FC = () => {
         // console.log('Loaded executions:', executionsResponse.executions.length)
 
         // Create workflow lookup map for better performance
-        const workflowMap = new Map(workflowsData.map((w: any) => [w.id, w]))
+        const workflowMap = new Map(workflowsData.map((w: { id: string; name: string }) => [w.id, w]))
 
-        executionsResponse.executions.forEach((exec: any) => {
-          const workflow = workflowMap.get(exec.workflow_id) as any
+        executionsResponse.executions.forEach((exec: { id: string; workflow_id: string; status: string; started_at?: string; completed_at?: string; duration?: number }) => {
+          const workflow = workflowMap.get(exec.workflow_id)
 
           allExecutions.push({
             id: exec.id,

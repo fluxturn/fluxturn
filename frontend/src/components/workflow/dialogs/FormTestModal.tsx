@@ -24,7 +24,7 @@ interface FormTestModalProps {
     formFields?: FormField[];
     submitButtonText?: string;
   };
-  onSubmit: (formData: Record<string, any>) => void;
+  onSubmit: (formData: Record<string, string | boolean>) => void;
 }
 
 export function FormTestModal({
@@ -33,9 +33,9 @@ export function FormTestModal({
   formConfig,
   onSubmit,
 }: FormTestModalProps) {
-  const [formData, setFormData] = useState<Record<string, any>>({});
+  const [formData, setFormData] = useState<Record<string, string | boolean>>({});
 
-  const handleFieldChange = (fieldName: string, value: any) => {
+  const handleFieldChange = (fieldName: string, value: string | boolean) => {
     setFormData((prev) => ({
       ...prev,
       [fieldName]: value,

@@ -244,7 +244,7 @@ const initialEdges: Edge[] = [
 
 // Custom Node Component
 interface CustomNodeProps {
-  data: any;
+  data: { label?: string; icon?: string; description?: string; category?: string; config?: Record<string, unknown>; status?: string };
   selected: boolean;
 }
 
@@ -330,7 +330,7 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data, selected }) => {
               Configuration
             </h4>
             {data.configSchema &&
-              Object.entries(data.configSchema).map(([key, schema]: [string, any]) => (
+              Object.entries(data.configSchema).map(([key, schema]: [string, Record<string, unknown>]) => (
                 <div key={key} className="text-xs">
                   <label className="block text-gray-700 font-semibold mb-1">
                     {schema.label}
@@ -517,9 +517,9 @@ const GmailToSheetsWorkflowInner: React.FC = () => {
         description: 'Lead from John Doe has been added to your spreadsheet',
         duration: 5000,
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast.error('Workflow execution failed', {
-        description: error.message || 'Unknown error',
+        description: error instanceof Error ? error.message : 'Unknown error',
       });
       setNodes((nds) =>
         nds.map((node) => ({

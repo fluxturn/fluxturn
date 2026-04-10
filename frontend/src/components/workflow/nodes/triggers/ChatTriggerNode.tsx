@@ -31,7 +31,7 @@ export const ChatTriggerNode = memo((props: NodeProps) => {
       icon={MessageCircle}
       name={nodeData.label || "Chat Trigger"}
       description={description}
-      status={(data as any).status || 'initial'}
+      status={(data as Record<string, unknown>).status as string || 'initial'}
       onSettings={handleOpenSettings}
       onDoubleClick={handleOpenSettings}
     />

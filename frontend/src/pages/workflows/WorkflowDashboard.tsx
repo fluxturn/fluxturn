@@ -168,7 +168,7 @@ export const WorkflowDashboard: React.FC = () => {
       setLoading(true);
       const response = await WorkflowAPI.getWorkflows({ limit: 50 });
       setWorkflows(response.workflows || []);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to fetch workflows:', error);
       toast.error('Failed to load workflows');
     } finally {
@@ -187,7 +187,7 @@ export const WorkflowDashboard: React.FC = () => {
 
       // Transform daily data for charts
       if (stats.dailyData && stats.dailyData.length > 0) {
-        const transformedData = stats.dailyData.map((day: any) => {
+        const transformedData = stats.dailyData.map((day: { date: string; success: number; failed: number }) => {
           const date = new Date(day.date);
           const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
           return {
@@ -208,7 +208,7 @@ export const WorkflowDashboard: React.FC = () => {
         }
         setChartData(last7Days);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to fetch execution stats:', error);
       // Don't show error toast for stats, just use default values
       // Set empty chart data for last 7 days
@@ -239,7 +239,7 @@ export const WorkflowDashboard: React.FC = () => {
         total: response.pagination.total,
         totalPages: response.pagination.totalPages,
       }));
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to fetch executions:', error);
       toast.error('Failed to load executions');
     } finally {
@@ -276,9 +276,9 @@ export const WorkflowDashboard: React.FC = () => {
 
       // Navigate to the new workflow in the canvas
       navigate(`/org/${organizationId}/project/${projectId}/workflows/${response.id}`);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to create workflow:', error);
-      toast.error(error.message || 'Failed to create workflow');
+      toast.error(error instanceof Error ? error.message : 'Failed to create workflow');
     }
   };
 

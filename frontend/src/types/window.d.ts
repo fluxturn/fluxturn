@@ -1,3 +1,3 @@
 interface Window {
-  __TAURI__?: any;
+  __TAURI__?: Record<string, unknown>;
 }

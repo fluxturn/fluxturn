@@ -16,8 +16,8 @@ interface AuthField {
   type: 'string' | 'text' | 'password' | 'secret' | 'email' | 'url' | 'select' | 'textarea' | 'number' | 'boolean';
   placeholder?: string;
   required?: boolean;
-  defaultValue?: any;
-  default?: any; // Alternative to defaultValue
+  defaultValue?: string | number | boolean;
+  default?: string | number | boolean; // Alternative to defaultValue
   description?: string;
   helpUrl?: string;
   helpText?: string;
@@ -72,14 +72,14 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedConnector, setSelectedConnector] = useState<Connector | null>(null);
   const [credentialName, setCredentialName] = useState('');
-  const [authConfig, setAuthConfig] = useState<Record<string, any>>({});
+  const [authConfig, setAuthConfig] = useState<Record<string, string | number | boolean>>({});
   const [loading, setLoading] = useState(false);
   const [oauthLoading, setOauthLoading] = useState(false);
   const [copiedRedirectUri, setCopiedRedirectUri] = useState(false);
 
   // Credential selection mode: 'select' for existing credentials, 'create' for new
   const [credentialMode, setCredentialMode] = useState<'select' | 'create'>('select');
-  const [existingCredentials, setExistingCredentials] = useState<any[]>([]);
+  const [existingCredentials, setExistingCredentials] = useState<Array<{ id: string; name: string; connector_type: string; is_active?: boolean }>>([]);
   const [selectedCredentialId, setSelectedCredentialId] = useState<string>('');
   const [loadingCredentials, setLoadingCredentials] = useState(false);
 
@@ -126,7 +126,7 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
     setCredentialName(`${connector.display_name} account`);
 
     // Initialize auth config
-    const initialConfig: Record<string, any> = {};
+    const initialConfig: Record<string, string | number | boolean> = {};
 
     // For OAuth2 connectors, set redirect_uri automatically (for custom OAuth only)
     // Centralized OAuth uses backend-configured redirect URIs
@@ -136,7 +136,7 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
 
     // Initialize all auth fields with their default values
     if (connector.auth_fields && Array.isArray(connector.auth_fields)) {
-      connector.auth_fields.forEach((field: any) => {
+      connector.auth_fields.forEach((field: AuthField) => {
         const fieldName = field.name || field.key;
         const defaultValue = field.default ?? field.defaultValue;
 
@@ -148,7 +148,7 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
         // Special handling for authType field
         if ((field.name === 'authType' || field.key === 'authType') && defaultValue) {
           // If default is oauth2, set redirect_uri
-          if (defaultValue?.toLowerCase() === 'oauth2') {
+          if (typeof defaultValue === 'string' && defaultValue.toLowerCase() === 'oauth2') {
             initialConfig.redirect_uri = `${getEnvironmentBaseUrl()}/api/oauth/${getOAuthProviderName(connector.name)}/callback`;
           }
         }
@@ -169,7 +169,7 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
 
       // Filter for active credentials
       const credentials = Array.isArray(response)
-        ? response.filter((cred: any) => cred.is_active !== false)
+        ? response.filter((cred: { id: string; name: string; connector_type: string; is_active?: boolean }) => cred.is_active !== false)
         : [];
 
       setExistingCredentials(credentials);
@@ -265,7 +265,7 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
       setOauthLoading(true);
 
       // Create the credential placeholder with shop subdomain if Shopify
-      const config: any = {
+      const config: Record<string, string> = {
         authType: 'oauth2',
         authMode: 'oneclick' // Mark this as one-click OAuth for backend
       };
@@ -423,9 +423,9 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
         }
       }, 500);
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('OAuth flow error:', error);
-      toast.error(error.message || 'Failed to initialize OAuth');
+      toast.error(error instanceof Error ? error.message : 'Failed to initialize OAuth');
       setOauthLoading(false);
       // Clear pending credential ref - if credential was created, modal close will clean it up
       // Or it will be cleaned up when user retries
@@ -593,9 +593,9 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
         }
       }, 5 * 60 * 1000);
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('OAuth flow error:', error);
-      toast.error(error.message || 'Failed to initialize OAuth flow');
+      toast.error(error instanceof Error ? error.message : 'Failed to initialize OAuth flow');
       setOauthLoading(false);
     }
   };
@@ -615,17 +615,17 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
     // For OAuth connectors, use OAuth flow
     // For connectors with multiple auth options (authType selector), use the selected authType
     // Otherwise, use the connector's main auth_type
-    const selectedAuthType = authConfig.authType?.toLowerCase();
+    const selectedAuthType = String(authConfig.authType || '').toLowerCase();
 
     // Check if connector has an authType selector field (multi-auth connector)
     const hasAuthTypeSelector = selectedConnector.auth_fields && Array.isArray(selectedConnector.auth_fields) &&
-      selectedConnector.auth_fields.some((field: any) => field.key === 'authType' || field.name === 'authType');
+      selectedConnector.auth_fields.some((field: AuthField) => (field.key ?? field.name) === 'authType');
 
     // Check if connector has an authMode selector (dual OAuth support like Dropbox)
     // If authMode is 'accessToken', skip OAuth flow and save directly
     const hasAuthModeSelector = selectedConnector.auth_fields && Array.isArray(selectedConnector.auth_fields) &&
-      selectedConnector.auth_fields.some((field: any) => field.key === 'authMode' || field.name === 'authMode');
-    const selectedAuthMode = authConfig.authMode?.toLowerCase();
+      selectedConnector.auth_fields.some((field: AuthField) => (field.key ?? field.name) === 'authMode');
+    const selectedAuthMode = String(authConfig.authMode || '').toLowerCase();
     const isUsingAccessTokenMode = hasAuthModeSelector && selectedAuthMode === 'accesstoken';
 
     // For multi-auth connectors, ONLY use selectedAuthType
@@ -664,21 +664,21 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
         } else {
           toast.warning('Credential saved but connection test failed. Please check your settings.');
         }
-      } catch (testError: any) {
+      } catch (testError: unknown) {
         console.error('Credential test error:', testError);
-        toast.warning(`Credential saved but could not test connection: ${testError.message || 'Unknown error'}`);
+        toast.warning(`Credential saved but could not test connection: ${testError instanceof Error ? testError.message : 'Unknown error'}`);
       }
 
       onSuccess(createResponse.id); // Pass credential ID
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to create credential:', error);
-      toast.error(error.message || 'Failed to create credential');
+      toast.error(error instanceof Error ? error.message : 'Failed to create credential');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleFieldChange = (fieldName: string, value: any) => {
+  const handleFieldChange = (fieldName: string, value: string | number | boolean) => {
     setAuthConfig((prev) => {
       const newConfig = {
         ...prev,
@@ -686,7 +686,7 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
       };
       
       // If authType field is changed to oauth2, set redirect_uri
-      if (fieldName === 'authType' && value?.toLowerCase() === 'oauth2') {
+      if (fieldName === 'authType' && typeof value === 'string' && value.toLowerCase() === 'oauth2') {
         newConfig.redirect_uri = `${getEnvironmentBaseUrl()}/api/oauth/${getOAuthProviderName(selectedConnector.name)}/callback`;
       }
       
@@ -694,7 +694,7 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
     });
   };
 
-  const renderAuthField = (field: any) => {
+  const renderAuthField = (field: AuthField) => {
     const fieldName = field.name || field.key;
     const value = authConfig[fieldName] ?? field.defaultValue ?? field.default ?? "";
 
@@ -786,7 +786,7 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
               required={field.required}
             >
               <option value="">{field.placeholder || 'Select...'}</option>
-              {field.options?.map((option: any) => (
+              {field.options?.map((option: { label: string; value: string; description?: string }) => (
                 <option key={option.value} value={option.value} title={option.description}>
                   {option.label}
                 </option>
@@ -798,7 +798,7 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
             {/* Show description of selected option if available */}
             {value && field.options && (
               <p className="text-xs text-gray-300">
-                {field.options.find((opt: any) => opt.value === value)?.description}
+                {field.options.find((opt: { value: string }) => opt.value === value)?.description}
               </p>
             )}
           </div>
@@ -959,10 +959,10 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
 
       // Check if connector has authType selector (dual OAuth support)
       const hasAuthTypeSelector = selectedConnector.auth_fields && Array.isArray(selectedConnector.auth_fields) &&
-        selectedConnector.auth_fields.some((field: any) => field.key === 'authType' || field.name === 'authType');
+        selectedConnector.auth_fields.some((field: AuthField) => (field.key ?? field.name) === 'authType');
 
       // If connector supports both OAuth types, only show this button when 'oauth2' is selected
-      if (hasAuthTypeSelector && authConfig.authType?.toLowerCase() !== 'oauth2') {
+      if (hasAuthTypeSelector && String(authConfig.authType || '').toLowerCase() !== 'oauth2') {
         return null;
       }
 
@@ -1023,10 +1023,10 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
 
       // Check if connector has authType selector (dual OAuth support)
       const hasAuthTypeSelector = selectedConnector.auth_fields && Array.isArray(selectedConnector.auth_fields) &&
-        selectedConnector.auth_fields.some((field: any) => field.key === 'authType' || field.name === 'authType');
+        selectedConnector.auth_fields.some((field: AuthField) => (field.key ?? field.name) === 'authType');
 
       // If connector supports both OAuth types, only show this button when 'oauth2' is selected
-      if (hasAuthTypeSelector && authConfig.authType?.toLowerCase() !== 'oauth2') {
+      if (hasAuthTypeSelector && String(authConfig.authType || '').toLowerCase() !== 'oauth2') {
         return null;
       }
 
@@ -1093,10 +1093,10 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
 
       // Check if connector has authType selector (dual OAuth support)
       const hasAuthTypeSelector = selectedConnector.auth_fields && Array.isArray(selectedConnector.auth_fields) &&
-        selectedConnector.auth_fields.some((field: any) => field.key === 'authType' || field.name === 'authType');
+        selectedConnector.auth_fields.some((field: AuthField) => (field.key ?? field.name) === 'authType');
 
       // If connector supports both OAuth types, only show this button when 'oauth2' is selected
-      if (hasAuthTypeSelector && authConfig.authType?.toLowerCase() !== 'oauth2') {
+      if (hasAuthTypeSelector && String(authConfig.authType || '').toLowerCase() !== 'oauth2') {
         return null;
       }
 
@@ -1157,10 +1157,10 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
 
       // Check if connector has authType selector (dual OAuth support)
       const hasAuthTypeSelector = selectedConnector.auth_fields && Array.isArray(selectedConnector.auth_fields) &&
-        selectedConnector.auth_fields.some((field: any) => field.key === 'authType' || field.name === 'authType');
+        selectedConnector.auth_fields.some((field: AuthField) => (field.key ?? field.name) === 'authType');
 
       // If connector supports both OAuth types, only show this button when 'oauth2' is selected
-      if (hasAuthTypeSelector && authConfig.authType?.toLowerCase() !== 'oauth2') {
+      if (hasAuthTypeSelector && String(authConfig.authType || '').toLowerCase() !== 'oauth2') {
         return null;
       }
 
@@ -1221,10 +1221,10 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
 
       // Check if connector has authType selector (dual OAuth support)
       const hasAuthTypeSelector = selectedConnector.auth_fields && Array.isArray(selectedConnector.auth_fields) &&
-        selectedConnector.auth_fields.some((field: any) => field.key === 'authType' || field.name === 'authType');
+        selectedConnector.auth_fields.some((field: AuthField) => (field.key ?? field.name) === 'authType');
 
       // If connector supports both OAuth types, only show this button when 'oauth2' is selected
-      if (hasAuthTypeSelector && authConfig.authType?.toLowerCase() !== 'oauth2') {
+      if (hasAuthTypeSelector && String(authConfig.authType || '').toLowerCase() !== 'oauth2') {
         return null;
       }
 
@@ -1285,10 +1285,10 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
 
       // Check if connector has authType selector (dual OAuth support)
       const hasAuthTypeSelector = selectedConnector.auth_fields && Array.isArray(selectedConnector.auth_fields) &&
-        selectedConnector.auth_fields.some((field: any) => field.key === 'authType' || field.name === 'authType');
+        selectedConnector.auth_fields.some((field: AuthField) => (field.key ?? field.name) === 'authType');
 
       // If connector supports both OAuth types, only show this button when 'oauth2' is selected
-      if (hasAuthTypeSelector && authConfig.authType?.toLowerCase() !== 'oauth2') {
+      if (hasAuthTypeSelector && String(authConfig.authType || '').toLowerCase() !== 'oauth2') {
         return null;
       }
 
@@ -1349,10 +1349,10 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
 
       // Check if connector has authType selector (dual OAuth support)
       const hasAuthTypeSelector = selectedConnector.auth_fields && Array.isArray(selectedConnector.auth_fields) &&
-        selectedConnector.auth_fields.some((field: any) => field.key === 'authType' || field.name === 'authType');
+        selectedConnector.auth_fields.some((field: AuthField) => (field.key ?? field.name) === 'authType');
 
       // If connector supports both OAuth types, only show this button when 'oauth2' is selected
-      if (hasAuthTypeSelector && authConfig.authType?.toLowerCase() !== 'oauth2') {
+      if (hasAuthTypeSelector && String(authConfig.authType || '').toLowerCase() !== 'oauth2') {
         return null;
       }
 
@@ -1412,15 +1412,15 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
     // Render one-click OAuth button for Discord
     const renderDiscordOAuthButton = () => {
       // Check if Discord is selected AND OAuth2 is the selected auth type
-      const selectedAuthType = authConfig.authType?.toLowerCase();
+      const selectedAuthType = String(authConfig.authType || '').toLowerCase();
       if (!isDiscord || (selectedConnector.auth_type !== 'oauth2' && selectedAuthType !== 'oauth2')) return null;
 
       // Check if connector has authType selector (dual OAuth support)
       const hasAuthTypeSelector = selectedConnector.auth_fields && Array.isArray(selectedConnector.auth_fields) &&
-        selectedConnector.auth_fields.some((field: any) => field.key === 'authType' || field.name === 'authType');
+        selectedConnector.auth_fields.some((field: AuthField) => (field.key ?? field.name) === 'authType');
 
       // If connector supports both OAuth types, only show this button when 'oauth2' is selected
-      if (hasAuthTypeSelector && authConfig.authType?.toLowerCase() !== 'oauth2') {
+      if (hasAuthTypeSelector && String(authConfig.authType || '').toLowerCase() !== 'oauth2') {
         return null;
       }
 
@@ -1478,15 +1478,15 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
     // Render one-click OAuth button for Reddit
     const renderRedditOAuthButton = () => {
       // Check if Reddit is selected AND OAuth2 is the selected auth type
-      const selectedAuthType = authConfig.authType?.toLowerCase();
+      const selectedAuthType = String(authConfig.authType || '').toLowerCase();
       if (!isReddit || (selectedConnector.auth_type !== 'oauth2' && selectedAuthType !== 'oauth2')) return null;
 
       // Check if connector has authType selector (dual OAuth support)
       const hasAuthTypeSelector = selectedConnector.auth_fields && Array.isArray(selectedConnector.auth_fields) &&
-        selectedConnector.auth_fields.some((field: any) => field.key === 'authType' || field.name === 'authType');
+        selectedConnector.auth_fields.some((field: AuthField) => (field.key ?? field.name) === 'authType');
 
       // If connector supports both OAuth types, only show this button when 'oauth2' is selected
-      if (hasAuthTypeSelector && authConfig.authType?.toLowerCase() !== 'oauth2') {
+      if (hasAuthTypeSelector && String(authConfig.authType || '').toLowerCase() !== 'oauth2') {
         return null;
       }
 
@@ -1544,15 +1544,15 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
     // Render one-click OAuth button for Shopify
     const renderShopifyOAuthButton = () => {
       // Check if Shopify is selected AND OAuth2 is the selected auth type
-      const selectedAuthType = authConfig.authType?.toLowerCase();
+      const selectedAuthType = String(authConfig.authType || '').toLowerCase();
       if (!isShopify || (selectedConnector.auth_type !== 'oauth2' && selectedAuthType !== 'oauth2')) return null;
 
       // Check if connector has authType selector (dual OAuth support)
       const hasAuthTypeSelector = selectedConnector.auth_fields && Array.isArray(selectedConnector.auth_fields) &&
-        selectedConnector.auth_fields.some((field: any) => field.key === 'authType' || field.name === 'authType');
+        selectedConnector.auth_fields.some((field: AuthField) => (field.key ?? field.name) === 'authType');
 
       // If connector supports both OAuth types, only show this button when 'oauth2' is selected
-      if (hasAuthTypeSelector && authConfig.authType?.toLowerCase() !== 'oauth2') {
+      if (hasAuthTypeSelector && String(authConfig.authType || '').toLowerCase() !== 'oauth2') {
         return null;
       }
 
@@ -1642,15 +1642,15 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
     // Render one-click OAuth button for Pinterest
     const renderPinterestOAuthButton = () => {
       // Check if Pinterest is selected AND OAuth2 is the selected auth type
-      const selectedAuthType = authConfig.authType?.toLowerCase();
+      const selectedAuthType = String(authConfig.authType || '').toLowerCase();
       if (!isPinterest || (selectedConnector.auth_type !== 'oauth2' && selectedAuthType !== 'oauth2')) return null;
 
       // Check if connector has authType selector (dual OAuth support)
       const hasAuthTypeSelector = selectedConnector.auth_fields && Array.isArray(selectedConnector.auth_fields) &&
-        selectedConnector.auth_fields.some((field: any) => field.key === 'authType' || field.name === 'authType');
+        selectedConnector.auth_fields.some((field: AuthField) => (field.key ?? field.name) === 'authType');
 
       // If connector supports both OAuth types, only show this button when 'oauth2' is selected
-      if (hasAuthTypeSelector && authConfig.authType?.toLowerCase() !== 'oauth2') {
+      if (hasAuthTypeSelector && String(authConfig.authType || '').toLowerCase() !== 'oauth2') {
         return null;
       }
 
@@ -1708,15 +1708,15 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
     // Render one-click OAuth button for Microsoft Teams
     const renderTeamsOAuthButton = () => {
       // Check if Teams is selected AND OAuth2 is the selected auth type
-      const selectedAuthType = authConfig.authType?.toLowerCase();
+      const selectedAuthType = String(authConfig.authType || '').toLowerCase();
       if (!isTeams || (selectedConnector.auth_type !== 'oauth2' && selectedAuthType !== 'oauth2')) return null;
 
       // Check if connector has authType selector (dual OAuth support)
       const hasAuthTypeSelector = selectedConnector.auth_fields && Array.isArray(selectedConnector.auth_fields) &&
-        selectedConnector.auth_fields.some((field: any) => field.key === 'authType' || field.name === 'authType');
+        selectedConnector.auth_fields.some((field: AuthField) => (field.key ?? field.name) === 'authType');
 
       // If connector supports both OAuth types, only show this button when 'oauth2' is selected
-      if (hasAuthTypeSelector && authConfig.authType?.toLowerCase() !== 'oauth2') {
+      if (hasAuthTypeSelector && String(authConfig.authType || '').toLowerCase() !== 'oauth2') {
         return null;
       }
 
@@ -1780,15 +1780,15 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
     // Render one-click OAuth button for HubSpot
     const renderHubSpotOAuthButton = () => {
       // Check if HubSpot is selected AND OAuth2 is the selected auth type
-      const selectedAuthType = authConfig.authType?.toLowerCase();
+      const selectedAuthType = String(authConfig.authType || '').toLowerCase();
       if (!isHubSpot || (selectedConnector.auth_type !== 'oauth2' && selectedAuthType !== 'oauth2')) return null;
 
       // Check if connector has authType selector (dual OAuth support)
       const hasAuthTypeSelector = selectedConnector.auth_fields && Array.isArray(selectedConnector.auth_fields) &&
-        selectedConnector.auth_fields.some((field: any) => field.key === 'authType' || field.name === 'authType');
+        selectedConnector.auth_fields.some((field: AuthField) => (field.key ?? field.name) === 'authType');
 
       // If connector supports both OAuth types, only show this button when 'oauth2' is selected
-      if (hasAuthTypeSelector && authConfig.authType?.toLowerCase() !== 'oauth2') {
+      if (hasAuthTypeSelector && String(authConfig.authType || '').toLowerCase() !== 'oauth2') {
         return null;
       }
 
@@ -1846,15 +1846,15 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
     // Render one-click OAuth button for Zoom
     const renderZoomOAuthButton = () => {
       // Check if Zoom is selected AND OAuth2 is the selected auth type
-      const selectedAuthType = authConfig.authType?.toLowerCase();
+      const selectedAuthType = String(authConfig.authType || '').toLowerCase();
       if (!isZoom || (selectedConnector.auth_type !== 'oauth2' && selectedAuthType !== 'oauth2')) return null;
 
       // Check if connector has authType selector (dual OAuth support)
       const hasAuthTypeSelector = selectedConnector.auth_fields && Array.isArray(selectedConnector.auth_fields) &&
-        selectedConnector.auth_fields.some((field: any) => field.key === 'authType' || field.name === 'authType');
+        selectedConnector.auth_fields.some((field: AuthField) => (field.key ?? field.name) === 'authType');
 
       // If connector supports both OAuth types, only show this button when 'oauth2' is selected
-      if (hasAuthTypeSelector && authConfig.authType?.toLowerCase() !== 'oauth2') {
+      if (hasAuthTypeSelector && String(authConfig.authType || '').toLowerCase() !== 'oauth2') {
         return null;
       }
 
@@ -1915,10 +1915,10 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
 
       // Check if connector has authMode selector (dual OAuth support)
       const hasAuthModeSelector = selectedConnector.auth_fields && Array.isArray(selectedConnector.auth_fields) &&
-        selectedConnector.auth_fields.some((field: any) => field.key === 'authMode');
+        selectedConnector.auth_fields.some((field: AuthField) => field.key === 'authMode');
 
       // If connector supports both OAuth modes, only show this button when 'oneclick' is selected (or no mode selected yet)
-      if (hasAuthModeSelector && authConfig.authMode && authConfig.authMode?.toLowerCase() !== 'oneclick') {
+      if (hasAuthModeSelector && authConfig.authMode && String(authConfig.authMode || '').toLowerCase() !== 'oneclick') {
         return null;
       }
 
@@ -1977,7 +1977,7 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
     // Check for OAuth2 with case-insensitive comparison
     // Also check if OAuth2 is selected in the authType field for connectors with multiple auth types
     const directOAuth = selectedConnector.auth_type?.toLowerCase() === 'oauth2';
-    const selectedAuthType = authConfig.authType?.toLowerCase();
+    const selectedAuthType = String(authConfig.authType || '').toLowerCase();
     const isOAuth = directOAuth || selectedAuthType === 'oauth2';
     
 
@@ -1990,24 +1990,24 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
 
     if (Array.isArray(authFieldsRaw)) {
       // Map array items to ensure they have 'name' field
-      authFields = authFieldsRaw.map((field: any) => ({
+      authFields = authFieldsRaw.map((field: AuthField) => ({
         ...field,
         name: field.name || field.key, // Use 'key' if 'name' is not present
       }));
     } else if (authFieldsRaw && typeof authFieldsRaw === 'object') {
       // If it's an object, try to convert it to an array
-      authFields = Object.entries(authFieldsRaw).map(([key, value]: [string, any]) => ({
+      authFields = Object.entries(authFieldsRaw).map(([key, value]: [string, Record<string, unknown>]) => ({
         name: key,
-        label: value.label || key,
-        type: value.type || 'text',
-        placeholder: value.placeholder,
-        required: value.required,
-        defaultValue: value.defaultValue,
-        description: value.description,
-        helpUrl: value.helpUrl,
-        helpText: value.helpText,
-        options: value.options,
-        rows: value.rows,
+        label: (value.label as string) || key,
+        type: (value.type as AuthField['type']) || 'text',
+        placeholder: value.placeholder as string | undefined,
+        required: value.required as boolean | undefined,
+        defaultValue: value.defaultValue as string | number | boolean | undefined,
+        description: value.description as string | undefined,
+        helpUrl: value.helpUrl as string | undefined,
+        helpText: value.helpText as string | undefined,
+        options: value.options as AuthField['options'],
+        rows: value.rows as number | undefined,
       }));
     } else if (!authFieldsRaw) {
       // If auth_fields is null/undefined, generate basic fields based on auth_type
@@ -2287,7 +2287,7 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
                     onValueChange={(value) => {
                       setSelectedCredentialId(value);
                       // Find the selected credential and populate its name
-                      const selectedCred = existingCredentials.find((c: any) => c.id === value);
+                      const selectedCred = existingCredentials.find(c => c.id === value);
                       if (selectedCred) {
                         setCredentialName(selectedCred.name);
                         // Note: We don't populate authConfig here as we're using an existing credential
@@ -2301,7 +2301,7 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
                       />
                     </SelectTrigger>
                     <SelectContent className="bg-gray-800 border-gray-700">
-                      {existingCredentials.map((credential: any) => (
+                      {existingCredentials.map((credential) => (
                         <SelectItem key={credential.id} value={credential.id} className="text-white hover:bg-gray-700">
                           {credential.name}
                         </SelectItem>

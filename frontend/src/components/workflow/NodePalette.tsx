@@ -163,7 +163,7 @@ export const NodePalette: React.FC<NodePaletteProps> = ({ isOpen, onToggle }) =>
     });
   }, [searchTerm, selectedCategory]);
 
-  const onDragStart = (event: React.DragEvent, item: any) => {
+  const onDragStart = (event: React.DragEvent, item: typeof filteredItems[number]) => {
     event.dataTransfer.setData('application/reactflow', item.type);
     event.dataTransfer.setData('application/json', JSON.stringify({
       label: item.name,
@@ -182,7 +182,7 @@ export const NodePalette: React.FC<NodePaletteProps> = ({ isOpen, onToggle }) =>
     setRecentlyUsed(newRecentlyUsed);
   };
 
-  const renderItem = (item: any) => {
+  const renderItem = (item: typeof filteredItems[number]) => {
     const IconComponent = typeof item.icon === 'string' ? null : item.icon;
     // Check if we have a custom connector icon
     const connectorId = item.id.replace(/-/g, '_'); // Convert github to github, google-drive to google_drive

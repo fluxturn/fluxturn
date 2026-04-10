@@ -52,7 +52,7 @@ interface Integration {
   connectedAt?: string
   lastSync?: string
   permissions?: string[]
-  settings?: Record<string, any>
+  settings?: Record<string, unknown>
   webhookUrl?: string
   apiCalls?: number
   monthlyLimit?: number
@@ -911,7 +911,7 @@ export const OrganizationIntegrations: React.FC = () => {
             ].map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
+                onClick={() => setActiveTab(tab.id as typeof activeTab)}
                 className={cn(
                   "flex items-center space-x-2 px-4 py-3 rounded-lg transition-all text-sm font-medium",
                   activeTab === tab.id 

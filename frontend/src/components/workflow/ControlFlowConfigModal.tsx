@@ -26,14 +26,20 @@ import {
 } from 'lucide-react';
 import { FieldPicker } from './FieldPicker';
 import { useParams } from 'react-router-dom';
+import type { JsonValue } from '../../types/json';
+
+interface SwitchCase {
+  value: string;
+  label: string;
+}
 
 interface ControlFlowConfigModalProps {
   isOpen: boolean;
   onClose: () => void;
   nodeId: string;
   controlType: 'if' | 'loop' | 'switch' | 'parallel' | 'delay' | 'filter' | 'transform';
-  currentConfig: Record<string, any>;
-  onConfigUpdate: (config: Record<string, any>) => void;
+  currentConfig: Record<string, JsonValue>;
+  onConfigUpdate: (config: Record<string, JsonValue>) => void;
 }
 
 const CONTROL_ICONS = {
@@ -55,7 +61,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
   onConfigUpdate,
 }) => {
   const { workflowId } = useParams<{ workflowId: string }>();
-  const [config, setConfig] = useState<Record<string, any>>(currentConfig);
+  const [config, setConfig] = useState<Record<string, JsonValue>>(currentConfig);
   const [activeTab, setActiveTab] = useState('config');
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
 
@@ -63,7 +69,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
     setConfig(currentConfig);
   }, [currentConfig]);
 
-  const handleConfigChange = (key: string, value: any) => {
+  const handleConfigChange = (key: string, value: JsonValue) => {
     setConfig(prev => ({ ...prev, [key]: value }));
     
     // Clear validation error when user starts typing
@@ -109,15 +115,15 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
     const cases = config.cases || [];
     setConfig(prev => ({
       ...prev,
-      cases: cases.filter((_: any, i: number) => i !== index)
+      cases: (cases as SwitchCase[]).filter((_: SwitchCase, i: number) => i !== index)
     }));
   };
 
-  const updateSwitchCase = (index: number, updates: any) => {
+  const updateSwitchCase = (index: number, updates: Partial<SwitchCase>) => {
     const cases = config.cases || [];
     setConfig(prev => ({
       ...prev,
-      cases: cases.map((c: any, i: number) => i === index ? { ...c, ...updates } : c)
+      cases: (cases as SwitchCase[]).map((c: SwitchCase, i: number) => i === index ? { ...c, ...updates } : c)
     }));
   };
 
@@ -283,7 +289,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
               </div>
               
               <div className="space-y-2">
-                {cases.map((switchCase: any, index: number) => (
+                {(cases as SwitchCase[]).map((switchCase: SwitchCase, index: number) => (
                   <Card key={index} className="bg-white/10 border-white/20 p-3">
                     <div className="flex items-center gap-2">
                       <Input

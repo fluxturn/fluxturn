@@ -54,8 +54,8 @@ export const OrganizationProvider: React.FC<{ children: React.ReactNode }> = ({ 
       // console.log('[OrgContext] Setting organization:', organization);
       lastFetchedId.current = orgId;
       setCurrentOrganization(organization);
-    } catch (err: any) {
-      const errorMessage = err?.message || 'Failed to fetch organization';
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch organization';
       console.error('[OrgContext] Error fetching organization:', err);
       setError(errorMessage);
       setCurrentOrganization(null);

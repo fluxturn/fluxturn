@@ -56,7 +56,7 @@ export function WorkflowRowModal({
 
   if (!isOpen) return null;
 
-  const handleChange = (key: string, value: any) => {
+  const handleChange = (key: string, value: TableRow[string]) => {
     setFormData(prev => ({ ...prev, [key]: value }));
   };
 
@@ -85,7 +85,7 @@ export function WorkflowRowModal({
     }
   };
 
-  const handleCopy = async (key: string, value: any) => {
+  const handleCopy = async (key: string, value: TableRow[string]) => {
     try {
       const textValue = typeof value === 'object' ? JSON.stringify(value, null, 2) : String(value ?? '');
       await navigator.clipboard.writeText(textValue);

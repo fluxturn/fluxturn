@@ -138,7 +138,7 @@ export function AIPromptBuilderSection() {
 
       // 1. Get existing projects for this organization
       const projectsRes = await api.getProjectsByOrganization(organizationId);
-      const projects = (projectsRes as any).data || (projectsRes as any);
+      const projects = (projectsRes as { data?: { id: string }[] }).data || (projectsRes as { id: string }[]);
 
       if (!projects || projects.length === 0) {
         toast.error(t('aiPromptBuilder.errors.noProject'));

@@ -359,7 +359,7 @@ export const UserDashboard: React.FC = () => {
                     {['all', 'recent', 'starred'].map((filter) => (
                       <button
                         key={filter}
-                        onClick={() => setActiveFilter(filter as any)}
+                        onClick={() => setActiveFilter(filter as typeof activeFilter)}
                         className={cn(
                           'px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 capitalize',
                           activeFilter === filter

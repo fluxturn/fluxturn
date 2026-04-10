@@ -193,10 +193,10 @@ export const ConditionsBuilder: React.FC<ConditionsBuilderProps> = ({
                       <label className="text-xs text-gray-400 mb-1 block">Type</label>
                       <Select
                         value={condition.operator.type}
-                        onValueChange={(type: any) =>
+                        onValueChange={(type: string) =>
                           updateCondition(index, {
                             operator: {
-                              type,
+                              type: type as Condition['operator']['type'],
                               operation: OPERATOR_OPTIONS[type][0].value,
                             },
                           })

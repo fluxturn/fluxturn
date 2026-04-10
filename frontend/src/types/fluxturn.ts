@@ -2,18 +2,20 @@
  * FluxTurn API types for Imagitar integration
  */
 
+import type { JsonObject, JsonValue } from './json';
+
 // =============================================================================
 // CORE API TYPES
 // =============================================================================
 
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
   data?: T;
   message?: string;
   statusCode?: number;
   success?: boolean;
 }
 
-export interface PaginatedResponse<T = any> {
+export interface PaginatedResponse<T = unknown> {
   data: T[];
   total: number;
   page: number;
@@ -25,7 +27,7 @@ export interface ApiError {
   message: string;
   code?: string;
   statusCode?: number;
-  details?: any;
+  details?: JsonValue;
 }
 
 // =============================================================================
@@ -90,7 +92,7 @@ export interface Organization {
   description?: string;
   website?: string;
   logoUrl?: string;
-  settings?: Record<string, any>;
+  settings?: JsonObject;
   members?: OrganizationMember[];
   projects?: Project[];
   createdAt: string;
@@ -115,7 +117,7 @@ export interface Project {
   organizationId: string;
   visibility: 'public' | 'private' | 'internal';
   status: 'active' | 'archived' | 'deleted';
-  settings?: Record<string, any>;
+  settings?: JsonObject;
   organization?: Organization;
   apps?: App[];
   createdAt: string;
@@ -133,9 +135,9 @@ export interface App {
   status: 'development' | 'staging' | 'production' | 'archived';
   url?: string;
   repositoryUrl?: string;
-  buildConfig?: Record<string, any>;
+  buildConfig?: JsonObject;
   environmentVariables?: Record<string, string>;
-  settings?: Record<string, any>;
+  settings?: JsonObject;
   project?: Project;
   organization?: Organization;
   createdAt: string;
@@ -158,7 +160,7 @@ export interface FileUpload {
   organizationId?: string;
   projectId?: string;
   appId?: string;
-  metadata?: Record<string, any>;
+  metadata?: JsonObject;
   createdAt: string;
   updatedAt: string;
 }
@@ -170,7 +172,7 @@ export interface FileUploadOptions {
   height?: number;
   format?: string;
   generateThumbnail?: boolean;
-  metadata?: Record<string, any>;
+  metadata?: JsonObject;
 }
 
 export interface SignedUrlRequest {
@@ -198,7 +200,7 @@ export interface ImageAIRequest {
   imageId?: string;
   editType: 'enhance' | 'denoise' | 'upscale' | 'colorize' | 'style_transfer' | 'remove_background' | 'face_enhance' | 'auto_adjust';
   intensity?: number;
-  parameters?: Record<string, any>;
+  parameters?: JsonObject;
   outputFormat?: 'jpeg' | 'png' | 'webp';
   quality?: number;
   prompt?: string;
@@ -207,7 +209,7 @@ export interface ImageAIRequest {
 export interface VideoAIRequest {
   videoId: string;
   editType: 'enhance' | 'stabilize' | 'denoise' | 'upscale' | 'style_transfer' | 'object_removal' | 'color_grade';
-  parameters?: Record<string, any>;
+  parameters?: JsonObject;
   outputFormat?: 'mp4' | 'mov' | 'webm';
   quality?: 'low' | 'medium' | 'high' | '4k';
   prompt?: string;
@@ -219,7 +221,7 @@ export interface ContentGenerationRequest {
   type: 'text' | 'image' | 'video' | 'audio';
   prompt: string;
   style?: string;
-  parameters?: Record<string, any>;
+  parameters?: JsonObject;
   outputFormat?: string;
   quality?: string;
 }
@@ -231,8 +233,8 @@ export interface ProcessedFileResponse {
   mimeType: string;
   url: string;
   thumbnailUrl?: string;
-  metadata?: Record<string, any>;
-  processingParams?: Record<string, any>;
+  metadata?: JsonObject;
+  processingParams?: JsonObject;
   processingTime?: number;
   createdAt: string;
   status: 'processing' | 'completed' | 'failed';
@@ -248,7 +250,7 @@ export interface ContentItem {
   description?: string;
   type: 'document' | 'image' | 'video' | 'audio' | 'template';
   content?: string;
-  metadata?: Record<string, any>;
+  metadata?: JsonObject;
   tags?: string[];
   category?: string;
   status: 'draft' | 'published' | 'archived';
@@ -271,7 +273,7 @@ export interface ContentVersion {
   version: number;
   title: string;
   content?: string;
-  metadata?: Record<string, any>;
+  metadata?: JsonObject;
   changeDescription?: string;
   userId: string;
   createdAt: string;
@@ -282,7 +284,7 @@ export interface ContentCreateRequest {
   description?: string;
   type: 'document' | 'image' | 'video' | 'audio' | 'template';
   content?: string;
-  metadata?: Record<string, any>;
+  metadata?: JsonObject;
   tags?: string[];
   category?: string;
   status?: 'draft' | 'published' | 'archived';
@@ -294,7 +296,7 @@ export interface ContentUpdateRequest {
   title?: string;
   description?: string;
   content?: string;
-  metadata?: Record<string, any>;
+  metadata?: JsonObject;
   tags?: string[];
   category?: string;
   status?: 'draft' | 'published' | 'archived';
@@ -313,7 +315,7 @@ export interface Presentation {
   template?: string;
   slides: Slide[];
   theme?: PresentationTheme;
-  settings?: Record<string, any>;
+  settings?: JsonObject;
   userId: string;
   organizationId?: string;
   projectId?: string;
@@ -332,7 +334,7 @@ export interface Slide {
   layout?: 'title' | 'content' | 'image' | 'split' | 'blank';
   background?: string;
   backgroundImage?: string;
-  properties?: Record<string, any>;
+  properties?: JsonObject;
   animations?: SlideAnimation[];
   duration?: number;
 }
@@ -357,7 +359,7 @@ export interface PresentationTheme {
   fontFamily: string;
   fontSize?: number;
   lineHeight?: number;
-  properties?: Record<string, any>;
+  properties?: JsonObject;
 }
 
 export interface PresentationCreateRequest {
@@ -366,7 +368,7 @@ export interface PresentationCreateRequest {
   template?: string;
   theme?: PresentationTheme;
   slides?: Omit<Slide, 'id'>[];
-  settings?: Record<string, any>;
+  settings?: JsonObject;
   status?: 'draft' | 'published' | 'archived';
   visibility?: 'public' | 'private' | 'shared';
 }
@@ -377,7 +379,7 @@ export interface PresentationUpdateRequest {
   template?: string;
   theme?: PresentationTheme;
   slides?: Slide[];
-  settings?: Record<string, any>;
+  settings?: JsonObject;
   status?: 'draft' | 'published' | 'archived';
   visibility?: 'public' | 'private' | 'shared';
 }
@@ -392,13 +394,13 @@ export interface SearchQuery {
   limit?: number;
   sortBy?: string;
   sortOrder?: 'asc' | 'desc';
-  filters?: Record<string, any>;
+  filters?: JsonObject;
 }
 
-export interface SearchResponse<T = any> extends PaginatedResponse<T> {
+export interface SearchResponse<T = unknown> extends PaginatedResponse<T> {
   query: string;
-  filters?: Record<string, any>;
-  facets?: Record<string, any>;
+  filters?: JsonObject;
+  facets?: JsonObject;
 }
 
 // =============================================================================
@@ -408,7 +410,7 @@ export interface SearchResponse<T = any> extends PaginatedResponse<T> {
 export interface WebhookEvent {
   id: string;
   type: string;
-  payload: Record<string, any>;
+  payload: JsonObject;
   timestamp: string;
   organizationId?: string;
   projectId?: string;
@@ -437,7 +439,7 @@ export interface AnalyticsQuery {
   startDate: string;
   endDate: string;
   granularity?: 'hour' | 'day' | 'week' | 'month';
-  filters?: Record<string, any>;
+  filters?: JsonObject;
   groupBy?: string[];
 }
 
@@ -452,7 +454,7 @@ export interface Workspace {
   type: 'personal' | 'team' | 'organization';
   members?: WorkspaceMember[];
   projects?: Project[];
-  settings?: Record<string, any>;
+  settings?: JsonObject;
   createdAt: string;
   updatedAt: string;
 }

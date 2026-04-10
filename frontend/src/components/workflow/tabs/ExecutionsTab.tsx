@@ -17,23 +17,30 @@ import { api } from '@/lib/api';
 import { WorkflowAPI } from '@/lib/fluxturn';
 import { toast } from 'sonner';
 
+interface NodeResultData {
+  error?: { message?: string };
+  data?: unknown[][];
+  inputData?: unknown;
+  executionTime?: number;
+}
+
 interface ExecutionResult {
   id: string;
   workflow_id: string;
   execution_number: number;
   status: 'completed' | 'failed' | 'running';
-  input_data: any;
-  output_data?: any;
+  input_data: unknown;
+  output_data?: unknown;
   result?: {
     success: boolean;
-    data: Record<string, any>;
+    data: Record<string, NodeResultData>;
     lastNodeExecuted?: string;
     executedNodes?: number;
     totalNodes?: number;
   };
   started_at: string;
   completed_at?: string;
-  error?: any;
+  error?: unknown;
   message?: string;
 }
 
@@ -91,7 +98,7 @@ export function ExecutionsTab({ workflowId, currentExecution, context }: Executi
       // Handle both array response and paginated response
       const history = Array.isArray(response) ? response : (response.executions || []);
       setExecutions(history);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to load execution history:', error);
       toast.error('Failed to load execution history');
     } finally {
@@ -185,7 +192,7 @@ export function ExecutionsTab({ workflowId, currentExecution, context }: Executi
         : 0;
       const avgNodeDuration = nodeCount > 0 ? totalDuration / nodeCount : 1000;
 
-      Object.entries(execution.result.data).forEach(([nodeId, nodeData]: [string, any], index) => {
+      Object.entries(execution.result.data).forEach(([nodeId, nodeData]: [string, NodeResultData], index) => {
         // Increment timestamp for each node to show progression
         const nodeTimestamp = startTime + (index + 1) * avgNodeDuration;
 
@@ -237,7 +244,7 @@ export function ExecutionsTab({ workflowId, currentExecution, context }: Executi
     let failedNodes = 0;
     const issues: string[] = [];
 
-    Object.entries(data).forEach(([nodeId, nodeData]: [string, any]) => {
+    Object.entries(data).forEach(([nodeId, nodeData]: [string, NodeResultData]) => {
       if (nodeData.error) {
         failedNodes++;
         issues.push(`Node ${nodeId}: ${nodeData.error.message || 'Unknown error'}`);
@@ -444,7 +451,7 @@ export function ExecutionsTab({ workflowId, currentExecution, context }: Executi
                   <div>
                     <h4 className="text-gray-400 text-sm font-medium mb-3">Node Results</h4>
                     <div className="space-y-3">
-                      {selectedExecution.result?.data && Object.entries(selectedExecution.result.data).map(([nodeId, nodeData]: [string, any]) => {
+                      {selectedExecution.result?.data && Object.entries(selectedExecution.result.data).map(([nodeId, nodeData]: [string, NodeResultData]) => {
                         const isExpanded = expandedNodes.has(nodeId);
                         const hasError = nodeData.error;
 

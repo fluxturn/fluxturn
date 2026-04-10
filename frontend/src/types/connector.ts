@@ -1,3 +1,5 @@
+import type { JsonObject, JsonValue } from './json';
+
 // Connector TypeScript types for frontend UI system
 
 export interface ConnectorCredentials {
@@ -12,7 +14,7 @@ export interface ConnectorCredentials {
   subdomain?: string;
   instanceUrl?: string;
   webhookSecret?: string;
-  [key: string]: any;
+  [key: string]: string | undefined;
 }
 
 export interface ConnectorConfig {
@@ -21,7 +23,7 @@ export interface ConnectorConfig {
   type: ConnectorType;
   category: ConnectorCategory;
   credentials: ConnectorCredentials;
-  settings?: Record<string, any>;
+  settings?: JsonObject;
   isActive?: boolean;
   status: 'active' | 'inactive' | 'error' | 'testing';
   lastTested?: Date;
@@ -70,7 +72,7 @@ export interface ConnectorMetadata {
 export interface ConnectorTestResult {
   success: boolean;
   message: string;
-  details?: any;
+  details?: JsonValue;
   responseTime?: number;
   timestamp: Date;
 }

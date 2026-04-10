@@ -22,6 +22,22 @@ import {
   Eye,
   EyeOff
 } from 'lucide-react';
+import type { JsonValue } from '../../types/json';
+
+interface ConnectorFieldDef {
+  key: string;
+  label: string;
+  type: string;
+  required?: boolean;
+  description?: string;
+  placeholder?: string;
+  options?: string[];
+  default?: string | number | boolean;
+  min?: number;
+  max?: number;
+  step?: number;
+  rows?: number;
+}
 
 // Connector configurations for the 54 real connectors
 const CONNECTOR_CONFIGS = {
@@ -122,8 +138,8 @@ interface ConnectorConfigModalProps {
   onClose: () => void;
   nodeId: string;
   connectorType: string;
-  currentConfig: Record<string, any>;
-  onConfigUpdate: (config: Record<string, any>) => void;
+  currentConfig: Record<string, JsonValue>;
+  onConfigUpdate: (config: Record<string, JsonValue>) => void;
 }
 
 export const ConnectorConfigModal: React.FC<ConnectorConfigModalProps> = ({
@@ -134,7 +150,7 @@ export const ConnectorConfigModal: React.FC<ConnectorConfigModalProps> = ({
   currentConfig,
   onConfigUpdate,
 }) => {
-  const [config, setConfig] = useState<Record<string, any>>(currentConfig);
+  const [config, setConfig] = useState<Record<string, JsonValue>>(currentConfig);
   const [activeTab, setActiveTab] = useState('config');
   const [showPasswords, setShowPasswords] = useState<Record<string, boolean>>({});
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
@@ -145,7 +161,7 @@ export const ConnectorConfigModal: React.FC<ConnectorConfigModalProps> = ({
     setConfig(currentConfig);
   }, [currentConfig]);
 
-  const validateField = (field: any, value: any): string | null => {
+  const validateField = (field: ConnectorFieldDef, value: JsonValue): string | null => {
     if (field.required && (!value || value === '')) {
       return `${field.label} is required`;
     }
@@ -168,7 +184,7 @@ export const ConnectorConfigModal: React.FC<ConnectorConfigModalProps> = ({
     return null;
   };
 
-  const handleConfigChange = (key: string, value: any) => {
+  const handleConfigChange = (key: string, value: JsonValue) => {
     setConfig(prev => ({ ...prev, [key]: value }));
     
     // Clear validation error when user starts typing
@@ -206,7 +222,7 @@ export const ConnectorConfigModal: React.FC<ConnectorConfigModalProps> = ({
     setShowPasswords(prev => ({ ...prev, [fieldKey]: !prev[fieldKey] }));
   };
 
-  const renderField = (field: any) => {
+  const renderField = (field: ConnectorFieldDef) => {
     const value = config[field.key] ?? field.default ?? '';
     const error = validationErrors[field.key];
 

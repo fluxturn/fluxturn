@@ -13,7 +13,7 @@ interface BottomPanelProps {
   className?: string;
   logs?: LogEntry[];
   onClearLogs?: () => void;
-  selectedNode?: any;
+  selectedNode?: { id: string; data?: Record<string, unknown>; [key: string]: unknown };
   onCloseNodeData?: () => void;
   databaseNodes?: DatabaseNodeInfo[];
   onPanelStateChange?: (isOpen: boolean, height: number) => void;
@@ -109,7 +109,7 @@ export function BottomPanel({ className, logs: externalLogs, onClearLogs, select
     setExpandedPaths(newExpanded);
   };
 
-  const renderValue = (value: any, path: string, depth: number = 0): React.ReactElement => {
+  const renderValue = (value: unknown, path: string, depth: number = 0): React.ReactElement => {
     if (value === null) {
       return <span className="text-purple-400">null</span>;
     }
@@ -160,8 +160,9 @@ export function BottomPanel({ className, logs: externalLogs, onClearLogs, select
     }
 
     if (typeof value === "object") {
+      const obj = value as Record<string, unknown>;
       const isExpanded = expandedPaths.has(path);
-      const keys = Object.keys(value);
+      const keys = Object.keys(obj);
 
       return (
         <div>
@@ -182,7 +183,7 @@ export function BottomPanel({ className, logs: externalLogs, onClearLogs, select
                 <div key={key} className="py-1 flex items-start gap-2">
                   <span className="text-blue-400 font-mono text-xs flex-shrink-0">{key}:</span>
                   <div className="flex-1 min-w-0">
-                    {renderValue(value[key], `${path}.${key}`, depth + 1)}
+                    {renderValue(obj[key], `${path}.${key}`, depth + 1)}
                   </div>
                 </div>
               ))}
@@ -195,7 +196,7 @@ export function BottomPanel({ className, logs: externalLogs, onClearLogs, select
     return <span className="text-gray-300">{String(value)}</span>;
   };
 
-  const handleDownloadFile = (fileData: any, fileName: string) => {
+  const handleDownloadFile = (fileData: { data: string; mimeType?: string }, fileName: string) => {
     try {
       const binaryString = atob(fileData.data);
       const bytes = new Uint8Array(binaryString.length);
@@ -218,7 +219,7 @@ export function BottomPanel({ className, logs: externalLogs, onClearLogs, select
   };
 
   // Render data view (moved from NodeDataPanel)
-  const renderDataView = (items: any[], label: string) => {
+  const renderDataView = (items: unknown[], label: string) => {
     if (!items || items.length === 0) {
       return (
         <div className="flex items-center justify-center h-full text-gray-500">

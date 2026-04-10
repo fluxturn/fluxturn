@@ -24,7 +24,7 @@ interface FormTriggerNodeData {
 type FormTriggerNodeType = Node<FormTriggerNodeData>;
 
 export const FormTriggerNode = memo((props: NodeProps<FormTriggerNodeType>) => {
-  const nodeStatus = (props.data as any)?.status || "initial";
+  const nodeStatus = (props.data as Record<string, unknown>)?.status as string || "initial";
 
   const description = props.data?.formTitle
     ? `${props.data.formTitle} (${props.data.formFields?.length || 0} fields)`

@@ -1,3 +1,5 @@
+import type { JsonValue } from './json';
+
 // Database Types
 export type DatabaseType = 'postgresql' | 'mysql';
 
@@ -130,7 +132,7 @@ export interface TableStructure {
 
 // Query Types
 export interface QueryResult {
-  rows: Record<string, any>[];
+  rows: Record<string, JsonValue>[];
   columns: ColumnInfo[];
   row_count: number;
   affected_rows?: number;
@@ -149,29 +151,29 @@ export interface TableDataResponse extends QueryResult {
 
 export interface ExecuteQueryRequest {
   query: string;
-  params?: any[];
+  params?: JsonValue[];
   timeout?: number;
 }
 
 export interface InsertRowsRequest {
   schema: string;
   table: string;
-  data: Record<string, any>[];
+  data: Record<string, JsonValue>[];
   returning?: string;
 }
 
 export interface UpdateRowsRequest {
   schema: string;
   table: string;
-  data: Record<string, any>;
-  where: Record<string, any>;
+  data: Record<string, JsonValue>;
+  where: Record<string, JsonValue>;
   returning?: string;
 }
 
 export interface DeleteRowsRequest {
   schema: string;
   table: string;
-  where: Record<string, any>;
+  where: Record<string, JsonValue>;
   returning?: string;
 }
 

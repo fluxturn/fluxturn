@@ -13,7 +13,7 @@ interface ArrayStringFieldProps {
   placeholder?: string;
   error?: string;
   maxItems?: number;
-  nodes?: any[];
+  nodes?: Array<{ id: string; data: Record<string, unknown> }>;
   currentNodeId?: string;
 }
 

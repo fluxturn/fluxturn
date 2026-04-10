@@ -78,9 +78,9 @@ export function WorkflowDatabaseTab({ databaseNodes, panelHeight }: WorkflowData
       setSelectedTable(null);
       setColumns([]);
       setRows([]);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error loading tables:', error);
-      toast.error(error.message || 'Failed to load tables');
+      toast.error(error instanceof Error ? error.message : 'Failed to load tables');
       setTables([]);
     } finally {
       setTablesLoading(false);
@@ -94,7 +94,7 @@ export function WorkflowDatabaseTab({ databaseNodes, panelHeight }: WorkflowData
       const result = await WorkflowAPI.getConnectorTableColumns(selectedNode.credentialId, selectedTable, schema);
       // console.log('[loadColumns] Raw result:', result);
 
-      const cols: ColumnInfo[] = (result || []).map((col: any) => ({
+      const cols: ColumnInfo[] = (result || []).map((col: { value?: string; label?: string; type?: string; isPrimary?: boolean; isNullable?: boolean }) => ({
         label: col.value || col.label,
         value: col.value || col.label,
         type: col.type,
@@ -109,7 +109,7 @@ export function WorkflowDatabaseTab({ databaseNodes, panelHeight }: WorkflowData
       const pk = cols.find(c => c.isPrimary);
       // console.log('[loadColumns] Found primary key:', pk);
       setPrimaryKey(pk?.value || null);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error loading columns:', error);
       setColumns([]);
       setPrimaryKey(null);
@@ -135,7 +135,7 @@ export function WorkflowDatabaseTab({ databaseNodes, panelHeight }: WorkflowData
       // console.log('[WorkflowDatabaseTab] Raw result:', result);
 
       // Handle nested data structure: result.data.data.rows or result.data.rows
-      let rows: any[] = [];
+      let rows: TableRow[] = [];
       let rowCount = 0;
 
       if (result?.data?.data?.rows) {
@@ -160,9 +160,9 @@ export function WorkflowDatabaseTab({ databaseNodes, panelHeight }: WorkflowData
         page,
         total: rowCount
       }));
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error loading data:', error);
-      toast.error(error.message || 'Failed to load table data');
+      toast.error(error instanceof Error ? error.message : 'Failed to load table data');
       setRows([]);
     } finally {
       setDataLoading(false);
@@ -184,8 +184,8 @@ export function WorkflowDatabaseTab({ databaseNodes, panelHeight }: WorkflowData
       );
       toast.success('Row inserted successfully');
       loadData(pagination.page);
-    } catch (error: any) {
-      toast.error(error.message || 'Failed to insert row');
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : 'Failed to insert row');
       throw error;
     }
   };
@@ -224,9 +224,9 @@ export function WorkflowDatabaseTab({ databaseNodes, panelHeight }: WorkflowData
         toast.error('Failed to update row');
       }
       loadData(pagination.page);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('[handleUpdateRow] Error:', error);
-      toast.error(error.message || 'Failed to update row');
+      toast.error(error instanceof Error ? error.message : 'Failed to update row');
       throw error;
     }
   };
@@ -246,8 +246,8 @@ export function WorkflowDatabaseTab({ databaseNodes, panelHeight }: WorkflowData
       );
       toast.success('Row deleted successfully');
       loadData(pagination.page);
-    } catch (error: any) {
-      toast.error(error.message || 'Failed to delete row');
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : 'Failed to delete row');
       throw error;
     }
   };

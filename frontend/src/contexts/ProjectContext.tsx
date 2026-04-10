@@ -54,8 +54,8 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
       // console.log('[ProjectContext] Setting project:', project);
       lastFetchedId.current = projId;
       setCurrentProject(project);
-    } catch (err: any) {
-      const errorMessage = err?.message || 'Failed to fetch project';
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch project';
       console.error('[ProjectContext] Error fetching project:', err);
       setError(errorMessage);
       setCurrentProject(null);

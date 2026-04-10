@@ -43,8 +43,8 @@ interface AuthField {
   type: 'string' | 'text' | 'password' | 'secret' | 'email' | 'url' | 'select' | 'textarea' | 'number' | 'boolean';
   placeholder?: string;
   required?: boolean;
-  default?: any;
-  defaultValue?: any;
+  default?: string | number | boolean;
+  defaultValue?: string | number | boolean;
   description?: string;
   helpUrl?: string;
   helpText?: string;
@@ -191,7 +191,7 @@ export const AddCredentialModalV2: React.FC<AddCredentialModalV2Props> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedConnector, setSelectedConnector] = useState<Connector | null>(null);
   const [credentialName, setCredentialName] = useState('');
-  const [formData, setFormData] = useState<Record<string, any>>({});
+  const [formData, setFormData] = useState<Record<string, string | number | boolean>>({});
   const [loading, setLoading] = useState(false);
   const [oauthLoading, setOauthLoading] = useState(false);
   const [copiedField, setCopiedField] = useState<string | null>(null);
@@ -298,7 +298,7 @@ export const AddCredentialModalV2: React.FC<AddCredentialModalV2Props> = ({
 
       // Check all displayOptions conditions
       return Object.entries(field.displayOptions).every(([dependsOn, allowedValues]) => {
-        const currentValue = formData[dependsOn];
+        const currentValue = String(formData[dependsOn] ?? '');
         return allowedValues.includes(currentValue);
       });
     });
@@ -309,7 +309,7 @@ export const AddCredentialModalV2: React.FC<AddCredentialModalV2Props> = ({
     if (!selectedConnector) return false;
 
     const authType = selectedConnector.auth_type?.toLowerCase();
-    const selectedAuthType = formData.authType?.toLowerCase();
+    const selectedAuthType = typeof formData.authType === 'string' ? formData.authType.toLowerCase() : undefined;
 
     // For multiple auth type connectors
     if (authType === 'multiple') {
@@ -336,7 +336,7 @@ export const AddCredentialModalV2: React.FC<AddCredentialModalV2Props> = ({
     setStep('configure');
 
     // Initialize form data with defaults
-    const initialData: Record<string, any> = {};
+    const initialData: Record<string, string | number | boolean> = {};
     connector.auth_fields?.forEach(field => {
       const key = field.key || field.name;
       if (key) {
@@ -360,7 +360,7 @@ export const AddCredentialModalV2: React.FC<AddCredentialModalV2Props> = ({
     setFormData(initialData);
   };
 
-  const handleFieldChange = (key: string, value: any) => {
+  const handleFieldChange = (key: string, value: string | number | boolean) => {
     setFormData(prev => {
       const newData = { ...prev, [key]: value };
 
@@ -435,9 +435,9 @@ export const AddCredentialModalV2: React.FC<AddCredentialModalV2Props> = ({
         }
       }, 500);
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       setOauthLoading(false);
-      toast.error(error.message || 'Failed to start OAuth flow');
+      toast.error(error instanceof Error ? error.message : 'Failed to start OAuth flow');
     }
   };
 
@@ -458,8 +458,8 @@ export const AddCredentialModalV2: React.FC<AddCredentialModalV2Props> = ({
       setLoading(true);
 
       // Separate config and credentials
-      const config: Record<string, any> = {};
-      const credentials: Record<string, any> = {};
+      const config: Record<string, string | number | boolean> = {};
+      const credentials: Record<string, string | number | boolean> = {};
 
       visibleFields.forEach(field => {
         const key = field.key || field.name || '';
@@ -485,8 +485,8 @@ export const AddCredentialModalV2: React.FC<AddCredentialModalV2Props> = ({
       onSuccess(response.id);
       onClose();
 
-    } catch (error: any) {
-      toast.error(error.message || 'Failed to create credential');
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : 'Failed to create credential');
     } finally {
       setLoading(false);
     }

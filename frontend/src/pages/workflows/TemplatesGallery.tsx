@@ -29,7 +29,7 @@ import { api } from '@/lib/api';
 import { WorkflowAPI } from '@/lib/fluxturn';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
-import { ReactFlow, Background, BackgroundVariant, ReactFlowProvider, useReactFlow } from '@xyflow/react';
+import { ReactFlow, Background, BackgroundVariant, ReactFlowProvider, useReactFlow, Node, Edge } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { nodeComponents } from '@/config/workflow';
 
@@ -38,7 +38,7 @@ interface Template {
   name: string;
   description: string;
   category?: string;
-  workflow: any;
+  workflow: Record<string, unknown>;
   created_at: string;
   is_template: boolean;
   verified?: boolean;
@@ -47,7 +47,7 @@ interface Template {
 }
 
 // Workflow Preview Component with Zoom Controls
-const WorkflowPreview: React.FC<{ nodes: any[]; edges: any[] }> = ({ nodes, edges }) => {
+const WorkflowPreview: React.FC<{ nodes: Node[]; edges: Edge[] }> = ({ nodes, edges }) => {
   const { zoomIn, zoomOut, fitView } = useReactFlow();
   const [hasInitialized, setHasInitialized] = useState(false);
 
@@ -162,18 +162,18 @@ export const TemplatesGallery: React.FC = () => {
       });
 
       if (response?.templates) {
-        const processedTemplates = response.templates.map((template: any) => ({
-          id: template.id,
-          name: template.name,
-          description: template.description,
-          category: template.category,
-          created_at: template.created_at,
+        const processedTemplates = response.templates.map((template: Record<string, unknown>) => ({
+          id: template.id as string,
+          name: template.name as string,
+          description: template.description as string,
+          category: template.category as string,
+          created_at: template.created_at as string,
           is_template: true,
-          usage_count: template.use_count || 0,
-          ai_prompt: template.ai_prompt || null,
-          verified: template.verified || false,
+          usage_count: (template.use_count as number) || 0,
+          ai_prompt: (template.ai_prompt as string) || null,
+          verified: (template.verified as boolean) || false,
           workflow: {
-            canvas: template.canvas || { nodes: [], edges: [] }
+            canvas: (template.canvas as Record<string, unknown>) || { nodes: [], edges: [] }
           }
         }));
         setTemplates(processedTemplates);
@@ -322,7 +322,7 @@ export const TemplatesGallery: React.FC = () => {
                   <button
                     key={filter.id}
                     onClick={() => {
-                      setActiveFilter(filter.id as any);
+                      setActiveFilter(filter.id as typeof activeFilter);
                       setPage(1);
                     }}
                     className={cn(

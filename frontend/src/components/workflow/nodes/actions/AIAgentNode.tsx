@@ -14,7 +14,7 @@ const AGENT_TYPE_LABELS: Record<string, string> = {
 
 export const AIAgentNode = memo((props: NodeProps) => {
   const { id, data: rawData } = props;
-  const data = rawData as any;
+  const data = rawData as Record<string, unknown>;
   const { setNodes, setEdges } = useReactFlow();
   const edges = useEdges();
 

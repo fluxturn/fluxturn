@@ -52,23 +52,24 @@ export const CreateOrganizationSimple: React.FC = () => {
       } else {
         throw new Error('Failed to create organization')
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error creating organization:', error)
-      
+
       // Parse error message for user-friendly display
       let errorMessage = 'Failed to create organization. Please try again.';
-      
-      if (error.message) {
-        if (error.message.includes('already have an organization named') || 
-            error.message.includes('already exists')) {
+      const errMsg = error instanceof Error ? error.message : '';
+
+      if (errMsg) {
+        if (errMsg.includes('already have an organization named') ||
+            errMsg.includes('already exists')) {
           errorMessage = `An organization with the name "${orgName}" already exists. Please choose a different name.`;
-        } else if (error.message.includes('duplicate key')) {
+        } else if (errMsg.includes('duplicate key')) {
           errorMessage = 'This organization name is already taken. Please choose a different name.';
-        } else if (error.message.includes('constraint')) {
+        } else if (errMsg.includes('constraint')) {
           errorMessage = 'This organization name is already in use. Please try another name.';
         } else {
           // Use the server's error message if it's reasonably user-friendly
-          errorMessage = error.message;
+          errorMessage = errMsg;
         }
       }
       

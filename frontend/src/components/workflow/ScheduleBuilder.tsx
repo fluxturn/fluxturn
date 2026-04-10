@@ -16,7 +16,7 @@ interface ScheduleBuilderProps {
     dayOfMonth?: number;
     cronExpression?: string;
   };
-  onChange: (value: any) => void;
+  onChange: (value: ScheduleBuilderProps['value']) => void;
 }
 
 const WEEKDAYS = [

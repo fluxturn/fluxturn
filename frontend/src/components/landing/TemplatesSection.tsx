@@ -27,14 +27,14 @@ interface Template {
   verified: boolean;
   created_at: string;
   canvas?: {
-    nodes: any[];
-    edges: any[];
+    nodes: Record<string, unknown>[];
+    edges: Record<string, unknown>[];
   };
-  steps?: any[];
-  triggers?: any[];
-  conditions?: any[];
-  variables?: any[];
-  outputs?: any[];
+  steps?: Record<string, unknown>[];
+  triggers?: Record<string, unknown>[];
+  conditions?: Record<string, unknown>[];
+  variables?: Record<string, unknown>[];
+  outputs?: Record<string, unknown>[];
 }
 
 // Category color mapping
@@ -143,22 +143,22 @@ export function TemplatesSection() {
 
         // Process templates to ensure they have the right structure
         const templatesData = response?.templates || response || [];
-        const processedTemplates = templatesData.map((template: any) => ({
-          id: template.id,
-          name: template.name,
-          description: template.description,
-          category: template.category,
-          required_connectors: template.required_connectors || [],
-          tags: template.tags || [],
-          use_count: template.use_count || 0,
-          verified: template.verified || false,
-          created_at: template.created_at,
-          canvas: template.canvas || { nodes: [], edges: [] },
-          steps: template.steps || [],
-          triggers: template.triggers || [],
-          conditions: template.conditions || [],
-          variables: template.variables || [],
-          outputs: template.outputs || []
+        const processedTemplates = templatesData.map((template: Record<string, unknown>) => ({
+          id: template.id as string,
+          name: template.name as string,
+          description: template.description as string,
+          category: template.category as string,
+          required_connectors: (template.required_connectors as string[]) || [],
+          tags: (template.tags as string[]) || [],
+          use_count: (template.use_count as number) || 0,
+          verified: (template.verified as boolean) || false,
+          created_at: template.created_at as string,
+          canvas: (template.canvas as TemplateData['canvas']) || { nodes: [], edges: [] },
+          steps: (template.steps as TemplateData['steps']) || [],
+          triggers: (template.triggers as TemplateData['triggers']) || [],
+          conditions: (template.conditions as TemplateData['conditions']) || [],
+          variables: (template.variables as TemplateData['variables']) || [],
+          outputs: (template.outputs as TemplateData['outputs']) || []
         }));
 
         setTemplates(processedTemplates);
@@ -202,7 +202,7 @@ export function TemplatesSection() {
 
       // 1. Get existing projects for this organization
       const projectsRes = await api.getProjectsByOrganization(organizationId);
-      const projects = (projectsRes as any).data || (projectsRes as any);
+      const projects = (projectsRes as { data?: { id: string }[] }).data || (projectsRes as { id: string }[]);
 
       if (!projects || projects.length === 0) {
         toast.error(t('templates.errors.noProject', 'No project found'));

@@ -10,7 +10,7 @@ export const AcceptInvitationPage = () => {
   const { token } = useParams<{ token: string }>()
   const navigate = useNavigate()
   const { user, isAuthenticated } = useAuth()
-  const [invitation, setInvitation] = useState<any>(null)
+  const [invitation, setInvitation] = useState<{ email: string; organizationName?: string; organizationId?: string; role?: string } | null>(null)
   const [loading, setLoading] = useState(true)
   const [accepting, setAccepting] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -31,13 +31,12 @@ export const AcceptInvitationPage = () => {
         if (isAuthenticated && user && user.email !== data.email) {
           setError(`This invitation was sent to ${data.email}. Please log in with that email address or log out first.`)
         }
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error('Failed to fetch invitation:', err)
 
         // If user is already logged in and invitation is invalid/expired,
         // they might have already accepted it - redirect to organizations
         if (isAuthenticated) {
-          // console.log('User is authenticated and invitation is invalid - likely already accepted')
           toast.info('Redirecting to your organizations...')
           setTimeout(() => {
             navigate('/orgs')
@@ -45,7 +44,8 @@ export const AcceptInvitationPage = () => {
           return
         }
 
-        setError(err.response?.data?.message || 'Invalid or expired invitation')
+        const errObj = err as { response?: { data?: { message?: string } } }
+        setError(errObj.response?.data?.message || 'Invalid or expired invitation')
         toast.error('Invalid or expired invitation')
       } finally {
         setLoading(false)
@@ -89,9 +89,10 @@ export const AcceptInvitationPage = () => {
           navigate('/organizations')
         }
       }, 1500)
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Failed to accept invitation:', err)
-      const errorMsg = err.response?.data?.message || 'Failed to accept invitation'
+      const errObj = err as { response?: { data?: { message?: string } } }
+      const errorMsg = errObj.response?.data?.message || 'Failed to accept invitation'
 
       // If error says user needs to log in
       if (errorMsg.toLowerCase().includes('log in') || errorMsg.toLowerCase().includes('account')) {
@@ -115,7 +116,7 @@ export const AcceptInvitationPage = () => {
       await organizationApi.declineInvitation(token)
       toast.success('Invitation declined')
       navigate('/')
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Failed to decline invitation:', err)
       toast.error('Failed to decline invitation')
     }

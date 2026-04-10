@@ -27,7 +27,7 @@ export interface ColumnInfo {
 }
 
 export interface TableRow {
-  [key: string]: any;
+  [key: string]: string | number | boolean | null | undefined | object;
 }
 
 export interface PaginationState {

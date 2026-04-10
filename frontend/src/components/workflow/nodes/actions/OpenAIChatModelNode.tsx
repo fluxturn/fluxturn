@@ -4,7 +4,7 @@ import { memo } from "react";
 import { BaseActionNode } from "../../base/BaseActionNode";
 
 export const OpenAIChatModelNode = memo((props: NodeProps) => {
-  const data = props.data as any;
+  const data = props.data as Record<string, unknown>;
 
   const model = data?.model || "gpt-4o-mini";
   const description = `${model} model configuration`;

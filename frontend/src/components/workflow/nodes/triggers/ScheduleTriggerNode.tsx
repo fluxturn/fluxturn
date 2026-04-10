@@ -12,7 +12,7 @@ interface ScheduleTriggerNodeData {
 type ScheduleTriggerNodeType = Node<ScheduleTriggerNodeData>;
 
 export const ScheduleTriggerNode = memo((props: NodeProps<ScheduleTriggerNodeType>) => {
-  const nodeStatus = (props.data as any)?.status || "initial";
+  const nodeStatus = (props.data as Record<string, unknown>)?.status as string || "initial";
 
   // Settings button handler - parent will handle opening modal via click event
   const handleOpenSettings = () => {

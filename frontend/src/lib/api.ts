@@ -1,4 +1,5 @@
 import { getEnvironmentBaseUrl } from './config';
+import type { JsonObject, JsonValue } from '../types/json';
 
 // Simple API configuration
 const API_BASE_URL = `${getEnvironmentBaseUrl()}/api/v1`;
@@ -16,15 +17,15 @@ export interface ApiError {
   message: string;
   code?: string;
   statusCode?: number;
-  details?: any;
+  details?: JsonValue;
 }
 
 export class ApiErrorResponse extends Error {
   public statusCode: number;
   public code?: string;
-  public details?: any;
+  public details?: JsonValue;
 
-  constructor(message: string, statusCode: number, code?: string, details?: any) {
+  constructor(message: string, statusCode: number, code?: string, details?: JsonValue) {
     super(message);
     this.name = 'ApiErrorResponse';
     this.statusCode = statusCode;
@@ -41,8 +42,8 @@ export interface ProcessedFileResponse {
   mimeType: string;
   url: string;
   thumbnailUrl?: string;
-  metadata?: Record<string, any>;
-  processingParams?: Record<string, any>;
+  metadata?: JsonObject;
+  processingParams?: JsonObject;
   processingTime?: number;
   createdAt: string;
   status: 'processing' | 'completed' | 'failed';
@@ -74,7 +75,7 @@ export interface Presentation {
   template?: string;
   slides: Slide[];
   theme?: PresentationTheme;
-  settings?: Record<string, any>;
+  settings?: JsonObject;
   userId: string;
   organizationId?: string;
   projectId?: string;
@@ -93,7 +94,7 @@ export interface Slide {
   layout?: 'title' | 'content' | 'image' | 'split' | 'blank';
   background?: string;
   backgroundImage?: string;
-  properties?: Record<string, any>;
+  properties?: JsonObject;
   animations?: SlideAnimation[];
   duration?: number;
 }
@@ -119,7 +120,7 @@ export interface PresentationTheme {
   fontFamily: string;
   fontSize?: number;
   lineHeight?: number;
-  properties?: Record<string, any>;
+  properties?: JsonObject;
 }
 
 export interface ImageAsset {
@@ -380,11 +381,11 @@ class ApiClient {
   }
 
   // Generic HTTP methods
-  async get<T = any>(endpoint: string, options?: ApiOptions): Promise<T> {
+  async get<T = unknown>(endpoint: string, options?: ApiOptions): Promise<T> {
     return this.request<T>(endpoint, { ...options, method: 'GET' });
   }
 
-  async post<T = any>(endpoint: string, data?: any, options?: ApiOptions): Promise<T> {
+  async post<T = unknown>(endpoint: string, data?: unknown, options?: ApiOptions): Promise<T> {
     return this.request<T>(endpoint, {
       ...options,
       method: 'POST',
@@ -392,7 +393,7 @@ class ApiClient {
     });
   }
 
-  async put<T = any>(endpoint: string, data?: any, options?: ApiOptions): Promise<T> {
+  async put<T = unknown>(endpoint: string, data?: unknown, options?: ApiOptions): Promise<T> {
     return this.request<T>(endpoint, {
       ...options,
       method: 'PUT',
@@ -400,7 +401,7 @@ class ApiClient {
     });
   }
 
-  async patch<T = any>(endpoint: string, data?: any, options?: ApiOptions): Promise<T> {
+  async patch<T = unknown>(endpoint: string, data?: unknown, options?: ApiOptions): Promise<T> {
     return this.request<T>(endpoint, {
       ...options,
       method: 'PATCH',
@@ -408,12 +409,12 @@ class ApiClient {
     });
   }
 
-  async delete<T = any>(endpoint: string, options?: ApiOptions): Promise<T> {
+  async delete<T = unknown>(endpoint: string, options?: ApiOptions): Promise<T> {
     return this.request<T>(endpoint, { ...options, method: 'DELETE' });
   }
 
   // Helper method for FormData requests
-  async requestFormData<T = any>(endpoint: string, formData: FormData, options?: ApiOptions): Promise<T> {
+  async requestFormData<T = unknown>(endpoint: string, formData: FormData, options?: ApiOptions): Promise<T> {
     return this.request<T>(endpoint, {
       ...options,
       method: 'POST',
@@ -467,7 +468,7 @@ class ApiClient {
   // Authentication methods
   async login(email: string, password: string) {
     const response = await this.post<{
-      user: any;
+      user: unknown;
       accessToken: string;
       refreshToken: string;
     }>('/auth/login', { email, password });
@@ -501,7 +502,7 @@ class ApiClient {
     const response = await this.post<{
       accessToken: string;
       refreshToken: string;
-      user: any;
+      user: unknown;
     }>('/auth/refresh', { refreshToken });
 
     if (response.accessToken) {
@@ -527,7 +528,7 @@ class ApiClient {
     return this.post('/auth/resend-verification', { email });
   }
 
-  async getProfile(): Promise<any> {
+  async getProfile(): Promise<unknown> {
     return this.get('/auth/me');
   }
 
@@ -585,7 +586,7 @@ class ApiClient {
     name?: string;
     description?: string;
     website?: string;
-    settings?: Record<string, any>;
+    settings?: JsonObject;
   }) {
     this.setOrganizationId(organizationId);
     return this.patch('/organization', data);
@@ -623,7 +624,7 @@ class ApiClient {
     description?: string;
     organizationId: string;
     visibility?: 'public' | 'private' | 'internal';
-    settings?: Record<string, any>;
+    settings?: JsonObject;
   }) {
     // Set organization context for project creation
     this.setOrganizationId(data.organizationId);
@@ -635,7 +636,7 @@ class ApiClient {
     description?: string;
     projectUrl?: string;
     visibility?: 'public' | 'private' | 'internal';
-    settings?: Record<string, any>;
+    settings?: JsonObject;
   }) {
     this.setProjectId(projectId);
     return this.patch('/project', data);
@@ -682,7 +683,7 @@ class ApiClient {
     return this.post('/database/query', { query });
   }
 
-  async createTable(data: { name: string; columns: any[] }, projectId?: string, appId?: string): Promise<any> {    
+  async createTable(data: { name: string; columns: Record<string, unknown>[] }, projectId?: string, appId?: string): Promise<unknown> {
     if (projectId) this.setProjectId(projectId);
     if (appId) this.setAppId(appId);
 
@@ -692,7 +693,7 @@ class ApiClient {
     });
   }
 
-  async renameTable(tableName: string, newName: string, projectId?: string, appId?: string): Promise<any> {   
+  async renameTable(tableName: string, newName: string, projectId?: string, appId?: string): Promise<unknown> {   
     if (projectId) this.setProjectId(projectId);
     if (appId) this.setAppId(appId);
 
@@ -716,7 +717,7 @@ class ApiClient {
     return this.post(`/database/tables/${tableName}/truncate`);
   }
 
-  async cloneTable(tableName: string, targetName: string, includeData: boolean, projectId?: string, appId?: string): Promise<any> {
+  async cloneTable(tableName: string, targetName: string, includeData: boolean, projectId?: string, appId?: string): Promise<unknown> {
     if (projectId) this.setProjectId(projectId);
     if (appId) this.setAppId(appId);
 
@@ -726,7 +727,7 @@ class ApiClient {
     });
   }
 
-  async updateCell(tableName: string, id: string, columnName: string, value: any, projectId?: string, appId?: string) {
+  async updateCell(tableName: string, id: string, columnName: string, value: JsonValue, projectId?: string, appId?: string) {
     if (projectId) this.setProjectId(projectId);
     if (appId) this.setAppId(appId);
     
@@ -737,7 +738,7 @@ class ApiClient {
     });
   }
 
-  async addColumn(tableName: string, column: any, projectId?: string, appId?: string): Promise<any> {
+  async addColumn(tableName: string, column: Record<string, unknown>, projectId?: string, appId?: string): Promise<unknown> {
     if (projectId) this.setProjectId(projectId);
     if (appId) this.setAppId(appId);
 
@@ -747,7 +748,7 @@ class ApiClient {
     });
   }
 
-  async updateColumn(tableName: string, columnName: string, updates: any, projectId?: string, appId?: string) {
+  async updateColumn(tableName: string, columnName: string, updates: Record<string, unknown>, projectId?: string, appId?: string) {
     if (projectId) this.setProjectId(projectId);
     if (appId) this.setAppId(appId);
     
@@ -761,7 +762,7 @@ class ApiClient {
     return this.delete(`/database/tables/${tableName}/columns/${columnName}`);
   }
 
-  async addRow(tableName: string, rowData: any, projectId?: string, appId?: string): Promise<any> {
+  async addRow(tableName: string, rowData: Record<string, JsonValue>, projectId?: string, appId?: string): Promise<unknown> {
     if (projectId) this.setProjectId(projectId);
     if (appId) this.setAppId(appId);
 
@@ -771,7 +772,7 @@ class ApiClient {
     });
   }
 
-  async updateRow(tableName: string, rowId: string, rowData: any, projectId?: string, appId?: string): Promise<any> {
+  async updateRow(tableName: string, rowId: string, rowData: Record<string, JsonValue>, projectId?: string, appId?: string): Promise<unknown> {
     if (projectId) this.setProjectId(projectId);
     if (appId) this.setAppId(appId);
 
@@ -811,9 +812,9 @@ class ApiClient {
     systemPrompt: string;
     welcomeMessage?: string;
     isEnabled?: boolean;
-    aiConfig?: Record<string, any>;
+    aiConfig?: JsonObject;
     tags?: string[];
-    uiConfig?: Record<string, any>;
+    uiConfig?: JsonObject;
   }) {
     return this.post('/chatbot/configs', data);
   }
@@ -825,9 +826,9 @@ class ApiClient {
     systemPrompt?: string;
     welcomeMessage?: string;
     isEnabled?: boolean;
-    aiConfig?: Record<string, any>;
+    aiConfig?: JsonObject;
     tags?: string[];
-    uiConfig?: Record<string, any>;
+    uiConfig?: JsonObject;
   }) {
     return this.patch(`/chatbot/configs/${configId}`, data);
   }
@@ -837,14 +838,14 @@ class ApiClient {
   }
 
   // Document Management Methods
-  async uploadChatbotDocument(file: File): Promise<any> {
+  async uploadChatbotDocument(file: File): Promise<unknown> {
     const formData = new FormData();
     formData.append('file', file);
     
     return this.requestFormData('/chatbot/documents', formData);
   }
 
-  async getChatbotDocuments(limit?: number, offset?: number): Promise<any> {
+  async getChatbotDocuments(limit?: number, offset?: number): Promise<unknown> {
     const params = new URLSearchParams();
     if (limit) params.append('limit', limit.toString());
     if (offset) params.append('offset', offset.toString());
@@ -853,17 +854,17 @@ class ApiClient {
     return this.get(`/chatbot/documents${query ? `?${query}` : ''}`);
   }
 
-  async deleteChatbotDocument(documentId: string): Promise<any> {
+  async deleteChatbotDocument(documentId: string): Promise<unknown> {
     return this.delete(`/chatbot/documents/${documentId}`);
   }
 
   // URL Processing Methods
-  async processChatbotUrls(urls: string[]): Promise<any> {
+  async processChatbotUrls(urls: string[]): Promise<unknown> {
     return this.post('/chatbot/urls', { urls });
   }
 
   // Avatar Upload Method
-  async uploadChatbotAvatar(configId: string, file: File): Promise<any> {
+  async uploadChatbotAvatar(configId: string, file: File): Promise<unknown> {
     const formData = new FormData();
     formData.append('file', file);
     
@@ -871,7 +872,7 @@ class ApiClient {
   }
 
   // Training Data Methods
-  async getChatbotTrainingData(limit?: number, offset?: number): Promise<any> {
+  async getChatbotTrainingData(limit?: number, offset?: number): Promise<unknown> {
     const params = new URLSearchParams();
     if (limit) params.append('limit', limit.toString());
     if (offset) params.append('offset', offset.toString());
@@ -887,7 +888,7 @@ class ApiClient {
     status?: string;
     limit?: number;
     offset?: number;
-  }): Promise<any> {
+  }): Promise<unknown> {
     const searchParams = new URLSearchParams();
     if (params?.chatbotConfigId) searchParams.append('chatbotConfigId', params.chatbotConfigId);
     if (params?.userId) searchParams.append('userId', params.userId);
@@ -903,9 +904,9 @@ class ApiClient {
     chatbotConfigId: string;
     userId?: string;
     title?: string;
-    metadata?: Record<string, any>;
-    userContext?: Record<string, any>;
-  }): Promise<any> {
+    metadata?: JsonObject;
+    userContext?: JsonObject;
+  }): Promise<unknown> {
     return this.post('/chatbot/conversations', data);
   }
 
@@ -914,7 +915,7 @@ class ApiClient {
     role?: string;
     limit?: number;
     offset?: number;
-  }): Promise<any> {
+  }): Promise<unknown> {
     const searchParams = new URLSearchParams();
     if (params?.role) searchParams.append('role', params.role);
     if (params?.limit) searchParams.append('limit', params.limit.toString());
@@ -928,8 +929,8 @@ class ApiClient {
     content: string;
     type?: string;
     attachments?: Array<{ name: string; url: string; type?: string; size?: number }>;
-    metadata?: Record<string, any>;
-  }): Promise<any> {
+    metadata?: JsonObject;
+  }): Promise<unknown> {
     return this.post(`/chatbot/conversations/${conversationId}/messages`, data);
   }
 
@@ -938,7 +939,7 @@ class ApiClient {
     feedback?: string;
     comment?: string;
     isHelpful?: boolean;
-  }): Promise<any> {
+  }): Promise<unknown> {
     return this.post(`/chatbot/messages/${messageId}/feedback`, data);
   }
 
@@ -947,7 +948,7 @@ class ApiClient {
     chatbotConfigId?: string;
     startDate?: string;
     endDate?: string;
-  }): Promise<any> {
+  }): Promise<unknown> {
     const searchParams = new URLSearchParams();
     if (params?.chatbotConfigId) searchParams.append('chatbotConfigId', params.chatbotConfigId);
     if (params?.startDate) searchParams.append('startDate', params.startDate);
@@ -963,8 +964,8 @@ class ApiClient {
     sessionId: string;
     userId?: string;
     language?: string;
-    metadata?: Record<string, any>;
-  }): Promise<any> {
+    metadata?: JsonObject;
+  }): Promise<unknown> {
     return this.post('/chatbot/send', {
       message: data.message,
       metadata: {
@@ -976,7 +977,7 @@ class ApiClient {
     });
   }
 
-  async getChatHistory(sessionId: string, limit?: number): Promise<any> {
+  async getChatHistory(sessionId: string, limit?: number): Promise<unknown> {
     const params = new URLSearchParams();
     if (limit) params.append('limit', limit.toString());
     
@@ -1018,7 +1019,7 @@ class ApiClient {
     return this.get(`/images/${imageId}/metadata`);
   }
 
-  async applyImageFilter(imageId: string, filter: string, options?: any): Promise<ProcessedFileResponse> {
+  async applyImageFilter(imageId: string, filter: string, options?: JsonObject): Promise<ProcessedFileResponse> {
     return this.post(`/images/${imageId}/filter`, { filter, options });
   }
 
@@ -1050,7 +1051,7 @@ class ApiClient {
     }>;
     editType: string;
     intensity?: number;
-    parameters?: Record<string, any>;
+    parameters?: JsonObject;
     outputFormat?: string;
     quality?: number;
     parallel?: boolean;
@@ -1061,7 +1062,7 @@ class ApiClient {
   async aiEditImageFile(file: File, options: {
     editType: 'enhance' | 'denoise' | 'upscale' | 'colorize' | 'style_transfer' | 'remove_background' | 'face_enhance' | 'auto_adjust';
     intensity?: number;
-    parameters?: Record<string, any>;
+    parameters?: JsonObject;
     outputFormat?: 'jpeg' | 'png' | 'webp';
     quality?: number;
     parallel?: boolean;
@@ -1142,13 +1143,13 @@ class ApiClient {
   }
 
   async exportVideo(exportData: {
-    clips: any[];
+    clips: JsonObject[];
     format: 'mp4' | 'mov' | 'webm' | 'avi' | 'mkv';
     quality: 'low' | 'medium' | 'high' | '4k';
     resolution: { width: number; height: number };
     framerate?: number;
     bitrate?: string;
-    audioTracks?: any[];
+    audioTracks?: JsonObject[];
     backgroundColor?: string;
     audioCodec?: 'auto' | 'aac' | 'mp3' | 'opus';
     videoCodec?: 'auto' | 'h264' | 'h265' | 'vp9';
@@ -1383,7 +1384,7 @@ class ApiClient {
       projectId?: string;
       appId?: string;
     }
-  ): Promise<{ data: any; filename: string; mimeType: string }> {
+  ): Promise<{ data: unknown; filename: string; mimeType: string }> {
     const baseUrl = this.buildTenantUrl(
       tenantContext?.organizationId || this.organizationId || undefined,
       tenantContext?.projectId || this.projectId || undefined,
@@ -1481,14 +1482,14 @@ class ApiClient {
     options: {
       bucket?: string;
       isPublic?: boolean;
-      metadata?: any;
+      metadata?: JsonObject;
     } = {},
     tenantContext?: {
       organizationId?: string;
       projectId?: string;
       appId?: string;
     }
-  ): Promise<any> {
+  ): Promise<unknown> {
     const bucket = options.bucket || 'presentations';
 
     const formData = new FormData();
@@ -1515,7 +1516,7 @@ class ApiClient {
       projectId?: string;
       appId?: string;
     }
-  ): Promise<any> {
+  ): Promise<unknown> {
     const params = new URLSearchParams();
     if (query?.prefix) params.append('prefix', query.prefix);
     if (query?.contentType) params.append('contentType', query.contentType);
@@ -1534,7 +1535,7 @@ class ApiClient {
       projectId?: string;
       appId?: string;
     }
-  ): Promise<any> {
+  ): Promise<unknown> {
     return this.get(`/storage/files/${fileId}`);
   }
 
@@ -1578,7 +1579,7 @@ class ApiClient {
       projectId?: string;
       appId?: string;
     }
-  ): Promise<any> {
+  ): Promise<unknown> {
     return this.post(`/storage/files/${fileId}/copy`, { filename });
   }
 
@@ -1620,7 +1621,7 @@ class ApiClient {
     strength?: number;
     steps?: number;
     guidance?: number;
-  }): Promise<any> {
+  }): Promise<unknown> {
     return this.post('/ai/image/edit', params);
   }
 
@@ -1682,13 +1683,13 @@ class ApiClient {
     success: boolean;
     workflow?: {
       name: string;
-      nodes: any[];
-      connections: any[];
+      nodes: JsonObject[];
+      connections: JsonObject[];
     };
     confidence: number;
     analysis?: {
-      intent: any;
-      connectors: any;
+      intent: unknown;
+      connectors: unknown;
       reasoning: string;
       steps: string[];
     };
@@ -1714,7 +1715,7 @@ class ApiClient {
     category?: string;
     search?: string;
     filter?: 'all' | 'popular' | 'verified' | 'new';
-  }): Promise<any> {
+  }): Promise<unknown> {
     const searchParams = new URLSearchParams();
     if (params?.page) searchParams.append("page", params.page.toString());
     if (params?.limit) searchParams.append("limit", params.limit.toString());
@@ -1726,7 +1727,7 @@ class ApiClient {
     return this.get(`/workflow/templates${query ? `?${query}` : ""}`);
   }
 
-  async createTemplate(template: any): Promise<any> {
+  async createTemplate(template: JsonObject): Promise<unknown> {
     return this.post("/workflow/templates", template);
   }
 
@@ -1736,17 +1737,17 @@ class ApiClient {
     workflow_id?: string;
     project_id?: string;
     app_id?: string;
-    initial_messages?: any[];
+    initial_messages?: JsonObject[];
     organizationId?: string;
     projectId?: string;
     appId?: string;
-  }): Promise<any> {
+  }): Promise<unknown> {
     if (params.organizationId) this.setOrganizationId(params.organizationId);
     if (params.projectId) this.setProjectId(params.projectId);
     if (params.appId) this.setAppId(params.appId);
 
     // Convert camelCase to snake_case and only send valid DTO fields
-    const requestBody: any = {
+    const requestBody: Record<string, unknown> = {
       title: params.title,
       workflow_id: params.workflow_id,
       organization_id: params.organizationId, // Map camelCase to snake_case
@@ -1776,7 +1777,7 @@ class ApiClient {
     organizationId?: string;
     projectId?: string;
     appId?: string;
-  }): Promise<any> {
+  }): Promise<unknown> {
     if (params?.organizationId) this.setOrganizationId(params.organizationId);
     if (params?.projectId) this.setProjectId(params.projectId);
     if (params?.appId) this.setAppId(params.appId);
@@ -1794,7 +1795,7 @@ class ApiClient {
     return this.get(`/conversations${query ? `?${query}` : ""}`);
   }
 
-  async getConversation(conversationId: string, organizationId?: string, projectId?: string, appId?: string): Promise<any> {
+  async getConversation(conversationId: string, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
     if (organizationId) this.setOrganizationId(organizationId);
     if (projectId) this.setProjectId(projectId);
     if (appId) this.setAppId(appId);
@@ -1805,8 +1806,8 @@ class ApiClient {
   async updateConversation(conversationId: string, params: {
     title?: string;
     status?: string;
-    context?: any;
-  }, organizationId?: string, projectId?: string, appId?: string): Promise<any> {
+    context?: JsonObject;
+  }, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
     if (organizationId) this.setOrganizationId(organizationId);
     if (projectId) this.setProjectId(projectId);
     if (appId) this.setAppId(appId);
@@ -1814,7 +1815,7 @@ class ApiClient {
     return this.put(`/conversations/${conversationId}`, params);
   }
 
-  async deleteConversation(conversationId: string, organizationId?: string, projectId?: string, appId?: string): Promise<any> {
+  async deleteConversation(conversationId: string, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
     if (organizationId) this.setOrganizationId(organizationId);
     if (projectId) this.setProjectId(projectId);
     if (appId) this.setAppId(appId);
@@ -1822,7 +1823,7 @@ class ApiClient {
     return this.delete(`/conversations/${conversationId}`);
   }
 
-  async hardDeleteConversation(conversationId: string, organizationId?: string, projectId?: string, appId?: string): Promise<any> {
+  async hardDeleteConversation(conversationId: string, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
     if (organizationId) this.setOrganizationId(organizationId);
     if (projectId) this.setProjectId(projectId);
     if (appId) this.setAppId(appId);
@@ -1833,8 +1834,8 @@ class ApiClient {
   async addMessageToConversation(conversationId: string, message: {
     role: 'user' | 'assistant' | 'system';
     content: string;
-    metadata?: any;
-  }, organizationId?: string, projectId?: string, appId?: string): Promise<any> {
+    metadata?: JsonObject;
+  }, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
     if (organizationId) this.setOrganizationId(organizationId);
     if (projectId) this.setProjectId(projectId);
     if (appId) this.setAppId(appId);
@@ -1842,7 +1843,7 @@ class ApiClient {
     return this.post(`/conversations/${conversationId}/messages`, message);
   }
 
-  async getConversationMessages(conversationId: string, organizationId?: string, projectId?: string, appId?: string): Promise<any> {
+  async getConversationMessages(conversationId: string, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
     if (organizationId) this.setOrganizationId(organizationId);
     if (projectId) this.setProjectId(projectId);
     if (appId) this.setAppId(appId);
@@ -1850,7 +1851,7 @@ class ApiClient {
     return this.get(`/conversations/${conversationId}/messages`);
   }
 
-  async clearConversationMessages(conversationId: string, organizationId?: string, projectId?: string, appId?: string): Promise<any> {
+  async clearConversationMessages(conversationId: string, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
     if (organizationId) this.setOrganizationId(organizationId);
     if (projectId) this.setProjectId(projectId);
     if (appId) this.setAppId(appId);
@@ -1858,7 +1859,7 @@ class ApiClient {
     return this.delete(`/conversations/${conversationId}/messages`);
   }
 
-  async updateConversationWorkflow(conversationId: string, workflow: any, organizationId?: string, projectId?: string, appId?: string): Promise<any> {
+  async updateConversationWorkflow(conversationId: string, workflow: JsonObject, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
     if (organizationId) this.setOrganizationId(organizationId);
     if (projectId) this.setProjectId(projectId);
     if (appId) this.setAppId(appId);
@@ -1866,7 +1867,7 @@ class ApiClient {
     return this.put(`/conversations/${conversationId}/workflow`, { workflow });
   }
 
-  async detectConversationIntent(conversationId: string, message: string, organizationId?: string, projectId?: string, appId?: string): Promise<any> {
+  async detectConversationIntent(conversationId: string, message: string, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
     if (organizationId) this.setOrganizationId(organizationId);
     if (projectId) this.setProjectId(projectId);
     if (appId) this.setAppId(appId);
@@ -1874,7 +1875,7 @@ class ApiClient {
     return this.post(`/conversations/${conversationId}/detect-intent`, { message });
   }
 
-  async generateChatResponse(conversationId: string, message: string, organizationId?: string, projectId?: string, appId?: string): Promise<any> {
+  async generateChatResponse(conversationId: string, message: string, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
     if (organizationId) this.setOrganizationId(organizationId);
     if (projectId) this.setProjectId(projectId);
     if (appId) this.setAppId(appId);
@@ -1882,7 +1883,7 @@ class ApiClient {
     return this.post(`/conversations/${conversationId}/chat`, { message });
   }
 
-  async autoConfigureConnector(conversationId: string, connector: string, credentials: Record<string, string>, organizationId?: string, projectId?: string, appId?: string): Promise<any> {
+  async autoConfigureConnector(conversationId: string, connector: string, credentials: Record<string, string>, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
     if (organizationId) this.setOrganizationId(organizationId);
     if (projectId) this.setProjectId(projectId);
     if (appId) this.setAppId(appId);
@@ -2014,7 +2015,7 @@ class ApiClient {
 
   async insertDatabaseRows(connectionId: string, table: string, data: {
     schema: string;
-    data: Record<string, any>[];
+    data: JsonObject[];
     returning?: string;
   }, organizationId: string, projectId: string) {
     this.setOrganizationId(organizationId);
@@ -2024,8 +2025,8 @@ class ApiClient {
 
   async updateDatabaseRows(connectionId: string, table: string, data: {
     schema: string;
-    data: Record<string, any>;
-    where: Record<string, any>;
+    data: JsonObject;
+    where: JsonObject;
     returning?: string;
   }, organizationId: string, projectId: string) {
     this.setOrganizationId(organizationId);
@@ -2035,7 +2036,7 @@ class ApiClient {
 
   async deleteDatabaseRows(connectionId: string, table: string, data: {
     schema: string;
-    where: Record<string, any>;
+    where: JsonObject;
     returning?: string;
   }, organizationId: string, projectId: string) {
     this.setOrganizationId(organizationId);
@@ -2047,7 +2048,7 @@ class ApiClient {
   }
 
   // Raw Query Execution
-  async executeDatabaseQuery(connectionId: string, data: { query: string; params?: any[]; timeout?: number }, organizationId: string, projectId: string) {
+  async executeDatabaseQuery(connectionId: string, data: { query: string; params?: JsonValue[]; timeout?: number }, organizationId: string, projectId: string) {
     this.setOrganizationId(organizationId);
     this.setProjectId(projectId);
     return this.post(`/database-browser/connections/${connectionId}/query`, data);

@@ -8,9 +8,30 @@ import { api } from '@/lib/api';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 
+interface NodeData {
+  label?: string;
+  connectorType?: string;
+  triggerId?: string;
+  [key: string]: unknown;
+}
+
+interface WebhookInfo {
+  webhookUrl: string;
+  connectorType?: string;
+  triggerType?: string;
+  httpsRequired?: boolean;
+  isHttps?: boolean;
+}
+
+interface ExecutionResultInfo {
+  success?: boolean;
+  status?: string;
+  error?: { message?: string } | string;
+}
+
 interface NodeDetailsPanelProps {
   nodeId: string;
-  nodeData: any;
+  nodeData: NodeData;
   nodeType: string;
   workflowId?: string;
   onClose: () => void;
@@ -26,11 +47,11 @@ export function NodeDetailsPanel({
   onConfigure
 }: NodeDetailsPanelProps) {
   const [webhookUrl, setWebhookUrl] = useState<string>('');
-  const [webhookInfo, setWebhookInfo] = useState<any>(null);
+  const [webhookInfo, setWebhookInfo] = useState<WebhookInfo | null>(null);
   const [loadingWebhook, setLoadingWebhook] = useState(false);
   const [copied, setCopied] = useState(false);
   const [executing, setExecuting] = useState(false);
-  const [executionResult, setExecutionResult] = useState<any>(null);
+  const [executionResult, setExecutionResult] = useState<ExecutionResultInfo | null>(null);
 
   const isTriggerNode = nodeType?.includes('TRIGGER') || nodeType === 'CONNECTOR_TRIGGER';
   const connectorType = nodeData?.connectorType;
@@ -47,7 +68,7 @@ export function NodeDetailsPanel({
 
         // Find the webhook for this specific trigger
         const triggerWebhook = response.webhooks?.find(
-          (w: any) => w.connectorType === connectorType || w.triggerType === `${connectorType?.toUpperCase()}_TRIGGER`
+          (w: WebhookInfo) => w.connectorType === connectorType || w.triggerType === `${connectorType?.toUpperCase()}_TRIGGER`
         );
 
         if (triggerWebhook) {
@@ -106,10 +127,11 @@ export function NodeDetailsPanel({
       } else {
         toast.error(result.error?.message || 'Node execution failed');
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Node execution error:', error);
-      toast.error(error.message || 'Failed to execute node');
-      setExecutionResult({ success: false, error: error.message });
+      const msg = error instanceof Error ? error.message : 'Failed to execute node';
+      toast.error(msg);
+      setExecutionResult({ success: false, error: msg });
     } finally {
       setExecuting(false);
     }

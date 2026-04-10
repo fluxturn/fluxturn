@@ -10,12 +10,31 @@ import { cn } from '@/lib/utils';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { api } from '@/lib/api';
 
+interface TriggerNodeData {
+  connectorType?: string;
+  triggerId?: string;
+  actionParams?: Record<string, unknown>;
+  eventType?: string;
+  triggerParams?: { pollingInterval?: number };
+  label?: string;
+  [key: string]: unknown;
+}
+
+interface TriggerWebhookInfo {
+  webhookUrl: string;
+  connectorType?: string;
+  triggerType?: string;
+  setupInstructions?: string;
+  httpsRequired?: boolean;
+  isHttps?: boolean;
+}
+
 interface TriggerPanelProps {
   nodeId: string;
-  nodeData: any;
+  nodeData: TriggerNodeData;
   workflowId?: string | null;
   isActive?: boolean;
-  onUpdate?: (data: any) => void;
+  onUpdate?: (data: TriggerNodeData) => void;
 }
 
 export function TriggerPanel({
@@ -30,7 +49,7 @@ export function TriggerPanel({
   const [isListening, setIsListening] = useState(false);
   const [webhookUrl, setWebhookUrl] = useState<string>('');
   const [loadingWebhook, setLoadingWebhook] = useState(false);
-  const [webhookInfo, setWebhookInfo] = useState<any>(null);
+  const [webhookInfo, setWebhookInfo] = useState<TriggerWebhookInfo | null>(null);
 
   const connectorType = nodeData.connectorType;
   const triggerId = nodeData.triggerId;
@@ -52,7 +71,7 @@ export function TriggerPanel({
 
         // Find the webhook for this specific trigger
         const triggerWebhook = response.webhooks?.find(
-          (w: any) => w.connectorType === connectorType || w.triggerType === `${connectorType?.toUpperCase()}_TRIGGER`
+          (w: TriggerWebhookInfo) => w.connectorType === connectorType || w.triggerType === `${connectorType?.toUpperCase()}_TRIGGER`
         );
 
         if (triggerWebhook) {

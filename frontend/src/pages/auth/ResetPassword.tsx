@@ -107,14 +107,15 @@ export const ResetPassword: React.FC = () => {
       await api.resetPassword(token, form.password)
       // console.log('Password reset successful')
       setIsSuccess(true)
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Password reset failed:', error)
+      const errMsg = error instanceof Error ? error.message : '';
 
       // Handle token validation errors
-      if (error.message?.includes('token') || error.message?.includes('expired') || error.message?.includes('invalid')) {
+      if (errMsg?.includes('token') || errMsg?.includes('expired') || errMsg?.includes('invalid')) {
         setTokenValid(false)
       } else {
-        setErrors({ password: error.message || t('auth.resetPassword.resetFailed') })
+        setErrors({ password: errMsg || t('auth.resetPassword.resetFailed') })
       }
     } finally {
       setIsLoading(false)

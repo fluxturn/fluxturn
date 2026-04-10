@@ -150,8 +150,8 @@ export const ProjectList: React.FC = () => {
 
     // Sort projects
     filtered.sort((a, b) => {
-      let aValue: any = a[sortField]
-      let bValue: any = b[sortField]
+      let aValue: unknown = a[sortField as keyof typeof a]
+      let bValue: unknown = b[sortField as keyof typeof b]
 
       if (sortField === 'updatedAt' || sortField === 'createdAt') {
         aValue = new Date(aValue).getTime()

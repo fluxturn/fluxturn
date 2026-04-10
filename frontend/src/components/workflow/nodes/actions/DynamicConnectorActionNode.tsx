@@ -9,9 +9,9 @@ interface DynamicConnectorActionNodeData {
   description?: string;
   connectorType: string;
   actionId: string;
-  inputSchema?: any;
+  inputSchema?: Record<string, unknown>;
   icon?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 type DynamicConnectorActionNodeType = Node<DynamicConnectorActionNodeData>;
@@ -29,7 +29,7 @@ export const DynamicConnectorActionNode = memo(
 
       // Try Lucide icon from data
       if (data.icon && typeof data.icon === 'string') {
-        const IconComponent = (LucideIcons as any)[data.icon];
+        const IconComponent = (LucideIcons as Record<string, LucideIcons.LucideIcon>)[data.icon];
         if (IconComponent) {
           return IconComponent;
         }

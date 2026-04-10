@@ -52,10 +52,10 @@ export function ManualConnectionForm({ onConnect, onBack }: ManualConnectionForm
         success: result.success,
         message: result.success ? `Connected! Latency: ${result.latency_ms}ms` : result.message || 'Connection failed'
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       setTestResult({
         success: false,
-        message: error.message || 'Connection test failed'
+        message: error instanceof Error ? error.message : 'Connection test failed'
       });
     } finally {
       setTesting(false);

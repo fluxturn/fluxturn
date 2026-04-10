@@ -1,3 +1,5 @@
+import type { JsonObject } from './json';
+
 export interface Project {
   id: string;
   name: string;
@@ -5,7 +7,7 @@ export interface Project {
   organizationId: string;
   status: 'active' | 'inactive' | 'archived';
   visibility: 'public' | 'private' | 'internal';
-  settings?: Record<string, any>;
+  settings?: JsonObject;
   createdAt: string;
   updatedAt: string;
   _count?: {

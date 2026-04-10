@@ -69,7 +69,7 @@ export const Login: React.FC = () => {
 
       // 1. Get existing projects for this organization
       const projectsRes = await api.getProjectsByOrganization(organizationId);
-      const projects = (projectsRes as any).data || (projectsRes as any);
+      const projects = (projectsRes as { data?: { id: string }[] }).data || (projectsRes as { id: string }[]);
 
       if (!projects || projects.length === 0) {
         // No projects, redirect to org page
@@ -119,7 +119,7 @@ export const Login: React.FC = () => {
   };
 
   // Helper function to create workflow from pending template using existing project
-  const createWorkflowFromTemplate = async (templateData: any, orgs: Organization[]) => {
+  const createWorkflowFromTemplate = async (templateData: Record<string, unknown>, orgs: Organization[]) => {
     try {
       const organizationId = orgs[0]?.id;
       if (!organizationId) {
@@ -129,7 +129,7 @@ export const Login: React.FC = () => {
 
       // 1. Get existing projects for this organization
       const projectsRes = await api.getProjectsByOrganization(organizationId);
-      const projects = (projectsRes as any).data || (projectsRes as any);
+      const projects = (projectsRes as { data?: { id: string }[] }).data || (projectsRes as { id: string }[]);
 
       if (!projects || projects.length === 0) {
         // No projects, redirect to org page
@@ -184,7 +184,7 @@ export const Login: React.FC = () => {
 
       // 1. Get existing projects for this organization
       const projectsRes = await api.getProjectsByOrganization(organizationId);
-      const projects = (projectsRes as any).data || (projectsRes as any);
+      const projects = (projectsRes as { data?: { id: string }[] }).data || (projectsRes as { id: string }[]);
 
       if (!projects || projects.length === 0) {
         sessionStorage.removeItem(PENDING_AI_AGENT_KEY);
@@ -448,9 +448,9 @@ export const Login: React.FC = () => {
 
       // Always redirect to organizations list after login
       navigate('/orgs');
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Login failed:', error)
-      setApiError(error.message || t('auth.errors.loginFailed'))
+      setApiError(error instanceof Error ? error.message : t('auth.errors.loginFailed'))
     } finally {
       setIsLoading(false)
     }

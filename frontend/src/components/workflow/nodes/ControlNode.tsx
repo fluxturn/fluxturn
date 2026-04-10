@@ -13,10 +13,23 @@ import { BaseHandle } from '../base/BaseHandle';
 import { WorkflowNode } from '../WorkflowNode';
 import { type NodeStatus } from '../base/NodeStatusIndicator';
 
+interface SwitchRuleValue {
+  outputKey?: string;
+}
+
 interface ControlNodeData {
   label?: string;
   controlType?: 'if' | 'loop' | 'switch' | 'filter' | 'wait';
-  config?: Record<string, any>;
+  config?: Record<string, unknown>;
+  status?: string;
+  conditions?: { conditions?: unknown[] };
+  rules?: { values?: SwitchRuleValue[] };
+  fallbackOutput?: string;
+  items?: string;
+  resume?: string;
+  amount?: number;
+  unit?: string;
+  dateTime?: string;
   [key: string]: unknown;
 }
 
@@ -37,13 +50,12 @@ export const ControlNode = memo((props: NodeProps<ControlNodeType>) => {
   const controlType = (props.data?.controlType || 'if') as keyof typeof CONTROL_ICONS;
   const label = props.data?.label;
 
-  const nodeStatus: NodeStatus = (props.data as any)?.status || 'initial';
+  const nodeStatus: NodeStatus = (props.data?.status as NodeStatus) || 'initial';
   const Icon = CONTROL_ICONS[controlType] || GitBranch;
 
   // Track rules count and fallback option for Switch nodes to detect changes
-  const data = props.data as any;
-  const rulesCount = controlType === 'switch' ? (data?.rules?.values || []).length : 0;
-  const fallbackOutput = controlType === 'switch' ? (data?.fallbackOutput || 'none') : 'none';
+  const rulesCount = controlType === 'switch' ? (props.data?.rules?.values || []).length : 0;
+  const fallbackOutput = controlType === 'switch' ? (props.data?.fallbackOutput || 'none') : 'none';
 
   // Notify React Flow when handles change (for Switch node)
   useEffect(() => {
@@ -81,31 +93,30 @@ export const ControlNode = memo((props: NodeProps<ControlNodeType>) => {
   // Get description based on configuration
   const getDescription = (): string => {
     // Access conditions and rules directly from node data
-    const data = props.data as any;
-    const conditionsCount = data?.conditions?.conditions?.length;
-    const rulesCount = data?.rules?.values?.length;
+    const conditionsCount = props.data?.conditions?.conditions?.length;
+    const descRulesCount = props.data?.rules?.values?.length;
 
     if (controlType === 'if' && conditionsCount) {
       return `${conditionsCount} condition${conditionsCount > 1 ? 's' : ''}`;
     }
-    if (controlType === 'switch' && rulesCount) {
-      return `${rulesCount} rule${rulesCount > 1 ? 's' : ''}`;
+    if (controlType === 'switch' && descRulesCount) {
+      return `${descRulesCount} rule${descRulesCount > 1 ? 's' : ''}`;
     }
     if (controlType === 'filter' && conditionsCount) {
       return `${conditionsCount} condition${conditionsCount > 1 ? 's' : ''}`;
     }
     if (controlType === 'loop') {
-      return data?.items || 'Not configured';
+      return props.data?.items || 'Not configured';
     }
     if (controlType === 'wait') {
-      const resume = data?.resume || 'timeInterval';
+      const resume = props.data?.resume || 'timeInterval';
       if (resume === 'timeInterval') {
-        const amount = data?.amount || 5;
-        const unit = data?.unit || 'seconds';
+        const amount = props.data?.amount || 5;
+        const unit = props.data?.unit || 'seconds';
         return `Wait ${amount} ${unit}`;
       }
       if (resume === 'specificTime') {
-        return data?.dateTime ? `Until ${data.dateTime}` : 'Not configured';
+        return props.data?.dateTime ? `Until ${props.data.dateTime}` : 'Not configured';
       }
       if (resume === 'webhook') {
         return 'Wait for webhook';
@@ -143,13 +154,12 @@ export const ControlNode = memo((props: NodeProps<ControlNodeType>) => {
     }
 
     if (controlType === 'switch') {
-      const data = props.data as any;
-      const rules = data?.rules?.values || [];
-      const fallbackOutput = data?.fallbackOutput || 'none';
+      const rules = props.data?.rules?.values || [];
+      const switchFallbackOutput = props.data?.fallbackOutput || 'none';
 
       // Ensure we always have at least one rule for rendering
       const rulesCount = Math.max(rules.length, 1);
-      const hasFallback = fallbackOutput === 'extra';
+      const hasFallback = switchFallbackOutput === 'extra';
       const totalOutputs = rulesCount + (hasFallback ? 1 : 0);
 
       // Calculate positions based on number of outputs

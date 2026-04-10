@@ -30,7 +30,7 @@ export default function PublicForm() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [formConfig, setFormConfig] = useState<FormConfig | null>(null);
-  const [formData, setFormData] = useState<Record<string, any>>({});
+  const [formData, setFormData] = useState<Record<string, string | boolean>>({});
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const [successMessage, setSuccessMessage] = useState('Thank you! Your form has been submitted successfully.');
 
@@ -60,19 +60,19 @@ export default function PublicForm() {
       setFormConfig(data.formConfig);
 
       // Initialize form data with empty values
-      const initialData: Record<string, any> = {};
+      const initialData: Record<string, string | boolean> = {};
       data.formConfig.fields.forEach((field: FormField) => {
         initialData[field.name] = field.type === 'checkbox' ? false : '';
       });
       setFormData(initialData);
-    } catch (err: any) {
-      setError(err.message || 'Failed to load form');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Failed to load form');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleFieldChange = (fieldName: string, value: any) => {
+  const handleFieldChange = (fieldName: string, value: string | boolean) => {
     setFormData((prev) => ({
       ...prev,
       [fieldName]: value,
@@ -124,8 +124,8 @@ export default function PublicForm() {
 
       const result = await submitResponse.json();
       setSubmitted(true);
-    } catch (err: any) {
-      setError(err.message || 'Failed to submit form');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Failed to submit form');
     } finally {
       setSubmitting(false);
     }

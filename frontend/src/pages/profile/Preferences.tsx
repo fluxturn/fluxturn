@@ -274,7 +274,7 @@ export const Preferences: React.FC = () => {
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id as any)}
+                  onClick={() => setActiveTab(tab.id as typeof activeTab)}
                   className={cn(
                     'flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200',
                     activeTab === tab.id
@@ -310,7 +310,7 @@ export const Preferences: React.FC = () => {
                     <Label className="text-white mb-3 block">Color Theme</Label>
                     <RadioGroup
                       value={preferences.theme}
-                      onValueChange={(value: any) => updatePreference('theme', value)}
+                      onValueChange={(value: string) => updatePreference('theme', value)}
                       className="space-y-2"
                     >
                       <div className="flex items-center space-x-3 p-3 rounded-lg bg-white/5 border border-white/10">
