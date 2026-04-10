@@ -184,7 +184,7 @@ const mockWebhooks: Webhook[] = [
     createdAt: '2023-11-01',
     lastTriggered: '2 hours ago',
     totalCalls: 156,
-    secret: 'whsec_4eC39HqLyjWDarjtT1zdp7dc'
+    secret: 'whsec_••••••••••••••••••••••••'
   },
   {
     id: '2',
@@ -195,7 +195,7 @@ const mockWebhooks: Webhook[] = [
     createdAt: '2023-10-15',
     lastTriggered: '1 day ago',
     totalCalls: 89,
-    secret: 'whsec_1234567890abcdef'
+    secret: 'whsec_••••••••••••••••'
   },
   {
     id: '3',

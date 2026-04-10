@@ -17,7 +17,7 @@ export const MONGODB_CONNECTOR: ConnectorDefinition = {
       label: 'Connection String',
       type: 'password',
       required: true,
-      placeholder: 'mongodb+srv://user:password@cluster.mongodb.net/database',
+      placeholder: 'mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<database>',
       description: 'MongoDB connection string (supports Atlas and self-hosted)'
     },
     {
