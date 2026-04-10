@@ -346,6 +346,55 @@ export class PlatformService implements OnModuleInit, OnModuleDestroy {
         DROP COLUMN IF EXISTS app_id;
       `);
 
+      // Migration: backfill the `app_id` column on tables that predate the
+      // unified app context. The table CREATE blocks below already declare
+      // `app_id`, so fresh installs are unaffected. But databases created
+      // by an older revision of this file are missing the column on these
+      // six tables, which causes the later `CREATE INDEX ... (app_id)`
+      // statements to fail with `column "app_id" does not exist`. Each
+      // ALTER is wrapped in an IF EXISTS table check so it is a no-op on
+      // fresh installs and idempotent on every run.
+      await client.query(`
+        DO $$
+        BEGIN
+          IF EXISTS (SELECT 1 FROM information_schema.tables
+                     WHERE table_schema='public' AND table_name='file_metadata') THEN
+            ALTER TABLE file_metadata
+              ADD COLUMN IF NOT EXISTS app_id UUID REFERENCES apps(id) ON DELETE CASCADE;
+          END IF;
+
+          IF EXISTS (SELECT 1 FROM information_schema.tables
+                     WHERE table_schema='public' AND table_name='workflows') THEN
+            ALTER TABLE workflows
+              ADD COLUMN IF NOT EXISTS app_id UUID REFERENCES apps(id) ON DELETE CASCADE;
+          END IF;
+
+          IF EXISTS (SELECT 1 FROM information_schema.tables
+                     WHERE table_schema='public' AND table_name='workflow_executions') THEN
+            ALTER TABLE workflow_executions
+              ADD COLUMN IF NOT EXISTS app_id UUID REFERENCES apps(id) ON DELETE CASCADE;
+          END IF;
+
+          IF EXISTS (SELECT 1 FROM information_schema.tables
+                     WHERE table_schema='public' AND table_name='connector_configs') THEN
+            ALTER TABLE connector_configs
+              ADD COLUMN IF NOT EXISTS app_id UUID REFERENCES apps(id) ON DELETE CASCADE;
+          END IF;
+
+          IF EXISTS (SELECT 1 FROM information_schema.tables
+                     WHERE table_schema='public' AND table_name='email_templates') THEN
+            ALTER TABLE email_templates
+              ADD COLUMN IF NOT EXISTS app_id UUID REFERENCES apps(id) ON DELETE CASCADE;
+          END IF;
+
+          IF EXISTS (SELECT 1 FROM information_schema.tables
+                     WHERE table_schema='public' AND table_name='email_logs') THEN
+            ALTER TABLE email_logs
+              ADD COLUMN IF NOT EXISTS app_id UUID REFERENCES apps(id) ON DELETE SET NULL;
+          END IF;
+        END $$;
+      `);
+
       // Create app_files table for storing generated files
       await client.query(`
         CREATE TABLE IF NOT EXISTS app_files (
