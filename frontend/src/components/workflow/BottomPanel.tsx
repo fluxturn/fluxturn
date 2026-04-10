@@ -236,11 +236,12 @@ export function BottomPanel({ className, logs: externalLogs, onClearLogs, select
     return (
       <div className="p-4 space-y-3 overflow-y-auto" style={{ maxHeight: `${panelHeight - 100}px` }}>
         {items.map((item, index) => {
-          const data = item.json || item;
-          const hasBinaryData = data.binary && data.binary.data;
+          const itemObj = item as Record<string, unknown>;
+          const data = (itemObj.json || itemObj) as Record<string, unknown>;
+          const hasBinaryData = data.binary && (data.binary as Record<string, unknown>).data;
 
           if (hasBinaryData) {
-            const binaryData = data.binary.data;
+            const binaryData = (data.binary as Record<string, unknown>).data as { data?: string; mimeType?: string; fileName?: string; fileSize?: number };
             const mimeType = binaryData.mimeType || '';
             const isImage = mimeType.startsWith('image/');
             const isVideo = mimeType.startsWith('video/');
@@ -300,7 +301,7 @@ export function BottomPanel({ className, logs: externalLogs, onClearLogs, select
                     </div>
                   )}
                   <button
-                    onClick={() => handleDownloadFile(binaryData, binaryData.fileName)}
+                    onClick={() => handleDownloadFile(binaryData as { data: string; mimeType?: string }, binaryData.fileName || 'download')}
                     className="w-full flex items-center justify-center gap-2 px-3 py-1.5 bg-cyan-500 hover:bg-cyan-600 text-white rounded text-xs font-medium"
                   >
                     <Download className="w-3 h-3" />
@@ -410,7 +411,7 @@ export function BottomPanel({ className, logs: externalLogs, onClearLogs, select
               Data
               {selectedNode && (
                 <span className="text-xs text-gray-500 truncate max-w-[200px]">
-                  {selectedNode.data?.label || selectedNode.id}
+                  {String(selectedNode.data?.label || selectedNode.id)}
                 </span>
               )}
             </button>

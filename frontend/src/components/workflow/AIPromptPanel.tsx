@@ -8,6 +8,7 @@ import { TypingIndicator } from './TypingIndicator';
 import { api } from '@/lib/api';
 import { toast } from 'sonner';
 import { v4 as uuidv4 } from 'uuid';
+import type { JsonObject } from '@/types/json';
 
 // State Management Types
 type AIMode = 'chat' | 'build';
@@ -396,9 +397,9 @@ export function AIPromptPanel({
         role: 'assistant',
         content: finalContent,
         metadata: {
-          workflowPreview: workflowResult?.workflow,
+          workflowPreview: workflowResult?.workflow as JsonObject | undefined,
           quickReplies,
-        },
+        } as JsonObject,
       });
 
       // Update workflow state in conversation
@@ -408,7 +409,7 @@ export function AIPromptPanel({
 
           await api.updateConversationWorkflow(
             conversationId,
-            workflowResult.workflow,
+            workflowResult.workflow as JsonObject,
             context?.organizationId,
             context?.projectId,
             context?.appId,
@@ -460,7 +461,7 @@ export function AIPromptPanel({
         await api.addMessageToConversation(conversationId, {
           role: 'assistant',
           content: configMessage.content,
-          metadata: configMessage.metadata,
+          metadata: configMessage.metadata as JsonObject,
         });
       }
     } catch (error: unknown) {
@@ -532,8 +533,8 @@ export function AIPromptPanel({
             content: initialMessage,
             timestamp: new Date().toISOString(),
           },
-        ],
-      });
+        ] as JsonObject[],
+      }) as { id: string; messages?: ChatMessage[] };
 
       setConversationId(response.id);
       setMessages(response.messages || []);
@@ -753,20 +754,20 @@ export function AIPromptPanel({
     if (reply === 'Execute Workflow') {
       // 🎯 Execute the workflow using the PLAN (not the original prompt)
       // This ensures AI uses the analyzed and refined plan with proper node constraints
-      const analysisData = metadata?.analysisData || workflowState.analysisResult;
+      const analysisData = (metadata?.analysisData as AnalysisResult | undefined) || workflowState.analysisResult;
 
       if (analysisData && analysisData.plan && analysisData.plan.length > 0) {
         // Construct a structured prompt from the plan
         const planPrompt = [
           analysisData.understanding,
           '\nWorkflow steps:',
-          ...analysisData.plan.map((step, idx) => `${idx + 1}. ${step}`),
+          ...analysisData.plan.map((step: string, idx: number) => `${idx + 1}. ${step}`),
         ].join('\n');
 
         await handleExecuteWorkflow(planPrompt);
       } else if (metadata?.pendingPrompt) {
         // Fallback to original prompt if no plan available
-        await handleExecuteWorkflow(metadata.pendingPrompt);
+        await handleExecuteWorkflow(metadata.pendingPrompt as string);
       } else if (workflowState.pendingPrompt) {
         await handleExecuteWorkflow(workflowState.pendingPrompt);
       } else {
@@ -778,7 +779,7 @@ export function AIPromptPanel({
     if (reply === 'Modify Prompt') {
       // Allow user to modify the prompt
       if (metadata?.pendingPrompt) {
-        setInput(metadata.pendingPrompt);
+        setInput(metadata.pendingPrompt as string);
       } else if (workflowState.pendingPrompt) {
         setInput(workflowState.pendingPrompt);
       }
@@ -812,7 +813,7 @@ export function AIPromptPanel({
 
     if (reply === 'Configure Nodes') {
       // Open configuration modal for nodes that need setup
-      const nodesToConfigure = metadata?.nodesToConfigure || [];
+      const nodesToConfigure = (metadata?.nodesToConfigure || []) as Array<{ nodeId: string; nodeType: string; nodeName: string }>;
 
       if (nodesToConfigure.length === 0) {
         toast.info('All nodes are already configured!');
@@ -1038,7 +1039,7 @@ export function AIPromptPanel({
                   key={message.id}
                   message={message}
                   onQuickReply={handleQuickReply}
-                  onConfigureCredentials={handleConfigureCredentials}
+                  onConfigureCredentials={handleConfigureCredentials as unknown as (credentials: Array<{ connectorName: string; field: string; masked: string }>) => void}
                   isAccepted={acceptedMessageIds.has(message.id)}
                 />
               ))}

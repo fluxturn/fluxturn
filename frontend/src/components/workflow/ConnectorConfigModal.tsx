@@ -167,11 +167,11 @@ export const ConnectorConfigModal: React.FC<ConnectorConfigModalProps> = ({
       if (field.max !== undefined && num > field.max) return `${field.label} must be at most ${field.max}`;
     }
 
-    if (field.type === 'email' && value && !/\S+@\S+\.\S+/.test(value)) {
+    if (field.type === 'email' && value && !/\S+@\S+\.\S+/.test(String(value))) {
       return `${field.label} must be a valid email address`;
     }
 
-    if (field.type === 'url' && value && !/^https?:\/\/.+/.test(value)) {
+    if (field.type === 'url' && value && !/^https?:\/\/.+/.test(String(value))) {
       return `${field.label} must be a valid URL`;
     }
 
@@ -217,7 +217,8 @@ export const ConnectorConfigModal: React.FC<ConnectorConfigModalProps> = ({
   };
 
   const renderField = (field: ConnectorFieldDef) => {
-    const value = config[field.key] ?? field.default ?? '';
+    const rawValue = config[field.key] ?? field.default ?? '';
+    const value = typeof rawValue === 'object' ? JSON.stringify(rawValue) : String(rawValue);
     const error = validationErrors[field.key];
 
     switch (field.type) {

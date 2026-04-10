@@ -197,7 +197,7 @@ export const NodePalette: React.FC<NodePaletteProps> = ({ isOpen, onToggle }) =>
             ) : IconComponent ? (
               <IconComponent className="w-5 h-5" />
             ) : (
-              <span className="text-sm">{item.icon}</span>
+              <span className="text-sm">{String(item.icon)}</span>
             )}
           </div>
           <div className="flex-1 min-w-0">

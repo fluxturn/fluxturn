@@ -31,6 +31,7 @@ import { api } from '@/lib/api';
 import { WorkflowAPI } from '@/lib/fluxturn';
 import { useWebSocket } from '@/hooks/use-websocket';
 import { extractRouteContext, servicePaths } from '@/lib/navigation-utils';
+import type { JsonObject } from '@/types/json';
 
 const initialNodes: Node[] = [];
 const initialEdges: Edge[] = [];
@@ -270,7 +271,7 @@ const WorkflowBuilderInner: React.FC = () => {
             const filtered = prev.filter(n => n.nodeId !== nodeId);
             return [...filtered, {
               nodeId,
-              nodeName: nodeName || node?.data?.label || nodeId,
+              nodeName: nodeName || (node?.data?.label as string) || nodeId,
               credentialId: credentialId as string,
               connectorType: connectorType as 'mysql' | 'postgresql'
             }];
@@ -344,6 +345,25 @@ const WorkflowBuilderInner: React.FC = () => {
       socket.off('node:execution:failed', handleNodeExecutionFailed);
     };
   }, [socket, setNodes]);
+
+  // Utility function to normalize edge styling (defined early for use in paste handler)
+  const normalizeEdge = useCallback((edge: Edge | Connection) => {
+    return {
+      ...edge,
+      type: (edge as Edge).type || 'default',
+      animated: true, // Always animate
+      markerEnd: {
+        type: MarkerType.ArrowClosed,
+        width: 20,
+        height: 20,
+        color: '#06b6d4', // cyan-500
+      },
+      style: {
+        strokeWidth: 2,
+        stroke: '#06b6d4', // cyan-500
+      },
+    };
+  }, []);
 
   // Handle paste event for JSON import
   useEffect(() => {
@@ -461,7 +481,7 @@ const WorkflowBuilderInner: React.FC = () => {
           // console.log('Updating existing workflow:', workflowId);
           response = await WorkflowAPI.updateWorkflow(
             workflowId,
-            workflowData,
+            workflowData as unknown as JsonObject,
             context.organizationId,
             context.projectId
           );
@@ -469,12 +489,12 @@ const WorkflowBuilderInner: React.FC = () => {
           // Create new workflow
           // console.log('Creating new workflow for OAuth');
           response = await WorkflowAPI.createWorkflow(
-            workflowData,
+            workflowData as unknown as JsonObject,
             context.organizationId,
             context.projectId
           );
-          savedWorkflowId = response.id;
-          setWorkflowId(response.id);
+          savedWorkflowId = response.id as string;
+          setWorkflowId(response.id as string);
 
           // Update browser URL to include the new workflow ID
           const currentPath = window.location.pathname;
@@ -485,7 +505,7 @@ const WorkflowBuilderInner: React.FC = () => {
         }
 
         // Store the workflow ID for the OAuth flow to use
-        sessionStorage.setItem('oauth_workflow_id', savedWorkflowId);
+        sessionStorage.setItem('oauth_workflow_id', savedWorkflowId as string);
 
         // Update the return URL to include the workflow ID
         const returnUrl = `/org/${context.organizationId}/project/${context.projectId}/workflows/${savedWorkflowId}${window.location.search}`;
@@ -589,7 +609,7 @@ const WorkflowBuilderInner: React.FC = () => {
           // console.log('Updating existing workflow:', workflowId);
           response = await WorkflowAPI.updateWorkflow(
             workflowId,
-            workflowData,
+            workflowData as unknown as JsonObject,
             context.organizationId,
             context.projectId
           );
@@ -597,12 +617,12 @@ const WorkflowBuilderInner: React.FC = () => {
           // Create new workflow
           // console.log('Creating new workflow for node execution');
           response = await WorkflowAPI.createWorkflow(
-            workflowData,
+            workflowData as unknown as JsonObject,
             context.organizationId,
             context.projectId
           );
-          savedWorkflowId = response.id;
-          setWorkflowId(response.id);
+          savedWorkflowId = response.id as string;
+          setWorkflowId(response.id as string);
 
           // Update browser URL to include the new workflow ID
           const currentPath = window.location.pathname;
@@ -705,6 +725,8 @@ const WorkflowBuilderInner: React.FC = () => {
           context.organizationId,
           context.projectId
         );
+        const wfData = workflow.workflow as Record<string, unknown> | undefined;
+        const wfCanvas = wfData?.canvas as Record<string, unknown> | undefined;
 
         // console.log('=== Workflow Loaded Successfully ===');
         // console.log('Workflow ID:', workflow.id);
@@ -712,22 +734,22 @@ const WorkflowBuilderInner: React.FC = () => {
         // console.log('Workflow Data:', workflow.workflow);
 
         // Set workflow metadata
-        setWorkflowId(workflow.id);
-        setWorkflowName(workflow.name || 'My workflow');
+        setWorkflowId(workflow.id as string);
+        setWorkflowName((workflow.name as string) || 'My workflow');
         setIsWorkflowActive(workflow.status === 'active');
 
         // Load nodes and edges from canvas data if available
         isLoadingRef.current = true; // Prevent unsaved changes detection during load
-        if (workflow.workflow?.canvas) {
-          const loadedNodes = workflow.workflow.canvas.nodes || [];
-          const loadedEdges = workflow.workflow.canvas.edges || [];
+        if (wfCanvas) {
+          const loadedNodes = (wfCanvas.nodes || []) as Node[];
+          const loadedEdges = (wfCanvas.edges || []) as Edge[];
 
           // console.log('Loading', loadedNodes.length, 'nodes and', loadedEdges.length, 'edges');
           // console.log('Nodes data:', loadedNodes);
           // console.log('Edges data:', loadedEdges);
 
           // Normalize loaded edges to ensure consistent styling
-          const normalizedEdges = loadedEdges.map((edge: Edge) => normalizeEdge(edge));
+          const normalizedEdges = loadedEdges.map((edge: Edge) => normalizeEdge(edge)) as Edge[];
 
           setNodes(loadedNodes);
           setEdges(normalizedEdges);
@@ -740,8 +762,8 @@ const WorkflowBuilderInner: React.FC = () => {
         setHasUnsavedChanges(false);
 
         // Only show toast if this workflow hasn't been loaded yet (prevents duplicate toasts in StrictMode)
-        if (loadedWorkflowRef.current !== workflow.id) {
-          loadedWorkflowRef.current = workflow.id;
+        if (loadedWorkflowRef.current !== (workflow.id as string)) {
+          loadedWorkflowRef.current = workflow.id as string;
           toast.success('Workflow loaded successfully');
         }
       } catch (error: unknown) {
@@ -776,25 +798,6 @@ const WorkflowBuilderInner: React.FC = () => {
     // console.log('Changes detected - enabling save button');
     setHasUnsavedChanges(true);
   }, [nodes, edges, initialLoadComplete]);
-
-  // Utility function to normalize edge styling
-  const normalizeEdge = useCallback((edge: Edge | Connection) => {
-    return {
-      ...edge,
-      type: edge.type || 'default',
-      animated: true, // Always animate
-      markerEnd: {
-        type: MarkerType.ArrowClosed,
-        width: 20,
-        height: 20,
-        color: '#06b6d4', // cyan-500
-      },
-      style: {
-        strokeWidth: 2,
-        stroke: '#06b6d4', // cyan-500
-      },
-    };
-  }, []);
 
   const onConnect = useCallback(
     (params: Connection) => {
@@ -901,7 +904,7 @@ const WorkflowBuilderInner: React.FC = () => {
         // console.log('Updating existing workflow:', workflowId);
         await WorkflowAPI.updateWorkflow(
           workflowId,
-          workflowData,
+          workflowData as unknown as JsonObject,
           context.organizationId,
           context.projectId
         );
@@ -910,11 +913,11 @@ const WorkflowBuilderInner: React.FC = () => {
         // Create new workflow (either no workflowId OR is AI-generated)
         // console.log('Creating new workflow' + (workflowData.is_ai_generated ? ' (AI-generated)' : ''));
         const response = await WorkflowAPI.createWorkflow(
-          workflowData,
+          workflowData as unknown as JsonObject,
           context.organizationId,
           context.projectId
         );
-        const newWorkflowId = response.id;
+        const newWorkflowId = response.id as string;
         setWorkflowId(newWorkflowId);
 
         // Update URL if AI-generated from existing workflow
@@ -1016,7 +1019,7 @@ const WorkflowBuilderInner: React.FC = () => {
       };
 
       // console.log('Creating template:', templateData);
-      await api.createTemplate(templateData);
+      await api.createTemplate(templateData as unknown as JsonObject);
 
       toast.success('Template created successfully!');
     } catch (error: unknown) {
@@ -1113,10 +1116,12 @@ const WorkflowBuilderInner: React.FC = () => {
       // Execute workflow via API
       const result = await WorkflowAPI.executeWorkflow(
         workflowId!,
-        { input_data: inputData },
+        { input_data: inputData } as JsonObject,
         context.organizationId,
         context.projectId
       );
+      const execResult = result.result as Record<string, unknown> | undefined;
+      const execData = execResult?.data as Record<string, Record<string, unknown>> | undefined;
 
       // console.log('Workflow execution result:', result);
 
@@ -1124,7 +1129,7 @@ const WorkflowBuilderInner: React.FC = () => {
       setExecutionResult(result);
 
       // Update node statuses based on execution result
-      if (result.result?.data) {
+      if (execData) {
         // Track successfully executed nodes for edge coloring
         const executedNodeIds = new Set<string>();
         const nodeErrors: Array<{nodeName: string, error: string}> = [];
@@ -1134,7 +1139,7 @@ const WorkflowBuilderInner: React.FC = () => {
             // Skip note nodes
             if (node.type === 'note') return node;
 
-            const nodeResult = result.result.data[node.id];
+            const nodeResult = execData[node.id] as Record<string, unknown> | undefined;
 
             if (nodeResult) {
               // Node was executed
@@ -1147,21 +1152,23 @@ const WorkflowBuilderInner: React.FC = () => {
               if (nodeResult.error) {
                 if (typeof nodeResult.error === 'string') {
                   errorMessage = nodeResult.error;
-                } else if (nodeResult.error.message) {
-                  errorMessage = nodeResult.error.message;
+                } else if ((nodeResult.error as Record<string, unknown>).message) {
+                  errorMessage = (nodeResult.error as Record<string, unknown>).message as string;
                 }
               }
 
               // Handle different response formats for output data extraction
-              let resultData = nodeResult;
+              let resultData: unknown = nodeResult;
               if (nodeResult.data) {
-                if (Array.isArray(nodeResult.data) && nodeResult.data.length > 0) {
-                  if (Array.isArray(nodeResult.data[0]) && nodeResult.data[0].length > 0) {
-                    resultData = nodeResult.data[0][0].json || nodeResult.data[0][0];
-                  } else if (nodeResult.data[0].json) {
-                    resultData = nodeResult.data[0].json;
+                const nrData = nodeResult.data as unknown[];
+                if (Array.isArray(nrData) && nrData.length > 0) {
+                  const firstItem = nrData[0] as Record<string, unknown> | unknown[];
+                  if (Array.isArray(firstItem) && firstItem.length > 0) {
+                    resultData = (firstItem[0] as Record<string, unknown>).json || firstItem[0];
+                  } else if ((firstItem as Record<string, unknown>).json) {
+                    resultData = (firstItem as Record<string, unknown>).json;
                   } else {
-                    resultData = nodeResult.data[0];
+                    resultData = firstItem;
                   }
                 } else {
                   resultData = nodeResult.data;
@@ -1290,7 +1297,7 @@ const WorkflowBuilderInner: React.FC = () => {
       // Check execution status
       if (result.status === 'completed') {
         // Only show success if no node errors - check all possible error locations
-        const hasNodeErrors = result.result?.data && Object.values(result.result.data).some((nodeResult: unknown) => {
+        const hasNodeErrors = execData && Object.values(execData).some((nodeResult: unknown) => {
           const nr = nodeResult as Record<string, unknown>;
           const nrData = nr.data as Record<string, unknown> | undefined;
           return nr.error ||
@@ -1303,14 +1310,14 @@ const WorkflowBuilderInner: React.FC = () => {
           toast.success('Workflow executed successfully!');
           setExecutionLogs(prev => [...prev, {
             time: formatLogTime(),
-            message: `━━━ Workflow execution completed successfully (${result.result?.executedNodes || 0}/${result.result?.totalNodes || 0} nodes)`,
+            message: `━━━ Workflow execution completed successfully (${execResult?.executedNodes || 0}/${execResult?.totalNodes || 0} nodes)`,
             type: 'success'
           }]);
         } else {
           // Find the first error message to display
           let firstErrorMessage = 'One or more nodes failed during execution';
-          if (result.result?.data) {
-            for (const nodeResult of Object.values(result.result.data) as Record<string, unknown>[]) {
+          if (execData) {
+            for (const nodeResult of Object.values(execData) as Record<string, unknown>[]) {
               const nrError = nodeResult.error as Record<string, unknown> | string | undefined;
               const nrData = nodeResult.data as Record<string, unknown> | undefined;
               const nrDataError = nrData?.error as Record<string, unknown> | string | undefined;
@@ -1339,11 +1346,12 @@ const WorkflowBuilderInner: React.FC = () => {
         // console.log('Execution details:', result.result);
 
       } else if (result.status === 'failed') {
-        const errorMessage = result.error?.message || result.error || 'Unknown error';
+        const resultError = result.error as Record<string, unknown> | string | undefined;
+        const errorMessage = (typeof resultError === 'object' ? resultError?.message : resultError) || 'Unknown error';
         toast.error(
           <div className="flex flex-col gap-1">
             <div className="font-semibold text-sm">Workflow Execution Failed</div>
-            <div className="text-xs text-gray-300">{errorMessage}</div>
+            <div className="text-xs text-gray-300">{String(errorMessage)}</div>
           </div>,
           {
             duration: 8000,
@@ -1352,7 +1360,7 @@ const WorkflowBuilderInner: React.FC = () => {
         console.error('Execution error:', result.error);
         setExecutionLogs(prev => [...prev, {
           time: formatLogTime(),
-          message: `━━━ Workflow execution failed: ${result.error?.message || 'Unknown error'}`,
+          message: `━━━ Workflow execution failed: ${(typeof resultError === 'object' ? resultError?.message : resultError) || 'Unknown error'}`,
           type: 'error'
         }]);
       } else {
@@ -1397,8 +1405,10 @@ const WorkflowBuilderInner: React.FC = () => {
 
       // Check if error response contains partial execution data (from failed nodes)
       // The backend returns this in error.response.data.details
-      const details = errorData?.details;
-      const nodeExecutionData = details?.result?.data || details?.output_data?.data;
+      const details = errorData?.details as Record<string, unknown> | undefined;
+      const detailsResult = details?.result as Record<string, unknown> | undefined;
+      const detailsOutput = details?.output_data as Record<string, unknown> | undefined;
+      const nodeExecutionData = (detailsResult?.data || detailsOutput?.data) as Record<string, Record<string, unknown>> | undefined;
 
       // console.log('Checking for node execution data...');
       // console.log('errorData:', errorData);
@@ -1421,8 +1431,9 @@ const WorkflowBuilderInner: React.FC = () => {
 
               if (hasError) {
                 let nodeErrorMessage = 'Node execution failed';
-                if (nodeResult.error?.message) {
-                  nodeErrorMessage = nodeResult.error.message;
+                const nrError = nodeResult.error as Record<string, unknown> | undefined;
+                if (nrError?.message) {
+                  nodeErrorMessage = String(nrError.message);
                 }
 
                 // console.log(`❌ Node ${node.data?.label || node.id} failed: ${nodeErrorMessage}`);
@@ -1523,7 +1534,7 @@ const WorkflowBuilderInner: React.FC = () => {
       // Debug logging removed for production
 
       // Normalize edges for consistent styling
-      const normalizedEdges = (workflow.edges || []).map((edge: Edge) => normalizeEdge(edge));
+      const normalizedEdges = (workflow.edges || []).map((edge: Edge) => normalizeEdge(edge)) as Edge[];
 
       setNodes(processedNodes);
       setEdges(normalizedEdges);
@@ -1556,9 +1567,12 @@ const WorkflowBuilderInner: React.FC = () => {
       // console.log('Workflow generation response:', response);
 
       // Check responseType from backend
-      if (response.responseType === 'workflow' && response.workflow?.canvas) {
+      const respWorkflow = response.workflow as Record<string, unknown> | undefined;
+      const respCanvas = respWorkflow?.canvas as Record<string, unknown> | undefined;
+      if (response.responseType === 'workflow' && respCanvas) {
         // Apply generated workflow to canvas
-        const { nodes, edges } = response.workflow.canvas;
+        const nodes = respCanvas.nodes as Node[] | undefined;
+        const edges = respCanvas.edges as Edge[] | undefined;
 
         // DEBUG: Log what we received
         // console.log('🔍 DEBUG - Received from backend:');
@@ -1596,7 +1610,7 @@ const WorkflowBuilderInner: React.FC = () => {
           });
 
           // Ensure edges have all required ReactFlow properties - use normalizeEdge for consistency
-          const processedEdges = (edges || []).map((edge: Edge) => normalizeEdge(edge));
+          const processedEdges = (edges || []).map((edge: Edge) => normalizeEdge(edge)) as Edge[];
 
           // console.log('📊 Processed edges:', processedEdges);
 
@@ -1618,9 +1632,10 @@ const WorkflowBuilderInner: React.FC = () => {
           );
 
           // Show warnings if any connectors are missing
-          if (response.missingConnectors && response.missingConnectors.length > 0) {
+          const missingConnectors = response.missingConnectors as string[] | undefined;
+          if (missingConnectors && missingConnectors.length > 0) {
             toast.warning(
-              `Missing connectors: ${response.missingConnectors.join(', ')}. Please configure them in settings.`,
+              `Missing connectors: ${missingConnectors.join(', ')}. Please configure them in settings.`,
               { duration: 7000 }
             );
           }
@@ -1634,18 +1649,18 @@ const WorkflowBuilderInner: React.FC = () => {
         return response;
       } else if (response.responseType === 'limit_exceeded') {
         // ✅ Show limit exceeded error with Sonner toast
-        toast.error(response.error || 'AI workflow generation limit exceeded');
+        toast.error(String(response.error || 'AI workflow generation limit exceeded'));
         return response;
       } else if (response.responseType === 'error') {
         // Return error response for AIPromptPanel
-        toast.error(response.message || 'Failed to generate workflow');
+        toast.error(String(response.message || 'Failed to generate workflow'));
         return response;
       } else if (response.responseType === 'conversational') {
         // Return conversational response
         return response;
       } else {
         // Fallback for old response format
-        throw new Error(response.error || 'Failed to generate workflow structure');
+        throw new Error(String(response.error || 'Failed to generate workflow structure'));
       }
     } catch (error: unknown) {
       console.error('Workflow generation error:', error);
@@ -1884,7 +1899,8 @@ const WorkflowBuilderInner: React.FC = () => {
         ) : activeTab === 'executions' ? (
           <ExecutionsTab
             workflowId={workflowId}
-            currentExecution={executionResult}
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            currentExecution={executionResult as any}
             context={context}
           />
         ) : activeTab === 'templates' ? (
@@ -1894,8 +1910,8 @@ const WorkflowBuilderInner: React.FC = () => {
               if (template.workflow?.canvas) {
                 setWorkflowName(template.name);
                 setTemplateId(template.id); // Track template ID
-                setNodes(template.workflow.canvas.nodes || []);
-                setEdges((template.workflow.canvas.edges || []).map(normalizeEdge));
+                setNodes((template.workflow.canvas.nodes || []) as Node[]);
+                setEdges(((template.workflow.canvas.edges || []) as Edge[]).map(normalizeEdge) as Edge[]);
                 setHasUnsavedChanges(true);
                 setActiveTab('editor'); // Switch back to editor
               }

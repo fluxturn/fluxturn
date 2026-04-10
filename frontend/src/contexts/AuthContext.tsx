@@ -100,7 +100,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           avatarUrl: profile.avatarUrl,
           organizationId: profile.organizationId,
           projectId: profile.projectId,
-          organization: profile.organizationId ? { id: profile.organizationId } : null
+          organization: profile.organizationId ? { id: profile.organizationId, name: '' } : null
         };
         
         setUser(userData);
@@ -120,7 +120,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             try {
               const refreshResponse = await api.refresh(refreshToken);
               if (refreshResponse?.user) {
-                setUser(refreshResponse.user);
+                setUser(refreshResponse.user as User);
                 await loadUserData();
                 return; // Successfully refreshed
               }
@@ -151,11 +151,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       // console.log('Loading user data...');
       // Load organizations using user-specific endpoint
-      const orgsResponse = await api.getUserOrganizations();
+      const orgsResponse = await api.getUserOrganizations() as { data?: Organization[] } | Organization[];
       // console.log('Organizations response in auth:', orgsResponse);
 
       // Backend returns paginated response with data array
-      const orgs = orgsResponse?.data || (Array.isArray(orgsResponse) ? orgsResponse : []);
+      const orgs: Organization[] = (orgsResponse as { data?: Organization[] })?.data || (Array.isArray(orgsResponse) ? orgsResponse : []);
       // console.log('Setting organizations:', orgs);
       setOrganizations(orgs);
 
@@ -167,7 +167,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         // Load projects for the first organization
         try {
-          const projectsResponse = await api.getProjectsByOrganization(firstOrg.id);
+          const projectsResponse = await api.getProjectsByOrganization(firstOrg.id) as { data?: Array<{ id: string }> };
           const projects = projectsResponse?.data || [];
 
           if (projects.length > 0) {
@@ -201,11 +201,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     isRefreshingOrgsRef.current = true;
 
     try {
-      const orgsResponse = await api.getUserOrganizations();
+      const orgsResponse = await api.getUserOrganizations() as { data?: Organization[] } | Organization[];
       // console.log('Refreshing organizations response:', orgsResponse);
 
       // Backend returns paginated response with data array
-      const orgs = orgsResponse?.data || (Array.isArray(orgsResponse) ? orgsResponse : []);
+      const orgs: Organization[] = (orgsResponse as { data?: Organization[] })?.data || (Array.isArray(orgsResponse) ? orgsResponse : []);
       // console.log('Setting refreshed organizations:', orgs);
       setOrganizations(orgs);
 
@@ -215,7 +215,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         api.setOrganizationId(firstOrg.id);
 
         try {
-          const projectsResponse = await api.getProjectsByOrganization(firstOrg.id);
+          const projectsResponse = await api.getProjectsByOrganization(firstOrg.id) as { data?: Array<{ id: string }> };
           const projects = projectsResponse?.data || [];
 
           if (projects.length > 0) {
@@ -251,7 +251,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setOrganizations([]);
 
       const response = await api.login(email, password);
-      setUser(response.user);
+      setUser(response.user as User);
 
       // Save refresh token if provided
       if (response.refreshToken) {
@@ -265,10 +265,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       try {
         // console.log('🔄 [LOGIN] Fetching organizations for user...');
         // Load organizations using user-specific endpoint
-        const orgsResponse = await api.getUserOrganizations();
+        const orgsResponse = await api.getUserOrganizations() as { data?: Organization[] } | Organization[];
         // console.log('📦 [LOGIN] Organizations response:', orgsResponse);
 
-        const userOrgs = orgsResponse?.data || (Array.isArray(orgsResponse) ? orgsResponse : []);
+        const userOrgs: Organization[] = (orgsResponse as { data?: Organization[] })?.data || (Array.isArray(orgsResponse) ? orgsResponse : []);
         // console.log('📊 [LOGIN] Parsed organizations:', userOrgs.length, 'orgs');
 
         setOrganizations(userOrgs);
@@ -286,7 +286,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
           // Load projects for the first organization
           try {
-            const projectsResponse = await api.getProjectsByOrganization(firstOrg.id);
+            const projectsResponse = await api.getProjectsByOrganization(firstOrg.id) as { data?: Array<{ id: string }> };
             const projects = projectsResponse?.data || [];
 
             if (projects.length > 0) {
@@ -314,7 +314,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setLoading(false);
 
       // Return the user for redirect logic
-      return response.user;
+      return response.user as User;
     } catch (error) {
       console.error('Login failed:', error);
       setLoading(false);
@@ -393,10 +393,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         bio: profile.bio,
         website: profile.website,
         location: profile.location,
-        twoFactorEnabled: profile.twoFactorEnabled,
+        twoFactorEnabled: profile.twoFactorEnabled === 'true',
         organizationId: profile.organizationId,
         projectId: profile.projectId,
-        organization: profile.organization || (profile.organizationId ? { id: profile.organizationId } : null)
+        organization: (profile.organization as unknown as User['organization']) || (profile.organizationId ? { id: profile.organizationId, name: '' } : null)
       };
 
       setUser(userData);

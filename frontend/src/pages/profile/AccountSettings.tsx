@@ -182,15 +182,15 @@ export const AccountSettings: React.FC = () => {
     }
   }
 
-  const revokeToken = () => {
+  const revokeToken = (_tokenId: string) => {
     // TODO: Implement token revocation
   }
 
-  const disconnectAccount = () => {
+  const disconnectAccount = (_accountId: string) => {
     // TODO: Implement account disconnection
   }
 
-  const revokeSession = () => {
+  const revokeSession = (_sessionId: string) => {
     // TODO: Implement session revocation
   }
 

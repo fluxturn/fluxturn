@@ -15,6 +15,7 @@ import type {
   RowModalMode,
   ManualConnection
 } from './types';
+import type { JsonValue } from '@/types/json';
 
 interface WorkflowDatabaseTabProps {
   databaseNodes: DatabaseNodeInfo[];
@@ -74,7 +75,7 @@ export function WorkflowDatabaseTab({ databaseNodes, panelHeight }: WorkflowData
 
     setTablesLoading(true);
     try {
-      const result = await WorkflowAPI.getConnectorTables(selectedNode.credentialId, schema);
+      const result = await WorkflowAPI.getConnectorTables(selectedNode.credentialId, schema) as unknown as TableInfo[] | undefined;
       setTables(result || []);
       setSelectedTable(null);
       setColumns([]);
@@ -92,10 +93,10 @@ export function WorkflowDatabaseTab({ databaseNodes, panelHeight }: WorkflowData
     if (!selectedNode || !selectedTable) return;
 
     try {
-      const result = await WorkflowAPI.getConnectorTableColumns(selectedNode.credentialId, selectedTable, schema);
+      const result = await WorkflowAPI.getConnectorTableColumns(selectedNode.credentialId, selectedTable, schema) as unknown as Array<{ value?: string; label?: string; type?: string; isPrimary?: boolean; isNullable?: boolean }> | undefined;
       // console.log('[loadColumns] Raw result:', result);
 
-      const cols: ColumnInfo[] = (result || []).map((col: { value?: string; label?: string; type?: string; isPrimary?: boolean; isNullable?: boolean }) => ({
+      const cols: ColumnInfo[] = (result || []).map((col) => ({
         label: col.value || col.label,
         value: col.value || col.label,
         type: col.type,
@@ -139,18 +140,21 @@ export function WorkflowDatabaseTab({ databaseNodes, panelHeight }: WorkflowData
       let rows: TableRow[] = [];
       let rowCount = 0;
 
-      if (result?.data?.data?.rows) {
+      const res = result as Record<string, unknown>;
+      const resData = res?.data as Record<string, unknown> | undefined;
+      const resDataData = resData?.data as Record<string, unknown> | undefined;
+      if (resDataData?.rows) {
         // Nested: result.data.data.rows (from ConnectorActionResultDto wrapping ConnectorResponse)
-        rows = result.data.data.rows;
-        rowCount = result.data.data.rowCount || rows.length;
-      } else if (result?.data?.rows) {
+        rows = resDataData.rows as TableRow[];
+        rowCount = (resDataData.rowCount as number) || rows.length;
+      } else if (resData?.rows) {
         // Direct: result.data.rows
-        rows = result.data.rows;
-        rowCount = result.data.rowCount || rows.length;
-      } else if (result?.rows) {
+        rows = resData.rows as TableRow[];
+        rowCount = (resData.rowCount as number) || rows.length;
+      } else if (res?.rows) {
         // Fallback: result.rows
-        rows = result.rows;
-        rowCount = result.rowCount || rows.length;
+        rows = res.rows as TableRow[];
+        rowCount = (res.rowCount as number) || rows.length;
       }
 
       // console.log('[WorkflowDatabaseTab] Parsed rows:', rows.length, 'rowCount:', rowCount);
@@ -180,7 +184,7 @@ export function WorkflowDatabaseTab({ databaseNodes, panelHeight }: WorkflowData
         {
           table: selectedTable,
           schema: schema,
-          data: data  // Single row object - connector handles both single and array
+          data: data as unknown as Record<string, JsonValue>  // Single row object - connector handles both single and array
         }
       );
       toast.success('Row inserted successfully');
@@ -214,12 +218,12 @@ export function WorkflowDatabaseTab({ databaseNodes, panelHeight }: WorkflowData
         {
           table: selectedTable,
           schema: schema,
-          data: data,
-          where: { [primaryKey]: modalRow?.[primaryKey] }
+          data: data as unknown as Record<string, JsonValue>,
+          where: { [primaryKey]: modalRow?.[primaryKey] as JsonValue }
         }
       );
       // console.log('[handleUpdateRow] Result:', result);
-      if (result?.success) {
+      if ((result as Record<string, unknown>)?.success) {
         toast.success('Row updated successfully');
       } else {
         toast.error('Failed to update row');
@@ -242,7 +246,7 @@ export function WorkflowDatabaseTab({ databaseNodes, panelHeight }: WorkflowData
         {
           table: selectedTable,
           schema: schema,
-          where: { [primaryKey]: modalRow[primaryKey] }
+          where: { [primaryKey]: modalRow[primaryKey] as JsonValue }
         }
       );
       toast.success('Row deleted successfully');

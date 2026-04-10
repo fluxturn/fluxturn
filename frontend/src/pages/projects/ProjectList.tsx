@@ -153,13 +153,13 @@ export const ProjectList: React.FC = () => {
       let bValue: unknown = b[sortField as keyof typeof b]
 
       if (sortField === 'updatedAt' || sortField === 'createdAt') {
-        aValue = new Date(aValue).getTime()
-        bValue = new Date(bValue).getTime()
+        aValue = new Date(aValue as string | number).getTime()
+        bValue = new Date(bValue as string | number).getTime()
       }
 
       if (typeof aValue === 'string') {
         aValue = aValue.toLowerCase()
-        bValue = bValue.toLowerCase()
+        bValue = (bValue as string).toLowerCase()
       }
 
       if (sortOrder === 'asc') {

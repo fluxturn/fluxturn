@@ -72,13 +72,13 @@ export const ProjectSettings: React.FC = () => {
 
       try {
         setLoading(true)
-        const response = await api.getProject(projectId)
+        const response = await api.getProject(projectId) as { project: Record<string, unknown> }
         const projectData = response.project
 
         setProject(projectData)
-        setProjectName(projectData.name || '')
-        setProjectDescription(projectData.description || '')
-        setProjectUrl(projectData.projectUrl || '')
+        setProjectName((projectData.name as string) || '')
+        setProjectDescription((projectData.description as string) || '')
+        setProjectUrl((projectData.projectUrl as string) || '')
       } catch (error: unknown) {
         console.error('Failed to load project:', error)
         toast.error(error instanceof Error ? error.message : 'Failed to load project')
@@ -104,7 +104,7 @@ export const ProjectSettings: React.FC = () => {
       toast.success('Project settings updated successfully')
 
       // Refresh project data
-      const response = await api.getProject(projectId)
+      const response = await api.getProject(projectId) as { project: Record<string, unknown> }
       setProject(response.project)
     } catch (error: unknown) {
       console.error('Failed to update project:', error)
@@ -245,12 +245,12 @@ export const ProjectSettings: React.FC = () => {
                 <div className="flex items-center space-x-3">
                   <input
                     type="text"
-                    value={project.id}
+                    value={String(project.id ?? '')}
                     disabled
                     className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-lg opacity-60"
                   />
                   <button
-                    onClick={() => copyToClipboard(project.id, 'project-id')}
+                    onClick={() => copyToClipboard(String(project.id ?? ''), 'project-id')}
                     className="p-3 glass hover:bg-white/10 rounded-lg transition-all"
                   >
                     {copiedItems['project-id'] ? <Check className="w-5 h-5 text-green-400" /> : <Copy className="w-5 h-5" />}
@@ -758,7 +758,7 @@ export const ProjectSettings: React.FC = () => {
         </div>
         <div>
           <h1 className="text-3xl font-bold text-gradient">Project Settings</h1>
-          <p className="text-muted-foreground">{project.name}</p>
+          <p className="text-muted-foreground">{String(project.name ?? '')}</p>
         </div>
       </motion.div>
 

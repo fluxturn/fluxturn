@@ -10,7 +10,7 @@ export const AcceptInvitationPage = () => {
   const { token } = useParams<{ token: string }>()
   const navigate = useNavigate()
   const { user, isAuthenticated } = useAuth()
-  const [invitation, setInvitation] = useState<{ email: string; organizationName?: string; organizationId?: string; role?: string } | null>(null)
+  const [invitation, setInvitation] = useState<{ email: string; organizationName?: string; organizationId?: string; role?: string; inviterName?: string; inviterEmail?: string; expiresAt?: string; message?: string } | null>(null)
   const [loading, setLoading] = useState(true)
   const [accepting, setAccepting] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -24,7 +24,7 @@ export const AcceptInvitationPage = () => {
       }
 
       try {
-        const data = await organizationApi.getInvitationByToken(token)
+        const data = await organizationApi.getInvitationByToken(token) as { email: string; organizationName?: string; organizationId?: string; role?: string; inviterName?: string; inviterEmail?: string; expiresAt?: string; message?: string }
         setInvitation(data)
 
         // Check if user is authenticated and email matches
@@ -75,7 +75,7 @@ export const AcceptInvitationPage = () => {
 
     try {
       setAccepting(true)
-      const response = await organizationApi.acceptInvitation(token, user?.id)
+      const response = await organizationApi.acceptInvitation(token, user?.id) as { organizationId?: string }
       toast.success('Invitation accepted! Redirecting...')
 
       // Refresh organizations (if you have this in AuthContext)

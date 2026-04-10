@@ -3,6 +3,7 @@ import { memo } from "react";
 import { BaseActionNode } from "../../base/BaseActionNode";
 import { Globe, Mail, MessageSquare, Zap } from "lucide-react";
 import * as LucideIcons from "lucide-react";
+import { type NodeStatus } from "../../base/NodeStatusIndicator";
 
 interface HttpRequestNodeData {
   url?: string;
@@ -20,7 +21,7 @@ interface HttpRequestNodeData {
 type HttpRequestNodeType = Node<HttpRequestNodeData>;
 
 export const HttpRequestNode = memo((props: NodeProps<HttpRequestNodeType>) => {
-  const nodeStatus = (props.data as Record<string, unknown>)?.status as string || "initial";
+  const nodeStatus = (props.data as Record<string, unknown>)?.status as NodeStatus || "initial";
 
   // Settings button handler - parent will handle opening modal via click event
   const handleOpenSettings = () => {
@@ -34,7 +35,7 @@ export const HttpRequestNode = memo((props: NodeProps<HttpRequestNodeType>) => {
     // This is actually a connector action, render it properly
     const getIcon = () => {
       if (props.data?.icon && typeof props.data.icon === 'string') {
-        const IconComponent = (LucideIcons as Record<string, LucideIcons.LucideIcon>)[props.data.icon];
+        const IconComponent = (LucideIcons as unknown as Record<string, LucideIcons.LucideIcon>)[props.data.icon];
         if (IconComponent) return IconComponent;
       }
       

@@ -52,9 +52,9 @@ export const OrganizationSettings: React.FC = () => {
 
       try {
         setLoading(true)
-        const data = await organizationApi.getOrganizationDetails(organizationId) as { organization?: Record<string, unknown>; name?: string; description?: string }
+        const data = await organizationApi.getOrganizationDetails(organizationId) as { organization?: Organization } & Partial<Organization>
 
-        const org = data.organization || data
+        const org = (data.organization || data) as Organization
         setOrganization(org)
         setFormData({
           name: org.name || '',
@@ -80,8 +80,8 @@ export const OrganizationSettings: React.FC = () => {
       toast.success('Organization updated successfully')
 
       // Refresh data
-      const data = await organizationApi.getOrganizationDetails(organizationId) as { organization?: Record<string, unknown>; name?: string; description?: string }
-      const org = data.organization || data
+      const data = await organizationApi.getOrganizationDetails(organizationId) as { organization?: Organization } & Partial<Organization>
+      const org = (data.organization || data) as Organization
       setOrganization(org)
     } catch (err: unknown) {
       console.error('Failed to update organization:', err)

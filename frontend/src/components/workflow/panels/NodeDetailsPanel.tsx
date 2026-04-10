@@ -64,7 +64,7 @@ export function NodeDetailsPanel({
 
       setLoadingWebhook(true);
       try {
-        const response = await api.get(`/workflow/${workflowId}/webhook-url`);
+        const response = await api.get<{ webhooks?: WebhookInfo[] }>(`/workflow/${workflowId}/webhook-url`);
 
         // Find the webhook for this specific trigger
         const triggerWebhook = response.webhooks?.find(
@@ -110,7 +110,7 @@ export function NodeDetailsPanel({
       toast.info('Executing node...');
 
       // Execute single node via API
-      const result = await api.post(`/workflow/${workflowId}/execute-node`, {
+      const result = await api.post<ExecutionResultInfo>(`/workflow/${workflowId}/execute-node`, {
         nodeId: nodeId,
         testData: {
           test: true,
@@ -125,7 +125,8 @@ export function NodeDetailsPanel({
       if (result.success || result.status === 'success') {
         toast.success('Node executed successfully!');
       } else {
-        toast.error(result.error?.message || 'Node execution failed');
+        const errorMsg = typeof result.error === 'string' ? result.error : result.error?.message;
+        toast.error(errorMsg || 'Node execution failed');
       }
     } catch (error: unknown) {
       console.error('Node execution error:', error);
@@ -294,7 +295,7 @@ export function NodeDetailsPanel({
               <AlertDescription className="text-xs text-gray-400 mt-1">
                 {executionResult.success || executionResult.status === 'success'
                   ? 'Node executed successfully'
-                  : executionResult.error?.message || executionResult.error || 'Execution failed'}
+                  : (typeof executionResult.error === 'string' ? executionResult.error : executionResult.error?.message) || 'Execution failed'}
               </AlertDescription>
             </Alert>
           )}

@@ -8,11 +8,12 @@ import { WorkflowAPI } from "../lib/fluxturn";
 import { AuthContext } from "../contexts/AuthContext";
 import { toast } from "sonner";
 import { PENDING_TEMPLATE_KEY, PENDING_TEMPLATE_TIMESTAMP_KEY } from "../components/landing/TemplatesSection";
-import { ReactFlow, Background, BackgroundVariant, ReactFlowProvider } from '@xyflow/react';
+import { ReactFlow, Background, BackgroundVariant, ReactFlowProvider, type Node, type Edge } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { nodeComponents } from '@/config/workflow';
 import { useTranslation } from "react-i18next";
 import { SEO } from "../components/SEO";
+import type { JsonValue, JsonObject } from "../types/json";
 
 // Fallback templates data (for when API fails)
 // eslint-disable-next-line react-refresh/only-export-components
@@ -305,7 +306,7 @@ export function Templates() {
   const fetchAllTemplates = async () => {
     setLoading(true);
     try {
-      const response = await api.getTemplates({ page: 1, limit: INITIAL_LOAD_LIMIT });
+      const response = await api.getTemplates({ page: 1, limit: INITIAL_LOAD_LIMIT }) as { templates?: Record<string, unknown>[] } | null;
 
       if (response?.templates) {
         const { processed, display } = processTemplates(response.templates);
@@ -403,8 +404,8 @@ export function Templates() {
           variables: template.variables || [],
           outputs: template.outputs || [],
           canvas: template.canvas || { nodes: [], edges: [] },
-        },
-      }, organizationId, projectId);
+        } as unknown as JsonValue,
+      } as JsonObject, organizationId, projectId);
 
       const workflowId = workflowRes.id;
 
@@ -802,8 +803,8 @@ export function Templates() {
                   {selectedTemplate.canvas?.nodes?.length > 0 ? (
                     <ReactFlowProvider>
                       <ReactFlow
-                        nodes={selectedTemplate.canvas.nodes}
-                        edges={selectedTemplate.canvas.edges || []}
+                        nodes={selectedTemplate.canvas.nodes as Node[]}
+                        edges={(selectedTemplate.canvas.edges || []) as Edge[]}
                         nodeTypes={nodeComponents}
                         fitView
                         fitViewOptions={{ padding: 0.3 }}

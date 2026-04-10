@@ -244,7 +244,7 @@ const initialEdges: Edge[] = [
 
 // Custom Node Component
 interface CustomNodeProps {
-  data: { label?: string; icon?: string; description?: string; category?: string; config?: Record<string, unknown>; status?: string };
+  data: { label?: string; icon?: string; description?: string; category?: string; config?: Record<string, unknown>; status?: string; color?: string; error?: string; configSchema?: Record<string, Record<string, unknown>> };
   selected: boolean;
 }
 
@@ -333,16 +333,16 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data, selected }) => {
               Object.entries(data.configSchema).map(([key, schema]: [string, Record<string, unknown>]) => (
                 <div key={key} className="text-xs">
                   <label className="block text-gray-700 font-semibold mb-1">
-                    {schema.label}
+                    {String(schema.label ?? '')}
                     {schema.required && (
                       <span className="text-red-500 ml-1">*</span>
                     )}
                   </label>
                   <p className="text-gray-500 mb-1 text-xs">
-                    {schema.description}
+                    {String(schema.description ?? '')}
                   </p>
                   <div className="font-mono text-xs text-gray-600 bg-white p-2 rounded border">
-                    {data.config[key] || schema.default || schema.placeholder || 'Not set'}
+                    {String(data.config?.[key] ?? schema.default ?? schema.placeholder ?? 'Not set')}
                   </div>
                 </div>
               ))}
@@ -527,7 +527,7 @@ const GmailToSheetsWorkflowInner: React.FC = () => {
           data: {
             ...node.data,
             status: 'error',
-            error: error.message || 'Execution failed',
+            error: error instanceof Error ? error.message : 'Execution failed',
           },
         }))
       );

@@ -128,7 +128,7 @@ export const ExpressionPicker: React.FC<ExpressionPickerProps> = ({
     const connectorType = node.data?.connectorType || node.data?.connector;
 
     // Get connector-specific fields or use defaults
-    return CONNECTOR_OUTPUT_SCHEMAS[connectorType] || CONNECTOR_OUTPUT_SCHEMAS.default;
+    return CONNECTOR_OUTPUT_SCHEMAS[connectorType as string] || CONNECTOR_OUTPUT_SCHEMAS.default;
   };
 
   const filteredNodes = useMemo(() => {
@@ -136,7 +136,7 @@ export const ExpressionPicker: React.FC<ExpressionPickerProps> = ({
 
     return previousNodes.filter(node => {
       const searchLower = searchTerm.toLowerCase();
-      const labelMatch = node.data?.label?.toLowerCase().includes(searchLower) || false;
+      const labelMatch = (typeof node.data?.label === 'string' && node.data.label.toLowerCase().includes(searchLower)) || false;
       const idMatch = node.id.toLowerCase().includes(searchLower);
 
       // Also search through output fields
@@ -245,7 +245,7 @@ export const ExpressionPicker: React.FC<ExpressionPickerProps> = ({
 
                         <div className="min-w-0 flex-1 text-left">
                           <div className="text-sm font-medium text-white truncate">
-                            {node.data?.label || node.id}
+                            {String(node.data?.label || node.id)}
                           </div>
                           <div className="text-xs text-white/50 truncate">
                             {node.id}

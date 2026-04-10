@@ -69,16 +69,14 @@ export const connectorService = {
     const queryString = queryParams.toString();
     const url = queryString ? `/connectors?${queryString}` : '/connectors';
     
-    const response = await api.get(url);
-    return response;
+    return api.get<{ connectors: ConnectorConfig[]; total: number }>(url);
   },
 
   /**
    * Get available connector types from the system
    */
   async getAvailableConnectors(): Promise<AvailableConnector[]> {
-    const response = await api.get('/connectors/available');
-    return response;
+    return api.get<AvailableConnector[]>('/connectors/available');
   },
 
   /**
@@ -110,23 +108,20 @@ export const connectorService = {
    * Get actions for a specific connector type
    */
   async getConnectorActions(connectorType: string): Promise<ConnectorAction[]> {
-    const response = await api.get(`/connectors/available/${connectorType}/actions`);
-    return response;
+    return api.get<ConnectorAction[]>(`/connectors/available/${connectorType}/actions`);
   },
 
   /**
    * Get triggers for a specific connector type
    */
   async getConnectorTriggers(connectorType: string): Promise<ConnectorTrigger[]> {
-    const response = await api.get(`/connectors/available/${connectorType}/triggers`);
-    return response;
+    return api.get<ConnectorTrigger[]>(`/connectors/available/${connectorType}/triggers`);
   },
 
   /**
    * Get metadata for a specific connector including actions/triggers
    */
   async getConnectorMetadata(connectorType: string): Promise<AvailableConnector> {
-    const response = await api.get(`/connectors/available/${connectorType}`);
-    return response;
+    return api.get<AvailableConnector>(`/connectors/available/${connectorType}`);
   }
 };

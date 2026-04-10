@@ -185,7 +185,7 @@ export const OAuthCallback: React.FC = () => {
         if (window.opener) {
           window.opener.postMessage({
             type: 'oauth_error',
-            message: error.response?.data?.message || 'Failed to complete OAuth flow'
+            message: errObj.response?.data?.message || 'Failed to complete OAuth flow'
           }, window.location.origin);
         }
 

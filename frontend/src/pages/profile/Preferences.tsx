@@ -299,7 +299,7 @@ export const Preferences: React.FC = () => {
                     <Label className="text-white mb-3 block">Color Theme</Label>
                     <RadioGroup
                       value={preferences.theme}
-                      onValueChange={(value: string) => updatePreference('theme', value)}
+                      onValueChange={(value: string) => updatePreference('theme', value as 'light' | 'dark' | 'system')}
                       className="space-y-2"
                     >
                       <div className="flex items-center space-x-3 p-3 rounded-lg bg-white/5 border border-white/10">

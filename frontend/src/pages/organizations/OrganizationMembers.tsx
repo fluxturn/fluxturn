@@ -523,7 +523,7 @@ export const OrganizationMembers: React.FC = () => {
       </div>
 
       <div className="space-y-4">
-        {([] as Array<{ id: string; type: string; description: string; user: string; date: string }>).map((activity) => (
+        {([] as Array<{ id: string; type: string; description: string; user: string; date: string; action?: string; target?: string; timestamp?: string }>).map((activity) => (
           <div key={activity.id} className="flex items-start space-x-4 p-3 rounded-lg hover:bg-white/5 transition-all">
             <div className={cn(
               "w-10 h-10 rounded-lg flex items-center justify-center",

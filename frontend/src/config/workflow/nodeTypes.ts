@@ -88,7 +88,7 @@ export interface NodeConfigField {
   placeholder?: string;
   required?: boolean;
   options?: { label: string; value: string }[];
-  defaultValue?: string | number | boolean;
+  defaultValue?: string | number | boolean | Record<string, unknown> | unknown[];
   description?: string;
   displayOptions?: {
     show?: Record<string, (string | number | boolean)[]>;

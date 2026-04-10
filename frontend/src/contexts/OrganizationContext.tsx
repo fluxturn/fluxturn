@@ -43,7 +43,9 @@ export const OrganizationProvider: React.FC<{ children: React.ReactNode }> = ({ 
       // console.log('[OrgContext] Response:', response);
 
       // The backend returns { organization, projects, members }
-      const organization = response?.organization || response?.data?.organization || response;
+      const resp = response as Record<string, unknown>;
+      const respData = resp?.data as Record<string, unknown> | undefined;
+      const organization = (resp?.organization || respData?.organization || response) as Organization | null;
 
       if (!organization || !organization.id) {
         console.error('[OrgContext] Invalid organization response:', response);

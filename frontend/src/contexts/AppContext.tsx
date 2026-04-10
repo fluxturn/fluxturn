@@ -46,7 +46,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       // Note: App concept removed - no longer fetching app data
       // const app = await api.getApp(applicationId);
-      const app: { projectId?: string } | null = null; // Placeholder since app concept is removed
+      const app: App | null = null; // Placeholder since app concept is removed
 
       // Validate that the app belongs to the current project (if we have one)
       if (projectId && app?.projectId !== projectId) {

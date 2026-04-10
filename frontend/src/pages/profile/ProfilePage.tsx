@@ -113,7 +113,7 @@ export function ProfilePage() {
 
     setLoading(true);
     try {
-      const response = await api.uploadAvatar(file);
+      const response = await api.uploadAvatar(file) as { user?: { avatarUrl?: string; [key: string]: unknown } };
       // console.log('Avatar upload response:', response);
       // console.log('New avatar URL:', response.user?.avatarUrl);
 
@@ -125,7 +125,7 @@ export function ProfilePage() {
 
       // Update the user context with the new avatar URL
       if (response.user) {
-        updateUser(response.user);
+        updateUser(response.user as Parameters<typeof updateUser>[0]);
         // Also refresh the user to ensure we have the latest data
         await refreshUser();
       }

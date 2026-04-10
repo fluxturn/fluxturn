@@ -58,7 +58,7 @@ export const SimpleMegaMenu: React.FC = () => {
   // Single function to fetch all menu data
   const fetchMenuData = async () => {
     try {
-      const data = await api.getMenuData(organizationId, projectId)
+      const data = await api.getMenuData(organizationId, projectId) as MenuData
 
       setMenuData(data)
 
@@ -220,7 +220,7 @@ export const SimpleMegaMenu: React.FC = () => {
                                   </div>
                                   <div>
                                     <div className="text-sm font-medium text-white">{org.name}</div>
-                                    <div className="text-xs text-white/60">{org.plan || 'Free'} Plan</div>
+                                    <div className="text-xs text-white/60">{String(org.plan || 'Free')} Plan</div>
                                   </div>
                                 </div>
                                 {menuData.selectedOrganization?.id === org.id && (
@@ -365,7 +365,7 @@ export const SimpleMegaMenu: React.FC = () => {
                                         </div>
                                         <div>
                                           <div className="text-sm font-medium text-white">{project.name}</div>
-                                          <div className="text-xs text-white/60">{project.status || 'active'}</div>
+                                          <div className="text-xs text-white/60">{String(project.status || 'active')}</div>
                                         </div>
                                       </div>
                                       {menuData.selectedProject?.id === project.id && (

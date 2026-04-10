@@ -132,7 +132,8 @@ export default function PublicForm() {
   };
 
   const renderField = (field: FormField) => {
-    const value = formData[field.name] ?? '';
+    const rawValue = formData[field.name] ?? '';
+    const stringValue = typeof rawValue === 'boolean' ? String(rawValue) : rawValue;
 
     switch (field.type) {
       case 'text':
@@ -147,7 +148,7 @@ export default function PublicForm() {
             <Input
               id={field.name}
               type={field.type}
-              value={value}
+              value={stringValue}
               onChange={(e) => handleFieldChange(field.name, e.target.value)}
               placeholder={field.placeholder}
               required={field.required}
@@ -165,7 +166,7 @@ export default function PublicForm() {
             </Label>
             <Textarea
               id={field.name}
-              value={value}
+              value={stringValue}
               onChange={(e) => handleFieldChange(field.name, e.target.value)}
               placeholder={field.placeholder}
               required={field.required}
@@ -184,7 +185,7 @@ export default function PublicForm() {
             </Label>
             <select
               id={field.name}
-              value={value}
+              value={stringValue}
               onChange={(e) => handleFieldChange(field.name, e.target.value)}
               required={field.required}
               className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
@@ -205,7 +206,7 @@ export default function PublicForm() {
             <input
               type="checkbox"
               id={field.name}
-              checked={value}
+              checked={Boolean(rawValue)}
               onChange={(e) => handleFieldChange(field.name, e.target.checked)}
               className="w-4 h-4 text-cyan-600 border-gray-300 rounded focus:ring-cyan-500"
             />
@@ -231,7 +232,7 @@ export default function PublicForm() {
                     id={`${field.name}-${option}`}
                     name={field.name}
                     value={option}
-                    checked={value === option}
+                    checked={stringValue === option}
                     onChange={(e) => handleFieldChange(field.name, e.target.value)}
                     className="w-4 h-4 text-cyan-600 border-gray-300 focus:ring-cyan-500"
                   />

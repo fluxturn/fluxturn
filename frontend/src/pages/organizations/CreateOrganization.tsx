@@ -155,7 +155,7 @@ export const CreateOrganization: React.FC = () => {
 
     // Auto-generate slug from name
     if (field === 'name') {
-      const slug = value.toLowerCase()
+      const slug = String(value).toLowerCase()
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/(^-|-$)/g, '')
       setFormData(prev => ({ ...prev, slug }))
@@ -239,7 +239,9 @@ export const CreateOrganization: React.FC = () => {
       // console.log('Organization creation response:', response) // Debug log
 
       // Check if organizationId exists in response or response.data
-      const organizationId = response?.organizationId || response?.data?.organizationId
+      const resp = response as Record<string, unknown>;
+      const respData = resp?.data as Record<string, unknown> | undefined;
+      const organizationId = (resp?.organizationId || respData?.organizationId) as string | undefined
 
       if (organizationId) {
         // Refresh the organizations list in AuthContext

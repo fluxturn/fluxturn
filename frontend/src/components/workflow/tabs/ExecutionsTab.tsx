@@ -96,8 +96,9 @@ export function ExecutionsTab({ workflowId, currentExecution, context }: Executi
         context?.appId
       );
       // Handle both array response and paginated response
-      const history = Array.isArray(response) ? response : (response.executions || []);
-      setExecutions(history);
+      const resp = response as Record<string, unknown>;
+      const history = Array.isArray(response) ? response : ((resp.executions || []) as ExecutionResult[]);
+      setExecutions(history as ExecutionResult[]);
     } catch (error: unknown) {
       console.error('Failed to load execution history:', error);
       toast.error('Failed to load execution history');

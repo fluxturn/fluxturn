@@ -100,7 +100,7 @@ export function NodeSelectorPanel({ isOpen, onClose }: NodeSelectorPanelProps) {
         console.error('Failed to fetch connector actions:', error);
         // Fallback to supported_actions from connector metadata
         const fallbackActions = Array.isArray(connector.supported_actions) ? connector.supported_actions : [];
-        setConnectorActions(fallbackActions);
+        setConnectorActions(fallbackActions.map((a: string | { id?: string; name?: string }) => typeof a === 'string' ? { id: a, name: a } : { id: a.id || a.name || '', name: a.name || a.id || '' }));
       }
       return;
     }
@@ -116,7 +116,7 @@ export function NodeSelectorPanel({ isOpen, onClose }: NodeSelectorPanelProps) {
         console.error('Failed to fetch connector triggers:', error);
         // Fallback to supported_triggers from connector metadata
         const fallbackTriggers = Array.isArray(connector.supported_triggers) ? connector.supported_triggers : [];
-        setConnectorTriggers(fallbackTriggers);
+        setConnectorTriggers(fallbackTriggers.map((t: string | { id?: string; name?: string }) => typeof t === 'string' ? { id: t, name: t } : { id: t.id || t.name || '', name: t.name || t.id || '' }));
       }
       return;
     }

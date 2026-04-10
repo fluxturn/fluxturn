@@ -1009,8 +1009,8 @@ class ApiClient {
       });
     }
 
-    const response = await this.post('/images/upload', formData);
-    return response?.data || response;
+    const response = await this.post<Record<string, unknown>>('/images/upload', formData);
+    return (response?.data || response) as ProcessedFileResponse;
   }
 
   async getImageMetadata(imageId: string): Promise<ImageMetadata> {
@@ -1087,8 +1087,8 @@ class ApiClient {
     threshold?: number;
     color?: string;
   }): Promise<{ imageData: string; format: string }> {
-    const response = await this.post('/images/remove-background', data);
-    return response.data;
+    const response = await this.post<Record<string, unknown>>('/images/remove-background', data);
+    return response.data as { imageData: string; format: string };
   }
 
   // =====================================================================================
@@ -1113,8 +1113,8 @@ class ApiClient {
       });
     }
 
-    const response = await this.post('/videos/upload', formData);
-    return response?.data || response;
+    const response = await this.post<Record<string, unknown>>('/videos/upload', formData);
+    return (response?.data || response) as ProcessedFileResponse;
   }
 
   async getVideoInfo(videoId: string): Promise<VideoInfo> {
@@ -1152,8 +1152,8 @@ class ApiClient {
     audioCodec?: 'auto' | 'aac' | 'mp3' | 'opus';
     videoCodec?: 'auto' | 'h264' | 'h265' | 'vp9';
   }): Promise<ProcessedFileResponse> {
-    const response = await this.post('/videos/export', exportData);
-    return response.data;
+    const response = await this.post<Record<string, unknown>>('/videos/export', exportData);
+    return response.data as ProcessedFileResponse;
   }
 
   async aiEditVideoFrame(videoId: string, data: {
@@ -1162,8 +1162,8 @@ class ApiClient {
     prompt: string;
     timestamp: number;
   }): Promise<ProcessedFileResponse> {
-    const response = await this.post(`/videos/${videoId}/ai-edit`, data);
-    return response.data;
+    const response = await this.post<Record<string, unknown>>(`/videos/${videoId}/ai-edit`, data);
+    return response.data as ProcessedFileResponse;
   }
 
   async addTextOverlay(videoId: string, options: {
@@ -1177,8 +1177,8 @@ class ApiClient {
     fontFamily?: string;
     padding?: number;
   }): Promise<ProcessedFileResponse> {
-    const response = await this.post(`/videos/${videoId}/text-overlay`, options);
-    return response.data;
+    const response = await this.post<Record<string, unknown>>(`/videos/${videoId}/text-overlay`, options);
+    return response.data as ProcessedFileResponse;
   }
 
   // =====================================================================================
@@ -1187,7 +1187,8 @@ class ApiClient {
 
   private buildTenantUrl(
     organizationId?: string,
-    projectId?: string
+    projectId?: string,
+    _appId?: string
   ): string {
     if (!organizationId || !projectId) {
       throw new Error('Multi-tenant context required: organizationId and projectId must be provided');
@@ -1211,8 +1212,8 @@ class ApiClient {
       tenantContext?.appId || this.appId || undefined
     );
 
-    const response = await this.post(url, data);
-    return response.data;
+    const response = await this.post<Record<string, unknown>>(url, data);
+    return response.data as Presentation;
   }
 
   async getPresentation(presentationId: string, tenantContext?: {
@@ -1226,8 +1227,8 @@ class ApiClient {
       tenantContext?.appId || this.appId || undefined
     );
 
-    const response = await this.get(`${baseUrl}/${presentationId}`);
-    return response.data;
+    const response = await this.get<Record<string, unknown>>(`${baseUrl}/${presentationId}`);
+    return response.data as Presentation;
   }
 
   async getAllPresentations(
@@ -1257,8 +1258,8 @@ class ApiClient {
       url += `?${params.toString()}`;
     }
 
-    const response = await this.get(url);
-    return response.data || [];
+    const response = await this.get<Record<string, unknown>>(url);
+    return (response.data || []) as Presentation[];
   }
 
   async deletePresentation(presentationId: string, tenantContext?: {
@@ -1291,7 +1292,7 @@ class ApiClient {
       tenantContext?.appId || this.appId || undefined
     );
 
-    const response = await this.post(`${baseUrl}/${presentationId}/slides`, {
+    const response = await this.post<Record<string, unknown>>(`${baseUrl}/${presentationId}/slides`, {
       slide: {
         title: slide.title,
         content: slide.content,
@@ -1301,7 +1302,7 @@ class ApiClient {
       },
       position
     });
-    return response.data;
+    return response.data as Presentation;
   }
 
   async updateSlide(
@@ -1320,7 +1321,7 @@ class ApiClient {
       tenantContext?.appId || this.appId || undefined
     );
 
-    const response = await this.put(`${baseUrl}/${presentationId}/slides`, {
+    const response = await this.put<Record<string, unknown>>(`${baseUrl}/${presentationId}/slides`, {
       id: slideId,
       title: slide.title,
       content: slide.content,
@@ -1328,7 +1329,7 @@ class ApiClient {
       background: slide.background,
       properties: slide.properties
     });
-    return response.data;
+    return response.data as Presentation;
   }
 
   async deleteSlide(
@@ -1346,8 +1347,8 @@ class ApiClient {
       tenantContext?.appId || this.appId || undefined
     );
 
-    const response = await this.delete(`${baseUrl}/${presentationId}/slides/${slideId}`);
-    return response.data;
+    const response = await this.delete<Record<string, unknown>>(`${baseUrl}/${presentationId}/slides/${slideId}`);
+    return response.data as Presentation;
   }
 
   async updateTheme(
@@ -1365,8 +1366,8 @@ class ApiClient {
       tenantContext?.appId || this.appId || undefined
     );
 
-    const response = await this.put(`${baseUrl}/${presentationId}/theme`, theme);
-    return response.data;
+    const response = await this.put<Record<string, unknown>>(`${baseUrl}/${presentationId}/theme`, theme);
+    return response.data as Presentation;
   }
 
   async exportPresentation(
@@ -1388,12 +1389,12 @@ class ApiClient {
       tenantContext?.appId || this.appId || undefined
     );
 
-    const response = await this.post(`${baseUrl}/${presentationId}/export`, {
+    const response = await this.post<Record<string, unknown>>(`${baseUrl}/${presentationId}/export`, {
       format: format || 'json',
       includeAnimations: options?.includeAnimations,
       imageQuality: options?.imageQuality
     });
-    return response.data;
+    return response.data as { data: unknown; filename: string; mimeType: string };
   }
 
   async getAvailableThemes(tenantContext?: {
@@ -1405,8 +1406,8 @@ class ApiClient {
     const projId = tenantContext?.projectId || this.projectId;
 
     const themesUrl = `/org/${orgId}/project/${projId}/themes`;
-    const response = await this.get(themesUrl);
-    return response.data;
+    const response = await this.get<Record<string, unknown>>(themesUrl);
+    return response.data as PresentationTheme[];
   }
 
   async getAvailableTemplates(tenantContext?: {
@@ -1425,8 +1426,15 @@ class ApiClient {
     const projId = tenantContext?.projectId || this.projectId;
 
     const templatesUrl = `/org/${orgId}/project/${projId}/templates`;
-    const response = await this.get(templatesUrl);
-    return response.data;
+    const response = await this.get<Record<string, unknown>>(templatesUrl);
+    return response.data as Array<{
+      id: string;
+      name: string;
+      description: string;
+      slides: Partial<Slide>[];
+      theme: string;
+      category?: string;
+    }>;
   }
 
   async createPresentationFromTemplate(
@@ -1447,8 +1455,8 @@ class ApiClient {
       tenantContext?.appId || this.appId || undefined
     );
 
-    const response = await this.post(`${baseUrl}/from-template/${templateId}`, data);
-    return response.data;
+    const response = await this.post<Record<string, unknown>>(`${baseUrl}/from-template/${templateId}`, data);
+    return response.data as Presentation;
   }
 
   async applyTemplate(
@@ -1466,8 +1474,8 @@ class ApiClient {
       tenantContext?.appId || this.appId || undefined
     );
 
-    const response = await this.put(`${baseUrl}/${presentationId}/apply-template/${templateId}`);
-    return response.data;
+    const response = await this.put<Record<string, unknown>>(`${baseUrl}/${presentationId}/apply-template/${templateId}`);
+    return response.data as Presentation;
   }
 
   // =====================================================================================
@@ -1539,8 +1547,8 @@ class ApiClient {
       ? `/storage/signed-url/${fileId}?${queryString}`
       : `/storage/signed-url/${fileId}`;
 
-    const response = await this.get(url);
-    return response.url;
+    const response = await this.get<Record<string, unknown>>(url);
+    return response.url as string;
   }
 
   async copyStorageFile(
@@ -1616,7 +1624,7 @@ class ApiClient {
       throw new Error('No refresh token available');
     }
 
-    const response = await this.post('/auth/refresh', { refreshToken });
+    const response = await this.post<{ accessToken?: string; refreshToken?: string }>('/auth/refresh', { refreshToken });
 
     if (response.accessToken) {
       this.setToken(response.accessToken);
@@ -1625,7 +1633,7 @@ class ApiClient {
       this.setRefreshToken(response.refreshToken);
     }
 
-    return response;
+    return { accessToken: response.accessToken!, refreshToken: response.refreshToken };
   }
 
   // Workflow AI methods

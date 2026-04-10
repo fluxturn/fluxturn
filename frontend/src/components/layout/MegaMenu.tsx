@@ -159,7 +159,7 @@ export const MegaMenu: React.FC = () => {
   const fetchUserOrganizations = useCallback(async () => {
     try {
       const response = await api.getUserOrganizations()
-      const orgs = response.data || []
+      const orgs = ((response as Record<string, unknown>).data || []) as Organization[]
       setUserOrganizations(orgs)
       return orgs
     } catch (error) {
@@ -174,7 +174,7 @@ export const MegaMenu: React.FC = () => {
     try {
       // console.log('🔍 Fetching projects for organization:', orgId)
       const response = await api.getProjectsByOrganization(orgId)
-      const projects = response.data || []
+      const projects = ((response as Record<string, unknown>).data || []) as Project[]
       // console.log('📋 Found', projects.length, 'projects for org', orgId)
       setOrganizationProjects(projects)
       

@@ -38,7 +38,7 @@ export function Footer() {
       })
 
       setSubscribeStatus('success')
-      setSubscribeMessage(response.data.message || 'Successfully subscribed to newsletter')
+      setSubscribeMessage(((response as Record<string, unknown>).data as Record<string, unknown>)?.message as string || 'Successfully subscribed to newsletter')
       setEmail('')
     } catch (error: unknown) {
       setSubscribeStatus('error')

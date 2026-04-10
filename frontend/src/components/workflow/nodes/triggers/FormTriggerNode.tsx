@@ -2,6 +2,7 @@ import { type NodeProps, type Node } from "@xyflow/react";
 import { memo } from "react";
 import { BaseTriggerNode } from "../../base/BaseTriggerNode";
 import { FileText } from "lucide-react";
+import { type NodeStatus } from "../../base/NodeStatusIndicator";
 
 interface FormField {
   name: string;
@@ -24,7 +25,7 @@ interface FormTriggerNodeData {
 type FormTriggerNodeType = Node<FormTriggerNodeData>;
 
 export const FormTriggerNode = memo((props: NodeProps<FormTriggerNodeType>) => {
-  const nodeStatus = (props.data as Record<string, unknown>)?.status as string || "initial";
+  const nodeStatus = (props.data as Record<string, unknown>)?.status as NodeStatus || "initial";
 
   const description = props.data?.formTitle
     ? `${props.data.formTitle} (${props.data.formFields?.length || 0} fields)`

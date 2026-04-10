@@ -210,7 +210,7 @@ export function DynamicNodeConfigModal({
   const connectorType = formData.connectorType || formData.connector;
   const actionId = formData.actionId;
   const triggerId = formData.triggerId;
-  const inputSchema = formData.inputSchema;
+  const inputSchema = formData.inputSchema as Record<string, unknown> & { properties?: Record<string, SchemaFieldDef> } | undefined;
 
   // Debug logging removed for production
 
@@ -233,7 +233,7 @@ export function DynamicNodeConfigModal({
 
       const dependencyValues: Record<string, unknown> = {};
       const allDependenciesMet = fieldDef.loadOptionsDependsOn.every((dep: string) => {
-        const value = formData[paramsKey]?.[dep] || formData[dep];
+        const value = (formData[paramsKey] as Record<string, unknown> | undefined)?.[dep] || formData[dep];
         dependencyValues[dep] = value;
         const isMet = value !== undefined && value !== null && value !== '';
         // console.log(`[fetchDynamicOptions] Dependency ${dep}: value="${value}", met=${isMet}`);
@@ -257,9 +257,9 @@ export function DynamicNodeConfigModal({
       // Add dependency values as query params
       if (fieldDef.loadOptionsDependsOn && Array.isArray(fieldDef.loadOptionsDependsOn)) {
         fieldDef.loadOptionsDependsOn.forEach((dep: string) => {
-          const value = formData[paramsKey]?.[dep] || formData[dep];
+          const value = (formData[paramsKey] as Record<string, unknown> | undefined)?.[dep] || formData[dep];
           if (value) {
-            params.append(dep, value);
+            params.append(dep, String(value));
           }
         });
       }
@@ -269,21 +269,23 @@ export function DynamicNodeConfigModal({
       }
 
       // console.log(`[fetchDynamicOptions] Fetching from: ${url}`);
-      const response = await api.get(url);
+      const response = await api.get<Record<string, unknown> | unknown[]>(url);
 
       // Ensure response is an array
-      let options = response;
+      let options: unknown = response;
       if (!Array.isArray(response)) {
         // console.warn(`[fetchDynamicOptions] Response is not an array:`, response);
         // Try to extract array from common response formats
         if (response && typeof response === 'object') {
+          const resp = response as Record<string, unknown>;
           // Check for ConnectorResponse format { success, data: { tables/columns } }
-          if (response.data && typeof response.data === 'object') {
-            options = response.data.tables || response.data.columns || response.data.items || response.data;
+          if (resp.data && typeof resp.data === 'object') {
+            const respData = resp.data as Record<string, unknown>;
+            options = respData.tables || respData.columns || respData.items || resp.data;
           }
           // Fallback to direct properties
           if (!Array.isArray(options)) {
-            options = response.data || response.items || response.options || response.tables || response.columns || [];
+            options = resp.data || resp.items || resp.options || resp.tables || resp.columns || [];
           }
         } else {
           options = [];
@@ -301,8 +303,8 @@ export function DynamicNodeConfigModal({
         }
       }
 
-      // console.log(`[fetchDynamicOptions] Got ${options?.length || 0} options for ${fieldName}`);
-      setDynamicOptions(prev => ({ ...prev, [fieldName]: options }));
+      // console.log(`[fetchDynamicOptions] Got ${Array.isArray(options) ? options.length : 0} options for ${fieldName}`);
+      setDynamicOptions(prev => ({ ...prev, [fieldName]: options as Array<{ label: string; value: string }> }));
     } catch (error: unknown) {
       console.error(`[fetchDynamicOptions] Error for ${fieldName}:`, error);
 
@@ -339,11 +341,11 @@ export function DynamicNodeConfigModal({
       const url = `/connectors/${formData.credentialId}/models`;
       // console.log(`[fetchModels] Fetching from: ${url}`);
 
-      const response = await api.get(url);
+      const response = await api.get<Record<string, unknown>>(url);
       // console.log(`[fetchModels] Response:`, response);
 
       // Backend returns { models: string[] }
-      const models = response.models || [];
+      const models = (response.models || []) as string[];
       // console.log(`[fetchModels] Got ${models.length} models for ${cacheKey}`);
 
       // Convert to { label, value } format for the select dropdown
@@ -372,11 +374,11 @@ export function DynamicNodeConfigModal({
     
     setLoadingCredentials(true);
     try {
-      const response = await api.get('/connectors');
+      const response = await api.get<Record<string, unknown>>('/connectors');
       // console.log('Credentials API response:', response);
-      
+
       // The backend returns { connectors: [...], total, limit, offset }
-      let credentialsList = [];
+      let credentialsList: CredentialItem[] = [];
       if (response.connectors && Array.isArray(response.connectors)) {
         credentialsList = response.connectors;
       } else if (Array.isArray(response)) {
@@ -400,10 +402,10 @@ export function DynamicNodeConfigModal({
   // Fetch available connectors
   const fetchConnectors = async () => {
     try {
-      const response = await api.get('/connectors/available');
+      const response = await api.get<Record<string, unknown> | unknown[]>('/connectors/available');
       // Ensure response is an array
-      const connectorsList = Array.isArray(response) ? response : response.data || [];
-      setConnectors(connectorsList);
+      const connectorsList = Array.isArray(response) ? response : (response as Record<string, unknown>).data || [];
+      setConnectors(connectorsList as ConnectorItem[]);
     } catch (error) {
       console.error('Failed to fetch connectors:', error);
     }
@@ -415,10 +417,10 @@ export function DynamicNodeConfigModal({
 
     setLoadingTriggers(true);
     try {
-      const response = await api.get(`/connectors/available/${connector}/triggers`);
+      const response = await api.get<Record<string, unknown> | unknown[]>(`/connectors/available/${connector}/triggers`);
       // console.log('Triggers API response:', response);
-      const triggersList = Array.isArray(response) ? response : response.data || [];
-      setTriggers(triggersList);
+      const triggersList = Array.isArray(response) ? response : (response as Record<string, unknown>).data || [];
+      setTriggers(triggersList as TriggerItem[]);
     } catch (error) {
       console.error('Failed to fetch triggers:', error);
       toast.error('Failed to load triggers');
@@ -436,7 +438,7 @@ export function DynamicNodeConfigModal({
 
     setTestingCredential(true);
     try {
-      const response = await api.post(`/connectors/${formData.credentialId}/test`);
+      const response = await api.post<Record<string, unknown>>(`/connectors/${formData.credentialId}/test`);
       if (response.success) {
         toast.success('Connection test successful!');
 
@@ -458,7 +460,7 @@ export function DynamicNodeConfigModal({
           );
         }
       } else {
-        const errorMessage = response.error?.message || 'Connection test failed';
+        const errorMessage = (response.error as Record<string, unknown> | undefined)?.message as string || 'Connection test failed';
         toast.error(errorMessage);
 
         // Update node status to error
@@ -523,7 +525,7 @@ export function DynamicNodeConfigModal({
 
       if (connectorType) {
         // console.log('Fetching triggers and credentials for connector:', connectorType);
-        fetchTriggers(connectorType);
+        fetchTriggers(connectorType as string);
         fetchCredentials(); // Also fetch credentials for triggers
       }
     }
@@ -539,11 +541,11 @@ export function DynamicNodeConfigModal({
       setLoadingCredentials(true);
 
       try {
-        const response = await api.get('/connectors');
+        const response = await api.get<Record<string, unknown>>('/connectors');
         // console.log(`Connectors API response for ${credentialConnectorType}:`, response);
 
         // Extract credentials array from response
-        let credentialsList = [];
+        let credentialsList: CredentialItem[] = [];
         if (response.connectors && Array.isArray(response.connectors)) {
           credentialsList = response.connectors;
         } else if (Array.isArray(response)) {
@@ -580,7 +582,7 @@ export function DynamicNodeConfigModal({
   useEffect(() => {
     if (!inputSchema || !formData.credentialId) return;
 
-    const properties = inputSchema.properties || inputSchema;
+    const properties = (inputSchema.properties || inputSchema) as Record<string, SchemaFieldDef>;
     const paramsKey = isConnectorTrigger ? 'triggerParams' : 'actionParams';
 
     // Helper function to check and fetch options for a field
@@ -589,7 +591,7 @@ export function DynamicNodeConfigModal({
 
       // Check if all dependencies are met
       const allDependenciesMet = fieldDef.loadOptionsDependsOn.every((dep: string) => {
-        const value = formData[paramsKey]?.[dep] || formData[dep];
+        const value = (formData[paramsKey] as Record<string, unknown> | undefined)?.[dep] || formData[dep];
         return value !== undefined && value !== null && value !== '';
       });
 
@@ -746,13 +748,13 @@ export function DynamicNodeConfigModal({
   useEffect(() => {
     if (!inputSchema || !open) return;
 
-    const properties = inputSchema.properties || inputSchema;
+    const properties = (inputSchema.properties || inputSchema) as Record<string, SchemaFieldDef>;
     const paramsKey = isConnectorTrigger ? 'triggerParams' : 'actionParams';
-    const currentParams = formData[paramsKey] || {};
-    const legacyConfig = formData.config || {};
+    const currentParams = (formData[paramsKey] || {}) as Record<string, unknown>;
+    const legacyConfig = (formData.config || {}) as Record<string, unknown>;
 
     // Check if we need to migrate from config or set defaults
-    const needsUpdate = Object.entries(properties as Record<string, SchemaFieldDef>).some(([fieldName, fieldDef]: [string, SchemaFieldDef]) => {
+    const needsUpdate = Object.entries(properties).some(([fieldName, fieldDef]: [string, SchemaFieldDef]) => {
       const currentValue = currentParams[fieldName];
       const legacyValue = legacyConfig[fieldName];
       const isEmptyArray = Array.isArray(currentValue) && currentValue.length === 0;
@@ -810,13 +812,13 @@ export function DynamicNodeConfigModal({
     // Try to trigger loading immediately when credential changes
     if (open && inputSchema && formData.credentialId) {
       // console.log('[CredentialWatch] Triggering immediate load');
-      const properties = inputSchema.properties || inputSchema;
+      const properties = (inputSchema.properties || inputSchema) as Record<string, SchemaFieldDef>;
       const paramsKey = isConnectorTrigger ? 'triggerParams' : 'actionParams';
 
       Object.entries(properties).forEach(([fieldName, fieldDef]: [string, SchemaFieldDef]) => {
         // Initialize default values if not already set
         if (fieldDef.default !== undefined) {
-          const currentValue = formData[paramsKey]?.[fieldName];
+          const currentValue = (formData[paramsKey] as Record<string, unknown> | undefined)?.[fieldName];
           if (currentValue === undefined || currentValue === null || currentValue === '') {
             // console.log(`[CredentialWatch] Setting default value for ${fieldName}: ${fieldDef.default}`);
             handleFieldChange(`${paramsKey}.${fieldName}`, fieldDef.default);
@@ -847,14 +849,15 @@ export function DynamicNodeConfigModal({
   // Watch for spreadsheet selection to trigger sheet loading
   useEffect(() => {
     const paramsKey = isConnectorTrigger ? 'triggerParams' : 'actionParams';
-    const spreadsheetId = formData[paramsKey]?.spreadsheetId || formData.spreadsheetId;
+    const params = formData[paramsKey] as Record<string, unknown> | undefined;
+    const spreadsheetId = params?.spreadsheetId || formData.spreadsheetId;
 
     // console.log('[SpreadsheetWatch] Spreadsheet selection changed:', { spreadsheetId, open, hasInputSchema: !!inputSchema });
 
     if (!open || !inputSchema || !formData.credentialId || !spreadsheetId) return;
 
     // Find fields that depend on spreadsheetId and trigger loading
-    const properties = inputSchema.properties || inputSchema;
+    const properties = (inputSchema.properties || inputSchema) as Record<string, SchemaFieldDef>;
     Object.entries(properties).forEach(([fieldName, fieldDef]: [string, SchemaFieldDef]) => {
       const loadDeps = fieldDef.loadOptionsDependsOn;
 
@@ -868,13 +871,14 @@ export function DynamicNodeConfigModal({
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open, inputSchema, formData.credentialId, formData.spreadsheetId, formData.actionParams?.spreadsheetId, formData.triggerParams?.spreadsheetId]);
+  }, [open, inputSchema, formData.credentialId, formData.spreadsheetId, (formData.actionParams as Record<string, unknown> | undefined)?.spreadsheetId, (formData.triggerParams as Record<string, unknown> | undefined)?.spreadsheetId]);
 
   // Watch for sheet selection to trigger column loading
   useEffect(() => {
     const paramsKey = isConnectorTrigger ? 'triggerParams' : 'actionParams';
-    const spreadsheetId = formData[paramsKey]?.spreadsheetId || formData.spreadsheetId;
-    const sheetName = formData[paramsKey]?.sheetName || formData.sheet;
+    const sheetParams = formData[paramsKey] as Record<string, unknown> | undefined;
+    const spreadsheetId = sheetParams?.spreadsheetId || formData.spreadsheetId;
+    const sheetName = sheetParams?.sheetName || formData.sheet;
 
     // console.log('[SheetWatch] Sheet selection changed:', { spreadsheetId, sheetName, open, hasInputSchema: !!inputSchema });
 
@@ -882,7 +886,7 @@ export function DynamicNodeConfigModal({
     if (!spreadsheetId || !sheetName) return;
 
     // Find resourceMapper fields and trigger column loading
-    const properties = inputSchema.properties || inputSchema;
+    const properties = (inputSchema.properties || inputSchema) as Record<string, SchemaFieldDef>;
     Object.entries(properties).forEach(([fieldName, fieldDef]: [string, SchemaFieldDef]) => {
       if (fieldDef.type === 'resourceMapper' && fieldDef.loadColumnsResource) {
         // console.log(`[SheetWatch] Triggering column fetch for resourceMapper: ${fieldName}`);
@@ -898,13 +902,14 @@ export function DynamicNodeConfigModal({
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open, inputSchema, formData.credentialId, formData.spreadsheetId, formData.sheet, formData.sheetName, formData.actionParams?.spreadsheetId, formData.actionParams?.sheetName, formData.actionParams?.sheet, formData.triggerParams?.spreadsheetId, formData.triggerParams?.sheetName, formData.triggerParams?.sheet]);
+  }, [open, inputSchema, formData.credentialId, formData.spreadsheetId, formData.sheet, formData.sheetName, (formData.actionParams as Record<string, unknown> | undefined)?.spreadsheetId, (formData.actionParams as Record<string, unknown> | undefined)?.sheetName, (formData.actionParams as Record<string, unknown> | undefined)?.sheet, (formData.triggerParams as Record<string, unknown> | undefined)?.spreadsheetId, (formData.triggerParams as Record<string, unknown> | undefined)?.sheetName, (formData.triggerParams as Record<string, unknown> | undefined)?.sheet]);
 
   // Watch for PostgreSQL table selection to trigger column loading in fixedCollection
   useEffect(() => {
     const paramsKey = isConnectorTrigger ? 'triggerParams' : 'actionParams';
-    const schema = formData[paramsKey]?.schema;
-    const table = formData[paramsKey]?.table;
+    const pgParams = formData[paramsKey] as Record<string, unknown> | undefined;
+    const schema = pgParams?.schema;
+    const table = pgParams?.table;
 
     // console.log('[PostgreSQLWatch] Table selection changed:', { schema, table, open, hasInputSchema: !!inputSchema, connectorType });
 
@@ -913,7 +918,7 @@ export function DynamicNodeConfigModal({
     if (connectorType !== 'postgresql') return;
 
     // Find fixedCollection fields and trigger column loading for their nested fields
-    const properties = inputSchema.properties || inputSchema;
+    const properties = (inputSchema.properties || inputSchema) as Record<string, SchemaFieldDef>;
     Object.entries(properties).forEach(([fieldName, fieldDef]: [string, SchemaFieldDef]) => {
       if (fieldDef.type === 'fixedCollection') {
         // console.log(`[PostgreSQLWatch] Found fixedCollection field: ${fieldName}`);
@@ -936,7 +941,7 @@ export function DynamicNodeConfigModal({
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open, inputSchema, formData.credentialId, connectorType, formData.actionParams?.schema, formData.actionParams?.table, formData.triggerParams?.schema, formData.triggerParams?.table]);
+  }, [open, inputSchema, formData.credentialId, connectorType, (formData.actionParams as Record<string, unknown> | undefined)?.schema, (formData.actionParams as Record<string, unknown> | undefined)?.table, (formData.triggerParams as Record<string, unknown> | undefined)?.schema, (formData.triggerParams as Record<string, unknown> | undefined)?.table]);
 
   // Fetch dynamic options when dependencies change
   useEffect(() => {
@@ -945,7 +950,7 @@ export function DynamicNodeConfigModal({
     if (!inputSchema) return;
     if (!formData.credentialId) return;
 
-    const properties = inputSchema.properties || inputSchema;
+    const properties = (inputSchema.properties || inputSchema) as Record<string, SchemaFieldDef>;
 
     // Trigger loading for all fields with loadOptionsResource
     Object.entries(properties).forEach(([fieldName, fieldDef]: [string, SchemaFieldDef]) => {
@@ -973,20 +978,21 @@ export function DynamicNodeConfigModal({
 
       setLoadingWebhook(true);
       try {
-        const response = await api.get(`/workflow/${workflowId}/webhook-url`);
+        const response = await api.get<Record<string, unknown>>(`/workflow/${workflowId}/webhook-url`);
 
         // Find the webhook for this specific trigger
-        let triggerWebhook;
+        let triggerWebhook: WebhookInfo | undefined;
+        const webhooks = response.webhooks as WebhookInfo[] | undefined;
 
         if (isWebhookTrigger) {
           // For generic WEBHOOK_TRIGGER, find by triggerType
-          triggerWebhook = response.webhooks?.find(
+          triggerWebhook = webhooks?.find(
             (w: WebhookInfo) => w.triggerType === 'WEBHOOK_TRIGGER'
           );
         } else if (isConnectorTrigger) {
           // For CONNECTOR_TRIGGER, find by connectorType
-          triggerWebhook = response.webhooks?.find(
-            (w: WebhookInfo) => w.connectorType === connectorType || w.triggerType === `${connectorType?.toUpperCase()}_TRIGGER`
+          triggerWebhook = webhooks?.find(
+            (w: WebhookInfo) => w.connectorType === connectorType || w.triggerType === `${(connectorType as string)?.toUpperCase()}_TRIGGER`
           );
         }
 
@@ -1022,9 +1028,9 @@ export function DynamicNodeConfigModal({
     const finalFormData = { ...formData };
 
     if (inputSchema) {
-      const properties = inputSchema.properties || inputSchema;
+      const properties = (inputSchema.properties || inputSchema) as Record<string, SchemaFieldDef>;
       const paramsKey = isConnectorTrigger ? 'triggerParams' : 'actionParams';
-      const params = finalFormData[paramsKey] || {};
+      const params = (finalFormData[paramsKey] || {}) as Record<string, unknown>;
 
       // Add default values for fields that are missing
       Object.entries(properties).forEach(([fieldName, fieldDef]: [string, SchemaFieldDef]) => {
@@ -1044,7 +1050,7 @@ export function DynamicNodeConfigModal({
     if (nodeMode === 'provider' && isConnectorAction) {
       contextParams = {};
       const paramsKey = 'actionParams';
-      const params = finalFormData[paramsKey] || {};
+      const params = (finalFormData[paramsKey] || {}) as Record<string, unknown>;
       Object.entries(params).forEach(([key, value]) => {
         // Only include non-AI-controlled fields that have values
         if (!aiControlledFields.has(key) && value !== undefined && value !== '') {
@@ -1091,13 +1097,13 @@ export function DynamicNodeConfigModal({
       const parts = fieldName.split('.');
       setFormData((prev) => {
         const newData = { ...prev };
-        let current = newData;
+        let current: Record<string, unknown> = newData;
 
         for (let i = 0; i < parts.length - 1; i++) {
           const part = parts[i];
           // Clone each level to avoid mutating the original object (React state immutability)
-          current[part] = current[part] ? { ...current[part] } : {};
-          current = current[part];
+          current[part] = current[part] ? { ...(current[part] as Record<string, unknown>) } : {};
+          current = current[part] as Record<string, unknown>;
         }
 
         current[parts[parts.length - 1]] = value;
@@ -1173,7 +1179,7 @@ export function DynamicNodeConfigModal({
       toast.info('Executing node...');
 
       // Execute single node via API
-      const result = await api.post(`/workflow/${effectiveWorkflowId}/execute-node`, {
+      const result = await api.post<NodeExecutionResult>(`/workflow/${effectiveWorkflowId}/execute-node`, {
         nodeId: nodeId,
         testData: {
           test: true,
@@ -1203,9 +1209,10 @@ export function DynamicNodeConfigModal({
             nodes.map((node) => {
               if (node.id === nodeId) {
                 // Extract the actual output data
-                const outputData = Array.isArray(result.result.output) && result.result.output.length > 0
-                  ? result.result.output[0]?.json || result.result.output[0] || {}
-                  : result.result.output?.json || result.result.output || {};
+                const resultOutput = result.result!.output;
+                const outputData = Array.isArray(resultOutput) && resultOutput.length > 0
+                  ? (resultOutput[0] as Record<string, unknown>)?.json || resultOutput[0] || {}
+                  : (resultOutput as Record<string, unknown>)?.json || resultOutput || {};
 
                 return {
                   ...node,
@@ -1247,7 +1254,7 @@ export function DynamicNodeConfigModal({
         </div>,
         { duration: 8000 }
       );
-      setExecutionResult({ success: false, error: catchErrorMessage });
+      setExecutionResult({ success: false, error: { message: catchErrorMessage } });
     } finally {
       setExecuting(false);
     }
@@ -1282,14 +1289,15 @@ export function DynamicNodeConfigModal({
   };
 
   // Check if field should be shown based on displayOptions
-  const shouldShowField = (displayOptions: SchemaFieldDef['displayOptions'], currentValues: Record<string, unknown>) => {
+  const shouldShowField = (displayOptions: SchemaFieldDef['displayOptions'], currentValues: Record<string, unknown>, _fieldName?: string) => {
     const paramsKey = isConnectorTrigger ? 'triggerParams' : 'actionParams';
+    const paramsObj = currentValues[paramsKey] as Record<string, unknown> | undefined;
 
     // Check hide conditions first
     if (displayOptions?.hide) {
       for (const [path, hiddenValues] of Object.entries(displayOptions.hide)) {
         const fieldPath = path.startsWith('/') ? path.slice(1) : path;
-        const actualValue = currentValues[paramsKey]?.[fieldPath] || currentValues[fieldPath];
+        const actualValue = paramsObj?.[fieldPath] || currentValues[fieldPath];
 
         const hiddenArray = Array.isArray(hiddenValues) ? hiddenValues : [hiddenValues];
         if (hiddenArray.includes(actualValue)) {
@@ -1302,7 +1310,7 @@ export function DynamicNodeConfigModal({
     if (displayOptions?.show) {
       for (const [path, allowedValues] of Object.entries(displayOptions.show)) {
         const fieldPath = path.startsWith('/') ? path.slice(1) : path;
-        const actualValue = currentValues[paramsKey]?.[fieldPath] || currentValues[fieldPath];
+        const actualValue = paramsObj?.[fieldPath] || currentValues[fieldPath];
 
         const allowedArray = Array.isArray(allowedValues) ? allowedValues : [allowedValues];
         if (!allowedArray.includes(actualValue)) {
@@ -1321,7 +1329,7 @@ export function DynamicNodeConfigModal({
     }
 
     const connector = connectors.find(c => c.name === connectorType);
-    const connectorDisplayName = connector?.display_name || connectorType;
+    const connectorDisplayName = String(connector?.display_name || connectorType || '');
     const requiresAuth = connector?.auth_type !== 'none';
 
     return (
@@ -1336,7 +1344,7 @@ export function DynamicNodeConfigModal({
 
           <div className="flex gap-1.5">
             <Select
-              value={formData.credentialId || ""}
+              value={String(formData.credentialId || "")}
               onValueChange={(value) => {
                 handleFieldChange("credentialId", value);
                 // Find the selected credential and store its auth type
@@ -1350,7 +1358,7 @@ export function DynamicNodeConfigModal({
 
                 // Automatically fetch dynamic options for fields with loadOptionsResource
                 if (inputSchema) {
-                  const properties = inputSchema.properties || inputSchema;
+                  const properties = (inputSchema.properties || inputSchema) as Record<string, SchemaFieldDef>;
                   Object.entries(properties).forEach(([fieldName, fieldDef]: [string, SchemaFieldDef]) => {
                     if (fieldDef.loadOptionsResource && !fieldDef.loadOptionsDependsOn) {
                       // Only fetch for fields that don't depend on other fields
@@ -1477,9 +1485,9 @@ export function DynamicNodeConfigModal({
   // Render connector trigger fields dynamically
   const renderConnectorTriggerFields = () => {
     // Get display name for locked connector
-    const connectorDisplayName = formData.connectorDisplayName ||
+    const connectorDisplayName = String(formData.connectorDisplayName ||
       connectors.find(c => c.name === connectorType)?.display_name ||
-      connectorType;
+      connectorType || '');
 
     return (
       <div className="space-y-4">
@@ -1491,7 +1499,7 @@ export function DynamicNodeConfigModal({
               <span className="text-red-400 ml-1">*</span>
             </Label>
             <Select
-              value={connectorType || ""}
+              value={String(connectorType || "")}
               onValueChange={(value) => {
                 handleFieldChange("connectorType", value);
                 // Reset trigger when connector changes
@@ -1541,7 +1549,7 @@ export function DynamicNodeConfigModal({
 
             <div className="flex gap-2">
               <Select
-                value={formData.credentialId || ""}
+                value={String(formData.credentialId || "")}
                 onValueChange={(value) => handleFieldChange("credentialId", value)}
                 disabled={loadingCredentials}
               >
@@ -1613,7 +1621,7 @@ export function DynamicNodeConfigModal({
               <span className="text-red-400 ml-1">*</span>
             </Label>
             <Select
-              value={triggerId || ""}
+              value={String(triggerId || "")}
               onValueChange={(value) => {
                 const trigger = triggers.find(t => t.id === value);
                 // console.log('Selected trigger:', trigger);
@@ -1675,12 +1683,12 @@ export function DynamicNodeConfigModal({
   const renderTriggerParameters = () => {
     if (!formData.inputSchema) return null;
 
-    const inputSchema = formData.inputSchema;
-    const triggerParams = formData.triggerParams || {};
+    const schema = formData.inputSchema as Record<string, unknown> & { properties?: Record<string, SchemaFieldDef>; required?: string[] };
+    const triggerParams = (formData.triggerParams || {}) as Record<string, unknown>;
 
     // Check if inputSchema has properties (full schema) or is just properties object
-    const properties = inputSchema.properties || inputSchema;
-    const required = inputSchema.required || [];
+    const properties = (schema.properties || schema) as Record<string, SchemaFieldDef>;
+    const required = schema.required || [];
 
     return sortFieldsByOrder(Object.entries(properties)).map(([fieldName, fieldDef]: [string, SchemaFieldDef]) => {
       const value = triggerParams[fieldName] ?? fieldDef.default ?? "";
@@ -1694,7 +1702,7 @@ export function DynamicNodeConfigModal({
   const renderDynamicFields = () => {
     if (!inputSchema) return null;
 
-    const properties = inputSchema.properties || inputSchema;
+    const properties = (inputSchema.properties || inputSchema) as Record<string, SchemaFieldDef>;
     const required = Array.isArray(inputSchema.required) ? inputSchema.required : [];
 
     // Determine if we're rendering for trigger or action
@@ -1712,7 +1720,7 @@ export function DynamicNodeConfigModal({
         return null;
       }
 
-      const value = formData[paramsKey]?.[fieldName] ?? fieldDef.default ?? "";
+      const value = (formData[paramsKey] as Record<string, unknown> | undefined)?.[fieldName] ?? fieldDef.default ?? "";
       const isRequired = required.includes(fieldName) || fieldDef.required;
 
       return renderDynamicField(fieldName, fieldDef, value, isRequired, paramsKey);
@@ -1730,7 +1738,7 @@ export function DynamicNodeConfigModal({
         {sortFieldsByOrder(Object.entries(properties))
           .filter(([key]) => basicFields.includes(key))
           .map(([fieldName, fieldDef]: [string, SchemaFieldDef]) => {
-            const value = formData.actionParams?.[fieldName] ?? fieldDef.default ?? "";
+            const value = (formData.actionParams as Record<string, unknown> | undefined)?.[fieldName] ?? fieldDef.default ?? "";
             const isRequired = required.includes(fieldName);
             return renderDynamicField(fieldName, fieldDef, value, isRequired);
           })}
@@ -1753,7 +1761,7 @@ export function DynamicNodeConfigModal({
                 {sortFieldsByOrder(Object.entries(properties))
                   .filter(([key]) => advancedFields.includes(key))
                   .map(([fieldName, fieldDef]: [string, SchemaFieldDef]) => {
-                    const value = formData.actionParams?.[fieldName] ?? fieldDef.default ?? "";
+                    const value = (formData.actionParams as Record<string, unknown> | undefined)?.[fieldName] ?? fieldDef.default ?? "";
                     const isRequired = required.includes(fieldName);
                     return renderDynamicField(fieldName, fieldDef, value, isRequired);
                   })}
@@ -1766,7 +1774,8 @@ export function DynamicNodeConfigModal({
   };
 
   // Render collection field (like Options in n8n)
-  const renderCollectionField = (fieldName: string, fieldDef: SchemaFieldDef, value: unknown) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const renderCollectionField = (fieldName: string, fieldDef: SchemaFieldDef, value: any) => {
     const collectionValue = (value || {}) as Record<string, unknown>;
     const isCollectionExpanded = expandedCollections.includes(fieldName);
 
@@ -1864,7 +1873,8 @@ export function DynamicNodeConfigModal({
   };
 
   // Render fixedCollection field (like Query Parameters, Fields in n8n)
-  const renderFixedCollectionField = (fieldName: string, fieldDef: SchemaFieldDef, value: unknown) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const renderFixedCollectionField = (fieldName: string, fieldDef: SchemaFieldDef, value: any) => {
     const itemsKey = Object.keys(fieldDef.items || {})[0]; // e.g., 'field', 'parameter'
     const itemDef = fieldDef.items?.[itemsKey];
     const items = value?.[itemsKey] || [];
@@ -1966,7 +1976,7 @@ export function DynamicNodeConfigModal({
                     <FieldPicker
                       nodeId={nodeId}
                       workflowId={workflowId}
-                      value={item[propName] || ''}
+                      value={String(item[propName] || '')}
                       onChange={(newValue) => updateItem(index, propName, newValue)}
                       placeholder={propDef.placeholder || `Enter ${propDef.label || 'value'}`}
                       mode="action"
@@ -2001,7 +2011,8 @@ export function DynamicNodeConfigModal({
 
   // Render a single dynamic field based on its definition
   // Render resource mapper (like n8n's column mapping)
-  const renderResourceMapper = (fieldName: string, fieldDef: SchemaFieldDef, value: unknown, paramsKey: string) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const renderResourceMapper = (fieldName: string, fieldDef: SchemaFieldDef, value: any, paramsKey: string) => {
     const mappedValues = (value || {}) as Record<string, string>;
     const columns = dynamicOptions[fieldName] || [];
     const isLoading = loadingDynamicOptions[fieldName];
@@ -2027,8 +2038,8 @@ export function DynamicNodeConfigModal({
               Enter values for each column:
             </div>
             {columns.map((column: SelectOption | string) => {
-              const columnName = column.value || column;
-              const columnLabel = column.label || column;
+              const columnName = typeof column === 'string' ? column : column.value;
+              const columnLabel = typeof column === 'string' ? column : column.label;
 
               return (
                 <div key={columnName} className="space-y-1">
@@ -2065,7 +2076,8 @@ export function DynamicNodeConfigModal({
   };
 
   // Render simplified field input for provider mode (context params)
-  const renderProviderModeFieldInput = (fieldName: string, fieldDef: SchemaFieldDef, value: unknown, paramsKey: string) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const renderProviderModeFieldInput = (fieldName: string, fieldDef: SchemaFieldDef, value: any, paramsKey: string) => {
     const fieldType = fieldDef.type || 'string';
 
     // For select fields
@@ -2163,7 +2175,9 @@ export function DynamicNodeConfigModal({
     });
   };
 
-  const renderDynamicField = (fieldName: string, fieldDef: SchemaFieldDef, value: unknown, isRequired: boolean, paramsKey: string = 'actionParams') => {
+  // Dynamic form field value - uses explicit casts at usage sites
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const renderDynamicField = (fieldName: string, fieldDef: SchemaFieldDef, value: any, isRequired: boolean, paramsKey: string = 'actionParams') => {
     const fieldType = fieldDef.type || 'string';
     const fieldLabel = fieldDef.label || fieldDef.description || fieldName;
     const isAiControlled = aiControlledFields.has(fieldName);
@@ -2241,7 +2255,7 @@ export function DynamicNodeConfigModal({
     if (fieldType === 'array' && fieldDef.items?.properties?.fileData) {
       // Detect if this is a video upload field based on field name or mimeType description
       const isVideoField = fieldName.toLowerCase().includes('video') ||
-                           fieldDef.items?.properties?.mimeType?.description?.toLowerCase().includes('video');
+                           (fieldDef.items?.properties?.mimeType as SchemaFieldDef | undefined)?.description?.toLowerCase().includes('video');
 
       // Set appropriate defaults based on media type
       const defaultAccept = isVideoField
@@ -2260,7 +2274,7 @@ export function DynamicNodeConfigModal({
             onChange={(files) => handleFieldChange(`${paramsKey}.${fieldName}`, files)}
             maxFiles={fieldDef.maxItems || (isVideoField ? 1 : 4)}
             maxSizeInMB={defaultMaxSize}
-            accept={fieldDef.items?.properties?.fileData?.accept || defaultAccept}
+            accept={(fieldDef.items?.properties?.fileData as SchemaFieldDef | undefined)?.accept as string || defaultAccept}
             error={undefined}
             required={isRequired}
           />
@@ -2270,7 +2284,7 @@ export function DynamicNodeConfigModal({
 
     // Handle array type with simple string items (like mediaUrls for Twitter)
     // Exclude 'values' field which has special handling below
-    if (fieldType === 'array' && fieldDef.items?.type === 'string' && fieldName !== 'values') {
+    if (fieldType === 'array' && (fieldDef.items as Record<string, unknown> | undefined)?.type === 'string' && fieldName !== 'values') {
       return (
         <div key={fieldName} className="space-y-2">
           <Label className="text-white">
@@ -2746,7 +2760,8 @@ export function DynamicNodeConfigModal({
       return null;
     }
 
-    const value = formData[field.name] ?? field.defaultValue ?? "";
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const value: any = formData[field.name] ?? field.defaultValue ?? "";
 
     switch (field.type) {
       case "text":
@@ -3072,7 +3087,7 @@ export function DynamicNodeConfigModal({
                 </div>
                 <div className="text-sm text-gray-400 font-normal">
                   {isConnectorTrigger && isConnectorLocked && formData.description
-                    ? formData.description
+                    ? String(formData.description)
                     : nodeDefinition.description}
                 </div>
               </div>
@@ -3130,7 +3145,7 @@ export function DynamicNodeConfigModal({
           <AlertDescription className="text-xs text-gray-400 mt-1">
             {executionResult.success || executionResult.status === 'success'
               ? 'Node executed successfully'
-              : executionResult.error?.message || executionResult.error || 'Execution failed'}
+              : executionResult.error?.message || 'Execution failed'}
           </AlertDescription>
         </Alert>
       )}
@@ -3271,7 +3286,7 @@ export function DynamicNodeConfigModal({
         isOpen={showAddCredentialModal}
         onClose={() => setShowAddCredentialModal(false)}
         nodeId={nodeId || undefined}
-        preSelectedConnector={connectorType}
+        preSelectedConnector={connectorType as string | undefined}
         connectors={connectors.filter(c => {
           // For nodes with connectorTypeForCredentials property (dynamic credential handling)
           if (requiresCredentials && credentialConnectorType) {
@@ -3283,7 +3298,8 @@ export function DynamicNodeConfigModal({
           }
           // For connector actions/triggers, use the connectorType from formData
           return c.name === connectorType;
-        })}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        }) as any}
         onSuccess={async (credentialId) => {
           setShowAddCredentialModal(false);
 
@@ -3295,8 +3311,8 @@ export function DynamicNodeConfigModal({
           try {
             if (requiresCredentials && credentialConnectorType) {
               // Re-fetch credentials for nodes with connectorTypeForCredentials property
-              const response = await api.get('/connectors');
-              let allConnectors = [];
+              const response = await api.get<Record<string, unknown>>('/connectors');
+              let allConnectors: CredentialItem[] = [];
               if (response.connectors && Array.isArray(response.connectors)) {
                 allConnectors = response.connectors;
               } else if (Array.isArray(response)) {

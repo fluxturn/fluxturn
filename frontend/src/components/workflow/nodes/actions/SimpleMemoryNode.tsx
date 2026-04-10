@@ -4,16 +4,17 @@ import { memo } from "react";
 import { WorkflowNode } from "../../WorkflowNode";
 import { BaseNode, BaseNodeContent } from "../../base/BaseNode";
 import { BaseHandle } from "../../base/BaseHandle";
+import { type NodeStatus } from "../../base/NodeStatusIndicator";
 
 export const SimpleMemoryNode = memo((props: NodeProps) => {
   const { id, data: rawData } = props;
   const data = rawData as Record<string, unknown>;
   const { setNodes, setEdges } = useReactFlow();
 
-  const label = data?.label || "Simple Memory";
+  const label = (data?.label as string) || "Simple Memory";
   const contextWindowLength = data?.contextWindowLength || 5;
   const description = `Stores ${contextWindowLength} messages in memory`;
-  const nodeStatus = data?.status || "initial";
+  const nodeStatus = (data?.status as NodeStatus) || "initial";
 
   // Settings button handler
   const handleOpenSettings = () => {

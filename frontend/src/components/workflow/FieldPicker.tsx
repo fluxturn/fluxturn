@@ -275,8 +275,9 @@ export const FieldPicker: React.FC<FieldPickerProps> = ({
         try {
           const response = await api.get(`/workflow/${workflowId}/last-execution-output`);
 
-          if (response.hasData && response.data) {
-            executionData = response.data as Record<string, unknown>;
+          const resp = response as Record<string, unknown>;
+          if (resp.hasData && resp.data) {
+            executionData = resp.data as Record<string, unknown>;
           }
         } catch (error) {
           console.error('Failed to fetch execution data:', error);

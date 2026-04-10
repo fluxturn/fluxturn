@@ -9,7 +9,7 @@ export class WorkflowAPI {
     prompt: string;
     strategy?: 'AI_ONLY' | 'TEMPLATE_ONLY' | 'HYBRID';
     maxRetries?: number;
-  }, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
+  }, organizationId?: string, projectId?: string, appId?: string): Promise<Record<string, unknown>> {
     // Set context IDs if provided
     if (organizationId) api.setOrganizationId(organizationId);
     if (projectId) api.setProjectId(projectId);
@@ -25,7 +25,7 @@ export class WorkflowAPI {
     page?: number;
     limit?: number;
     search?: string;
-  }, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
+  }, organizationId?: string, projectId?: string, appId?: string): Promise<Record<string, unknown>> {
     // Set context IDs if provided
     if (organizationId) api.setOrganizationId(organizationId);
     if (projectId) api.setProjectId(projectId);
@@ -43,7 +43,7 @@ export class WorkflowAPI {
   /**
    * Get a single workflow by ID
    */
-  static async getWorkflow(workflowId: string, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
+  static async getWorkflow(workflowId: string, organizationId?: string, projectId?: string, appId?: string): Promise<Record<string, unknown>> {
     // Set context IDs if provided
     if (organizationId) api.setOrganizationId(organizationId);
     if (projectId) api.setProjectId(projectId);
@@ -55,7 +55,7 @@ export class WorkflowAPI {
   /**
    * Create a new workflow
    */
-  static async createWorkflow(workflow: JsonObject, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
+  static async createWorkflow(workflow: JsonObject, organizationId?: string, projectId?: string, appId?: string): Promise<Record<string, unknown>> {
     // Set context IDs if provided
     if (organizationId) api.setOrganizationId(organizationId);
     if (projectId) api.setProjectId(projectId);
@@ -67,7 +67,7 @@ export class WorkflowAPI {
   /**
    * Update an existing workflow
    */
-  static async updateWorkflow(workflowId: string, workflow: JsonObject, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
+  static async updateWorkflow(workflowId: string, workflow: JsonObject, organizationId?: string, projectId?: string, appId?: string): Promise<Record<string, unknown>> {
     // Set context IDs if provided
     if (organizationId) api.setOrganizationId(organizationId);
     if (projectId) api.setProjectId(projectId);
@@ -79,7 +79,7 @@ export class WorkflowAPI {
   /**
    * Delete a workflow
    */
-  static async deleteWorkflow(workflowId: string, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
+  static async deleteWorkflow(workflowId: string, organizationId?: string, projectId?: string, appId?: string): Promise<Record<string, unknown>> {
     // Set context IDs if provided
     if (organizationId) api.setOrganizationId(organizationId);
     if (projectId) api.setProjectId(projectId);
@@ -91,7 +91,7 @@ export class WorkflowAPI {
   /**
    * Execute a workflow with optional parameters
    */
-  static async executeWorkflow(workflowId: string, params?: JsonObject, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
+  static async executeWorkflow(workflowId: string, params?: JsonObject, organizationId?: string, projectId?: string, appId?: string): Promise<Record<string, unknown>> {
     // Set context IDs if provided
     if (organizationId) api.setOrganizationId(organizationId);
     if (projectId) api.setProjectId(projectId);
@@ -107,7 +107,7 @@ export class WorkflowAPI {
     page?: number;
     limit?: number;
     status?: string;
-  }, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
+  }, organizationId?: string, projectId?: string, appId?: string): Promise<Record<string, unknown>> {
     // Set context IDs if provided
     if (organizationId) api.setOrganizationId(organizationId);
     if (projectId) api.setProjectId(projectId);
@@ -125,7 +125,7 @@ export class WorkflowAPI {
   /**
    * Get execution statistics for dashboard
    */
-  static async getExecutionStats(organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
+  static async getExecutionStats(organizationId?: string, projectId?: string, appId?: string): Promise<Record<string, unknown>> {
     if (organizationId) api.setOrganizationId(organizationId);
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);
@@ -140,7 +140,7 @@ export class WorkflowAPI {
     page?: number;
     limit?: number;
     status?: string;
-  }, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
+  }, organizationId?: string, projectId?: string, appId?: string): Promise<Record<string, unknown>> {
     if (organizationId) api.setOrganizationId(organizationId);
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);
@@ -161,7 +161,7 @@ export class WorkflowAPI {
     database_type: 'postgresql' | 'mysql';
     config: { host: string; port: number; database: string; ssl_enabled?: boolean; connection_timeout?: number };
     credentials: { user: string; password: string };
-  }, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
+  }, organizationId?: string, projectId?: string, appId?: string): Promise<Record<string, unknown>> {
     if (organizationId) api.setOrganizationId(organizationId);
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);
@@ -172,7 +172,7 @@ export class WorkflowAPI {
   /**
    * Get tables from connector credential
    */
-  static async getConnectorTables(credentialId: string, schema: string = 'public', organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
+  static async getConnectorTables(credentialId: string, schema: string = 'public', organizationId?: string, projectId?: string, appId?: string): Promise<Record<string, unknown>> {
     if (organizationId) api.setOrganizationId(organizationId);
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);
@@ -184,7 +184,7 @@ export class WorkflowAPI {
   /**
    * Get table columns from connector credential
    */
-  static async getConnectorTableColumns(credentialId: string, table: string, schema: string = 'public', organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
+  static async getConnectorTableColumns(credentialId: string, table: string, schema: string = 'public', organizationId?: string, projectId?: string, appId?: string): Promise<Record<string, unknown>> {
     if (organizationId) api.setOrganizationId(organizationId);
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);
@@ -199,7 +199,7 @@ export class WorkflowAPI {
   /**
    * Execute connector database action
    */
-  static async executeConnectorDbAction(credentialId: string, action: string, parameters: JsonObject, organizationId?: string, projectId?: string, appId?: string): Promise<unknown> {
+  static async executeConnectorDbAction(credentialId: string, action: string, parameters: JsonObject, organizationId?: string, projectId?: string, appId?: string): Promise<Record<string, unknown>> {
     if (organizationId) api.setOrganizationId(organizationId);
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);

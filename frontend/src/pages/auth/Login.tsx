@@ -15,6 +15,7 @@ import { PENDING_PROMPT_KEY, PENDING_PROMPT_TIMESTAMP_KEY } from '../../componen
 import { PENDING_TEMPLATE_KEY, PENDING_TEMPLATE_TIMESTAMP_KEY } from '../../components/landing/TemplatesSection'
 import { PENDING_AI_AGENT_KEY, PENDING_AI_AGENT_TIMESTAMP_KEY } from '../../components/landing/AIAgentSection'
 import type { Organization } from '../../types/organization'
+import type { JsonValue } from '../../types/json'
 
 interface LoginForm {
   email: string
@@ -143,15 +144,15 @@ export const Login: React.FC = () => {
 
       // 2. Create workflow with template data
       const workflowRes = await WorkflowAPI.createWorkflow({
-        name: templateData.name,
-        description: templateData.description,
+        name: templateData.name as JsonValue,
+        description: templateData.description as JsonValue,
         workflow: {
-          triggers: templateData.triggers || [],
-          steps: templateData.steps || [],
-          conditions: templateData.conditions || [],
-          variables: templateData.variables || [],
-          outputs: templateData.outputs || [],
-          canvas: templateData.canvas || { nodes: [], edges: [] },
+          triggers: (templateData.triggers || []) as JsonValue,
+          steps: (templateData.steps || []) as JsonValue,
+          conditions: (templateData.conditions || []) as JsonValue,
+          variables: (templateData.variables || []) as JsonValue,
+          outputs: (templateData.outputs || []) as JsonValue,
+          canvas: (templateData.canvas || { nodes: [], edges: [] }) as JsonValue,
         },
       }, organizationId, projectId);
 

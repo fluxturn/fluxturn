@@ -22,7 +22,7 @@ import { cn } from '@/lib/utils';
 import { api } from '@/lib/api';
 import { WorkflowAPI } from '@/lib/fluxturn';
 import { toast } from 'sonner';
-import { ReactFlow, Background, BackgroundVariant, ReactFlowProvider } from '@xyflow/react';
+import { ReactFlow, Background, BackgroundVariant, ReactFlowProvider, type Node, type Edge } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { nodeComponents } from '@/config/workflow';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -118,7 +118,7 @@ export function TemplatesTab({ onImportTemplate, onOpenWorkflow, templatesOnly =
       // console.log('📦 Full workflow data loaded:', fullWorkflow);
 
       // Update the selected item with full workflow data
-      setSelectedItem(fullWorkflow);
+      setSelectedItem(fullWorkflow as unknown as Template);
     } catch (error: unknown) {
       console.error('Failed to load workflow details:', error);
       toast.error('Failed to load workflow details');
@@ -165,32 +165,32 @@ export function TemplatesTab({ onImportTemplate, onOpenWorkflow, templatesOnly =
 
       // Handle templates response
       if (templatesResponse.status === 'fulfilled') {
-        const templatesData = templatesResponse.value;
+        const templatesData = templatesResponse.value as { templates?: Record<string, unknown>[]; total?: number; totalPages?: number } | Record<string, unknown>[];
         // console.log('📋 Templates data received:', templatesData);
-        
+
         // Extract pagination info and templates
-        if (templatesData?.templates) {
+        if (!Array.isArray(templatesData) && templatesData?.templates) {
           // Update pagination state
           setTemplateTotal(templatesData.total || templatesData.templates.length);
           setTemplateTotalPages(templatesData.totalPages || 1);
-          
-          const processedTemplates = templatesData.templates.map((template: Record<string, unknown>) => ({
-            id: template.id,
-            name: template.name,
-            description: template.description,
-            category: template.category,
-            created_at: template.created_at,
+
+          const processedTemplates: Template[] = templatesData.templates.map((template: Record<string, unknown>) => ({
+            id: template.id as string,
+            name: template.name as string,
+            description: template.description as string,
+            category: template.category as string,
+            created_at: template.created_at as string,
             is_template: true,
-            usage_count: template.use_count || 0,
-            ai_prompt: template.ai_prompt || null,
-            verified: template.verified || false,
+            usage_count: (template.use_count as number) || 0,
+            ai_prompt: (template.ai_prompt as string) || null,
+            verified: (template.verified as boolean) || false,
             workflow: {
-              canvas: template.canvas || { nodes: [], edges: [] },
-              steps: template.steps || [],
-              triggers: template.triggers || [],
-              conditions: template.conditions || [],
-              variables: template.variables || [],
-              outputs: template.outputs || []
+              canvas: (template.canvas as TemplateWorkflow['canvas']) || { nodes: [], edges: [] },
+              steps: (template.steps as TemplateWorkflow['steps']) || [],
+              triggers: (template.triggers as TemplateWorkflow['triggers']) || [],
+              conditions: (template.conditions as TemplateWorkflow['conditions']) || [],
+              variables: (template.variables as TemplateWorkflow['variables']) || [],
+              outputs: (template.outputs as TemplateWorkflow['outputs']) || []
             }
           }));
           setTemplates(processedTemplates);
@@ -198,7 +198,7 @@ export function TemplatesTab({ onImportTemplate, onOpenWorkflow, templatesOnly =
           // Handle array response (no pagination)
           setTemplateTotal(templatesData.length);
           setTemplateTotalPages(1);
-          setTemplates(templatesData);
+          setTemplates(templatesData as unknown as Template[]);
         } else {
           setTemplates([]);
         }
@@ -208,17 +208,17 @@ export function TemplatesTab({ onImportTemplate, onOpenWorkflow, templatesOnly =
       }
 
       // Handle workflows response
-      if (workflowsResponse.status === 'fulfilled') {
-        const workflowsData = workflowsResponse.value;
+      if (workflowsResponse?.status === 'fulfilled') {
+        const workflowsData = workflowsResponse.value as { workflows?: Template[]; total?: number; totalPages?: number; data?: Template[]; pagination?: { total?: number; totalPages?: number } } | Template[];
         // console.log('⚙️ Workflows data received:', workflowsData);
 
         // Handle different response formats with pagination
-        if (workflowsData?.workflows) {
+        if (!Array.isArray(workflowsData) && workflowsData?.workflows) {
           // Update pagination state
           setWorkflowTotal(workflowsData.total || workflowsData.workflows.length);
           setWorkflowTotalPages(workflowsData.totalPages || Math.ceil((workflowsData.total || workflowsData.workflows.length) / itemsPerPage));
           setSavedWorkflows(workflowsData.workflows);
-        } else if (workflowsData?.data && workflowsData?.pagination) {
+        } else if (!Array.isArray(workflowsData) && workflowsData?.data && workflowsData?.pagination) {
           // Alternative format with pagination object
           setWorkflowTotal(workflowsData.pagination.total || workflowsData.data.length);
           setWorkflowTotalPages(workflowsData.pagination.totalPages || 1);
@@ -812,8 +812,8 @@ export function TemplatesTab({ onImportTemplate, onOpenWorkflow, templatesOnly =
                   {/* Workflow Visual Preview */}
                   {(() => {
                     // Get nodes and edges from workflow canvas
-                    const nodes = selectedItem.workflow?.canvas?.nodes || [];
-                    const edges = selectedItem.workflow?.canvas?.edges || [];
+                    const nodes = (selectedItem.workflow?.canvas?.nodes || []) as Node[];
+                    const edges = (selectedItem.workflow?.canvas?.edges || []) as Edge[];
 
                     // Only show preview if we have nodes
                     if (!nodes || nodes.length === 0) return null;

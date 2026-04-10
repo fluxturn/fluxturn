@@ -208,16 +208,16 @@ export const AdminUserList: React.FC = () => {
       const { type, userId, newValue } = showConfirmModal;
 
       if (type === 'role') {
-        await adminService.updateUserRole(userId, newValue);
+        await adminService.updateUserRole(userId, newValue as 'user' | 'admin');
         toast.success(`User role updated to ${newValue}`);
         setUsers((prev) =>
-          prev.map((u) => (u.id === userId ? { ...u, role: newValue } : u))
+          prev.map((u) => (u.id === userId ? { ...u, role: newValue as 'user' | 'admin' } : u))
         );
       } else if (type === 'status') {
-        await adminService.updateUserStatus(userId, newValue);
+        await adminService.updateUserStatus(userId, newValue as boolean);
         toast.success(newValue ? 'User activated' : 'User deactivated');
         setUsers((prev) =>
-          prev.map((u) => (u.id === userId ? { ...u, isActive: newValue } : u))
+          prev.map((u) => (u.id === userId ? { ...u, isActive: newValue as boolean } : u))
         );
       } else if (type === 'delete') {
         await adminService.deleteUser(userId);

@@ -26,6 +26,7 @@ import { cn } from '@/lib/utils';
 import { ReactFlow, Background, BackgroundVariant, ReactFlowProvider, useReactFlow, Node, Edge } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { nodeComponents } from '@/config/workflow';
+import type { JsonObject } from '@/types/json';
 
 interface Template {
   id: string;
@@ -156,8 +157,9 @@ export const TemplatesGallery: React.FC = () => {
         ...(searchQuery && { search: searchQuery })
       });
 
-      if (response?.templates) {
-        const processedTemplates = response.templates.map((template: Record<string, unknown>) => ({
+      const typedResponse = response as { templates?: Record<string, unknown>[]; total?: number; totalPages?: number; verifiedCount?: number; popularCount?: number };
+      if (typedResponse?.templates) {
+        const processedTemplates = typedResponse.templates.map((template: Record<string, unknown>) => ({
           id: template.id as string,
           name: template.name as string,
           description: template.description as string,
@@ -172,14 +174,14 @@ export const TemplatesGallery: React.FC = () => {
           }
         }));
         setTemplates(processedTemplates);
-        setTotalPages(response.totalPages || 1);
-        setTotalCount(response.total || processedTemplates.length);
+        setTotalPages(typedResponse.totalPages || 1);
+        setTotalCount(typedResponse.total || processedTemplates.length);
 
         // Set stats from API response
         setStats({
-          total: response.total || processedTemplates.length,
-          verified: response.verifiedCount || 0,
-          popular: response.popularCount || 0
+          total: typedResponse.total || processedTemplates.length,
+          verified: typedResponse.verifiedCount || 0,
+          popular: typedResponse.popularCount || 0
         });
       }
     } catch (error) {
@@ -209,7 +211,7 @@ export const TemplatesGallery: React.FC = () => {
       };
 
       const newWorkflow = await WorkflowAPI.createWorkflow(
-        workflowData,
+        workflowData as JsonObject,
         context.organizationId,
         context.projectId
       );
@@ -595,8 +597,9 @@ export const TemplatesGallery: React.FC = () => {
 
                   {/* Workflow Visual Preview */}
                   {(() => {
-                    const nodes = selectedTemplate.workflow?.canvas?.nodes || [];
-                    const edges = selectedTemplate.workflow?.canvas?.edges || [];
+                    const canvas = selectedTemplate.workflow?.canvas as { nodes?: Node[]; edges?: Edge[] } | undefined;
+                    const nodes = canvas?.nodes || [];
+                    const edges = canvas?.edges || [];
 
                     if (!nodes || nodes.length === 0) {
                       return (

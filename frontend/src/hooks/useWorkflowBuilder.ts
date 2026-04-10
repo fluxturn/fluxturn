@@ -89,7 +89,7 @@ export const useWorkflowBuilder = (
       type: node.type as 'connector' | 'control' | 'trigger',
       position: node.position,
       data: {
-        label: (node.data as Record<string, unknown>)?.label || 'Untitled Node',
+        label: ((node.data as Record<string, unknown>)?.label as string) || 'Untitled Node',
         ...(node.data as Record<string, unknown>)
       },
     };

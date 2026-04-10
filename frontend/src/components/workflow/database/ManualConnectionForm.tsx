@@ -49,8 +49,8 @@ export function ManualConnectionForm({ onConnect, onBack }: ManualConnectionForm
         }
       });
       setTestResult({
-        success: result.success,
-        message: result.success ? `Connected! Latency: ${result.latency_ms}ms` : result.message || 'Connection failed'
+        success: result.success as boolean,
+        message: result.success ? `Connected! Latency: ${result.latency_ms}ms` : (result.message as string) || 'Connection failed'
       });
     } catch (error: unknown) {
       setTestResult({

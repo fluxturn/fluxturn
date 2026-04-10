@@ -513,7 +513,7 @@ export const AddCredentialModalV2: React.FC<AddCredentialModalV2Props> = ({
         </Label>
 
         {fieldType === 'select' && field.options ? (
-          <Select value={value} onValueChange={(v) => handleFieldChange(key, v)}>
+          <Select value={String(value)} onValueChange={(v) => handleFieldChange(key, v)}>
             <SelectTrigger className="bg-gray-800 border-gray-700 text-white">
               <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
             </SelectTrigger>
@@ -532,7 +532,7 @@ export const AddCredentialModalV2: React.FC<AddCredentialModalV2Props> = ({
           </Select>
         ) : fieldType === 'textarea' ? (
           <Textarea
-            value={value}
+            value={String(value)}
             onChange={(e) => handleFieldChange(key, e.target.value)}
             placeholder={field.placeholder}
             rows={field.rows || 3}
@@ -552,7 +552,7 @@ export const AddCredentialModalV2: React.FC<AddCredentialModalV2Props> = ({
           <div className="relative">
             <Input
               type={fieldType === 'password' || fieldType === 'secret' ? 'password' : 'text'}
-              value={value}
+              value={String(value)}
               onChange={(e) => handleFieldChange(key, e.target.value)}
               placeholder={field.placeholder}
               className="bg-gray-800 border-gray-700 text-white pr-10"
@@ -563,7 +563,7 @@ export const AddCredentialModalV2: React.FC<AddCredentialModalV2Props> = ({
                 variant="ghost"
                 size="icon"
                 className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
-                onClick={() => handleCopy(value, key)}
+                onClick={() => handleCopy(String(value), key)}
               >
                 {copiedField === key ? (
                   <Check className="w-4 h-4 text-green-400" />

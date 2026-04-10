@@ -34,7 +34,9 @@ export const CreateOrganizationSimple: React.FC = () => {
         projectName: 'Main Project'
       })
 
-      const organizationId = response?.organizationId || response?.data?.organizationId
+      const resp = response as Record<string, unknown>;
+      const respData = resp?.data as Record<string, unknown> | undefined;
+      const organizationId = (resp?.organizationId || respData?.organizationId) as string | undefined
 
       if (organizationId) {
         // Refresh the organizations list in AuthContext

@@ -159,7 +159,7 @@ export const WorkflowDashboard: React.FC = () => {
   const fetchWorkflows = async () => {
     try {
       setLoading(true);
-      const response = await WorkflowAPI.getWorkflows({ limit: 50 });
+      const response = await WorkflowAPI.getWorkflows({ limit: 50 }) as { workflows?: Workflow[] };
       setWorkflows(response.workflows || []);
     } catch (error: unknown) {
       console.error('Failed to fetch workflows:', error);
@@ -171,7 +171,11 @@ export const WorkflowDashboard: React.FC = () => {
 
   const fetchExecutionStats = async () => {
     try {
-      const stats = await WorkflowAPI.getExecutionStats();
+      const stats = await WorkflowAPI.getExecutionStats() as {
+        last7Days?: number;
+        successRate?: number;
+        dailyData?: { date: string; success: number; failed: number }[];
+      };
       setExecutionStats({
         totalExecutions: stats.last7Days || 0,
         successRate: stats.successRate || 0,
@@ -185,8 +189,8 @@ export const WorkflowDashboard: React.FC = () => {
           const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
           return {
             name: dayName,
-            success: parseInt(day.success) || 0,
-            failed: parseInt(day.failed) || 0,
+            success: Number(day.success) || 0,
+            failed: Number(day.failed) || 0,
           };
         });
         setChartData(transformedData);
@@ -225,7 +229,7 @@ export const WorkflowDashboard: React.FC = () => {
         status: executionStatusFilter !== 'all' ? executionStatusFilter : undefined,
         // TODO: Add search parameter support to API
         // search: executionSearchQuery || undefined,
-      });
+      }) as { executions?: Execution[]; pagination: { total: number; totalPages: number } };
       setExecutions(response.executions || []);
       setExecutionsPagination(prev => ({
         ...prev,

@@ -175,13 +175,14 @@ export function NodeDataPanel({ node, onClose }: NodeDataPanelProps) {
     return (
       <div className="p-4 space-y-4">
         {items.map((item, index) => {
-          const data = item.json || item;
+          const itemObj = item as Record<string, unknown>;
+          const data = (itemObj.json || itemObj) as Record<string, unknown>;
 
           // Check if this is binary/file data
-          const hasBinaryData = data.binary && data.binary.data;
+          const hasBinaryData = data.binary && (data.binary as Record<string, unknown>).data;
 
           if (hasBinaryData) {
-            const binaryData = data.binary.data;
+            const binaryData = (data.binary as Record<string, unknown>).data as { data?: string; mimeType?: string; fileName?: string; fileSize?: number };
             const mimeType = binaryData.mimeType || '';
             const isImage = mimeType.startsWith('image/');
             const isVideo = mimeType.startsWith('video/');
@@ -276,7 +277,7 @@ export function NodeDataPanel({ node, onClose }: NodeDataPanelProps) {
 
                   {/* Download Button */}
                   <button
-                    onClick={() => handleDownloadFile(binaryData, binaryData.fileName)}
+                    onClick={() => handleDownloadFile(binaryData as { data: string; mimeType?: string }, binaryData.fileName || 'download')}
                     className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg transition-colors text-sm font-medium"
                   >
                     <Download className="w-4 h-4" />

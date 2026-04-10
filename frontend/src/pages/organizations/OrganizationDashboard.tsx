@@ -108,7 +108,7 @@ export const OrganizationDashboard: React.FC = () => {
         })
       ])
 
-      const projects = projectsResponse.data || []
+      const projects = ((projectsResponse as Record<string, unknown>).data || []) as Array<{ id: string; name: string; description?: string; [key: string]: unknown }>
       const members = Array.isArray(membersData) ? membersData : []
 
       // console.log('✅ Loaded projects:', projects.length, projects)
@@ -180,7 +180,7 @@ export const OrganizationDashboard: React.FC = () => {
 
       api.getUserOrganizations().then(response => {
         // Response is { data: Organization[], total: number }
-        const orgs = response?.data || []
+        const orgs = ((response as Record<string, unknown>)?.data || []) as Array<{ id: string; [key: string]: unknown }>
         if (orgs.length > 0) {
           // Only redirect if it's a different org than the current URL
           if (orgs[0].id !== currentOrgId) {
@@ -511,7 +511,7 @@ export const OrganizationDashboard: React.FC = () => {
                         ? 'bg-green-400/20 text-green-400'
                         : 'bg-gray-400/20 text-gray-400'
                     }`}>
-                      {project.status || 'active'}
+                      {String(project.status || 'active')}
                     </span>
                     <ArrowUpRight className="w-4 h-4 text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>

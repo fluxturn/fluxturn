@@ -182,7 +182,8 @@ export const EditCredentialModal: React.FC<EditCredentialModalProps> = ({
   };
 
   const renderAuthField = (field: AuthField) => {
-    const value = authConfig[field.name] ?? "";
+    const rawValue = authConfig[field.name] ?? "";
+    const value = typeof rawValue === 'boolean' ? String(rawValue) : rawValue;
     const isPasswordField = field.type === 'password' || field.type === 'secret';
 
     // For password fields, show placeholder to indicate existing value
@@ -339,7 +340,7 @@ export const EditCredentialModal: React.FC<EditCredentialModalProps> = ({
               <input
                 type="checkbox"
                 id={field.name}
-                checked={value === true || value === 'true'}
+                checked={value === 'true'}
                 onChange={(e) => handleFieldChange(field.name, e.target.checked)}
                 className="w-4 h-4 text-cyan-500 bg-gray-800 border-gray-700 rounded focus:ring-cyan-500 focus:ring-2"
               />
@@ -397,9 +398,9 @@ export const EditCredentialModal: React.FC<EditCredentialModalProps> = ({
     let authFields: AuthField[] = [];
 
     if (Array.isArray(authFieldsRaw)) {
-      authFields = authFieldsRaw.map((field: AuthField) => ({
+      authFields = authFieldsRaw.map((field: AuthField & { key?: string }) => ({
         ...field,
-        name: field.name || field.key,
+        name: field.name || field.key || '',
       }));
     } else if (authFieldsRaw && typeof authFieldsRaw === 'object') {
       authFields = Object.entries(authFieldsRaw).map(([key, value]: [string, Record<string, unknown>]) => ({

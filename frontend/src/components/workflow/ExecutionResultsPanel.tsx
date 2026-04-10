@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { X, ChevronDown, ChevronRight, CheckCircle, XCircle, Clock, Brain } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { AIAgentExecutionPanel } from './panels/AIAgentExecutionPanel';
+import { AIAgentExecutionPanel, type AgentExecutionResult } from './panels/AIAgentExecutionPanel';
 
 interface NodeResultData {
   error?: { message?: string };
@@ -146,9 +146,10 @@ export function ExecutionResultsPanel({ result, onClose }: ExecutionResultsPanel
           const isExpanded = expandedNodes.has(nodeId);
           const hasError = nodeData.error;
           // Check if this is an AI Agent node by looking for agent-specific data
-          const isAIAgentNode = nodeData.data?.[0]?.[0]?.intermediateSteps !== undefined ||
-                                nodeData.data?.[0]?.[0]?.finishReason !== undefined ||
-                                nodeData.data?.[0]?.[0]?.toolCalls !== undefined ||
+          const firstItem = nodeData.data?.[0]?.[0] as Record<string, unknown> | undefined;
+          const isAIAgentNode = firstItem?.intermediateSteps !== undefined ||
+                                firstItem?.finishReason !== undefined ||
+                                firstItem?.toolCalls !== undefined ||
                                 nodeId.toLowerCase().includes('ai_agent') ||
                                 nodeId.toLowerCase().includes('aiagent');
 
@@ -199,7 +200,7 @@ export function ExecutionResultsPanel({ result, onClose }: ExecutionResultsPanel
                   {isAIAgentNode && nodeData.data?.[0]?.[0] ? (
                     /* AI Agent specialized panel */
                     <AIAgentExecutionPanel
-                      result={nodeData.data[0][0]}
+                      result={nodeData.data[0][0] as AgentExecutionResult}
                       className="max-h-[500px] overflow-y-auto"
                     />
                   ) : hasError ? (

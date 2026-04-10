@@ -38,7 +38,9 @@ export const CreateProjectSimple: React.FC = () => {
         organizationId: organizationId,
       })
 
-      const projectId = response?.projectId || response?.data?.projectId
+      const resp = response as Record<string, unknown>;
+      const respData = resp?.data as Record<string, unknown> | undefined;
+      const projectId = resp?.projectId || respData?.projectId
       
       if (projectId) {
         // Navigate to the project dashboard

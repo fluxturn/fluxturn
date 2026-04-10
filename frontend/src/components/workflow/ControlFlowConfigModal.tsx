@@ -88,7 +88,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
       errors.iterable = 'Iterable expression is required for LOOP nodes';
     }
     
-    if (controlType === 'delay' && (!config.duration || config.duration <= 0)) {
+    if (controlType === 'delay' && (!config.duration || Number(config.duration) <= 0)) {
       errors.duration = 'Duration must be greater than 0';
     }
 
@@ -102,26 +102,26 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
   };
 
   const addSwitchCase = () => {
-    const cases = config.cases || [];
+    const cases = (config.cases || []) as unknown as SwitchCase[];
     setConfig(prev => ({
       ...prev,
-      cases: [...cases, { value: '', label: `Case ${cases.length + 1}` }]
+      cases: [...cases, { value: '', label: `Case ${cases.length + 1}` }] as unknown as JsonValue
     }));
   };
 
   const removeSwitchCase = (index: number) => {
-    const cases = config.cases || [];
+    const cases = (config.cases || []) as unknown as SwitchCase[];
     setConfig(prev => ({
       ...prev,
-      cases: (cases as SwitchCase[]).filter((_: SwitchCase, i: number) => i !== index)
+      cases: cases.filter((_: SwitchCase, i: number) => i !== index) as unknown as JsonValue
     }));
   };
 
   const updateSwitchCase = (index: number, updates: Partial<SwitchCase>) => {
-    const cases = config.cases || [];
+    const cases = (config.cases || []) as unknown as SwitchCase[];
     setConfig(prev => ({
       ...prev,
-      cases: (cases as SwitchCase[]).map((c: SwitchCase, i: number) => i === index ? { ...c, ...updates } : c)
+      cases: cases.map((c: SwitchCase, i: number) => i === index ? { ...c, ...updates } : c) as unknown as JsonValue
     }));
   };
 
@@ -139,7 +139,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
                 <FieldPicker
                   nodeId={nodeId}
                   workflowId={workflowId}
-                  value={config.condition || ''}
+                  value={String(config.condition || '')}
                   onChange={(value) => handleConfigChange('condition', value)}
                   placeholder="e.g., {{$node['Run Code'].json.status}} === 'active'"
                   mode="action"
@@ -159,7 +159,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
             <div>
               <label className="text-sm font-medium text-white">Condition Type</label>
               <select
-                value={config.conditionType || 'expression'}
+                value={String(config.conditionType || 'expression')}
                 onChange={(e) => handleConfigChange('conditionType', e.target.value)}
                 className="w-full mt-1 p-2 bg-white/10 border border-white/20 rounded text-white"
               >
@@ -184,7 +184,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
                 <FieldPicker
                   nodeId={nodeId}
                   workflowId={workflowId}
-                  value={config.iterable || ''}
+                  value={String(config.iterable || '')}
                   onChange={(value) => handleConfigChange('iterable', value)}
                   placeholder="e.g., {{$node['Run Code'].json.items}}"
                   mode="action"
@@ -204,7 +204,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
             <div>
               <label className="text-sm font-medium text-white">Item Variable Name</label>
               <Input
-                value={config.itemVariable || 'item'}
+                value={String(config.itemVariable || 'item')}
                 onChange={(e) => handleConfigChange('itemVariable', e.target.value)}
                 placeholder="item"
                 className="bg-white/10 border-white/20 text-white"
@@ -217,7 +217,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
             <div>
               <label className="text-sm font-medium text-white">Index Variable Name</label>
               <Input
-                value={config.indexVariable || 'index'}
+                value={String(config.indexVariable || 'index')}
                 onChange={(e) => handleConfigChange('indexVariable', e.target.value)}
                 placeholder="index"
                 className="bg-white/10 border-white/20 text-white"
@@ -230,7 +230,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
             <div className="flex items-center gap-2">
               <input
                 type="checkbox"
-                checked={config.parallel || false}
+                checked={Boolean(config.parallel) || false}
                 onChange={(e) => handleConfigChange('parallel', e.target.checked)}
                 className="rounded border-white/20 bg-white/10"
               />
@@ -241,7 +241,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
               <label className="text-sm font-medium text-white">Max Iterations</label>
               <Input
                 type="number"
-                value={config.maxIterations || ''}
+                value={config.maxIterations != null ? String(config.maxIterations) : ''}
                 onChange={(e) => handleConfigChange('maxIterations', Number(e.target.value))}
                 placeholder="Leave empty for no limit"
                 className="bg-white/10 border-white/20 text-white"
@@ -252,7 +252,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
         );
 
       case 'switch': {
-        const cases = config.cases || [];
+        const cases = (config.cases || []) as unknown as SwitchCase[];
         return (
           <div className="space-y-4">
             <div>
@@ -263,7 +263,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
               <FieldPicker
                 nodeId={nodeId}
                 workflowId={workflowId}
-                value={config.expression || ''}
+                value={String(config.expression || '')}
                 onChange={(value) => handleConfigChange('expression', value)}
                 placeholder="e.g., {{$node['Run Code'].json.type}}"
                 mode="action"
@@ -287,7 +287,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
               </div>
               
               <div className="space-y-2">
-                {(cases as SwitchCase[]).map((switchCase: SwitchCase, index: number) => (
+                {cases.map((switchCase: SwitchCase, index: number) => (
                   <Card key={index} className="bg-white/10 border-white/20 p-3">
                     <div className="flex items-center gap-2">
                       <Input
@@ -325,7 +325,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
             <div className="flex items-center gap-2">
               <input
                 type="checkbox"
-                checked={config.includeDefault || true}
+                checked={config.includeDefault !== false}
                 onChange={(e) => handleConfigChange('includeDefault', e.target.checked)}
                 className="rounded border-white/20 bg-white/10"
               />
@@ -345,7 +345,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
               </label>
               <Input
                 type="number"
-                value={config.branches || 2}
+                value={config.branches != null ? Number(config.branches) : 2}
                 onChange={(e) => handleConfigChange('branches', Number(e.target.value))}
                 min={2}
                 max={10}
@@ -359,7 +359,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
             <div>
               <label className="text-sm font-medium text-white">Wait Strategy</label>
               <select
-                value={config.waitStrategy || 'all'}
+                value={String(config.waitStrategy || 'all')}
                 onChange={(e) => handleConfigChange('waitStrategy', e.target.value)}
                 className="w-full mt-1 p-2 bg-white/10 border border-white/20 rounded text-white"
               >
@@ -373,7 +373,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
               <label className="text-sm font-medium text-white">Timeout (seconds)</label>
               <Input
                 type="number"
-                value={config.timeout || ''}
+                value={config.timeout != null ? String(config.timeout) : ''}
                 onChange={(e) => handleConfigChange('timeout', Number(e.target.value))}
                 placeholder="Leave empty for no timeout"
                 className="bg-white/10 border-white/20 text-white"
@@ -394,14 +394,14 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
               <div className="flex gap-2">
                 <Input
                   type="number"
-                  value={config.duration || ''}
+                  value={config.duration != null ? String(config.duration) : ''}
                   onChange={(e) => handleConfigChange('duration', Number(e.target.value))}
                   placeholder="5"
                   className="bg-white/10 border-white/20 text-white"
                   min={0.1}
                 />
                 <select
-                  value={config.unit || 'seconds'}
+                  value={String(config.unit || 'seconds')}
                   onChange={(e) => handleConfigChange('unit', e.target.value)}
                   className="p-2 bg-white/10 border border-white/20 rounded text-white"
                 >
@@ -422,7 +422,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
             <div className="flex items-center gap-2">
               <input
                 type="checkbox"
-                checked={config.dynamic || false}
+                checked={Boolean(config.dynamic) || false}
                 onChange={(e) => handleConfigChange('dynamic', e.target.checked)}
                 className="rounded border-white/20 bg-white/10"
               />
@@ -433,7 +433,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
               <div>
                 <label className="text-sm font-medium text-white">Delay Expression</label>
                 <Input
-                  value={config.delayExpression || ''}
+                  value={String(config.delayExpression || '')}
                   onChange={(e) => handleConfigChange('delayExpression', e.target.value)}
                   placeholder="e.g., data.delay * 1000"
                   className="bg-white/10 border-white/20 text-white font-mono"
@@ -457,7 +457,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
               <FieldPicker
                 nodeId={nodeId}
                 workflowId={workflowId}
-                value={config.condition || ''}
+                value={String(config.condition || '')}
                 onChange={(value) => handleConfigChange('condition', value)}
                 placeholder="e.g., {{$node['Run Code'].json.active}} === true"
                 mode="action"
@@ -470,7 +470,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
             <div>
               <label className="text-sm font-medium text-white">Filter Mode</label>
               <select
-                value={config.mode || 'keep'}
+                value={String(config.mode || 'keep')}
                 onChange={(e) => handleConfigChange('mode', e.target.value)}
                 className="w-full mt-1 p-2 bg-white/10 border border-white/20 rounded text-white"
               >
@@ -482,7 +482,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
             <div className="flex items-center gap-2">
               <input
                 type="checkbox"
-                checked={config.preserveStructure || false}
+                checked={Boolean(config.preserveStructure) || false}
                 onChange={(e) => handleConfigChange('preserveStructure', e.target.checked)}
                 className="rounded border-white/20 bg-white/10"
               />
@@ -503,7 +503,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
                 <Editor
                   height="200px"
                   defaultLanguage="javascript"
-                  value={config.script || '// Transform the input data\nreturn data;'}
+                  value={String(config.script || '// Transform the input data\nreturn data;')}
                   onChange={(value) => handleConfigChange('script', value || '')}
                   theme="vs-dark"
                   options={{
@@ -521,7 +521,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
             <div>
               <label className="text-sm font-medium text-white">Output Type</label>
               <select
-                value={config.outputType || 'auto'}
+                value={String(config.outputType || 'auto')}
                 onChange={(e) => handleConfigChange('outputType', e.target.value)}
                 className="w-full mt-1 p-2 bg-white/10 border border-white/20 rounded text-white"
               >
@@ -537,7 +537,7 @@ export const ControlFlowConfigModal: React.FC<ControlFlowConfigModalProps> = ({
             <div className="flex items-center gap-2">
               <input
                 type="checkbox"
-                checked={config.allowAsync || false}
+                checked={Boolean(config.allowAsync) || false}
                 onChange={(e) => handleConfigChange('allowAsync', e.target.checked)}
                 className="rounded border-white/20 bg-white/10"
               />

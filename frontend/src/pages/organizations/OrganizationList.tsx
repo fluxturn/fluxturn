@@ -33,7 +33,7 @@ export const OrganizationList: React.FC = () => {
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc')
   const [viewMode, setViewMode] = useState<ViewMode>('grid')
   const [showFilters, setShowFilters] = useState(false)
-  const [organizations, setOrganizations] = useState<Array<{ id: string; name: string; description: string; status?: string; createdAt?: string; [key: string]: unknown }>>([])
+  const [organizations, setOrganizations] = useState<Array<{ id: string; name: string; description: string; status?: string; createdAt?: string; projectCount?: number; memberCount?: number; storageUsed?: number; storageLimit?: number; [key: string]: unknown }>>([])
   const [, setLoading] = useState(true)
   const [deleteDialog, setDeleteDialog] = useState<{ open: boolean; organizationId: string | null; organizationName: string }>({
     open: false,
@@ -46,7 +46,7 @@ export const OrganizationList: React.FC = () => {
     const fetchOrganizations = async () => {
       try {
         setLoading(true)
-        const response = await organizationApi.getUserOrganizations()
+        const response = await organizationApi.getUserOrganizations() as { data?: Array<{ id: string; name: string; description: string; status?: string; createdAt?: string; projectCount?: number; memberCount?: number; storageUsed?: number; storageLimit?: number; [key: string]: unknown }> }
         setOrganizations(response.data || [])
       } catch (error: unknown) {
         console.error('Failed to fetch organizations:', error)
@@ -81,8 +81,8 @@ export const OrganizationList: React.FC = () => {
     })
 
     filtered.sort((a, b) => {
-      let aValue: unknown = a[sortField]
-      let bValue: unknown = b[sortField]
+      let aValue: string | number = String(a[sortField] ?? '')
+      let bValue: string | number = String(b[sortField] ?? '')
 
       if (sortField === 'createdAt') {
         aValue = new Date(aValue).getTime()
@@ -353,7 +353,15 @@ export const OrganizationList: React.FC = () => {
             transition={{ delay: index * 0.1 }}
           >
             <OrganizationCard
-              organization={organization}
+              organization={{
+                ...organization,
+                projectCount: organization.projectCount ?? 0,
+                memberCount: organization.memberCount ?? 0,
+                storageUsed: organization.storageUsed ?? 0,
+                storageLimit: organization.storageLimit ?? 0,
+                createdAt: organization.createdAt ?? '',
+                status: (organization.status as 'active' | 'suspended' | 'pending') ?? 'active',
+              }}
               onView={(id) => navigate(`/org/${id}`)}
               onEdit={(id) => navigate(`/org/${id}/settings`)}
               onDelete={handleDelete}

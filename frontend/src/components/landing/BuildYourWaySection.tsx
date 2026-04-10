@@ -46,7 +46,7 @@ const initialNodes: Node[] = [
 const initialEdges: Edge[] = [];
 
 // Custom draggable node component
-function DemoNode({ data, selected }: { data: { icon?: string; label?: string; description?: string; borderColor?: string }; selected?: boolean }) {
+function DemoNode({ data, selected }: { data: { icon?: string; label?: string; description?: string; borderColor?: string; color?: string; type?: string }; selected?: boolean }) {
   return (
     <div className={`
       bg-white rounded-xl border-2 ${data.borderColor} shadow-lg p-3 min-w-[120px]

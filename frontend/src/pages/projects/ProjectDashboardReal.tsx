@@ -93,15 +93,16 @@ export const ProjectDashboardReal: React.FC = () => {
         })
       ])
 
-      const workflowsData = workflowsResponse.workflows || []
+      const typedWorkflowsResponse = workflowsResponse as { workflows?: Array<{ id: string; name: string; is_active?: boolean; [key: string]: unknown }> };
+      const workflowsData = typedWorkflowsResponse.workflows || []
       // console.log('✅ Loaded workflows:', workflowsData.length, workflowsData)
       setWorkflows(workflowsData)
 
       // Calculate workflow stats
       const stats = {
         total: workflowsData.length,
-        active: workflowsData.filter((w: { is_active?: boolean }) => w.is_active).length,
-        paused: workflowsData.filter((w: { is_active?: boolean }) => !w.is_active).length,
+        active: workflowsData.filter((w) => w.is_active).length,
+        paused: workflowsData.filter((w) => !w.is_active).length,
         failed: 0
       }
       // console.log('📊 Workflow stats:', stats)
@@ -119,19 +120,20 @@ export const ProjectDashboardReal: React.FC = () => {
       const today = new Date()
       today.setHours(0, 0, 0, 0)
 
-      if (executionsResponse?.executions && executionsResponse.executions.length > 0) {
-        // console.log('Loaded executions:', executionsResponse.executions.length)
+      const typedExecResponse = executionsResponse as { executions?: Array<{ id: string; workflow_id: string; status: string; started_at: string; completed_at?: string; duration?: number }> };
+      if (typedExecResponse?.executions && typedExecResponse.executions.length > 0) {
+        // console.log('Loaded executions:', typedExecResponse.executions.length)
 
         // Create workflow lookup map for better performance
-        const workflowMap = new Map(workflowsData.map((w: { id: string; name: string }) => [w.id, w]))
+        const workflowMap = new Map(workflowsData.map((w) => [w.id, w]))
 
-        executionsResponse.executions.forEach((exec: { id: string; workflow_id: string; status: string; started_at?: string; completed_at?: string; duration?: number }) => {
+        typedExecResponse.executions.forEach((exec) => {
           const workflow = workflowMap.get(exec.workflow_id)
 
           allExecutions.push({
             id: exec.id,
             workflow_name: workflow?.name || 'Unknown Workflow',
-            status: exec.status,
+            status: exec.status as RecentExecution['status'],
             started_at: exec.started_at,
             completed_at: exec.completed_at,
             duration: exec.duration
@@ -559,7 +561,7 @@ export const ProjectDashboardReal: React.FC = () => {
                     <div>
                       <h4 className="font-medium text-white">{workflow.name}</h4>
                       <p className="text-sm text-muted-foreground">
-                        {workflow.description || 'No description'}
+                        {(workflow.description as string) || 'No description'}
                       </p>
                     </div>
                   </div>

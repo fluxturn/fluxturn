@@ -297,7 +297,7 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
       oauthCompletedRef.current = false;
 
       // Get current user ID from API
-      const userResponse = await api.get('/auth/me');
+      const userResponse = await api.get<{ user?: { id: string }; id?: string }>('/auth/me');
       const userId = userResponse.user?.id || userResponse.id;
 
       if (!userId) {
@@ -524,8 +524,10 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
 
       // Track if OAuth completed successfully
       let oauthCompleted = false;
-      const popupCheckInterval: ReturnType<typeof setInterval>;
-      const timeout: ReturnType<typeof setTimeout>;
+      // eslint-disable-next-line prefer-const
+      let popupCheckInterval: ReturnType<typeof setInterval>;
+      // eslint-disable-next-line prefer-const
+      let timeout: ReturnType<typeof setTimeout>;
 
       // Cleanup function to delete credential and clear sessionStorage
       const cleanupOnFailure = async () => {
@@ -657,7 +659,7 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
 
       // Test the connection immediately after creation
       try {
-        const testResponse = await api.post(`/connectors/${createResponse.id}/test`);
+        const testResponse = await api.post<{ success?: boolean }>(`/connectors/${createResponse.id}/test`);
         if (testResponse.success) {
           toast.success(`Successfully connected to ${selectedConnector.display_name}! Your credential is ready to use.`);
         } else {
@@ -710,8 +712,8 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
               {field.required && <span className="text-red-400 ml-1">*</span>}
             </Label>
             <Input
-              type={field.type === "password" ? "password" : "text"}
-              value={value}
+              type="text"
+              value={String(value)}
               onChange={(e) => handleFieldChange(fieldName, e.target.value)}
               placeholder={field.placeholder || ''}
               className="bg-gray-800 border-gray-700 text-white"
@@ -746,7 +748,7 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
             </Label>
             <Input
               type="password"
-              value={value}
+              value={String(value)}
               onChange={(e) => handleFieldChange(fieldName, e.target.value)}
               placeholder={field.placeholder || ''}
               className="bg-gray-800 border-gray-700 text-white"
@@ -779,7 +781,7 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
               {field.required && <span className="text-red-400 ml-1">*</span>}
             </Label>
             <select
-              value={value}
+              value={String(value)}
               onChange={(e) => handleFieldChange(fieldName, e.target.value)}
               className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white"
               required={field.required}
@@ -797,7 +799,7 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
             {/* Show description of selected option if available */}
             {value && field.options && (
               <p className="text-xs text-gray-300">
-                {field.options.find((opt: { value: string }) => opt.value === value)?.description}
+                {field.options.find((opt: { value: string }) => opt.value === String(value))?.description}
               </p>
             )}
           </div>
@@ -811,7 +813,7 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
               {field.required && <span className="text-red-400 ml-1">*</span>}
             </Label>
             <textarea
-              value={value}
+              value={String(value)}
               onChange={(e) => handleFieldChange(fieldName, e.target.value)}
               placeholder={field.placeholder || ''}
               rows={field.rows || 3}
@@ -833,7 +835,7 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
             </Label>
             <Input
               type="number"
-              value={value}
+              value={value as string | number}
               onChange={(e) => handleFieldChange(fieldName, e.target.valueAsNumber)}
               placeholder={field.placeholder || ''}
               className="bg-gray-800 border-gray-700 text-white"
@@ -889,7 +891,7 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
               {field.required && <span className="text-red-400 ml-1">*</span>}
             </Label>
             <Input
-              value={value}
+              value={String(value)}
               onChange={(e) => handleFieldChange(fieldName, e.target.value)}
               placeholder={field.placeholder || ''}
               className="bg-gray-800 border-gray-700 text-white"
@@ -1556,7 +1558,7 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
       }
 
       // Get shop subdomain from form data
-      const shopSubdomain = authConfig.shopSubdomain || '';
+      const shopSubdomain = String(authConfig.shopSubdomain || '');
 
       return (
         <>
@@ -2087,7 +2089,7 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
     }
 
     const handleCopyRedirectUri = () => {
-      const redirectUri = authConfig.redirect_uri || `${window.location.origin}/oauth/callback`;
+      const redirectUri = String(authConfig.redirect_uri || `${window.location.origin}/oauth/callback`);
       navigator.clipboard.writeText(redirectUri);
       setCopiedRedirectUri(true);
       toast.success('Redirect URI copied to clipboard');
@@ -2128,7 +2130,7 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
               <Label className="text-white">OAuth Redirect URL</Label>
               <div className="flex items-center gap-2">
                 <Input
-                  value={authConfig.redirect_uri || `${getEnvironmentBaseUrl()}/api/oauth/${getOAuthProviderName(selectedConnector.name)}/callback`}
+                  value={String(authConfig.redirect_uri || `${getEnvironmentBaseUrl()}/api/oauth/${getOAuthProviderName(selectedConnector.name)}/callback`)}
                   readOnly
                   className="bg-gray-800 border-gray-700 text-white font-mono text-sm"
                 />
@@ -2170,7 +2172,7 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
               const currentValue = authConfig[conditionField];
               const expectedArray = Array.isArray(expectedValues) ? expectedValues : [expectedValues];
 
-              if (!expectedArray.includes(currentValue)) {
+              if (!expectedArray.includes(currentValue as string)) {
                 shouldDisplay = false;
                 break;
               }

@@ -42,7 +42,9 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
       // console.log('[ProjectContext] Response:', response);
 
       // Backend returns { project, apps } - extract the project
-      const project = response?.project || response?.data?.project || response;
+      const resp = response as Record<string, unknown>;
+      const respData = resp?.data as Record<string, unknown> | undefined;
+      const project = (resp?.project || respData?.project || response) as Project | null;
 
       if (!project || !project.id) {
         console.error('[ProjectContext] Invalid project response:', response);

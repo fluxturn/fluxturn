@@ -37,7 +37,7 @@ interface IntermediateStep {
 /**
  * AgentExecutionResult - The complete result from AI Agent execution
  */
-interface AgentExecutionResult {
+export interface AgentExecutionResult {
   response: string;
   success: boolean;
   iterations: number;

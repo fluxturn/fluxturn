@@ -150,7 +150,7 @@ export function WorkflowDataGrid({
             <tbody>
               {rows.map((row, rowIndex) => (
                 <tr
-                  key={primaryKey ? row[primaryKey] : rowIndex}
+                  key={primaryKey ? String(row[primaryKey] ?? rowIndex) : rowIndex}
                   className="hover:bg-white/5 transition-colors border-b border-white/5"
                 >
                   {columns.map((col) => (

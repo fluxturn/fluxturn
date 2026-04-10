@@ -40,7 +40,7 @@ interface InputSchemaField {
   loadOptionsDependsOn?: string[];
   displayOptions?: { show?: Record<string, unknown[]> };
   displayCondition?: Record<string, unknown>;
-  items?: Record<string, { properties?: Record<string, InputSchemaField>; type?: string }>;
+  items?: Record<string, { properties?: Record<string, InputSchemaField & { accept?: string }>; type?: string }> & { properties?: Record<string, InputSchemaField & { accept?: string }>; type?: string };
   maxItems?: number;
 }
 
@@ -213,7 +213,7 @@ export function DynamicNodeConfigPanel({
 
         field.loadOptionsDependsOn.forEach((depField: string) => {
           if (formData[depField]) {
-            params.append(depField, formData[depField]);
+            params.append(depField, String(formData[depField]));
           } else {
             // Mark that a required dependency is missing
             missingDependency = true;
@@ -422,7 +422,7 @@ export function DynamicNodeConfigPanel({
         {uiType === 'textarea' ? (
           <div className="space-y-2">
             <Textarea
-              value={value || ''}
+              value={String(value ?? '')}
               onChange={(e) => handleFieldChange(fieldKey, e.target.value)}
               placeholder={placeholder}
               className={cn(
@@ -443,7 +443,7 @@ export function DynamicNodeConfigPanel({
         ) : type === 'number' ? (
           <Input
             type="number"
-            value={value ?? ''}
+            value={value as string | number ?? ''}
             onChange={(e) => handleFieldChange(fieldKey, e.target.value ? Number(e.target.value) : undefined)}
             placeholder={placeholder}
             min={min}
@@ -460,7 +460,7 @@ export function DynamicNodeConfigPanel({
             />
           </div>
         ) : type === 'select' ? (
-          <Select value={value || ''} onValueChange={(val) => handleFieldChange(fieldKey, val)}>
+          <Select value={String(value ?? '')} onValueChange={(val) => handleFieldChange(fieldKey, val)}>
             <SelectTrigger
               className={cn(
                 'bg-[#2a2a2a] border-gray-700 text-white',
@@ -497,7 +497,7 @@ export function DynamicNodeConfigPanel({
         ) : type === 'password' ? (
           <Input
             type="password"
-            value={value || ''}
+            value={String(value ?? '')}
             onChange={(e) => handleFieldChange(fieldKey, e.target.value)}
             placeholder={placeholder}
             className={cn('bg-[#2a2a2a] border-gray-700 text-white placeholder:text-gray-500', error && 'border-red-500')}
@@ -520,8 +520,8 @@ export function DynamicNodeConfigPanel({
           // Column mappings UI for database connectors
           <div className="space-y-3">
             {(() => {
-              const collectionData = value || {};
-              const mappings = collectionData.mappings || [];
+              const collectionData = (value || {}) as Record<string, unknown>;
+              const mappings = (collectionData.mappings || []) as Array<Record<string, string>>;
               const itemsConfig = field.items?.mappings?.properties || {};
 
               return (
@@ -588,7 +588,7 @@ export function DynamicNodeConfigPanel({
         ) : type === 'array' && field.items?.properties?.fileData ? (
           // Special handling for file upload arrays (like mediaFiles)
           <ImageUploadField
-            value={value || []}
+            value={(value || []) as Array<{ fileData: string; fileName: string; mimeType: string; size: number }>}
             onChange={(files) => handleFieldChange(fieldKey, files)}
             maxFiles={field.maxItems || 4}
             maxSizeInMB={5}
@@ -597,10 +597,10 @@ export function DynamicNodeConfigPanel({
             error={error}
             required={required}
           />
-        ) : type === 'array' && field.items?.type === 'string' ? (
+        ) : type === 'array' && (field.items as Record<string, unknown>)?.type === 'string' ? (
           // Simple string arrays (like mediaUrls)
           <ArrayStringField
-            value={value || []}
+            value={(value || []) as string[]}
             onChange={(urls) => handleFieldChange(fieldKey, urls)}
             placeholder={placeholder || `Enter ${label?.toLowerCase() || 'value'}`}
             error={error}
@@ -614,8 +614,8 @@ export function DynamicNodeConfigPanel({
               type={uiType || 'text'}
               value={
                 uiType === 'datetime-local' && value
-                  ? value.substring(0, 16) // Remove seconds for datetime-local input
-                  : value || ''
+                  ? String(value).substring(0, 16) // Remove seconds for datetime-local input
+                  : String(value ?? '')
               }
               onChange={(e) => {
                 // For datetime-local, append seconds if not present

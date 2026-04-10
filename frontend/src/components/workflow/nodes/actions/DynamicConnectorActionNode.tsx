@@ -3,6 +3,7 @@ import { memo } from "react";
 import { BaseActionNode } from "../../base/BaseActionNode";
 import { getConnectorIconPath, hasConnectorIcon } from "@/utils/workflow";
 import * as LucideIcons from "lucide-react";
+import { type NodeStatus } from "../../base/NodeStatusIndicator";
 
 interface DynamicConnectorActionNodeData {
   label: string;
@@ -29,7 +30,7 @@ export const DynamicConnectorActionNode = memo(
 
       // Try Lucide icon from data
       if (data.icon && typeof data.icon === 'string') {
-        const IconComponent = (LucideIcons as Record<string, LucideIcons.LucideIcon>)[data.icon];
+        const IconComponent = (LucideIcons as unknown as Record<string, LucideIcons.LucideIcon>)[data.icon];
         if (IconComponent) {
           return IconComponent;
         }
@@ -54,7 +55,7 @@ export const DynamicConnectorActionNode = memo(
         icon={icon}
         name={label}
         description={description}
-        status={data.status || 'initial'}
+        status={(data.status as NodeStatus) || 'initial'}
         onSettings={handleOpenSettings}
         onDoubleClick={handleOpenSettings}
       />
