@@ -13,7 +13,6 @@ import {
   AlertTriangle,
   RefreshCw,
   Calendar,
-  Mail,
   Trash2,
   UserCog,
   Power,
@@ -59,8 +58,8 @@ export const AdminUserList: React.FC = () => {
     type: 'role' | 'status' | 'delete';
     userId: string;
     userName: string;
-    currentValue?: any;
-    newValue?: any;
+    currentValue?: string | boolean;
+    newValue?: string | boolean;
   } | null>(null);
 
   // Check if current user is admin
@@ -97,9 +96,9 @@ export const AdminUserList: React.FC = () => {
         setUsers(usersResponse.users || []);
         setTotalPages(usersResponse.pagination?.totalPages || 1);
         setTotal(usersResponse.pagination?.total || 0);
-      } catch (usersErr: any) {
+      } catch (usersErr: unknown) {
         console.error('[AdminUserList] Failed to fetch users:', usersErr);
-        setError(usersErr.message || 'Failed to load users');
+        setError(usersErr instanceof Error ? usersErr.message : 'Failed to load users');
         toast.error('Failed to load users');
       }
 
@@ -107,7 +106,7 @@ export const AdminUserList: React.FC = () => {
         const statsResponse = await adminService.getStats();
         console.log('[AdminUserList] Stats response:', statsResponse);
         setStats(statsResponse);
-      } catch (statsErr: any) {
+      } catch (statsErr: unknown) {
         console.error('[AdminUserList] Failed to fetch stats:', statsErr);
         // Don't block the page for stats failure
       }
@@ -119,6 +118,7 @@ export const AdminUserList: React.FC = () => {
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery, roleFilter, statusFilter, sortBy, sortOrder, page]);
 
   // Debounce search
@@ -208,16 +208,16 @@ export const AdminUserList: React.FC = () => {
       const { type, userId, newValue } = showConfirmModal;
 
       if (type === 'role') {
-        await adminService.updateUserRole(userId, newValue);
+        await adminService.updateUserRole(userId, newValue as 'user' | 'admin');
         toast.success(`User role updated to ${newValue}`);
         setUsers((prev) =>
-          prev.map((u) => (u.id === userId ? { ...u, role: newValue } : u))
+          prev.map((u) => (u.id === userId ? { ...u, role: newValue as 'user' | 'admin' } : u))
         );
       } else if (type === 'status') {
-        await adminService.updateUserStatus(userId, newValue);
+        await adminService.updateUserStatus(userId, newValue as boolean);
         toast.success(newValue ? 'User activated' : 'User deactivated');
         setUsers((prev) =>
-          prev.map((u) => (u.id === userId ? { ...u, isActive: newValue } : u))
+          prev.map((u) => (u.id === userId ? { ...u, isActive: newValue as boolean } : u))
         );
       } else if (type === 'delete') {
         await adminService.deleteUser(userId);
@@ -225,8 +225,8 @@ export const AdminUserList: React.FC = () => {
         setUsers((prev) => prev.filter((u) => u.id !== userId));
         setTotal((prev) => prev - 1);
       }
-    } catch (err: any) {
-      toast.error(err.message || 'Action failed');
+    } catch (err: unknown) {
+      toast.error(err instanceof Error ? err.message : 'Action failed');
     } finally {
       setShowConfirmModal(null);
     }
@@ -332,7 +332,7 @@ export const AdminUserList: React.FC = () => {
             <select
               value={roleFilter}
               onChange={(e) => {
-                setRoleFilter(e.target.value as any);
+                setRoleFilter(e.target.value as typeof roleFilter);
                 setPage(1);
               }}
               className="px-4 py-3 bg-slate-800 text-white border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400/50 cursor-pointer"
@@ -346,7 +346,7 @@ export const AdminUserList: React.FC = () => {
             <select
               value={statusFilter}
               onChange={(e) => {
-                setStatusFilter(e.target.value as any);
+                setStatusFilter(e.target.value as typeof statusFilter);
                 setPage(1);
               }}
               className="px-4 py-3 bg-slate-800 text-white border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400/50 cursor-pointer"
@@ -360,7 +360,7 @@ export const AdminUserList: React.FC = () => {
             <select
               value={sortBy}
               onChange={(e) => {
-                setSortBy(e.target.value as any);
+                setSortBy(e.target.value as typeof sortBy);
                 setPage(1);
               }}
               className="px-4 py-3 bg-slate-800 text-white border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400/50 cursor-pointer"

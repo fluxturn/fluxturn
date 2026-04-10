@@ -22,8 +22,8 @@ export interface ImageProject {
 }
 
 export interface ImageProjectDetail extends ImageProject {
-  layers?: any[]; // Will be defined later when implementing layers
-  filters?: any; // Will be defined later when implementing filters
+  layers?: unknown[]; // Will be defined later when implementing layers
+  filters?: Record<string, unknown>; // Will be defined later when implementing filters
 }
 
 export interface PaginationInfo {
@@ -103,19 +103,22 @@ export class ImageProjectsApi {
     });
 
     // Transform the response to match ImageProject interface
-    const contentData = (response as any).data || response;
+    const contentData = (response as unknown as { data?: Record<string, unknown> }).data || (response as Record<string, unknown>);
+    const cdContent = contentData.content as Record<string, unknown> | undefined;
+    const cdMetadata = contentData.metadata as Record<string, unknown> | undefined;
+    const cdParameters = contentData.parameters as Record<string, unknown> | undefined;
 
     // Map content API response to ImageProject format
     const imageProject: ImageProject = {
-      id: contentData.id,
-      name: contentData.title || contentData.content.name,
-      projectId: contentData.projectId || data.projectId,
-      thumbnailUrl: contentData.metadata?.thumbnailUrl || contentData.content?.thumbnailUrl,
-      canvasWidth: contentData.parameters?.canvasWidth || contentData.content?.canvasWidth || 1920,
-      canvasHeight: contentData.parameters?.canvasHeight || contentData.content?.canvasHeight || 1080,
-      layerCount: contentData.metadata?.layerCount || 0,
-      createdAt: contentData.createdAt,
-      updatedAt: contentData.updatedAt
+      id: contentData.id as string,
+      name: (contentData.title as string) || (cdContent?.name as string),
+      projectId: (contentData.projectId as string) || data.projectId,
+      thumbnailUrl: (cdMetadata?.thumbnailUrl as string | undefined) || (cdContent?.thumbnailUrl as string | undefined),
+      canvasWidth: (cdParameters?.canvasWidth as number) || (cdContent?.canvasWidth as number) || 1920,
+      canvasHeight: (cdParameters?.canvasHeight as number) || (cdContent?.canvasHeight as number) || 1080,
+      layerCount: (cdMetadata?.layerCount as number) || 0,
+      createdAt: contentData.createdAt as string,
+      updatedAt: contentData.updatedAt as string
     };
 
     return imageProject;
@@ -162,24 +165,29 @@ export class ImageProjectsApi {
     // Use the new /api/v1/content API to get image projects
     const response = await api.request(`/content?${params}`, {
       method: 'GET',
-    }) as any;
+    }) as unknown;
 
     // Transform content API response to ImageProject format
-    const responseData = (response as any);
+    const responseData = response as { success?: boolean; data?: Array<Record<string, unknown>>; pagination?: { page?: number; limit?: number; totalItems?: number; totalPages?: number; hasNext?: boolean; hasPrevious?: boolean } };
 
     if (responseData?.success && responseData?.data && Array.isArray(responseData.data)) {
       // Map content items to ImageProject format
-      const imageProjects: ImageProject[] = responseData.data.map((item: any) => ({
-        id: item.id,
-        name: item.title || item.content?.name || 'Untitled Project',
-        projectId: item.project_id || item.content?.projectId || projectId,
-        thumbnailUrl: item.metadata?.thumbnailUrl || item.content?.thumbnailUrl,
-        canvasWidth: item.parameters?.canvasWidth || item.content?.canvasWidth || 1920,
-        canvasHeight: item.parameters?.canvasHeight || item.content?.canvasHeight || 1080,
-        layerCount: item.metadata?.layerCount || item.content?.layers?.length || 0,
-        createdAt: item.created_at,
-        updatedAt: item.updated_at
-      }));
+      const imageProjects: ImageProject[] = responseData.data.map((item) => {
+        const content = item.content as Record<string, unknown> | undefined;
+        const metadata = item.metadata as Record<string, unknown> | undefined;
+        const parameters = item.parameters as Record<string, unknown> | undefined;
+        return {
+          id: item.id as string,
+          name: (item.title as string) || (content?.name as string) || 'Untitled Project',
+          projectId: (item.project_id as string) || (content?.projectId as string) || projectId,
+          thumbnailUrl: (metadata?.thumbnailUrl as string | undefined) || (content?.thumbnailUrl as string | undefined),
+          canvasWidth: (parameters?.canvasWidth as number) || (content?.canvasWidth as number) || 1920,
+          canvasHeight: (parameters?.canvasHeight as number) || (content?.canvasHeight as number) || 1080,
+          layerCount: (metadata?.layerCount as number) || (content?.layers as unknown[] | undefined)?.length || 0,
+          createdAt: item.created_at as string,
+          updatedAt: item.updated_at as string,
+        };
+      });
 
       return {
         data: imageProjects,
@@ -232,21 +240,24 @@ export class ImageProjectsApi {
     });
 
     // Transform content API response to ImageProjectDetail format
-    const contentData = (response as any).data || response;
+    const contentData = (response as unknown as { data?: Record<string, unknown> }).data || (response as Record<string, unknown>);
+    const detContent = contentData.content as Record<string, unknown> | undefined;
+    const detMetadata = contentData.metadata as Record<string, unknown> | undefined;
+    const detParameters = contentData.parameters as Record<string, unknown> | undefined;
 
     const imageProjectDetail: ImageProjectDetail = {
-      id: contentData.id,
-      name: contentData.title || contentData.content?.name || 'Untitled Project',
-      projectId: contentData.projectId || contentData.content?.projectId,
-      thumbnailUrl: contentData.metadata?.thumbnailUrl || contentData.content?.thumbnailUrl,
-      canvasWidth: contentData.parameters?.canvasWidth || contentData.content?.canvasWidth || 1920,
-      canvasHeight: contentData.parameters?.canvasHeight || contentData.content?.canvasHeight || 1080,
-      layerCount: contentData.metadata?.layerCount || contentData.content?.layers?.length || 0,
-      createdAt: contentData.createdAt,
-      updatedAt: contentData.updatedAt,
+      id: contentData.id as string,
+      name: (contentData.title as string) || (detContent?.name as string) || 'Untitled Project',
+      projectId: (contentData.projectId as string) || (detContent?.projectId as string),
+      thumbnailUrl: (detMetadata?.thumbnailUrl as string | undefined) || (detContent?.thumbnailUrl as string | undefined),
+      canvasWidth: (detParameters?.canvasWidth as number) || (detContent?.canvasWidth as number) || 1920,
+      canvasHeight: (detParameters?.canvasHeight as number) || (detContent?.canvasHeight as number) || 1080,
+      layerCount: (detMetadata?.layerCount as number) || (detContent?.layers as unknown[] | undefined)?.length || 0,
+      createdAt: contentData.createdAt as string,
+      updatedAt: contentData.updatedAt as string,
       // Additional detail fields
-      layers: contentData.content?.layers || [],
-      filters: contentData.content?.filters || {}
+      layers: (detContent?.layers as unknown[]) || [],
+      filters: (detContent?.filters as Record<string, unknown>) || {}
     };
 
     return imageProjectDetail;
@@ -272,7 +283,12 @@ export class ImageProjectsApi {
     }
 
     // Prepare update data for content API
-    const updateData: any = {};
+    const updateData: {
+      title?: string;
+      content?: Record<string, unknown>;
+      parameters?: Record<string, unknown>;
+      metadata?: Record<string, unknown>;
+    } = {};
 
     // Update title if name is provided
     if (data.name) {
@@ -309,18 +325,21 @@ export class ImageProjectsApi {
     });
 
     // Transform content API response to ImageProject format
-    const contentData = (response as any).data || response;
+    const contentData = (response as unknown as { data?: Record<string, unknown> }).data || (response as Record<string, unknown>);
+    const upContent = contentData.content as Record<string, unknown> | undefined;
+    const upMetadata = contentData.metadata as Record<string, unknown> | undefined;
+    const upParameters = contentData.parameters as Record<string, unknown> | undefined;
 
     const imageProject: ImageProject = {
-      id: contentData.id,
-      name: contentData.title || contentData.content?.name || 'Untitled Project',
-      projectId: contentData.projectId || contentData.content?.projectId || context.projectId,
-      thumbnailUrl: contentData.metadata?.thumbnailUrl || contentData.content?.thumbnailUrl,
-      canvasWidth: contentData.parameters?.canvasWidth || contentData.content?.canvasWidth || 1920,
-      canvasHeight: contentData.parameters?.canvasHeight || contentData.content?.canvasHeight || 1080,
-      layerCount: contentData.metadata?.layerCount || contentData.content?.layers?.length || 0,
-      createdAt: contentData.createdAt,
-      updatedAt: contentData.updatedAt
+      id: contentData.id as string,
+      name: (contentData.title as string) || (upContent?.name as string) || 'Untitled Project',
+      projectId: (contentData.projectId as string) || (upContent?.projectId as string) || context.projectId,
+      thumbnailUrl: (upMetadata?.thumbnailUrl as string | undefined) || (upContent?.thumbnailUrl as string | undefined),
+      canvasWidth: (upParameters?.canvasWidth as number) || (upContent?.canvasWidth as number) || 1920,
+      canvasHeight: (upParameters?.canvasHeight as number) || (upContent?.canvasHeight as number) || 1080,
+      layerCount: (upMetadata?.layerCount as number) || (upContent?.layers as unknown[] | undefined)?.length || 0,
+      createdAt: contentData.createdAt as string,
+      updatedAt: contentData.updatedAt as string
     };
 
     return imageProject;

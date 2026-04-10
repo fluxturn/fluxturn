@@ -5,8 +5,7 @@ import {
   Mail, 
   Globe, 
   Clock, 
-  Languages, 
-  Bell, 
+  Bell,
   Activity, 
   Edit3, 
   Camera,
@@ -17,7 +16,6 @@ import {
   Twitter,
   Linkedin,
   MapPin,
-  Calendar,
   Eye,
   EyeOff
 } from 'lucide-react'
@@ -248,7 +246,7 @@ export const UserProfile: React.FC = () => {
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id as any)}
+                  onClick={() => setActiveTab(tab.id as typeof activeTab)}
                   className={cn(
                     'flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200',
                     activeTab === tab.id

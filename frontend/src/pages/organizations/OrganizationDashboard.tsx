@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import {
-  TrendingUp,
   Users,
   FolderOpen,
   HardDrive,
   Activity,
   Clock,
   ArrowUpRight,
-  MoreVertical,
   RefreshCw,
   Settings,
-  UserCheck,
   FileText,
   Calendar,
   Plus,
-  Workflow,
-  Mail,
   CheckCircle,
   XCircle,
   Zap
@@ -84,7 +79,7 @@ export const OrganizationDashboard: React.FC = () => {
   const [stats, setStats] = useState<OrganizationStats | null>(null)
   const [loadingStats, setLoadingStats] = useState(false)
   const [attemptedRedirect, setAttemptedRedirect] = useState(false)
-  const [projects, setProjects] = useState<any[]>([])
+  const [projects, setProjects] = useState<Array<{ id: string; name: string; description?: string; [key: string]: unknown }>>([])
 
   // Set organization ID from URL params - this triggers the fetch in context
   useEffect(() => {
@@ -113,7 +108,7 @@ export const OrganizationDashboard: React.FC = () => {
         })
       ])
 
-      const projects = projectsResponse.data || []
+      const projects = ((projectsResponse as Record<string, unknown>).data || []) as Array<{ id: string; name: string; description?: string; [key: string]: unknown }>
       const members = Array.isArray(membersData) ? membersData : []
 
       // console.log('✅ Loaded projects:', projects.length, projects)
@@ -132,7 +127,7 @@ export const OrganizationDashboard: React.FC = () => {
           storageMB: '0',
           storageGB: '0',
           emailsSent30d: 0,
-          activeUsers30d: members.filter((m: any) => m.status === 'online' || m.status === 'away').length
+          activeUsers30d: members.filter((m: { status?: string }) => m.status === 'online' || m.status === 'away').length
         },
         workflows: {
           totalExecutions: 0,
@@ -145,7 +140,7 @@ export const OrganizationDashboard: React.FC = () => {
           breakdown: []
         },
         recentActivity: [],
-        teamMembers: members.map((member: any) => ({
+        teamMembers: members.map((member: { userId?: string; id?: string; role?: string; user?: { email?: string; firstName?: string; lastName?: string; username?: string }; email?: string; joinedAt?: string }) => ({
           id: member.userId || member.id,
           role: member.role,
           email: member.user?.email || member.email,
@@ -171,6 +166,7 @@ export const OrganizationDashboard: React.FC = () => {
 
   useEffect(() => {
     fetchStats()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentOrganization, organizationId])
 
   // Auto-redirect to user's first organization if current one isn't found (only once)
@@ -184,7 +180,7 @@ export const OrganizationDashboard: React.FC = () => {
 
       api.getUserOrganizations().then(response => {
         // Response is { data: Organization[], total: number }
-        const orgs = response?.data || []
+        const orgs = ((response as Record<string, unknown>)?.data || []) as Array<{ id: string; [key: string]: unknown }>
         if (orgs.length > 0) {
           // Only redirect if it's a different org than the current URL
           if (orgs[0].id !== currentOrgId) {
@@ -488,7 +484,7 @@ export const OrganizationDashboard: React.FC = () => {
             </div>
           ) : projects && projects.length > 0 ? (
             <div className="space-y-3">
-              {projects.slice(0, 5).map((project: any) => (
+              {projects.slice(0, 5).map((project) => (
                 <div
                   key={project.id}
                   onClick={() => navigate(`/org/${organizationId}/project/${project.id}`)}
@@ -515,7 +511,7 @@ export const OrganizationDashboard: React.FC = () => {
                         ? 'bg-green-400/20 text-green-400'
                         : 'bg-gray-400/20 text-gray-400'
                     }`}>
-                      {project.status || 'active'}
+                      {String(project.status || 'active')}
                     </span>
                     <ArrowUpRight className="w-4 h-4 text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>

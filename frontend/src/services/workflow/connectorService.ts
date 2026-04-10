@@ -1,5 +1,21 @@
 import { api } from '@/lib/api';
 
+export interface ConnectorAction {
+  id: string;
+  name: string;
+  description?: string;
+  inputSchema?: Record<string, unknown>;
+}
+
+export interface ConnectorTrigger {
+  id: string;
+  name: string;
+  description?: string;
+  eventType?: string;
+  webhookRequired?: boolean;
+  outputSchema?: Record<string, unknown>;
+}
+
 export interface ConnectorConfig {
   id: string;
   name: string;
@@ -22,11 +38,11 @@ export interface AvailableConnector {
   description: string;
   category: string;
   auth_type: string;
-  auth_fields?: Record<string, any>;
+  auth_fields?: Record<string, unknown>;
   supported_actions?: string[];
   supported_triggers?: string[];
   webhook_support?: boolean;
-  rate_limits?: Record<string, any>;
+  rate_limits?: Record<string, unknown>;
   sandbox_available?: boolean;
   verified?: boolean; // Indicates if the connector is verified and working
 }
@@ -53,16 +69,14 @@ export const connectorService = {
     const queryString = queryParams.toString();
     const url = queryString ? `/connectors?${queryString}` : '/connectors';
     
-    const response = await api.get(url);
-    return response;
+    return api.get<{ connectors: ConnectorConfig[]; total: number }>(url);
   },
 
   /**
    * Get available connector types from the system
    */
   async getAvailableConnectors(): Promise<AvailableConnector[]> {
-    const response = await api.get('/connectors/available');
-    return response;
+    return api.get<AvailableConnector[]>('/connectors/available');
   },
 
   /**
@@ -93,24 +107,21 @@ export const connectorService = {
   /**
    * Get actions for a specific connector type
    */
-  async getConnectorActions(connectorType: string): Promise<any[]> {
-    const response = await api.get(`/connectors/available/${connectorType}/actions`);
-    return response;
+  async getConnectorActions(connectorType: string): Promise<ConnectorAction[]> {
+    return api.get<ConnectorAction[]>(`/connectors/available/${connectorType}/actions`);
   },
 
   /**
    * Get triggers for a specific connector type
    */
-  async getConnectorTriggers(connectorType: string): Promise<any[]> {
-    const response = await api.get(`/connectors/available/${connectorType}/triggers`);
-    return response;
+  async getConnectorTriggers(connectorType: string): Promise<ConnectorTrigger[]> {
+    return api.get<ConnectorTrigger[]>(`/connectors/available/${connectorType}/triggers`);
   },
 
   /**
    * Get metadata for a specific connector including actions/triggers
    */
   async getConnectorMetadata(connectorType: string): Promise<AvailableConnector> {
-    const response = await api.get(`/connectors/available/${connectorType}`);
-    return response;
+    return api.get<AvailableConnector>(`/connectors/available/${connectorType}`);
   }
 };

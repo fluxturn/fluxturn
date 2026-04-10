@@ -10,15 +10,17 @@ interface WebSocketContextType {
   leaveAppRoom: (appId: string) => void;
   joinTerminal: (sessionId: string) => void;
   sendTerminalInput: (sessionId: string, input: string) => void;
-  onAppProgress: (callback: (data: any) => void) => void;
-  onAppStatus: (callback: (data: any) => void) => void;
-  onFileUpdate: (callback: (data: any) => void) => void;
-  onTerminalOutput: (callback: (data: any) => void) => void;
+  onAppProgress: (callback: (data: Record<string, unknown>) => void) => void;
+  onAppStatus: (callback: (data: Record<string, unknown>) => void) => void;
+  onFileUpdate: (callback: (data: Record<string, unknown>) => void) => void;
+  onTerminalOutput: (callback: (data: Record<string, unknown>) => void) => void;
   removeAllListeners: () => void;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const WebSocketContext = createContext<WebSocketContextType | undefined>(undefined);
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useWebSocket = () => {
   const context = useContext(WebSocketContext);
   if (!context) {
@@ -112,25 +114,25 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     }
   }, [socket]);
 
-  const onAppProgress = useCallback((callback: (data: any) => void) => {
+  const onAppProgress = useCallback((callback: (data: Record<string, unknown>) => void) => {
     if (socket) {
       socket.on('app:progress', callback);
     }
   }, [socket]);
 
-  const onAppStatus = useCallback((callback: (data: any) => void) => {
+  const onAppStatus = useCallback((callback: (data: Record<string, unknown>) => void) => {
     if (socket) {
       socket.on('app:status', callback);
     }
   }, [socket]);
 
-  const onFileUpdate = useCallback((callback: (data: any) => void) => {
+  const onFileUpdate = useCallback((callback: (data: Record<string, unknown>) => void) => {
     if (socket) {
       socket.on('app:file-update', callback);
     }
   }, [socket]);
 
-  const onTerminalOutput = useCallback((callback: (data: any) => void) => {
+  const onTerminalOutput = useCallback((callback: (data: Record<string, unknown>) => void) => {
     if (socket) {
       socket.on('terminal:output', callback);
     }

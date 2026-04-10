@@ -3,6 +3,7 @@ import { memo } from "react";
 import { BaseTriggerNode } from "../../base/BaseTriggerNode";
 import { getConnectorIconPath, hasConnectorIcon } from "@/utils/workflow";
 import * as LucideIcons from "lucide-react";
+import { type NodeStatus } from "../../base/NodeStatusIndicator";
 
 interface DynamicConnectorTriggerNodeData {
   label: string;
@@ -11,14 +12,14 @@ interface DynamicConnectorTriggerNodeData {
   triggerId: string;
   eventType?: string;
   icon?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 type DynamicConnectorTriggerNodeType = Node<DynamicConnectorTriggerNodeData>;
 
 export const DynamicConnectorTriggerNode = memo(
   (props: NodeProps<DynamicConnectorTriggerNodeType>) => {
-    const { id, data } = props;
+    const { data } = props;
     
     // Get the connector icon - use custom icon if available, otherwise fallback to Lucide
     const getIcon = (): string | LucideIcons.LucideIcon => {
@@ -29,7 +30,7 @@ export const DynamicConnectorTriggerNode = memo(
 
       // Try Lucide icon from data
       if (data.icon && typeof data.icon === 'string') {
-        const IconComponent = (LucideIcons as any)[data.icon];
+        const IconComponent = (LucideIcons as unknown as Record<string, LucideIcons.LucideIcon>)[data.icon];
         if (IconComponent) {
           return IconComponent;
         }
@@ -54,7 +55,7 @@ export const DynamicConnectorTriggerNode = memo(
         icon={icon}
         name={label}
         description={description}
-        status={data.status || 'initial'}
+        status={(data.status as NodeStatus) || 'initial'}
         onSettings={handleOpenSettings}
         onDoubleClick={handleOpenSettings}
       />

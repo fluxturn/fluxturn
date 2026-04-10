@@ -15,6 +15,7 @@ import { PENDING_PROMPT_KEY, PENDING_PROMPT_TIMESTAMP_KEY } from '../../componen
 import { PENDING_TEMPLATE_KEY, PENDING_TEMPLATE_TIMESTAMP_KEY } from '../../components/landing/TemplatesSection'
 import { PENDING_AI_AGENT_KEY, PENDING_AI_AGENT_TIMESTAMP_KEY } from '../../components/landing/AIAgentSection'
 import type { Organization } from '../../types/organization'
+import type { JsonValue } from '../../types/json'
 
 interface LoginForm {
   email: string
@@ -69,7 +70,7 @@ export const Login: React.FC = () => {
 
       // 1. Get existing projects for this organization
       const projectsRes = await api.getProjectsByOrganization(organizationId);
-      const projects = (projectsRes as any).data || (projectsRes as any);
+      const projects = (projectsRes as { data?: { id: string }[] }).data || (projectsRes as { id: string }[]);
 
       if (!projects || projects.length === 0) {
         // No projects, redirect to org page
@@ -119,7 +120,7 @@ export const Login: React.FC = () => {
   };
 
   // Helper function to create workflow from pending template using existing project
-  const createWorkflowFromTemplate = async (templateData: any, orgs: Organization[]) => {
+  const createWorkflowFromTemplate = async (templateData: Record<string, unknown>, orgs: Organization[]) => {
     try {
       const organizationId = orgs[0]?.id;
       if (!organizationId) {
@@ -129,7 +130,7 @@ export const Login: React.FC = () => {
 
       // 1. Get existing projects for this organization
       const projectsRes = await api.getProjectsByOrganization(organizationId);
-      const projects = (projectsRes as any).data || (projectsRes as any);
+      const projects = (projectsRes as { data?: { id: string }[] }).data || (projectsRes as { id: string }[]);
 
       if (!projects || projects.length === 0) {
         // No projects, redirect to org page
@@ -143,15 +144,15 @@ export const Login: React.FC = () => {
 
       // 2. Create workflow with template data
       const workflowRes = await WorkflowAPI.createWorkflow({
-        name: templateData.name,
-        description: templateData.description,
+        name: templateData.name as JsonValue,
+        description: templateData.description as JsonValue,
         workflow: {
-          triggers: templateData.triggers || [],
-          steps: templateData.steps || [],
-          conditions: templateData.conditions || [],
-          variables: templateData.variables || [],
-          outputs: templateData.outputs || [],
-          canvas: templateData.canvas || { nodes: [], edges: [] },
+          triggers: (templateData.triggers || []) as JsonValue,
+          steps: (templateData.steps || []) as JsonValue,
+          conditions: (templateData.conditions || []) as JsonValue,
+          variables: (templateData.variables || []) as JsonValue,
+          outputs: (templateData.outputs || []) as JsonValue,
+          canvas: (templateData.canvas || { nodes: [], edges: [] }) as JsonValue,
         },
       }, organizationId, projectId);
 
@@ -184,7 +185,7 @@ export const Login: React.FC = () => {
 
       // 1. Get existing projects for this organization
       const projectsRes = await api.getProjectsByOrganization(organizationId);
-      const projects = (projectsRes as any).data || (projectsRes as any);
+      const projects = (projectsRes as { data?: { id: string }[] }).data || (projectsRes as { id: string }[]);
 
       if (!projects || projects.length === 0) {
         sessionStorage.removeItem(PENDING_AI_AGENT_KEY);
@@ -322,7 +323,7 @@ export const Login: React.FC = () => {
 
     try {
       // Use AuthContext login method which handles organizations
-      const user = await authContext?.login(form.email, form.password);
+      await authContext?.login(form.email, form.password);
 
       // console.log('Login successful:', user)
 
@@ -448,9 +449,9 @@ export const Login: React.FC = () => {
 
       // Always redirect to organizations list after login
       navigate('/orgs');
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Login failed:', error)
-      setApiError(error.message || t('auth.errors.loginFailed'))
+      setApiError(error instanceof Error ? error.message : t('auth.errors.loginFailed'))
     } finally {
       setIsLoading(false)
     }

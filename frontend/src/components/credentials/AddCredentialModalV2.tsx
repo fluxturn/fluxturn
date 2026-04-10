@@ -43,8 +43,8 @@ interface AuthField {
   type: 'string' | 'text' | 'password' | 'secret' | 'email' | 'url' | 'select' | 'textarea' | 'number' | 'boolean';
   placeholder?: string;
   required?: boolean;
-  default?: any;
-  defaultValue?: any;
+  default?: string | number | boolean;
+  defaultValue?: string | number | boolean;
   description?: string;
   helpUrl?: string;
   helpText?: string;
@@ -76,7 +76,7 @@ interface AddCredentialModalV2Props {
   onSuccess: (credentialId?: string) => void;
   preSelectedConnector?: string; // Pre-select a connector by name
   preSelectedAuthType?: string; // Pre-select auth type for multi-auth connectors
-  nodeId?: string; // eslint-disable-line @typescript-eslint/no-unused-vars -- Reserved for future use
+  nodeId?: string;  
 }
 
 // ============================================================================
@@ -191,7 +191,7 @@ export const AddCredentialModalV2: React.FC<AddCredentialModalV2Props> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedConnector, setSelectedConnector] = useState<Connector | null>(null);
   const [credentialName, setCredentialName] = useState('');
-  const [formData, setFormData] = useState<Record<string, any>>({});
+  const [formData, setFormData] = useState<Record<string, string | number | boolean>>({});
   const [loading, setLoading] = useState(false);
   const [oauthLoading, setOauthLoading] = useState(false);
   const [copiedField, setCopiedField] = useState<string | null>(null);
@@ -235,6 +235,7 @@ export const AddCredentialModalV2: React.FC<AddCredentialModalV2Props> = ({
         oauthCompletedRef.current = false;
       }, 200);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, preSelectedConnector, connectors]);
 
   // Listen for OAuth callback messages from popup
@@ -298,7 +299,7 @@ export const AddCredentialModalV2: React.FC<AddCredentialModalV2Props> = ({
 
       // Check all displayOptions conditions
       return Object.entries(field.displayOptions).every(([dependsOn, allowedValues]) => {
-        const currentValue = formData[dependsOn];
+        const currentValue = String(formData[dependsOn] ?? '');
         return allowedValues.includes(currentValue);
       });
     });
@@ -309,7 +310,7 @@ export const AddCredentialModalV2: React.FC<AddCredentialModalV2Props> = ({
     if (!selectedConnector) return false;
 
     const authType = selectedConnector.auth_type?.toLowerCase();
-    const selectedAuthType = formData.authType?.toLowerCase();
+    const selectedAuthType = typeof formData.authType === 'string' ? formData.authType.toLowerCase() : undefined;
 
     // For multiple auth type connectors
     if (authType === 'multiple') {
@@ -336,7 +337,7 @@ export const AddCredentialModalV2: React.FC<AddCredentialModalV2Props> = ({
     setStep('configure');
 
     // Initialize form data with defaults
-    const initialData: Record<string, any> = {};
+    const initialData: Record<string, string | number | boolean> = {};
     connector.auth_fields?.forEach(field => {
       const key = field.key || field.name;
       if (key) {
@@ -360,7 +361,7 @@ export const AddCredentialModalV2: React.FC<AddCredentialModalV2Props> = ({
     setFormData(initialData);
   };
 
-  const handleFieldChange = (key: string, value: any) => {
+  const handleFieldChange = (key: string, value: string | number | boolean) => {
     setFormData(prev => {
       const newData = { ...prev, [key]: value };
 
@@ -435,9 +436,9 @@ export const AddCredentialModalV2: React.FC<AddCredentialModalV2Props> = ({
         }
       }, 500);
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       setOauthLoading(false);
-      toast.error(error.message || 'Failed to start OAuth flow');
+      toast.error(error instanceof Error ? error.message : 'Failed to start OAuth flow');
     }
   };
 
@@ -458,8 +459,8 @@ export const AddCredentialModalV2: React.FC<AddCredentialModalV2Props> = ({
       setLoading(true);
 
       // Separate config and credentials
-      const config: Record<string, any> = {};
-      const credentials: Record<string, any> = {};
+      const config: Record<string, string | number | boolean> = {};
+      const credentials: Record<string, string | number | boolean> = {};
 
       visibleFields.forEach(field => {
         const key = field.key || field.name || '';
@@ -485,8 +486,8 @@ export const AddCredentialModalV2: React.FC<AddCredentialModalV2Props> = ({
       onSuccess(response.id);
       onClose();
 
-    } catch (error: any) {
-      toast.error(error.message || 'Failed to create credential');
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : 'Failed to create credential');
     } finally {
       setLoading(false);
     }
@@ -512,7 +513,7 @@ export const AddCredentialModalV2: React.FC<AddCredentialModalV2Props> = ({
         </Label>
 
         {fieldType === 'select' && field.options ? (
-          <Select value={value} onValueChange={(v) => handleFieldChange(key, v)}>
+          <Select value={String(value)} onValueChange={(v) => handleFieldChange(key, v)}>
             <SelectTrigger className="bg-gray-800 border-gray-700 text-white">
               <SelectValue placeholder={field.placeholder || `Select ${field.label}`} />
             </SelectTrigger>
@@ -531,7 +532,7 @@ export const AddCredentialModalV2: React.FC<AddCredentialModalV2Props> = ({
           </Select>
         ) : fieldType === 'textarea' ? (
           <Textarea
-            value={value}
+            value={String(value)}
             onChange={(e) => handleFieldChange(key, e.target.value)}
             placeholder={field.placeholder}
             rows={field.rows || 3}
@@ -551,7 +552,7 @@ export const AddCredentialModalV2: React.FC<AddCredentialModalV2Props> = ({
           <div className="relative">
             <Input
               type={fieldType === 'password' || fieldType === 'secret' ? 'password' : 'text'}
-              value={value}
+              value={String(value)}
               onChange={(e) => handleFieldChange(key, e.target.value)}
               placeholder={field.placeholder}
               className="bg-gray-800 border-gray-700 text-white pr-10"
@@ -562,7 +563,7 @@ export const AddCredentialModalV2: React.FC<AddCredentialModalV2Props> = ({
                 variant="ghost"
                 size="icon"
                 className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
-                onClick={() => handleCopy(value, key)}
+                onClick={() => handleCopy(String(value), key)}
               >
                 {copiedField === key ? (
                   <Check className="w-4 h-4 text-green-400" />

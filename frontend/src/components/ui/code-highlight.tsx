@@ -148,7 +148,7 @@ export function DualCodeHighlight({
 
   return (
     <div className={cn("relative", className)}>
-      <Tabs value={selectedLanguage} onValueChange={(value) => setSelectedLanguage(value as any)} className="w-full">
+      <Tabs value={selectedLanguage} onValueChange={(value) => setSelectedLanguage(value as typeof selectedLanguage)} className="w-full">
         <TabsList className="grid w-full grid-cols-2 bg-gray-800/50 border border-gray-700">
           <TabsTrigger value="nodejs" className="flex items-center gap-2 data-[state=active]:bg-emerald-600/20 data-[state=active]:text-emerald-400">
             <Terminal className="w-4 h-4" />

@@ -4,36 +4,17 @@ import {
   ChevronDown,
   Building,
   FolderOpen,
-  Globe,
   Plus,
   User,
   LogOut,
   Settings,
-  CreditCard,
-  HelpCircle,
-  ExternalLink,
   Check,
-  Search,
   ArrowRight,
   Users,
   LayoutGrid,
-  BarChart3,
   Sparkles,
-  FileText,
-  Layers,
-  Workflow,
-  Database,
-  Brain,
   Zap,
-  Activity,
-  Lock,
-  Key,
-  Code,
-  Monitor,
-  Terminal,
   GitBranch,
-  TrendingUp,
-  MessageSquare
 } from 'lucide-react'
 import { cn } from '../../lib/utils'
 import { buildContextPath } from '../../lib/navigation-utils'
@@ -42,11 +23,14 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { api } from '../../lib/api'
 import { PreviewBadge } from '../ui/PreviewBadge'
 
+interface OrgItem { id: string; name: string; description?: string; [key: string]: unknown }
+interface ProjectItem { id: string; name: string; description?: string; organizationId?: string; [key: string]: unknown }
+
 interface MenuData {
-  organizations: any[]
-  selectedOrganization: any | null
-  projects: any[]
-  selectedProject: any | null
+  organizations: OrgItem[]
+  selectedOrganization: OrgItem | null
+  projects: ProjectItem[]
+  selectedProject: ProjectItem | null
 }
 
 export const SimpleMegaMenu: React.FC = () => {
@@ -74,7 +58,7 @@ export const SimpleMegaMenu: React.FC = () => {
   // Single function to fetch all menu data
   const fetchMenuData = async () => {
     try {
-      const data = await api.getMenuData(organizationId, projectId)
+      const data = await api.getMenuData(organizationId, projectId) as MenuData
 
       setMenuData(data)
 
@@ -121,15 +105,16 @@ export const SimpleMegaMenu: React.FC = () => {
     if (user) {
       fetchMenuData()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, organizationId, projectId])
   
   // Handle selections - just navigate and let useEffect refetch
-  const handleOrganizationSelect = (org: any) => {
+  const handleOrganizationSelect = (org: OrgItem) => {
     navigate(`/org/${org.id}`)
     setShowOrgDropdown(false)
   }
   
-  const handleProjectSelect = (project: any) => {
+  const handleProjectSelect = (project: ProjectItem) => {
     if (menuData.selectedOrganization) {
       navigate(`/org/${menuData.selectedOrganization.id}/project/${project.id}`)
     }
@@ -235,7 +220,7 @@ export const SimpleMegaMenu: React.FC = () => {
                                   </div>
                                   <div>
                                     <div className="text-sm font-medium text-white">{org.name}</div>
-                                    <div className="text-xs text-white/60">{org.plan || 'Free'} Plan</div>
+                                    <div className="text-xs text-white/60">{String(org.plan || 'Free')} Plan</div>
                                   </div>
                                 </div>
                                 {menuData.selectedOrganization?.id === org.id && (
@@ -380,7 +365,7 @@ export const SimpleMegaMenu: React.FC = () => {
                                         </div>
                                         <div>
                                           <div className="text-sm font-medium text-white">{project.name}</div>
-                                          <div className="text-xs text-white/60">{project.status || 'active'}</div>
+                                          <div className="text-xs text-white/60">{String(project.status || 'active')}</div>
                                         </div>
                                       </div>
                                       {menuData.selectedProject?.id === project.id && (

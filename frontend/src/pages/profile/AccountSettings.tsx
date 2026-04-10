@@ -1,24 +1,21 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { 
-  Shield, 
-  Key, 
-  Mail, 
-  Smartphone, 
-  Globe, 
-  AlertTriangle, 
+  Shield,
+  Key,
+  Mail,
+  Smartphone,
+  Globe,
+  AlertTriangle,
   Trash2,
   Eye,
   EyeOff,
   CheckCircle,
   XCircle,
   Lock,
-  Unlock,
-  Copy,
   Plus,
   RotateCcw,
   Clock,
-  User,
   Monitor,
   MapPin,
   Chrome,
@@ -33,7 +30,6 @@ import { Label } from '../../components/ui/label'
 import { Switch } from '../../components/ui/switch'
 import { Badge } from '../../components/ui/badge'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../../components/ui/dialog'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../components/ui/select'
 import { cn } from '../../lib/utils'
 
 interface PasswordForm {
@@ -186,18 +182,15 @@ export const AccountSettings: React.FC = () => {
     }
   }
 
-  const revokeToken = (tokenId: string) => {
-    // console.log('Revoking token:', tokenId)
+  const revokeToken = (_tokenId: string) => {
     // TODO: Implement token revocation
   }
 
-  const disconnectAccount = (accountId: string) => {
-    // console.log('Disconnecting account:', accountId)
+  const disconnectAccount = (_accountId: string) => {
     // TODO: Implement account disconnection
   }
 
-  const revokeSession = (sessionId: string) => {
-    // console.log('Revoking session:', sessionId)
+  const revokeSession = (_sessionId: string) => {
     // TODO: Implement session revocation
   }
 
@@ -297,7 +290,7 @@ export const AccountSettings: React.FC = () => {
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id as any)}
+                  onClick={() => setActiveTab(tab.id as typeof activeTab)}
                   className={cn(
                     'flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200',
                     activeTab === tab.id

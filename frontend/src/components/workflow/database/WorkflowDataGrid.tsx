@@ -37,7 +37,7 @@ export function WorkflowDataGrid({
   const startRow = (page - 1) * pageSize + 1;
   const endRow = Math.min(page * pageSize, total);
 
-  const formatCellValue = (value: any): string => {
+  const formatCellValue = (value: TableRow[string]): string => {
     if (value === null || value === undefined) {
       return 'NULL';
     }
@@ -51,7 +51,7 @@ export function WorkflowDataGrid({
     return str.length > 100 ? str.substring(0, 100) + '...' : str;
   };
 
-  const getCellClassName = (value: any): string => {
+  const getCellClassName = (value: TableRow[string]): string => {
     if (value === null || value === undefined) {
       return 'text-gray-500 italic';
     }
@@ -150,7 +150,7 @@ export function WorkflowDataGrid({
             <tbody>
               {rows.map((row, rowIndex) => (
                 <tr
-                  key={primaryKey ? row[primaryKey] : rowIndex}
+                  key={primaryKey ? String(row[primaryKey] ?? rowIndex) : rowIndex}
                   className="hover:bg-white/5 transition-colors border-b border-white/5"
                 >
                   {columns.map((col) => (

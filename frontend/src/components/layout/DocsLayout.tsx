@@ -50,7 +50,7 @@ import { LanguageProvider } from '../../contexts/LanguageContext'
 interface NavItem {
   title: string
   href?: string
-  icon?: any
+  icon?: React.ComponentType<{ className?: string }>
   items?: NavItem[]
   badge?: string
   isNew?: boolean
@@ -312,18 +312,13 @@ export function DocsLayout({ children }: DocsLayoutProps) {
       </div>
 
       {/* Sidebar */}
-      <AnimatePresence>
-        {(isMobileMenuOpen || true) && (
-          <motion.aside
-            initial={{ x: -300 }}
-            animate={{ x: 0 }}
-            exit={{ x: -300 }}
-            className={cn(
-              "fixed left-0 top-0 h-full w-80 bg-gray-900/50 backdrop-blur-xl border-r border-emerald-500/20 overflow-y-auto z-40",
-              "lg:translate-x-0",
-              !isMobileMenuOpen && "hidden lg:block"
-            )}
-          >
+      <motion.aside
+        className={cn(
+          "fixed left-0 top-0 h-full w-80 bg-gray-900/50 backdrop-blur-xl border-r border-emerald-500/20 overflow-y-auto z-40",
+          "lg:translate-x-0",
+          !isMobileMenuOpen && "hidden lg:block"
+        )}
+      >
             <div className="p-6 pt-24">
               {/* Logo */}
               <Link to="/" className="flex items-center space-x-2 mb-8">
@@ -454,9 +449,7 @@ export function DocsLayout({ children }: DocsLayoutProps) {
                 </div>
               </div>
             </div>
-          </motion.aside>
-        )}
-      </AnimatePresence>
+      </motion.aside>
 
       {/* Main Content */}
       <main className={cn(

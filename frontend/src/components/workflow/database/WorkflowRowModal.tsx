@@ -56,7 +56,7 @@ export function WorkflowRowModal({
 
   if (!isOpen) return null;
 
-  const handleChange = (key: string, value: any) => {
+  const handleChange = (key: string, value: TableRow[string]) => {
     setFormData(prev => ({ ...prev, [key]: value }));
   };
 
@@ -85,7 +85,7 @@ export function WorkflowRowModal({
     }
   };
 
-  const handleCopy = async (key: string, value: any) => {
+  const handleCopy = async (key: string, value: TableRow[string]) => {
     try {
       const textValue = typeof value === 'object' ? JSON.stringify(value, null, 2) : String(value ?? '');
       await navigator.clipboard.writeText(textValue);
@@ -124,7 +124,7 @@ export function WorkflowRowModal({
       return (
         <input
           type="number"
-          value={value ?? ''}
+          value={String(value ?? '')}
           onChange={(e) => handleChange(col.value, e.target.value === '' ? null : Number(e.target.value))}
           disabled={!editMode || isDisabled}
           className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400/50 disabled:opacity-50 text-sm font-mono"
@@ -136,7 +136,7 @@ export function WorkflowRowModal({
       const jsonValue = typeof value === 'object' ? JSON.stringify(value, null, 2) : (value ?? '');
       return (
         <textarea
-          value={jsonValue}
+          value={String(jsonValue)}
           onChange={(e) => {
             try {
               const parsed = JSON.parse(e.target.value);
@@ -155,7 +155,7 @@ export function WorkflowRowModal({
     if (type.includes('text') || type.includes('varchar') && (String(value ?? '').length > 100)) {
       return (
         <textarea
-          value={value ?? ''}
+          value={String(value ?? '')}
           onChange={(e) => handleChange(col.value, e.target.value || null)}
           disabled={!editMode || isDisabled}
           rows={3}
@@ -192,7 +192,7 @@ export function WorkflowRowModal({
     return (
       <input
         type="text"
-        value={value ?? ''}
+        value={String(value ?? '')}
         onChange={(e) => handleChange(col.value, e.target.value || null)}
         disabled={!editMode || isDisabled}
         className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400/50 disabled:opacity-50 text-sm"

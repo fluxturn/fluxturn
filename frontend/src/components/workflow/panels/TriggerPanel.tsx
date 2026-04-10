@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Copy, CheckCircle2, Globe, Loader2, AlertCircle, Terminal, Info, Sparkles } from 'lucide-react';
+import { Copy, CheckCircle2, Loader2, AlertCircle, Terminal, Info, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -10,27 +10,44 @@ import { cn } from '@/lib/utils';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { api } from '@/lib/api';
 
+interface TriggerNodeData {
+  connectorType?: string;
+  triggerId?: string;
+  actionParams?: Record<string, unknown>;
+  eventType?: string;
+  triggerParams?: { pollingInterval?: number };
+  label?: string;
+  [key: string]: unknown;
+}
+
+interface TriggerWebhookInfo {
+  webhookUrl: string;
+  connectorType?: string;
+  triggerType?: string;
+  setupInstructions?: string;
+  httpsRequired?: boolean;
+  isHttps?: boolean;
+}
+
 interface TriggerPanelProps {
   nodeId: string;
-  nodeData: any;
+  nodeData: TriggerNodeData;
   workflowId?: string | null;
   isActive?: boolean;
-  onUpdate?: (data: any) => void;
+  onUpdate?: (data: TriggerNodeData) => void;
 }
 
 export function TriggerPanel({
-  nodeId,
   nodeData,
   workflowId,
   isActive = false,
-  onUpdate
 }: TriggerPanelProps) {
   const [copied, setCopied] = useState(false);
   const [isTestMode, setIsTestMode] = useState(true);
-  const [isListening, setIsListening] = useState(false);
+  const [isListening] = useState(false);
   const [webhookUrl, setWebhookUrl] = useState<string>('');
   const [loadingWebhook, setLoadingWebhook] = useState(false);
-  const [webhookInfo, setWebhookInfo] = useState<any>(null);
+  const [webhookInfo, setWebhookInfo] = useState<TriggerWebhookInfo | null>(null);
 
   const connectorType = nodeData.connectorType;
   const triggerId = nodeData.triggerId;
@@ -48,17 +65,17 @@ export function TriggerPanel({
 
       setLoadingWebhook(true);
       try {
-        const response = await api.get(`/workflow/${workflowId}/webhook-url`);
+        const response = await api.get<{ webhooks?: TriggerWebhookInfo[] }>(`/workflow/${workflowId}/webhook-url`);
 
         // Find the webhook for this specific trigger
         const triggerWebhook = response.webhooks?.find(
-          (w: any) => w.connectorType === connectorType || w.triggerType === `${connectorType?.toUpperCase()}_TRIGGER`
+          (w: TriggerWebhookInfo) => w.connectorType === connectorType || w.triggerType === `${connectorType?.toUpperCase()}_TRIGGER`
         );
 
         if (triggerWebhook) {
           setWebhookUrl(triggerWebhook.webhookUrl);
           setWebhookInfo(triggerWebhook);
-        } else if (response.webhooks?.length > 0) {
+        } else if (response.webhooks && response.webhooks.length > 0) {
           // Fallback to first webhook if no exact match
           setWebhookUrl(response.webhooks[0].webhookUrl);
           setWebhookInfo(response.webhooks[0]);
@@ -75,6 +92,7 @@ export function TriggerPanel({
     };
 
     fetchWebhookUrl();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [workflowId, connectorType]);
 
   // Fallback method to generate webhook URL (if backend fails)
@@ -106,7 +124,7 @@ export function TriggerPanel({
       setCopied(true);
       toast.success('Webhook URL copied to clipboard');
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
+    } catch {
       toast.error('Failed to copy URL');
     }
   };
@@ -431,11 +449,11 @@ export function TriggerPanel({
             <div className="space-y-2 text-xs">
               <div className="flex justify-between">
                 <span className="text-gray-400">Message Type:</span>
-                <span className="text-gray-300">{triggerConfig.messageType || 'All'}</span>
+                <span className="text-gray-300">{String(triggerConfig.messageType || 'All')}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-400">Chat Type:</span>
-                <span className="text-gray-300">{triggerConfig.chatType || 'All'}</span>
+                <span className="text-gray-300">{String(triggerConfig.chatType || 'All')}</span>
               </div>
               {triggerConfig.webhookToken && (
                 <div className="flex justify-between">
@@ -455,7 +473,7 @@ export function TriggerPanel({
             <div className="space-y-2 text-xs">
               <div className="flex justify-between">
                 <span className="text-gray-400">Command:</span>
-                <span className="text-gray-300 font-mono">{triggerConfig.command || '/start'}</span>
+                <span className="text-gray-300 font-mono">{String(triggerConfig.command || '/start')}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-400">Include Arguments:</span>

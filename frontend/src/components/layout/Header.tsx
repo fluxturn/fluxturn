@@ -1,47 +1,24 @@
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import { OrganizationSelector } from "../organizations/OrganizationSelector";
 import { Button } from "../ui/button";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  DropdownMenuSeparator,
-} from "../ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import {
-  LogOut,
-  Settings,
-  User,
   Menu,
   X,
-  Download,
-  CreditCard,
   Shield,
-  FileText,
-  Crown,
-  Zap,
-  Heart,
-  Sparkles,
   Github,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "../../lib/utils";
-import { toast } from "sonner";
 import { useQuery } from "@tanstack/react-query";
-import { api } from "../../lib/api";
-import { Badge } from "../ui/badge";
 import { PreviewBadge } from "../ui/PreviewBadge";
 import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "../ui/LanguageSwitcher";
 
 export function Header() {
   const { t } = useTranslation();
-  const { user, logout, isAuthenticated } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
-  const { organizationId } = useParams();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const { data: repoData } = useQuery({
@@ -61,11 +38,6 @@ export function Header() {
   const formatStars = (n: number) =>
     n >= 1000 ? `${(n / 1000).toFixed(1)}k` : n.toLocaleString();
 
-  const handleLogout = () => {
-    logout();
-    window.location.href = "/";
-  };
-
   const navigationKeys = [
     { key: "features", href: "/features" },
     { key: "tutorials", href: "/tutorials" },
@@ -73,20 +45,6 @@ export function Header() {
     { key: "documents", href: "/docs" },
     { key: "blog", href: "/blog" },
   ];
-
-  const userWorkspaceNavigation = [
-    { name: "Organizations", href: "/organizations" },
-    { name: "Projects", href: "/projects" },
-  ];
-
-  // Determine if we're in admin area
-  const isAdminArea = location.pathname.startsWith("/admin");
-
-  // Determine if we should show user workspace navigation (only for regular users not in admin area)
-  const isInWorkspace =
-    location.pathname.startsWith("/organizations") ||
-    location.pathname.startsWith("/projects") ||
-    location.pathname.match(/^\/[^\/]+\/projects/);
 
   const isScrollLink = (href: string) => href.startsWith("/#");
 

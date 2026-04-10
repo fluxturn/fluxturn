@@ -4,6 +4,7 @@ import { memo, useMemo } from "react";
 import { WorkflowNode } from "../../WorkflowNode";
 import { BaseNode, BaseNodeContent } from "../../base/BaseNode";
 import { LabeledHandle, HandleSection } from "../../base/LabeledHandle";
+import type { NodeStatus } from "../../base/NodeStatusIndicator";
 
 // Agent type labels for display
 const AGENT_TYPE_LABELS: Record<string, string> = {
@@ -14,15 +15,15 @@ const AGENT_TYPE_LABELS: Record<string, string> = {
 
 export const AIAgentNode = memo((props: NodeProps) => {
   const { id, data: rawData } = props;
-  const data = rawData as any;
+  const data = rawData as Record<string, unknown>;
   const { setNodes, setEdges } = useReactFlow();
   const edges = useEdges();
 
-  const label = data?.label || "AI Agent";
-  const systemPrompt = data?.systemPrompt || "";
-  const agentType = data?.agentType || "toolsAgent";
-  const maxIterations = data?.maxIterations || 10;
-  const nodeStatus = data?.status || "initial";
+  const label = (data?.label as string) || "AI Agent";
+  const systemPrompt = (data?.systemPrompt as string) || "";
+  const agentType = (data?.agentType as string) || "toolsAgent";
+  const maxIterations = (data?.maxIterations as number) || 10;
+  const nodeStatus = (data?.status as NodeStatus) || "initial";
 
   // Check which handles are connected
   const connections = useMemo(() => {

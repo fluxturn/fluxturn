@@ -104,7 +104,7 @@ export interface Slide {
   backgroundColor?: string;
   layout: 'title' | 'content' | 'two-column' | 'image' | 'blank';
   notes?: string;
-  animations?: any[];
+  animations?: unknown[];
   transition?: string;
 }
 
@@ -141,7 +141,7 @@ export interface Presentation {
 }
 
 // API Response wrapper
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
   success: boolean;
   data: T;
   message?: string;

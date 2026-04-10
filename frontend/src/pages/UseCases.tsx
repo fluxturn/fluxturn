@@ -11,12 +11,12 @@ import {
   Shield,
   FileText,
   X,
-  ArrowRight,
-  Layers
+  ArrowRight
 } from "lucide-react";
 import { Button } from "../components/ui/button";
 
 // Use Cases data
+// eslint-disable-next-line react-refresh/only-export-components
 export const useCasesData = [
   {
     id: 1,

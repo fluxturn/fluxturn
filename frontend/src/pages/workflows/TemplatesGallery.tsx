@@ -4,14 +4,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft,
   Sparkles,
-  Zap,
   TrendingUp,
   Shield,
   Search,
-  Filter,
   Clock,
-  Check,
-  Star,
   Copy,
   Eye,
   ChevronLeft,
@@ -20,8 +16,6 @@ import {
   X,
   ZoomIn,
   ZoomOut,
-  Maximize,
-  Minimize,
   RotateCcw
 } from 'lucide-react';
 import { extractRouteContext } from '@/lib/navigation-utils';
@@ -29,16 +23,17 @@ import { api } from '@/lib/api';
 import { WorkflowAPI } from '@/lib/fluxturn';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
-import { ReactFlow, Background, BackgroundVariant, ReactFlowProvider, useReactFlow } from '@xyflow/react';
+import { ReactFlow, Background, BackgroundVariant, ReactFlowProvider, useReactFlow, Node, Edge } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { nodeComponents } from '@/config/workflow';
+import type { JsonObject } from '@/types/json';
 
 interface Template {
   id: string;
   name: string;
   description: string;
   category?: string;
-  workflow: any;
+  workflow: Record<string, unknown>;
   created_at: string;
   is_template: boolean;
   verified?: boolean;
@@ -47,7 +42,7 @@ interface Template {
 }
 
 // Workflow Preview Component with Zoom Controls
-const WorkflowPreview: React.FC<{ nodes: any[]; edges: any[] }> = ({ nodes, edges }) => {
+const WorkflowPreview: React.FC<{ nodes: Node[]; edges: Edge[] }> = ({ nodes, edges }) => {
   const { zoomIn, zoomOut, fitView } = useReactFlow();
   const [hasInitialized, setHasInitialized] = useState(false);
 
@@ -149,6 +144,7 @@ export const TemplatesGallery: React.FC = () => {
 
   useEffect(() => {
     loadTemplates();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, searchQuery, activeFilter]);
 
   const loadTemplates = async () => {
@@ -161,30 +157,31 @@ export const TemplatesGallery: React.FC = () => {
         ...(searchQuery && { search: searchQuery })
       });
 
-      if (response?.templates) {
-        const processedTemplates = response.templates.map((template: any) => ({
-          id: template.id,
-          name: template.name,
-          description: template.description,
-          category: template.category,
-          created_at: template.created_at,
+      const typedResponse = response as { templates?: Record<string, unknown>[]; total?: number; totalPages?: number; verifiedCount?: number; popularCount?: number };
+      if (typedResponse?.templates) {
+        const processedTemplates = typedResponse.templates.map((template: Record<string, unknown>) => ({
+          id: template.id as string,
+          name: template.name as string,
+          description: template.description as string,
+          category: template.category as string,
+          created_at: template.created_at as string,
           is_template: true,
-          usage_count: template.use_count || 0,
-          ai_prompt: template.ai_prompt || null,
-          verified: template.verified || false,
+          usage_count: (template.use_count as number) || 0,
+          ai_prompt: (template.ai_prompt as string) || null,
+          verified: (template.verified as boolean) || false,
           workflow: {
-            canvas: template.canvas || { nodes: [], edges: [] }
+            canvas: (template.canvas as Record<string, unknown>) || { nodes: [], edges: [] }
           }
         }));
         setTemplates(processedTemplates);
-        setTotalPages(response.totalPages || 1);
-        setTotalCount(response.total || processedTemplates.length);
+        setTotalPages(typedResponse.totalPages || 1);
+        setTotalCount(typedResponse.total || processedTemplates.length);
 
         // Set stats from API response
         setStats({
-          total: response.total || processedTemplates.length,
-          verified: response.verifiedCount || 0,
-          popular: response.popularCount || 0
+          total: typedResponse.total || processedTemplates.length,
+          verified: typedResponse.verifiedCount || 0,
+          popular: typedResponse.popularCount || 0
         });
       }
     } catch (error) {
@@ -214,7 +211,7 @@ export const TemplatesGallery: React.FC = () => {
       };
 
       const newWorkflow = await WorkflowAPI.createWorkflow(
-        workflowData,
+        workflowData as JsonObject,
         context.organizationId,
         context.projectId
       );
@@ -322,7 +319,7 @@ export const TemplatesGallery: React.FC = () => {
                   <button
                     key={filter.id}
                     onClick={() => {
-                      setActiveFilter(filter.id as any);
+                      setActiveFilter(filter.id as typeof activeFilter);
                       setPage(1);
                     }}
                     className={cn(
@@ -370,7 +367,7 @@ export const TemplatesGallery: React.FC = () => {
         ) : (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-              {templates.map((template, index) => (
+              {templates.map((template) => (
                 <motion.div
                   key={template.id}
                   initial={{ opacity: 0, y: 20 }}
@@ -600,8 +597,9 @@ export const TemplatesGallery: React.FC = () => {
 
                   {/* Workflow Visual Preview */}
                   {(() => {
-                    const nodes = selectedTemplate.workflow?.canvas?.nodes || [];
-                    const edges = selectedTemplate.workflow?.canvas?.edges || [];
+                    const canvas = selectedTemplate.workflow?.canvas as { nodes?: Node[]; edges?: Edge[] } | undefined;
+                    const nodes = canvas?.nodes || [];
+                    const edges = canvas?.edges || [];
 
                     if (!nodes || nodes.length === 0) {
                       return (

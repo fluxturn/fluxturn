@@ -24,7 +24,7 @@ interface FormTestModalProps {
     formFields?: FormField[];
     submitButtonText?: string;
   };
-  onSubmit: (formData: Record<string, any>) => void;
+  onSubmit: (formData: Record<string, string | boolean>) => void;
 }
 
 export function FormTestModal({
@@ -33,9 +33,9 @@ export function FormTestModal({
   formConfig,
   onSubmit,
 }: FormTestModalProps) {
-  const [formData, setFormData] = useState<Record<string, any>>({});
+  const [formData, setFormData] = useState<Record<string, string | boolean>>({});
 
-  const handleFieldChange = (fieldName: string, value: any) => {
+  const handleFieldChange = (fieldName: string, value: string | boolean) => {
     setFormData((prev) => ({
       ...prev,
       [fieldName]: value,
@@ -65,7 +65,7 @@ export function FormTestModal({
             <Input
               id={field.name}
               type={field.type}
-              value={value}
+              value={String(value)}
               onChange={(e) => handleFieldChange(field.name, e.target.value)}
               placeholder={field.placeholder}
               required={field.required}
@@ -83,7 +83,7 @@ export function FormTestModal({
             </Label>
             <Textarea
               id={field.name}
-              value={value}
+              value={String(value)}
               onChange={(e) => handleFieldChange(field.name, e.target.value)}
               placeholder={field.placeholder}
               required={field.required}
@@ -102,7 +102,7 @@ export function FormTestModal({
             </Label>
             <select
               id={field.name}
-              value={value}
+              value={String(value)}
               onChange={(e) => handleFieldChange(field.name, e.target.value)}
               required={field.required}
               className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
@@ -123,7 +123,7 @@ export function FormTestModal({
             <input
               type="checkbox"
               id={field.name}
-              checked={value}
+              checked={Boolean(value)}
               onChange={(e) => handleFieldChange(field.name, e.target.checked)}
               className="w-4 h-4 text-cyan-600 border-gray-700 rounded bg-gray-800 focus:ring-cyan-500"
             />

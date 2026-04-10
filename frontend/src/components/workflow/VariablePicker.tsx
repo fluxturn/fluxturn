@@ -14,7 +14,7 @@ interface VariablePickerProps {
     id: string;
     name: string;
     type: string;
-    outputData?: any;
+    outputData?: Record<string, unknown>;
   }>;
   onSelect: (variable: string) => void;
 }
@@ -33,7 +33,7 @@ export function VariablePicker({ previousNodes, onSelect }: VariablePickerProps)
     setExpandedNodes(newExpanded);
   };
 
-  const renderObjectFields = (obj: any, path: string, nodeId: string, nodeName: string) => {
+  const renderObjectFields = (obj: Record<string, unknown>, path: string, nodeId: string, nodeName: string) => {
     if (!obj || typeof obj !== 'object') return null;
 
     return Object.entries(obj).map(([key, value]) => {
@@ -87,7 +87,7 @@ export function VariablePicker({ previousNodes, onSelect }: VariablePickerProps)
             </code>
           </div>
 
-          {hasChildren && isExpanded && renderObjectFields(value, fieldPath, nodeId, nodeName)}
+          {hasChildren && isExpanded && renderObjectFields(value as Record<string, unknown>, fieldPath, nodeId, nodeName)}
         </div>
       );
     });

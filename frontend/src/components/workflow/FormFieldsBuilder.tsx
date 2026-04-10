@@ -133,7 +133,7 @@ export function FormFieldsBuilder({ value, onChange }: FormFieldsBuilderProps) {
                   <label className="block text-sm text-gray-400 mb-1">Field Type</label>
                   <select
                     value={field.type}
-                    onChange={(e) => updateField(index, { type: e.target.value as any })}
+                    onChange={(e) => updateField(index, { type: e.target.value as FormField['type'] })}
                     className="w-full px-3 py-2 bg-black/40 border border-white/10 rounded text-white text-sm"
                   >
                     {FIELD_TYPES.map(type => (

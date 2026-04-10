@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ArrowRight, GripVertical, Sparkles, MousePointer2, Plus } from "lucide-react";
 import { Button } from "../ui/button";
 import { useTranslation } from "react-i18next";
@@ -18,6 +18,7 @@ import {
   Edge,
   Handle,
   Position,
+  ReactFlowInstance,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { AuthContext } from "../../contexts/AuthContext";
@@ -45,7 +46,7 @@ const initialNodes: Node[] = [
 const initialEdges: Edge[] = [];
 
 // Custom draggable node component
-function DemoNode({ data, selected }: { data: any; selected?: boolean }) {
+function DemoNode({ data, selected }: { data: { icon?: string; label?: string; description?: string; borderColor?: string; color?: string; type?: string }; selected?: boolean }) {
   return (
     <div className={`
       bg-white rounded-xl border-2 ${data.borderColor} shadow-lg p-3 min-w-[120px]
@@ -113,7 +114,7 @@ function InteractiveCanvas() {
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const [reactFlowInstance, setReactFlowInstance] = useState<any>(null);
+  const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance | null>(null);
 
   const onConnect = useCallback((params: Connection) => {
     setEdges((eds) => addEdge({

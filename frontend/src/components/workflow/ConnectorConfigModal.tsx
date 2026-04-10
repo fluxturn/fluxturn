@@ -4,24 +4,35 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
 import { ScrollArea } from '../ui/scroll-area';
-import { Badge } from '../ui/badge';
-import { Separator } from '../ui/separator';
 import { Card } from '../ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { Editor } from '@monaco-editor/react';
 import { 
-  Settings, 
-  Key, 
-  Database, 
-  Globe, 
-  FileText, 
-  AlertCircle, 
-  CheckCircle, 
-  Info,
+  Settings,
+  Key,
+  FileText,
+  AlertCircle,
+  CheckCircle,
   ExternalLink,
   Eye,
   EyeOff
 } from 'lucide-react';
+import type { JsonValue } from '../../types/json';
+
+interface ConnectorFieldDef {
+  key: string;
+  label: string;
+  type: string;
+  required?: boolean;
+  description?: string;
+  placeholder?: string;
+  options?: string[];
+  default?: string | number | boolean;
+  min?: number;
+  max?: number;
+  step?: number;
+  rows?: number;
+}
 
 // Connector configurations for the 54 real connectors
 const CONNECTOR_CONFIGS = {
@@ -122,19 +133,18 @@ interface ConnectorConfigModalProps {
   onClose: () => void;
   nodeId: string;
   connectorType: string;
-  currentConfig: Record<string, any>;
-  onConfigUpdate: (config: Record<string, any>) => void;
+  currentConfig: Record<string, JsonValue>;
+  onConfigUpdate: (config: Record<string, JsonValue>) => void;
 }
 
 export const ConnectorConfigModal: React.FC<ConnectorConfigModalProps> = ({
   isOpen,
   onClose,
-  nodeId,
   connectorType,
   currentConfig,
   onConfigUpdate,
 }) => {
-  const [config, setConfig] = useState<Record<string, any>>(currentConfig);
+  const [config, setConfig] = useState<Record<string, JsonValue>>(currentConfig);
   const [activeTab, setActiveTab] = useState('config');
   const [showPasswords, setShowPasswords] = useState<Record<string, boolean>>({});
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
@@ -145,7 +155,7 @@ export const ConnectorConfigModal: React.FC<ConnectorConfigModalProps> = ({
     setConfig(currentConfig);
   }, [currentConfig]);
 
-  const validateField = (field: any, value: any): string | null => {
+  const validateField = (field: ConnectorFieldDef, value: JsonValue): string | null => {
     if (field.required && (!value || value === '')) {
       return `${field.label} is required`;
     }
@@ -157,18 +167,18 @@ export const ConnectorConfigModal: React.FC<ConnectorConfigModalProps> = ({
       if (field.max !== undefined && num > field.max) return `${field.label} must be at most ${field.max}`;
     }
 
-    if (field.type === 'email' && value && !/\S+@\S+\.\S+/.test(value)) {
+    if (field.type === 'email' && value && !/\S+@\S+\.\S+/.test(String(value))) {
       return `${field.label} must be a valid email address`;
     }
 
-    if (field.type === 'url' && value && !/^https?:\/\/.+/.test(value)) {
+    if (field.type === 'url' && value && !/^https?:\/\/.+/.test(String(value))) {
       return `${field.label} must be a valid URL`;
     }
 
     return null;
   };
 
-  const handleConfigChange = (key: string, value: any) => {
+  const handleConfigChange = (key: string, value: JsonValue) => {
     setConfig(prev => ({ ...prev, [key]: value }));
     
     // Clear validation error when user starts typing
@@ -206,8 +216,9 @@ export const ConnectorConfigModal: React.FC<ConnectorConfigModalProps> = ({
     setShowPasswords(prev => ({ ...prev, [fieldKey]: !prev[fieldKey] }));
   };
 
-  const renderField = (field: any) => {
-    const value = config[field.key] ?? field.default ?? '';
+  const renderField = (field: ConnectorFieldDef) => {
+    const rawValue = config[field.key] ?? field.default ?? '';
+    const value = typeof rawValue === 'object' ? JSON.stringify(rawValue) : String(rawValue);
     const error = validationErrors[field.key];
 
     switch (field.type) {

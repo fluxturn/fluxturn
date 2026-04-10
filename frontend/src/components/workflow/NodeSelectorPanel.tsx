@@ -1,12 +1,11 @@
 import { useReactFlow } from "@xyflow/react";
-import { X, Search, Zap, Cog, GitBranch, Database, Loader2, ArrowLeft, Mail, Plus, Edit, Tag, MessageSquare, CheckCircle } from "lucide-react";
+import { X, Search, Zap, Cog, GitBranch, Database, Loader2, ArrowLeft, Mail, MessageSquare, CheckCircle } from "lucide-react";
 import { useCallback, useState, useEffect } from "react";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
 import {
   getTriggerNodes,
   getActionNodes,
@@ -15,11 +14,8 @@ import {
   NodeType,
   NODE_DEFINITIONS,
 } from "@/config/workflow";
-import { cn } from "@/lib/utils";
 import { connectorService, type AvailableConnector } from "@/services/workflow";
-import { api } from "@/lib/api";
-import { createConnectorActionNode, createConnectorTriggerNode } from "@/utils/workflow";
-import { createAndRegisterActionNodeType } from "@/utils/workflow";
+import { createConnectorTriggerNode } from "@/utils/workflow";
 import { getConnectorIconPath, hasConnectorIcon } from "@/utils/workflow";
 
 interface NodeSelectorPanelProps {
@@ -35,9 +31,9 @@ export function NodeSelectorPanel({ isOpen, onClose }: NodeSelectorPanelProps) {
   const [isLoadingConnectors, setIsLoadingConnectors] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedConnector, setSelectedConnector] = useState<AvailableConnector | null>(null);
-  const [connectorActions, setConnectorActions] = useState<any[]>([]);
+  const [connectorActions, setConnectorActions] = useState<Array<{ id: string; name: string; description?: string; category?: string; inputSchema?: Record<string, unknown> }>>([]);
   const [selectedTriggerConnector, setSelectedTriggerConnector] = useState<AvailableConnector | null>(null);
-  const [connectorTriggers, setConnectorTriggers] = useState<any[]>([]);
+  const [connectorTriggers, setConnectorTriggers] = useState<Array<{ id: string; name: string; description?: string; eventType?: string; webhookRequired?: boolean; icon?: string; inputSchema?: Record<string, unknown> }>>([]);
 
   const triggerNodes = getTriggerNodes();
   const actionNodes = getActionNodes();
@@ -104,7 +100,7 @@ export function NodeSelectorPanel({ isOpen, onClose }: NodeSelectorPanelProps) {
         console.error('Failed to fetch connector actions:', error);
         // Fallback to supported_actions from connector metadata
         const fallbackActions = Array.isArray(connector.supported_actions) ? connector.supported_actions : [];
-        setConnectorActions(fallbackActions);
+        setConnectorActions(fallbackActions.map((a: string | { id?: string; name?: string }) => typeof a === 'string' ? { id: a, name: a } : { id: a.id || a.name || '', name: a.name || a.id || '' }));
       }
       return;
     }
@@ -120,13 +116,13 @@ export function NodeSelectorPanel({ isOpen, onClose }: NodeSelectorPanelProps) {
         console.error('Failed to fetch connector triggers:', error);
         // Fallback to supported_triggers from connector metadata
         const fallbackTriggers = Array.isArray(connector.supported_triggers) ? connector.supported_triggers : [];
-        setConnectorTriggers(fallbackTriggers);
+        setConnectorTriggers(fallbackTriggers.map((t: string | { id?: string; name?: string }) => typeof t === 'string' ? { id: t, name: t } : { id: t.id || t.name || '', name: t.name || t.id || '' }));
       }
       return;
     }
   }, [activeTab]);
 
-  const handleActionSelect = useCallback((action: any) => {
+  const handleActionSelect = useCallback((action: { id: string; name: string; description?: string; inputSchema?: Record<string, unknown> }) => {
     if (!selectedConnector) return;
 
     const centerX = window.innerWidth / 2;
@@ -180,7 +176,7 @@ export function NodeSelectorPanel({ isOpen, onClose }: NodeSelectorPanelProps) {
     toast.success(`Added ${action.name}`);
   }, [selectedConnector, screenToFlowPosition, setNodes, onClose]);
 
-  const handleTriggerSelect = useCallback((trigger: any) => {
+  const handleTriggerSelect = useCallback((trigger: { id: string; name: string; description?: string; eventType?: string; icon?: string; inputSchema?: Record<string, unknown> }) => {
     if (!selectedTriggerConnector) return;
 
     const centerX = window.innerWidth / 2;
@@ -257,7 +253,7 @@ export function NodeSelectorPanel({ isOpen, onClose }: NodeSelectorPanelProps) {
 
         // Get default values from node definition config fields
         const nodeDefinition = NODE_DEFINITIONS[selection.type];
-        const defaultValues: Record<string, any> = {};
+        const defaultValues: Record<string, unknown> = {};
 
         if (nodeDefinition?.configFields) {
           nodeDefinition.configFields.forEach((field) => {
@@ -410,7 +406,7 @@ export function NodeSelectorPanel({ isOpen, onClose }: NodeSelectorPanelProps) {
         </div>
 
         {/* Tabs */}
-        <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as any)} className="flex-1 flex flex-col overflow-hidden">
+        <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as typeof activeTab)} className="flex-1 flex flex-col overflow-hidden">
           <TabsList className="grid w-full grid-cols-3 bg-white/5 mx-4 mt-2">
             <TabsTrigger
               value="triggers"
@@ -609,7 +605,7 @@ export function NodeSelectorPanel({ isOpen, onClose }: NodeSelectorPanelProps) {
                                 Trigger when events occur in {connector.display_name}
                               </span>
                               <div className="flex gap-1 mt-1 flex-wrap">
-                                {Array.isArray(connector.supported_triggers) && connector.supported_triggers.slice(0, 3).map((trigger: any, idx) => (
+                                {Array.isArray(connector.supported_triggers) && connector.supported_triggers.slice(0, 3).map((trigger: string | { name?: string }, idx) => (
                                   <Badge key={idx} variant="secondary" className="text-xs">
                                     {typeof trigger === 'string' ? trigger : (trigger?.name || 'Trigger')}
                                   </Badge>
@@ -683,8 +679,8 @@ export function NodeSelectorPanel({ isOpen, onClose }: NodeSelectorPanelProps) {
                           if (!acc[category]) acc[category] = [];
                           acc[category].push(action);
                           return acc;
-                        }, {} as Record<string, any[]>)
-                    ).map(([category, actions]: [string, any[]]) => (
+                        }, {} as Record<string, typeof connectorActions>)
+                    ).map(([category, actions]) => (
                       <div key={category} className="space-y-2">
                         <h5 className="text-xs font-medium text-white/60 uppercase tracking-wider">
                           {category}
@@ -883,7 +879,7 @@ export function NodeSelectorPanel({ isOpen, onClose }: NodeSelectorPanelProps) {
                                 {connector.description}
                               </span>
                               <div className="flex gap-1 mt-1 flex-wrap">
-                                {Array.isArray(connector.supported_actions) && connector.supported_actions.slice(0, 3).map((action: any, idx) => (
+                                {Array.isArray(connector.supported_actions) && connector.supported_actions.slice(0, 3).map((action: string | { name?: string }, idx) => (
                                   <Badge key={idx} variant="secondary" className="text-xs">
                                     {typeof action === 'string' ? action.replace(/_/g, ' ') : (action?.name || 'Action')}
                                   </Badge>

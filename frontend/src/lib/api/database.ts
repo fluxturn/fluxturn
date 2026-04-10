@@ -1,4 +1,5 @@
 import { api } from '../api';
+import type { JsonObject, JsonValue } from '../../types/json';
 
 // Backend Database Types - matching the DTOs
 export interface TableInfoDto {
@@ -65,11 +66,11 @@ export interface TableDataQueryDto {
   sortBy?: string;
   sortDirection?: 'ASC' | 'DESC';
   search?: string;
-  filters?: Record<string, any>;
+  filters?: JsonObject;
 }
 
 export interface TableDataResultDto {
-  data: any[];
+  data: JsonObject[];
   total: number;
   page: number;
   limit: number;
@@ -80,11 +81,11 @@ export interface TableDataResultDto {
 
 export interface DatabaseQueryDto {
   query: string;
-  parameters?: any[];
+  parameters?: JsonValue[];
 }
 
 export interface DatabaseQueryResultDto {
-  data: any[];
+  data: JsonObject[];
   rowCount: number;
   command: string;
   fields?: Array<{
@@ -132,7 +133,7 @@ export interface QueryRequest {
   offset?: number;
 }
 
-export interface QueryResponse<T = any> {
+export interface QueryResponse<T = unknown> {
   data: T[];
   total: number;
   page?: number;
@@ -144,7 +145,7 @@ export interface QueryResponse<T = any> {
 export interface QueryFilter {
   column: string;
   operator: 'eq' | 'neq' | 'gt' | 'gte' | 'lt' | 'lte' | 'like' | 'in' | 'nin' | 'null' | 'notnull';
-  value?: any;
+  value?: JsonValue;
 }
 
 export interface QuerySort {
@@ -156,8 +157,8 @@ export interface BatchOperation {
   id: string;
   type: 'insert' | 'update' | 'delete';
   table: string;
-  data?: Record<string, any>;
-  where?: Record<string, any>;
+  data?: JsonObject;
+  where?: JsonObject;
 }
 
 export interface CollaborativeEdit {
@@ -168,7 +169,7 @@ export interface CollaborativeEdit {
   rowId: string;
   columnId: string;
   startedAt: Date;
-  value?: any;
+  value?: JsonValue;
 }
 
 export interface TableView {
@@ -252,7 +253,7 @@ class DatabaseAPI {
   }
 
   // Data Operations
-  async queryData<T = any>(request: QueryRequest): Promise<QueryResponse<T>> {
+  async queryData<T = unknown>(request: QueryRequest): Promise<QueryResponse<T>> {
     const queryParams = new URLSearchParams();
     
     if (request.limit) {
@@ -268,7 +269,7 @@ class DatabaseAPI {
     
     // Transform backend response to frontend interface for compatibility
     return {
-      data: result.data,
+      data: result.data as unknown as T[],
       total: result.total,
       page: result.page,
       limit: result.limit,
@@ -297,20 +298,20 @@ class DatabaseAPI {
     return api.post('/database/query', queryDto);
   }
 
-  async naturalQuery(query: string, context?: any): Promise<any> {
+  async naturalQuery(query: string, context?: unknown): Promise<unknown> {
     return api.post('/query/natural', { query, schema: context });
   }
 
   // Row Operations
-  async createTableRow(tableName: string, data: Record<string, any>): Promise<any> {
+  async createTableRow(tableName: string, data: JsonObject): Promise<unknown> {
     return api.post(`/database/tables/${tableName}/rows`, { data });
   }
 
-  async updateTableRow(tableName: string, id: string, data: Record<string, any>): Promise<any> {
+  async updateTableRow(tableName: string, id: string, data: JsonObject): Promise<unknown> {
     return api.put(`/database/tables/${tableName}/rows/${id}`, { data });
   }
 
-  async deleteTableRow(tableName: string, id: string): Promise<any> {
+  async deleteTableRow(tableName: string, id: string): Promise<unknown> {
     return api.delete(`/database/tables/${tableName}/rows/${id}`);
   }
 
@@ -365,42 +366,50 @@ class DatabaseAPI {
   // }
 
   // Collaborative editing methods (stub implementations for now)
-  async getActiveEdits(tableName: string): Promise<any[]> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async getActiveEdits(tableName: string): Promise<CollaborativeEdit[]> {
     // TODO: Implement collaborative editing API
     return [];
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async getUndoRedoState(tableName?: string): Promise<{ canUndo: boolean; canRedo: boolean }> {
     // TODO: Implement undo/redo API
     return { canUndo: false, canRedo: false };
   }
 
-  async getBatchOperations(tableName: string): Promise<any[]> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async getBatchOperations(tableName: string): Promise<BatchOperation[]> {
     // TODO: Implement batch operations API
     return [];
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async startEdit(tableName: string, rowId: string, columnId: string): Promise<void> {
     // TODO: Implement collaborative editing API
     return;
   }
 
-  async endEdit(tableName: string, rowId: string, columnId: string, value?: any): Promise<void> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async endEdit(tableName: string, rowId: string, columnId: string, value?: JsonValue): Promise<void> {
     // TODO: Implement collaborative editing API
     return;
   }
 
-  async executeOperation(operation: any): Promise<any> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async executeOperation(operation: BatchOperation): Promise<{ success: boolean }> {
     // TODO: Implement operation execution API
     return { success: true };
   }
 
-  async executeBatch(operations: any[]): Promise<any> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async executeBatch(operations: BatchOperation[]): Promise<{ success: boolean; results: unknown[] }> {
     // TODO: Implement batch operations API
     return { success: true, results: [] };
   }
 
-  async exportData(tableName: string, options?: any): Promise<Blob> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async exportData(tableName: string, options?: { format?: string; columns?: string[] }): Promise<Blob> {
     // TODO: Implement data export API
     return new Blob([''], { type: 'text/csv' });
   }
@@ -449,13 +458,14 @@ class DatabaseAPI {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async deleteView(tableName: string, viewId: string): Promise<void> {
     // TODO: Implement view deletion API
     return Promise.resolve();
   }
 
   // Schema Import and Migration Methods
-  async validateSchema(schema: any): Promise<{
+  async validateSchema(schema: unknown): Promise<{
     valid: boolean;
     issues: Array<{
       type: 'error' | 'warning' | 'info';
@@ -470,7 +480,7 @@ class DatabaseAPI {
     return api.post('/database/schema/validate', { schema });
   }
 
-  async generateMigrationPlan(schema: any): Promise<{
+  async generateMigrationPlan(schema: unknown): Promise<{
     id: string;
     steps: Array<{
       id: string;
@@ -517,7 +527,7 @@ class DatabaseAPI {
 
   async exportSchema(): Promise<{
     version: string;
-    tables: any[];
+    tables: unknown[];
     metadata: {
       exportedAt: string;
       source: string;
@@ -528,9 +538,9 @@ class DatabaseAPI {
 
   // Schema Save/Load Methods
   async saveSchema(
-    name: string, 
-    description: string, 
-    schema: any,
+    name: string,
+    description: string,
+    schema: unknown,
     organizationId?: string,
     projectId?: string,
     appId?: string
@@ -590,7 +600,7 @@ class DatabaseAPI {
       id: string;
       name: string;
       description?: string;
-      schema_definition: any;
+      schema_definition: unknown;
       created_at: string;
       updated_at: string;
       created_by?: string;
@@ -622,7 +632,7 @@ class DatabaseAPI {
   }
 
   async executeMigration(
-    schema: any,
+    schema: unknown,
     organizationId?: string,
     projectId?: string,
     appId?: string
@@ -636,7 +646,7 @@ class DatabaseAPI {
     if (projectId) api.setProjectId(projectId);
     if (appId) api.setAppId(appId);
     
-    const result = await api.post('/schema/migrate', {
+    const result = await api.post<{ success: boolean; migrationId: string; message: string }>('/schema/migrate', {
       schema,
       migrationId: `migration-${Date.now()}`,
       dryRun: false,

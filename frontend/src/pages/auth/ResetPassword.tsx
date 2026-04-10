@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Link, useSearchParams, useNavigate } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { Eye, EyeOff, Lock, ArrowLeft, CheckCircle, Shield, XCircle } from 'lucide-react'
 import { Button } from '../../components/ui/button'
 import { Input } from '../../components/ui/input'
@@ -23,7 +23,6 @@ interface PasswordStrength {
 export const ResetPassword: React.FC = () => {
   const { t } = useTranslation()
   const [searchParams] = useSearchParams()
-  const navigate = useNavigate()
   const token = searchParams.get('token')
   const [form, setForm] = useState<ResetForm>({
     password: '',
@@ -107,14 +106,15 @@ export const ResetPassword: React.FC = () => {
       await api.resetPassword(token, form.password)
       // console.log('Password reset successful')
       setIsSuccess(true)
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Password reset failed:', error)
+      const errMsg = error instanceof Error ? error.message : '';
 
       // Handle token validation errors
-      if (error.message?.includes('token') || error.message?.includes('expired') || error.message?.includes('invalid')) {
+      if (errMsg?.includes('token') || errMsg?.includes('expired') || errMsg?.includes('invalid')) {
         setTokenValid(false)
       } else {
-        setErrors({ password: error.message || t('auth.resetPassword.resetFailed') })
+        setErrors({ password: errMsg || t('auth.resetPassword.resetFailed') })
       }
     } finally {
       setIsLoading(false)

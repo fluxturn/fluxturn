@@ -39,9 +39,9 @@ export const ForgotPassword: React.FC = () => {
       await api.forgotPassword(email)
       // console.log('Password reset request sent for:', email)
       setIsSuccess(true)
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Password reset failed:', error)
-      setError(error.message || t('auth.forgotPassword.sendFailed'))
+      setError(error instanceof Error ? error.message : t('auth.forgotPassword.sendFailed'))
     } finally {
       setIsLoading(false)
     }
@@ -52,9 +52,9 @@ export const ForgotPassword: React.FC = () => {
     try {
       await api.forgotPassword(email)
       // console.log('Password reset email resent for:', email)
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to resend email:', error)
-      setError(error.message || t('auth.forgotPassword.resendFailed'))
+      setError(error instanceof Error ? error.message : t('auth.forgotPassword.resendFailed'))
     } finally {
       setIsLoading(false)
     }

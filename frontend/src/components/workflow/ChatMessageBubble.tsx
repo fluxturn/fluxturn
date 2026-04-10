@@ -2,29 +2,44 @@ import { Bot, User, Check, Loader, Circle, Lock, CheckCircle } from "lucide-reac
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
+interface CredentialDetected {
+  connectorName: string;
+  field: string;
+  masked: string;
+}
+
+interface WorkflowPreview {
+  canvas?: {
+    nodes?: unknown[];
+    edges?: unknown[];
+  };
+}
+
+export interface ChatMessageMetadata {
+  workflowPreview?: WorkflowPreview;
+  progressSteps?: ProgressStep[];
+  credentialsDetected?: CredentialDetected[];
+  requiresUserChoice?: boolean;
+  quickReplies?: string[];
+  workflowResult?: unknown;
+  messageType?: 'analysis' | 'execution' | 'general';
+  analysisData?: {
+    understanding: string;
+    plan: string[];
+    estimatedNodes: number;
+    requiredConnectors?: string[];
+    confidence?: number;
+  };
+  pendingPrompt?: string;
+  nodesToConfigure?: unknown[];
+}
+
 export interface ChatMessage {
   id: string;
   role: 'user' | 'assistant' | 'system';
   content: string;
   timestamp: string;
-  metadata?: {
-    workflowPreview?: any;
-    progressSteps?: ProgressStep[];
-    credentialsDetected?: any[];
-    requiresUserChoice?: boolean;
-    quickReplies?: string[];
-    workflowResult?: any; // Store full result for retry
-    messageType?: 'analysis' | 'execution' | 'general';
-    analysisData?: {
-      understanding: string;
-      plan: string[];
-      estimatedNodes: number;
-      requiredConnectors?: string[];
-      confidence?: number;
-    };
-    pendingPrompt?: string;
-    nodesToConfigure?: any[];
-  };
+  metadata?: ChatMessageMetadata;
 }
 
 export interface ProgressStep {
@@ -36,8 +51,8 @@ export interface ProgressStep {
 
 interface ChatMessageBubbleProps {
   message: ChatMessage;
-  onQuickReply?: (reply: string, metadata?: any, messageId?: string) => void;
-  onConfigureCredentials?: (credentials: any[]) => void;
+  onQuickReply?: (reply: string, metadata?: ChatMessageMetadata, messageId?: string) => void;
+  onConfigureCredentials?: (credentials: CredentialDetected[]) => void;
   isAccepted?: boolean;
 }
 
@@ -170,7 +185,7 @@ export function ChatMessageBubble({ message, onQuickReply, onConfigureCredential
                     I found {message.metadata.credentialsDetected.length} credential(s) in your message:
                   </div>
                   <div className="space-y-1.5 mb-3">
-                    {message.metadata.credentialsDetected.map((cred: any, idx: number) => (
+                    {message.metadata.credentialsDetected.map((cred: CredentialDetected, idx: number) => (
                       <div key={idx} className="flex items-center gap-2 text-xs bg-black/20 rounded px-2 py-1.5">
                         <CheckCircle className="w-3 h-3 text-green-400" />
                         <span className="font-medium text-white">{cred.connectorName}</span>

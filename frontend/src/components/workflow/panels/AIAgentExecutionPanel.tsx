@@ -23,11 +23,11 @@ interface IntermediateStep {
   toolCall?: {
     id: string;
     name: string;
-    arguments: Record<string, any>;
+    arguments: Record<string, unknown>;
   };
   toolResult?: {
     success: boolean;
-    data?: any;
+    data?: unknown;
     error?: string;
     durationMs?: number;
   };
@@ -37,12 +37,12 @@ interface IntermediateStep {
 /**
  * AgentExecutionResult - The complete result from AI Agent execution
  */
-interface AgentExecutionResult {
+export interface AgentExecutionResult {
   response: string;
   success: boolean;
   iterations: number;
-  toolCalls: any[];
-  toolResults: any[];
+  toolCalls: unknown[];
+  toolResults: unknown[];
   intermediateSteps?: IntermediateStep[];
   usage: {
     promptTokens: number;
@@ -53,7 +53,7 @@ interface AgentExecutionResult {
   error?: {
     type: string;
     message: string;
-    details?: any;
+    details?: unknown;
   };
   durationMs: number;
 }
@@ -92,6 +92,7 @@ export function AIAgentExecutionPanel({
       const latestStep = result.intermediateSteps.length;
       setExpandedSteps((prev) => new Set([...prev, latestStep]));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isExecuting, result?.intermediateSteps?.length]);
 
   const toggleStep = (step: number) => {

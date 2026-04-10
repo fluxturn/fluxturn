@@ -8,6 +8,8 @@ import {
   BackgroundVariant,
   MarkerType,
   useReactFlow,
+  type OnNodesChange,
+  type OnEdgesChange,
 } from '@xyflow/react';
 import { Maximize, ZoomIn, ZoomOut, Locate } from 'lucide-react';
 import { toast } from 'sonner';
@@ -64,8 +66,8 @@ function ZoomControls({ bottomOffset = 64 }: { bottomOffset?: number }) {
 interface EditorTabProps {
   nodes: Node[];
   edges: Edge[];
-  onNodesChange: any;
-  onEdgesChange: any;
+  onNodesChange: OnNodesChange;
+  onEdgesChange: OnEdgesChange;
   onConnect: (params: Connection) => void;
   onNodeClick: (event: React.MouseEvent, node: Node) => void;
   onNodeDoubleClick: (event: React.MouseEvent, node: Node) => void;
@@ -76,7 +78,7 @@ interface EditorTabProps {
   onAIPrompt: () => void;
   onAddNote: () => void;
   onLayout: () => void;
-  selectedNode?: any;
+  selectedNode?: Node;
   onCloseNodeData?: () => void;
   databaseNodes?: DatabaseNodeInfo[];
 }

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Shield, CheckCircle2 } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 
 export function GDPR() {
   const rights = [

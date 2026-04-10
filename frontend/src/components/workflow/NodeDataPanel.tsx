@@ -2,8 +2,22 @@ import React, { useState } from "react";
 import { X, ChevronRight, ChevronDown, Download, FileIcon, Maximize2, Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+interface NodeDataInfo {
+  id: string;
+  type?: string;
+  data?: {
+    label?: string;
+    inputData?: unknown;
+    outputData?: unknown;
+    lastResult?: unknown;
+    executionTime?: number;
+    error?: string;
+    [key: string]: unknown;
+  };
+}
+
 interface NodeDataPanelProps {
-  node: any;
+  node: NodeDataInfo;
   onClose: () => void;
 }
 
@@ -35,7 +49,7 @@ export function NodeDataPanel({ node, onClose }: NodeDataPanelProps) {
     setExpandedPaths(newExpanded);
   };
 
-  const renderValue = (value: any, path: string, depth: number = 0): React.ReactElement => {
+  const renderValue = (value: unknown, path: string, depth: number = 0): React.ReactElement => {
     if (value === null) {
       return <span className="text-purple-400">null</span>;
     }
@@ -86,8 +100,9 @@ export function NodeDataPanel({ node, onClose }: NodeDataPanelProps) {
     }
 
     if (typeof value === "object") {
+      const obj = value as Record<string, unknown>;
       const isExpanded = expandedPaths.has(path);
-      const keys = Object.keys(value);
+      const keys = Object.keys(obj);
 
       return (
         <div>
@@ -108,7 +123,7 @@ export function NodeDataPanel({ node, onClose }: NodeDataPanelProps) {
                 <div key={key} className="py-1 flex items-start gap-2">
                   <span className="text-blue-400 font-mono text-xs flex-shrink-0">{key}:</span>
                   <div className="flex-1 min-w-0">
-                    {renderValue(value[key], `${path}.${key}`, depth + 1)}
+                    {renderValue(obj[key], `${path}.${key}`, depth + 1)}
                   </div>
                 </div>
               ))}
@@ -121,7 +136,7 @@ export function NodeDataPanel({ node, onClose }: NodeDataPanelProps) {
     return <span className="text-gray-300">{String(value)}</span>;
   };
 
-  const handleDownloadFile = (fileData: any, fileName: string) => {
+  const handleDownloadFile = (fileData: { data: string; mimeType?: string }, fileName: string) => {
     try {
       // Decode base64 data
       const binaryString = atob(fileData.data);
@@ -145,7 +160,7 @@ export function NodeDataPanel({ node, onClose }: NodeDataPanelProps) {
     }
   };
 
-  const renderDataView = (items: any[], label: string) => {
+  const renderDataView = (items: unknown[], label: string) => {
     if (!items || items.length === 0) {
       return (
         <div className="flex items-center justify-center h-full text-gray-500">
@@ -160,13 +175,14 @@ export function NodeDataPanel({ node, onClose }: NodeDataPanelProps) {
     return (
       <div className="p-4 space-y-4">
         {items.map((item, index) => {
-          const data = item.json || item;
+          const itemObj = item as Record<string, unknown>;
+          const data = (itemObj.json || itemObj) as Record<string, unknown>;
 
           // Check if this is binary/file data
-          const hasBinaryData = data.binary && data.binary.data;
+          const hasBinaryData = data.binary && (data.binary as Record<string, unknown>).data;
 
           if (hasBinaryData) {
-            const binaryData = data.binary.data;
+            const binaryData = (data.binary as Record<string, unknown>).data as { data?: string; mimeType?: string; fileName?: string; fileSize?: number };
             const mimeType = binaryData.mimeType || '';
             const isImage = mimeType.startsWith('image/');
             const isVideo = mimeType.startsWith('video/');
@@ -261,7 +277,7 @@ export function NodeDataPanel({ node, onClose }: NodeDataPanelProps) {
 
                   {/* Download Button */}
                   <button
-                    onClick={() => handleDownloadFile(binaryData, binaryData.fileName)}
+                    onClick={() => handleDownloadFile(binaryData as { data: string; mimeType?: string }, binaryData.fileName || 'download')}
                     className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg transition-colors text-sm font-medium"
                   >
                     <Download className="w-4 h-4" />

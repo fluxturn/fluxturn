@@ -13,7 +13,7 @@ interface AuthField {
   type: 'string' | 'text' | 'password' | 'secret' | 'email' | 'url' | 'select' | 'textarea' | 'number' | 'boolean';
   placeholder?: string;
   required?: boolean;
-  defaultValue?: any;
+  defaultValue?: string | number | boolean;
   description?: string;
   helpUrl?: string;
   helpText?: string;
@@ -54,7 +54,7 @@ export const EditCredentialModal: React.FC<EditCredentialModalProps> = ({
   onSuccess,
 }) => {
   const [credentialName, setCredentialName] = useState(credential.name);
-  const [authConfig, setAuthConfig] = useState<Record<string, any>>({});
+  const [authConfig, setAuthConfig] = useState<Record<string, string | number | boolean>>({});
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -70,7 +70,7 @@ export const EditCredentialModal: React.FC<EditCredentialModalProps> = ({
     try {
       setLoading(true);
 
-      const updatePayload: any = {
+      const updatePayload: { name: string; credentials?: Record<string, string | number | boolean> } = {
         name: credentialName,
       };
 
@@ -83,9 +83,9 @@ export const EditCredentialModal: React.FC<EditCredentialModalProps> = ({
 
       toast.success('Credential updated successfully');
       onSuccess();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to update credential:', error);
-      toast.error(error.message || 'Failed to update credential');
+      toast.error(error instanceof Error ? error.message : 'Failed to update credential');
     } finally {
       setLoading(false);
     }
@@ -167,14 +167,14 @@ export const EditCredentialModal: React.FC<EditCredentialModalProps> = ({
         setLoading(false);
         toast.error('OAuth flow timed out or was cancelled');
       }, 5 * 60 * 1000);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Re-authorization error:', error);
-      toast.error(error.message || 'Failed to start re-authorization');
+      toast.error(error instanceof Error ? error.message : 'Failed to start re-authorization');
       setLoading(false);
     }
   };
 
-  const handleFieldChange = (fieldName: string, value: any) => {
+  const handleFieldChange = (fieldName: string, value: string | number | boolean) => {
     setAuthConfig((prev) => ({
       ...prev,
       [fieldName]: value,
@@ -182,7 +182,8 @@ export const EditCredentialModal: React.FC<EditCredentialModalProps> = ({
   };
 
   const renderAuthField = (field: AuthField) => {
-    const value = authConfig[field.name] ?? "";
+    const rawValue = authConfig[field.name] ?? "";
+    const value = typeof rawValue === 'boolean' ? String(rawValue) : rawValue;
     const isPasswordField = field.type === 'password' || field.type === 'secret';
 
     // For password fields, show placeholder to indicate existing value
@@ -280,7 +281,7 @@ export const EditCredentialModal: React.FC<EditCredentialModalProps> = ({
               className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white"
             >
               <option value="">{field.placeholder || 'Select...'}</option>
-              {field.options?.map((option: any) => (
+              {field.options?.map((option: { label: string; value: string }) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
                 </option>
@@ -339,7 +340,7 @@ export const EditCredentialModal: React.FC<EditCredentialModalProps> = ({
               <input
                 type="checkbox"
                 id={field.name}
-                checked={value === true || value === 'true'}
+                checked={value === 'true'}
                 onChange={(e) => handleFieldChange(field.name, e.target.checked)}
                 className="w-4 h-4 text-cyan-500 bg-gray-800 border-gray-700 rounded focus:ring-cyan-500 focus:ring-2"
               />
@@ -397,23 +398,23 @@ export const EditCredentialModal: React.FC<EditCredentialModalProps> = ({
     let authFields: AuthField[] = [];
 
     if (Array.isArray(authFieldsRaw)) {
-      authFields = authFieldsRaw.map((field: any) => ({
+      authFields = authFieldsRaw.map((field: AuthField & { key?: string }) => ({
         ...field,
-        name: field.name || field.key,
+        name: field.name || field.key || '',
       }));
     } else if (authFieldsRaw && typeof authFieldsRaw === 'object') {
-      authFields = Object.entries(authFieldsRaw).map(([key, value]: [string, any]) => ({
+      authFields = Object.entries(authFieldsRaw).map(([key, value]: [string, Record<string, unknown>]) => ({
         name: key,
-        label: value.label || key,
-        type: value.type || 'text',
-        placeholder: value.placeholder,
-        required: value.required,
-        defaultValue: value.defaultValue,
-        description: value.description,
-        helpUrl: value.helpUrl,
-        helpText: value.helpText,
-        options: value.options,
-        rows: value.rows,
+        label: (value.label as string) || key,
+        type: (value.type as AuthField['type']) || 'text',
+        placeholder: value.placeholder as string | undefined,
+        required: value.required as boolean | undefined,
+        defaultValue: value.defaultValue as string | number | boolean | undefined,
+        description: value.description as string | undefined,
+        helpUrl: value.helpUrl as string | undefined,
+        helpText: value.helpText as string | undefined,
+        options: value.options as AuthField['options'],
+        rows: value.rows as number | undefined,
       }));
     } else if (!authFieldsRaw) {
       // Generate basic fields based on auth_type

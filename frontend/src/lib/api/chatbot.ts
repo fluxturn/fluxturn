@@ -66,9 +66,9 @@ export interface Message {
   };
   tokens?: number;
   language?: string;
-  sources?: any[];
+  sources?: unknown[];
   feedback?: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface Agent {
@@ -93,12 +93,12 @@ export interface CreateChatbotConfigDto {
   systemPrompt: string;
   welcomeMessage?: string;
   isEnabled?: boolean;
-  aiConfig?: Record<string, any>;
+  aiConfig?: Record<string, unknown>;
   tags?: string[];
-  uiConfig?: Record<string, any>;
+  uiConfig?: Record<string, unknown>;
 }
 
-export interface UpdateChatbotConfigDto extends Partial<CreateChatbotConfigDto> {}
+export type UpdateChatbotConfigDto = Partial<CreateChatbotConfigDto>
 
 export const chatbotConfigApi = {
   // Get chatbot configurations by context
@@ -139,7 +139,7 @@ export interface CreateConversationDto {
   sessionId?: string;
   userId?: string;
   initialMessage?: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface GetConversationsParams {
@@ -189,8 +189,8 @@ export interface SendMessageDto {
     type?: string;
     size?: number;
   }>;
-  metadata?: Record<string, any>;
-  context?: Record<string, any>;
+  metadata?: Record<string, unknown>;
+  context?: Record<string, unknown>;
   stream?: boolean;
 }
 
@@ -263,7 +263,7 @@ export const analyticsApi = {
 
 export const legacyChatbotApi = {
   // Send message (legacy endpoint)
-  sendMessage: async (data: { message: string; sessionId: string; userId?: string; language?: string }): Promise<{ answer: string; sources: any[]; tokens: number }> => {
+  sendMessage: async (data: { message: string; sessionId: string; userId?: string; language?: string }): Promise<{ answer: string; sources: unknown[]; tokens: number }> => {
     return api.post('/chatbot/send', {
       message: data.message,
       metadata: {

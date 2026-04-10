@@ -13,7 +13,7 @@ interface TelegramToolNodeData {
 type TelegramToolNodeType = Node<TelegramToolNodeData>;
 
 export const TelegramToolNode = memo((props: NodeProps<TelegramToolNodeType>) => {
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [, setDialogOpen] = useState(false);
   const nodeStatus = "initial";
 
   const handleOpenSettings = () => setDialogOpen(true);

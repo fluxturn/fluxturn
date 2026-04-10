@@ -5,8 +5,7 @@ import {
   AlertTriangle,
   Save,
   Trash2,
-  Building,
-  Shield
+  Building
 } from 'lucide-react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
@@ -53,15 +52,15 @@ export const OrganizationSettings: React.FC = () => {
 
       try {
         setLoading(true)
-        const data = await organizationApi.getOrganizationDetails(organizationId) as any
+        const data = await organizationApi.getOrganizationDetails(organizationId) as { organization?: Organization } & Partial<Organization>
 
-        const org = data.organization || data
+        const org = (data.organization || data) as Organization
         setOrganization(org)
         setFormData({
           name: org.name || '',
           description: org.description || ''
         })
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error('Failed to load organization:', err)
         toast.error('Failed to load organization settings')
       } finally {
@@ -81,12 +80,13 @@ export const OrganizationSettings: React.FC = () => {
       toast.success('Organization updated successfully')
 
       // Refresh data
-      const data = await organizationApi.getOrganizationDetails(organizationId) as any
-      const org = data.organization || data
+      const data = await organizationApi.getOrganizationDetails(organizationId) as { organization?: Organization } & Partial<Organization>
+      const org = (data.organization || data) as Organization
       setOrganization(org)
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Failed to update organization:', err)
-      toast.error(err.response?.data?.message || 'Failed to update organization')
+      const errObj = err as { response?: { data?: { message?: string } } }
+      toast.error(errObj.response?.data?.message || 'Failed to update organization')
     } finally {
       setSaving(false)
     }
@@ -107,9 +107,10 @@ export const OrganizationSettings: React.FC = () => {
 
       // Navigate to home or organizations list
       navigate('/')
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Failed to delete organization:', err)
-      toast.error(err.response?.data?.message || 'Failed to delete organization')
+      const errObj = err as { response?: { data?: { message?: string } } }
+      toast.error(errObj.response?.data?.message || 'Failed to delete organization')
     } finally {
       setDeleting(false)
       setShowDeleteConfirm(false)

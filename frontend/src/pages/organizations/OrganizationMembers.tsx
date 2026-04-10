@@ -12,8 +12,6 @@ import {
   Mail,
   Send,
   Search,
-  Filter,
-  MoreVertical,
   Activity,
   Clock,
   CheckCircle,
@@ -22,50 +20,13 @@ import {
   Copy,
   RefreshCw,
   Download,
-  Calendar,
-  MapPin,
-  Phone,
-  Globe
+  Calendar
 } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import { GlassCard, StatCard } from '../../components/ui/GlassCard'
 import { cn } from '../../lib/utils'
 import { organizationApi, OrganizationMember, OrganizationInvitation } from '../../lib/api/organization'
-
-interface Member {
-  id: string
-  name: string
-  email: string
-  role: 'owner' | 'admin' | 'developer' | 'viewer'
-  status: 'active' | 'pending' | 'suspended'
-  avatar?: string
-  joinedAt: string
-  lastActive: string
-  location?: string
-  phone?: string
-  permissions: string[]
-}
-
-interface Invitation {
-  id: string
-  email: string
-  role: 'admin' | 'developer' | 'viewer'
-  invitedBy: string
-  invitedAt: string
-  status: 'pending' | 'expired'
-  expiresAt: string
-}
-
-interface ActivityLog {
-  id: string
-  user: string
-  action: string
-  target?: string
-  timestamp: string
-  type: 'invite' | 'role_change' | 'remove' | 'join' | 'login' | 'permission'
-}
-
 
 const roleHierarchy = {
   owner: { level: 4, label: 'Owner', color: 'bg-purple-500/20 text-purple-400' },
@@ -115,9 +76,9 @@ export const OrganizationMembers: React.FC = () => {
         ])
         setMembers(membersData)
         setInvitations(invitationsData)
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error('Failed to load organization data:', err)
-        setError(err.message || 'Failed to load data')
+        setError(err instanceof Error ? err.message : 'Failed to load data')
         toast.error('Failed to load organization members')
       } finally {
         setLoading(false)
@@ -138,7 +99,7 @@ export const OrganizationMembers: React.FC = () => {
           ])
           setMembers(membersData)
           setInvitations(invitationsData)
-        } catch (err) {
+        } catch {
           // Silent fail on background refresh
         }
       }
@@ -194,15 +155,6 @@ export const OrganizationMembers: React.FC = () => {
     }
   }
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'active': return 'bg-green-500/20 text-green-400'
-      case 'pending': return 'bg-yellow-500/20 text-yellow-400'
-      case 'suspended': return 'bg-red-500/20 text-red-400'
-      default: return 'bg-gray-500/20 text-gray-400'
-    }
-  }
-
   const getActivityIcon = (type: string) => {
     switch (type) {
       case 'invite': return <Mail className="w-4 h-4" />
@@ -244,25 +196,10 @@ export const OrganizationMembers: React.FC = () => {
       // Refresh invitations
       const updatedInvitations = await organizationApi.getInvitations(organizationId)
       setInvitations(updatedInvitations)
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Failed to invite member:', err)
-      toast.error(err.response?.data?.message || 'Failed to send invitation')
-    }
-  }
-
-  const handleUpdateRole = async (userId: string, newRole: string) => {
-    if (!organizationId) return
-
-    try {
-      await organizationApi.updateMemberRole(organizationId, userId, newRole)
-      toast.success('Member role updated')
-
-      // Update local state
-      setMembers(prev => prev.map(m =>
-        m.userId === userId ? { ...m, role: newRole as any } : m
-      ))
-    } catch (err: any) {
-      toast.error(err.response?.data?.message || 'Failed to update role')
+      const errObj = err as { response?: { data?: { message?: string } }; message?: string }
+      toast.error(errObj.response?.data?.message || 'Failed to send invitation')
     }
   }
 
@@ -278,8 +215,9 @@ export const OrganizationMembers: React.FC = () => {
 
       // Update local state
       setMembers(prev => prev.filter(m => m.userId !== userId))
-    } catch (err: any) {
-      toast.error(err.response?.data?.message || 'Failed to remove member')
+    } catch (err: unknown) {
+      const errObj = err as { response?: { data?: { message?: string } } }
+      toast.error(errObj.response?.data?.message || 'Failed to remove member')
     }
   }
 
@@ -289,7 +227,7 @@ export const OrganizationMembers: React.FC = () => {
     try {
       await organizationApi.resendInvitation(organizationId, invitationId)
       toast.success('Invitation resent')
-    } catch (err: any) {
+    } catch {
       toast.error('Failed to resend invitation')
     }
   }
@@ -303,7 +241,7 @@ export const OrganizationMembers: React.FC = () => {
 
       // Update local state
       setInvitations(prev => prev.filter(inv => inv.id !== invitationId))
-    } catch (err: any) {
+    } catch {
       toast.error('Failed to cancel invitation')
     }
   }
@@ -585,7 +523,7 @@ export const OrganizationMembers: React.FC = () => {
       </div>
 
       <div className="space-y-4">
-        {[].map((activity: any) => (
+        {([] as Array<{ id: string; type: string; description: string; user: string; date: string; action?: string; target?: string; timestamp?: string }>).map((activity) => (
           <div key={activity.id} className="flex items-start space-x-4 p-3 rounded-lg hover:bg-white/5 transition-all">
             <div className={cn(
               "w-10 h-10 rounded-lg flex items-center justify-center",
@@ -651,7 +589,7 @@ export const OrganizationMembers: React.FC = () => {
               <label className="block text-sm font-medium mb-2">Role</label>
               <select
                 value={inviteForm.role}
-                onChange={(e) => setInviteForm(prev => ({ ...prev, role: e.target.value as any }))}
+                onChange={(e) => setInviteForm(prev => ({ ...prev, role: e.target.value as 'member' | 'admin' }))}
                 className="w-full p-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400/50"
               >
                 <option value="member">Member</option>
@@ -911,7 +849,7 @@ export const OrganizationMembers: React.FC = () => {
             ].map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
+                onClick={() => setActiveTab(tab.id as 'members' | 'invitations' | 'activity')}
                 className={cn(
                   "flex items-center space-x-2 px-6 py-3 rounded-lg transition-all text-sm font-medium",
                   activeTab === tab.id 

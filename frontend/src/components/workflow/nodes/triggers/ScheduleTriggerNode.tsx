@@ -2,6 +2,7 @@ import { type NodeProps, type Node } from "@xyflow/react";
 import { memo } from "react";
 import { BaseTriggerNode } from "../../base/BaseTriggerNode";
 import { Clock } from "lucide-react";
+import { type NodeStatus } from "../../base/NodeStatusIndicator";
 
 interface ScheduleTriggerNodeData {
   cron?: string;
@@ -12,7 +13,7 @@ interface ScheduleTriggerNodeData {
 type ScheduleTriggerNodeType = Node<ScheduleTriggerNodeData>;
 
 export const ScheduleTriggerNode = memo((props: NodeProps<ScheduleTriggerNodeType>) => {
-  const nodeStatus = (props.data as any)?.status || "initial";
+  const nodeStatus = (props.data as Record<string, unknown>)?.status as NodeStatus || "initial";
 
   // Settings button handler - parent will handle opening modal via click event
   const handleOpenSettings = () => {

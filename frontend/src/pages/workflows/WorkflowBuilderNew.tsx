@@ -1,15 +1,12 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import {
-  ReactFlow,
   Node,
   Edge,
   addEdge,
   Connection,
   useNodesState,
   useEdgesState,
-  Background,
-  BackgroundVariant,
   MarkerType,
   ReactFlowProvider,
   useReactFlow,
@@ -33,8 +30,8 @@ import { EditorTab } from '@/components/workflow/tabs/EditorTab';
 import { api } from '@/lib/api';
 import { WorkflowAPI } from '@/lib/fluxturn';
 import { useWebSocket } from '@/hooks/use-websocket';
-import { useRoles } from '@/hooks/useRoles';
 import { extractRouteContext, servicePaths } from '@/lib/navigation-utils';
+import type { JsonObject } from '@/types/json';
 
 const initialNodes: Node[] = [];
 const initialEdges: Edge[] = [];
@@ -71,21 +68,19 @@ const WorkflowBuilderInner: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const [initialLoadComplete, setInitialLoadComplete] = useState(false);
-  const [executionResult, setExecutionResult] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+  const [executionResult, setExecutionResult] = useState<Record<string, unknown> | null>(null);
   const [formTestModalOpen, setFormTestModalOpen] = useState(false);
-  const [formTriggerConfig, setFormTriggerConfig] = useState<any>(null);
+  const [formTriggerConfig, setFormTriggerConfig] = useState<Record<string, unknown> | null>(null);
   const [isWorkflowActive, setIsWorkflowActive] = useState(false);
   const [showNodeDetails, setShowNodeDetails] = useState(false);
   const [executionLogs, setExecutionLogs] = useState<LogEntry[]>([]);
-  const [selectedNodeForData, setSelectedNodeForData] = useState<any>(null);
+  const [selectedNodeForData, setSelectedNodeForData] = useState<Node | null>(null);
   const [saveAsTemplateModalOpen, setSaveAsTemplateModalOpen] = useState(false);
   const [aiWorkflowPrompt, setAiWorkflowPrompt] = useState<string | null>(null);
   const [executedDatabaseNodes, setExecutedDatabaseNodes] = useState<DatabaseNodeInfo[]>([]);
   const { screenToFlowPosition } = useReactFlow();
   const loadedWorkflowRef = React.useRef<string | null>(null);
   const { socket } = useWebSocket();
-  const currentExecutionIdRef = React.useRef<string | null>(null);
   const isExecutingRef = React.useRef<boolean>(false);
   const executionResetTimerRef = React.useRef<NodeJS.Timeout | null>(null);
   const isLoadingRef = React.useRef<boolean>(false);
@@ -108,6 +103,7 @@ const WorkflowBuilderInner: React.FC = () => {
     if (!searchParams.get('tab')) {
       setSearchParams({ tab: activeTab }, { replace: true });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Only run on mount
 
   // Handle OAuth callback success/error on workflow editor
@@ -169,6 +165,7 @@ const WorkflowBuilderInner: React.FC = () => {
       newSearchParams.delete('error');
       setSearchParams(newSearchParams, { replace: true });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Only run on mount
 
   // Handle auto-trigger AI generation from landing page
@@ -203,13 +200,14 @@ const WorkflowBuilderInner: React.FC = () => {
         }, 500);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]); // Re-check when searchParams change
 
   // Listen to node execution WebSocket events
   useEffect(() => {
     if (!socket) return;
 
-    const handleNodeExecutionStarted = (data: any) => {
+    const handleNodeExecutionStarted = (data: { nodeId: string; nodeName?: string; inputData?: unknown; startTime?: string }) => {
       // console.log('Node execution started:', data);
       setExecutingWithReset(); // Prevent unsaved changes during WebSocket updates
       const { nodeId, nodeName, inputData, startTime } = data;
@@ -243,7 +241,7 @@ const WorkflowBuilderInner: React.FC = () => {
       );
     };
 
-    const handleNodeExecutionCompleted = (data: any) => {
+    const handleNodeExecutionCompleted = (data: { nodeId: string; nodeName?: string; result?: Record<string, unknown>; inputData?: unknown; outputData?: unknown; executionTime?: number }) => {
       // console.log('Node execution completed:', data);
       setExecutingWithReset(); // Prevent unsaved changes during WebSocket updates
       const { nodeId, nodeName, result, inputData, outputData, executionTime } = data;
@@ -273,7 +271,7 @@ const WorkflowBuilderInner: React.FC = () => {
             const filtered = prev.filter(n => n.nodeId !== nodeId);
             return [...filtered, {
               nodeId,
-              nodeName: nodeName || node?.data?.label || nodeId,
+              nodeName: nodeName || (node?.data?.label as string) || nodeId,
               credentialId: credentialId as string,
               connectorType: connectorType as 'mysql' | 'postgresql'
             }];
@@ -301,7 +299,7 @@ const WorkflowBuilderInner: React.FC = () => {
       });
     };
 
-    const handleNodeExecutionFailed = (data: any) => {
+    const handleNodeExecutionFailed = (data: { nodeId: string; nodeName?: string; error?: { message?: string }; inputData?: unknown; executionTime?: number }) => {
       // console.log('Node execution failed:', data);
       setExecutingWithReset(); // Prevent unsaved changes during WebSocket updates
       const { nodeId, nodeName, error, inputData, executionTime } = data;
@@ -348,6 +346,25 @@ const WorkflowBuilderInner: React.FC = () => {
     };
   }, [socket, setNodes]);
 
+  // Utility function to normalize edge styling (defined early for use in paste handler)
+  const normalizeEdge = useCallback((edge: Edge | Connection) => {
+    return {
+      ...edge,
+      type: (edge as Edge).type || 'default',
+      animated: true, // Always animate
+      markerEnd: {
+        type: MarkerType.ArrowClosed,
+        width: 20,
+        height: 20,
+        color: '#06b6d4', // cyan-500
+      },
+      style: {
+        strokeWidth: 2,
+        stroke: '#06b6d4', // cyan-500
+      },
+    };
+  }, []);
+
   // Handle paste event for JSON import
   useEffect(() => {
     const handlePaste = async (e: ClipboardEvent) => {
@@ -373,7 +390,7 @@ const WorkflowBuilderInner: React.FC = () => {
             setWorkflowName(data.name || 'Imported Workflow');
             setNodes(data.workflow.canvas.nodes);
             // Normalize imported edges for consistent styling
-            setEdges(data.workflow.canvas.edges.map((edge: any) => normalizeEdge(edge)));
+            setEdges(data.workflow.canvas.edges.map((edge: Edge) => normalizeEdge(edge)));
             setHasUnsavedChanges(true);
 
             toast.success('Workflow imported from clipboard');
@@ -386,12 +403,12 @@ const WorkflowBuilderInner: React.FC = () => {
 
     document.addEventListener('paste', handlePaste);
     return () => document.removeEventListener('paste', handlePaste);
-  }, [setNodes, setEdges]);
+  }, [setNodes, setEdges, normalizeEdge]);
 
   // Handle OAuth workflow auto-save
   useEffect(() => {
     // Listen for OAuth save request - auto-save workflow before OAuth
-    const handleRequestWorkflowSave = async (event: any) => {
+    const handleRequestWorkflowSave = async () => {
       // console.log('🔔 Received oauth:request-workflow-save event');
 
       try {
@@ -464,7 +481,7 @@ const WorkflowBuilderInner: React.FC = () => {
           // console.log('Updating existing workflow:', workflowId);
           response = await WorkflowAPI.updateWorkflow(
             workflowId,
-            workflowData,
+            workflowData as unknown as JsonObject,
             context.organizationId,
             context.projectId
           );
@@ -472,12 +489,12 @@ const WorkflowBuilderInner: React.FC = () => {
           // Create new workflow
           // console.log('Creating new workflow for OAuth');
           response = await WorkflowAPI.createWorkflow(
-            workflowData,
+            workflowData as unknown as JsonObject,
             context.organizationId,
             context.projectId
           );
-          savedWorkflowId = response.id;
-          setWorkflowId(response.id);
+          savedWorkflowId = response.id as string;
+          setWorkflowId(response.id as string);
 
           // Update browser URL to include the new workflow ID
           const currentPath = window.location.pathname;
@@ -488,7 +505,7 @@ const WorkflowBuilderInner: React.FC = () => {
         }
 
         // Store the workflow ID for the OAuth flow to use
-        sessionStorage.setItem('oauth_workflow_id', savedWorkflowId);
+        sessionStorage.setItem('oauth_workflow_id', savedWorkflowId as string);
 
         // Update the return URL to include the workflow ID
         const returnUrl = `/org/${context.organizationId}/project/${context.projectId}/workflows/${savedWorkflowId}${window.location.search}`;
@@ -497,9 +514,9 @@ const WorkflowBuilderInner: React.FC = () => {
         // console.log('✅ Workflow saved successfully for OAuth:', savedWorkflowId);
 
         setHasUnsavedChanges(false);
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error('❌ Failed to save workflow before OAuth:', err);
-        toast.error('Could not save workflow: ' + (err.message || 'Unknown error'));
+        toast.error('Could not save workflow: ' + (err instanceof Error ? err.message : 'Unknown error'));
       }
     };
 
@@ -514,7 +531,7 @@ const WorkflowBuilderInner: React.FC = () => {
   // Handle node execution workflow auto-save
   useEffect(() => {
     // Listen for node execution save request - auto-save workflow before executing node
-    const handleRequestNodeExecutionSave = async (event: any) => {
+    const handleRequestNodeExecutionSave = async () => {
       // console.log('🔔 Received node-execution:request-workflow-save event');
 
       try {
@@ -592,7 +609,7 @@ const WorkflowBuilderInner: React.FC = () => {
           // console.log('Updating existing workflow:', workflowId);
           response = await WorkflowAPI.updateWorkflow(
             workflowId,
-            workflowData,
+            workflowData as unknown as JsonObject,
             context.organizationId,
             context.projectId
           );
@@ -600,12 +617,12 @@ const WorkflowBuilderInner: React.FC = () => {
           // Create new workflow
           // console.log('Creating new workflow for node execution');
           response = await WorkflowAPI.createWorkflow(
-            workflowData,
+            workflowData as unknown as JsonObject,
             context.organizationId,
             context.projectId
           );
-          savedWorkflowId = response.id;
-          setWorkflowId(response.id);
+          savedWorkflowId = response.id as string;
+          setWorkflowId(response.id as string);
 
           // Update browser URL to include the new workflow ID
           const currentPath = window.location.pathname;
@@ -623,13 +640,14 @@ const WorkflowBuilderInner: React.FC = () => {
         window.dispatchEvent(new CustomEvent('node-execution:workflow-save-complete', {
           detail: { workflowId: savedWorkflowId }
         }));
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error('❌ Failed to save workflow before node execution:', err);
-        toast.error('Could not save workflow: ' + (err.message || 'Unknown error'));
+        const errMsg = err instanceof Error ? err.message : 'Unknown error';
+        toast.error('Could not save workflow: ' + errMsg);
 
         // Emit failure event
         window.dispatchEvent(new CustomEvent('node-execution:workflow-save-failed', {
-          detail: { error: err.message || 'Unknown error' }
+          detail: { error: errMsg }
         }));
       }
     };
@@ -707,6 +725,8 @@ const WorkflowBuilderInner: React.FC = () => {
           context.organizationId,
           context.projectId
         );
+        const wfData = workflow.workflow as Record<string, unknown> | undefined;
+        const wfCanvas = wfData?.canvas as Record<string, unknown> | undefined;
 
         // console.log('=== Workflow Loaded Successfully ===');
         // console.log('Workflow ID:', workflow.id);
@@ -714,22 +734,22 @@ const WorkflowBuilderInner: React.FC = () => {
         // console.log('Workflow Data:', workflow.workflow);
 
         // Set workflow metadata
-        setWorkflowId(workflow.id);
-        setWorkflowName(workflow.name || 'My workflow');
+        setWorkflowId(workflow.id as string);
+        setWorkflowName((workflow.name as string) || 'My workflow');
         setIsWorkflowActive(workflow.status === 'active');
 
         // Load nodes and edges from canvas data if available
         isLoadingRef.current = true; // Prevent unsaved changes detection during load
-        if (workflow.workflow?.canvas) {
-          const loadedNodes = workflow.workflow.canvas.nodes || [];
-          const loadedEdges = workflow.workflow.canvas.edges || [];
+        if (wfCanvas) {
+          const loadedNodes = (wfCanvas.nodes || []) as Node[];
+          const loadedEdges = (wfCanvas.edges || []) as Edge[];
 
           // console.log('Loading', loadedNodes.length, 'nodes and', loadedEdges.length, 'edges');
           // console.log('Nodes data:', loadedNodes);
           // console.log('Edges data:', loadedEdges);
 
           // Normalize loaded edges to ensure consistent styling
-          const normalizedEdges = loadedEdges.map((edge: any) => normalizeEdge(edge));
+          const normalizedEdges = loadedEdges.map((edge: Edge) => normalizeEdge(edge)) as Edge[];
 
           setNodes(loadedNodes);
           setEdges(normalizedEdges);
@@ -742,13 +762,13 @@ const WorkflowBuilderInner: React.FC = () => {
         setHasUnsavedChanges(false);
 
         // Only show toast if this workflow hasn't been loaded yet (prevents duplicate toasts in StrictMode)
-        if (loadedWorkflowRef.current !== workflow.id) {
-          loadedWorkflowRef.current = workflow.id;
+        if (loadedWorkflowRef.current !== (workflow.id as string)) {
+          loadedWorkflowRef.current = workflow.id as string;
           toast.success('Workflow loaded successfully');
         }
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error('Failed to load workflow:', error);
-        toast.error(error.message || 'Failed to load workflow');
+        toast.error(error instanceof Error ? error.message : 'Failed to load workflow');
       } finally {
         setIsLoading(false);
         setInitialLoadComplete(true);
@@ -760,6 +780,7 @@ const WorkflowBuilderInner: React.FC = () => {
     };
 
     loadWorkflow();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, setNodes, setEdges]);
 
   // Track changes to nodes and edges
@@ -778,31 +799,12 @@ const WorkflowBuilderInner: React.FC = () => {
     setHasUnsavedChanges(true);
   }, [nodes, edges, initialLoadComplete]);
 
-  // Utility function to normalize edge styling
-  const normalizeEdge = (edge: any) => {
-    return {
-      ...edge,
-      type: edge.type || 'default',
-      animated: true, // Always animate
-      markerEnd: {
-        type: MarkerType.ArrowClosed,
-        width: 20,
-        height: 20,
-        color: '#06b6d4', // cyan-500
-      },
-      style: {
-        strokeWidth: 2,
-        stroke: '#06b6d4', // cyan-500
-      },
-    };
-  };
-
   const onConnect = useCallback(
     (params: Connection) => {
       const edge = normalizeEdge(params);
       setEdges((eds) => addEdge(edge, eds));
     },
-    [setEdges]
+    [setEdges, normalizeEdge]
   );
 
   const handleNodeClick = useCallback((event: React.MouseEvent, node: Node) => {
@@ -897,17 +899,12 @@ const WorkflowBuilderInner: React.FC = () => {
       // console.log('AI Generated:', workflowData.is_ai_generated);
       // console.log('Full Payload:', JSON.stringify(workflowData, null, 2));
 
-      let response;
-      // ✅ FIX: If AI-generated, ALWAYS create new workflow (don't update existing)
-      // This ensures AI generation counter increments properly
-      const shouldCreateNew = !workflowId || workflowData.is_ai_generated;
-
       if (workflowId && !workflowData.is_ai_generated) {
         // Update existing workflow (only if NOT AI-generated)
         // console.log('Updating existing workflow:', workflowId);
-        response = await WorkflowAPI.updateWorkflow(
+        await WorkflowAPI.updateWorkflow(
           workflowId,
-          workflowData,
+          workflowData as unknown as JsonObject,
           context.organizationId,
           context.projectId
         );
@@ -915,12 +912,12 @@ const WorkflowBuilderInner: React.FC = () => {
       } else {
         // Create new workflow (either no workflowId OR is AI-generated)
         // console.log('Creating new workflow' + (workflowData.is_ai_generated ? ' (AI-generated)' : ''));
-        response = await WorkflowAPI.createWorkflow(
-          workflowData,
+        const response = await WorkflowAPI.createWorkflow(
+          workflowData as unknown as JsonObject,
           context.organizationId,
           context.projectId
         );
-        const newWorkflowId = response.id;
+        const newWorkflowId = response.id as string;
         setWorkflowId(newWorkflowId);
 
         // Update URL if AI-generated from existing workflow
@@ -937,9 +934,9 @@ const WorkflowBuilderInner: React.FC = () => {
 
       // Reset unsaved changes after successful save
       setHasUnsavedChanges(false);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Save error:', error);
-      toast.error(error.message || 'Failed to save workflow');
+      toast.error(error instanceof Error ? error.message : 'Failed to save workflow');
     }
   };
 
@@ -1022,13 +1019,12 @@ const WorkflowBuilderInner: React.FC = () => {
       };
 
       // console.log('Creating template:', templateData);
-      const response = await api.createTemplate(templateData);
-      
+      await api.createTemplate(templateData as unknown as JsonObject);
+
       toast.success('Template created successfully!');
-      // console.log('Template created:', response);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to save as template:', error);
-      toast.error(error.message || 'Failed to save as template');
+      toast.error(error instanceof Error ? error.message : 'Failed to save as template');
       throw error; // Re-throw to handle in modal
     }
   };
@@ -1054,7 +1050,7 @@ const WorkflowBuilderInner: React.FC = () => {
 
     // Check if there's a Form Trigger node
     const formTrigger = nodes.find(n => n.type === 'FORM_TRIGGER');
-    const formTriggerData = formTrigger?.data as any;
+    const formTriggerData = formTrigger?.data as Record<string, unknown> | undefined;
 
     if (formTrigger && formTriggerData?.formFields && Array.isArray(formTriggerData.formFields) && formTriggerData.formFields.length > 0) {
       // Show form modal instead of executing directly
@@ -1075,7 +1071,7 @@ const WorkflowBuilderInner: React.FC = () => {
     });
   };
 
-  const executeWorkflowWithData = async (inputData: Record<string, any>) => {
+  const executeWorkflowWithData = async (inputData: Record<string, unknown>) => {
     try {
       setIsActive(true);
       setExecutingWithReset(); // Prevent unsaved changes detection during execution
@@ -1120,10 +1116,12 @@ const WorkflowBuilderInner: React.FC = () => {
       // Execute workflow via API
       const result = await WorkflowAPI.executeWorkflow(
         workflowId!,
-        { input_data: inputData },
+        { input_data: inputData } as JsonObject,
         context.organizationId,
         context.projectId
       );
+      const execResult = result.result as Record<string, unknown> | undefined;
+      const execData = execResult?.data as Record<string, Record<string, unknown>> | undefined;
 
       // console.log('Workflow execution result:', result);
 
@@ -1131,7 +1129,7 @@ const WorkflowBuilderInner: React.FC = () => {
       setExecutionResult(result);
 
       // Update node statuses based on execution result
-      if (result.result?.data) {
+      if (execData) {
         // Track successfully executed nodes for edge coloring
         const executedNodeIds = new Set<string>();
         const nodeErrors: Array<{nodeName: string, error: string}> = [];
@@ -1141,7 +1139,7 @@ const WorkflowBuilderInner: React.FC = () => {
             // Skip note nodes
             if (node.type === 'note') return node;
 
-            const nodeResult = result.result.data[node.id];
+            const nodeResult = execData[node.id] as Record<string, unknown> | undefined;
 
             if (nodeResult) {
               // Node was executed
@@ -1154,21 +1152,23 @@ const WorkflowBuilderInner: React.FC = () => {
               if (nodeResult.error) {
                 if (typeof nodeResult.error === 'string') {
                   errorMessage = nodeResult.error;
-                } else if (nodeResult.error.message) {
-                  errorMessage = nodeResult.error.message;
+                } else if ((nodeResult.error as Record<string, unknown>).message) {
+                  errorMessage = (nodeResult.error as Record<string, unknown>).message as string;
                 }
               }
 
               // Handle different response formats for output data extraction
-              let resultData = nodeResult;
+              let resultData: unknown = nodeResult;
               if (nodeResult.data) {
-                if (Array.isArray(nodeResult.data) && nodeResult.data.length > 0) {
-                  if (Array.isArray(nodeResult.data[0]) && nodeResult.data[0].length > 0) {
-                    resultData = nodeResult.data[0][0].json || nodeResult.data[0][0];
-                  } else if (nodeResult.data[0].json) {
-                    resultData = nodeResult.data[0].json;
+                const nrData = nodeResult.data as unknown[];
+                if (Array.isArray(nrData) && nrData.length > 0) {
+                  const firstItem = nrData[0] as Record<string, unknown> | unknown[];
+                  if (Array.isArray(firstItem) && firstItem.length > 0) {
+                    resultData = (firstItem[0] as Record<string, unknown>).json || firstItem[0];
+                  } else if ((firstItem as Record<string, unknown>).json) {
+                    resultData = (firstItem as Record<string, unknown>).json;
                   } else {
-                    resultData = nodeResult.data[0];
+                    resultData = firstItem;
                   }
                 } else {
                   resultData = nodeResult.data;
@@ -1297,29 +1297,32 @@ const WorkflowBuilderInner: React.FC = () => {
       // Check execution status
       if (result.status === 'completed') {
         // Only show success if no node errors - check all possible error locations
-        const hasNodeErrors = result.result?.data && Object.values(result.result.data).some((nodeResult: any) =>
-          nodeResult.error ||
-          nodeResult.data?.error ||
-          nodeResult.data?.success === false ||
-          nodeResult.success === false
-        );
+        const hasNodeErrors = execData && Object.values(execData).some((nodeResult: unknown) => {
+          const nr = nodeResult as Record<string, unknown>;
+          const nrData = nr.data as Record<string, unknown> | undefined;
+          return nr.error ||
+            nrData?.error ||
+            nrData?.success === false ||
+            nr.success === false;
+        });
 
         if (!hasNodeErrors) {
           toast.success('Workflow executed successfully!');
           setExecutionLogs(prev => [...prev, {
             time: formatLogTime(),
-            message: `━━━ Workflow execution completed successfully (${result.result?.executedNodes || 0}/${result.result?.totalNodes || 0} nodes)`,
+            message: `━━━ Workflow execution completed successfully (${execResult?.executedNodes || 0}/${execResult?.totalNodes || 0} nodes)`,
             type: 'success'
           }]);
         } else {
           // Find the first error message to display
           let firstErrorMessage = 'One or more nodes failed during execution';
-          if (result.result?.data) {
-            for (const nodeResult of Object.values(result.result.data) as any[]) {
-              const errMsg = nodeResult.error?.message ||
-                            nodeResult.data?.error?.message ||
-                            nodeResult.error ||
-                            nodeResult.data?.error;
+          if (execData) {
+            for (const nodeResult of Object.values(execData) as Record<string, unknown>[]) {
+              const nrError = nodeResult.error as Record<string, unknown> | string | undefined;
+              const nrData = nodeResult.data as Record<string, unknown> | undefined;
+              const nrDataError = nrData?.error as Record<string, unknown> | string | undefined;
+              const errMsg = (typeof nrError === 'object' ? nrError?.message : nrError) ||
+                            (typeof nrDataError === 'object' ? nrDataError?.message : nrDataError);
               if (errMsg) {
                 firstErrorMessage = typeof errMsg === 'string' ? errMsg : JSON.stringify(errMsg);
                 break;
@@ -1342,18 +1345,13 @@ const WorkflowBuilderInner: React.FC = () => {
         }
         // console.log('Execution details:', result.result);
 
-        // Show execution summary
-        if (result.result) {
-          const { executedNodes, totalNodes, lastNodeExecuted } = result.result;
-          // console.log(`Executed ${executedNodes}/${totalNodes} nodes`);
-          // console.log('Last node executed:', lastNodeExecuted);
-        }
       } else if (result.status === 'failed') {
-        const errorMessage = result.error?.message || result.error || 'Unknown error';
+        const resultError = result.error as Record<string, unknown> | string | undefined;
+        const errorMessage = (typeof resultError === 'object' ? resultError?.message : resultError) || 'Unknown error';
         toast.error(
           <div className="flex flex-col gap-1">
             <div className="font-semibold text-sm">Workflow Execution Failed</div>
-            <div className="text-xs text-gray-300">{errorMessage}</div>
+            <div className="text-xs text-gray-300">{String(errorMessage)}</div>
           </div>,
           {
             duration: 8000,
@@ -1362,7 +1360,7 @@ const WorkflowBuilderInner: React.FC = () => {
         console.error('Execution error:', result.error);
         setExecutionLogs(prev => [...prev, {
           time: formatLogTime(),
-          message: `━━━ Workflow execution failed: ${result.error?.message || 'Unknown error'}`,
+          message: `━━━ Workflow execution failed: ${(typeof resultError === 'object' ? resultError?.message : resultError) || 'Unknown error'}`,
           type: 'error'
         }]);
       } else {
@@ -1375,13 +1373,13 @@ const WorkflowBuilderInner: React.FC = () => {
       }
       setIsActive(false);
       setExecutingWithReset(); // Keep flag active briefly for any final updates
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Workflow execution error:', error);
-      // console.log('Error response data:', error.response?.data);
 
       // Extract detailed error message
-      const errorMessage = error.response?.data?.message || error.message || 'Failed to execute workflow';
-      const errorData = error.response?.data;
+      const errObj = error as { response?: { data?: Record<string, unknown> }; message?: string };
+      const errorMessage = (errObj.response?.data?.message as string) || errObj.message || 'Failed to execute workflow';
+      const errorData = errObj.response?.data;
 
       // Show error toast with details
       toast.error(
@@ -1407,8 +1405,10 @@ const WorkflowBuilderInner: React.FC = () => {
 
       // Check if error response contains partial execution data (from failed nodes)
       // The backend returns this in error.response.data.details
-      const details = errorData?.details;
-      const nodeExecutionData = details?.result?.data || details?.output_data?.data;
+      const details = errorData?.details as Record<string, unknown> | undefined;
+      const detailsResult = details?.result as Record<string, unknown> | undefined;
+      const detailsOutput = details?.output_data as Record<string, unknown> | undefined;
+      const nodeExecutionData = (detailsResult?.data || detailsOutput?.data) as Record<string, Record<string, unknown>> | undefined;
 
       // console.log('Checking for node execution data...');
       // console.log('errorData:', errorData);
@@ -1431,8 +1431,9 @@ const WorkflowBuilderInner: React.FC = () => {
 
               if (hasError) {
                 let nodeErrorMessage = 'Node execution failed';
-                if (nodeResult.error?.message) {
-                  nodeErrorMessage = nodeResult.error.message;
+                const nrError = nodeResult.error as Record<string, unknown> | undefined;
+                if (nrError?.message) {
+                  nodeErrorMessage = String(nrError.message);
                 }
 
                 // console.log(`❌ Node ${node.data?.label || node.id} failed: ${nodeErrorMessage}`);
@@ -1501,7 +1502,7 @@ const WorkflowBuilderInner: React.FC = () => {
     }
   };
 
-  const handleFormTestSubmit = (formData: Record<string, any>) => {
+  const handleFormTestSubmit = (formData: Record<string, unknown>) => {
     // Execute workflow with form data
     executeWorkflowWithData({
       formSubmission: formData,
@@ -1510,7 +1511,7 @@ const WorkflowBuilderInner: React.FC = () => {
     });
   };
 
-  const handleWorkflowSaved = useCallback((workflow: { nodes: any[]; edges: any[]; prompt?: string }) => {
+  const handleWorkflowSaved = useCallback((workflow: { nodes: Node[]; edges: Edge[]; prompt?: string }) => {
     // ✅ FIX: Store the AI prompt for tracking is_ai_generated
     if (workflow.prompt) {
       setAiWorkflowPrompt(workflow.prompt);
@@ -1520,9 +1521,8 @@ const WorkflowBuilderInner: React.FC = () => {
     // Apply generated workflow to canvas
     if (workflow.nodes && workflow.nodes.length > 0) {
       // Process nodes the same way Classic mode does (add positions if missing)
-      const processedNodes = workflow.nodes.map((node: any, index: number) => {
+      const processedNodes = workflow.nodes.map((node: Node, index: number) => {
         if (!node.position || (node.position.x === 0 && node.position.y === 0)) {
-          // console.warn(`⚠️ Node ${node.id} has no position, auto-positioning at ${100 + index * 300}, 200`);
           return {
             ...node,
             position: { x: 100 + index * 300, y: 200 }
@@ -1534,7 +1534,7 @@ const WorkflowBuilderInner: React.FC = () => {
       // Debug logging removed for production
 
       // Normalize edges for consistent styling
-      const normalizedEdges = (workflow.edges || []).map((edge: any) => normalizeEdge(edge));
+      const normalizedEdges = (workflow.edges || []).map((edge: Edge) => normalizeEdge(edge)) as Edge[];
 
       setNodes(processedNodes);
       setEdges(normalizedEdges);
@@ -1567,9 +1567,12 @@ const WorkflowBuilderInner: React.FC = () => {
       // console.log('Workflow generation response:', response);
 
       // Check responseType from backend
-      if (response.responseType === 'workflow' && response.workflow?.canvas) {
+      const respWorkflow = response.workflow as Record<string, unknown> | undefined;
+      const respCanvas = respWorkflow?.canvas as Record<string, unknown> | undefined;
+      if (response.responseType === 'workflow' && respCanvas) {
         // Apply generated workflow to canvas
-        const { nodes, edges } = response.workflow.canvas;
+        const nodes = respCanvas.nodes as Node[] | undefined;
+        const edges = respCanvas.edges as Edge[] | undefined;
 
         // DEBUG: Log what we received
         // console.log('🔍 DEBUG - Received from backend:');
@@ -1580,8 +1583,8 @@ const WorkflowBuilderInner: React.FC = () => {
 
         // Validate edges reference valid nodes
         if (edges && edges.length > 0 && nodes) {
-          const nodeIds = new Set(nodes.map((n: any) => n.id));
-          const invalidEdges = edges.filter((e: any) =>
+          const nodeIds = new Set(nodes.map((n: Node) => n.id));
+          const invalidEdges = edges.filter((e: Edge) =>
             !nodeIds.has(e.source) || !nodeIds.has(e.target)
           );
 
@@ -1596,9 +1599,8 @@ const WorkflowBuilderInner: React.FC = () => {
           // console.log('⚙️ Setting nodes and edges in ReactFlow...');
 
           // Ensure nodes have proper positions (fallback if AI doesn't set them)
-          const processedNodes = nodes.map((node: any, index: number) => {
+          const processedNodes = nodes.map((node: Node, index: number) => {
             if (!node.position || (node.position.x === 0 && node.position.y === 0)) {
-              // console.warn(`⚠️ Node ${node.id} has no position, auto-positioning at ${100 + index * 300}, 200`);
               return {
                 ...node,
                 position: { x: 100 + index * 300, y: 200 }
@@ -1607,10 +1609,8 @@ const WorkflowBuilderInner: React.FC = () => {
             return node;
           });
 
-          // console.log('📍 Final node positions:', processedNodes.map((n: any) => ({ id: n.id, pos: n.position })));
-
           // Ensure edges have all required ReactFlow properties - use normalizeEdge for consistency
-          const processedEdges = (edges || []).map((edge: any) => normalizeEdge(edge));
+          const processedEdges = (edges || []).map((edge: Edge) => normalizeEdge(edge)) as Edge[];
 
           // console.log('📊 Processed edges:', processedEdges);
 
@@ -1632,9 +1632,10 @@ const WorkflowBuilderInner: React.FC = () => {
           );
 
           // Show warnings if any connectors are missing
-          if (response.missingConnectors && response.missingConnectors.length > 0) {
+          const missingConnectors = response.missingConnectors as string[] | undefined;
+          if (missingConnectors && missingConnectors.length > 0) {
             toast.warning(
-              `Missing connectors: ${response.missingConnectors.join(', ')}. Please configure them in settings.`,
+              `Missing connectors: ${missingConnectors.join(', ')}. Please configure them in settings.`,
               { duration: 7000 }
             );
           }
@@ -1648,29 +1649,30 @@ const WorkflowBuilderInner: React.FC = () => {
         return response;
       } else if (response.responseType === 'limit_exceeded') {
         // ✅ Show limit exceeded error with Sonner toast
-        toast.error(response.error || 'AI workflow generation limit exceeded');
+        toast.error(String(response.error || 'AI workflow generation limit exceeded'));
         return response;
       } else if (response.responseType === 'error') {
         // Return error response for AIPromptPanel
-        toast.error(response.message || 'Failed to generate workflow');
+        toast.error(String(response.message || 'Failed to generate workflow'));
         return response;
       } else if (response.responseType === 'conversational') {
         // Return conversational response
         return response;
       } else {
         // Fallback for old response format
-        throw new Error(response.error || 'Failed to generate workflow structure');
+        throw new Error(String(response.error || 'Failed to generate workflow structure'));
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Workflow generation error:', error);
-      toast.error(error.message || 'Failed to generate workflow. Please try again with a more detailed prompt.');
+      const errMsg = error instanceof Error ? error.message : 'Failed to generate workflow. Please try again with a more detailed prompt.';
+      toast.error(errMsg);
 
       // Return error response
       return {
         success: false,
         responseType: 'error',
-        error: error.message,
-        message: error.message || 'Failed to generate workflow',
+        error: errMsg,
+        message: errMsg,
         canRetry: true,
       };
     }
@@ -1725,9 +1727,9 @@ const WorkflowBuilderInner: React.FC = () => {
       if (active) {
         toast.info('Workflow triggers are now active and will start polling/listening for events');
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to toggle workflow activation:', error);
-      toast.error(error.message || 'Failed to update workflow status');
+      toast.error(error instanceof Error ? error.message : 'Failed to update workflow status');
       // Revert the state on error
       setIsWorkflowActive(!active);
     }
@@ -1772,8 +1774,9 @@ const WorkflowBuilderInner: React.FC = () => {
     input.type = 'file';
     input.accept = 'application/json,.json';
 
-    input.onchange = async (e: any) => {
-      const file = e.target.files[0];
+    input.onchange = async (e: Event) => {
+      const target = e.target as HTMLInputElement;
+      const file = target.files?.[0];
       if (!file) return;
 
       try {
@@ -1789,7 +1792,7 @@ const WorkflowBuilderInner: React.FC = () => {
         setWorkflowName(data.name || 'Imported Workflow');
         setNodes(data.workflow.canvas.nodes);
         // Normalize imported edges for consistent styling
-        setEdges(data.workflow.canvas.edges.map((edge: any) => normalizeEdge(edge)));
+        setEdges(data.workflow.canvas.edges.map((edge: Edge) => normalizeEdge(edge)));
         setHasUnsavedChanges(true);
 
         toast.success('Workflow imported successfully');
@@ -1896,7 +1899,8 @@ const WorkflowBuilderInner: React.FC = () => {
         ) : activeTab === 'executions' ? (
           <ExecutionsTab
             workflowId={workflowId}
-            currentExecution={executionResult}
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            currentExecution={executionResult as any}
             context={context}
           />
         ) : activeTab === 'templates' ? (
@@ -1906,8 +1910,8 @@ const WorkflowBuilderInner: React.FC = () => {
               if (template.workflow?.canvas) {
                 setWorkflowName(template.name);
                 setTemplateId(template.id); // Track template ID
-                setNodes(template.workflow.canvas.nodes || []);
-                setEdges((template.workflow.canvas.edges || []).map(normalizeEdge));
+                setNodes((template.workflow.canvas.nodes || []) as Node[]);
+                setEdges(((template.workflow.canvas.edges || []) as Edge[]).map(normalizeEdge) as Edge[]);
                 setHasUnsavedChanges(true);
                 setActiveTab('editor'); // Switch back to editor
               }

@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { 
   Activity,
-  Users,
-  FolderOpen,
   Database,
   Globe,
   Zap,
@@ -18,12 +16,10 @@ import {
   Calendar,
   Clock,
   TrendingUp,
-  TrendingDown,
   AlertCircle,
   CheckCircle,
   XCircle,
   MoreVertical,
-  Eye,
   Code
 } from 'lucide-react'
 import { StatCard, ChartCard, GlassCard } from '../../components/ui/GlassCard'
@@ -33,11 +29,6 @@ import {
   Line,
   AreaChart,
   Area,
-  BarChart,
-  Bar,
-  PieChart,
-  Pie,
-  Cell,
   XAxis,
   YAxis,
   CartesianGrid,

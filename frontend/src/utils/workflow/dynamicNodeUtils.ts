@@ -1,13 +1,12 @@
-import { NodeType, NodeTypeDefinition, NodeConfigField } from "@/config/workflow";
-import { 
-  Mail, 
-  Plus, 
-  Edit, 
-  Tag, 
-  MessageSquare, 
-  Search, 
-  X, 
-  Database, 
+import { NodeType, NodeConfigField } from "@/config/workflow";
+import {
+  Mail,
+  Plus,
+  Edit,
+  Tag,
+  MessageSquare,
+  Search,
+  Database,
   Zap,
   Eye,
   EyeOff,
@@ -19,13 +18,50 @@ import {
   FilePlus
 } from "lucide-react";
 
+/** Schema definition for a single field in a connector action's input. */
+export interface FieldSchema {
+  description?: string;
+  type?: string;
+  required?: boolean;
+  placeholder?: string;
+  default?: string | number | boolean;
+  options?: (string | { label: string; value: string })[];
+  enum?: string[];
+}
+
+/** Lightweight representation of a connector returned by the backend. */
+interface ConnectorRef {
+  name: string;
+  display_name?: string;
+}
+
+/** Lightweight representation of an action returned by the backend. */
+interface ActionRef {
+  id: string;
+  name: string;
+  description?: string;
+  inputSchema?: Record<string, FieldSchema>;
+  icon?: string;
+}
+
+/** Lightweight representation of a trigger returned by the backend. */
+interface TriggerRef {
+  id: string;
+  name: string;
+  description?: string;
+  icon?: string;
+  eventType?: string;
+  webhookRequired?: boolean;
+  outputSchema?: Record<string, unknown>;
+}
+
 /**
  * Generate config fields from action input schema
  */
-export function generateConfigFields(inputSchema: any): NodeConfigField[] {
+export function generateConfigFields(inputSchema: Record<string, FieldSchema> | null | undefined): NodeConfigField[] {
   if (!inputSchema) return [];
-  
-  return Object.entries(inputSchema).map(([fieldName, fieldDef]: [string, any]) => {
+
+  return Object.entries(inputSchema).map(([fieldName, fieldDef]) => {
     // Create field following your EXACT pattern
     const configField: NodeConfigField = {
       name: fieldName,
@@ -48,8 +84,8 @@ export function generateConfigFields(inputSchema: any): NodeConfigField[] {
     // Handle select options (like your timezone field)
     if (fieldDef.options || fieldDef.enum) {
       configField.type = "select";
-      const options = fieldDef.options || fieldDef.enum;
-      configField.options = options.map((opt: any) => 
+      const options = fieldDef.options ?? fieldDef.enum ?? [];
+      configField.options = options.map((opt: string | { label: string; value: string }) =>
         typeof opt === 'string' ? { label: opt, value: opt } : opt
       );
     }
@@ -74,7 +110,7 @@ function formatFieldLabel(fieldName: string, description?: string): string {
 /**
  * Generate appropriate placeholders like your existing nodes
  */
-function getFieldPlaceholder(fieldName: string, fieldDef: any): string {
+function getFieldPlaceholder(fieldName: string, fieldDef: FieldSchema): string {
   if (fieldDef.placeholder) return fieldDef.placeholder;
   
   // Match your existing placeholder style
@@ -103,7 +139,7 @@ function getFieldPlaceholder(fieldName: string, fieldDef: any): string {
 /**
  * Determine the appropriate field type based on schema
  */
-function getFieldType(schemaType: string, fieldName: string): NodeConfigField['type'] {
+function getFieldType(schemaType: string | undefined, fieldName: string): NodeConfigField['type'] {
   if (schemaType === 'boolean') return 'toggle';
   if (schemaType === 'number') return 'number';
   
@@ -184,8 +220,8 @@ export function getActionIcon(actionId: string, connectorType: string) {
  * Create a professional node definition for a connector action
  */
 export function createConnectorActionNode(
-  connector: any,
-  action: any,
+  connector: ConnectorRef,
+  action: ActionRef,
   position: { x: number; y: number }
 ) {
   const nodeIcon = getActionIcon(action.id, connector.name);
@@ -218,8 +254,8 @@ export function createConnectorActionNode(
  * Create a professional connector trigger node
  */
 export function createConnectorTriggerNode(
-  connector: any,
-  trigger: any,
+  connector: ConnectorRef,
+  trigger: TriggerRef,
   position: { x: number; y: number }
 ) {
   return {

@@ -11,8 +11,6 @@ import type {
   ProcessedFileResponse,
   ApiResponse
 } from '../../types/fluxturn';
-import type { ProcessedFileResponse as CreativeProcessedFileResponse } from '../api';
-
 // Note: Both ProcessedFileResponse types are now compatible, no conversion needed
 
 // =============================================================================
@@ -35,10 +33,9 @@ export const aiApi = {
         request
       );
       return response.data || response as ProcessedFileResponse;
-    } catch (apiError: any) {
+    } catch {
       // Fallback to imagitar AI API
-      // console.warn('FluxTurn AI API failed, falling back to imagitar API:', apiError);
-      
+
       try {
         // Map to imagitar API structure
         if (request.imageData) {
@@ -57,8 +54,8 @@ export const aiApi = {
         } else {
           throw new Error('Image data required for processing');
         }
-      } catch (fallbackError: any) {
-        throw new Error(`AI image processing failed: ${fallbackError.message}`);
+      } catch (fallbackError: unknown) {
+        throw new Error(`AI image processing failed: ${fallbackError instanceof Error ? fallbackError.message : String(fallbackError)}`);
       }
     }
   },
@@ -84,10 +81,9 @@ export const aiApi = {
         formData
       );
       return response.data || response as ProcessedFileResponse;
-    } catch (apiError: any) {
+    } catch {
       // Fallback to imagitar AI API
-      // console.warn('FluxTurn AI API failed, falling back to imagitar API:', apiError);
-      
+
       try {
         const result = await api.aiEditImageFile(file, {
           editType: request.editType,
@@ -97,8 +93,8 @@ export const aiApi = {
           quality: request.quality
         });
         return { ...result, status: result.status || 'completed' };
-      } catch (fallbackError: any) {
-        throw new Error(`AI image processing failed: ${fallbackError.message}`);
+      } catch (fallbackError: unknown) {
+        throw new Error(`AI image processing failed: ${fallbackError instanceof Error ? fallbackError.message : String(fallbackError)}`);
       }
     }
   },
@@ -143,17 +139,18 @@ export const aiApi = {
           size: response.data.size,
           quality: response.data.quality
         };
-      } else if (response && (response as any).images) {
+      } else if (response && (response as unknown as { images?: unknown }).images) {
         // Fallback if response structure is different
+        const fallback = response as unknown as { images: { url: string; revised_prompt?: string; taskUUID?: string; stored?: boolean; contentId?: string }[]; size?: string; quality?: string };
         return {
-          images: (response as any).images,
-          size: (response as any).size,
-          quality: (response as any).quality
+          images: fallback.images,
+          size: fallback.size,
+          quality: fallback.quality
         };
       } else {
         throw new Error('Invalid response structure from image generation API');
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('AI image generation failed:', error);
       // Mock implementation for development
       // console.warn('Falling back to mock implementation');
@@ -184,8 +181,8 @@ export const aiApi = {
         { scale }
       );
       return response.data || response as ProcessedFileResponse;
-    } catch (error: any) {
-      throw new Error(`AI upscaling failed: ${error.message}`);
+    } catch (error: unknown) {
+      throw new Error(`AI upscaling failed: ${error instanceof Error ? error.message : String(error)}`);
     }
   },
 
@@ -198,8 +195,8 @@ export const aiApi = {
         `/ai/image/${imageId}/remove-background`
       );
       return response.data || response as ProcessedFileResponse;
-    } catch (error: any) {
-      throw new Error(`Background removal failed: ${error.message}`);
+    } catch (error: unknown) {
+      throw new Error(`Background removal failed: ${error instanceof Error ? error.message : String(error)}`);
     }
   },
 
@@ -246,8 +243,8 @@ export const aiApi = {
       }
 
       return response.data.images[0];
-    } catch (error: any) {
-      throw new Error(`AI image edit failed: ${error.message}`);
+    } catch (error: unknown) {
+      throw new Error(`AI image edit failed: ${error instanceof Error ? error.message : String(error)}`);
     }
   },
 
@@ -265,10 +262,9 @@ export const aiApi = {
         request
       );
       return response.data || response as ProcessedFileResponse;
-    } catch (apiError: any) {
+    } catch {
       // Fallback to imagitar AI API
-      // console.warn('FluxTurn AI API failed, falling back to imagitar API:', apiError);
-      
+
       try {
         // Map to imagitar API structure for video AI editing
         const result = await api.aiEditVideoFrame(request.videoId, {
@@ -278,8 +274,8 @@ export const aiApi = {
           timestamp: request.startTime || 0
         });
         return { ...result, status: result.status || 'completed' };
-      } catch (fallbackError: any) {
-        throw new Error(`AI video processing failed: ${fallbackError.message}`);
+      } catch (fallbackError: unknown) {
+        throw new Error(`AI video processing failed: ${fallbackError instanceof Error ? fallbackError.message : String(fallbackError)}`);
       }
     }
   },
@@ -306,10 +302,9 @@ export const aiApi = {
         }
       );
       return response.data || response as ProcessedFileResponse;
-    } catch (error: any) {
+    } catch {
       // Mock implementation for development
-      // console.warn('AI video generation API not available, using mock implementation');
-      
+
       const mockResponse: ProcessedFileResponse = {
         id: `generated-video-${Date.now()}`,
         originalName: 'generated-video.mp4',
@@ -341,8 +336,8 @@ export const aiApi = {
         `/ai/video/${videoId}/stabilize`
       );
       return response.data || response as ProcessedFileResponse;
-    } catch (error: any) {
-      throw new Error(`Video stabilization failed: ${error.message}`);
+    } catch (error: unknown) {
+      throw new Error(`Video stabilization failed: ${error instanceof Error ? error.message : String(error)}`);
     }
   },
 
@@ -360,8 +355,8 @@ export const aiApi = {
         options || {}
       );
       return response.data || response as ProcessedFileResponse;
-    } catch (error: any) {
-      throw new Error(`Video enhancement failed: ${error.message}`);
+    } catch (error: unknown) {
+      throw new Error(`Video enhancement failed: ${error instanceof Error ? error.message : String(error)}`);
     }
   },
 
@@ -372,17 +367,16 @@ export const aiApi = {
   /**
    * Generate content using AI
    */
-  async generateContent(request: ContentGenerationRequest): Promise<any> {
+  async generateContent(request: ContentGenerationRequest): Promise<unknown> {
     try {
-      const response = await api.post<ApiResponse<any>>(
+      const response = await api.post<ApiResponse<unknown>>(
         '/ai/content/generate',
         request
       );
       return response.data || response;
-    } catch (error: any) {
+    } catch {
       // Mock implementation for development
-      // console.warn('AI content generation API not available, using mock implementation');
-      
+
       switch (request.type) {
         case 'text':
           return {
@@ -425,17 +419,17 @@ export const aiApi = {
     maxLength?: number;
     style?: 'casual' | 'formal' | 'creative' | 'technical';
     language?: string;
-  }): Promise<{ content: string; metadata: any }> {
+  }): Promise<{ content: string; metadata: Record<string, unknown> }> {
     try {
-      const response = await api.post<ApiResponse<any>>(
+      const response = await api.post<ApiResponse<unknown>>(
         '/ai/content/text',
         {
           prompt,
           ...options
         }
       );
-      return response.data || response;
-    } catch (error: any) {
+      return (response.data || response) as { content: string; metadata: Record<string, unknown> };
+    } catch {
       // Mock implementation
       return {
         content: `Generated text content for: ${prompt}. This is a mock response that would normally be generated by AI based on your prompt. The style would be ${options?.style || 'casual'} and it would respect the maximum length of ${options?.maxLength || 'unlimited'} characters.`,
@@ -462,15 +456,21 @@ export const aiApi = {
     text?: string;
     safetyScore?: number;
     caption?: string;
-    metadata: any;
+    metadata: Record<string, unknown>;
   }> {
     try {
-      const response = await api.post<ApiResponse<any>>(
+      const response = await api.post<ApiResponse<unknown>>(
         `/ai/image/${imageId}/analyze`,
         options || {}
       );
-      return response.data || response;
-    } catch (error: any) {
+      return (response.data || response) as {
+        objects?: Array<{ name: string; confidence: number; bbox: number[] }>;
+        text?: string;
+        safetyScore?: number;
+        caption?: string;
+        metadata: Record<string, unknown>;
+      };
+    } catch {
       // Mock implementation
       return {
         objects: options?.detectObjects ? [
@@ -499,10 +499,15 @@ export const aiApi = {
     error?: string;
   }> {
     try {
-      const response = await api.get<ApiResponse<any>>(`/ai/jobs/${jobId}/status`);
-      return response.data || response;
-    } catch (error: any) {
-      if (error.statusCode === 404) {
+      const response = await api.get<ApiResponse<unknown>>(`/ai/jobs/${jobId}/status`);
+      return (response.data || response) as {
+        status: 'pending' | 'processing' | 'completed' | 'failed';
+        progress?: number;
+        result?: ProcessedFileResponse;
+        error?: string;
+      };
+    } catch (error: unknown) {
+      if ((error as { statusCode?: number }).statusCode === 404) {
         throw new Error('Processing job not found.');
       }
       throw error;
@@ -524,8 +529,8 @@ export const aiApi = {
         options
       );
       return response.data || response as { audioUrl: string; duration: number };
-    } catch (error: any) {
-      throw new Error(`Text-to-speech failed: ${error.message}`);
+    } catch (error: unknown) {
+      throw new Error(`Text-to-speech failed: ${error instanceof Error ? error.message : String(error)}`);
     }
   },
 
@@ -535,11 +540,11 @@ export const aiApi = {
   async cancelProcessing(jobId: string): Promise<void> {
     try {
       await api.post(`/ai/jobs/${jobId}/cancel`);
-    } catch (error: any) {
-      if (error.statusCode === 404) {
+    } catch (error: unknown) {
+      if ((error as { statusCode?: number }).statusCode === 404) {
         throw new Error('Processing job not found.');
       }
-      if (error.statusCode === 400) {
+      if ((error as { statusCode?: number }).statusCode === 400) {
         throw new Error('Processing job cannot be cancelled.');
       }
       throw error;

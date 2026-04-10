@@ -32,8 +32,8 @@ export function ContactSection() {
         subject: "",
         message: "",
       });
-    } catch (error: any) {
-      toast.error(error.message || "Failed to send message. Please try again.");
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : "Failed to send message. Please try again.");
     } finally {
       setIsSubmitting(false);
     }

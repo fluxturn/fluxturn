@@ -1,25 +1,35 @@
 import React, { useState } from 'react';
 import { X, ChevronDown, ChevronRight, CheckCircle, XCircle, Clock, Brain } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { AIAgentExecutionPanel } from './panels/AIAgentExecutionPanel';
+import { AIAgentExecutionPanel, type AgentExecutionResult } from './panels/AIAgentExecutionPanel';
+
+interface NodeResultData {
+  error?: { message?: string };
+  data?: unknown[][];
+  inputData?: unknown;
+  executionTime?: number;
+  intermediateSteps?: unknown;
+  finishReason?: string;
+  toolCalls?: unknown[];
+}
 
 interface ExecutionResult {
   id: string;
   workflow_id: string;
   execution_number: number;
   status: 'completed' | 'failed' | 'running';
-  input_data: any;
-  output_data?: any;
+  input_data: unknown;
+  output_data?: unknown;
   result?: {
     success: boolean;
-    data: Record<string, any>;
+    data: Record<string, NodeResultData>;
     lastNodeExecuted?: string;
     executedNodes?: number;
     totalNodes?: number;
   };
   started_at: string;
   completed_at?: string;
-  error?: any;
+  error?: unknown;
   message?: string;
 }
 
@@ -132,13 +142,14 @@ export function ExecutionResultsPanel({ result, onClose }: ExecutionResultsPanel
       <div className="flex-1 overflow-y-auto p-4 space-y-3">
         <h4 className="text-gray-400 text-sm font-medium mb-3">Node Results</h4>
 
-        {result.result?.data && Object.entries(result.result.data).map(([nodeId, nodeData]: [string, any]) => {
+        {result.result?.data && Object.entries(result.result.data).map(([nodeId, nodeData]: [string, NodeResultData]) => {
           const isExpanded = expandedNodes.has(nodeId);
           const hasError = nodeData.error;
           // Check if this is an AI Agent node by looking for agent-specific data
-          const isAIAgentNode = nodeData.data?.[0]?.[0]?.intermediateSteps !== undefined ||
-                                nodeData.data?.[0]?.[0]?.finishReason !== undefined ||
-                                nodeData.data?.[0]?.[0]?.toolCalls !== undefined ||
+          const firstItem = nodeData.data?.[0]?.[0] as Record<string, unknown> | undefined;
+          const isAIAgentNode = firstItem?.intermediateSteps !== undefined ||
+                                firstItem?.finishReason !== undefined ||
+                                firstItem?.toolCalls !== undefined ||
                                 nodeId.toLowerCase().includes('ai_agent') ||
                                 nodeId.toLowerCase().includes('aiagent');
 
@@ -189,7 +200,7 @@ export function ExecutionResultsPanel({ result, onClose }: ExecutionResultsPanel
                   {isAIAgentNode && nodeData.data?.[0]?.[0] ? (
                     /* AI Agent specialized panel */
                     <AIAgentExecutionPanel
-                      result={nodeData.data[0][0]}
+                      result={nodeData.data[0][0] as AgentExecutionResult}
                       className="max-h-[500px] overflow-y-auto"
                     />
                   ) : hasError ? (

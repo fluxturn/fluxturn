@@ -11,7 +11,7 @@ interface CodeNodeData {
 type CodeNodeType = Node<CodeNodeData>;
 
 export const CodeNode = memo((props: NodeProps<CodeNodeType>) => {
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [, setDialogOpen] = useState(false);
   const nodeStatus = "initial";
 
   const handleOpenSettings = () => setDialogOpen(true);

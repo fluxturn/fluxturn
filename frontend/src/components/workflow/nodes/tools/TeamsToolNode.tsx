@@ -14,7 +14,7 @@ interface TeamsToolNodeData {
 type TeamsToolNodeType = Node<TeamsToolNodeData>;
 
 export const TeamsToolNode = memo((props: NodeProps<TeamsToolNodeType>) => {
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [, setDialogOpen] = useState(false);
   const nodeStatus = "initial";
 
   const handleOpenSettings = () => setDialogOpen(true);

@@ -5,7 +5,6 @@ import { Mail, CheckCircle, XCircle, RefreshCw, ArrowLeft, Clock } from 'lucide-
 
 
 import { Button } from '../../components/ui/button'
-import { cn } from '../../lib/utils'
 import { api } from '../../lib/api'
 import { AuthLayout } from "../../components/layout/AuthLayout"
 import { useTranslation } from 'react-i18next'
@@ -29,6 +28,7 @@ export const VerifyEmail: React.FC = () => {
     if (token) {
       verifyEmail(token)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token])
 
   // Countdown timer for resend button
@@ -53,7 +53,7 @@ export const VerifyEmail: React.FC = () => {
       setTimeout(() => {
         navigate('/login')
       }, 3000)
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Email verification failed:', error)
       setState('error')
     }
@@ -72,7 +72,7 @@ export const VerifyEmail: React.FC = () => {
       } else {
         throw new Error('Email address is required to resend verification')
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to resend email:', error)
       // You could set an error state here if needed
     } finally {

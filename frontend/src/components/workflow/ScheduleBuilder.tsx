@@ -16,7 +16,7 @@ interface ScheduleBuilderProps {
     dayOfMonth?: number;
     cronExpression?: string;
   };
-  onChange: (value: any) => void;
+  onChange: (value: ScheduleBuilderProps['value']) => void;
 }
 
 const WEEKDAYS = [
@@ -57,6 +57,7 @@ export function ScheduleBuilder({ value, onChange }: ScheduleBuilderProps) {
       cronExpression: mode === "cron" ? cronExpression : undefined,
     };
     onChange(newValue);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode, interval, hour, minute, dayOfWeek, dayOfMonth, cronExpression]);
 
   const handleWeekdayToggle = (day: number) => {
@@ -77,9 +78,10 @@ export function ScheduleBuilder({ value, onChange }: ScheduleBuilderProps) {
         return `Every ${interval} hour${interval !== 1 ? "s" : ""} at minute ${minute}`;
       case "days":
         return `Every ${interval} day${interval !== 1 ? "s" : ""} at ${HOURS[hour]?.label} and ${minute} minute${minute !== 1 ? "s" : ""}`;
-      case "weeks":
+      case "weeks": {
         const days = dayOfWeek.map((d) => WEEKDAYS.find((w) => w.value === d)?.label).join(", ");
         return `Every ${interval} week${interval !== 1 ? "s" : ""} on ${days || "no days selected"} at ${HOURS[hour]?.label}:${String(minute).padStart(2, "0")}`;
+      }
       case "months":
         return `Every ${interval} month${interval !== 1 ? "s" : ""} on day ${dayOfMonth} at ${HOURS[hour]?.label}:${String(minute).padStart(2, "0")}`;
       case "cron":

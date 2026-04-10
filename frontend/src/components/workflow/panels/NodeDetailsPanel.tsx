@@ -8,9 +8,30 @@ import { api } from '@/lib/api';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 
+interface NodeData {
+  label?: string;
+  connectorType?: string;
+  triggerId?: string;
+  [key: string]: unknown;
+}
+
+interface WebhookInfo {
+  webhookUrl: string;
+  connectorType?: string;
+  triggerType?: string;
+  httpsRequired?: boolean;
+  isHttps?: boolean;
+}
+
+interface ExecutionResultInfo {
+  success?: boolean;
+  status?: string;
+  error?: { message?: string } | string;
+}
+
 interface NodeDetailsPanelProps {
   nodeId: string;
-  nodeData: any;
+  nodeData: NodeData;
   nodeType: string;
   workflowId?: string;
   onClose: () => void;
@@ -26,11 +47,11 @@ export function NodeDetailsPanel({
   onConfigure
 }: NodeDetailsPanelProps) {
   const [webhookUrl, setWebhookUrl] = useState<string>('');
-  const [webhookInfo, setWebhookInfo] = useState<any>(null);
+  const [webhookInfo, setWebhookInfo] = useState<WebhookInfo | null>(null);
   const [loadingWebhook, setLoadingWebhook] = useState(false);
   const [copied, setCopied] = useState(false);
   const [executing, setExecuting] = useState(false);
-  const [executionResult, setExecutionResult] = useState<any>(null);
+  const [executionResult, setExecutionResult] = useState<ExecutionResultInfo | null>(null);
 
   const isTriggerNode = nodeType?.includes('TRIGGER') || nodeType === 'CONNECTOR_TRIGGER';
   const connectorType = nodeData?.connectorType;
@@ -43,11 +64,11 @@ export function NodeDetailsPanel({
 
       setLoadingWebhook(true);
       try {
-        const response = await api.get(`/workflow/${workflowId}/webhook-url`);
+        const response = await api.get<{ webhooks?: WebhookInfo[] }>(`/workflow/${workflowId}/webhook-url`);
 
         // Find the webhook for this specific trigger
         const triggerWebhook = response.webhooks?.find(
-          (w: any) => w.connectorType === connectorType || w.triggerType === `${connectorType?.toUpperCase()}_TRIGGER`
+          (w: WebhookInfo) => w.connectorType === connectorType || w.triggerType === `${connectorType?.toUpperCase()}_TRIGGER`
         );
 
         if (triggerWebhook) {
@@ -72,7 +93,7 @@ export function NodeDetailsPanel({
       setCopied(true);
       toast.success('Webhook URL copied!');
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
+    } catch {
       toast.error('Failed to copy URL');
     }
   };
@@ -89,7 +110,7 @@ export function NodeDetailsPanel({
       toast.info('Executing node...');
 
       // Execute single node via API
-      const result = await api.post(`/workflow/${workflowId}/execute-node`, {
+      const result = await api.post<ExecutionResultInfo>(`/workflow/${workflowId}/execute-node`, {
         nodeId: nodeId,
         testData: {
           test: true,
@@ -104,12 +125,14 @@ export function NodeDetailsPanel({
       if (result.success || result.status === 'success') {
         toast.success('Node executed successfully!');
       } else {
-        toast.error(result.error?.message || 'Node execution failed');
+        const errorMsg = typeof result.error === 'string' ? result.error : result.error?.message;
+        toast.error(errorMsg || 'Node execution failed');
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Node execution error:', error);
-      toast.error(error.message || 'Failed to execute node');
-      setExecutionResult({ success: false, error: error.message });
+      const msg = error instanceof Error ? error.message : 'Failed to execute node';
+      toast.error(msg);
+      setExecutionResult({ success: false, error: msg });
     } finally {
       setExecuting(false);
     }
@@ -272,7 +295,7 @@ export function NodeDetailsPanel({
               <AlertDescription className="text-xs text-gray-400 mt-1">
                 {executionResult.success || executionResult.status === 'success'
                   ? 'Node executed successfully'
-                  : executionResult.error?.message || executionResult.error || 'Execution failed'}
+                  : (typeof executionResult.error === 'string' ? executionResult.error : executionResult.error?.message) || 'Execution failed'}
               </AlertDescription>
             </Alert>
           )}

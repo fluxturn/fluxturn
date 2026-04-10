@@ -102,7 +102,7 @@ export function NodeSelector({ open, onOpenChange }: NodeSelectorProps) {
           </DialogDescription>
         </DialogHeader>
 
-        <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as any)} className="flex-1 overflow-hidden flex flex-col">
+        <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as typeof activeTab)} className="flex-1 overflow-hidden flex flex-col">
           <TabsList className="grid w-full grid-cols-3 bg-gray-800">
             <TabsTrigger value="triggers" className="data-[state=active]:bg-cyan-500/20">
               <Zap className="size-4 mr-2" />

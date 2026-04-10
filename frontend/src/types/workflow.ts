@@ -1,3 +1,5 @@
+import type { JsonObject, JsonValue } from './json';
+
 export interface WorkflowNode {
   id: string;
   type: 'connector' | 'control' | 'trigger';
@@ -6,7 +8,7 @@ export interface WorkflowNode {
     label: string;
     connectorType?: string;
     controlType?: string;
-    config?: Record<string, any>;
+    config?: JsonObject;
     inputs?: WorkflowPort[];
     outputs?: WorkflowPort[];
     status?: 'idle' | 'running' | 'success' | 'error';
@@ -36,7 +38,7 @@ export interface WorkflowPort {
   type: 'string' | 'number' | 'boolean' | 'object' | 'array' | 'any';
   required?: boolean;
   description?: string;
-  default?: any;
+  default?: JsonValue;
 }
 
 export interface WorkflowDefinition {
@@ -57,7 +59,7 @@ export interface WorkflowVariable {
   id: string;
   name: string;
   type: 'string' | 'number' | 'boolean' | 'object' | 'array';
-  value: any;
+  value: JsonValue;
   description?: string;
   scope: 'global' | 'local';
 }
@@ -65,7 +67,7 @@ export interface WorkflowVariable {
 export interface WorkflowTrigger {
   id: string;
   type: 'manual' | 'schedule' | 'webhook' | 'event';
-  config: Record<string, any>;
+  config: JsonObject;
   enabled: boolean;
 }
 
@@ -101,7 +103,7 @@ export interface WorkflowExecutionLog {
   level: 'debug' | 'info' | 'warn' | 'error';
   message: string;
   nodeId?: string;
-  data?: any;
+  data?: JsonValue;
 }
 
 export interface NodeExecution {
@@ -111,8 +113,8 @@ export interface NodeExecution {
   completedAt?: string;
   duration?: number;
   error?: string;
-  inputData?: any;
-  outputData?: any;
+  inputData?: JsonValue;
+  outputData?: JsonValue;
 }
 
 export interface ConnectorDefinition {
@@ -124,7 +126,7 @@ export interface ConnectorDefinition {
   color: string;
   inputs: WorkflowPort[];
   outputs: WorkflowPort[];
-  configSchema: Record<string, any>;
+  configSchema: JsonObject;
   documentation: string;
   version: string;
   tags: string[];
@@ -139,7 +141,7 @@ export interface ControlFlowDefinition {
   color: string;
   inputs: WorkflowPort[];
   outputs: WorkflowPort[];
-  configSchema: Record<string, any>;
+  configSchema: JsonObject;
 }
 
 export interface WorkflowTemplate {
@@ -162,7 +164,7 @@ export interface WorkflowBuilderState {
   isExecuting: boolean;
   debugMode: boolean;
   breakpoints: string[];
-  variables: Record<string, any>;
+  variables: Record<string, JsonValue>;
   clipboard: {
     nodes: WorkflowNode[];
     edges: WorkflowEdge[];

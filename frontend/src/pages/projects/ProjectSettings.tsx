@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   Settings,
   Save,
-  X,
   Plus,
   Trash2,
   Eye,
@@ -12,22 +11,17 @@ import {
   Copy,
   Check,
   Globe,
-  Shield,
   Key,
   Webhook,
   AlertTriangle,
   Info,
-  ExternalLink,
-  Zap,
   Database,
-  Server,
   Lock,
   Unlock,
   RefreshCw
 } from 'lucide-react'
 import { toast } from 'sonner'
 import { GlassCard } from '../../components/ui/GlassCard'
-import { ProjectHierarchy } from '../../components/projects/ProjectHierarchy'
 import { cn } from '../../lib/utils'
 import { api } from '../../lib/api'
 
@@ -42,7 +36,7 @@ export const ProjectSettings: React.FC = () => {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
 
   // Project data from API
-  const [project, setProject] = useState<any>(null)
+  const [project, setProject] = useState<Record<string, unknown> | null>(null)
   const [projectName, setProjectName] = useState('')
   const [projectDescription, setProjectDescription] = useState('')
   const [projectUrl, setProjectUrl] = useState('')
@@ -56,11 +50,11 @@ export const ProjectSettings: React.FC = () => {
     { id: '1', domain: 'ecommerce.acme.com', status: 'active', ssl: true, primary: true },
     { id: '2', domain: 'shop.acme.com', status: 'pending', ssl: false, primary: false }
   ])
-  const [webhooks, setWebhooks] = useState([
+  const [webhooks] = useState([
     { id: '1', url: 'https://api.acme.com/webhooks/deploy', events: ['deployment.success', 'deployment.failed'], active: true },
     { id: '2', url: 'https://slack.com/api/incoming/webhook', events: ['deployment.success'], active: true }
   ])
-  const [apiKeys, setApiKeys] = useState([
+  const [apiKeys] = useState([
     { id: '1', name: 'Production API Key', key: 'pk_live_...', created: '2024-01-15', lastUsed: '2 hours ago', permissions: ['read', 'write'] },
     { id: '2', name: 'Development Key', key: 'pk_dev_...', created: '2024-02-01', lastUsed: '1 day ago', permissions: ['read'] }
   ])
@@ -78,16 +72,16 @@ export const ProjectSettings: React.FC = () => {
 
       try {
         setLoading(true)
-        const response = await api.getProject(projectId)
+        const response = await api.getProject(projectId) as { project: Record<string, unknown> }
         const projectData = response.project
 
         setProject(projectData)
-        setProjectName(projectData.name || '')
-        setProjectDescription(projectData.description || '')
-        setProjectUrl(projectData.projectUrl || '')
-      } catch (error: any) {
+        setProjectName((projectData.name as string) || '')
+        setProjectDescription((projectData.description as string) || '')
+        setProjectUrl((projectData.projectUrl as string) || '')
+      } catch (error: unknown) {
         console.error('Failed to load project:', error)
-        toast.error(error.message || 'Failed to load project')
+        toast.error(error instanceof Error ? error.message : 'Failed to load project')
       } finally {
         setLoading(false)
       }
@@ -110,11 +104,11 @@ export const ProjectSettings: React.FC = () => {
       toast.success('Project settings updated successfully')
 
       // Refresh project data
-      const response = await api.getProject(projectId)
+      const response = await api.getProject(projectId) as { project: Record<string, unknown> }
       setProject(response.project)
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to update project:', error)
-      toast.error(error.message || 'Failed to update project')
+      toast.error(error instanceof Error ? error.message : 'Failed to update project')
     } finally {
       setSaving(false)
     }
@@ -131,9 +125,9 @@ export const ProjectSettings: React.FC = () => {
 
       // Navigate back to org projects page
       navigate(`/org/${organizationId}/projects`)
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to delete project:', error)
-      toast.error(error.message || 'Failed to delete project')
+      toast.error(error instanceof Error ? error.message : 'Failed to delete project')
       setDeleting(false)
     }
   }
@@ -251,12 +245,12 @@ export const ProjectSettings: React.FC = () => {
                 <div className="flex items-center space-x-3">
                   <input
                     type="text"
-                    value={project.id}
+                    value={String(project.id ?? '')}
                     disabled
                     className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-lg opacity-60"
                   />
                   <button
-                    onClick={() => copyToClipboard(project.id, 'project-id')}
+                    onClick={() => copyToClipboard(String(project.id ?? ''), 'project-id')}
                     className="p-3 glass hover:bg-white/10 rounded-lg transition-all"
                   >
                     {copiedItems['project-id'] ? <Check className="w-5 h-5 text-green-400" /> : <Copy className="w-5 h-5" />}
@@ -764,7 +758,7 @@ export const ProjectSettings: React.FC = () => {
         </div>
         <div>
           <h1 className="text-3xl font-bold text-gradient">Project Settings</h1>
-          <p className="text-muted-foreground">{project.name}</p>
+          <p className="text-muted-foreground">{String(project.name ?? '')}</p>
         </div>
       </motion.div>
 

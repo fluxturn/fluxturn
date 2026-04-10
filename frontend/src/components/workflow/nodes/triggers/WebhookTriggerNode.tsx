@@ -2,6 +2,7 @@ import { type NodeProps, type Node } from "@xyflow/react";
 import { memo } from "react";
 import { BaseTriggerNode } from "../../base/BaseTriggerNode";
 import { Webhook } from "lucide-react";
+import { type NodeStatus } from "../../base/NodeStatusIndicator";
 
 interface WebhookTriggerNodeData {
   path?: string;
@@ -12,7 +13,7 @@ interface WebhookTriggerNodeData {
 type WebhookTriggerNodeType = Node<WebhookTriggerNodeData>;
 
 export const WebhookTriggerNode = memo((props: NodeProps<WebhookTriggerNodeType>) => {
-  const nodeStatus = (props.data as any)?.status || "initial";
+  const nodeStatus = (props.data as Record<string, unknown>)?.status as NodeStatus || "initial";
 
   // Settings button handler - parent will handle opening modal via click event
   const handleOpenSettings = () => {

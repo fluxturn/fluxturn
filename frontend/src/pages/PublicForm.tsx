@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { cn } from '@/lib/utils';
 
 interface FormField {
   name: string;
@@ -30,12 +29,13 @@ export default function PublicForm() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [formConfig, setFormConfig] = useState<FormConfig | null>(null);
-  const [formData, setFormData] = useState<Record<string, any>>({});
+  const [formData, setFormData] = useState<Record<string, string | boolean>>({});
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
-  const [successMessage, setSuccessMessage] = useState('Thank you! Your form has been submitted successfully.');
+  const [successMessage] = useState('Thank you! Your form has been submitted successfully.');
 
   useEffect(() => {
     loadFormConfig();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [workflowId]);
 
   const loadFormConfig = async () => {
@@ -60,19 +60,19 @@ export default function PublicForm() {
       setFormConfig(data.formConfig);
 
       // Initialize form data with empty values
-      const initialData: Record<string, any> = {};
+      const initialData: Record<string, string | boolean> = {};
       data.formConfig.fields.forEach((field: FormField) => {
         initialData[field.name] = field.type === 'checkbox' ? false : '';
       });
       setFormData(initialData);
-    } catch (err: any) {
-      setError(err.message || 'Failed to load form');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Failed to load form');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleFieldChange = (fieldName: string, value: any) => {
+  const handleFieldChange = (fieldName: string, value: string | boolean) => {
     setFormData((prev) => ({
       ...prev,
       [fieldName]: value,
@@ -122,17 +122,18 @@ export default function PublicForm() {
         throw new Error('Failed to submit form');
       }
 
-      const result = await submitResponse.json();
+      await submitResponse.json();
       setSubmitted(true);
-    } catch (err: any) {
-      setError(err.message || 'Failed to submit form');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Failed to submit form');
     } finally {
       setSubmitting(false);
     }
   };
 
   const renderField = (field: FormField) => {
-    const value = formData[field.name] ?? '';
+    const rawValue = formData[field.name] ?? '';
+    const stringValue = typeof rawValue === 'boolean' ? String(rawValue) : rawValue;
 
     switch (field.type) {
       case 'text':
@@ -147,7 +148,7 @@ export default function PublicForm() {
             <Input
               id={field.name}
               type={field.type}
-              value={value}
+              value={stringValue}
               onChange={(e) => handleFieldChange(field.name, e.target.value)}
               placeholder={field.placeholder}
               required={field.required}
@@ -165,7 +166,7 @@ export default function PublicForm() {
             </Label>
             <Textarea
               id={field.name}
-              value={value}
+              value={stringValue}
               onChange={(e) => handleFieldChange(field.name, e.target.value)}
               placeholder={field.placeholder}
               required={field.required}
@@ -184,7 +185,7 @@ export default function PublicForm() {
             </Label>
             <select
               id={field.name}
-              value={value}
+              value={stringValue}
               onChange={(e) => handleFieldChange(field.name, e.target.value)}
               required={field.required}
               className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
@@ -205,7 +206,7 @@ export default function PublicForm() {
             <input
               type="checkbox"
               id={field.name}
-              checked={value}
+              checked={Boolean(rawValue)}
               onChange={(e) => handleFieldChange(field.name, e.target.checked)}
               className="w-4 h-4 text-cyan-600 border-gray-300 rounded focus:ring-cyan-500"
             />
@@ -231,7 +232,7 @@ export default function PublicForm() {
                     id={`${field.name}-${option}`}
                     name={field.name}
                     value={option}
-                    checked={value === option}
+                    checked={stringValue === option}
                     onChange={(e) => handleFieldChange(field.name, e.target.value)}
                     className="w-4 h-4 text-cyan-600 border-gray-300 focus:ring-cyan-500"
                   />

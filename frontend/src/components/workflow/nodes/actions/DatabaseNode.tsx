@@ -12,7 +12,7 @@ interface DatabaseNodeData {
 type DatabaseNodeType = Node<DatabaseNodeData>;
 
 export const DatabaseNode = memo((props: NodeProps<DatabaseNodeType>) => {
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [, setDialogOpen] = useState(false);
   const nodeStatus = "initial";
 
   const handleOpenSettings = () => setDialogOpen(true);

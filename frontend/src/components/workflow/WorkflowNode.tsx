@@ -17,8 +17,8 @@ export function WorkflowNode({
   showToolbar = true,
   onDelete,
   onSettings,
-  name,
-  description,
+  name: _name,
+  description: _description,
 }: WorkflowNodeProps) {
   return (
     <>
@@ -31,7 +31,7 @@ export function WorkflowNode({
             <Button
               size="sm"
               variant="ghost"
-              onClick={(e) => {
+              onClick={() => {
                 // Don't stop propagation - let parent handle opening config modal
                 onSettings();
               }}

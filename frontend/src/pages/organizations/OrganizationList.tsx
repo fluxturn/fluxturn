@@ -33,8 +33,8 @@ export const OrganizationList: React.FC = () => {
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc')
   const [viewMode, setViewMode] = useState<ViewMode>('grid')
   const [showFilters, setShowFilters] = useState(false)
-  const [organizations, setOrganizations] = useState<any[]>([])
-  const [loading, setLoading] = useState(true)
+  const [organizations, setOrganizations] = useState<Array<{ id: string; name: string; description: string; status?: string; createdAt?: string; projectCount?: number; memberCount?: number; storageUsed?: number; storageLimit?: number; [key: string]: unknown }>>([])
+  const [, setLoading] = useState(true)
   const [deleteDialog, setDeleteDialog] = useState<{ open: boolean; organizationId: string | null; organizationName: string }>({
     open: false,
     organizationId: null,
@@ -46,9 +46,9 @@ export const OrganizationList: React.FC = () => {
     const fetchOrganizations = async () => {
       try {
         setLoading(true)
-        const response = await organizationApi.getUserOrganizations()
+        const response = await organizationApi.getUserOrganizations() as { data?: Array<{ id: string; name: string; description: string; status?: string; createdAt?: string; projectCount?: number; memberCount?: number; storageUsed?: number; storageLimit?: number; [key: string]: unknown }> }
         setOrganizations(response.data || [])
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error('Failed to fetch organizations:', error)
         toast.error('Failed to load organizations')
         // Fallback to empty array
@@ -73,7 +73,7 @@ export const OrganizationList: React.FC = () => {
 
   // Filter and sort organizations
   const filteredAndSortedOrganizations = useMemo(() => {
-    let filtered = organizations.filter(org => {
+    const filtered = organizations.filter(org => {
       const matchesSearch = org.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                            org.description.toLowerCase().includes(searchQuery.toLowerCase())
       const matchesStatus = statusFilter === 'all' || org.status === statusFilter
@@ -81,8 +81,8 @@ export const OrganizationList: React.FC = () => {
     })
 
     filtered.sort((a, b) => {
-      let aValue: any = a[sortField]
-      let bValue: any = b[sortField]
+      let aValue: string | number = String(a[sortField] ?? '')
+      let bValue: string | number = String(b[sortField] ?? '')
 
       if (sortField === 'createdAt') {
         aValue = new Date(aValue).getTime()
@@ -109,15 +109,6 @@ export const OrganizationList: React.FC = () => {
     return { totalOrgs, activeOrgs, totalProjects, totalUsers }
   }, [organizations])
 
-  const handleSort = (field: SortField) => {
-    if (sortField === field) {
-      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc')
-    } else {
-      setSortField(field)
-      setSortDirection('asc')
-    }
-  }
-
   const handleDelete = (organizationId: string) => {
     const org = organizations.find(o => o.id === organizationId)
     setDeleteDialog({
@@ -139,9 +130,10 @@ export const OrganizationList: React.FC = () => {
 
       // Close dialog
       setDeleteDialog({ open: false, organizationId: null, organizationName: '' })
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to delete organization:', error)
-      toast.error(error.response?.data?.message || 'Failed to delete organization')
+      const errObj = error as { response?: { data?: { message?: string } } }
+      toast.error(errObj.response?.data?.message || 'Failed to delete organization')
     }
   }
 
@@ -361,7 +353,15 @@ export const OrganizationList: React.FC = () => {
             transition={{ delay: index * 0.1 }}
           >
             <OrganizationCard
-              organization={organization}
+              organization={{
+                ...organization,
+                projectCount: organization.projectCount ?? 0,
+                memberCount: organization.memberCount ?? 0,
+                storageUsed: organization.storageUsed ?? 0,
+                storageLimit: organization.storageLimit ?? 0,
+                createdAt: organization.createdAt ?? '',
+                status: (organization.status as 'active' | 'suspended' | 'pending') ?? 'active',
+              }}
               onView={(id) => navigate(`/org/${id}`)}
               onEdit={(id) => navigate(`/org/${id}/settings`)}
               onDelete={handleDelete}

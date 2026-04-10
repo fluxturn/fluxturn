@@ -18,7 +18,7 @@ export interface UpdateImageProjectRequest {
 export interface AddImageToProjectRequest {
   imageUrl: string;
   filename: string;
-  metadata?: any;
+  metadata?: Record<string, unknown>;
 }
 
 export interface ImageProjectsListOptions {
@@ -105,7 +105,7 @@ class ImageProjectsAPI {
   async updateImageMetadata(
     projectId: string,
     imageId: string,
-    metadata: any
+    metadata: Record<string, unknown>
   ): Promise<ImageAsset> {
     return api.patch<ImageAsset>(
       `/image-projects/${projectId}/images/${imageId}`,

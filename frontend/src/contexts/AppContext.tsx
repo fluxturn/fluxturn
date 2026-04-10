@@ -46,7 +46,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       // Note: App concept removed - no longer fetching app data
       // const app = await api.getApp(applicationId);
-      const app: any = null; // Placeholder since app concept is removed
+      const app: App | null = null; // Placeholder since app concept is removed
 
       // Validate that the app belongs to the current project (if we have one)
       if (projectId && app?.projectId !== projectId) {
@@ -111,6 +111,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useApp = () => {
   const context = useContext(AppContext);
   if (context === undefined) {
@@ -119,6 +120,7 @@ export const useApp = () => {
   return context;
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAppRequired = () => {
   const context = useApp();
   if (!context.appId) {

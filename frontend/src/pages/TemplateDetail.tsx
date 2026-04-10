@@ -53,7 +53,7 @@ export function TemplateDetail() {
           text: template.description,
           url: url,
         });
-      } catch (err) {
+      } catch {
         // User cancelled or error occurred
         // console.log('Share cancelled');
       }

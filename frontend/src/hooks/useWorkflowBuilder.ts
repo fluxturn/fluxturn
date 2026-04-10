@@ -89,8 +89,8 @@ export const useWorkflowBuilder = (
       type: node.type as 'connector' | 'control' | 'trigger',
       position: node.position,
       data: {
-        label: (node.data as any)?.label || 'Untitled Node',
-        ...(node.data as any)
+        label: ((node.data as Record<string, unknown>)?.label as string) || 'Untitled Node',
+        ...(node.data as Record<string, unknown>)
       },
     };
   }
@@ -129,6 +129,7 @@ export const useWorkflowBuilder = (
     } catch (error) {
       console.error('Error syncing workflow state:', error);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nodes.length, edges.length]); // Using length to avoid deep comparison
 
   // Auto-save functionality
@@ -154,6 +155,7 @@ export const useWorkflowBuilder = (
     const rfEdges = workflow.edges.map(edgeToReactFlow);
     setNodes(rfNodes);
     setEdges(rfEdges);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [workflow.nodes.length, workflow.edges.length]); // Using length to avoid deep comparison
 
   // Load workflow from localStorage on mount

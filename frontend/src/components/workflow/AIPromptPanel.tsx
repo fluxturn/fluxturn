@@ -8,6 +8,7 @@ import { TypingIndicator } from './TypingIndicator';
 import { api } from '@/lib/api';
 import { toast } from 'sonner';
 import { v4 as uuidv4 } from 'uuid';
+import type { JsonObject } from '@/types/json';
 
 // State Management Types
 type AIMode = 'chat' | 'build';
@@ -21,18 +22,36 @@ interface AnalysisResult {
   confidence?: number;
 }
 
+/** Shape of a workflow generation result returned by various generation endpoints. */
+interface WorkflowGenerationResult {
+  success?: boolean;
+  confidence?: number;
+  responseType?: 'workflow' | 'error' | 'conversational';
+  message?: string;
+  canRetry?: boolean;
+  workflow?: {
+    name?: string;
+    canvas?: { nodes?: unknown[]; edges?: unknown[] };
+    [key: string]: unknown;
+  };
+  analysis?: { reasoning?: string; [key: string]: unknown };
+  nodesToConfigure?: Array<{ nodeId: string; nodeType: string; nodeName: string; reason: string }>;
+  error?: { message?: string };
+  [key: string]: unknown;
+}
+
 interface WorkflowState {
   phase: WorkflowPhase;
   analysisResult: AnalysisResult | null;
   pendingPrompt: string | null;
-  workflowResult: any | null;
+  workflowResult: WorkflowGenerationResult | null;
 }
 
 type WorkflowAction =
   | { type: 'START_ANALYSIS'; payload: { prompt: string } }
   | { type: 'ANALYSIS_COMPLETE'; payload: { analysis: AnalysisResult } }
   | { type: 'START_EXECUTION' }
-  | { type: 'EXECUTION_COMPLETE'; payload: { result: any } }
+  | { type: 'EXECUTION_COMPLETE'; payload: { result: WorkflowGenerationResult } }
   | { type: 'RESET' }
   | { type: 'CANCEL_ANALYSIS' };
 
@@ -91,8 +110,8 @@ const initialWorkflowState: WorkflowState = {
 interface AIPromptPanelProps {
   isOpen: boolean;
   onClose: () => void;
-  onGenerateWorkflow?: (prompt: string, conversationId: string) => Promise<any>;
-  onWorkflowSaved?: (workflow: { nodes: any[]; edges: any[]; prompt?: string }) => void; // 🆕 Callback when workflow is saved (now includes prompt)
+  onGenerateWorkflow?: (prompt: string, conversationId: string) => Promise<WorkflowGenerationResult>;
+  onWorkflowSaved?: (workflow: { nodes: unknown[]; edges: unknown[]; prompt?: string }) => void;
   workflowId?: string | null; // Current workflow ID
   onConfigureNode?: (nodeId: string, nodeType: string) => void; // Open node configuration modal
   context?: {
@@ -137,6 +156,7 @@ export function AIPromptPanel({
       dispatchWorkflow({ type: 'RESET' }); // Reset workflow state
       loadOrCreateConversation();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, workflowId, mode]);
 
   // Focus textarea when panel opens
@@ -208,7 +228,7 @@ export function AIPromptPanel({
       };
 
       // 🆕 Call NEW Multi-Agent API or OLD System
-      let workflowResult: any;
+      let workflowResult: WorkflowGenerationResult;
 
       if (useMultiAgent) {
         // NEW Multi-Agent System (95% accuracy, 75% cheaper)
@@ -237,7 +257,7 @@ export function AIPromptPanel({
         if (multiAgentResult.success) {
           // Transform nodes to ReactFlow format (with data field)
           const transformedNodes =
-            multiAgentResult.workflow?.nodes?.map((node: any) => {
+            multiAgentResult.workflow?.nodes?.map((node: Record<string, unknown>) => {
               const { id, type, position, ...rest } = node;
 
               return {
@@ -252,7 +272,7 @@ export function AIPromptPanel({
 
           // Transform connections to edges format
           const transformedEdges =
-            multiAgentResult.workflow?.connections?.map((conn: any) => ({
+            multiAgentResult.workflow?.connections?.map((conn: Record<string, unknown>) => ({
               id: `${conn.source}-${conn.target}`,
               source: conn.source,
               target: conn.target,
@@ -377,9 +397,9 @@ export function AIPromptPanel({
         role: 'assistant',
         content: finalContent,
         metadata: {
-          workflowPreview: workflowResult?.workflow,
+          workflowPreview: workflowResult?.workflow as JsonObject | undefined,
           quickReplies,
-        },
+        } as JsonObject,
       });
 
       // Update workflow state in conversation
@@ -389,7 +409,7 @@ export function AIPromptPanel({
 
           await api.updateConversationWorkflow(
             conversationId,
-            workflowResult.workflow,
+            workflowResult.workflow as JsonObject,
             context?.organizationId,
             context?.projectId,
             context?.appId,
@@ -424,7 +444,7 @@ export function AIPromptPanel({
           content:
             `⚙️ **Configuration Needed**\n\nSome nodes in your workflow need additional configuration:\n\n` +
             workflowResult.nodesToConfigure
-              .map((node: any, idx: number) => `${idx + 1}. **${node.nodeName}** - ${node.reason}`)
+              .map((node: { nodeName: string; reason: string }, idx: number) => `${idx + 1}. **${node.nodeName}** - ${node.reason}`)
               .join('\n') +
             `\n\nClick "Configure Nodes" to set them up now, or you can configure them later by clicking on each node.`,
           timestamp: new Date().toISOString(),
@@ -441,16 +461,16 @@ export function AIPromptPanel({
         await api.addMessageToConversation(conversationId, {
           role: 'assistant',
           content: configMessage.content,
-          metadata: configMessage.metadata,
+          metadata: configMessage.metadata as JsonObject,
         });
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to execute workflow:', error);
 
       const errorMessage: ChatMessage = {
         id: uuidv4(),
         role: 'assistant',
-        content: `Sorry, I encountered an error: ${error.message || 'Unknown error'}. Please try again.`,
+        content: `Sorry, I encountered an error: ${error instanceof Error ? error.message : 'Unknown error'}. Please try again.`,
         timestamp: new Date().toISOString(),
       };
 
@@ -513,8 +533,8 @@ export function AIPromptPanel({
             content: initialMessage,
             timestamp: new Date().toISOString(),
           },
-        ],
-      });
+        ] as JsonObject[],
+      }) as { id: string; messages?: ChatMessage[] };
 
       setConversationId(response.id);
       setMessages(response.messages || []);
@@ -696,7 +716,7 @@ export function AIPromptPanel({
           quickReplies,
         },
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to analyze prompt:', error);
 
       // Reset workflow state on error
@@ -706,7 +726,7 @@ export function AIPromptPanel({
       const errorMessage: ChatMessage = {
         id: uuidv4(),
         role: 'assistant',
-        content: `Sorry, I encountered an error while analyzing your request: ${error.message || 'Unknown error'}. Please try again or rephrase your prompt.`,
+        content: `Sorry, I encountered an error while analyzing your request: ${error instanceof Error ? error.message : 'Unknown error'}. Please try again or rephrase your prompt.`,
         timestamp: new Date().toISOString(),
         metadata: {
           quickReplies: ['Try again', 'Help'],
@@ -720,7 +740,7 @@ export function AIPromptPanel({
     }
   };
 
-  const handleQuickReply = async (reply: string, metadata?: any, messageId?: string) => {
+  const handleQuickReply = async (reply: string, metadata?: Record<string, unknown>, messageId?: string) => {
     // Handle special buttons
     if (reply === 'Accept workflow') {
       // Mark this message as accepted
@@ -734,20 +754,20 @@ export function AIPromptPanel({
     if (reply === 'Execute Workflow') {
       // 🎯 Execute the workflow using the PLAN (not the original prompt)
       // This ensures AI uses the analyzed and refined plan with proper node constraints
-      const analysisData = metadata?.analysisData || workflowState.analysisResult;
+      const analysisData = (metadata?.analysisData as AnalysisResult | undefined) || workflowState.analysisResult;
 
       if (analysisData && analysisData.plan && analysisData.plan.length > 0) {
         // Construct a structured prompt from the plan
         const planPrompt = [
           analysisData.understanding,
           '\nWorkflow steps:',
-          ...analysisData.plan.map((step, idx) => `${idx + 1}. ${step}`),
+          ...analysisData.plan.map((step: string, idx: number) => `${idx + 1}. ${step}`),
         ].join('\n');
 
         await handleExecuteWorkflow(planPrompt);
       } else if (metadata?.pendingPrompt) {
         // Fallback to original prompt if no plan available
-        await handleExecuteWorkflow(metadata.pendingPrompt);
+        await handleExecuteWorkflow(metadata.pendingPrompt as string);
       } else if (workflowState.pendingPrompt) {
         await handleExecuteWorkflow(workflowState.pendingPrompt);
       } else {
@@ -759,7 +779,7 @@ export function AIPromptPanel({
     if (reply === 'Modify Prompt') {
       // Allow user to modify the prompt
       if (metadata?.pendingPrompt) {
-        setInput(metadata.pendingPrompt);
+        setInput(metadata.pendingPrompt as string);
       } else if (workflowState.pendingPrompt) {
         setInput(workflowState.pendingPrompt);
       }
@@ -780,7 +800,6 @@ export function AIPromptPanel({
       const lastUserMessage = [...messages].reverse().find((m) => m.role === 'user');
       if (lastUserMessage) {
         // Temporarily set input, send, then clear
-        const originalInput = input;
         setInput(lastUserMessage.content);
 
         // Send the message after a tiny delay to ensure state update
@@ -794,7 +813,7 @@ export function AIPromptPanel({
 
     if (reply === 'Configure Nodes') {
       // Open configuration modal for nodes that need setup
-      const nodesToConfigure = metadata?.nodesToConfigure || [];
+      const nodesToConfigure = (metadata?.nodesToConfigure || []) as Array<{ nodeId: string; nodeType: string; nodeName: string }>;
 
       if (nodesToConfigure.length === 0) {
         toast.info('All nodes are already configured!');
@@ -826,7 +845,7 @@ export function AIPromptPanel({
     setInput(reply);
   };
 
-  const handleConfigureCredentials = async (credentials: any[]) => {
+  const handleConfigureCredentials = async (credentials: Array<{ connector: string; field: string; value: string }>) => {
     if (!conversationId) return;
 
     try {
@@ -1020,7 +1039,7 @@ export function AIPromptPanel({
                   key={message.id}
                   message={message}
                   onQuickReply={handleQuickReply}
-                  onConfigureCredentials={handleConfigureCredentials}
+                  onConfigureCredentials={handleConfigureCredentials as unknown as (credentials: Array<{ connectorName: string; field: string; masked: string }>) => void}
                   isAccepted={acceptedMessageIds.has(message.id)}
                 />
               ))}

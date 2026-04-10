@@ -1,27 +1,18 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { 
-  User, 
-  Activity, 
-  FolderOpen, 
-  Globe, 
-  Star, 
-  Clock, 
-  TrendingUp, 
-  Bell, 
-  Plus, 
-  ExternalLink, 
-  GitBranch, 
-  Code, 
+import {
+  FolderOpen,
+  Globe,
+  Star,
+  Bell,
+  Plus,
+  ExternalLink,
+  GitBranch,
+  Code,
   Zap,
   Calendar,
-  MapPin,
-  Heart,
-  MessageSquare,
-  Share2,
   Eye,
   Download,
-  Filter,
   Search,
   MoreHorizontal,
   CheckCircle,
@@ -32,8 +23,6 @@ import { GlassCard, StatCard, ChartCard } from '../../components/ui/GlassCard'
 import { Button } from '../../components/ui/button'
 import { Input } from '../../components/ui/input'
 import { Badge } from '../../components/ui/badge'
-import { Avatar, AvatarFallback } from '../../components/ui/avatar'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../components/ui/select'
 import { cn } from '../../lib/utils'
 
 interface Project {
@@ -74,7 +63,6 @@ interface NotificationItem {
 export const UserDashboard: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<'all' | 'recent' | 'starred'>('all')
   const [searchTerm, setSearchTerm] = useState('')
-  const [selectedTimeframe, setSelectedTimeframe] = useState('7d')
 
   const mockProjects: Project[] = [
     {
@@ -359,7 +347,7 @@ export const UserDashboard: React.FC = () => {
                     {['all', 'recent', 'starred'].map((filter) => (
                       <button
                         key={filter}
-                        onClick={() => setActiveFilter(filter as any)}
+                        onClick={() => setActiveFilter(filter as typeof activeFilter)}
                         className={cn(
                           'px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 capitalize',
                           activeFilter === filter

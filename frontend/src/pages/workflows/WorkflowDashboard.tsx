@@ -4,23 +4,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import {
   Search,
   SlidersHorizontal,
-  Grid3x3,
-  MoreVertical,
   ChevronDown,
-  InfoIcon,
-  PlayCircle,
-  UserCircle,
   TrendingUp,
   Activity,
   Package,
   RefreshCw,
-  Upload,
-  Download,
-  Users,
   Trash2,
   Check,
 } from 'lucide-react';
-import { api } from '@/lib/api';
 import { WorkflowAPI } from '@/lib/fluxturn';
 import { toast } from 'sonner';
 import { StatCard, ChartCard, GlassCard } from '@/components/ui/GlassCard';
@@ -141,6 +132,7 @@ export const WorkflowDashboard: React.FC = () => {
     if (activeTab === 'executions') {
       fetchExecutions();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab, executionsPagination.page, executionStatusFilter]);
 
   useEffect(() => {
@@ -161,14 +153,15 @@ export const WorkflowDashboard: React.FC = () => {
         if (timer) clearTimeout(timer);
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [executionSearchQuery]);
 
   const fetchWorkflows = async () => {
     try {
       setLoading(true);
-      const response = await WorkflowAPI.getWorkflows({ limit: 50 });
+      const response = await WorkflowAPI.getWorkflows({ limit: 50 }) as { workflows?: Workflow[] };
       setWorkflows(response.workflows || []);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to fetch workflows:', error);
       toast.error('Failed to load workflows');
     } finally {
@@ -178,7 +171,11 @@ export const WorkflowDashboard: React.FC = () => {
 
   const fetchExecutionStats = async () => {
     try {
-      const stats = await WorkflowAPI.getExecutionStats();
+      const stats = await WorkflowAPI.getExecutionStats() as {
+        last7Days?: number;
+        successRate?: number;
+        dailyData?: { date: string; success: number; failed: number }[];
+      };
       setExecutionStats({
         totalExecutions: stats.last7Days || 0,
         successRate: stats.successRate || 0,
@@ -187,13 +184,13 @@ export const WorkflowDashboard: React.FC = () => {
 
       // Transform daily data for charts
       if (stats.dailyData && stats.dailyData.length > 0) {
-        const transformedData = stats.dailyData.map((day: any) => {
+        const transformedData = stats.dailyData.map((day: { date: string; success: number; failed: number }) => {
           const date = new Date(day.date);
           const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
           return {
             name: dayName,
-            success: parseInt(day.success) || 0,
-            failed: parseInt(day.failed) || 0,
+            success: Number(day.success) || 0,
+            failed: Number(day.failed) || 0,
           };
         });
         setChartData(transformedData);
@@ -208,7 +205,7 @@ export const WorkflowDashboard: React.FC = () => {
         }
         setChartData(last7Days);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to fetch execution stats:', error);
       // Don't show error toast for stats, just use default values
       // Set empty chart data for last 7 days
@@ -232,14 +229,14 @@ export const WorkflowDashboard: React.FC = () => {
         status: executionStatusFilter !== 'all' ? executionStatusFilter : undefined,
         // TODO: Add search parameter support to API
         // search: executionSearchQuery || undefined,
-      });
+      }) as { executions?: Execution[]; pagination: { total: number; totalPages: number } };
       setExecutions(response.executions || []);
       setExecutionsPagination(prev => ({
         ...prev,
         total: response.pagination.total,
         totalPages: response.pagination.totalPages,
       }));
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to fetch executions:', error);
       toast.error('Failed to load executions');
     } finally {
@@ -276,9 +273,9 @@ export const WorkflowDashboard: React.FC = () => {
 
       // Navigate to the new workflow in the canvas
       navigate(`/org/${organizationId}/project/${projectId}/workflows/${response.id}`);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to create workflow:', error);
-      toast.error(error.message || 'Failed to create workflow');
+      toast.error(error instanceof Error ? error.message : 'Failed to create workflow');
     }
   };
 

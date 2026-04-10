@@ -2,11 +2,7 @@ import { type NodeProps } from "@xyflow/react";
 import { memo } from "react";
 import { BaseTriggerNode } from "../../base/BaseTriggerNode";
 import { MousePointerClick } from "lucide-react";
-
-interface ManualTriggerNodeData {
-  label?: string;
-  [key: string]: unknown;
-}
+import { type NodeStatus } from "../../base/NodeStatusIndicator";
 
 export const ManualTriggerNode = memo((props: NodeProps) => {
   const { data } = props;
@@ -21,7 +17,7 @@ export const ManualTriggerNode = memo((props: NodeProps) => {
       icon={MousePointerClick}
       name="Manual Trigger"
       description="Click to execute"
-      status={(data as any).status || 'initial'}
+      status={((data as Record<string, unknown>).status as NodeStatus) || 'initial'}
       onSettings={handleOpenSettings}
       onDoubleClick={handleOpenSettings}
     />

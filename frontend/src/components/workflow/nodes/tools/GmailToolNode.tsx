@@ -13,7 +13,7 @@ interface GmailToolNodeData {
 type GmailToolNodeType = Node<GmailToolNodeData>;
 
 export const GmailToolNode = memo((props: NodeProps<GmailToolNodeType>) => {
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [, setDialogOpen] = useState(false);
   const nodeStatus = "initial";
 
   const handleOpenSettings = () => setDialogOpen(true);

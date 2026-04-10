@@ -5,7 +5,6 @@ import {
   ArrowLeft,
   Save,
   Eye,
-  Image as ImageIcon,
   X,
   Upload,
   RefreshCw,

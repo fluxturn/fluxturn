@@ -88,11 +88,11 @@ export interface NodeConfigField {
   placeholder?: string;
   required?: boolean;
   options?: { label: string; value: string }[];
-  defaultValue?: any;
+  defaultValue?: string | number | boolean | Record<string, unknown> | unknown[];
   description?: string;
   displayOptions?: {
-    show?: Record<string, any[]>;
-    hide?: Record<string, any[]>;
+    show?: Record<string, (string | number | boolean)[]>;
+    hide?: Record<string, (string | number | boolean)[]>;
   };
 }
 

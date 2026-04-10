@@ -20,7 +20,7 @@ export function ReadyToStartSection() {
         success: (response) => {
           setPreRegisterData({ email: '' });
           setIsPreRegisterOpen(false);
-          return response.message || 'Successfully registered! We will contact you soon.';
+          return (response as Record<string, unknown>).message as string || 'Successfully registered! We will contact you soon.';
         },
         error: (error) => {
           console.error('Pre-registration error:', error);

@@ -1,4 +1,4 @@
-import { BaseEdge, EdgeLabelRenderer, EdgeProps, getBezierPath, useReactFlow, MarkerType } from '@xyflow/react';
+import { BaseEdge, EdgeLabelRenderer, EdgeProps, getBezierPath, useReactFlow } from '@xyflow/react';
 import { X } from 'lucide-react';
 import { memo, useState } from 'react';
 
@@ -11,7 +11,7 @@ export const CustomEdge = memo(({
   sourcePosition,
   targetPosition,
   style = {},
-  markerEnd,
+  markerEnd: _markerEnd,
   selected,
   data,
 }: EdgeProps) => {
@@ -32,7 +32,7 @@ export const CustomEdge = memo(({
   };
 
   // Check if edge was executed successfully
-  const isExecuted = (data as any)?.executed === true;
+  const isExecuted = (data as Record<string, unknown> | undefined)?.executed === true;
 
   // Apply green color for executed edges with animation
   const edgeStyle = isExecuted ? {

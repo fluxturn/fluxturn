@@ -1,3 +1,5 @@
+import type { JsonObject } from './json';
+
 export interface App {
   id: string;
   name: string;
@@ -9,9 +11,9 @@ export interface App {
   status: 'development' | 'staging' | 'production' | 'archived';
   url?: string;
   repositoryUrl?: string;
-  buildConfig?: Record<string, any>;
+  buildConfig?: JsonObject;
   environmentVariables?: Record<string, string>;
-  settings?: Record<string, any>;
+  settings?: JsonObject;
   createdAt: string;
   updatedAt: string;
   lastDeployedAt?: string;

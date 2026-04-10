@@ -8,7 +8,6 @@ import {
   List,
   SortAsc,
   SortDesc,
-  Calendar,
   Users,
   Activity,
   X,
@@ -136,7 +135,7 @@ export const ProjectList: React.FC = () => {
 
   // Filter and sort projects
   const filteredProjects = useMemo(() => {
-    let filtered = mockOrganization.projects.filter(project => {
+    const filtered = mockOrganization.projects.filter(project => {
       const matchesSearch = project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            project.techStack.some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -150,17 +149,17 @@ export const ProjectList: React.FC = () => {
 
     // Sort projects
     filtered.sort((a, b) => {
-      let aValue: any = a[sortField]
-      let bValue: any = b[sortField]
+      let aValue: unknown = a[sortField as keyof typeof a]
+      let bValue: unknown = b[sortField as keyof typeof b]
 
       if (sortField === 'updatedAt' || sortField === 'createdAt') {
-        aValue = new Date(aValue).getTime()
-        bValue = new Date(bValue).getTime()
+        aValue = new Date(aValue as string | number).getTime()
+        bValue = new Date(bValue as string | number).getTime()
       }
 
       if (typeof aValue === 'string') {
         aValue = aValue.toLowerCase()
-        bValue = bValue.toLowerCase()
+        bValue = (bValue as string).toLowerCase()
       }
 
       if (sortOrder === 'asc') {
@@ -173,14 +172,6 @@ export const ProjectList: React.FC = () => {
     return filtered
   }, [searchTerm, statusFilter, typeFilter, sortField, sortOrder, teamFilter])
 
-  const handleSortChange = (field: SortField) => {
-    if (sortField === field) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
-    } else {
-      setSortField(field)
-      setSortOrder('desc')
-    }
-  }
 
   const clearFilters = () => {
     setSearchTerm('')

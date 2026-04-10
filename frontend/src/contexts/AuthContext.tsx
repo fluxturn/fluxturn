@@ -17,7 +17,7 @@ interface User {
   website?: string;
   location?: string;
   twoFactorEnabled?: boolean;
-  organization?: any;
+  organization?: { id: string; name: string; [key: string]: unknown };
   organizationId?: string;
   projectId?: string;
 }
@@ -36,6 +36,7 @@ interface AuthContextType {
   updateUser: (userData: Partial<User>) => void;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -46,6 +47,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     checkAuth();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -65,6 +67,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         clearTimeout(refreshOrgTimeoutRef.current);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const checkAuth = async () => {
@@ -79,11 +82,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // Check if token is expired (basic check - you might want to decode JWT)
       try {
         // Try to get profile with the token
-        const response = await api.getProfile() as any;
-        // console.log('Profile from API:', response);
-        
+        const response = await api.getProfile() as { user?: Record<string, string | undefined>; [key: string]: unknown };
+
         // The /auth/me endpoint returns: { user: { ... } }
-        const profile = response.user || response;
+        const profile = (response.user || response) as Record<string, string | undefined>;
         
         const userData: User = {
           id: profile.id,
@@ -98,26 +100,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           avatarUrl: profile.avatarUrl,
           organizationId: profile.organizationId,
           projectId: profile.projectId,
-          organization: profile.organizationId ? { id: profile.organizationId } : null
+          organization: profile.organizationId ? { id: profile.organizationId, name: '' } : null
         };
         
         setUser(userData);
         
         // Load organizations after user is authenticated
         await loadUserData();
-      } catch (error: any) {
+      } catch (error: unknown) {
         // Token might be expired or invalid
         console.error('Auth check failed:', error);
-        
+        const errMsg = error instanceof Error ? error.message : '';
+
         // If we get a 401, token is invalid/expired
-        if (error.message?.includes('Unauthorized') || error.message?.includes('401')) {
+        if (errMsg?.includes('Unauthorized') || errMsg?.includes('401')) {
           // Try to refresh the token if we have a refresh token
           const refreshToken = localStorage.getItem('refreshToken');
           if (refreshToken) {
             try {
               const refreshResponse = await api.refresh(refreshToken);
               if (refreshResponse?.user) {
-                setUser(refreshResponse.user);
+                setUser(refreshResponse.user as User);
                 await loadUserData();
                 return; // Successfully refreshed
               }
@@ -148,11 +151,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       // console.log('Loading user data...');
       // Load organizations using user-specific endpoint
-      const orgsResponse = await api.getUserOrganizations();
+      const orgsResponse = await api.getUserOrganizations() as { data?: Organization[] } | Organization[];
       // console.log('Organizations response in auth:', orgsResponse);
 
       // Backend returns paginated response with data array
-      const orgs = orgsResponse?.data || (Array.isArray(orgsResponse) ? orgsResponse : []);
+      const orgs: Organization[] = (orgsResponse as { data?: Organization[] })?.data || (Array.isArray(orgsResponse) ? orgsResponse : []);
       // console.log('Setting organizations:', orgs);
       setOrganizations(orgs);
 
@@ -164,7 +167,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         // Load projects for the first organization
         try {
-          const projectsResponse = await api.getProjectsByOrganization(firstOrg.id);
+          const projectsResponse = await api.getProjectsByOrganization(firstOrg.id) as { data?: Array<{ id: string }> };
           const projects = projectsResponse?.data || [];
 
           if (projects.length > 0) {
@@ -198,11 +201,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     isRefreshingOrgsRef.current = true;
 
     try {
-      const orgsResponse = await api.getUserOrganizations();
+      const orgsResponse = await api.getUserOrganizations() as { data?: Organization[] } | Organization[];
       // console.log('Refreshing organizations response:', orgsResponse);
 
       // Backend returns paginated response with data array
-      const orgs = orgsResponse?.data || (Array.isArray(orgsResponse) ? orgsResponse : []);
+      const orgs: Organization[] = (orgsResponse as { data?: Organization[] })?.data || (Array.isArray(orgsResponse) ? orgsResponse : []);
       // console.log('Setting refreshed organizations:', orgs);
       setOrganizations(orgs);
 
@@ -212,7 +215,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         api.setOrganizationId(firstOrg.id);
 
         try {
-          const projectsResponse = await api.getProjectsByOrganization(firstOrg.id);
+          const projectsResponse = await api.getProjectsByOrganization(firstOrg.id) as { data?: Array<{ id: string }> };
           const projects = projectsResponse?.data || [];
 
           if (projects.length > 0) {
@@ -248,7 +251,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setOrganizations([]);
 
       const response = await api.login(email, password);
-      setUser(response.user);
+      setUser(response.user as User);
 
       // Save refresh token if provided
       if (response.refreshToken) {
@@ -262,10 +265,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       try {
         // console.log('🔄 [LOGIN] Fetching organizations for user...');
         // Load organizations using user-specific endpoint
-        const orgsResponse = await api.getUserOrganizations();
+        const orgsResponse = await api.getUserOrganizations() as { data?: Organization[] } | Organization[];
         // console.log('📦 [LOGIN] Organizations response:', orgsResponse);
 
-        const userOrgs = orgsResponse?.data || (Array.isArray(orgsResponse) ? orgsResponse : []);
+        const userOrgs: Organization[] = (orgsResponse as { data?: Organization[] })?.data || (Array.isArray(orgsResponse) ? orgsResponse : []);
         // console.log('📊 [LOGIN] Parsed organizations:', userOrgs.length, 'orgs');
 
         setOrganizations(userOrgs);
@@ -279,12 +282,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           // console.log('✅ [LOGIN] Called api.setOrganizationId()');
 
           // Verify localStorage was updated
-          const storedOrgId = localStorage.getItem('selectedOrganizationId');
-          // console.log('💾 [LOGIN] localStorage check - selectedOrganizationId:', storedOrgId);
+          // console.log('💾 [LOGIN] localStorage check - selectedOrganizationId:', localStorage.getItem('selectedOrganizationId'));
 
           // Load projects for the first organization
           try {
-            const projectsResponse = await api.getProjectsByOrganization(firstOrg.id);
+            const projectsResponse = await api.getProjectsByOrganization(firstOrg.id) as { data?: Array<{ id: string }> };
             const projects = projectsResponse?.data || [];
 
             if (projects.length > 0) {
@@ -293,8 +295,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
               // console.log('📁 [LOGIN] Set project ID for API context:', firstProject.id);
 
               // Verify project was stored
-              const storedProjectId = localStorage.getItem('selectedProjectId');
-              // console.log('💾 [LOGIN] localStorage check - selectedProjectId:', storedProjectId);
+              // console.log('💾 [LOGIN] localStorage check - selectedProjectId:', localStorage.getItem('selectedProjectId'));
             } else {
               // console.warn('⚠️  [LOGIN] No projects found for organization:', firstOrg.id);
             }
@@ -313,7 +314,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setLoading(false);
 
       // Return the user for redirect logic
-      return response.user;
+      return response.user as User;
     } catch (error) {
       console.error('Login failed:', error);
       setLoading(false);
@@ -368,11 +369,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const refreshUser = async () => {
     try {
-      const response = await api.getProfile() as any;
-      // console.log('Profile response in refreshUser:', response);
+      const response = await api.getProfile() as { user?: Record<string, string | undefined>; [key: string]: unknown };
 
       // The /auth/me endpoint returns: { user: { ... } }
-      const profile = response.user || response;
+      const profile = (response.user || response) as Record<string, string | undefined>;
 
       if (!profile) {
         console.error('No profile data received');
@@ -393,10 +393,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         bio: profile.bio,
         website: profile.website,
         location: profile.location,
-        twoFactorEnabled: profile.twoFactorEnabled,
+        twoFactorEnabled: profile.twoFactorEnabled === 'true',
         organizationId: profile.organizationId,
         projectId: profile.projectId,
-        organization: profile.organization || (profile.organizationId ? { id: profile.organizationId } : null)
+        organization: (profile.organization as unknown as User['organization']) || (profile.organizationId ? { id: profile.organizationId, name: '' } : null)
       };
 
       setUser(userData);
@@ -433,6 +433,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {

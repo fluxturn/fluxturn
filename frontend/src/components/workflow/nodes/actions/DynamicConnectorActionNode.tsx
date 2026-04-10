@@ -3,22 +3,23 @@ import { memo } from "react";
 import { BaseActionNode } from "../../base/BaseActionNode";
 import { getConnectorIconPath, hasConnectorIcon } from "@/utils/workflow";
 import * as LucideIcons from "lucide-react";
+import { type NodeStatus } from "../../base/NodeStatusIndicator";
 
 interface DynamicConnectorActionNodeData {
   label: string;
   description?: string;
   connectorType: string;
   actionId: string;
-  inputSchema?: any;
+  inputSchema?: Record<string, unknown>;
   icon?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 type DynamicConnectorActionNodeType = Node<DynamicConnectorActionNodeData>;
 
 export const DynamicConnectorActionNode = memo(
   (props: NodeProps<DynamicConnectorActionNodeType>) => {
-    const { id, data } = props;
+    const { data } = props;
     
     // Get the connector icon - use custom icon if available, otherwise fallback to Lucide
     const getIcon = (): string | LucideIcons.LucideIcon => {
@@ -29,7 +30,7 @@ export const DynamicConnectorActionNode = memo(
 
       // Try Lucide icon from data
       if (data.icon && typeof data.icon === 'string') {
-        const IconComponent = (LucideIcons as any)[data.icon];
+        const IconComponent = (LucideIcons as unknown as Record<string, LucideIcons.LucideIcon>)[data.icon];
         if (IconComponent) {
           return IconComponent;
         }
@@ -54,7 +55,7 @@ export const DynamicConnectorActionNode = memo(
         icon={icon}
         name={label}
         description={description}
-        status={data.status || 'initial'}
+        status={(data.status as NodeStatus) || 'initial'}
         onSettings={handleOpenSettings}
         onDoubleClick={handleOpenSettings}
       />

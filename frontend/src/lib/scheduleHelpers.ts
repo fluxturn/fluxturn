@@ -40,7 +40,7 @@ export function scheduleToCron(config: ScheduleConfig): string {
         return `${minute} ${hour} */${interval} * *`;
       }
 
-    case "weeks":
+    case "weeks": {
       // Every X weeks on specific weekdays at specific hour and minute
       // Convert dayOfWeek array to cron format (0-6, where 0 = Sunday)
       const days = dayOfWeek.length > 0 ? dayOfWeek.sort().join(",") : "*";
@@ -51,6 +51,7 @@ export function scheduleToCron(config: ScheduleConfig): string {
         // Every X weeks (cron doesn't support this directly, so we use weekly)
         return `${minute} ${hour} * * ${days}`;
       }
+    }
 
     case "months":
       // Every X months on specific day at specific hour and minute
@@ -104,9 +105,10 @@ export function scheduleDescription(config: ScheduleConfig): string {
     case "days":
       return `Every ${interval} day${interval !== 1 ? "s" : ""} at ${timeLabel}`;
 
-    case "weeks":
+    case "weeks": {
       const days = dayOfWeek.map((d) => WEEKDAYS[d]).join(", ");
       return `Every ${interval} week${interval !== 1 ? "s" : ""} on ${days || "no days selected"} at ${timeLabel}`;
+    }
 
     case "months":
       return `Every ${interval} month${interval !== 1 ? "s" : ""} on day ${dayOfMonth} at ${timeLabel}`;

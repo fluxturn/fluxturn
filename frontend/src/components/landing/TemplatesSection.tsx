@@ -6,9 +6,10 @@ import { useTranslation } from "react-i18next";
 import { useState, useEffect, useContext } from "react";
 import { api } from "../../lib/api";
 import { WorkflowAPI } from "../../lib/fluxturn";
+import type { JsonObject } from "../../types/json";
 import { AuthContext } from "../../contexts/AuthContext";
 import { toast } from "sonner";
-import { ReactFlow, Background, BackgroundVariant, ReactFlowProvider } from '@xyflow/react';
+import { ReactFlow, Background, BackgroundVariant, ReactFlowProvider, type Node, type Edge } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { nodeComponents } from '@/config/workflow';
 
@@ -27,14 +28,14 @@ interface Template {
   verified: boolean;
   created_at: string;
   canvas?: {
-    nodes: any[];
-    edges: any[];
+    nodes: Record<string, unknown>[];
+    edges: Record<string, unknown>[];
   };
-  steps?: any[];
-  triggers?: any[];
-  conditions?: any[];
-  variables?: any[];
-  outputs?: any[];
+  steps?: Record<string, unknown>[];
+  triggers?: Record<string, unknown>[];
+  conditions?: Record<string, unknown>[];
+  variables?: Record<string, unknown>[];
+  outputs?: Record<string, unknown>[];
 }
 
 // Category color mapping
@@ -142,23 +143,24 @@ export function TemplatesSection() {
         const response = await api.getTemplates({ limit: 12, filter: 'popular' });
 
         // Process templates to ensure they have the right structure
-        const templatesData = response?.templates || response || [];
-        const processedTemplates = templatesData.map((template: any) => ({
-          id: template.id,
-          name: template.name,
-          description: template.description,
-          category: template.category,
-          required_connectors: template.required_connectors || [],
-          tags: template.tags || [],
-          use_count: template.use_count || 0,
-          verified: template.verified || false,
-          created_at: template.created_at,
-          canvas: template.canvas || { nodes: [], edges: [] },
-          steps: template.steps || [],
-          triggers: template.triggers || [],
-          conditions: template.conditions || [],
-          variables: template.variables || [],
-          outputs: template.outputs || []
+        const typedResponse = response as { templates?: Record<string, unknown>[] } | Record<string, unknown>[];
+        const templatesData = (!Array.isArray(typedResponse) && typedResponse?.templates) || (Array.isArray(typedResponse) ? typedResponse : []);
+        const processedTemplates = templatesData.map((template: Record<string, unknown>) => ({
+          id: template.id as string,
+          name: template.name as string,
+          description: template.description as string,
+          category: template.category as string,
+          required_connectors: (template.required_connectors as string[]) || [],
+          tags: (template.tags as string[]) || [],
+          use_count: (template.use_count as number) || 0,
+          verified: (template.verified as boolean) || false,
+          created_at: template.created_at as string,
+          canvas: (template.canvas as Template['canvas']) || { nodes: [], edges: [] },
+          steps: (template.steps as Template['steps']) || [],
+          triggers: (template.triggers as Template['triggers']) || [],
+          conditions: (template.conditions as Template['conditions']) || [],
+          variables: (template.variables as Template['variables']) || [],
+          outputs: (template.outputs as Template['outputs']) || []
         }));
 
         setTemplates(processedTemplates);
@@ -202,7 +204,7 @@ export function TemplatesSection() {
 
       // 1. Get existing projects for this organization
       const projectsRes = await api.getProjectsByOrganization(organizationId);
-      const projects = (projectsRes as any).data || (projectsRes as any);
+      const projects = (projectsRes as { data?: { id: string }[] }).data || (projectsRes as { id: string }[]);
 
       if (!projects || projects.length === 0) {
         toast.error(t('templates.errors.noProject', 'No project found'));
@@ -224,7 +226,7 @@ export function TemplatesSection() {
           outputs: template.outputs || [],
           canvas: template.canvas || { nodes: [], edges: [] },
         },
-      }, organizationId, projectId);
+      } as JsonObject, organizationId, projectId);
 
       const workflowId = workflowRes.id;
 
@@ -480,8 +482,8 @@ export function TemplatesSection() {
                         {selectedTemplate.canvas?.nodes?.length > 0 ? (
                           <ReactFlowProvider>
                             <ReactFlow
-                              nodes={selectedTemplate.canvas.nodes}
-                              edges={selectedTemplate.canvas.edges || []}
+                              nodes={selectedTemplate.canvas.nodes as Node[]}
+                              edges={(selectedTemplate.canvas.edges || []) as Edge[]}
                               nodeTypes={nodeComponents}
                               fitView
                               fitViewOptions={{ padding: 0.3 }}

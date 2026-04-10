@@ -26,7 +26,7 @@ export const blogApi = {
       const queryString = params
         ? new URLSearchParams(
             Object.entries(params)
-              .filter(([_, v]) => v !== undefined && v !== null)
+              .filter((entry) => entry[1] !== undefined && entry[1] !== null)
               .map(([k, v]) => [k, Array.isArray(v) ? v.join(',') : String(v)])
           ).toString()
         : '';
@@ -34,8 +34,8 @@ export const blogApi = {
         `${BASE_URL}/posts${queryString ? `?${queryString}` : ''}`
       );
       return response;
-    } catch (error: any) {
-      throw new Error(error.message || 'Failed to fetch blog posts');
+    } catch (error: unknown) {
+      throw new Error((error instanceof Error ? error.message : undefined) || 'Failed to fetch blog posts');
     }
   },
 
@@ -43,11 +43,11 @@ export const blogApi = {
     try {
       const response = await api.get<BlogPost>(`${BASE_URL}/posts/slug/${slug}`);
       return response;
-    } catch (error: any) {
-      if (error.statusCode === 404) {
+    } catch (error: unknown) {
+      if ((error as { statusCode?: number }).statusCode === 404) {
         throw new Error('Blog post not found');
       }
-      throw new Error(error.message || 'Failed to fetch blog post');
+      throw new Error((error instanceof Error ? error.message : undefined) || 'Failed to fetch blog post');
     }
   },
 
@@ -55,11 +55,11 @@ export const blogApi = {
     try {
       const response = await api.get<BlogPost>(`${BASE_URL}/posts/${id}`);
       return response;
-    } catch (error: any) {
-      if (error.statusCode === 404) {
+    } catch (error: unknown) {
+      if ((error as { statusCode?: number }).statusCode === 404) {
         throw new Error('Blog post not found');
       }
-      throw new Error(error.message || 'Failed to fetch blog post');
+      throw new Error((error instanceof Error ? error.message : undefined) || 'Failed to fetch blog post');
     }
   },
 
@@ -71,7 +71,7 @@ export const blogApi = {
       const queryString = params
         ? new URLSearchParams(
             Object.entries(params)
-              .filter(([_, v]) => v !== undefined && v !== null)
+              .filter((entry) => entry[1] !== undefined && entry[1] !== null)
               .map(([k, v]) => [k, String(v)])
           ).toString()
         : '';
@@ -79,8 +79,8 @@ export const blogApi = {
         `${BASE_URL}/posts/${postId}/comments${queryString ? `?${queryString}` : ''}`
       );
       return response;
-    } catch (error: any) {
-      throw new Error(error.message || 'Failed to fetch comments');
+    } catch (error: unknown) {
+      throw new Error((error instanceof Error ? error.message : undefined) || 'Failed to fetch comments');
     }
   },
 
@@ -88,8 +88,8 @@ export const blogApi = {
     try {
       const response = await api.get<BlogCategory[]>(`${BASE_URL}/categories`);
       return response;
-    } catch (error: any) {
-      throw new Error(error.message || 'Failed to fetch categories');
+    } catch (error: unknown) {
+      throw new Error((error instanceof Error ? error.message : undefined) || 'Failed to fetch categories');
     }
   },
 
@@ -97,7 +97,7 @@ export const blogApi = {
     try {
       const response = await api.get<PopularTag[]>(`${BASE_URL}/tags`);
       return response;
-    } catch (error: any) {
+    } catch {
       return [];
     }
   },
@@ -106,7 +106,7 @@ export const blogApi = {
     try {
       const response = await api.get<BlogStats>(`${BASE_URL}/stats`);
       return response;
-    } catch (error: any) {
+    } catch {
       return {
         total_posts: 0,
         published_posts: 0,
@@ -124,8 +124,8 @@ export const blogApi = {
         rating,
       });
       return response;
-    } catch (error: any) {
-      throw new Error(error.message || 'Failed to rate post');
+    } catch (error: unknown) {
+      throw new Error((error instanceof Error ? error.message : undefined) || 'Failed to rate post');
     }
   },
 
@@ -136,8 +136,8 @@ export const blogApi = {
         data
       );
       return response;
-    } catch (error: any) {
-      throw new Error(error.message || 'Failed to create comment');
+    } catch (error: unknown) {
+      throw new Error((error instanceof Error ? error.message : undefined) || 'Failed to create comment');
     }
   },
 
@@ -148,7 +148,7 @@ export const blogApi = {
       const queryString = params
         ? new URLSearchParams(
             Object.entries(params)
-              .filter(([_, v]) => v !== undefined && v !== null)
+              .filter((entry) => entry[1] !== undefined && entry[1] !== null)
               .map(([k, v]) => [k, Array.isArray(v) ? v.join(',') : String(v)])
           ).toString()
         : '';
@@ -156,8 +156,8 @@ export const blogApi = {
         `${BASE_URL}/my-posts${queryString ? `?${queryString}` : ''}`
       );
       return response;
-    } catch (error: any) {
-      throw new Error(error.message || 'Failed to fetch your posts');
+    } catch (error: unknown) {
+      throw new Error((error instanceof Error ? error.message : undefined) || 'Failed to fetch your posts');
     }
   },
 
@@ -165,11 +165,11 @@ export const blogApi = {
     try {
       const response = await api.post<BlogPost>(`${BASE_URL}/posts`, data);
       return response;
-    } catch (error: any) {
-      if (error.statusCode === 403) {
+    } catch (error: unknown) {
+      if ((error as { statusCode?: number }).statusCode === 403) {
         throw new Error('You do not have permission to create blog posts.');
       }
-      throw new Error(error.message || 'Failed to create blog post');
+      throw new Error((error instanceof Error ? error.message : undefined) || 'Failed to create blog post');
     }
   },
 
@@ -177,28 +177,28 @@ export const blogApi = {
     try {
       const response = await api.put<BlogPost>(`${BASE_URL}/posts/${id}`, data);
       return response;
-    } catch (error: any) {
-      if (error.statusCode === 404) {
+    } catch (error: unknown) {
+      if ((error as { statusCode?: number }).statusCode === 404) {
         throw new Error('Blog post not found or you do not have permission to edit it');
       }
-      if (error.statusCode === 403) {
+      if ((error as { statusCode?: number }).statusCode === 403) {
         throw new Error('You do not have permission to edit this blog post');
       }
-      throw new Error(error.message || 'Failed to update blog post');
+      throw new Error((error instanceof Error ? error.message : undefined) || 'Failed to update blog post');
     }
   },
 
   async deletePost(id: string): Promise<void> {
     try {
       await api.delete(`${BASE_URL}/posts/${id}`);
-    } catch (error: any) {
-      if (error.statusCode === 404) {
+    } catch (error: unknown) {
+      if ((error as { statusCode?: number }).statusCode === 404) {
         throw new Error('Blog post not found or you do not have permission to delete it');
       }
-      if (error.statusCode === 403) {
+      if ((error as { statusCode?: number }).statusCode === 403) {
         throw new Error('You do not have permission to delete this blog post');
       }
-      throw new Error(error.message || 'Failed to delete blog post');
+      throw new Error((error instanceof Error ? error.message : undefined) || 'Failed to delete blog post');
     }
   },
 
@@ -211,11 +211,11 @@ export const blogApi = {
         formData
       );
       return response;
-    } catch (error: any) {
-      if (error.statusCode === 403) {
+    } catch (error: unknown) {
+      if ((error as { statusCode?: number }).statusCode === 403) {
         throw new Error('You do not have permission to upload images');
       }
-      throw new Error(error.message || 'Failed to upload images');
+      throw new Error((error instanceof Error ? error.message : undefined) || 'Failed to upload images');
     }
   },
 
@@ -225,25 +225,25 @@ export const blogApi = {
     try {
       const response = await api.post<BlogCategory>(`${BASE_URL}/categories`, data);
       return response;
-    } catch (error: any) {
-      if (error.statusCode === 403) {
+    } catch (error: unknown) {
+      if ((error as { statusCode?: number }).statusCode === 403) {
         throw new Error('You do not have permission to create categories');
       }
-      throw new Error(error.message || 'Failed to create category');
+      throw new Error((error instanceof Error ? error.message : undefined) || 'Failed to create category');
     }
   },
 
   async deleteCategory(id: string): Promise<void> {
     try {
       await api.delete(`${BASE_URL}/categories/${id}`);
-    } catch (error: any) {
-      if (error.statusCode === 404) {
+    } catch (error: unknown) {
+      if ((error as { statusCode?: number }).statusCode === 404) {
         throw new Error('Category not found');
       }
-      if (error.statusCode === 403) {
+      if ((error as { statusCode?: number }).statusCode === 403) {
         throw new Error('You do not have permission to delete categories');
       }
-      throw new Error(error.message || 'Failed to delete category');
+      throw new Error((error instanceof Error ? error.message : undefined) || 'Failed to delete category');
     }
   },
 };

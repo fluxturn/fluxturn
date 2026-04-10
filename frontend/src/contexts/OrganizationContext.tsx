@@ -13,6 +13,7 @@ interface OrganizationContextType {
   switchOrganization: (organizationId: string) => void;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const OrganizationContext = createContext<OrganizationContextType | undefined>(undefined);
 
 export const OrganizationProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -42,7 +43,9 @@ export const OrganizationProvider: React.FC<{ children: React.ReactNode }> = ({ 
       // console.log('[OrgContext] Response:', response);
 
       // The backend returns { organization, projects, members }
-      const organization = response?.organization || response?.data?.organization || response;
+      const resp = response as Record<string, unknown>;
+      const respData = resp?.data as Record<string, unknown> | undefined;
+      const organization = (resp?.organization || respData?.organization || response) as Organization | null;
 
       if (!organization || !organization.id) {
         console.error('[OrgContext] Invalid organization response:', response);
@@ -54,8 +57,8 @@ export const OrganizationProvider: React.FC<{ children: React.ReactNode }> = ({ 
       // console.log('[OrgContext] Setting organization:', organization);
       lastFetchedId.current = orgId;
       setCurrentOrganization(organization);
-    } catch (err: any) {
-      const errorMessage = err?.message || 'Failed to fetch organization';
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch organization';
       console.error('[OrgContext] Error fetching organization:', err);
       setError(errorMessage);
       setCurrentOrganization(null);
@@ -110,6 +113,7 @@ export const OrganizationProvider: React.FC<{ children: React.ReactNode }> = ({ 
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useOrganization = () => {
   const context = useContext(OrganizationContext);
   if (context === undefined) {
@@ -122,6 +126,7 @@ export const useOrganization = () => {
  * Hook that automatically sets organization ID from URL params
  * Use this in any page component that has :organizationId in the route
  */
+// eslint-disable-next-line react-refresh/only-export-components
 export const useOrganizationFromParams = () => {
   const context = useOrganization();
   const params = useParams<{ organizationId?: string }>();
@@ -135,6 +140,7 @@ export const useOrganizationFromParams = () => {
   return context;
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useOrganizationRequired = () => {
   const context = useOrganization();
   if (!context.organizationId) {

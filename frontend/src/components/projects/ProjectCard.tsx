@@ -14,8 +14,7 @@ import {
   BarChart3,
   GitBranch,
   Globe,
-  Database,
-  Zap
+  Database
 } from 'lucide-react'
 import { GlassCard } from '../ui/GlassCard'
 import { cn } from '../../lib/utils'

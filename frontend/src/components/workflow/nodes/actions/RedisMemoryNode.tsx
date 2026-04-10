@@ -4,21 +4,22 @@ import { memo } from "react";
 import { WorkflowNode } from "../../WorkflowNode";
 import { BaseNode, BaseNodeContent } from "../../base/BaseNode";
 import { BaseHandle } from "../../base/BaseHandle";
+import { type NodeStatus } from "../../base/NodeStatusIndicator";
 
 export const RedisMemoryNode = memo((props: NodeProps) => {
   const { id, data: rawData } = props;
-  const data = rawData as any;
+  const data = rawData as Record<string, unknown>;
   const { setNodes, setEdges } = useReactFlow();
 
-  const label = data?.label || "Redis Chat Memory";
-  const contextWindowLength = data?.contextWindowLength || 5;
-  const sessionTTL = data?.sessionTTL || 0;
+  const label = (data?.label as string) || "Redis Chat Memory";
+  const contextWindowLength = (data?.contextWindowLength as number) || 5;
+  const sessionTTL = (data?.sessionTTL as number) || 0;
 
   const description = sessionTTL > 0
     ? `Stores ${contextWindowLength} messages (expires in ${sessionTTL}s)`
     : `Stores ${contextWindowLength} messages (no expiration)`;
 
-  const nodeStatus = data?.status || "initial";
+  const nodeStatus = (data?.status as NodeStatus) || "initial";
 
   // Settings button handler
   const handleOpenSettings = () => {

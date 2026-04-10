@@ -7,23 +7,15 @@ import {
   CheckCircle,
   XCircle,
   AlertCircle,
-  Pause,
-  Play,
   RotateCcw,
   Terminal,
   Settings,
   GitBranch,
   Calendar,
   User,
-  Download,
-  ExternalLink,
   MoreVertical,
   Zap,
-  Database,
-  Eye,
-  Filter,
-  Search,
-  ChevronDown
+  Search
 } from 'lucide-react'
 import { GlassCard, StatCard, ChartCard } from '../../components/ui/GlassCard'
 import { ProjectHierarchy } from '../../components/projects/ProjectHierarchy'

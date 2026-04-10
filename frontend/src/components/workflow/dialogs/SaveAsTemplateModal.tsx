@@ -89,7 +89,7 @@ export function SaveAsTemplateModal({
       setCategory('other');
       setErrors({});
       onOpenChange(false);
-    } catch (error) {
+    } catch {
       // Error handling is done in the parent component
     } finally {
       setIsLoading(false);

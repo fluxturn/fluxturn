@@ -9,7 +9,7 @@ interface UseCasesSectionProps {
   setActiveCategory: (category: string) => void;
 }
 
-export function UseCasesSection({ activeCategory, setActiveCategory }: UseCasesSectionProps) {
+export function UseCasesSection({ activeCategory: _activeCategory, setActiveCategory: _setActiveCategory }: UseCasesSectionProps) {
   const { t } = useTranslation();
 
   const useCaseKeys = ['marketing', 'api', 'data', 'ai'] as const;

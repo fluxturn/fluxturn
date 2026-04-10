@@ -11,24 +11,12 @@ import {
   ChevronLeft,
   ChevronRight,
   Zap,
-  Database,
-  MessageSquare,
-  Users,
-  CreditCard,
-  FileText,
-  Cloud,
-  Settings,
-  BarChart3,
-  Smartphone,
-  Mail,
-  Globe,
   Code,
   GitBranch,
   RotateCcw,
   Shuffle,
   Clock,
-  Filter,
-  Play
+  Filter
 } from 'lucide-react';
 
 // Connector definitions based on the 54 real connectors from fluxturn
@@ -163,7 +151,7 @@ export const NodePalette: React.FC<NodePaletteProps> = ({ isOpen, onToggle }) =>
     });
   }, [searchTerm, selectedCategory]);
 
-  const onDragStart = (event: React.DragEvent, item: any) => {
+  const onDragStart = (event: React.DragEvent, item: typeof filteredItems[number]) => {
     event.dataTransfer.setData('application/reactflow', item.type);
     event.dataTransfer.setData('application/json', JSON.stringify({
       label: item.name,
@@ -182,7 +170,7 @@ export const NodePalette: React.FC<NodePaletteProps> = ({ isOpen, onToggle }) =>
     setRecentlyUsed(newRecentlyUsed);
   };
 
-  const renderItem = (item: any) => {
+  const renderItem = (item: typeof filteredItems[number]) => {
     const IconComponent = typeof item.icon === 'string' ? null : item.icon;
     // Check if we have a custom connector icon
     const connectorId = item.id.replace(/-/g, '_'); // Convert github to github, google-drive to google_drive
@@ -209,7 +197,7 @@ export const NodePalette: React.FC<NodePaletteProps> = ({ isOpen, onToggle }) =>
             ) : IconComponent ? (
               <IconComponent className="w-5 h-5" />
             ) : (
-              <span className="text-sm">{item.icon}</span>
+              <span className="text-sm">{String(item.icon)}</span>
             )}
           </div>
           <div className="flex-1 min-w-0">

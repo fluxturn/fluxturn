@@ -2,6 +2,7 @@ import { type NodeProps } from "@xyflow/react";
 import { memo } from "react";
 import { BaseTriggerNode } from "../../base/BaseTriggerNode";
 import { MessageCircle } from "lucide-react";
+import { type NodeStatus } from "../../base/NodeStatusIndicator";
 
 interface ChatTriggerNodeData {
   label?: string;
@@ -31,7 +32,7 @@ export const ChatTriggerNode = memo((props: NodeProps) => {
       icon={MessageCircle}
       name={nodeData.label || "Chat Trigger"}
       description={description}
-      status={(data as any).status || 'initial'}
+      status={((data as Record<string, unknown>).status as NodeStatus) || 'initial'}
       onSettings={handleOpenSettings}
       onDoubleClick={handleOpenSettings}
     />

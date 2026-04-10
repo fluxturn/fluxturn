@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { X, ExternalLink, Loader2, Edit2, AlertCircle, Bot, Play } from 'lucide-react';
+import { ExternalLink, Loader2, Edit2, AlertCircle, Bot, Play } from 'lucide-react';
 import { useReactFlow, useEdges } from '@xyflow/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,14 +16,54 @@ import { ExpressionPicker } from '@/components/workflow/ExpressionPicker';
 import { ImageUploadField } from '@/components/workflow/ImageUploadField';
 import { ArrayStringField } from '@/components/workflow/ArrayStringField';
 import { NodeType } from '@/config/workflow/nodeTypes';
+import type { JsonValue } from '@/types/json';
 
 type NodeMode = 'execute' | 'provider';
+
+/** Shape of a single field definition inside an inputSchema object. */
+interface InputSchemaField {
+  type?: string;
+  inputType?: string;
+  label?: string;
+  description?: string;
+  aiDescription?: string;
+  placeholder?: string;
+  required?: boolean;
+  default?: JsonValue;
+  options?: Array<{ label: string; value: string } | string>;
+  min?: number;
+  max?: number;
+  step?: number;
+  aiControlled?: boolean;
+  loadOptionsFrom?: string;
+  loadOptionsResource?: string;
+  loadOptionsDependsOn?: string[];
+  displayOptions?: { show?: Record<string, unknown[]> };
+  displayCondition?: Record<string, unknown>;
+  items?: Record<string, { properties?: Record<string, InputSchemaField & { accept?: string }>; type?: string }> & { properties?: Record<string, InputSchemaField & { accept?: string }>; type?: string };
+  maxItems?: number;
+}
+
+/** The node object passed into this panel. */
+interface ConfigPanelNode {
+  id: string;
+  data: {
+    label?: string;
+    connectorType?: string;
+    credentialId?: string;
+    inputSchema?: Record<string, InputSchemaField>;
+    config?: Record<string, JsonValue>;
+    mode?: NodeMode;
+    aiControlledFields?: string[];
+    [key: string]: unknown;
+  };
+}
 
 interface DynamicNodeConfigPanelProps {
   isOpen: boolean;
   onClose: () => void;
-  node: any;
-  onSave: (config: any) => void;
+  node: ConfigPanelNode;
+  onSave: (config: Record<string, unknown>) => void;
 }
 
 export function DynamicNodeConfigPanel({
@@ -34,7 +74,7 @@ export function DynamicNodeConfigPanel({
 }: DynamicNodeConfigPanelProps) {
   const { getNodes } = useReactFlow();
   const edges = useEdges(); // Reactive hook for edge changes
-  const [formData, setFormData] = useState<Record<string, any>>({});
+  const [formData, setFormData] = useState<Record<string, unknown>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [dynamicOptions, setDynamicOptions] = useState<Record<string, Array<{ label: string; value: string }>>>({});
   const [loadingOptions, setLoadingOptions] = useState<Record<string, boolean>>({});
@@ -75,7 +115,7 @@ export function DynamicNodeConfigPanel({
     const loadCredentials = async () => {
       try {
         const response = await api.get<Array<{ id: string; name: string; connector_type: string }>>('/connectors');
-        const filtered = response.filter((c: any) => c.connector_type === node.data.connectorType);
+        const filtered = response.filter((c: { connector_type: string }) => c.connector_type === node.data.connectorType);
         setCredentials(filtered);
 
         if (node.data.credentialId) {
@@ -90,14 +130,15 @@ export function DynamicNodeConfigPanel({
     };
 
     loadCredentials();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [node?.data?.connectorType, isOpen]);
 
   useEffect(() => {
     if (node?.data?.config) {
       setFormData(node.data.config);
     } else {
-      const defaults: Record<string, any> = {};
-      Object.entries(inputSchema).forEach(([key, field]: [string, any]) => {
+      const defaults: Record<string, unknown> = {};
+      Object.entries(inputSchema).forEach(([key, field]: [string, InputSchemaField]) => {
         if (field.default !== undefined) {
           defaults[key] = field.default;
         }
@@ -118,7 +159,7 @@ export function DynamicNodeConfigPanel({
     } else {
       // Default: use aiControlled property from inputSchema
       const defaultAiControlled = new Set<string>();
-      Object.entries(inputSchema).forEach(([key, field]: [string, any]) => {
+      Object.entries(inputSchema).forEach(([key, field]: [string, InputSchemaField]) => {
         if (field.aiControlled === true) {
           defaultAiControlled.add(key);
         }
@@ -127,12 +168,13 @@ export function DynamicNodeConfigPanel({
     }
 
     if (selectedCredential) {
-      Object.entries(inputSchema).forEach(([key, field]: [string, any]) => {
+      Object.entries(inputSchema).forEach(([key, field]: [string, InputSchemaField]) => {
         if (field.loadOptionsFrom || field.loadOptionsResource) {
           loadDynamicOptions(key, field);
         }
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [node, inputSchema, selectedCredential]);
 
   // Auto-switch mode based on AI Agent connection
@@ -145,9 +187,10 @@ export function DynamicNodeConfigPanel({
       // Clear AI-controlled fields when disconnected
       setAiControlledFields(new Set());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isConnectedToAIToolsHandle]);
 
-  const loadDynamicOptions = async (fieldKey: string, field: any) => {
+  const loadDynamicOptions = async (fieldKey: string, field: InputSchemaField) => {
     if (!selectedCredential) {
       // console.warn(`Cannot load options for ${fieldKey}: no credential selected`);
       return;
@@ -170,7 +213,7 @@ export function DynamicNodeConfigPanel({
 
         field.loadOptionsDependsOn.forEach((depField: string) => {
           if (formData[depField]) {
-            params.append(depField, formData[depField]);
+            params.append(depField, String(formData[depField]));
           } else {
             // Mark that a required dependency is missing
             missingDependency = true;
@@ -197,16 +240,16 @@ export function DynamicNodeConfigPanel({
     try {
       const options = await api.get<Array<{ label: string; value: string }>>(endpoint);
       setDynamicOptions(prev => ({ ...prev, [fieldKey]: options }));
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(`Failed to load options for ${fieldKey}:`, error);
-      toast.error(`Failed to load ${field.label || fieldKey}: ${error.message || 'Unknown error'}`);
+      toast.error(`Failed to load ${field.label || fieldKey}: ${error instanceof Error ? error.message : 'Unknown error'}`);
       setDynamicOptions(prev => ({ ...prev, [fieldKey]: [] }));
     } finally {
       setLoadingOptions(prev => ({ ...prev, [fieldKey]: false }));
     }
   };
 
-  const handleFieldChange = (fieldKey: string, value: any) => {
+  const handleFieldChange = (fieldKey: string, value: unknown) => {
     setFormData(prev => ({ ...prev, [fieldKey]: value }));
     if (errors[fieldKey]) {
       setErrors(prev => ({ ...prev, [fieldKey]: '' }));
@@ -214,7 +257,7 @@ export function DynamicNodeConfigPanel({
 
     // Reload options for fields that depend on this field
     if (selectedCredential) {
-      Object.entries(inputSchema).forEach(([key, field]: [string, any]) => {
+      Object.entries(inputSchema).forEach(([key, field]: [string, InputSchemaField]) => {
         if (field.loadOptionsDependsOn?.includes(fieldKey)) {
           loadDynamicOptions(key, field);
         }
@@ -225,7 +268,7 @@ export function DynamicNodeConfigPanel({
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
 
-    Object.entries(inputSchema).forEach(([key, field]: [string, any]) => {
+    Object.entries(inputSchema).forEach(([key, field]: [string, InputSchemaField]) => {
       if (field.required && !formData[key]) {
         newErrors[key] = `${field.label || key} is required`;
       }
@@ -261,7 +304,7 @@ export function DynamicNodeConfigPanel({
     }
 
     // Build context params (non-AI-controlled fields with values)
-    const contextParams: Record<string, any> = {};
+    const contextParams: Record<string, unknown> = {};
     if (nodeMode === 'provider') {
       Object.entries(formData).forEach(([key, value]) => {
         // Only include non-AI-controlled fields that have values
@@ -295,7 +338,7 @@ export function DynamicNodeConfigPanel({
     });
   };
 
-  const shouldShowField = (field: any): boolean => {
+  const shouldShowField = (field: InputSchemaField): boolean => {
     // Check displayOptions (new format)
     if (field.displayOptions?.show) {
       for (const [conditionField, expectedValues] of Object.entries(field.displayOptions.show)) {
@@ -321,7 +364,7 @@ export function DynamicNodeConfigPanel({
     return true;
   };
 
-  const renderField = (fieldKey: string, field: any) => {
+  const renderField = (fieldKey: string, field: InputSchemaField) => {
     // Check if field should be shown based on displayOptions
     if (!shouldShowField(field)) {
       return null;
@@ -379,7 +422,7 @@ export function DynamicNodeConfigPanel({
         {uiType === 'textarea' ? (
           <div className="space-y-2">
             <Textarea
-              value={value || ''}
+              value={String(value ?? '')}
               onChange={(e) => handleFieldChange(fieldKey, e.target.value)}
               placeholder={placeholder}
               className={cn(
@@ -400,7 +443,7 @@ export function DynamicNodeConfigPanel({
         ) : type === 'number' ? (
           <Input
             type="number"
-            value={value ?? ''}
+            value={value as string | number ?? ''}
             onChange={(e) => handleFieldChange(fieldKey, e.target.value ? Number(e.target.value) : undefined)}
             placeholder={placeholder}
             min={min}
@@ -417,7 +460,7 @@ export function DynamicNodeConfigPanel({
             />
           </div>
         ) : type === 'select' ? (
-          <Select value={value || ''} onValueChange={(val) => handleFieldChange(fieldKey, val)}>
+          <Select value={String(value ?? '')} onValueChange={(val) => handleFieldChange(fieldKey, val)}>
             <SelectTrigger
               className={cn(
                 'bg-[#2a2a2a] border-gray-700 text-white',
@@ -435,7 +478,7 @@ export function DynamicNodeConfigPanel({
                   <Loader2 className="w-4 h-4 animate-spin text-gray-400" />
                 </div>
               ) : (
-                (dynamicOptions[fieldKey] || options || []).map((option: any) => {
+                (dynamicOptions[fieldKey] || options || []).map((option: { label: string; value: string } | string) => {
                   const optionValue = typeof option === 'object' ? option.value : option;
                   const optionLabel = typeof option === 'object' ? option.label : option;
                   return (
@@ -454,7 +497,7 @@ export function DynamicNodeConfigPanel({
         ) : type === 'password' ? (
           <Input
             type="password"
-            value={value || ''}
+            value={String(value ?? '')}
             onChange={(e) => handleFieldChange(fieldKey, e.target.value)}
             placeholder={placeholder}
             className={cn('bg-[#2a2a2a] border-gray-700 text-white placeholder:text-gray-500', error && 'border-red-500')}
@@ -477,15 +520,15 @@ export function DynamicNodeConfigPanel({
           // Column mappings UI for database connectors
           <div className="space-y-3">
             {(() => {
-              const collectionData = value || {};
-              const mappings = collectionData.mappings || [];
+              const collectionData = (value || {}) as Record<string, unknown>;
+              const mappings = (collectionData.mappings || []) as Array<Record<string, string>>;
               const itemsConfig = field.items?.mappings?.properties || {};
 
               return (
                 <>
-                  {mappings.map((mapping: any, index: number) => (
+                  {mappings.map((mapping: Record<string, string>, index: number) => (
                     <div key={index} className="p-3 bg-[#252525] border border-gray-700 rounded space-y-3">
-                      {Object.entries(itemsConfig).map(([propKey, propField]: [string, any]) => (
+                      {Object.entries(itemsConfig).map(([propKey, propField]: [string, InputSchemaField]) => (
                         <div key={propKey} className="space-y-1.5">
                           <Label className="text-xs text-gray-400">{propField.label || propKey}</Label>
                           <div className="flex items-center gap-2">
@@ -517,7 +560,7 @@ export function DynamicNodeConfigPanel({
                         variant="ghost"
                         size="sm"
                         onClick={() => {
-                          const newMappings = mappings.filter((_: any, i: number) => i !== index);
+                          const newMappings = mappings.filter((_: Record<string, string>, i: number) => i !== index);
                           handleFieldChange(fieldKey, { mappings: newMappings });
                         }}
                         className="text-red-400 hover:text-red-300 hover:bg-red-900/20 text-xs h-7"
@@ -530,7 +573,7 @@ export function DynamicNodeConfigPanel({
                     variant="outline"
                     size="sm"
                     onClick={() => {
-                      const newMapping: any = {};
+                      const newMapping: Record<string, string> = {};
                       Object.keys(itemsConfig).forEach(key => { newMapping[key] = ''; });
                       handleFieldChange(fieldKey, { mappings: [...mappings, newMapping] });
                     }}
@@ -545,7 +588,7 @@ export function DynamicNodeConfigPanel({
         ) : type === 'array' && field.items?.properties?.fileData ? (
           // Special handling for file upload arrays (like mediaFiles)
           <ImageUploadField
-            value={value || []}
+            value={(value || []) as Array<{ fileData: string; fileName: string; mimeType: string; size: number }>}
             onChange={(files) => handleFieldChange(fieldKey, files)}
             maxFiles={field.maxItems || 4}
             maxSizeInMB={5}
@@ -554,10 +597,10 @@ export function DynamicNodeConfigPanel({
             error={error}
             required={required}
           />
-        ) : type === 'array' && field.items?.type === 'string' ? (
+        ) : type === 'array' && (field.items as Record<string, unknown>)?.type === 'string' ? (
           // Simple string arrays (like mediaUrls)
           <ArrayStringField
-            value={value || []}
+            value={(value || []) as string[]}
             onChange={(urls) => handleFieldChange(fieldKey, urls)}
             placeholder={placeholder || `Enter ${label?.toLowerCase() || 'value'}`}
             error={error}
@@ -571,8 +614,8 @@ export function DynamicNodeConfigPanel({
               type={uiType || 'text'}
               value={
                 uiType === 'datetime-local' && value
-                  ? value.substring(0, 16) // Remove seconds for datetime-local input
-                  : value || ''
+                  ? String(value).substring(0, 16) // Remove seconds for datetime-local input
+                  : String(value ?? '')
               }
               onChange={(e) => {
                 // For datetime-local, append seconds if not present

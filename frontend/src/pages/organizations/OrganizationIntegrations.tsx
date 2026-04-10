@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { 
+import {
   Puzzle,
   Github,
   GitBranch,
   MessageSquare,
-  Mail,
   Calendar,
   Database,
   Cloud,
@@ -25,21 +24,13 @@ import {
   AlertTriangle,
   Activity,
   Zap,
-  Lock,
-  Unlock,
   Filter,
   Search,
   Download,
-  Upload,
   Code,
-  Server,
-  Shield,
   Globe,
-  Smartphone,
-  Monitor,
-  Bell
 } from 'lucide-react'
-import { GlassCard, StatCard, ChartCard } from '../../components/ui/GlassCard'
+import { GlassCard, StatCard } from '../../components/ui/GlassCard'
 import { cn } from '../../lib/utils'
 
 interface Integration {
@@ -52,7 +43,7 @@ interface Integration {
   connectedAt?: string
   lastSync?: string
   permissions?: string[]
-  settings?: Record<string, any>
+  settings?: Record<string, unknown>
   webhookUrl?: string
   apiCalls?: number
   monthlyLimit?: number
@@ -296,8 +287,8 @@ export const OrganizationIntegrations: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('')
   const [showApiKey, setShowApiKey] = useState<{ [key: string]: boolean }>({})
   const [showWebhookSecret, setShowWebhookSecret] = useState<{ [key: string]: boolean }>({})
-  const [showAddWebhookModal, setShowAddWebhookModal] = useState(false)
-  const [showAddApiKeyModal, setShowAddApiKeyModal] = useState(false)
+  const [, setShowAddWebhookModal] = useState(false)
+  const [, setShowAddApiKeyModal] = useState(false)
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -911,7 +902,7 @@ export const OrganizationIntegrations: React.FC = () => {
             ].map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
+                onClick={() => setActiveTab(tab.id as typeof activeTab)}
                 className={cn(
                   "flex items-center space-x-2 px-4 py-3 rounded-lg transition-all text-sm font-medium",
                   activeTab === tab.id 

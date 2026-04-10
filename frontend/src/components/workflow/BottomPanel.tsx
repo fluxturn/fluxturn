@@ -13,7 +13,7 @@ interface BottomPanelProps {
   className?: string;
   logs?: LogEntry[];
   onClearLogs?: () => void;
-  selectedNode?: any;
+  selectedNode?: { id: string; data?: Record<string, unknown>; [key: string]: unknown };
   onCloseNodeData?: () => void;
   databaseNodes?: DatabaseNodeInfo[];
   onPanelStateChange?: (isOpen: boolean, height: number) => void;
@@ -57,6 +57,7 @@ export function BottomPanel({ className, logs: externalLogs, onClearLogs, select
       // Switch away from database tab if no database nodes
       setActiveTab("logs");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [databaseNodes]);
 
   // Notify parent about panel state changes
@@ -109,7 +110,7 @@ export function BottomPanel({ className, logs: externalLogs, onClearLogs, select
     setExpandedPaths(newExpanded);
   };
 
-  const renderValue = (value: any, path: string, depth: number = 0): React.ReactElement => {
+  const renderValue = (value: unknown, path: string, depth: number = 0): React.ReactElement => {
     if (value === null) {
       return <span className="text-purple-400">null</span>;
     }
@@ -160,8 +161,9 @@ export function BottomPanel({ className, logs: externalLogs, onClearLogs, select
     }
 
     if (typeof value === "object") {
+      const obj = value as Record<string, unknown>;
       const isExpanded = expandedPaths.has(path);
-      const keys = Object.keys(value);
+      const keys = Object.keys(obj);
 
       return (
         <div>
@@ -182,7 +184,7 @@ export function BottomPanel({ className, logs: externalLogs, onClearLogs, select
                 <div key={key} className="py-1 flex items-start gap-2">
                   <span className="text-blue-400 font-mono text-xs flex-shrink-0">{key}:</span>
                   <div className="flex-1 min-w-0">
-                    {renderValue(value[key], `${path}.${key}`, depth + 1)}
+                    {renderValue(obj[key], `${path}.${key}`, depth + 1)}
                   </div>
                 </div>
               ))}
@@ -195,7 +197,7 @@ export function BottomPanel({ className, logs: externalLogs, onClearLogs, select
     return <span className="text-gray-300">{String(value)}</span>;
   };
 
-  const handleDownloadFile = (fileData: any, fileName: string) => {
+  const handleDownloadFile = (fileData: { data: string; mimeType?: string }, fileName: string) => {
     try {
       const binaryString = atob(fileData.data);
       const bytes = new Uint8Array(binaryString.length);
@@ -218,7 +220,7 @@ export function BottomPanel({ className, logs: externalLogs, onClearLogs, select
   };
 
   // Render data view (moved from NodeDataPanel)
-  const renderDataView = (items: any[], label: string) => {
+  const renderDataView = (items: unknown[], label: string) => {
     if (!items || items.length === 0) {
       return (
         <div className="flex items-center justify-center h-full text-gray-500">
@@ -234,11 +236,12 @@ export function BottomPanel({ className, logs: externalLogs, onClearLogs, select
     return (
       <div className="p-4 space-y-3 overflow-y-auto" style={{ maxHeight: `${panelHeight - 100}px` }}>
         {items.map((item, index) => {
-          const data = item.json || item;
-          const hasBinaryData = data.binary && data.binary.data;
+          const itemObj = item as Record<string, unknown>;
+          const data = (itemObj.json || itemObj) as Record<string, unknown>;
+          const hasBinaryData = data.binary && (data.binary as Record<string, unknown>).data;
 
           if (hasBinaryData) {
-            const binaryData = data.binary.data;
+            const binaryData = (data.binary as Record<string, unknown>).data as { data?: string; mimeType?: string; fileName?: string; fileSize?: number };
             const mimeType = binaryData.mimeType || '';
             const isImage = mimeType.startsWith('image/');
             const isVideo = mimeType.startsWith('video/');
@@ -298,7 +301,7 @@ export function BottomPanel({ className, logs: externalLogs, onClearLogs, select
                     </div>
                   )}
                   <button
-                    onClick={() => handleDownloadFile(binaryData, binaryData.fileName)}
+                    onClick={() => handleDownloadFile(binaryData as { data: string; mimeType?: string }, binaryData.fileName || 'download')}
                     className="w-full flex items-center justify-center gap-2 px-3 py-1.5 bg-cyan-500 hover:bg-cyan-600 text-white rounded text-xs font-medium"
                   >
                     <Download className="w-3 h-3" />
@@ -408,7 +411,7 @@ export function BottomPanel({ className, logs: externalLogs, onClearLogs, select
               Data
               {selectedNode && (
                 <span className="text-xs text-gray-500 truncate max-w-[200px]">
-                  {selectedNode.data?.label || selectedNode.id}
+                  {String(selectedNode.data?.label || selectedNode.id)}
                 </span>
               )}
             </button>

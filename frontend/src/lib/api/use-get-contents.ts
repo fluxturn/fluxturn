@@ -8,11 +8,11 @@ export interface Content {
   userId: string;
   contentType: string;
   title: string;
-  content: any;
+  content: unknown;
   source: string;
-  sourceDetails?: any;
-  parameters?: any;
-  metadata?: any;
+  sourceDetails?: Record<string, unknown>;
+  parameters?: Record<string, unknown>;
+  metadata?: Record<string, unknown>;
   status: string;
   version: number;
   parentId?: string;

@@ -34,7 +34,7 @@ interface FieldTreeNode {
   name: string;              // Field name: "text", "message"
   fullPath: string;          // Full expression: {{$node["X"].json.a.b}}
   type: 'object' | 'array' | 'string' | 'number' | 'boolean';
-  value?: any;               // Sample value for display
+  value?: unknown;             // Sample value for display
   children?: FieldTreeNode[];
 }
 
@@ -44,13 +44,6 @@ interface NodeGroup {
   nodeType: string;
   nodeId: string;
   fields: FieldTreeNode[];
-}
-
-// Legacy interface for backward compatibility
-interface FieldInfo {
-  path: string;
-  type: string;
-  value?: any;
 }
 
 export const FieldPicker: React.FC<FieldPickerProps> = ({
@@ -70,7 +63,7 @@ export const FieldPicker: React.FC<FieldPickerProps> = ({
   const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set());
   const [expandedPaths, setExpandedPaths] = useState<Set<string>>(new Set());
   const [loadingExecutionData, setLoadingExecutionData] = useState(false);
-  const [cursorPosition, setCursorPosition] = useState<number>(0);
+  const [, setCursorPosition] = useState<number>(0);
   const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -98,14 +91,14 @@ export const FieldPicker: React.FC<FieldPickerProps> = ({
   };
 
   // Build hierarchical tree structure from data
-  const buildFieldTree = useCallback((data: any, nodeName: string, basePath = ''): FieldTreeNode[] => {
+  const buildFieldTree = useCallback((data: unknown, nodeName: string, basePath = ''): FieldTreeNode[] => {
     const nodes: FieldTreeNode[] = [];
 
     if (!data || typeof data !== 'object') {
       return nodes;
     }
 
-    const processValue = (key: string, val: any, currentPath: string): FieldTreeNode => {
+    const processValue = (key: string, val: unknown, currentPath: string): FieldTreeNode => {
       const fieldPath = currentPath ? `${currentPath}.${key}` : key;
       const fullExpression = mode === 'action'
         ? `{{$node["${nodeName}"].json.${fieldPath}}}`
@@ -124,7 +117,7 @@ export const FieldPicker: React.FC<FieldPickerProps> = ({
         const children: FieldTreeNode[] = [];
         // Show first item structure if available
         if (val.length > 0 && typeof val[0] === 'object' && val[0] !== null) {
-          const arrayItemChildren = buildFieldTree(val[0], nodeName, `${fieldPath}[0]`);
+          const arrayItemChildren = buildFieldTree(val[0] as Record<string, unknown>, nodeName, `${fieldPath}[0]`);
           children.push(...arrayItemChildren);
         }
         return {
@@ -137,7 +130,7 @@ export const FieldPicker: React.FC<FieldPickerProps> = ({
       }
 
       if (typeof val === 'object') {
-        const children = buildFieldTree(val, nodeName, fieldPath);
+        const children = buildFieldTree(val as Record<string, unknown>, nodeName, fieldPath);
         return {
           name: key,
           fullPath: fullExpression,
@@ -154,8 +147,8 @@ export const FieldPicker: React.FC<FieldPickerProps> = ({
       };
     };
 
-    Object.keys(data).forEach((key) => {
-      nodes.push(processValue(key, data[key], basePath));
+    Object.keys(data as Record<string, unknown>).forEach((key) => {
+      nodes.push(processValue(key, (data as Record<string, unknown>)[key], basePath));
     });
 
     return nodes;
@@ -255,7 +248,7 @@ export const FieldPicker: React.FC<FieldPickerProps> = ({
   }, []);
 
   // Format value for display
-  const formatDisplayValue = useCallback((value: any, type: string): string => {
+  const formatDisplayValue = useCallback((value: unknown, type: string): string => {
     if (value === null) return 'null';
     if (value === undefined) return '';
     if (type === 'string') {
@@ -274,7 +267,7 @@ export const FieldPicker: React.FC<FieldPickerProps> = ({
       const parentNodes = getParentNodes();
       // console.log('[FieldPicker] Parent nodes found:', parentNodes.length, parentNodes.map(n => ({ id: n.id, type: n.type, label: n.data?.label })));
       const groups: NodeGroup[] = [];
-      let executionData: any = null;
+      let executionData: Record<string, unknown> | null = null;
 
       // Fetch execution data from database if workflowId exists
       if (workflowId && mode === 'action') {
@@ -282,8 +275,9 @@ export const FieldPicker: React.FC<FieldPickerProps> = ({
         try {
           const response = await api.get(`/workflow/${workflowId}/last-execution-output`);
 
-          if (response.hasData && response.data) {
-            executionData = response.data;
+          const resp = response as Record<string, unknown>;
+          if (resp.hasData && resp.data) {
+            executionData = resp.data as Record<string, unknown>;
           }
         } catch (error) {
           console.error('Failed to fetch execution data:', error);
@@ -293,48 +287,53 @@ export const FieldPicker: React.FC<FieldPickerProps> = ({
       }
 
       parentNodes.forEach((node) => {
-        const nodeData = node.data as any;
-        const nodeName = nodeData?.label || nodeData?.name || node.id;
-        let sampleData: any = {};
+        const nodeData = node.data as Record<string, unknown>;
+        const nodeName = String(nodeData?.label || nodeData?.name || node.id);
+        let sampleData: Record<string, unknown> = {};
 
         // console.log('[FieldPicker] Processing node:', nodeName, 'type:', node.type);
 
         // Priority 1: Check for execution data from database
-        const nodeExecutionData = executionData?.data?.[node.id] || executionData?.[node.id];
+        const execDataMap = executionData?.data as Record<string, Record<string, unknown>> | undefined;
+        const nodeExecutionData = (execDataMap?.[node.id] || executionData?.[node.id]) as Record<string, unknown> | undefined;
         if (nodeExecutionData) {
-          if (nodeExecutionData.data) {
-            if (Array.isArray(nodeExecutionData.data) && nodeExecutionData.data.length > 0) {
-              if (Array.isArray(nodeExecutionData.data[0]) && nodeExecutionData.data[0].length > 0) {
-                sampleData = nodeExecutionData.data[0][0]?.json || nodeExecutionData.data[0][0] || {};
-              } else if (nodeExecutionData.data[0]?.json) {
-                sampleData = nodeExecutionData.data[0].json;
+          const nedData = nodeExecutionData.data as unknown;
+          if (nedData) {
+            if (Array.isArray(nedData) && nedData.length > 0) {
+              const first = nedData[0] as unknown;
+              if (Array.isArray(first) && first.length > 0) {
+                const item = first[0] as Record<string, unknown>;
+                sampleData = (item?.json as Record<string, unknown>) || item || {};
+              } else if (typeof first === 'object' && first !== null && 'json' in (first as Record<string, unknown>)) {
+                sampleData = (first as Record<string, unknown>).json as Record<string, unknown>;
               } else {
-                sampleData = nodeExecutionData.data[0] || {};
+                sampleData = (first as Record<string, unknown>) || {};
               }
             }
           }
         }
 
         // Priority 2: Check for stored output data in node state
-        if (Object.keys(sampleData).length === 0 && nodeData?.outputData && Object.keys(nodeData.outputData).length > 0) {
-          sampleData = nodeData.outputData;
-        } else if (Object.keys(sampleData).length === 0 && nodeData?.lastResult && Object.keys(nodeData.lastResult).length > 0) {
-          sampleData = nodeData.lastResult;
+        if (Object.keys(sampleData).length === 0 && nodeData?.outputData && typeof nodeData.outputData === 'object' && Object.keys(nodeData.outputData as Record<string, unknown>).length > 0) {
+          sampleData = nodeData.outputData as Record<string, unknown>;
+        } else if (Object.keys(sampleData).length === 0 && nodeData?.lastResult && typeof nodeData.lastResult === 'object' && Object.keys(nodeData.lastResult as Record<string, unknown>).length > 0) {
+          sampleData = nodeData.lastResult as Record<string, unknown>;
         }
 
         // Priority 3: For form triggers, infer fields from formFields config
         if (Object.keys(sampleData).length === 0 && node.type === 'FORM_TRIGGER' && nodeData?.formFields && Array.isArray(nodeData.formFields)) {
-          sampleData.formSubmission = {};
-          nodeData.formFields.forEach((field: any) => {
-            sampleData.formSubmission[field.name] = `<${field.type}>`;
+          const formSubmission: Record<string, string> = {};
+          (nodeData.formFields as Array<{ name: string; type: string }>).forEach((field) => {
+            formSubmission[field.name] = `<${field.type}>`;
           });
+          sampleData.formSubmission = formSubmission as unknown as Record<string, unknown>;
           sampleData.submittedAt = '<timestamp>';
           sampleData.trigger = 'form';
         }
 
         // Priority 4: Check for sample data in node config
         if (Object.keys(sampleData).length === 0 && node.data?.sampleOutput) {
-          sampleData = node.data.sampleOutput;
+          sampleData = node.data.sampleOutput as Record<string, unknown>;
         }
 
         // Build tree structure from the data
@@ -354,6 +353,7 @@ export const FieldPicker: React.FC<FieldPickerProps> = ({
     };
 
     loadFieldsFromExecutionData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, nodeId, mode, workflowId, buildFieldTree]);
 
   const handleFieldSelect = (fieldPath: string) => {

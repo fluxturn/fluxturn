@@ -3,16 +3,13 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FolderOpen, ArrowLeft } from 'lucide-react'
 import { GlassCard } from '../../components/ui/GlassCard'
-import { useOrganization } from '../../contexts/OrganizationContext'
-import { useProject } from '../../contexts/ProjectContext'
 import { api } from '../../lib/api'
-import { extractRouteContext, servicePaths } from '../../lib/navigation-utils';
+import { extractRouteContext } from '../../lib/navigation-utils';
 
 export const CreateProjectSimple: React.FC = () => {
   const navigate = useNavigate()
   const params = useParams();
-  const { organizationId, projectId } = extractRouteContext(params);
-  const { refreshProject } = useProject()
+  const { organizationId } = extractRouteContext(params);
   const [projectName, setProjectName] = useState('')
   const [projectDescription, setProjectDescription] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -41,7 +38,9 @@ export const CreateProjectSimple: React.FC = () => {
         organizationId: organizationId,
       })
 
-      const projectId = response?.projectId || response?.data?.projectId
+      const resp = response as Record<string, unknown>;
+      const respData = resp?.data as Record<string, unknown> | undefined;
+      const projectId = resp?.projectId || respData?.projectId
       
       if (projectId) {
         // Navigate to the project dashboard
@@ -49,11 +48,11 @@ export const CreateProjectSimple: React.FC = () => {
       } else {
         throw new Error('Failed to create project')
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error creating project:', error)
-      
+
       // The server now sends user-friendly error messages
-      let errorMessage = error.message || 'Failed to create project. Please try again.';
+      let errorMessage = error instanceof Error ? error.message : 'Failed to create project. Please try again.';
       
       // Additional client-side handling for specific cases
       if (errorMessage.includes('already exists') || errorMessage.includes('already taken')) {

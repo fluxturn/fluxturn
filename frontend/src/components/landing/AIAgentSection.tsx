@@ -165,7 +165,9 @@ function ConnectionLine({ delay = 0, isActive = false }: { delay?: number; isAct
 // Execution Log Component
 function ExecutionLog() {
   const [visibleSteps, setVisibleSteps] = useState<number[]>([]);
-  const [currentStep, setCurrentStep] = useState(0);
+  const [, setCurrentStep] = useState(0);
+
+  const isStepsEmpty = visibleSteps.length === 0;
 
   useEffect(() => {
     const timers: NodeJS.Timeout[] = [];
@@ -186,7 +188,7 @@ function ExecutionLog() {
     timers.push(resetTimer);
 
     return () => timers.forEach(t => clearTimeout(t));
-  }, [visibleSteps.length === 0]);
+  }, [isStepsEmpty]);
 
   const getStepIcon = (type: string, isVisible: boolean) => {
     if (!isVisible) return <Circle className="w-3 h-3 text-gray-300" />;
@@ -342,6 +344,8 @@ export function AIAgentSection() {
   const isAuthenticated = authContext?.isAuthenticated ?? false;
   const organizations = authContext?.organizations ?? [];
 
+  const isActiveNodeNull = activeNode === null;
+
   // Animate active node based on execution
   useEffect(() => {
     const sequence = [
@@ -362,7 +366,7 @@ export function AIAgentSection() {
     timers.push(resetTimer);
 
     return () => timers.forEach(t => clearTimeout(t));
-  }, [activeNode === null]);
+  }, [isActiveNodeNull]);
 
   const createAIAgentWorkflow = async () => {
     try {
@@ -375,7 +379,7 @@ export function AIAgentSection() {
 
       // Get existing projects
       const projectsRes = await api.getProjectsByOrganization(organizationId);
-      const projects = (projectsRes as any).data || (projectsRes as any);
+      const projects = (projectsRes as { data?: { id: string }[] }).data || (projectsRes as { id: string }[]);
 
       if (!projects || projects.length === 0) {
         toast.error(t('aiAgent.errors.noProject', 'No project found'));

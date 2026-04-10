@@ -5,10 +5,10 @@ import { api } from '../api';
 
 export interface UpdateContentDto {
   title?: string;
-  content?: any;
+  content?: unknown;
   contentType?: string;
   status?: string;
-  metadata?: any;
+  metadata?: Record<string, unknown>;
 }
 
 export function useUpdateContent() {

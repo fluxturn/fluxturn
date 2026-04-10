@@ -7,8 +7,8 @@ const getMultiTenantHeaders = (): Record<string, string> => {
   
   // Get from URL path
   const path = window.location.pathname
-  const projectMatch = path.match(/\/project\/([^\/]+)/)
-  const appMatch = path.match(/\/app\/([^\/]+)/)
+  const projectMatch = path.match(/\/project\/([^/]+)/)
+  const appMatch = path.match(/\/app\/([^/]+)/)
   
   // Try to get from localStorage as fallback
   const storedProjectKey = localStorage.getItem('x-project-key')

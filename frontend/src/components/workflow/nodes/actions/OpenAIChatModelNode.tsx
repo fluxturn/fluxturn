@@ -2,13 +2,14 @@ import { type NodeProps } from "@xyflow/react";
 import { Bot } from "lucide-react";
 import { memo } from "react";
 import { BaseActionNode } from "../../base/BaseActionNode";
+import { type NodeStatus } from "../../base/NodeStatusIndicator";
 
 export const OpenAIChatModelNode = memo((props: NodeProps) => {
-  const data = props.data as any;
+  const data = props.data as Record<string, unknown>;
 
   const model = data?.model || "gpt-4o-mini";
   const description = `${model} model configuration`;
-  const nodeStatus = data?.status || "initial";
+  const nodeStatus = (data?.status as NodeStatus) || "initial";
 
   // Settings button handler - parent will handle opening modal via click event
   const handleOpenSettings = () => {
