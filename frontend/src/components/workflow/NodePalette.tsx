@@ -11,24 +11,12 @@ import {
   ChevronLeft,
   ChevronRight,
   Zap,
-  Database,
-  MessageSquare,
-  Users,
-  CreditCard,
-  FileText,
-  Cloud,
-  Settings,
-  BarChart3,
-  Smartphone,
-  Mail,
-  Globe,
   Code,
   GitBranch,
   RotateCcw,
   Shuffle,
   Clock,
-  Filter,
-  Play
+  Filter
 } from 'lucide-react';
 
 // Connector definitions based on the 54 real connectors from fluxturn

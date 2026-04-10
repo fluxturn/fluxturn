@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { X, ExternalLink, Loader2, Edit2, AlertCircle, Bot, Play } from 'lucide-react';
+import { ExternalLink, Loader2, Edit2, AlertCircle, Bot, Play } from 'lucide-react';
 import { useReactFlow, useEdges } from '@xyflow/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';

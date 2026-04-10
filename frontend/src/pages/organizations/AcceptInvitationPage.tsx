@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Mail, CheckCircle, XCircle, AlertTriangle, Users } from 'lucide-react'
+import { Mail, CheckCircle, AlertTriangle, Users } from 'lucide-react'
 import { toast } from 'sonner'
 import { organizationApi } from '../../lib/api/organization'
 import { useAuth } from '../../contexts/AuthContext'

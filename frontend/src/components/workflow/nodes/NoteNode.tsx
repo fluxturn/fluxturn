@@ -4,11 +4,6 @@ import { cn } from "@/lib/utils";
 import { Palette, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-interface NoteNodeData {
-  content?: string;
-  color?: string;
-}
-
 const NOTE_COLORS = [
   { name: 'Teal', from: 'from-teal-700', to: 'to-teal-800', border: 'border-teal-600' },
   { name: 'Yellow', from: 'from-yellow-600', to: 'to-yellow-700', border: 'border-yellow-500' },

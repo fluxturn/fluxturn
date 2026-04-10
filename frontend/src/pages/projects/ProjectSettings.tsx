@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   Settings,
   Save,
-  X,
   Plus,
   Trash2,
   Eye,
@@ -12,22 +11,17 @@ import {
   Copy,
   Check,
   Globe,
-  Shield,
   Key,
   Webhook,
   AlertTriangle,
   Info,
-  ExternalLink,
-  Zap,
   Database,
-  Server,
   Lock,
   Unlock,
   RefreshCw
 } from 'lucide-react'
 import { toast } from 'sonner'
 import { GlassCard } from '../../components/ui/GlassCard'
-import { ProjectHierarchy } from '../../components/projects/ProjectHierarchy'
 import { cn } from '../../lib/utils'
 import { api } from '../../lib/api'
 
@@ -56,11 +50,11 @@ export const ProjectSettings: React.FC = () => {
     { id: '1', domain: 'ecommerce.acme.com', status: 'active', ssl: true, primary: true },
     { id: '2', domain: 'shop.acme.com', status: 'pending', ssl: false, primary: false }
   ])
-  const [webhooks, setWebhooks] = useState([
+  const [webhooks] = useState([
     { id: '1', url: 'https://api.acme.com/webhooks/deploy', events: ['deployment.success', 'deployment.failed'], active: true },
     { id: '2', url: 'https://slack.com/api/incoming/webhook', events: ['deployment.success'], active: true }
   ])
-  const [apiKeys, setApiKeys] = useState([
+  const [apiKeys] = useState([
     { id: '1', name: 'Production API Key', key: 'pk_live_...', created: '2024-01-15', lastUsed: '2 hours ago', permissions: ['read', 'write'] },
     { id: '2', name: 'Development Key', key: 'pk_dev_...', created: '2024-02-01', lastUsed: '1 day ago', permissions: ['read'] }
   ])

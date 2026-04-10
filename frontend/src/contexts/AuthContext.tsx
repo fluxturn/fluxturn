@@ -279,8 +279,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           // console.log('✅ [LOGIN] Called api.setOrganizationId()');
 
           // Verify localStorage was updated
-          const storedOrgId = localStorage.getItem('selectedOrganizationId');
-          // console.log('💾 [LOGIN] localStorage check - selectedOrganizationId:', storedOrgId);
+          // console.log('💾 [LOGIN] localStorage check - selectedOrganizationId:', localStorage.getItem('selectedOrganizationId'));
 
           // Load projects for the first organization
           try {
@@ -293,8 +292,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
               // console.log('📁 [LOGIN] Set project ID for API context:', firstProject.id);
 
               // Verify project was stored
-              const storedProjectId = localStorage.getItem('selectedProjectId');
-              // console.log('💾 [LOGIN] localStorage check - selectedProjectId:', storedProjectId);
+              // console.log('💾 [LOGIN] localStorage check - selectedProjectId:', localStorage.getItem('selectedProjectId'));
             } else {
               // console.warn('⚠️  [LOGIN] No projects found for organization:', firstOrg.id);
             }

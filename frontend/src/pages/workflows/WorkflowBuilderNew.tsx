@@ -1,15 +1,12 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import {
-  ReactFlow,
   Node,
   Edge,
   addEdge,
   Connection,
   useNodesState,
   useEdgesState,
-  Background,
-  BackgroundVariant,
   MarkerType,
   ReactFlowProvider,
   useReactFlow,
@@ -33,7 +30,6 @@ import { EditorTab } from '@/components/workflow/tabs/EditorTab';
 import { api } from '@/lib/api';
 import { WorkflowAPI } from '@/lib/fluxturn';
 import { useWebSocket } from '@/hooks/use-websocket';
-import { useRoles } from '@/hooks/useRoles';
 import { extractRouteContext, servicePaths } from '@/lib/navigation-utils';
 
 const initialNodes: Node[] = [];
@@ -72,7 +68,6 @@ const WorkflowBuilderInner: React.FC = () => {
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const [initialLoadComplete, setInitialLoadComplete] = useState(false);
   const [executionResult, setExecutionResult] = useState<Record<string, unknown> | null>(null);
-  const [showResults, setShowResults] = useState(false);
   const [formTestModalOpen, setFormTestModalOpen] = useState(false);
   const [formTriggerConfig, setFormTriggerConfig] = useState<Record<string, unknown> | null>(null);
   const [isWorkflowActive, setIsWorkflowActive] = useState(false);
@@ -85,7 +80,6 @@ const WorkflowBuilderInner: React.FC = () => {
   const { screenToFlowPosition } = useReactFlow();
   const loadedWorkflowRef = React.useRef<string | null>(null);
   const { socket } = useWebSocket();
-  const currentExecutionIdRef = React.useRef<string | null>(null);
   const isExecutingRef = React.useRef<boolean>(false);
   const executionResetTimerRef = React.useRef<NodeJS.Timeout | null>(null);
   const isLoadingRef = React.useRef<boolean>(false);
@@ -391,7 +385,7 @@ const WorkflowBuilderInner: React.FC = () => {
   // Handle OAuth workflow auto-save
   useEffect(() => {
     // Listen for OAuth save request - auto-save workflow before OAuth
-    const handleRequestWorkflowSave = async (_event: Event) => {
+    const handleRequestWorkflowSave = async () => {
       // console.log('🔔 Received oauth:request-workflow-save event');
 
       try {
@@ -514,7 +508,7 @@ const WorkflowBuilderInner: React.FC = () => {
   // Handle node execution workflow auto-save
   useEffect(() => {
     // Listen for node execution save request - auto-save workflow before executing node
-    const handleRequestNodeExecutionSave = async (_event: Event) => {
+    const handleRequestNodeExecutionSave = async () => {
       // console.log('🔔 Received node-execution:request-workflow-save event');
 
       try {
@@ -898,15 +892,10 @@ const WorkflowBuilderInner: React.FC = () => {
       // console.log('AI Generated:', workflowData.is_ai_generated);
       // console.log('Full Payload:', JSON.stringify(workflowData, null, 2));
 
-      let response;
-      // ✅ FIX: If AI-generated, ALWAYS create new workflow (don't update existing)
-      // This ensures AI generation counter increments properly
-      const shouldCreateNew = !workflowId || workflowData.is_ai_generated;
-
       if (workflowId && !workflowData.is_ai_generated) {
         // Update existing workflow (only if NOT AI-generated)
         // console.log('Updating existing workflow:', workflowId);
-        response = await WorkflowAPI.updateWorkflow(
+        await WorkflowAPI.updateWorkflow(
           workflowId,
           workflowData,
           context.organizationId,
@@ -916,7 +905,7 @@ const WorkflowBuilderInner: React.FC = () => {
       } else {
         // Create new workflow (either no workflowId OR is AI-generated)
         // console.log('Creating new workflow' + (workflowData.is_ai_generated ? ' (AI-generated)' : ''));
-        response = await WorkflowAPI.createWorkflow(
+        const response = await WorkflowAPI.createWorkflow(
           workflowData,
           context.organizationId,
           context.projectId
@@ -1023,10 +1012,9 @@ const WorkflowBuilderInner: React.FC = () => {
       };
 
       // console.log('Creating template:', templateData);
-      const response = await api.createTemplate(templateData);
-      
+      await api.createTemplate(templateData);
+
       toast.success('Template created successfully!');
-      // console.log('Template created:', response);
     } catch (error: unknown) {
       console.error('Failed to save as template:', error);
       toast.error(error instanceof Error ? error.message : 'Failed to save as template');
@@ -1346,12 +1334,6 @@ const WorkflowBuilderInner: React.FC = () => {
         }
         // console.log('Execution details:', result.result);
 
-        // Show execution summary
-        if (result.result) {
-          const { executedNodes, totalNodes, lastNodeExecuted } = result.result;
-          // console.log(`Executed ${executedNodes}/${totalNodes} nodes`);
-          // console.log('Last node executed:', lastNodeExecuted);
-        }
       } else if (result.status === 'failed') {
         const errorMessage = result.error?.message || result.error || 'Unknown error';
         toast.error(

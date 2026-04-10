@@ -6,15 +6,10 @@ import { Separator } from '../ui/separator';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
 import { ScrollArea } from '../ui/scroll-area';
 import { 
-  Save, 
-  Play, 
-  Pause, 
+  Save,
+  Play,
   Square,
-  RotateCcw, 
-  Redo2, 
-  ZoomIn, 
-  ZoomOut, 
-  Download, 
+  Download,
   Upload,
   Settings,
   History,
@@ -97,9 +92,8 @@ export const WorkflowToolbar: React.FC<WorkflowToolbarProps> = ({
         const reader = new FileReader();
         reader.onload = (e) => {
           try {
-            const importedWorkflow = JSON.parse(e.target?.result as string);
+            JSON.parse(e.target?.result as string);
             // This would be handled by the parent component
-            // console.log('Import workflow:', importedWorkflow);
           } catch (error) {
             console.error('Failed to import workflow:', error);
           }

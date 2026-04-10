@@ -3,16 +3,13 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FolderOpen, ArrowLeft } from 'lucide-react'
 import { GlassCard } from '../../components/ui/GlassCard'
-import { useOrganization } from '../../contexts/OrganizationContext'
-import { useProject } from '../../contexts/ProjectContext'
 import { api } from '../../lib/api'
-import { extractRouteContext, servicePaths } from '../../lib/navigation-utils';
+import { extractRouteContext } from '../../lib/navigation-utils';
 
 export const CreateProjectSimple: React.FC = () => {
   const navigate = useNavigate()
   const params = useParams();
-  const { organizationId, projectId } = extractRouteContext(params);
-  const { refreshProject } = useProject()
+  const { organizationId } = extractRouteContext(params);
   const [projectName, setProjectName] = useState('')
   const [projectDescription, setProjectDescription] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)

@@ -12,7 +12,7 @@ interface SlackNodeData {
 type SlackNodeType = Node<SlackNodeData>;
 
 export const SlackNode = memo((props: NodeProps<SlackNodeType>) => {
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [, setDialogOpen] = useState(false);
   const nodeStatus = "initial";
 
   const handleOpenSettings = () => setDialogOpen(true);

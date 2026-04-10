@@ -798,7 +798,6 @@ export function AIPromptPanel({
       const lastUserMessage = [...messages].reverse().find((m) => m.role === 'user');
       if (lastUserMessage) {
         // Temporarily set input, send, then clear
-        const originalInput = input;
         setInput(lastUserMessage.content);
 
         // Send the message after a tiny delay to ensure state update

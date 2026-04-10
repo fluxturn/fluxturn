@@ -13,7 +13,7 @@ interface EmailNodeData {
 type EmailNodeType = Node<EmailNodeData>;
 
 export const EmailNode = memo((props: NodeProps<EmailNodeType>) => {
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [, setDialogOpen] = useState(false);
   const nodeStatus = "initial";
 
   const handleOpenSettings = () => setDialogOpen(true);

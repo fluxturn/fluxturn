@@ -198,8 +198,6 @@ class ApiClient {
       if (organizationId) {
         // console.log('[API] Setting localStorage.selectedOrganizationId =', organizationId);
         localStorage.setItem('selectedOrganizationId', organizationId);
-        // Verify it was set
-        const verified = localStorage.getItem('selectedOrganizationId');
         // console.log('[API] Verification - localStorage.selectedOrganizationId =', verified);
       } else {
         // console.log('[API] Removing localStorage.selectedOrganizationId');
@@ -299,7 +297,7 @@ class ApiClient {
     const url = `${API_BASE_URL}${endpoint}`;
     const token = options.token || this.getToken();
 
-    let headers: Record<string, string> = {
+    const headers: Record<string, string> = {
       'Content-Type': 'application/json',
       ...(options.headers as Record<string, string> || {}),
     };
@@ -664,7 +662,7 @@ class ApiClient {
     return this.get(`/database/tables/${tableName}`);
   }
 
-  async getTableData(tableName: string, page: number = 1, limit: number = 50, schema: string = 'public', projectId?: string, appId?: string) {
+  async getTableData(tableName: string, page: number = 1, limit: number = 50, projectId?: string, appId?: string) {
     if (projectId) this.setProjectId(projectId);
     if (appId) this.setAppId(appId);
     
@@ -1189,8 +1187,7 @@ class ApiClient {
 
   private buildTenantUrl(
     organizationId?: string,
-    projectId?: string,
-    appId?: string
+    projectId?: string
   ): string {
     if (!organizationId || !projectId) {
       throw new Error('Multi-tenant context required: organizationId and projectId must be provided');
@@ -1483,12 +1480,7 @@ class ApiClient {
       bucket?: string;
       isPublic?: boolean;
       metadata?: JsonObject;
-    } = {},
-    tenantContext?: {
-      organizationId?: string;
-      projectId?: string;
-      appId?: string;
-    }
+    } = {}
   ): Promise<unknown> {
     const bucket = options.bucket || 'presentations';
 
@@ -1510,11 +1502,6 @@ class ApiClient {
       contentType?: string;
       limit?: number;
       offset?: number;
-    },
-    tenantContext?: {
-      organizationId?: string;
-      projectId?: string;
-      appId?: string;
     }
   ): Promise<unknown> {
     const params = new URLSearchParams();
@@ -1529,35 +1516,20 @@ class ApiClient {
   }
 
   async getStorageFile(
-    fileId: string,
-    tenantContext?: {
-      organizationId?: string;
-      projectId?: string;
-      appId?: string;
-    }
+    fileId: string
   ): Promise<unknown> {
     return this.get(`/storage/files/${fileId}`);
   }
 
   async deleteStorageFile(
-    fileId: string,
-    tenantContext?: {
-      organizationId?: string;
-      projectId?: string;
-      appId?: string;
-    }
+    fileId: string
   ): Promise<void> {
     return this.delete(`/storage/files/${fileId}`);
   }
 
   async getStorageSignedUrl(
     fileId: string,
-    expiresIn?: number,
-    tenantContext?: {
-      organizationId?: string;
-      projectId?: string;
-      appId?: string;
-    }
+    expiresIn?: number
   ): Promise<string> {
     const params = new URLSearchParams();
     if (expiresIn) params.append('expires', String(expiresIn));
@@ -1573,12 +1545,7 @@ class ApiClient {
 
   async copyStorageFile(
     fileId: string,
-    filename: string,
-    tenantContext?: {
-      organizationId?: string;
-      projectId?: string;
-      appId?: string;
-    }
+    filename: string
   ): Promise<unknown> {
     return this.post(`/storage/files/${fileId}/copy`, { filename });
   }

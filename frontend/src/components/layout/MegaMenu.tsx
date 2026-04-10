@@ -1,22 +1,17 @@
 import React, { useState, useContext, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { 
-  ChevronDown, 
-  LayoutGrid, 
-  Users, 
-  BarChart3, 
-  Settings, 
+import {
+  ChevronDown,
+  LayoutGrid,
+  Users,
+  BarChart3,
+  Settings,
   FileText,
-  Shield,
   Database,
-  Globe,
   Zap,
-  Package,
   Layers,
   Activity,
-  Cloud,
   Lock,
-  Terminal,
   Bell,
   Building,
   FolderOpen,
@@ -31,47 +26,17 @@ import {
   Search,
   ArrowRight,
   ExternalLink,
-  Code,
   Workflow,
-  Target,
-  TrendingUp,
-  Palette,
-  GitBranch,
-  Monitor,
-  Smartphone,
-  Server,
-  BookOpen
 } from 'lucide-react'
 import { cn } from '../../lib/utils'
 import { AuthContext } from '../../contexts/AuthContext'
 import { useOrganization } from '../../contexts/OrganizationContext'
 import { useProject } from '../../contexts/ProjectContext'
-import { useNavigate, useParams, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { api } from '../../lib/api'
 import type { Organization } from '../../types/organization'
 import type { Project } from '../../types/project'
 
-// App type is no longer used but keeping interface definition for reference in removed code
-interface App {
-  id: string
-  name: string
-  framework: string
-  status: string
-  _count?: Record<string, number>
-}
-
-interface MenuCategory {
-  title: string
-  icon: React.ReactNode
-  items: {
-    title: string
-    description: string
-    href: string
-    icon: React.ReactNode
-    isNew?: boolean
-    isPro?: boolean
-  }[]
-}
 
 // Recent items storage
 const getRecentOrganizations = (): Organization[] => {
@@ -161,8 +126,6 @@ const getProjectMenuSections = (orgId: string, projectId: string): MenuSection[]
 
 
 export const MegaMenu: React.FC = () => {
-  const [activeMenu, setActiveMenu] = useState<string | null>(null)
-  const [hoveredItem, setHoveredItem] = useState<string | null>(null)
   const [showUserMenu, setShowUserMenu] = useState(false)
   const [showOrgDropdown, setShowOrgDropdown] = useState(false)
   const [showProjectDropdown, setShowProjectDropdown] = useState(false)
@@ -182,7 +145,6 @@ export const MegaMenu: React.FC = () => {
   const { currentProject, projectId } = useProject()
   const navigate = useNavigate()
   const location = useLocation()
-  const params = useParams<{ organizationId?: string; projectId?: string }>()
   
   
   
@@ -724,7 +686,7 @@ export const MegaMenu: React.FC = () => {
                         {(hoveredProjectId || currentProject || projectId) && (
                           <div className="col-span-2">
                             <div className="grid grid-cols-3 gap-4 h-full">
-                              {getProjectMenuSections(currentOrganization?.id || organizationId || '', hoveredProjectId || currentProject?.id || projectId || '').map((section, index) => (
+                              {getProjectMenuSections(currentOrganization?.id || organizationId || '', hoveredProjectId || currentProject?.id || projectId || '').map((section) => (
                               <div key={section.title}>
                                 <div className="text-xs font-semibold text-white/70 uppercase tracking-wider mb-3">{section.title}</div>
                                 <div className="space-y-1">

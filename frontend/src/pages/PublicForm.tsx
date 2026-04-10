@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { cn } from '@/lib/utils';
 
 interface FormField {
   name: string;
@@ -32,7 +31,7 @@ export default function PublicForm() {
   const [formConfig, setFormConfig] = useState<FormConfig | null>(null);
   const [formData, setFormData] = useState<Record<string, string | boolean>>({});
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
-  const [successMessage, setSuccessMessage] = useState('Thank you! Your form has been submitted successfully.');
+  const [successMessage] = useState('Thank you! Your form has been submitted successfully.');
 
   useEffect(() => {
     loadFormConfig();
@@ -122,7 +121,7 @@ export default function PublicForm() {
         throw new Error('Failed to submit form');
       }
 
-      const result = await submitResponse.json();
+      await submitResponse.json();
       setSubmitted(true);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Failed to submit form');

@@ -1,12 +1,11 @@
 import { useReactFlow } from "@xyflow/react";
-import { X, Search, Zap, Cog, GitBranch, Database, Loader2, ArrowLeft, Mail, Plus, Edit, Tag, MessageSquare, CheckCircle } from "lucide-react";
+import { X, Search, Zap, Cog, GitBranch, Database, Loader2, ArrowLeft, Mail, MessageSquare, CheckCircle } from "lucide-react";
 import { useCallback, useState, useEffect } from "react";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
 import {
   getTriggerNodes,
   getActionNodes,
@@ -15,11 +14,8 @@ import {
   NodeType,
   NODE_DEFINITIONS,
 } from "@/config/workflow";
-import { cn } from "@/lib/utils";
 import { connectorService, type AvailableConnector } from "@/services/workflow";
-import { api } from "@/lib/api";
-import { createConnectorActionNode, createConnectorTriggerNode } from "@/utils/workflow";
-import { createAndRegisterActionNodeType } from "@/utils/workflow";
+import { createConnectorTriggerNode } from "@/utils/workflow";
 import { getConnectorIconPath, hasConnectorIcon } from "@/utils/workflow";
 
 interface NodeSelectorPanelProps {

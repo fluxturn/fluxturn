@@ -9,7 +9,7 @@ interface RightToolbarProps {
   className?: string;
 }
 
-export function RightToolbar({ onAddNode, onLayout, onAIPrompt, onAddNote, className }: RightToolbarProps) {
+export function RightToolbar({ onAddNode, onLayout: _onLayout, onAIPrompt, onAddNote, className }: RightToolbarProps) {
   return (
     <div className={cn("fixed right-4 top-[140px] flex flex-col gap-2 z-10", className)}>
       {/* Add Node Button */}

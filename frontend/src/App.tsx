@@ -63,7 +63,6 @@ import { AcceptInvitationPage } from "./pages/organizations/AcceptInvitationPage
 // Project pages
 import { ProjectList } from "./pages/projects/ProjectList";
 import { CreateProjectSimple } from "./pages/projects/CreateProjectSimple";
-import { ProjectDashboard } from "./pages/projects/ProjectDashboard";
 import { ProjectDashboardReal } from "./pages/projects/ProjectDashboardReal";
 import { ProjectSettings } from "./pages/projects/ProjectSettings";
 import { ProjectCollaborators } from "./pages/projects/ProjectCollaborators";

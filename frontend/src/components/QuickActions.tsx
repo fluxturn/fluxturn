@@ -2,12 +2,8 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
-  Database,
   HardDrive,
   Shield,
-  Mail,
-  List,
-  Brain,
   Workflow,
   BarChart3,
   FileText,

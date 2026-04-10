@@ -34,7 +34,7 @@ export const OrganizationList: React.FC = () => {
   const [viewMode, setViewMode] = useState<ViewMode>('grid')
   const [showFilters, setShowFilters] = useState(false)
   const [organizations, setOrganizations] = useState<Array<{ id: string; name: string; description: string; status?: string; createdAt?: string; [key: string]: unknown }>>([])
-  const [loading, setLoading] = useState(true)
+  const [, setLoading] = useState(true)
   const [deleteDialog, setDeleteDialog] = useState<{ open: boolean; organizationId: string | null; organizationName: string }>({
     open: false,
     organizationId: null,
@@ -73,7 +73,7 @@ export const OrganizationList: React.FC = () => {
 
   // Filter and sort organizations
   const filteredAndSortedOrganizations = useMemo(() => {
-    let filtered = organizations.filter(org => {
+    const filtered = organizations.filter(org => {
       const matchesSearch = org.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                            org.description.toLowerCase().includes(searchQuery.toLowerCase())
       const matchesStatus = statusFilter === 'all' || org.status === statusFilter
@@ -108,15 +108,6 @@ export const OrganizationList: React.FC = () => {
 
     return { totalOrgs, activeOrgs, totalProjects, totalUsers }
   }, [organizations])
-
-  const handleSort = (field: SortField) => {
-    if (sortField === field) {
-      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc')
-    } else {
-      setSortField(field)
-      setSortDirection('asc')
-    }
-  }
 
   const handleDelete = (organizationId: string) => {
     const org = organizations.find(o => o.id === organizationId)

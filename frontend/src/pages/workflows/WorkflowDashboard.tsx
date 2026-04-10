@@ -4,23 +4,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import {
   Search,
   SlidersHorizontal,
-  Grid3x3,
-  MoreVertical,
   ChevronDown,
-  InfoIcon,
-  PlayCircle,
-  UserCircle,
   TrendingUp,
   Activity,
   Package,
   RefreshCw,
-  Upload,
-  Download,
-  Users,
   Trash2,
   Check,
 } from 'lucide-react';
-import { api } from '@/lib/api';
 import { WorkflowAPI } from '@/lib/fluxturn';
 import { toast } from 'sonner';
 import { StatCard, ChartCard, GlassCard } from '@/components/ui/GlassCard';

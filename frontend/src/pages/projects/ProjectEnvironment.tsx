@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   Database,
-  Key,
   Eye,
   EyeOff,
   Copy,
@@ -10,20 +9,14 @@ import {
   Plus,
   Trash2,
   Lock,
-  Unlock,
   Shield,
   AlertTriangle,
   Download,
   Upload,
-  RefreshCw,
   Settings,
   Search,
-  Filter,
-  FileText,
-  CheckCircle2,
   XCircle,
-  Info,
-  Server
+  Info
 } from 'lucide-react'
 import { GlassCard, StatCard } from '../../components/ui/GlassCard'
 import { ProjectHierarchy } from '../../components/projects/ProjectHierarchy'
@@ -132,7 +125,7 @@ export const ProjectEnvironment: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [filterType, setFilterType] = useState<'all' | 'secrets' | 'public' | 'required'>('all')
   const [showAddModal, setShowAddModal] = useState(false)
-  const [showImportModal, setShowImportModal] = useState(false)
+  const [, setShowImportModal] = useState(false)
   const [newEnvVar, setNewEnvVar] = useState({
     key: '',
     value: '',

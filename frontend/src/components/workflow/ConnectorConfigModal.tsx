@@ -4,20 +4,15 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
 import { ScrollArea } from '../ui/scroll-area';
-import { Badge } from '../ui/badge';
-import { Separator } from '../ui/separator';
 import { Card } from '../ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { Editor } from '@monaco-editor/react';
 import { 
-  Settings, 
-  Key, 
-  Database, 
-  Globe, 
-  FileText, 
-  AlertCircle, 
-  CheckCircle, 
-  Info,
+  Settings,
+  Key,
+  FileText,
+  AlertCircle,
+  CheckCircle,
   ExternalLink,
   Eye,
   EyeOff
@@ -145,7 +140,6 @@ interface ConnectorConfigModalProps {
 export const ConnectorConfigModal: React.FC<ConnectorConfigModalProps> = ({
   isOpen,
   onClose,
-  nodeId,
   connectorType,
   currentConfig,
   onConfigUpdate,

@@ -5,17 +5,13 @@ import {
   Activity,
   Users,
   FolderOpen,
-  Database,
   Workflow,
   Settings,
-  ExternalLink,
   RefreshCw,
-  Download,
   BarChart3,
   Calendar,
   Clock,
   Plus,
-  MoreVertical,
   CheckCircle,
   AlertCircle,
   XCircle,
@@ -23,17 +19,13 @@ import {
   Play,
   Pause,
   TrendingUp,
-  TrendingDown,
   GitBranch,
-  Eye,
   Sparkles
 } from 'lucide-react'
 import { GlassCard } from '../../components/ui/GlassCard'
 import { ProjectHierarchy } from '../../components/projects/ProjectHierarchy'
-import { QuickActions } from '../../components/QuickActions'
 import { useProjectFromParams } from '../../contexts/ProjectContext'
 import { useOrganizationFromParams } from '../../contexts/OrganizationContext'
-import { api } from '../../lib/api'
 import { WorkflowAPI } from '../../lib/fluxturn'
 
 interface WorkflowStats {

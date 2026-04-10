@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { AlertTriangle, Sparkles } from 'lucide-react'
+import { Sparkles } from 'lucide-react'
 
 export const PreviewBadge: React.FC = () => {
   return (

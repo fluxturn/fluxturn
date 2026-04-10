@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { 
+import {
   Puzzle,
   Github,
   GitBranch,
   MessageSquare,
-  Mail,
   Calendar,
   Database,
   Cloud,
@@ -25,21 +24,13 @@ import {
   AlertTriangle,
   Activity,
   Zap,
-  Lock,
-  Unlock,
   Filter,
   Search,
   Download,
-  Upload,
   Code,
-  Server,
-  Shield,
   Globe,
-  Smartphone,
-  Monitor,
-  Bell
 } from 'lucide-react'
-import { GlassCard, StatCard, ChartCard } from '../../components/ui/GlassCard'
+import { GlassCard, StatCard } from '../../components/ui/GlassCard'
 import { cn } from '../../lib/utils'
 
 interface Integration {
@@ -296,8 +287,8 @@ export const OrganizationIntegrations: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('')
   const [showApiKey, setShowApiKey] = useState<{ [key: string]: boolean }>({})
   const [showWebhookSecret, setShowWebhookSecret] = useState<{ [key: string]: boolean }>({})
-  const [showAddWebhookModal, setShowAddWebhookModal] = useState(false)
-  const [showAddApiKeyModal, setShowAddApiKeyModal] = useState(false)
+  const [, setShowAddWebhookModal] = useState(false)
+  const [, setShowAddApiKeyModal] = useState(false)
 
   const containerVariants = {
     hidden: { opacity: 0 },

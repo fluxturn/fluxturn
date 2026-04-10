@@ -11,7 +11,7 @@ interface TransformNodeData {
 type TransformNodeType = Node<TransformNodeData>;
 
 export const TransformNode = memo((props: NodeProps<TransformNodeType>) => {
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [, setDialogOpen] = useState(false);
   const nodeStatus = "initial";
 
   const handleOpenSettings = () => setDialogOpen(true);

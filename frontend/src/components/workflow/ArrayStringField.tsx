@@ -20,11 +20,11 @@ interface ArrayStringFieldProps {
 export function ArrayStringField({
   value,
   onChange,
-  label,
+  label: _label,
   placeholder = 'Enter value',
   error,
   maxItems,
-  nodes,
+  nodes: _nodes,
   currentNodeId
 }: ArrayStringFieldProps) {
   const { workflowId } = useParams<{ workflowId: string }>();

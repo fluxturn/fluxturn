@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Plus, Trash2, Edit, Check, X, ExternalLink } from 'lucide-react';
+import { Search, Plus, Trash2, Edit, Check, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { GlassCard } from '@/components/ui/GlassCard';
 import { toast } from 'sonner';
 import { api } from '@/lib/api';
 import { AddCredentialModalV2 } from './AddCredentialModalV2';
@@ -62,7 +61,6 @@ export const CredentialsManager: React.FC = () => {
     const success = urlParams.get('success');
     const error = urlParams.get('error');
     const email = urlParams.get('email');
-    const credentialId = urlParams.get('credentialId');
 
     if (success === 'true') {
       toast.success(`Successfully connected to Google${email ? ` as ${email}` : ''}!`, {

@@ -12,8 +12,6 @@ export const SimpleMemoryNode = memo((props: NodeProps) => {
 
   const label = data?.label || "Simple Memory";
   const contextWindowLength = data?.contextWindowLength || 5;
-  const sessionIdType = data?.sessionIdType || "fromInput";
-
   const description = `Stores ${contextWindowLength} messages in memory`;
   const nodeStatus = data?.status || "initial";
 

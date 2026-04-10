@@ -18,7 +18,7 @@ type DynamicConnectorActionNodeType = Node<DynamicConnectorActionNodeData>;
 
 export const DynamicConnectorActionNode = memo(
   (props: NodeProps<DynamicConnectorActionNodeType>) => {
-    const { id, data } = props;
+    const { data } = props;
     
     // Get the connector icon - use custom icon if available, otherwise fallback to Lucide
     const getIcon = (): string | LucideIcons.LucideIcon => {

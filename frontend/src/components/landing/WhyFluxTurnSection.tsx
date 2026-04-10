@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { ArrowRight, Zap, Battery, BatteryLow, BatteryFull, Sparkles } from "lucide-react";
+import { ArrowRight, Zap, BatteryLow, BatteryFull, Sparkles } from "lucide-react";
 import { Button } from "../ui/button";
 import { useNavigate } from "react-router-dom";
 

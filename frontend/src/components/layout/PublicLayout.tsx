@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useNavigate, Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { Footer } from './Footer'
 import { Header } from './Header'
 import { motion } from 'framer-motion'

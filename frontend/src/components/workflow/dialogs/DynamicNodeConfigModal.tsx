@@ -17,12 +17,9 @@ import { AddCredentialModalV2 } from "@/components/credentials/AddCredentialModa
 import { Plus, TestTube, Loader2, ChevronDown, ChevronUp, Play, Copy, CheckCircle2, Webhook, AlertCircle, Bot } from "lucide-react";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
-import { TriggerPanel } from "@/components/workflow/panels/TriggerPanel";
 import { useParams } from "react-router-dom";
-import { VariablePicker } from "@/components/workflow/VariablePicker";
 import { FieldPicker } from "@/components/workflow/FieldPicker";
 import { ExpressionPicker } from "@/components/workflow/ExpressionPicker";
-import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { cn } from "@/lib/utils";
 import { ImageUploadField } from "@/components/workflow/ImageUploadField";
@@ -137,7 +134,7 @@ export function DynamicNodeConfigModal({
   nodeId,
   nodeType,
 }: DynamicNodeConfigModalProps) {
-  const { getNode, setNodes, getNodes, getEdges } = useReactFlow();
+  const { getNode, setNodes, getNodes } = useReactFlow();
   const { id: workflowId } = useParams();
   const [formData, setFormData] = useState<Record<string, unknown>>({});
   const [credentials, setCredentials] = useState<CredentialItem[]>([]);
@@ -147,7 +144,6 @@ export function DynamicNodeConfigModal({
   const [loadingCredentials, setLoadingCredentials] = useState(false);
   const [loadingTriggers, setLoadingTriggers] = useState(false);
   const [testingCredential, setTestingCredential] = useState(false);
-  const [activeFieldRef, setActiveFieldRef] = useState<HTMLInputElement | HTMLTextAreaElement | null>(null);
   const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
   const [expandedCollections, setExpandedCollections] = useState<string[]>([]);
   const [executing, setExecuting] = useState(false);
@@ -217,57 +213,6 @@ export function DynamicNodeConfigModal({
 
   // Debug logging removed for production
 
-  // Find the selected trigger to check if it requires webhook
-  const selectedTrigger = triggers.find(t => t.id === triggerId);
-
-  // Get previous nodes (nodes that are connected before this node)
-  const getPreviousNodes = () => {
-    if (!nodeId) return [];
-
-    const edges = getEdges();
-    const nodes = getNodes();
-
-    // Find all edges that point to this node
-    const incomingEdges = edges.filter(edge => edge.target === nodeId);
-
-    // Get the source nodes
-    const previousNodeIds = incomingEdges.map(edge => edge.source);
-
-    // Get node details including their data
-    return nodes
-      .filter(node => previousNodeIds.includes(node.id))
-      .map(node => ({
-        id: node.id,
-        name: String(node.data?.label || node.data?.name || node.id),
-        type: node.type || 'unknown',
-        outputData: node.data?.outputData || node.data?.lastResult || {}
-      }));
-  };
-
-  // Insert variable at cursor position
-  const insertVariable = (variable: string) => {
-    if (!activeFieldRef) return;
-
-    const element = activeFieldRef;
-    const start = element.selectionStart || 0;
-    const end = element.selectionEnd || 0;
-    const currentValue = element.value;
-
-    const newValue = currentValue.substring(0, start) + variable + currentValue.substring(end);
-
-    // Update the form data
-    const fieldName = element.getAttribute('data-field-name');
-    if (fieldName) {
-      handleFieldChange(fieldName, newValue);
-
-      // Set cursor position after inserted variable
-      setTimeout(() => {
-        element.focus();
-        const newPosition = start + variable.length;
-        element.setSelectionRange(newPosition, newPosition);
-      }, 0);
-    }
-  };
 
   // Fetch dynamic options for a field
   const fetchDynamicOptions = async (fieldName: string, fieldDef: SchemaFieldDef) => {
@@ -1063,7 +1008,7 @@ export function DynamicNodeConfigModal({
     // console.log('[VALUES DEBUG] actionParams.values:', formData.actionParams?.values);
 
     // Merge default values from inputSchema for fields that are not explicitly set
-    let finalFormData = { ...formData };
+    const finalFormData = { ...formData };
 
     if (inputSchema) {
       const properties = inputSchema.properties || inputSchema;
@@ -1306,7 +1251,7 @@ export function DynamicNodeConfigModal({
       setCopied(true);
       toast.success('Webhook URL copied!');
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
+    } catch {
       toast.error('Failed to copy URL');
     }
   };
@@ -1320,13 +1265,13 @@ export function DynamicNodeConfigModal({
       setCopiedToken(true);
       toast.success('Verify Token copied!');
       setTimeout(() => setCopiedToken(false), 2000);
-    } catch (err) {
+    } catch {
       toast.error('Failed to copy token');
     }
   };
 
   // Check if field should be shown based on displayOptions
-  const shouldShowField = (displayOptions: SchemaFieldDef['displayOptions'], currentValues: Record<string, unknown>, fieldName?: string) => {
+  const shouldShowField = (displayOptions: SchemaFieldDef['displayOptions'], currentValues: Record<string, unknown>) => {
     const paramsKey = isConnectorTrigger ? 'triggerParams' : 'actionParams';
 
     // Check hide conditions first

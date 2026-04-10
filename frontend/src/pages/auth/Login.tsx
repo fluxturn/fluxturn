@@ -322,7 +322,7 @@ export const Login: React.FC = () => {
 
     try {
       // Use AuthContext login method which handles organizations
-      const user = await authContext?.login(form.email, form.password);
+      await authContext?.login(form.email, form.password);
 
       // console.log('Login successful:', user)
 

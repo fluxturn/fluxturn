@@ -5,7 +5,6 @@ import { Mail, CheckCircle, XCircle, RefreshCw, ArrowLeft, Clock } from 'lucide-
 
 
 import { Button } from '../../components/ui/button'
-import { cn } from '../../lib/utils'
 import { api } from '../../lib/api'
 import { AuthLayout } from "../../components/layout/AuthLayout"
 import { useTranslation } from 'react-i18next'

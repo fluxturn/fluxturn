@@ -13,7 +13,6 @@ import {
   AlertTriangle,
   RefreshCw,
   Calendar,
-  Mail,
   Trash2,
   UserCog,
   Power,

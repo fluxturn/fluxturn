@@ -26,7 +26,7 @@ export const blogApi = {
       const queryString = params
         ? new URLSearchParams(
             Object.entries(params)
-              .filter(([_, v]) => v !== undefined && v !== null)
+              .filter((entry) => entry[1] !== undefined && entry[1] !== null)
               .map(([k, v]) => [k, Array.isArray(v) ? v.join(',') : String(v)])
           ).toString()
         : '';
@@ -71,7 +71,7 @@ export const blogApi = {
       const queryString = params
         ? new URLSearchParams(
             Object.entries(params)
-              .filter(([_, v]) => v !== undefined && v !== null)
+              .filter((entry) => entry[1] !== undefined && entry[1] !== null)
               .map(([k, v]) => [k, String(v)])
           ).toString()
         : '';
@@ -97,7 +97,7 @@ export const blogApi = {
     try {
       const response = await api.get<PopularTag[]>(`${BASE_URL}/tags`);
       return response;
-    } catch (error: unknown) {
+    } catch {
       return [];
     }
   },
@@ -106,7 +106,7 @@ export const blogApi = {
     try {
       const response = await api.get<BlogStats>(`${BASE_URL}/stats`);
       return response;
-    } catch (error: unknown) {
+    } catch {
       return {
         total_posts: 0,
         published_posts: 0,
@@ -148,7 +148,7 @@ export const blogApi = {
       const queryString = params
         ? new URLSearchParams(
             Object.entries(params)
-              .filter(([_, v]) => v !== undefined && v !== null)
+              .filter((entry) => entry[1] !== undefined && entry[1] !== null)
               .map(([k, v]) => [k, Array.isArray(v) ? v.join(',') : String(v)])
           ).toString()
         : '';

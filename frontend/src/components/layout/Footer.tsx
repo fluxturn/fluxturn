@@ -5,10 +5,8 @@ import {
   Twitter,
   Linkedin,
   Youtube,
-  Mail,
   MessageSquare,
   FileText,
-  ExternalLink,
   Heart,
   CheckCircle,
   AlertCircle,
@@ -18,11 +16,6 @@ import { apiClient } from '../../lib/api'
 import { useTranslation } from 'react-i18next'
 import { LanguageSwitcher } from '../ui/LanguageSwitcher'
 
-interface FooterLink {
-  name: string
-  href: string
-  external?: boolean
-}
 
 export function Footer() {
   const { t } = useTranslation()

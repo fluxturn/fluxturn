@@ -3,11 +3,6 @@ import { memo } from "react";
 import { BaseTriggerNode } from "../../base/BaseTriggerNode";
 import { MousePointerClick } from "lucide-react";
 
-interface ManualTriggerNodeData {
-  label?: string;
-  [key: string]: unknown;
-}
-
 export const ManualTriggerNode = memo((props: NodeProps) => {
   const { data } = props;
 

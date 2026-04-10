@@ -379,32 +379,6 @@ export function TemplatesTab({ onImportTemplate, onOpenWorkflow, templatesOnly =
     return 0;
   };
 
-  const getWorkflowNodes = (workflow: TemplateWorkflow | undefined): unknown[] => {
-    if (!workflow) return [];
-
-    // Try different possible locations for nodes
-    if (workflow.canvas?.nodes?.length) {
-      return workflow.canvas.nodes;
-    }
-    if (workflow.nodes?.length) {
-      return workflow.nodes;
-    }
-    if (workflow.steps?.length) {
-      // Transform steps to node-like objects
-      return workflow.steps.map((step, index: number) => ({
-        id: step.id || `step-${index}`,
-        type: step.type || step.action || 'step',
-        data: {
-          label: step.name || step.title || `Step ${index + 1}`,
-          description: step.description
-        },
-        ...step
-      }));
-    }
-
-    return [];
-  };
-
   return (
     <div className="flex h-full overflow-hidden">
       {/* Left: Templates & Workflows List */}

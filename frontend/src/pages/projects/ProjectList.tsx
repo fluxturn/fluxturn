@@ -8,7 +8,6 @@ import {
   List,
   SortAsc,
   SortDesc,
-  Calendar,
   Users,
   Activity,
   X,
@@ -136,7 +135,7 @@ export const ProjectList: React.FC = () => {
 
   // Filter and sort projects
   const filteredProjects = useMemo(() => {
-    let filtered = mockOrganization.projects.filter(project => {
+    const filtered = mockOrganization.projects.filter(project => {
       const matchesSearch = project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            project.techStack.some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -173,14 +172,6 @@ export const ProjectList: React.FC = () => {
     return filtered
   }, [searchTerm, statusFilter, typeFilter, sortField, sortOrder, teamFilter])
 
-  const handleSortChange = (field: SortField) => {
-    if (sortField === field) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
-    } else {
-      setSortField(field)
-      setSortOrder('desc')
-    }
-  }
 
   const clearFilters = () => {
     setSearchTerm('')

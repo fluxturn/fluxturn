@@ -1,4 +1,4 @@
-import { NodeType, NodeTypeDefinition, NodeConfigField } from "@/config/workflow";
+import { NodeType, NodeConfigField } from "@/config/workflow";
 import {
   Mail,
   Plus,
@@ -6,7 +6,6 @@ import {
   Tag,
   MessageSquare,
   Search,
-  X,
   Database,
   Zap,
   Eye,

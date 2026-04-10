@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Copy, CheckCircle2, Globe, Loader2, AlertCircle, Terminal, Info, Sparkles } from 'lucide-react';
+import { Copy, CheckCircle2, Loader2, AlertCircle, Terminal, Info, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -38,15 +38,13 @@ interface TriggerPanelProps {
 }
 
 export function TriggerPanel({
-  nodeId,
   nodeData,
   workflowId,
   isActive = false,
-  onUpdate
 }: TriggerPanelProps) {
   const [copied, setCopied] = useState(false);
   const [isTestMode, setIsTestMode] = useState(true);
-  const [isListening, setIsListening] = useState(false);
+  const [isListening] = useState(false);
   const [webhookUrl, setWebhookUrl] = useState<string>('');
   const [loadingWebhook, setLoadingWebhook] = useState(false);
   const [webhookInfo, setWebhookInfo] = useState<TriggerWebhookInfo | null>(null);
@@ -125,7 +123,7 @@ export function TriggerPanel({
       setCopied(true);
       toast.success('Webhook URL copied to clipboard');
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
+    } catch {
       toast.error('Failed to copy URL');
     }
   };

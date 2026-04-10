@@ -89,7 +89,6 @@ export const getFileType = (filename: string): string => {
 };
 
 export const getFileIcon = (filename: string): string => {
-  const type = getFileType(filename);
   const extension = filename.split('.').pop()?.toLowerCase() || '';
   
   // Specific file type icons

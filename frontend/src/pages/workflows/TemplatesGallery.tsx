@@ -4,14 +4,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft,
   Sparkles,
-  Zap,
   TrendingUp,
   Shield,
   Search,
-  Filter,
   Clock,
-  Check,
-  Star,
   Copy,
   Eye,
   ChevronLeft,
@@ -20,8 +16,6 @@ import {
   X,
   ZoomIn,
   ZoomOut,
-  Maximize,
-  Minimize,
   RotateCcw
 } from 'lucide-react';
 import { extractRouteContext } from '@/lib/navigation-utils';
@@ -370,7 +364,7 @@ export const TemplatesGallery: React.FC = () => {
         ) : (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-              {templates.map((template, index) => (
+              {templates.map((template) => (
                 <motion.div
                   key={template.id}
                   initial={{ opacity: 0, y: 20 }}

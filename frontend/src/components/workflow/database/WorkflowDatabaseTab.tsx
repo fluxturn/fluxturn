@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Database, ChevronDown, Settings } from 'lucide-react';
 import { toast } from 'sonner';
-import { cn } from '@/lib/utils';
 import { WorkflowAPI } from '@/lib/fluxturn';
 import { WorkflowTableList } from './WorkflowTableList';
 import { WorkflowDataGrid } from './WorkflowDataGrid';
@@ -26,7 +25,7 @@ export function WorkflowDatabaseTab({ databaseNodes, panelHeight }: WorkflowData
   // Connection state
   const [selectedNode, setSelectedNode] = useState<DatabaseNodeInfo | null>(null);
   const [showManualForm, setShowManualForm] = useState(false);
-  const [manualConnection, setManualConnection] = useState<ManualConnection | null>(null);
+  const [, setManualConnection] = useState<ManualConnection | null>(null);
 
   // Schema/Table state
   const [schema, setSchema] = useState('public');

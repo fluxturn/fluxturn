@@ -9,18 +9,11 @@ import {
   Clock,
   AlertTriangle,
   Download,
-  Calendar,
-  Filter,
   RefreshCw,
-  Globe,
-  Smartphone,
-  Monitor,
   Zap,
   Activity,
   MapPin,
-  MousePointer,
   Target,
-  Share2,
   Settings
 } from 'lucide-react'
 import { GlassCard, StatCard, ChartCard } from '../../components/ui/GlassCard'
@@ -310,7 +303,7 @@ export const ProjectAnalytics: React.FC = () => {
             <GlassCard hover={false}>
               <h4 className="font-semibold mb-4">Error Breakdown</h4>
               <div className="space-y-3">
-                {errorData.map((error, index) => (
+                {errorData.map((error) => (
                   <div key={error.type} className="flex items-center justify-between p-3 rounded-lg bg-white/5">
                     <div className="flex items-center space-x-3">
                       <AlertTriangle className="w-5 h-5 text-red-400" />
@@ -341,7 +334,7 @@ export const ProjectAnalytics: React.FC = () => {
             <GlassCard hover={false}>
               <h4 className="font-semibold mb-4">Custom Events</h4>
               <div className="space-y-3">
-                {customEvents.map((event, index) => (
+                {customEvents.map((event) => (
                   <div key={event.event} className="flex items-center justify-between p-3 rounded-lg bg-white/5">
                     <div className="flex items-center space-x-3">
                       <Target className="w-5 h-5 text-cyan-400" />
@@ -369,7 +362,7 @@ export const ProjectAnalytics: React.FC = () => {
             <GlassCard hover={false}>
               <h4 className="font-semibold mb-4">Traffic by Country</h4>
               <div className="space-y-3">
-                {geographicData.map((country, index) => (
+                {geographicData.map((country) => (
                   <div key={country.country} className="flex items-center justify-between p-3 rounded-lg bg-white/5">
                     <div className="flex items-center space-x-3">
                       <MapPin className="w-5 h-5 text-cyan-400" />

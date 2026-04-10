@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import {
-  TrendingUp,
   Users,
   FolderOpen,
   HardDrive,
   Activity,
   Clock,
   ArrowUpRight,
-  MoreVertical,
   RefreshCw,
   Settings,
-  UserCheck,
   FileText,
   Calendar,
   Plus,
-  Workflow,
-  Mail,
   CheckCircle,
   XCircle,
   Zap

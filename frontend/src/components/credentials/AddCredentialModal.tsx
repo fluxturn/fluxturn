@@ -351,9 +351,8 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
           // Wait for workflow to be saved
           await new Promise(resolve => setTimeout(resolve, 500));
 
-          const savedWorkflowId = sessionStorage.getItem('oauth_workflow_id');
-          // console.log('Workflow ID after save:', savedWorkflowId);
-        } catch (err) {
+          sessionStorage.getItem('oauth_workflow_id');
+        } catch {
           // console.warn('Could not save workflow:', err);
         }
       }
@@ -417,7 +416,7 @@ export const AddCredentialModal: React.FC<AddCredentialModalProps> = ({
             pendingOAuthCredentialRef.current = null;
             toast.error('OAuth was cancelled');
           }
-        } catch (e) {
+        } catch {
           // COOP blocks popup.closed access for cross-origin pages - this is expected
           // We'll rely on message events and modal close cleanup instead
         }

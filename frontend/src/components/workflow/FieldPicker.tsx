@@ -46,13 +46,6 @@ interface NodeGroup {
   fields: FieldTreeNode[];
 }
 
-// Legacy interface for backward compatibility
-interface FieldInfo {
-  path: string;
-  type: string;
-  value?: unknown;
-}
-
 export const FieldPicker: React.FC<FieldPickerProps> = ({
   nodeId,
   workflowId,
@@ -70,7 +63,7 @@ export const FieldPicker: React.FC<FieldPickerProps> = ({
   const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set());
   const [expandedPaths, setExpandedPaths] = useState<Set<string>>(new Set());
   const [loadingExecutionData, setLoadingExecutionData] = useState(false);
-  const [cursorPosition, setCursorPosition] = useState<number>(0);
+  const [, setCursorPosition] = useState<number>(0);
   const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 

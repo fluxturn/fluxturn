@@ -4,7 +4,6 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { ScrollArea } from '../ui/scroll-area';
 import { Badge } from '../ui/badge';
-import { Separator } from '../ui/separator';
 import { Textarea } from '../ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
 import { Editor } from '@monaco-editor/react';
@@ -15,8 +14,6 @@ import {
   Variable,
   Edit,
   Trash2,
-  Eye,
-  Code,
   Settings,
   Search,
   ChevronDown,
@@ -94,14 +91,7 @@ export const VariablePanel: React.FC<VariablePanelProps> = ({
   };
 
   const addVariable = () => {
-    const variable: WorkflowVariable = {
-      id: `var-${Date.now()}`,
-      ...newVariable,
-      value: parseVariableValue(newVariable.value, newVariable.type),
-    };
-
     // This would be handled by the parent workflow builder
-    // console.log('Add variable:', variable);
 
     setNewVariable({
       name: '',
@@ -111,24 +101,6 @@ export const VariablePanel: React.FC<VariablePanelProps> = ({
       scope: 'global',
     });
     setIsAddVariableOpen(false);
-  };
-
-  const parseVariableValue = (value: string, type: WorkflowVariable['type']) => {
-    try {
-      switch (type) {
-        case 'number':
-          return Number(value);
-        case 'boolean':
-          return value === 'true';
-        case 'object':
-        case 'array':
-          return JSON.parse(value);
-        default:
-          return value;
-      }
-    } catch {
-      return value;
-    }
   };
 
   const formatVariableValue = (value: JsonValue, type: WorkflowVariable['type']) => {

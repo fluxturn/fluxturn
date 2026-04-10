@@ -15,7 +15,7 @@ export interface CreateContentResponse {
   metadata?: Record<string, unknown>;
 }
 
-export function useCreateContent(projectId: string) {
+export function useCreateContent(_projectId: string) {
   const queryClient = useQueryClient();
 
   return useMutation<CreateContentResponse, Error, CreateContentDto>({

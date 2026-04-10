@@ -14,7 +14,7 @@ export const AuthSuccess: React.FC = () => {
   const navigate = useNavigate()
   const { refreshUser } = useAuth()
   const hasProcessed = useRef(false)
-  const [isProcessing, setIsProcessing] = useState(true)
+  const [, setIsProcessing] = useState(true)
 
   useEffect(() => {
     // Prevent multiple executions using a ref
@@ -50,7 +50,7 @@ export const AuthSuccess: React.FC = () => {
         // This might fail if the token structure is different, but that's okay
         try {
           await refreshUser()
-        } catch (userError) {
+        } catch {
           // console.log('Could not refresh user data, continuing with token data');
         }
 

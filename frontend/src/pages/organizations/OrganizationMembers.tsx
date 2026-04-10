@@ -12,8 +12,6 @@ import {
   Mail,
   Send,
   Search,
-  Filter,
-  MoreVertical,
   Activity,
   Clock,
   CheckCircle,
@@ -22,50 +20,13 @@ import {
   Copy,
   RefreshCw,
   Download,
-  Calendar,
-  MapPin,
-  Phone,
-  Globe
+  Calendar
 } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import { GlassCard, StatCard } from '../../components/ui/GlassCard'
 import { cn } from '../../lib/utils'
 import { organizationApi, OrganizationMember, OrganizationInvitation } from '../../lib/api/organization'
-
-interface Member {
-  id: string
-  name: string
-  email: string
-  role: 'owner' | 'admin' | 'developer' | 'viewer'
-  status: 'active' | 'pending' | 'suspended'
-  avatar?: string
-  joinedAt: string
-  lastActive: string
-  location?: string
-  phone?: string
-  permissions: string[]
-}
-
-interface Invitation {
-  id: string
-  email: string
-  role: 'admin' | 'developer' | 'viewer'
-  invitedBy: string
-  invitedAt: string
-  status: 'pending' | 'expired'
-  expiresAt: string
-}
-
-interface ActivityLog {
-  id: string
-  user: string
-  action: string
-  target?: string
-  timestamp: string
-  type: 'invite' | 'role_change' | 'remove' | 'join' | 'login' | 'permission'
-}
-
 
 const roleHierarchy = {
   owner: { level: 4, label: 'Owner', color: 'bg-purple-500/20 text-purple-400' },
@@ -138,7 +99,7 @@ export const OrganizationMembers: React.FC = () => {
           ])
           setMembers(membersData)
           setInvitations(invitationsData)
-        } catch (err) {
+        } catch {
           // Silent fail on background refresh
         }
       }
@@ -194,15 +155,6 @@ export const OrganizationMembers: React.FC = () => {
     }
   }
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'active': return 'bg-green-500/20 text-green-400'
-      case 'pending': return 'bg-yellow-500/20 text-yellow-400'
-      case 'suspended': return 'bg-red-500/20 text-red-400'
-      default: return 'bg-gray-500/20 text-gray-400'
-    }
-  }
-
   const getActivityIcon = (type: string) => {
     switch (type) {
       case 'invite': return <Mail className="w-4 h-4" />
@@ -251,23 +203,6 @@ export const OrganizationMembers: React.FC = () => {
     }
   }
 
-  const handleUpdateRole = async (userId: string, newRole: string) => {
-    if (!organizationId) return
-
-    try {
-      await organizationApi.updateMemberRole(organizationId, userId, newRole)
-      toast.success('Member role updated')
-
-      // Update local state
-      setMembers(prev => prev.map(m =>
-        m.userId === userId ? { ...m, role: newRole as typeof m.role } : m
-      ))
-    } catch (err: unknown) {
-      const errObj = err as { response?: { data?: { message?: string } } }
-      toast.error(errObj.response?.data?.message || 'Failed to update role')
-    }
-  }
-
   const handleRemoveMember = async (userId: string) => {
     if (!organizationId) return
 
@@ -292,7 +227,7 @@ export const OrganizationMembers: React.FC = () => {
     try {
       await organizationApi.resendInvitation(organizationId, invitationId)
       toast.success('Invitation resent')
-    } catch (err: unknown) {
+    } catch {
       toast.error('Failed to resend invitation')
     }
   }
@@ -306,7 +241,7 @@ export const OrganizationMembers: React.FC = () => {
 
       // Update local state
       setInvitations(prev => prev.filter(inv => inv.id !== invitationId))
-    } catch (err: unknown) {
+    } catch {
       toast.error('Failed to cancel invitation')
     }
   }

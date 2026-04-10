@@ -144,9 +144,8 @@ export const contentApi = {
       );
 
       return ((response as unknown as { data?: unknown }).data || response) as PaginatedResponse<ContentItem>;
-    } catch (error: unknown) {
+    } catch {
       // Return empty results on error
-      // console.warn('Content list API failed, returning empty results:', error);
       return {
         data: [],
         total: 0,
@@ -164,8 +163,7 @@ export const contentApi = {
     try {
       const response = await fluxturnApi.post<SearchResponse<ContentItem>>('/content/search', query);
       return ((response as unknown as { data?: unknown }).data || response) as SearchResponse<ContentItem>;
-    } catch (error: unknown) {
-      // console.warn('Content search API failed, falling back to list with search:', error);
+    } catch {
       
       // Fallback to list API with search parameter
       const listResponse = await this.listContent({
@@ -289,7 +287,7 @@ export const contentApi = {
     try {
       const response = await fluxturnApi.get<ApiResponse<unknown>>('/content/categories');
       return ((response as unknown as { data?: unknown }).data || response) as Array<{ name: string; count: number; description?: string }>;
-    } catch (error: unknown) {
+    } catch {
       // Return default categories if API fails
       return [
         { name: 'Documents', count: 0, description: 'Text documents and articles' },
@@ -307,7 +305,7 @@ export const contentApi = {
     try {
       const response = await fluxturnApi.get<ApiResponse<unknown>>(`/content/tags?limit=${limit}`);
       return ((response as unknown as { data?: unknown }).data || response) as Array<{ name: string; count: number }>;
-    } catch (error: unknown) {
+    } catch {
       // Return empty tags if API fails
       return [];
     }
@@ -326,8 +324,7 @@ export const contentApi = {
         `/content/tree${query ? `?${query}` : ''}`
       );
       return ((response as unknown as { data?: unknown }).data || response) as Array<ContentItem & { children?: ContentItem[] }>;
-    } catch (error: unknown) {
-      // console.warn('Content tree API failed, returning flat list:', error);
+    } catch {
       
       // Fallback to flat list
       const listResponse = await this.listContent({ parentId });
@@ -499,7 +496,7 @@ export const contentApi = {
         `/content/${contentId}/analytics${query ? `?${query}` : ''}`
       );
       return ((response as unknown as { data?: unknown }).data || response) as { views: number; downloads: number; shares: number; edits: number; timeline: Array<{ date: string; views: number; downloads: number; }>; };
-    } catch (error: unknown) {
+    } catch {
       // Return mock analytics if API fails
       return {
         views: 0,

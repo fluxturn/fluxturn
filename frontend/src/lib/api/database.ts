@@ -366,41 +366,49 @@ class DatabaseAPI {
   // }
 
   // Collaborative editing methods (stub implementations for now)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async getActiveEdits(tableName: string): Promise<CollaborativeEdit[]> {
     // TODO: Implement collaborative editing API
     return [];
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async getUndoRedoState(tableName?: string): Promise<{ canUndo: boolean; canRedo: boolean }> {
     // TODO: Implement undo/redo API
     return { canUndo: false, canRedo: false };
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async getBatchOperations(tableName: string): Promise<BatchOperation[]> {
     // TODO: Implement batch operations API
     return [];
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async startEdit(tableName: string, rowId: string, columnId: string): Promise<void> {
     // TODO: Implement collaborative editing API
     return;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async endEdit(tableName: string, rowId: string, columnId: string, value?: JsonValue): Promise<void> {
     // TODO: Implement collaborative editing API
     return;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async executeOperation(operation: BatchOperation): Promise<{ success: boolean }> {
     // TODO: Implement operation execution API
     return { success: true };
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async executeBatch(operations: BatchOperation[]): Promise<{ success: boolean; results: unknown[] }> {
     // TODO: Implement batch operations API
     return { success: true, results: [] };
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async exportData(tableName: string, options?: { format?: string; columns?: string[] }): Promise<Blob> {
     // TODO: Implement data export API
     return new Blob([''], { type: 'text/csv' });
@@ -450,6 +458,7 @@ class DatabaseAPI {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async deleteView(tableName: string, viewId: string): Promise<void> {
     // TODO: Implement view deletion API
     return Promise.resolve();

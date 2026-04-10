@@ -1,11 +1,10 @@
 import React, { memo, useState } from 'react';
 import { Handle, Position, type NodeProps } from '@xyflow/react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../../ui/dialog';
+import { Dialog, DialogTrigger } from '../../ui/dialog';
 import { Button } from '../../ui/button';
 import { Card } from '../../ui/card';
 import { Badge } from '../../ui/badge';
-import { Settings, Play, AlertCircle, CheckCircle, Loader2 } from 'lucide-react';
-import type { WorkflowNode } from '../../../types/workflow';
+import { Settings, AlertCircle, CheckCircle, Loader2 } from 'lucide-react';
 import type { JsonValue } from '../../../types/json';
 import { ConnectorConfigModal } from '../ConnectorConfigModal';
 
@@ -207,9 +206,8 @@ export const ConnectorNode = memo<NodeProps>(({ id, data, selected }) => {
         nodeId={id}
         connectorType={connectorType || 'unknown'}
         currentConfig={config}
-        onConfigUpdate={(newConfig: Record<string, JsonValue>) => {
+        onConfigUpdate={() => {
           // This would be handled by the parent workflow builder
-          // console.log('Config updated:', newConfig);
         }}
       />
     </>

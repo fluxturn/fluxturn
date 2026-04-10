@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MessageCircle, Book, Mail, HelpCircle, Clock, Users, Zap, CheckCircle2, FileText } from "lucide-react";
+import { MessageCircle, Book, HelpCircle, Clock, Zap, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SEO } from "../components/SEO";
 

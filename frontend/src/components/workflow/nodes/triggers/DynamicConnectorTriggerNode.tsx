@@ -18,7 +18,7 @@ type DynamicConnectorTriggerNodeType = Node<DynamicConnectorTriggerNodeData>;
 
 export const DynamicConnectorTriggerNode = memo(
   (props: NodeProps<DynamicConnectorTriggerNodeType>) => {
-    const { id, data } = props;
+    const { data } = props;
     
     // Get the connector icon - use custom icon if available, otherwise fallback to Lucide
     const getIcon = (): string | LucideIcons.LucideIcon => {

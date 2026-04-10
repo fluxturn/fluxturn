@@ -14,7 +14,7 @@ interface DiscordToolNodeData {
 type DiscordToolNodeType = Node<DiscordToolNodeData>;
 
 export const DiscordToolNode = memo((props: NodeProps<DiscordToolNodeType>) => {
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [, setDialogOpen] = useState(false);
   const nodeStatus = "initial";
 
   const handleOpenSettings = () => setDialogOpen(true);

@@ -5,8 +5,7 @@ import {
   AlertTriangle,
   Save,
   Trash2,
-  Building,
-  Shield
+  Building
 } from 'lucide-react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'

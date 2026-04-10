@@ -10,7 +10,7 @@ interface BlogCardProps {
   featured?: boolean;
 }
 
-export const BlogCard: React.FC<BlogCardProps> = ({ post, featured = false }) => {
+export const BlogCard: React.FC<BlogCardProps> = ({ post, featured: _featured }) => {
   const { t, i18n } = useTranslation();
 
   const formatDate = (dateString: string) => {

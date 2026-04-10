@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ArrowRight, GripVertical, Sparkles, MousePointer2, Plus } from "lucide-react";
 import { Button } from "../ui/button";
 import { useTranslation } from "react-i18next";

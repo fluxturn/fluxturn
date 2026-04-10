@@ -11,7 +11,6 @@ import {
   Cloud,
   GitBranch,
   Play,
-  Lock,
   Layers,
   Bot,
   MessageSquare,

@@ -76,7 +76,7 @@ interface AddCredentialModalV2Props {
   onSuccess: (credentialId?: string) => void;
   preSelectedConnector?: string; // Pre-select a connector by name
   preSelectedAuthType?: string; // Pre-select auth type for multi-auth connectors
-  nodeId?: string; // eslint-disable-line @typescript-eslint/no-unused-vars -- Reserved for future use
+  nodeId?: string;  
 }
 
 // ============================================================================

@@ -93,7 +93,7 @@ export function NodeDetailsPanel({
       setCopied(true);
       toast.success('Webhook URL copied!');
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
+    } catch {
       toast.error('Failed to copy URL');
     }
   };

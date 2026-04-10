@@ -165,7 +165,7 @@ function ConnectionLine({ delay = 0, isActive = false }: { delay?: number; isAct
 // Execution Log Component
 function ExecutionLog() {
   const [visibleSteps, setVisibleSteps] = useState<number[]>([]);
-  const [currentStep, setCurrentStep] = useState(0);
+  const [, setCurrentStep] = useState(0);
 
   useEffect(() => {
     const timers: NodeJS.Timeout[] = [];

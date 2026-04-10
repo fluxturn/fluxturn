@@ -5,8 +5,7 @@ import {
   Mail, 
   Globe, 
   Clock, 
-  Languages, 
-  Bell, 
+  Bell,
   Activity, 
   Edit3, 
   Camera,
@@ -17,7 +16,6 @@ import {
   Twitter,
   Linkedin,
   MapPin,
-  Calendar,
   Eye,
   EyeOff
 } from 'lucide-react'

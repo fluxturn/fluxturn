@@ -63,7 +63,7 @@ export function UseCaseDetail() {
           text: useCase.description,
           url: url,
         });
-      } catch (err) {
+      } catch {
         // console.log('Share cancelled');
       }
     } else {
