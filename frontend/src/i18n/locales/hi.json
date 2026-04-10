@@ -599,7 +599,7 @@
       "subscribe": "सब्सक्राइब करें",
       "subscribing": "सब्सक्राइब हो रहा है..."
     },
-    "copyright": "\u00a9 {{year}} Info Inlet. सर्वाधिकार सुरक्षित।",
+    "copyright": "© {{year}} Info Inlet. सर्वाधिकार सुरक्षित।",
     "builtWith": "बनाया गया",
     "byTeam": "Info Inlet टीम द्वारा",
     "docs": "डॉक्स"
@@ -611,7 +611,17 @@
     "ko": "कोरियन",
     "es": "स्पेनिश",
     "fr": "फ़्रेंच",
-    "de": "जर्मन"
+    "de": "जर्मन",
+    "it": "Italian",
+    "ru": "Russian",
+    "pt-BR": "Portuguese (Brazil)",
+    "nl": "Dutch",
+    "pl": "Polish",
+    "uk": "Ukrainian",
+    "vi": "Vietnamese",
+    "id": "Indonesian",
+    "ar": "Arabic",
+    "hi": "Hindi"
   },
   "featuresPage": {
     "badge": "शक्तिशाली सुविधाएं",

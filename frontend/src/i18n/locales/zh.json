@@ -611,7 +611,17 @@
     "ko": "韩语",
     "es": "西班牙语",
     "fr": "法语",
-    "de": "德语"
+    "de": "德语",
+    "it": "Italian",
+    "ru": "Russian",
+    "pt-BR": "Portuguese (Brazil)",
+    "nl": "Dutch",
+    "pl": "Polish",
+    "uk": "Ukrainian",
+    "vi": "Vietnamese",
+    "id": "Indonesian",
+    "ar": "Arabic",
+    "hi": "Hindi"
   },
   "featuresPage": {
     "badge": "强大功能",

@@ -599,7 +599,7 @@
       "subscribe": "Inscrever-se",
       "subscribing": "Inscrevendo..."
     },
-    "copyright": "\u00a9 {{year}} Info Inlet. Todos os direitos reservados.",
+    "copyright": "© {{year}} Info Inlet. Todos os direitos reservados.",
     "builtWith": "Feito com",
     "byTeam": "pela equipe da Info Inlet",
     "docs": "Docs"
@@ -611,7 +611,17 @@
     "ko": "Coreano",
     "es": "Espanhol",
     "fr": "Frances",
-    "de": "Alemao"
+    "de": "Alemao",
+    "it": "Italian",
+    "ru": "Russian",
+    "pt-BR": "Portuguese (Brazil)",
+    "nl": "Dutch",
+    "pl": "Polish",
+    "uk": "Ukrainian",
+    "vi": "Vietnamese",
+    "id": "Indonesian",
+    "ar": "Arabic",
+    "hi": "Hindi"
   },
   "featuresPage": {
     "badge": "Recursos poderosos",

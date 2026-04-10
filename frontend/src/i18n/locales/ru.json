@@ -611,7 +611,17 @@
     "ko": "Корейский",
     "es": "Испанский",
     "fr": "Французский",
-    "de": "Немецкий"
+    "de": "Немецкий",
+    "it": "Italian",
+    "ru": "Russian",
+    "pt-BR": "Portuguese (Brazil)",
+    "nl": "Dutch",
+    "pl": "Polish",
+    "uk": "Ukrainian",
+    "vi": "Vietnamese",
+    "id": "Indonesian",
+    "ar": "Arabic",
+    "hi": "Hindi"
   },
   "featuresPage": {
     "badge": "Мощные возможности",

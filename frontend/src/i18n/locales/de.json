@@ -611,7 +611,17 @@
     "ko": "Koreanisch",
     "es": "Spanisch",
     "fr": "Franzoesisch",
-    "de": "Deutsch"
+    "de": "Deutsch",
+    "it": "Italian",
+    "ru": "Russian",
+    "pt-BR": "Portuguese (Brazil)",
+    "nl": "Dutch",
+    "pl": "Polish",
+    "uk": "Ukrainian",
+    "vi": "Vietnamese",
+    "id": "Indonesian",
+    "ar": "Arabic",
+    "hi": "Hindi"
   },
   "featuresPage": {
     "badge": "Leistungsstarke Funktionen",

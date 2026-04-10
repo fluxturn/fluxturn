@@ -599,7 +599,7 @@
       "subscribe": "اشترك",
       "subscribing": "جارٍ الاشتراك..."
     },
-    "copyright": "\u00a9 {{year}} Info Inlet. جميع الحقوق محفوظة.",
+    "copyright": "© {{year}} Info Inlet. جميع الحقوق محفوظة.",
     "builtWith": "صُنع بـ",
     "byTeam": "بواسطة فريق Info Inlet",
     "docs": "التوثيق"
@@ -611,7 +611,17 @@
     "ko": "الكورية",
     "es": "الإسبانية",
     "fr": "الفرنسية",
-    "de": "الألمانية"
+    "de": "الألمانية",
+    "it": "Italian",
+    "ru": "Russian",
+    "pt-BR": "Portuguese (Brazil)",
+    "nl": "Dutch",
+    "pl": "Polish",
+    "uk": "Ukrainian",
+    "vi": "Vietnamese",
+    "id": "Indonesian",
+    "ar": "Arabic",
+    "hi": "Hindi"
   },
   "featuresPage": {
     "badge": "مميزات قوية",

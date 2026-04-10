@@ -611,7 +611,17 @@
     "ko": "한국어",
     "es": "스페인어",
     "fr": "프랑스어",
-    "de": "독일어"
+    "de": "독일어",
+    "it": "Italian",
+    "ru": "Russian",
+    "pt-BR": "Portuguese (Brazil)",
+    "nl": "Dutch",
+    "pl": "Polish",
+    "uk": "Ukrainian",
+    "vi": "Vietnamese",
+    "id": "Indonesian",
+    "ar": "Arabic",
+    "hi": "Hindi"
   },
   "featuresPage": {
     "badge": "강력한 기능",
