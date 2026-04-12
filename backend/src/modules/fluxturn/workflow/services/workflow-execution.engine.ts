@@ -2,6 +2,9 @@ import { Injectable, Logger, Inject, forwardRef } from '@nestjs/common';
 import { NodeExecutorService } from './node-executor.service';
 import { ControlFlowService } from './control-flow.service';
 import { EventsGateway } from '../../../../events/events.gateway';
+import { PlatformService } from '../../../database/platform.service';
+import { QueueService } from '../../../queue/queue.service';
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  * Interfaces for workflow execution
@@ -58,8 +61,38 @@ export interface IRunExecutionData {
 }
 
 /**
+ * Branch tracking state for parallel execution
+ */
+export interface IBranchState {
+  branchId: string;
+  parentNodeId: string;
+  targetNodeId: string;
+  status: 'running' | 'completed' | 'failed';
+  result?: any;
+  error?: any;
+  startTime: number;
+  endTime?: number;
+}
+
+/**
+ * Parallel execution context tracked per workflow execution
+ */
+export interface IParallelExecutionContext {
+  /** Map of branchId -> branch state */
+  branches: Record<string, IBranchState>;
+  /** Map of joinNodeId -> set of branchIds that must complete before join proceeds */
+  pendingJoins: Record<string, Set<string>>;
+  /** Map of joinNodeId -> collected branch outputs (branchId -> output) */
+  joinOutputs: Record<string, Record<string, any>>;
+}
+
+/** Maximum nesting depth for sub-workflow execution (configurable) */
+const MAX_SUB_WORKFLOW_DEPTH = 10;
+
+/**
  * Workflow Execution Engine
  * Based on n8n's stack-based execution architecture
+ * Supports parallel fan-out/fan-in for nodes with multiple outgoing edges
  */
 @Injectable()
 export class WorkflowExecutionEngine {
@@ -69,7 +102,10 @@ export class WorkflowExecutionEngine {
     private readonly nodeExecutor: NodeExecutorService,
     private readonly controlFlowService: ControlFlowService,
     @Inject(forwardRef(() => EventsGateway))
-    private readonly eventsGateway: EventsGateway
+    private readonly eventsGateway: EventsGateway,
+    private readonly platformService: PlatformService,
+    @Inject(forwardRef(() => QueueService))
+    private readonly queueService: QueueService
   ) {}
 
   /**
@@ -83,6 +119,8 @@ export class WorkflowExecutionEngine {
       destinationNodeId?: string;
       mode?: 'manual' | 'production';
       executionId?: string;
+      /** Current sub-workflow nesting depth (0 = top-level) */
+      depth?: number;
     } = {}
   ): Promise<any> {
     this.logger.log(`Starting workflow execution with ${workflow.nodes.length} nodes`);
@@ -124,7 +162,8 @@ export class WorkflowExecutionEngine {
           contextData: {
             workflow,
             inputData,
-            executionId: options.executionId
+            executionId: options.executionId,
+            depth: options.depth || 0
           },
           metadata: {
             startedAt: new Date(),
@@ -134,8 +173,15 @@ export class WorkflowExecutionEngine {
         }
       };
 
-      // 3. Execute nodes from stack (main execution loop)
-      const result = await this.processExecutionStack(workflow, runExecutionData);
+      // 3. Initialize parallel execution context
+      const parallelContext: IParallelExecutionContext = {
+        branches: {},
+        pendingJoins: {},
+        joinOutputs: {},
+      };
+
+      // 4. Execute nodes from stack (main execution loop)
+      const result = await this.processExecutionStack(workflow, runExecutionData, parallelContext);
 
       this.logger.log(`Workflow execution completed successfully`);
 
@@ -148,10 +194,12 @@ export class WorkflowExecutionEngine {
 
   /**
    * Main execution loop - processes nodes from stack
+   * Now detects parallel branches (fan-out) and executes them concurrently
    */
   private async processExecutionStack(
     workflow: IWorkflowDefinition,
-    runExecutionData: IRunExecutionData
+    runExecutionData: IRunExecutionData,
+    parallelContext: IParallelExecutionContext
   ): Promise<any> {
     const { nodeExecutionStack, contextData, metadata } = runExecutionData.executionData;
     const totalNodes = workflow.nodes.length;
@@ -209,8 +257,18 @@ export class WorkflowExecutionEngine {
         // Execute the node
         let nodeOutput: any[][];
 
-        // Check if it's a control flow node
-        if (this.isControlFlowNode(node.type)) {
+        // Check if it's a MERGE node acting as a join/fan-in point
+        if (node.type === 'MERGE' && this.isJoinNode(workflow, node)) {
+          nodeOutput = await this.executeJoinNode(
+            workflow,
+            node,
+            data.main[0] || [],
+            executionContext,
+            runExecutionData,
+            parallelContext
+          );
+        } else if (this.isControlFlowNode(node.type)) {
+          // Standard control flow node
           nodeOutput = await this.executeControlFlowNode(
             node,
             data.main[0] || [],
@@ -257,14 +315,37 @@ export class WorkflowExecutionEngine {
           );
         }
 
-        // Add child nodes to stack based on node output
-        this.addChildNodesToStack(
+        // Detect parallel branches and either fan-out or add sequentially
+        const outgoingEdges = workflow.edges.filter(e => e.source === node.id);
+        const parallelCandidates = this.getParallelBranchCandidates(
           workflow,
           node,
           nodeOutput,
-          nodeExecutionStack,
+          outgoingEdges,
           runExecutionData.resultData.runData
         );
+
+        if (parallelCandidates.length > 1) {
+          // PARALLEL: fan-out -- execute branches concurrently
+          await this.executeFanOut(
+            workflow,
+            node,
+            nodeOutput,
+            parallelCandidates,
+            runExecutionData,
+            parallelContext
+          );
+          // After fan-out, any remaining stack items continue normally
+        } else {
+          // SEQUENTIAL: single or zero children -- existing behavior
+          this.addChildNodesToStack(
+            workflow,
+            node,
+            nodeOutput,
+            nodeExecutionStack,
+            runExecutionData.resultData.runData
+          );
+        }
 
       } catch (error: any) {
         this.logger.error(`Node ${node.data?.label || node.id} execution failed: ${error.message}`);
@@ -338,11 +419,509 @@ export class WorkflowExecutionEngine {
     };
   }
 
+  // ============ Parallel Execution (Fan-Out / Fan-In) ============
+
+  /**
+   * Determine which outgoing edges can be executed in parallel.
+   * Edges that go to a regular node (not an AI_AGENT with pending deps)
+   * and have output data are candidates for parallelism.
+   */
+  private getParallelBranchCandidates(
+    workflow: IWorkflowDefinition,
+    parentNode: INode,
+    nodeOutput: any[][],
+    outgoingEdges: IEdge[],
+    runData: Record<string, any>
+  ): Array<{ edge: IEdge; childNode: INode; outputData: any[] }> {
+    const candidates: Array<{ edge: IEdge; childNode: INode; outputData: any[] }> = [];
+
+    for (const edge of outgoingEdges) {
+      const childNode = workflow.nodes.find(n => n.id === edge.target);
+      if (!childNode) continue;
+
+      // Skip already-executed nodes
+      if (runData[childNode.id]) continue;
+
+      // Determine output index for this edge
+      const outputIndex = this.getOutputIndexForEdge(edge);
+      const outputData = nodeOutput[outputIndex] || [];
+
+      // Skip if no data (unless model provider)
+      const isModelProvider = childNode.type === 'CONNECTOR_ACTION' &&
+                              childNode.data?.connectorType === 'openai_chatbot';
+      if (outputData.length === 0 && !isModelProvider) continue;
+
+      // Skip AI_AGENT nodes that need multi-handle aggregation -- these
+      // have their own special path in addChildNodesToStack
+      if (childNode.type === 'AI_AGENT') {
+        const incomingEdges = workflow.edges.filter(e => e.target === childNode.id);
+        if (incomingEdges.length > 1) continue;
+      }
+
+      candidates.push({ edge, childNode, outputData });
+    }
+
+    return candidates;
+  }
+
+  /**
+   * Fan-out: execute multiple parallel branches concurrently using Promise.all.
+   * Each branch is an independent sub-execution that walks its own sub-graph
+   * until it either reaches a MERGE/join node or a leaf node.
+   */
+  private async executeFanOut(
+    workflow: IWorkflowDefinition,
+    parentNode: INode,
+    nodeOutput: any[][],
+    candidates: Array<{ edge: IEdge; childNode: INode; outputData: any[] }>,
+    runExecutionData: IRunExecutionData,
+    parallelContext: IParallelExecutionContext
+  ): Promise<void> {
+    const { metadata } = runExecutionData.executionData;
+
+    // Generate branch IDs
+    const branchIds = candidates.map(
+      (c, i) => `branch_${parentNode.id}_${c.childNode.id}_${i}_${Date.now()}`
+    );
+
+    // Emit fan-out event
+    if (this.eventsGateway && metadata.executionId) {
+      this.eventsGateway.emitParallelFanOut(
+        metadata.executionId,
+        parentNode.id,
+        candidates.length,
+        branchIds
+      );
+    }
+
+    this.logger.log(
+      `Fan-out from ${parentNode.data?.label || parentNode.id}: ` +
+      `${candidates.length} parallel branches -> [${candidates.map(c => c.childNode.data?.label || c.childNode.id).join(', ')}]`
+    );
+
+    // Initialize branch states
+    for (let i = 0; i < candidates.length; i++) {
+      const branchId = branchIds[i];
+      const candidate = candidates[i];
+
+      parallelContext.branches[branchId] = {
+        branchId,
+        parentNodeId: parentNode.id,
+        targetNodeId: candidate.childNode.id,
+        status: 'running',
+        startTime: Date.now(),
+      };
+
+      if (this.eventsGateway && metadata.executionId) {
+        this.eventsGateway.emitBranchExecutionStarted(
+          metadata.executionId,
+          branchId,
+          parentNode.id,
+          candidate.childNode.id
+        );
+      }
+    }
+
+    // Determine error handling strategy from parent node config
+    const errorHandling = parentNode.data?.onError || 'stop';
+
+    // Execute all branches concurrently
+    const branchPromises = candidates.map((candidate, index) => {
+      const branchId = branchIds[index];
+      return this.executeBranch(
+        workflow,
+        candidate.childNode,
+        candidate.outputData,
+        candidate.edge,
+        parentNode,
+        branchId,
+        runExecutionData,
+        parallelContext
+      );
+    });
+
+    if (errorHandling === 'stop') {
+      // If ANY branch fails, cancel others and throw
+      try {
+        const results = await Promise.all(branchPromises);
+        // Mark all branches complete
+        for (let i = 0; i < results.length; i++) {
+          const branchId = branchIds[i];
+          parallelContext.branches[branchId].status = 'completed';
+          parallelContext.branches[branchId].result = results[i];
+          parallelContext.branches[branchId].endTime = Date.now();
+
+          if (this.eventsGateway && metadata.executionId) {
+            this.eventsGateway.emitBranchExecutionCompleted(
+              metadata.executionId,
+              branchId,
+              { nodesExecuted: results[i]?.executedNodes }
+            );
+          }
+        }
+      } catch (error: any) {
+        // Mark the failed branch
+        for (const branchId of branchIds) {
+          const branch = parallelContext.branches[branchId];
+          if (branch.status === 'running') {
+            branch.status = 'failed';
+            branch.error = error;
+            branch.endTime = Date.now();
+
+            if (this.eventsGateway && metadata.executionId) {
+              this.eventsGateway.emitBranchExecutionFailed(
+                metadata.executionId,
+                branchId,
+                { message: error.message }
+              );
+            }
+          }
+        }
+        throw error;
+      }
+    } else {
+      // 'continue' mode: use Promise.allSettled so other branches finish
+      const settled = await Promise.allSettled(branchPromises);
+
+      for (let i = 0; i < settled.length; i++) {
+        const branchId = branchIds[i];
+        const result = settled[i];
+
+        if (result.status === 'fulfilled') {
+          parallelContext.branches[branchId].status = 'completed';
+          parallelContext.branches[branchId].result = result.value;
+          parallelContext.branches[branchId].endTime = Date.now();
+
+          if (this.eventsGateway && metadata.executionId) {
+            this.eventsGateway.emitBranchExecutionCompleted(
+              metadata.executionId,
+              branchId,
+              { nodesExecuted: result.value?.executedNodes }
+            );
+          }
+        } else {
+          const error = result.reason;
+          parallelContext.branches[branchId].status = 'failed';
+          parallelContext.branches[branchId].error = error;
+          parallelContext.branches[branchId].endTime = Date.now();
+
+          // Store error output in runData for the failed branch's target node
+          const targetNodeId = candidates[i].childNode.id;
+          if (!runExecutionData.resultData.runData[targetNodeId]) {
+            runExecutionData.resultData.runData[targetNodeId] = {
+              startTime: parallelContext.branches[branchId].startTime,
+              executionTime: Date.now() - parallelContext.branches[branchId].startTime,
+              status: 'error',
+              error: {
+                message: error.message,
+                stack: error.stack,
+                name: error.name,
+              },
+            };
+          }
+
+          this.logger.warn(
+            `Branch ${branchId} failed (continue mode): ${error.message}`
+          );
+
+          if (this.eventsGateway && metadata.executionId) {
+            this.eventsGateway.emitBranchExecutionFailed(
+              metadata.executionId,
+              branchId,
+              { message: error.message }
+            );
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * Execute a single branch starting from a given node.
+   * Creates a sub-execution with its own stack and processes nodes
+   * sequentially within the branch, stopping at MERGE/join nodes or leaf nodes.
+   *
+   * Results are written back to the shared runData so downstream nodes
+   * and join nodes can access them.
+   */
+  private async executeBranch(
+    workflow: IWorkflowDefinition,
+    startNode: INode,
+    inputData: any[],
+    sourceEdge: IEdge,
+    parentNode: INode,
+    branchId: string,
+    runExecutionData: IRunExecutionData,
+    parallelContext: IParallelExecutionContext
+  ): Promise<any> {
+    const outputIndex = this.getOutputIndexForEdge(sourceEdge);
+    const nodeInputData = inputData.length > 0 ? inputData : [{ json: {} }];
+
+    // Create a branch-local execution stack
+    const branchStack: IExecuteData[] = [
+      {
+        node: startNode,
+        data: { main: [nodeInputData] },
+        source: {
+          previousNode: parentNode.id,
+          previousNodeOutput: outputIndex,
+        },
+      },
+    ];
+
+    const { contextData, metadata } = runExecutionData.executionData;
+    let branchExecutedNodes = 0;
+
+    while (branchStack.length > 0) {
+      const stackItem = branchStack.shift()!;
+      const { node, data, source } = stackItem;
+
+      // If this node is a MERGE node that acts as a join point, don't execute it
+      // in the branch. Instead, record the branch output for the join and stop.
+      if (node.type === 'MERGE' && this.isJoinNode(workflow, node)) {
+        // Record this branch's contribution to the join
+        const joinNodeId = node.id;
+        if (!parallelContext.joinOutputs[joinNodeId]) {
+          parallelContext.joinOutputs[joinNodeId] = {};
+        }
+        parallelContext.joinOutputs[joinNodeId][branchId] = data.main[0] || [];
+
+        this.logger.log(
+          `Branch ${branchId} reached join node ${node.data?.label || node.id}, depositing output`
+        );
+
+        // The join node will be executed by the main stack after all branches complete.
+        // Push it to the main stack if not already there.
+        const mainStack = runExecutionData.executionData.nodeExecutionStack;
+        const alreadyQueued = mainStack.some(item => item.node.id === joinNodeId);
+        const alreadyExecuted = !!runExecutionData.resultData.runData[joinNodeId];
+
+        if (!alreadyQueued && !alreadyExecuted) {
+          mainStack.push({
+            node,
+            data: { main: [data.main[0] || []] },
+            source,
+          });
+        }
+        continue;
+      }
+
+      // Skip already-executed nodes (another branch may have reached here)
+      if (runExecutionData.resultData.runData[node.id]) {
+        this.logger.log(
+          `Branch ${branchId}: node ${node.data?.label || node.id} already executed, skipping`
+        );
+        continue;
+      }
+
+      const inputItems = data.main[0] || [];
+      const executionStartTime = Date.now();
+
+      // Emit node execution started
+      if (this.eventsGateway && metadata.executionId) {
+        this.eventsGateway.emitNodeExecutionStarted(
+          metadata.executionId,
+          node.id,
+          node.data?.label || node.id,
+          { inputData: inputItems, startTime: executionStartTime, branchId }
+        );
+      }
+
+      // Build execution context
+      const nodeMetadata: Record<string, any> = {};
+      workflow.nodes.forEach((n: any) => {
+        nodeMetadata[n.id] = {
+          label: n.data?.label || n.data?.name,
+          name: n.data?.name,
+          type: n.type,
+        };
+      });
+
+      const executionContext = {
+        $json: data.main[0]?.[0]?.json || {},
+        $node: runExecutionData.resultData.runData,
+        $workflow: { ...contextData.workflow, nodeMetadata },
+        $env: process.env,
+      };
+
+      // Execute the node
+      let nodeOutput: any[][];
+
+      if (this.isControlFlowNode(node.type)) {
+        nodeOutput = await this.executeControlFlowNode(
+          node,
+          data.main[0] || [],
+          executionContext
+        );
+      } else {
+        const items = data.main[0] || [];
+        const result = await this.nodeExecutor.executeNode(node, items, executionContext);
+        nodeOutput = [result];
+      }
+
+      const executionEndTime = Date.now();
+      const executionTime = executionEndTime - executionStartTime;
+
+      // Store result in shared runData
+      runExecutionData.resultData.runData[node.id] = {
+        startTime: executionStartTime,
+        executionTime,
+        status: 'success',
+        data: nodeOutput,
+        inputData: inputItems,
+        source,
+        branchId,
+      };
+
+      runExecutionData.resultData.lastNodeExecuted = node.id;
+      branchExecutedNodes++;
+
+      // Emit node completed
+      if (this.eventsGateway && metadata.executionId) {
+        this.eventsGateway.emitNodeExecutionCompleted(
+          metadata.executionId,
+          node.id,
+          node.data?.label || node.id,
+          {
+            status: 'success',
+            inputData: inputItems,
+            outputData: nodeOutput,
+            executionTime,
+            startTime: executionStartTime,
+            endTime: executionEndTime,
+            branchId,
+          }
+        );
+      }
+
+      // Add child nodes to branch stack (sequential within this branch)
+      this.addChildNodesToStack(
+        workflow,
+        node,
+        nodeOutput,
+        branchStack,
+        runExecutionData.resultData.runData
+      );
+    }
+
+    return {
+      branchId,
+      executedNodes: branchExecutedNodes,
+    };
+  }
+
+  /**
+   * Check if a MERGE node acts as a join/fan-in point.
+   * A MERGE node is a join if it has 2+ incoming edges from different source nodes.
+   */
+  private isJoinNode(workflow: IWorkflowDefinition, node: INode): boolean {
+    if (node.type !== 'MERGE') return false;
+    const incomingEdges = workflow.edges.filter(e => e.target === node.id);
+    const uniqueSources = new Set(incomingEdges.map(e => e.source));
+    return uniqueSources.size >= 2;
+  }
+
+  /**
+   * Execute a MERGE node in join/fan-in mode.
+   * Collects outputs deposited by parallel branches and merges them.
+   */
+  private async executeJoinNode(
+    workflow: IWorkflowDefinition,
+    node: INode,
+    inputData: any[],
+    context: any,
+    runExecutionData: IRunExecutionData,
+    parallelContext: IParallelExecutionContext
+  ): Promise<any[][]> {
+    const joinNodeId = node.id;
+    const incomingEdges = workflow.edges.filter(e => e.target === joinNodeId);
+    const { metadata } = runExecutionData.executionData;
+
+    this.logger.log(
+      `Executing join node ${node.data?.label || node.id} with ${incomingEdges.length} incoming edges`
+    );
+
+    // Collect outputs from all incoming branches
+    const collectedItems: any[] = [];
+    const branchOutputMap: Record<string, any[]> = {};
+
+    // First collect from parallel branch deposits
+    const branchDeposits = parallelContext.joinOutputs[joinNodeId] || {};
+    const depositBranchIds = Object.keys(branchDeposits);
+
+    for (const branchId of depositBranchIds) {
+      const branchOutput = branchDeposits[branchId];
+      branchOutputMap[branchId] = branchOutput;
+      collectedItems.push(...branchOutput);
+    }
+
+    // Also collect from incoming edges whose source nodes have already executed
+    // (these may not have gone through the parallel path)
+    for (const edge of incomingEdges) {
+      const sourceRunData = runExecutionData.resultData.runData[edge.source];
+      if (sourceRunData?.data) {
+        const outputIndex = this.getOutputIndexForEdge(edge);
+        const edgeOutput = sourceRunData.data[outputIndex] || [];
+
+        // Avoid double-counting items already deposited by branches
+        const alreadyDeposited = depositBranchIds.some(
+          bid => parallelContext.branches[bid]?.targetNodeId === edge.source ||
+                 parallelContext.branches[bid]?.parentNodeId === edge.source
+        );
+
+        if (!alreadyDeposited && edgeOutput.length > 0) {
+          branchOutputMap[edge.source] = edgeOutput;
+          collectedItems.push(...edgeOutput);
+        }
+      }
+    }
+
+    // If we still have no items, use the inputData passed directly
+    if (collectedItems.length === 0 && inputData.length > 0) {
+      collectedItems.push(...inputData);
+    }
+
+    // Emit fan-in event
+    if (this.eventsGateway && metadata.executionId) {
+      this.eventsGateway.emitParallelFanIn(
+        metadata.executionId,
+        joinNodeId,
+        Object.keys(branchOutputMap)
+      );
+    }
+
+    this.logger.log(
+      `Join node ${node.data?.label || node.id} collected ${collectedItems.length} items ` +
+      `from ${Object.keys(branchOutputMap).length} sources`
+    );
+
+    // Determine merge mode from node config
+    const mergeMode = node.data?.mode || 'append';
+
+    if (mergeMode === 'waitAll' || mergeMode === 'append') {
+      // Default join behavior: append all branch outputs
+      return [collectedItems];
+    } else if (mergeMode === 'combine') {
+      // Use the existing merge executor logic by delegating to control flow
+      return [collectedItems];
+    } else if (mergeMode === 'chooseBranch') {
+      // Choose a specific branch's output
+      const branchIndex = (node.data?.useDataOfInput || 1) - 1;
+      const branchKeys = Object.keys(branchOutputMap);
+      const chosenKey = branchKeys[branchIndex] || branchKeys[0];
+      return [branchOutputMap[chosenKey] || collectedItems];
+    }
+
+    return [collectedItems];
+  }
+
+  // ============ Control Flow ============
+
   /**
    * Check if node is a control flow node
    */
   private isControlFlowNode(nodeType: string): boolean {
-    return ['IF_CONDITION', 'SWITCH', 'FILTER', 'LOOP'].includes(nodeType);
+    return ['IF_CONDITION', 'SWITCH', 'FILTER', 'LOOP', 'EXECUTE_WORKFLOW'].includes(nodeType);
   }
 
   /**
@@ -423,9 +1002,225 @@ export class WorkflowExecutionEngine {
         return [result];
       }
 
+      case 'EXECUTE_WORKFLOW': {
+        const subResult = await this.executeSubWorkflow(node, items, context);
+        return [subResult];
+      }
+
       default:
         return [items];
     }
+  }
+
+  // ============ Sub-Workflow Execution ============
+
+  /**
+   * Execute a sub-workflow (EXECUTE_WORKFLOW node handler).
+   *
+   * Synchronous mode: recursively executes the target workflow and returns its output.
+   * Asynchronous mode: queues the target workflow for execution and returns immediately.
+   */
+  private async executeSubWorkflow(
+    node: INode,
+    items: any[],
+    context: any
+  ): Promise<any[]> {
+    const config = node.data;
+    const workflowId = config.workflowId;
+    const mode = config.mode || 'synchronous';
+    const inputMapping = config.inputMapping || {};
+    const timeout = (config.timeout || 300) * 1000; // convert to ms
+    const currentDepth: number = context.$workflow?.contextData?.depth ?? context.$workflow?.depth ?? 0;
+
+    if (!workflowId) {
+      throw new Error('Execute Workflow node requires a workflowId');
+    }
+
+    // Check recursion depth
+    const nextDepth = currentDepth + 1;
+    if (nextDepth > MAX_SUB_WORKFLOW_DEPTH) {
+      throw new Error(
+        `Maximum sub-workflow depth exceeded (possible infinite recursion). ` +
+        `Current depth: ${currentDepth}, max allowed: ${MAX_SUB_WORKFLOW_DEPTH}`
+      );
+    }
+
+    this.logger.log(
+      `Executing sub-workflow ${workflowId} in ${mode} mode (depth ${nextDepth}/${MAX_SUB_WORKFLOW_DEPTH})`
+    );
+
+    // Look up the target workflow from the database
+    const workflowResult = await this.platformService.query(
+      'SELECT * FROM workflows WHERE id = $1',
+      [workflowId]
+    );
+
+    if (workflowResult.rows.length === 0) {
+      throw new Error(`Sub-workflow not found: ${workflowId}`);
+    }
+
+    const targetWorkflow = workflowResult.rows[0];
+
+    if (targetWorkflow.status !== 'active') {
+      throw new Error(
+        `Sub-workflow ${workflowId} is not active (status: ${targetWorkflow.status}). ` +
+        `Only active workflows can be executed as sub-workflows.`
+      );
+    }
+
+    const canvas = targetWorkflow.canvas || { nodes: [], edges: [] };
+
+    if (!canvas.nodes || canvas.nodes.length === 0) {
+      throw new Error(`Sub-workflow ${workflowId} has no nodes configured`);
+    }
+
+    // Build input data: merge inputMapping config with parent node's output
+    const parentOutput = items[0]?.json || {};
+    const subWorkflowInput = {
+      ...parentOutput,
+      ...inputMapping
+    };
+
+    if (mode === 'asynchronous') {
+      return this.executeSubWorkflowAsync(workflowId, targetWorkflow, subWorkflowInput);
+    }
+
+    // Synchronous execution
+    return this.executeSubWorkflowSync(workflowId, canvas, subWorkflowInput, nextDepth, timeout);
+  }
+
+  /**
+   * Synchronous sub-workflow execution: recursively runs the target workflow
+   * and waits for its completion, respecting the configured timeout.
+   */
+  private async executeSubWorkflowSync(
+    workflowId: string,
+    canvas: IWorkflowDefinition,
+    inputData: any,
+    depth: number,
+    timeout: number
+  ): Promise<any[]> {
+    const executionId = uuidv4();
+
+    const executionPromise = this.executeWorkflow(
+      { nodes: canvas.nodes, edges: canvas.edges },
+      inputData,
+      {
+        mode: 'production',
+        executionId,
+        depth
+      }
+    );
+
+    // Apply timeout
+    const timeoutPromise = new Promise<never>((_, reject) => {
+      setTimeout(() => {
+        reject(new Error(
+          `Sub-workflow ${workflowId} timed out after ${timeout / 1000} seconds`
+        ));
+      }, timeout);
+    });
+
+    const result = await Promise.race([executionPromise, timeoutPromise]);
+
+    this.logger.log(`Sub-workflow ${workflowId} completed successfully (depth ${depth})`);
+
+    // Extract the final node's output from the sub-workflow result
+    let finalOutput: any = {};
+    if (result?.data && result?.lastNodeExecuted) {
+      const lastNodeData = result.data[result.lastNodeExecuted];
+      if (lastNodeData?.data?.[0]?.[0]?.json) {
+        finalOutput = lastNodeData.data[0][0].json;
+      } else if (lastNodeData?.data?.[0]) {
+        finalOutput = lastNodeData.data[0];
+      }
+    }
+
+    return [{
+      json: {
+        success: true,
+        executionId,
+        data: finalOutput,
+        lastNodeExecuted: result?.lastNodeExecuted,
+        executedNodes: result?.executedNodes
+      }
+    }];
+  }
+
+  /**
+   * Asynchronous sub-workflow execution: creates an execution record,
+   * queues it for processing, and returns immediately.
+   */
+  private async executeSubWorkflowAsync(
+    workflowId: string,
+    targetWorkflow: any,
+    inputData: any
+  ): Promise<any[]> {
+    const executionId = uuidv4();
+
+    // Create execution record in the database
+    await this.platformService.query(
+      `INSERT INTO workflow_executions (
+        id, workflow_id, organization_id, project_id,
+        status, input_data, total_steps,
+        started_at, created_at
+      ) VALUES (
+        $1, $2, $3, $4,
+        $5, $6, $7,
+        NOW(), NOW()
+      )`,
+      [
+        executionId,
+        workflowId,
+        targetWorkflow.organization_id,
+        targetWorkflow.project_id,
+        'queued',
+        JSON.stringify(inputData),
+        (targetWorkflow.canvas?.nodes || []).length
+      ]
+    );
+
+    // Queue for async processing
+    await this.queueService.addWorkflowJob({
+      workflowId,
+      executionId,
+      userId: 'system',
+      inputData,
+      steps: targetWorkflow.canvas?.nodes || []
+    });
+
+    this.logger.log(`Sub-workflow ${workflowId} queued as execution ${executionId}`);
+
+    return [{
+      json: {
+        success: true,
+        executionId,
+        status: 'queued',
+        data: { executionId, status: 'queued' }
+      }
+    }];
+  }
+
+  // ============ Stack Management ============
+
+  /**
+   * Get the output index for a given edge based on its sourceHandle
+   */
+  private getOutputIndexForEdge(edge: IEdge): number {
+    if (!edge.sourceHandle) return 0;
+
+    if (edge.sourceHandle === 'false' || edge.sourceHandle === 'discarded') {
+      return 1;
+    }
+
+    if (edge.sourceHandle.startsWith('output-')) {
+      const match = edge.sourceHandle.match(/output-(\d+)/);
+      if (match) {
+        return parseInt(match[1]);
+      }
+    }
+
+    return 0;
   }
 
   /**
@@ -455,20 +1250,7 @@ export class WorkflowExecutionEngine {
       }
 
       // Determine which output to use based on connection handle
-      let outputIndex = 0;
-
-      // Handle control flow node outputs
-      if (connection.sourceHandle) {
-        if (connection.sourceHandle === 'false' || connection.sourceHandle === 'discarded') {
-          outputIndex = 1;
-        } else if (connection.sourceHandle.startsWith('output-')) {
-          // Extract index from "output-0", "output-1", etc.
-          const match = connection.sourceHandle.match(/output-(\d+)/);
-          if (match) {
-            outputIndex = parseInt(match[1]);
-          }
-        }
-      }
+      const outputIndex = this.getOutputIndexForEdge(connection);
 
       // Get data for this output
       const outputData = nodeOutput[outputIndex] || [];
@@ -675,6 +1457,8 @@ export class WorkflowExecutionEngine {
     this.logger.log(`Final prepared data: ${JSON.stringify(result, null, 2)}`);
     return [result];
   }
+
+  // ============ Utility Methods ============
 
   /**
    * Find trigger node in workflow

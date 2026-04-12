@@ -3,12 +3,14 @@ import { AIAgentExecutor } from './ai-agent.executor';
 import { OpenAIChatModelExecutor } from './openai-chat-model.executor';
 import { SimpleMemoryExecutor } from './simple-memory.executor';
 import { RedisMemoryExecutor } from './redis-memory.executor';
+import { LLMChatExecutor } from './llm-chat.executor';
 
 // Export all AI executors
 export { AIAgentExecutor } from './ai-agent.executor';
 export { OpenAIChatModelExecutor } from './openai-chat-model.executor';
 export { SimpleMemoryExecutor } from './simple-memory.executor';
 export { RedisMemoryExecutor } from './redis-memory.executor';
+export { LLMChatExecutor } from './llm-chat.executor';
 
 // All AI executor classes for module registration
 export const AIExecutors = [
@@ -16,6 +18,7 @@ export const AIExecutors = [
   OpenAIChatModelExecutor,
   SimpleMemoryExecutor,
   RedisMemoryExecutor,
+  LLMChatExecutor,
 ];
 
 // Registration metadata for each AI node
@@ -46,6 +49,13 @@ export const AIRegistrations = [
     options: {
       category: NodeCategory.AI,
       description: 'Redis-backed conversation storage',
+    },
+  },
+  {
+    executor: LLMChatExecutor,
+    options: {
+      category: NodeCategory.AI,
+      description: 'Call an AI model to process text',
     },
   },
 ];
