@@ -21,6 +21,8 @@ import { WorkflowService } from './workflow.service';
 import { TriggerType } from './interfaces/trigger.interface';
 import { JwtOrApiKeyAuthGuard } from '../../auth/guards/jwt-or-api-key-auth.guard';
 import { ToolRegistryService } from './services/tool-registry.service';
+import { WorkflowSerializerService } from './services/workflow-serializer.service';
+import { ImportWorkflowDto, WorkflowFormat } from './dto/workflow-import.dto';
 import { DryRunService } from './services/dry-run.service';
 import { DryRunDto } from './dto/dry-run.dto';
 import {
@@ -59,6 +61,7 @@ export class WorkflowController {
   constructor(
     private readonly workflowService: WorkflowService,
     private readonly toolRegistryService: ToolRegistryService,
+    private readonly workflowSerializerService: WorkflowSerializerService,
     private readonly dryRunService: DryRunService,
   ) {}
 
@@ -515,6 +518,68 @@ export class WorkflowController {
     return this.workflowService.findSimilarWorkflows({
       ...dto,
     });
+  }
+
+  @Post('import')
+  @ApiOperation({
+    summary: 'Import a workflow from YAML or JSON definition',
+    description: 'Parse and validate a workflow definition, then create the workflow',
+  })
+  @ApiResponse({ status: 201, description: 'Workflow imported successfully' })
+  @ApiResponse({ status: 400, description: 'Invalid definition or validation errors' })
+  @ApiBody({ type: ImportWorkflowDto })
+  async importWorkflow(
+    @Body(ValidationPipe) dto: ImportWorkflowDto,
+    @Request() req: any,
+  ) {
+    const userId = req.user?.id || req.auth?.userId;
+    const context = this.extractMultiTenantContext(req);
+
+    if (dto.format === WorkflowFormat.YAML) {
+      return this.workflowSerializerService.importFromYaml(
+        context.organizationId,
+        context.projectId,
+        userId,
+        dto.definition,
+      );
+    }
+    return this.workflowSerializerService.importFromJson(
+      context.organizationId,
+      context.projectId,
+      userId,
+      dto.definition,
+    );
+  }
+
+  @Get(':id/export')
+  @ApiOperation({
+    summary: 'Export a workflow as YAML or JSON',
+    description: 'Download a workflow definition in the specified format for Git-based workflow management',
+  })
+  @ApiResponse({ status: 200, description: 'Workflow definition exported' })
+  @ApiResponse({ status: 404, description: 'Workflow not found' })
+  async exportWorkflow(
+    @Param('id') workflowId: string,
+    @Query('format') format: string,
+    @Request() req: any,
+  ) {
+    const exportFormat = (format || 'yaml').toLowerCase();
+
+    if (exportFormat === 'json') {
+      const definition = await this.workflowSerializerService.exportToJson(workflowId);
+      return {
+        format: 'json',
+        definition,
+        filename: `workflow-${workflowId}.json`,
+      };
+    }
+
+    const definition = await this.workflowSerializerService.exportToYaml(workflowId);
+    return {
+      format: 'yaml',
+      definition,
+      filename: `workflow-${workflowId}.yaml`,
+    };
   }
 
   @Get('new')

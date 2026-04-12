@@ -80,6 +80,7 @@ import { AvailableNodesSeederService } from './services/available-nodes-seeder.s
 import { NodesModule } from './nodes/nodes.module';
 import { WorkflowAgentsService } from './services/workflow-agents.service';
 import { OrchestratedGeneratorService } from './services/orchestrated-generator.service';
+import { WorkflowSerializerService } from './services/workflow-serializer.service';
 import { DryRunService } from './services/dry-run.service';
 import { AuditModule } from '../audit/audit.module';
 // import { TemplateSeederService } from './services/template-seeder.service';
@@ -133,6 +134,7 @@ import { AuditModule } from '../audit/audit.module';
   ],
   providers: [
     WorkflowService,
+    WorkflowSerializerService,
     DryRunService,
     TemplateService,
     WorkflowExecutionEngine,
