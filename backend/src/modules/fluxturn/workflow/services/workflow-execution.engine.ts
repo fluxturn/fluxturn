@@ -1,7 +1,8 @@
-import { Injectable, Logger, Inject, forwardRef } from '@nestjs/common';
+import { Injectable, Logger, Inject, forwardRef, Optional } from '@nestjs/common';
 import { NodeExecutorService } from './node-executor.service';
 import { ControlFlowService } from './control-flow.service';
 import { EventsGateway } from '../../../../events/events.gateway';
+import { SecretsService } from '../../../secrets/secrets.service';
 
 /**
  * Interfaces for workflow execution
@@ -69,7 +70,8 @@ export class WorkflowExecutionEngine {
     private readonly nodeExecutor: NodeExecutorService,
     private readonly controlFlowService: ControlFlowService,
     @Inject(forwardRef(() => EventsGateway))
-    private readonly eventsGateway: EventsGateway
+    private readonly eventsGateway: EventsGateway,
+    @Optional() private readonly secretsService?: SecretsService
   ) {}
 
   /**
@@ -83,6 +85,7 @@ export class WorkflowExecutionEngine {
       destinationNodeId?: string;
       mode?: 'manual' | 'production';
       executionId?: string;
+      dryRun?: boolean;
     } = {}
   ): Promise<any> {
     this.logger.log(`Starting workflow execution with ${workflow.nodes.length} nodes`);
@@ -129,7 +132,8 @@ export class WorkflowExecutionEngine {
           metadata: {
             startedAt: new Date(),
             executionId: options.executionId,
-            mode: options.mode || 'manual'
+            mode: options.mode || 'manual',
+            dryRun: options.dryRun || false
           }
         }
       };
@@ -161,7 +165,8 @@ export class WorkflowExecutionEngine {
     while (nodeExecutionStack.length > 0) {
       // Pop next node from stack
       const executionStackItem = nodeExecutionStack.shift()!;
-      const { node, data, source } = executionStackItem;
+      let { node } = executionStackItem;
+      const { data, source } = executionStackItem;
 
       this.logger.log(
         `[${executedNodesCount + 1}/${totalNodes}] Executing: ${node.data?.label || node.id} (${node.type})`
@@ -205,6 +210,20 @@ export class WorkflowExecutionEngine {
           },
           $env: process.env
         };
+
+        // Resolve {{secrets.NAME}} references in node config before execution
+        if (this.secretsService && node.data) {
+          try {
+            node = {
+              ...node,
+              data: await this.secretsService.resolveSecretsInObject(node.data),
+            };
+          } catch (secretsError: any) {
+            this.logger.warn(
+              `Failed to resolve secrets for node ${node.data?.label || node.id}: ${secretsError.message}`,
+            );
+          }
+        }
 
         // Execute the node
         let nodeOutput: any[][];

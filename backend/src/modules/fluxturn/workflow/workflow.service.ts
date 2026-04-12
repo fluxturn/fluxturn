@@ -11,6 +11,7 @@ import { TriggerManagerService } from './services/trigger-manager.service';
 import { TriggerType } from './interfaces/trigger.interface';
 import { AIWorkflowGeneratorService } from './services/ai-workflow-generator.service';
 import { IntentDetectionService } from './services/intent-detection.service';
+import { AuditService } from '../audit/audit.service';
 // compareConnectorFields removed - seeding now done via npm run seed:connector
 
 @Injectable()
@@ -28,6 +29,7 @@ export class WorkflowService implements OnModuleInit, OnModuleDestroy {
     private triggerManager: TriggerManagerService,
     private aiWorkflowGenerator: AIWorkflowGeneratorService,
     private intentDetection: IntentDetectionService,
+    private auditService: AuditService,
   ) {}
 
   async onModuleInit() {
@@ -304,8 +306,27 @@ export class WorkflowService implements OnModuleInit, OnModuleDestroy {
         }
       }
 
+      const created = result.rows[0];
+
+      // Audit log
+      this.auditService.log(
+        'workflow.created',
+        params.created_by,
+        'workflow',
+        created.id,
+        {
+          organizationId: params.organization_id,
+          projectId: params.project_id,
+          details: {
+            name: created.name,
+            isAiGenerated,
+            templateId: params.template_id || null,
+          },
+        },
+      ).catch(err => this.logger.warn('Audit log failed:', err.message));
+
       return {
-        ...result.rows[0],
+        ...created,
         confidence,
         generationStrategy: params.prompt ? 'hybrid' : 'manual'
       };
@@ -425,6 +446,21 @@ export class WorkflowService implements OnModuleInit, OnModuleDestroy {
         ]);
 
         this.logger.log(`Workflow execution completed: ${executionId}`);
+
+        // Audit log
+        if (workflowRow.user_id || workflowRow.created_by) {
+          this.auditService.log(
+            'workflow.executed',
+            workflowRow.user_id || workflowRow.created_by,
+            'workflow',
+            params.workflow_id,
+            {
+              organizationId: workflowRow.organization_id,
+              projectId: workflowRow.project_id,
+              details: { executionId, status: 'completed' },
+            },
+          ).catch(err => this.logger.warn('Audit log failed:', err.message));
+        }
 
         return {
           ...executionResult.rows[0],
@@ -2181,6 +2217,23 @@ export class WorkflowService implements OnModuleInit, OnModuleDestroy {
         };
       }
 
+      // Audit log
+      if (params.updated_by) {
+        this.auditService.log(
+          'workflow.updated',
+          params.updated_by,
+          'workflow',
+          workflowId,
+          {
+            organizationId: params.organization_id,
+            projectId: params.project_id,
+            details: {
+              updatedFields: Object.keys(params).filter(k => params[k] !== undefined && k !== 'updated_by' && k !== 'organization_id' && k !== 'project_id'),
+            },
+          },
+        ).catch(err => this.logger.warn('Audit log failed:', err.message));
+      }
+
       // Return workflow data with trigger results
       return {
         ...updatedWorkflow,
@@ -2236,9 +2289,25 @@ export class WorkflowService implements OnModuleInit, OnModuleDestroy {
         throw new NotFoundException('Workflow not found');
       }
 
+      // Audit log
+      const deletedWorkflow = result.rows[0];
+      if (workflow?.user_id || workflow?.created_by) {
+        this.auditService.log(
+          'workflow.deleted',
+          workflow.user_id || workflow.created_by,
+          'workflow',
+          workflowId,
+          {
+            organizationId: organizationId,
+            projectId: projectId,
+            details: { name: deletedWorkflow.name },
+          },
+        ).catch(err => this.logger.warn('Audit log failed:', err.message));
+      }
+
       return {
         message: 'Workflow deleted successfully',
-        workflow: result.rows[0]
+        workflow: deletedWorkflow
       };
     } catch (error) {
       this.logger.error('Failed to delete workflow:', error);
