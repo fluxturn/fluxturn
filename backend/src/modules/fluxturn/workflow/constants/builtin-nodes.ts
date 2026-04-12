@@ -859,6 +859,72 @@ export const BUILTIN_ACTIONS: BuiltinNodeDefinition[] = [
         }
       }
     }
+  },
+  {
+    type: 'EXECUTE_WORKFLOW',
+    name: 'Execute Workflow',
+    category: 'control-flow',
+    description: 'Call another workflow as a sub-step',
+    is_action: true,
+    is_builtin: true,
+    icon: 'git-branch',
+    config_schema: {
+      workflowId: {
+        type: 'string',
+        required: true,
+        label: 'Workflow ID',
+        description: 'ID of the workflow to execute as a sub-workflow',
+        placeholder: 'Enter workflow UUID'
+      },
+      mode: {
+        type: 'select',
+        label: 'Execution Mode',
+        options: [
+          { label: 'Synchronous (wait for result)', value: 'synchronous' },
+          { label: 'Asynchronous (fire-and-forget)', value: 'asynchronous' }
+        ],
+        default: 'synchronous',
+        description: 'Synchronous waits for the sub-workflow to complete; asynchronous queues it and continues immediately'
+      },
+      inputMapping: {
+        type: 'object',
+        label: 'Input Data Mapping',
+        description: 'JSON object mapping data to pass to the sub-workflow as its trigger input',
+        default: {}
+      },
+      timeout: {
+        type: 'number',
+        label: 'Timeout (seconds)',
+        description: 'Maximum time to wait for the sub-workflow to complete (synchronous mode only)',
+        default: 300,
+        min: 1,
+        max: 3600
+      }
+    },
+    input_schema: {
+      workflowId: {
+        type: 'string',
+        description: 'Target workflow ID'
+      },
+      inputData: {
+        type: 'object',
+        description: 'Data to pass to the sub-workflow'
+      }
+    },
+    output_schema: {
+      success: {
+        type: 'boolean',
+        description: 'Whether the sub-workflow completed successfully'
+      },
+      data: {
+        type: 'object',
+        description: 'Output data from the sub-workflow (synchronous) or execution metadata (asynchronous)'
+      },
+      executionId: {
+        type: 'string',
+        description: 'Execution ID of the sub-workflow'
+      }
+    }
   }
 ];
 

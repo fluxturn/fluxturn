@@ -2,6 +2,9 @@ import { Injectable, Logger, Inject, forwardRef } from '@nestjs/common';
 import { NodeExecutorService } from './node-executor.service';
 import { ControlFlowService } from './control-flow.service';
 import { EventsGateway } from '../../../../events/events.gateway';
+import { PlatformService } from '../../../database/platform.service';
+import { QueueService } from '../../../queue/queue.service';
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  * Interfaces for workflow execution
@@ -83,6 +86,9 @@ export interface IParallelExecutionContext {
   joinOutputs: Record<string, Record<string, any>>;
 }
 
+/** Maximum nesting depth for sub-workflow execution (configurable) */
+const MAX_SUB_WORKFLOW_DEPTH = 10;
+
 /**
  * Workflow Execution Engine
  * Based on n8n's stack-based execution architecture
@@ -96,7 +102,10 @@ export class WorkflowExecutionEngine {
     private readonly nodeExecutor: NodeExecutorService,
     private readonly controlFlowService: ControlFlowService,
     @Inject(forwardRef(() => EventsGateway))
-    private readonly eventsGateway: EventsGateway
+    private readonly eventsGateway: EventsGateway,
+    private readonly platformService: PlatformService,
+    @Inject(forwardRef(() => QueueService))
+    private readonly queueService: QueueService
   ) {}
 
   /**
@@ -110,6 +119,8 @@ export class WorkflowExecutionEngine {
       destinationNodeId?: string;
       mode?: 'manual' | 'production';
       executionId?: string;
+      /** Current sub-workflow nesting depth (0 = top-level) */
+      depth?: number;
     } = {}
   ): Promise<any> {
     this.logger.log(`Starting workflow execution with ${workflow.nodes.length} nodes`);
@@ -151,7 +162,8 @@ export class WorkflowExecutionEngine {
           contextData: {
             workflow,
             inputData,
-            executionId: options.executionId
+            executionId: options.executionId,
+            depth: options.depth || 0
           },
           metadata: {
             startedAt: new Date(),
@@ -909,7 +921,7 @@ export class WorkflowExecutionEngine {
    * Check if node is a control flow node
    */
   private isControlFlowNode(nodeType: string): boolean {
-    return ['IF_CONDITION', 'SWITCH', 'FILTER', 'LOOP'].includes(nodeType);
+    return ['IF_CONDITION', 'SWITCH', 'FILTER', 'LOOP', 'EXECUTE_WORKFLOW'].includes(nodeType);
   }
 
   /**
@@ -990,9 +1002,203 @@ export class WorkflowExecutionEngine {
         return [result];
       }
 
+      case 'EXECUTE_WORKFLOW': {
+        const subResult = await this.executeSubWorkflow(node, items, context);
+        return [subResult];
+      }
+
       default:
         return [items];
     }
+  }
+
+  // ============ Sub-Workflow Execution ============
+
+  /**
+   * Execute a sub-workflow (EXECUTE_WORKFLOW node handler).
+   *
+   * Synchronous mode: recursively executes the target workflow and returns its output.
+   * Asynchronous mode: queues the target workflow for execution and returns immediately.
+   */
+  private async executeSubWorkflow(
+    node: INode,
+    items: any[],
+    context: any
+  ): Promise<any[]> {
+    const config = node.data;
+    const workflowId = config.workflowId;
+    const mode = config.mode || 'synchronous';
+    const inputMapping = config.inputMapping || {};
+    const timeout = (config.timeout || 300) * 1000; // convert to ms
+    const currentDepth: number = context.$workflow?.contextData?.depth ?? context.$workflow?.depth ?? 0;
+
+    if (!workflowId) {
+      throw new Error('Execute Workflow node requires a workflowId');
+    }
+
+    // Check recursion depth
+    const nextDepth = currentDepth + 1;
+    if (nextDepth > MAX_SUB_WORKFLOW_DEPTH) {
+      throw new Error(
+        `Maximum sub-workflow depth exceeded (possible infinite recursion). ` +
+        `Current depth: ${currentDepth}, max allowed: ${MAX_SUB_WORKFLOW_DEPTH}`
+      );
+    }
+
+    this.logger.log(
+      `Executing sub-workflow ${workflowId} in ${mode} mode (depth ${nextDepth}/${MAX_SUB_WORKFLOW_DEPTH})`
+    );
+
+    // Look up the target workflow from the database
+    const workflowResult = await this.platformService.query(
+      'SELECT * FROM workflows WHERE id = $1',
+      [workflowId]
+    );
+
+    if (workflowResult.rows.length === 0) {
+      throw new Error(`Sub-workflow not found: ${workflowId}`);
+    }
+
+    const targetWorkflow = workflowResult.rows[0];
+
+    if (targetWorkflow.status !== 'active') {
+      throw new Error(
+        `Sub-workflow ${workflowId} is not active (status: ${targetWorkflow.status}). ` +
+        `Only active workflows can be executed as sub-workflows.`
+      );
+    }
+
+    const canvas = targetWorkflow.canvas || { nodes: [], edges: [] };
+
+    if (!canvas.nodes || canvas.nodes.length === 0) {
+      throw new Error(`Sub-workflow ${workflowId} has no nodes configured`);
+    }
+
+    // Build input data: merge inputMapping config with parent node's output
+    const parentOutput = items[0]?.json || {};
+    const subWorkflowInput = {
+      ...parentOutput,
+      ...inputMapping
+    };
+
+    if (mode === 'asynchronous') {
+      return this.executeSubWorkflowAsync(workflowId, targetWorkflow, subWorkflowInput);
+    }
+
+    // Synchronous execution
+    return this.executeSubWorkflowSync(workflowId, canvas, subWorkflowInput, nextDepth, timeout);
+  }
+
+  /**
+   * Synchronous sub-workflow execution: recursively runs the target workflow
+   * and waits for its completion, respecting the configured timeout.
+   */
+  private async executeSubWorkflowSync(
+    workflowId: string,
+    canvas: IWorkflowDefinition,
+    inputData: any,
+    depth: number,
+    timeout: number
+  ): Promise<any[]> {
+    const executionId = uuidv4();
+
+    const executionPromise = this.executeWorkflow(
+      { nodes: canvas.nodes, edges: canvas.edges },
+      inputData,
+      {
+        mode: 'production',
+        executionId,
+        depth
+      }
+    );
+
+    // Apply timeout
+    const timeoutPromise = new Promise<never>((_, reject) => {
+      setTimeout(() => {
+        reject(new Error(
+          `Sub-workflow ${workflowId} timed out after ${timeout / 1000} seconds`
+        ));
+      }, timeout);
+    });
+
+    const result = await Promise.race([executionPromise, timeoutPromise]);
+
+    this.logger.log(`Sub-workflow ${workflowId} completed successfully (depth ${depth})`);
+
+    // Extract the final node's output from the sub-workflow result
+    let finalOutput: any = {};
+    if (result?.data && result?.lastNodeExecuted) {
+      const lastNodeData = result.data[result.lastNodeExecuted];
+      if (lastNodeData?.data?.[0]?.[0]?.json) {
+        finalOutput = lastNodeData.data[0][0].json;
+      } else if (lastNodeData?.data?.[0]) {
+        finalOutput = lastNodeData.data[0];
+      }
+    }
+
+    return [{
+      json: {
+        success: true,
+        executionId,
+        data: finalOutput,
+        lastNodeExecuted: result?.lastNodeExecuted,
+        executedNodes: result?.executedNodes
+      }
+    }];
+  }
+
+  /**
+   * Asynchronous sub-workflow execution: creates an execution record,
+   * queues it for processing, and returns immediately.
+   */
+  private async executeSubWorkflowAsync(
+    workflowId: string,
+    targetWorkflow: any,
+    inputData: any
+  ): Promise<any[]> {
+    const executionId = uuidv4();
+
+    // Create execution record in the database
+    await this.platformService.query(
+      `INSERT INTO workflow_executions (
+        id, workflow_id, organization_id, project_id,
+        status, input_data, total_steps,
+        started_at, created_at
+      ) VALUES (
+        $1, $2, $3, $4,
+        $5, $6, $7,
+        NOW(), NOW()
+      )`,
+      [
+        executionId,
+        workflowId,
+        targetWorkflow.organization_id,
+        targetWorkflow.project_id,
+        'queued',
+        JSON.stringify(inputData),
+        (targetWorkflow.canvas?.nodes || []).length
+      ]
+    );
+
+    // Queue for async processing
+    await this.queueService.addWorkflowJob({
+      workflowId,
+      executionId,
+      userId: 'system',
+      inputData,
+      steps: targetWorkflow.canvas?.nodes || []
+    });
+
+    this.logger.log(`Sub-workflow ${workflowId} queued as execution ${executionId}`);
+
+    return [{
+      json: {
+        success: true,
+        executionId,
+        status: 'queued',
+        data: { executionId, status: 'queued' }
+      }
+    }];
   }
 
   // ============ Stack Management ============
