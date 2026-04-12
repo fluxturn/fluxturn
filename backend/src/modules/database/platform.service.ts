@@ -1159,6 +1159,7 @@ export class PlatformService implements OnModuleInit, OnModuleDestroy {
           step_results JSONB DEFAULT '[]',
           context JSONB DEFAULT '{}',
           duration_ms INTEGER,
+          idempotency_key VARCHAR(255),
           started_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
           completed_at TIMESTAMP WITH TIME ZONE,
           created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -1488,6 +1489,7 @@ export class PlatformService implements OnModuleInit, OnModuleDestroy {
         CREATE INDEX IF NOT EXISTS idx_workflow_executions_app_id ON workflow_executions(app_id);
         CREATE INDEX IF NOT EXISTS idx_workflow_executions_status ON workflow_executions(status);
         CREATE INDEX IF NOT EXISTS idx_workflow_executions_started_at ON workflow_executions(started_at DESC);
+        CREATE INDEX IF NOT EXISTS idx_workflow_executions_idempotency_key ON workflow_executions(idempotency_key) WHERE idempotency_key IS NOT NULL;
 
         CREATE INDEX IF NOT EXISTS idx_workflow_templates_category ON workflow_templates(category);
         CREATE INDEX IF NOT EXISTS idx_workflow_templates_industry ON workflow_templates(industry);
