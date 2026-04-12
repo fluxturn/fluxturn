@@ -861,6 +861,81 @@ export const BUILTIN_ACTIONS: BuiltinNodeDefinition[] = [
     }
   },
   {
+    type: 'LLM_CHAT',
+    name: 'AI / LLM',
+    category: 'ai',
+    description: 'Call an AI model (OpenAI, Anthropic, Gemini, Ollama) to process text',
+    is_action: true,
+    is_builtin: true,
+    icon: 'brain',
+    config_schema: {
+      provider: {
+        type: 'select',
+        label: 'Provider',
+        options: [
+          { label: 'OpenAI', value: 'openai' },
+          { label: 'Anthropic', value: 'anthropic' },
+          { label: 'Gemini', value: 'gemini' },
+          { label: 'Ollama', value: 'ollama' },
+        ],
+        default: 'openai',
+      },
+      model: {
+        type: 'string',
+        label: 'Model',
+        default: 'gpt-4o-mini',
+        description: 'Model identifier (e.g. gpt-4o-mini, claude-sonnet-4-20250514, gemini-2.0-flash)',
+      },
+      systemPrompt: {
+        type: 'string',
+        inputType: 'textarea',
+        label: 'System Prompt',
+        default: 'You are a helpful assistant.',
+      },
+      userPrompt: {
+        type: 'string',
+        inputType: 'textarea',
+        label: 'User Prompt (supports {{input}} template)',
+        required: true,
+        description: 'Use {{input}} to inject the previous node output. Use {{input.fieldName}} for nested access.',
+      },
+      temperature: {
+        type: 'number',
+        label: 'Temperature',
+        default: 0.7,
+        min: 0,
+        max: 2,
+        step: 0.1,
+      },
+      maxTokens: {
+        type: 'number',
+        label: 'Max Tokens',
+        default: 2000,
+        min: 1,
+      },
+      jsonMode: {
+        type: 'boolean',
+        label: 'JSON Output Mode',
+        default: false,
+        description: 'When enabled, instructs the model to return valid JSON and parses the response.',
+      },
+    },
+    output_schema: {
+      text: {
+        type: 'string',
+        description: 'LLM response text (or parsed JSON object if jsonMode is on)',
+      },
+      model: {
+        type: 'string',
+        description: 'Model used for generation',
+      },
+      usage: {
+        type: 'object',
+        description: 'Token usage: { promptTokens, completionTokens }',
+      },
+    },
+  },
+  {
     type: 'EXECUTE_WORKFLOW',
     name: 'Execute Workflow',
     category: 'control-flow',
