@@ -56,6 +56,7 @@ import { AwsS3TriggerService, AwsS3WebhookController } from '../connectors/stora
 import { FreshdeskTriggerService, FreshdeskWebhookController } from '../connectors/support/freshdesk';
 import { TriggerManagerService } from './services/trigger-manager.service';
 import { ScheduleTriggerService } from './services/triggers/schedule-trigger.service';
+import { WorkflowSchedulerService } from './services/workflow-scheduler.service';
 import { AIWorkflowGeneratorService } from './services/ai-workflow-generator.service';
 import { NodeTypeValidatorService } from './services/node-type-validator.service';
 // SEEDER SERVICES - Disabled, now run manually via npm run seed
@@ -186,6 +187,8 @@ import { OrchestratedGeneratorService } from './services/orchestrated-generator.
     JiraTriggerService,
     // Schedule trigger service
     ScheduleTriggerService,
+    // Workflow scheduler - auto-loads cron jobs for active workflows on startup
+    WorkflowSchedulerService,
     // Google Calendar trigger services
     GoogleCalendarPollingService,
     GoogleCalendarTriggerService,
