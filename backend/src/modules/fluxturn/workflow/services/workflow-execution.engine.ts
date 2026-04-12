@@ -4,6 +4,20 @@ import { ControlFlowService } from './control-flow.service';
 import { EventsGateway } from '../../../../events/events.gateway';
 
 /**
+ * Retry configuration for a workflow node
+ */
+export interface IRetryConfig {
+  /** Delay strategy: constant, exponential, or random jitter */
+  strategy: 'constant' | 'exponential' | 'random';
+  /** Maximum number of retry attempts (default 3) */
+  maxRetries: number;
+  /** Base delay in milliseconds (default 1000) */
+  baseDelayMs: number;
+  /** Maximum delay cap in milliseconds (default 30000) */
+  maxDelayMs: number;
+}
+
+/**
  * Interfaces for workflow execution
  */
 export interface INode {
@@ -12,6 +26,9 @@ export interface INode {
   position: { x: number; y: number };
   data: {
     label?: string;
+    onError?: 'stop' | 'continue' | 'retry' | 'fallback';
+    retryConfig?: Partial<IRetryConfig>;
+    fallbackValue?: any;
     [key: string]: any;
   };
 }
@@ -267,13 +284,238 @@ export class WorkflowExecutionEngine {
         );
 
       } catch (error: any) {
-        this.logger.error(`Node ${node.data?.label || node.id} execution failed: ${error.message}`);
+        const nodeLabel = node.data?.label || node.id;
+        this.logger.error(`Node ${nodeLabel} execution failed: ${error.message}`);
 
-        // Calculate execution time even for failed nodes
+        const onError: string = node.data?.onError || 'stop';
+
+        // ---- Retry logic ----
+        if (onError === 'retry') {
+          const retryConfig = this.buildRetryConfig(node.data?.retryConfig);
+          let lastError = error;
+          let retrySuccess = false;
+
+          for (let attempt = 1; attempt <= retryConfig.maxRetries; attempt++) {
+            const delay = this.calculateRetryDelay(attempt, retryConfig);
+            this.logger.warn(
+              `[Retry] Node ${nodeLabel}: attempt ${attempt}/${retryConfig.maxRetries} ` +
+              `(strategy=${retryConfig.strategy}, delay=${Math.round(delay)}ms)`
+            );
+
+            // Emit retry event over WebSocket
+            if (this.eventsGateway && metadata.executionId) {
+              this.eventsGateway.emitNodeExecutionStarted(
+                metadata.executionId,
+                node.id,
+                nodeLabel,
+                {
+                  inputData: inputItems,
+                  startTime: Date.now(),
+                  retryAttempt: attempt,
+                  retryMaxAttempts: retryConfig.maxRetries,
+                }
+              );
+            }
+
+            await this.sleep(delay);
+
+            try {
+              let nodeOutput: any[][];
+
+              if (this.isControlFlowNode(node.type)) {
+                nodeOutput = await this.executeControlFlowNode(
+                  node,
+                  data.main[0] || [],
+                  {
+                    $json: data.main[0]?.[0]?.json || {},
+                    $node: runExecutionData.resultData.runData,
+                    $workflow: contextData.workflow,
+                    $env: process.env,
+                  },
+                );
+              } else {
+                const items = data.main[0] || [];
+                const result = await this.nodeExecutor.executeNode(node, items, {
+                  $json: data.main[0]?.[0]?.json || {},
+                  $node: runExecutionData.resultData.runData,
+                  $workflow: contextData.workflow,
+                  $env: process.env,
+                });
+                nodeOutput = [result];
+              }
+
+              // Retry succeeded
+              const retryEndTime = Date.now();
+              const totalTime = retryEndTime - executionStartTime;
+
+              runExecutionData.resultData.runData[node.id] = {
+                startTime: executionStartTime,
+                executionTime: totalTime,
+                status: 'success',
+                data: nodeOutput,
+                inputData: inputItems,
+                source,
+                retryAttempts: attempt,
+              };
+
+              runExecutionData.resultData.lastNodeExecuted = node.id;
+              executedNodesCount++;
+
+              if (this.eventsGateway && metadata.executionId) {
+                this.eventsGateway.emitNodeExecutionCompleted(
+                  metadata.executionId,
+                  node.id,
+                  nodeLabel,
+                  {
+                    status: 'success',
+                    inputData: inputItems,
+                    outputData: nodeOutput,
+                    executionTime: totalTime,
+                    startTime: executionStartTime,
+                    endTime: retryEndTime,
+                    retryAttempts: attempt,
+                  }
+                );
+              }
+
+              this.logger.log(
+                `[Retry] Node ${nodeLabel} succeeded on attempt ${attempt}`
+              );
+
+              this.addChildNodesToStack(
+                workflow,
+                node,
+                nodeOutput,
+                nodeExecutionStack,
+                runExecutionData.resultData.runData,
+              );
+
+              retrySuccess = true;
+              break;
+            } catch (retryError: any) {
+              lastError = retryError;
+              this.logger.warn(
+                `[Retry] Node ${nodeLabel}: attempt ${attempt} failed: ${retryError.message}`
+              );
+            }
+          }
+
+          if (retrySuccess) {
+            continue; // Move to next item in the execution stack
+          }
+
+          // All retries exhausted -- fall through to 'stop' behaviour
+          this.logger.error(
+            `[Retry] Node ${nodeLabel}: all ${retryConfig.maxRetries} retries exhausted`
+          );
+          error = lastError;
+        }
+
+        // ---- Continue mode: log error and keep going ----
+        if (onError === 'continue') {
+          const executionEndTime = Date.now();
+          const executionTime = executionEndTime - executionStartTime;
+
+          runExecutionData.resultData.runData[node.id] = {
+            startTime: executionStartTime,
+            executionTime,
+            status: 'error',
+            inputData: inputItems,
+            error: { message: error.message, stack: error.stack, name: error.name },
+            onError: 'continue',
+          };
+
+          runExecutionData.resultData.lastNodeExecuted = node.id;
+          executedNodesCount++;
+
+          if (this.eventsGateway && metadata.executionId) {
+            this.eventsGateway.emitNodeExecutionFailed(
+              metadata.executionId,
+              node.id,
+              nodeLabel,
+              {
+                message: error.message,
+                stack: error.stack,
+                name: error.name,
+                inputData: inputItems,
+                executionTime,
+                startTime: executionStartTime,
+                endTime: executionEndTime,
+                onError: 'continue',
+              }
+            );
+          }
+
+          this.logger.warn(`Node ${nodeLabel} failed but onError=continue, proceeding`);
+
+          // Push empty output to children so they still execute
+          this.addChildNodesToStack(
+            workflow,
+            node,
+            [[]], // empty output
+            nodeExecutionStack,
+            runExecutionData.resultData.runData,
+          );
+
+          continue;
+        }
+
+        // ---- Fallback mode: substitute fallback value and keep going ----
+        if (onError === 'fallback') {
+          const executionEndTime = Date.now();
+          const executionTime = executionEndTime - executionStartTime;
+          const fallbackValue = node.data?.fallbackValue ?? {};
+          const fallbackOutput = [[{ json: fallbackValue }]];
+
+          runExecutionData.resultData.runData[node.id] = {
+            startTime: executionStartTime,
+            executionTime,
+            status: 'fallback',
+            data: fallbackOutput,
+            inputData: inputItems,
+            error: { message: error.message, stack: error.stack, name: error.name },
+            onError: 'fallback',
+          };
+
+          runExecutionData.resultData.lastNodeExecuted = node.id;
+          executedNodesCount++;
+
+          if (this.eventsGateway && metadata.executionId) {
+            this.eventsGateway.emitNodeExecutionCompleted(
+              metadata.executionId,
+              node.id,
+              nodeLabel,
+              {
+                status: 'fallback',
+                inputData: inputItems,
+                outputData: fallbackOutput,
+                executionTime,
+                startTime: executionStartTime,
+                endTime: executionEndTime,
+                onError: 'fallback',
+              }
+            );
+          }
+
+          this.logger.warn(
+            `Node ${nodeLabel} failed but onError=fallback, using fallback value`
+          );
+
+          this.addChildNodesToStack(
+            workflow,
+            node,
+            fallbackOutput,
+            nodeExecutionStack,
+            runExecutionData.resultData.runData,
+          );
+
+          continue;
+        }
+
+        // ---- Default / stop mode: halt the workflow ----
         const executionEndTime = Date.now();
         const executionTime = executionEndTime - executionStartTime;
 
-        // Store error in result with node status and input data
         runExecutionData.resultData.runData[node.id] = {
           startTime: executionStartTime,
           executionTime: executionTime,
@@ -286,15 +528,13 @@ export class WorkflowExecutionEngine {
           }
         };
 
-        // Mark last node executed
         runExecutionData.resultData.lastNodeExecuted = node.id;
 
-        // Emit WebSocket event: node execution failed (with input data and timing)
         if (this.eventsGateway && metadata.executionId) {
           this.eventsGateway.emitNodeExecutionFailed(
             metadata.executionId,
             node.id,
-            node.data?.label || node.id,
+            nodeLabel,
             {
               message: error.message,
               stack: error.stack,
@@ -307,7 +547,6 @@ export class WorkflowExecutionEngine {
           );
         }
 
-        // Attach execution data to error for saving partial results
         const enrichedError = new Error(error.message);
         enrichedError.stack = error.stack;
         enrichedError.name = error.name;
@@ -316,7 +555,7 @@ export class WorkflowExecutionEngine {
           data: runExecutionData.resultData.runData,
           lastNodeExecuted: node.id,
           failedNodeId: node.id,
-          failedNodeName: node.data?.label || node.id,
+          failedNodeName: nodeLabel,
           error: {
             message: error.message,
             stack: error.stack,
@@ -324,7 +563,6 @@ export class WorkflowExecutionEngine {
           }
         };
 
-        // Stop execution on error
         throw enrichedError;
       }
     }
@@ -715,6 +953,48 @@ export class WorkflowExecutionEngine {
     parents.push(nodeId); // Include destination node itself
 
     return parents;
+  }
+
+  /**
+   * Calculate retry delay based on the configured strategy.
+   */
+  private calculateRetryDelay(attempt: number, config: IRetryConfig): number {
+    let delay: number;
+
+    switch (config.strategy) {
+      case 'exponential':
+        delay = Math.pow(2, attempt) * config.baseDelayMs;
+        break;
+      case 'random':
+        // Jitter: random value between 0 and 2^attempt * baseDelay
+        delay = Math.random() * Math.pow(2, attempt) * config.baseDelayMs;
+        break;
+      case 'constant':
+      default:
+        delay = config.baseDelayMs;
+        break;
+    }
+
+    return Math.min(delay, config.maxDelayMs);
+  }
+
+  /**
+   * Build a full IRetryConfig from partial node config with defaults.
+   */
+  private buildRetryConfig(partial?: Partial<IRetryConfig>): IRetryConfig {
+    return {
+      strategy: partial?.strategy ?? 'exponential',
+      maxRetries: partial?.maxRetries ?? 3,
+      baseDelayMs: partial?.baseDelayMs ?? 1000,
+      maxDelayMs: partial?.maxDelayMs ?? 30000,
+    };
+  }
+
+  /**
+   * Sleep helper for retry delays.
+   */
+  private sleep(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   /**
