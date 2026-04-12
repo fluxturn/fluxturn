@@ -11,6 +11,7 @@ import { TriggerManagerService } from './services/trigger-manager.service';
 import { TriggerType } from './interfaces/trigger.interface';
 import { AIWorkflowGeneratorService } from './services/ai-workflow-generator.service';
 import { IntentDetectionService } from './services/intent-detection.service';
+import { AlertingService } from '../../alerting/alerting.service';
 // compareConnectorFields removed - seeding now done via npm run seed:connector
 
 @Injectable()
@@ -28,6 +29,8 @@ export class WorkflowService implements OnModuleInit, OnModuleDestroy {
     private triggerManager: TriggerManagerService,
     private aiWorkflowGenerator: AIWorkflowGeneratorService,
     private intentDetection: IntentDetectionService,
+    @Inject(forwardRef(() => AlertingService))
+    private alertingService: AlertingService,
   ) {}
 
   async onModuleInit() {
@@ -475,6 +478,23 @@ export class WorkflowService implements OnModuleInit, OnModuleDestroy {
           JSON.stringify(outputDataWithoutBinary),
           executionId
         ]);
+
+        // Send failure alerts (fire-and-forget; should not block response)
+        this.alertingService
+          .sendAlert(
+            params.workflow_id,
+            executionId,
+            { message: executionError.message, stack: executionError.stack },
+            {
+              workflowName: workflowRow.name,
+              organizationId: workflowRow.organization_id,
+              failedNodeId: outputData?.failedNodeId,
+              failedNodeName: outputData?.failedNodeName,
+            },
+          )
+          .catch((alertErr) =>
+            this.logger.error(`Alert dispatch error: ${alertErr.message}`),
+          );
 
         // Return the failed execution with detailed error info
         // This allows frontend to see per-node status
