@@ -82,6 +82,7 @@ import { WorkflowAgentsService } from './services/workflow-agents.service';
 import { OrchestratedGeneratorService } from './services/orchestrated-generator.service';
 import { DryRunService } from './services/dry-run.service';
 import { AuditModule } from '../audit/audit.module';
+import { SecretsModule } from '../../secrets/secrets.module';
 // import { TemplateSeederService } from './services/template-seeder.service';
 
 @Module({
@@ -95,6 +96,7 @@ import { AuditModule } from '../audit/audit.module';
     EventsModule,
     NodesModule,
     AuditModule,
+    SecretsModule,
   ],
   controllers: [
     TemplateController, // Must be before WorkflowController to avoid route conflicts

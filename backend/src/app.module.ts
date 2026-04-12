@@ -25,6 +25,7 @@ import { QdrantModule } from './modules/qdrant/qdrant.module';
 import { DatabaseBrowserModule } from './modules/database-browser/database-browser.module';
 import { BlogModule } from './modules/blog/blog.module';
 import { AuditModule } from './modules/fluxturn/audit/audit.module';
+import { SecretsModule } from './modules/secrets/secrets.module';
 
 @Module({
   imports: [
@@ -62,6 +63,7 @@ import { AuditModule } from './modules/fluxturn/audit/audit.module';
     DatabaseBrowserModule,
     BlogModule,
     AuditModule,
+    SecretsModule,
   ],
   controllers: [HealthController],
   providers: [],
