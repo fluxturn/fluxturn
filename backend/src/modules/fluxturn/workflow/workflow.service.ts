@@ -11,6 +11,7 @@ import { TriggerManagerService } from './services/trigger-manager.service';
 import { TriggerType } from './interfaces/trigger.interface';
 import { AIWorkflowGeneratorService } from './services/ai-workflow-generator.service';
 import { IntentDetectionService } from './services/intent-detection.service';
+import { DeadLetterService } from '../../dead-letter/dead-letter.service';
 // compareConnectorFields removed - seeding now done via npm run seed:connector
 
 @Injectable()
@@ -28,6 +29,8 @@ export class WorkflowService implements OnModuleInit, OnModuleDestroy {
     private triggerManager: TriggerManagerService,
     private aiWorkflowGenerator: AIWorkflowGeneratorService,
     private intentDetection: IntentDetectionService,
+    @Inject(forwardRef(() => DeadLetterService))
+    private deadLetterService: DeadLetterService,
   ) {}
 
   async onModuleInit() {
@@ -475,6 +478,22 @@ export class WorkflowService implements OnModuleInit, OnModuleDestroy {
           JSON.stringify(outputDataWithoutBinary),
           executionId
         ]);
+
+        // Add to dead letter queue (fire-and-forget)
+        this.deadLetterService
+          .addToDeadLetter({
+            executionId,
+            workflowId: params.workflow_id,
+            failedStepId: outputData?.failedNodeId,
+            failedStepName: outputData?.failedNodeName,
+            error: { message: executionError.message, stack: executionError.stack },
+            inputData: params.input_data,
+            workflowSnapshot: { nodes: canvas.nodes, edges: canvas.edges },
+            organizationId: workflowRow.organization_id,
+          })
+          .catch((dlqErr) =>
+            this.logger.error(`Dead letter queue error: ${dlqErr.message}`),
+          );
 
         // Return the failed execution with detailed error info
         // This allows frontend to see per-node status

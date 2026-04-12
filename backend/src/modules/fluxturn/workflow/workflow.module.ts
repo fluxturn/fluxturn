@@ -80,6 +80,7 @@ import { AvailableNodesSeederService } from './services/available-nodes-seeder.s
 import { NodesModule } from './nodes/nodes.module';
 import { WorkflowAgentsService } from './services/workflow-agents.service';
 import { OrchestratedGeneratorService } from './services/orchestrated-generator.service';
+import { DeadLetterModule } from '../../dead-letter/dead-letter.module';
 // import { TemplateSeederService } from './services/template-seeder.service';
 
 @Module({
@@ -92,6 +93,7 @@ import { OrchestratedGeneratorService } from './services/orchestrated-generator.
     forwardRef(() => ConnectorsModule),
     EventsModule,
     NodesModule,
+    DeadLetterModule,
   ],
   controllers: [
     TemplateController, // Must be before WorkflowController to avoid route conflicts
