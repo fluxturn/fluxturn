@@ -124,7 +124,7 @@
     "livekit-server-sdk": "^2.13.3",
     "mailparser": "^3.7.5",
     "mammoth": "^1.10.0",
-    "mixpanel": "^0.18.1",
+    "mixpanel": "^0.21.0",
     "mongodb": "^6.19.0",
     "mysql2": "^3.14.4",
     "node-cron": "^4.2.1",
