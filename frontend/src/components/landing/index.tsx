@@ -1,15 +1,10 @@
 // Export all landing page sections
 export { HeroSection } from './HeroSection';
 export { PowerfulYetSimpleSection } from './PowerfulYetSimpleSection';
-export { AIPromptBuilderSection } from './AIPromptBuilderSection';
-export { WorkflowVideoSection } from './WorkflowVideoSection';
-export { BuildYourWaySection } from './BuildYourWaySection';
-export { TemplatesSection } from './TemplatesSection';
 export { AIAgentSection } from './AIAgentSection';
 export { FeaturesSection } from './FeaturesSection';
 export { IntegrationsSection } from './IntegrationsSection';
 export { UseCasesSection } from './UseCasesSection';
-export { WhyFluxTurnSection } from './WhyFluxTurnSection';
 export { TestimonialsSection } from './TestimonialsSection';
 export { ReadyToStartSection } from './ReadyToStartSection';
 export { BlogSection } from './BlogSection';

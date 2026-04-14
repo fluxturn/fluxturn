@@ -7,7 +7,7 @@ import { api } from "../lib/api";
 import { WorkflowAPI } from "../lib/fluxturn";
 import { AuthContext } from "../contexts/AuthContext";
 import { toast } from "sonner";
-import { PENDING_TEMPLATE_KEY, PENDING_TEMPLATE_TIMESTAMP_KEY } from "../components/landing/TemplatesSection";
+import { PENDING_TEMPLATE_KEY, PENDING_TEMPLATE_TIMESTAMP_KEY } from "../config/pendingKeys";
 import { ReactFlow, Background, BackgroundVariant, ReactFlowProvider, type Node, type Edge } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { nodeComponents } from '@/config/workflow';

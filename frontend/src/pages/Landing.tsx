@@ -1,13 +1,8 @@
 import {
   HeroSection,
-  AIPromptBuilderSection,
-  WorkflowVideoSection,
-  BuildYourWaySection,
-  TemplatesSection,
   AIAgentSection,
   FeaturesSection,
   IntegrationsSection,
-  WhyFluxTurnSection,
   BlogSection,
   CTASection,
   FAQSection
@@ -24,26 +19,11 @@ const Landing = () => {
       {/* Integrations Section */}
       <IntegrationsSection />
 
-      {/* AI Prompt Builder Section */}
-      <AIPromptBuilderSection />
-
-      {/* Workflow Video Section */}
-      <WorkflowVideoSection />
-
-      {/* Two Ways to Build Section */}
-      <BuildYourWaySection />
-
-      {/* Templates Section */}
-      <TemplatesSection />
-
       {/* AI Agent Section */}
       <AIAgentSection />
 
       {/* Features Section */}
       <FeaturesSection />
-
-      {/* Why Choose FluxTurn Section */}
-      <WhyFluxTurnSection />
 
       {/* Blog Section */}
       <BlogSection />
