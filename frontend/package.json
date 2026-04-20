@@ -40,7 +40,7 @@
     "@lexical/list": "^0.34.0",
     "@lexical/mark": "^0.34.0",
     "@lexical/react": "^0.34.0",
-    "@lexical/rich-text": "^0.34.0",
+    "@lexical/rich-text": "^0.43.0",
     "@lexical/selection": "^0.34.0",
     "@lexical/utils": "^0.34.0",
     "@monaco-editor/react": "^4.7.0",
