@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/fluxturn/fluxturn/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="License"></a>
+  <a href="https://github.com/fluxturn/fluxturn/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-blue.svg" alt="License"></a>
   <a href="https://github.com/fluxturn/fluxturn/stargazers"><img src="https://img.shields.io/github/stars/fluxturn/fluxturn?style=social" alt="GitHub Stars"></a>
   <a href="https://github.com/fluxturn/fluxturn/issues"><img src="https://img.shields.io/github/issues/fluxturn/fluxturn" alt="Issues"></a>
   <a href="https://github.com/fluxturn/fluxturn/pulls"><img src="https://img.shields.io/github/issues-pr/fluxturn/fluxturn" alt="Pull Requests"></a>
@@ -102,7 +102,7 @@ Les équipes modernes font face à un défi critique : **l'automatisation est es
 | **Génération de Workflows par IA** | ✅ Intégré | ❌ | ❌ | ❌ | ❌ |
 | **Constructeur Visuel** | ✅ ReactFlow | ✅ | ✅ | ❌ | ❌ |
 | **Auto-hébergé** | ✅ Gratuit | ❌ | ✅ | ✅ | ✅ |
-| **Open Source** | ✅ Apache 2.0 | ❌ | ✅ Fair-code | ✅ MIT | N/A |
+| **Open Source** | ✅ AGPL-3.0 | ❌ | ✅ Fair-code | ✅ MIT | N/A |
 | **Connecteurs Pré-construits** | ✅ 120+ | ✅ 5000+ | ✅ 400+ | ❌ | ❌ |
 | **Surveillance en Temps Réel** | ✅ WebSocket | ✅ | ✅ | ✅ | ❌ |
 | **Interface Multi-langues** | ✅ 17 langues | ✅ | ❌ | ❌ | N/A |
@@ -117,7 +117,7 @@ Les équipes modernes font face à un défi critique : **l'automatisation est es
 1. **Design IA-First** -- Seule plateforme de workflow avec génération native de workflows par IA et compréhension du langage naturel
 2. **Stack Technologique Moderne** -- React 19, NestJS, PostgreSQL, Redis, Qdrant -- construit pour 2025 et au-delà
 3. **Expérience Développeur** -- Base de code TypeScript propre, architecture extensible, API complète
-4. **Vraiment Open Source** -- Licence Apache 2.0, pas de restrictions "fair-code", développement piloté par la communauté
+4. **Vraiment Open Source** -- Licence AGPL-3.0, pas de restrictions "fair-code", développement piloté par la communauté
 5. **Entrée Multi-Modale** -- Langage naturel OU constructeur visuel OU API -- choisissez ce qui fonctionne pour votre équipe
 
 ## 📊 Activité du Projet et Statistiques
@@ -542,7 +542,7 @@ Connectez-vous avec des développeurs, obtenez de l'aide et restez informé des 
 
 ## Licence
 
-Ce projet est sous licence [Apache License 2.0](LICENSE).
+Ce projet est sous licence [GNU Affero General Public License v3.0](LICENSE).
 
 ## Remerciements
 

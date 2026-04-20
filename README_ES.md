@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/fluxturn/fluxturn/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="License"></a>
+  <a href="https://github.com/fluxturn/fluxturn/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-blue.svg" alt="License"></a>
   <a href="https://github.com/fluxturn/fluxturn/stargazers"><img src="https://img.shields.io/github/stars/fluxturn/fluxturn?style=social" alt="GitHub Stars"></a>
   <a href="https://github.com/fluxturn/fluxturn/issues"><img src="https://img.shields.io/github/issues/fluxturn/fluxturn" alt="Issues"></a>
   <a href="https://github.com/fluxturn/fluxturn/pulls"><img src="https://img.shields.io/github/issues-pr/fluxturn/fluxturn" alt="Pull Requests"></a>
@@ -103,7 +103,7 @@ Los equipos modernos enfrentan un desafío crítico: **la automatización es ese
 | **Generación de Flujos de Trabajo con IA** | ✅ Incorporado | ❌ | ❌ | ❌ | ❌ |
 | **Constructor Visual** | ✅ ReactFlow | ✅ | ✅ | ❌ | ❌ |
 | **Auto-alojado** | ✅ Gratis | ❌ | ✅ | ✅ | ✅ |
-| **Código Abierto** | ✅ Apache 2.0 | ❌ | ✅ Fair-code | ✅ MIT | N/A |
+| **Código Abierto** | ✅ AGPL-3.0 | ❌ | ✅ Fair-code | ✅ MIT | N/A |
 | **Conectores Pre-construidos** | ✅ 120+ | ✅ 5000+ | ✅ 400+ | ❌ | ❌ |
 | **Monitoreo en Tiempo Real** | ✅ WebSocket | ✅ | ✅ | ✅ | ❌ |
 | **UI Multi-idioma** | ✅ 17 idiomas | ✅ | ❌ | ❌ | N/A |
@@ -118,7 +118,7 @@ Los equipos modernos enfrentan un desafío crítico: **la automatización es ese
 1. **Diseño IA-Primero** -- La única plataforma de flujos de trabajo con generación nativa de flujos de trabajo con IA y comprensión de lenguaje natural
 2. **Stack Tecnológico Moderno** -- React 19, NestJS, PostgreSQL, Redis, Qdrant -- construido para 2025 y más allá
 3. **Experiencia del Desarrollador** -- Código base TypeScript limpio, arquitectura extensible, API completa
-4. **Verdadero Código Abierto** -- Licencia Apache 2.0, sin restricciones de "fair-code", desarrollo impulsado por la comunidad
+4. **Verdadero Código Abierto** -- Licencia AGPL-3.0, sin restricciones de "fair-code", desarrollo impulsado por la comunidad
 5. **Entrada Multi-Modal** -- Lenguaje natural O constructor visual O API -- elige lo que funcione para tu equipo
 
 ## 📊 Actividad del Proyecto y Estadísticas
@@ -543,7 +543,7 @@ git push origin feature/your-feature-name
 
 ## Licencia
 
-Este proyecto está licenciado bajo la [Licencia Apache 2.0](LICENSE).
+Este proyecto está licenciado bajo la [Licencia Pública General Affero de GNU v3.0](LICENSE).
 
 ## Agradecimientos
 

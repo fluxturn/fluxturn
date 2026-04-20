@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/fluxturn/fluxturn/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="License"></a>
+  <a href="https://github.com/fluxturn/fluxturn/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-blue.svg" alt="License"></a>
   <a href="https://github.com/fluxturn/fluxturn/stargazers"><img src="https://img.shields.io/github/stars/fluxturn/fluxturn?style=social" alt="GitHub Stars"></a>
   <a href="https://github.com/fluxturn/fluxturn/issues"><img src="https://img.shields.io/github/issues/fluxturn/fluxturn" alt="Issues"></a>
   <a href="https://github.com/fluxturn/fluxturn/pulls"><img src="https://img.shields.io/github/issues-pr/fluxturn/fluxturn" alt="Pull Requests"></a>
@@ -103,7 +103,7 @@ Moderne Teams stehen vor einer kritischen Herausforderung: **Automatisierung ist
 | **KI-Workflow-Generierung** | ✅ Eingebaut | ❌ | ❌ | ❌ | ❌ |
 | **Visueller Builder** | ✅ ReactFlow | ✅ | ✅ | ❌ | ❌ |
 | **Selbst gehostet** | ✅ Kostenlos | ❌ | ✅ | ✅ | ✅ |
-| **Open Source** | ✅ Apache 2.0 | ❌ | ✅ Fair-code | ✅ MIT | N/A |
+| **Open Source** | ✅ AGPL-3.0 | ❌ | ✅ Fair-code | ✅ MIT | N/A |
 | **Vorgefertigte Konnektoren** | ✅ 120+ | ✅ 5000+ | ✅ 400+ | ❌ | ❌ |
 | **Echtzeit-Monitoring** | ✅ WebSocket | ✅ | ✅ | ✅ | ❌ |
 | **Mehrsprachige UI** | ✅ 17 Sprachen | ✅ | ❌ | ❌ | N/A |
@@ -118,7 +118,7 @@ Moderne Teams stehen vor einer kritischen Herausforderung: **Automatisierung ist
 1. **KI-First-Design** -- Die einzige Workflow-Plattform mit nativer KI-Workflow-Generierung und natürlichsprachlichem Verständnis
 2. **Moderner Tech Stack** -- React 19, NestJS, PostgreSQL, Redis, Qdrant -- gebaut für 2025 und darüber hinaus
 3. **Entwicklererfahrung** -- Saubere TypeScript-Codebasis, erweiterbare Architektur, umfassende API
-4. **Echtes Open Source** -- Apache 2.0 Lizenz, keine "Fair-Code"-Einschränkungen, Community-gesteuerte Entwicklung
+4. **Echtes Open Source** -- AGPL-3.0 Lizenz, keine "Fair-Code"-Einschränkungen, Community-gesteuerte Entwicklung
 5. **Multi-modale Eingabe** -- Natürliche Sprache ODER visueller Builder ODER API -- wählen Sie, was für Ihr Team funktioniert
 
 ## 📊 Projektaktivität und Statistiken
@@ -543,7 +543,7 @@ Verbinden Sie sich mit Entwicklern, erhalten Sie Hilfe und bleiben Sie über die
 
 ## Lizenz
 
-Dieses Projekt ist unter der [Apache License 2.0](LICENSE) lizenziert.
+Dieses Projekt ist unter der [GNU Affero General Public License v3.0](LICENSE) lizenziert.
 
 ## Danksagungen
 

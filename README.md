@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/fluxturn/fluxturn/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="License"></a>
+  <a href="https://github.com/fluxturn/fluxturn/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-blue.svg" alt="License"></a>
   <a href="https://github.com/fluxturn/fluxturn/stargazers"><img src="https://img.shields.io/github/stars/fluxturn/fluxturn?style=social" alt="GitHub Stars"></a>
   <a href="https://github.com/fluxturn/fluxturn/issues"><img src="https://img.shields.io/github/issues/fluxturn/fluxturn" alt="Issues"></a>
   <a href="https://github.com/fluxturn/fluxturn/pulls"><img src="https://img.shields.io/github/issues-pr/fluxturn/fluxturn" alt="Pull Requests"></a>
@@ -99,7 +99,7 @@ Modern teams face a critical challenge: **automation is essential but time-consu
 | **AI Workflow Generation** | ✅ Built-in | ❌ | ❌ | ❌ | ❌ |
 | **Visual Builder** | ✅ ReactFlow | ✅ | ✅ | ❌ | ❌ |
 | **Self-Hosted** | ✅ Free | ❌ | ✅ | ✅ | ✅ |
-| **Open Source** | ✅ Apache 2.0 | ❌ | ✅ Fair-code | ✅ MIT | N/A |
+| **Open Source** | ✅ AGPL-3.0 | ❌ | ✅ Fair-code | ✅ MIT | N/A |
 | **Pre-Built Connectors** | ✅ 120+ | ✅ 5000+ | ✅ 400+ | ❌ | ❌ |
 | **Real-Time Monitoring** | ✅ WebSocket | ✅ | ✅ | ✅ | ❌ |
 | **Multi-Language UI** | ✅ 17 languages | ✅ | ❌ | ❌ | N/A |
@@ -114,7 +114,7 @@ Modern teams face a critical challenge: **automation is essential but time-consu
 1. **AI-First Design** -- Only workflow platform with native AI workflow generation and natural language understanding
 2. **Modern Tech Stack** -- React 19, NestJS, PostgreSQL, Redis, Qdrant -- built for 2025 and beyond
 3. **Developer Experience** -- Clean TypeScript codebase, extensible architecture, comprehensive API
-4. **True Open Source** -- Apache 2.0 license, no "fair-code" restrictions, community-driven development
+4. **True Open Source** -- AGPL-3.0 license, no "fair-code" restrictions, community-driven development
 5. **Multi-Modal Input** -- Natural language OR visual builder OR API -- choose what works for your team
 
 ## 📊 Project Activity & Statistics
@@ -538,7 +538,7 @@ Connect with developers, get help, and stay updated on FluxTurn's latest develop
 
 ## License
 
-This project is licensed under the [Apache License 2.0](LICENSE).
+This project is licensed under the [GNU Affero General Public License v3.0](LICENSE).
 
 ## Acknowledgments
 
