@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useReducer } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
 import { X, Sparkles, Send, Trash2, MessageSquare, Zap } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -141,6 +142,7 @@ export function AIPromptPanel({
   const [useMultiAgent, setUseMultiAgent] = useState(false); // false = Classic mode (default), true = Multi-Agent mode
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const { user } = useAuth();
 
   // Auto-scroll to bottom when messages change
   useEffect(() => {
@@ -501,8 +503,8 @@ export function AIPromptPanel({
 
   const createNewConversation = async () => {
     try {
-      const userName = 'Darun'; // TODO: Get from user context
-
+      const userName = user?.fullName ?? user?.firstName ?? 'User'
+      
       let title: string;
       let initialMessage: string;
 
