@@ -59,7 +59,7 @@
     "@aws-sdk/s3-request-presigner": "^3.883.0",
     "@crawlee/playwright": "^3.15.3",
     "@elastic/elasticsearch": "^8.15.0",
-    "@google-cloud/vision": "^4.0.0",
+    "@google-cloud/vision": "^5.3.5",
     "@google/generative-ai": "^0.24.1",
     "@kafkajs/confluent-schema-registry": "^3.9.0",
     "@langchain/core": "^0.3.75",
