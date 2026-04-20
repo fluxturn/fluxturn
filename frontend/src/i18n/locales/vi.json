@@ -1071,6 +1071,11 @@
     "expires": "Het han",
     "reconnect": "Ket noi lai"
   },
+  "landing": {
+    "features": {
+      "demoPrompt": "Sync leads to CRM"
+    }
+  },
   "organization": {
     "title": "To chuc",
     "create": "Tao to chuc",

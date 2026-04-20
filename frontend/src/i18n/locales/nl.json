@@ -1071,6 +1071,11 @@
     "expires": "Verloopt",
     "reconnect": "Opnieuw verbinden"
   },
+  "landing": {
+    "features": {
+      "demoPrompt": "Sync leads to CRM"
+    }
+  },
   "organization": {
     "title": "Organisatie",
     "create": "Organisatie aanmaken",

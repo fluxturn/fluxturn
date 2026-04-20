@@ -1071,6 +1071,11 @@
     "expires": "만료",
     "reconnect": "다시 연결"
   },
+  "landing": {
+    "features": {
+      "demoPrompt": "Sync leads to CRM"
+    }
+  },
   "organization": {
     "title": "조직",
     "create": "조직 만들기",
