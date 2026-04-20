@@ -130,7 +130,7 @@
     "node-cron": "^4.2.1",
     "node-qpdf2": "^6.0.0",
     "node-ssh": "^13.2.1",
-    "nodemailer": "^7.0.10",
+    "nodemailer": "^8.0.5",
     "ollama": "^0.5.17",
     "openai": "^5.19.1",
     "passport": "^0.6.0",
