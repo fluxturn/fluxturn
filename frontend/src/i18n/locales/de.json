@@ -1071,6 +1071,11 @@
     "expires": "Laeuft ab",
     "reconnect": "Erneut verbinden"
   },
+  "landing": {
+    "features": {
+      "demoPrompt": "Leads ins CRM übertragen"
+    }
+  },
   "organization": {
     "title": "Organisation",
     "create": "Organisation erstellen",

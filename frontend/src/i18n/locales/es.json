@@ -1071,6 +1071,11 @@
     "expires": "Expira",
     "reconnect": "Reconectar"
   },
+  "landing": {
+    "features": {
+      "demoPrompt": "Sync leads to CRM"
+    }
+  },
   "organization": {
     "title": "Organizacion",
     "create": "Crear organizacion",

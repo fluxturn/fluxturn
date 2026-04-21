@@ -1071,6 +1071,11 @@
     "expires": "Закінчується",
     "reconnect": "Перепідключити"
   },
+  "landing": {
+    "features": {
+      "demoPrompt": "Sync leads to CRM"
+    }
+  },
   "organization": {
     "title": "Організація",
     "create": "Створити організацію",

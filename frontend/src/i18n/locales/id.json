@@ -1071,6 +1071,11 @@
     "expires": "Kedaluwarsa",
     "reconnect": "Hubungkan ulang"
   },
+  "landing": {
+    "features": {
+      "demoPrompt": "Sinkronkan prospek ke CRM"
+    }
+  },
   "organization": {
     "title": "Organisasi",
     "create": "Buat organisasi",

@@ -1071,6 +1071,11 @@
     "expires": "समाप्ति",
     "reconnect": "पुनः कनेक्ट"
   },
+  "landing": {
+    "features": {
+      "demoPrompt": "Sync leads to CRM"
+    }
+  },
   "organization": {
     "title": "संगठन",
     "create": "संगठन बनाएं",

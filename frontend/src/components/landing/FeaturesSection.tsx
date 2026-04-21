@@ -31,8 +31,9 @@ const codeLines = [
 
 // AI Workflow Generation Animation Component
 function AIWorkflowAnimation() {
+  const { t } = useTranslation()
   const [phase, setPhase] = useState(0); // 0: typing, 1: generating, 2: complete
-  const prompt = "Sync leads to CRM";
+  const prompt = t('landing.features.demoPrompt');
   const [displayedText, setDisplayedText] = useState("");
 
   useEffect(() => {
@@ -66,7 +67,7 @@ function AIWorkflowAnimation() {
       clearTimeout(timeout1);
       clearTimeout(timeout2);
     };
-  }, []);
+  }, [prompt]);
 
   return (
     <div className="absolute bottom-3 left-3 right-3 top-[155px] flex flex-col gap-2">

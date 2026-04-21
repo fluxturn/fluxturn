@@ -1071,6 +1071,11 @@
     "expires": "ينتهي",
     "reconnect": "إعادة الاتصال"
   },
+  "landing": {
+    "features": {
+      "demoPrompt": "Sync leads to CRM"
+    }
+  },
   "organization": {
     "title": "المؤسسة",
     "create": "إنشاء مؤسسة",
