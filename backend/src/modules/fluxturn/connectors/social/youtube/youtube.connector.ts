@@ -1874,7 +1874,7 @@ export class YoutubeConnector extends BaseConnector implements ISocialConnector 
           });
 
           videoBuffer = Buffer.from(videoResponse.data);
-          videoMimeType = videoResponse.headers['content-type'] || 'video/mp4';
+          videoMimeType = String(videoResponse.headers['content-type'] || 'video/mp4');
 
           // Extract filename from URL
           const urlParts = options.videoUrl.split('/');

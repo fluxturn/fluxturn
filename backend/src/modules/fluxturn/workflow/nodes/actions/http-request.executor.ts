@@ -326,7 +326,7 @@ export class HttpRequestExecutor extends BaseNodeExecutor {
   }
 
   private processResponse(response: AxiosResponse, config: any): any {
-    const contentType = response.headers['content-type'] || '';
+    const contentType = String(response.headers['content-type'] || '');
     const responseFormat = config.responseFormat || 'autodetect';
 
     let detectedFormat = responseFormat;
