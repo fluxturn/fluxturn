@@ -529,7 +529,7 @@ export class NodeExecutorService {
 
         // ============ PHASE 2: RESPONSE HANDLING ============
         let responseData: any;
-        const contentType = response.headers['content-type'] || '';
+        const contentType = String(response.headers['content-type'] || '');
 
         // Determine response format
         let detectedFormat = responseFormat;
