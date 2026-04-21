@@ -8,6 +8,7 @@ import { TypingIndicator } from "./TypingIndicator";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
 import { v4 as uuidv4 } from "uuid";
+import { useAuth } from '@/contexts/AuthContext';
 
 // State Management Types
 type AIMode = 'chat' | 'build';
@@ -114,6 +115,7 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
   const [useMultiAgent, setUseMultiAgent] = useState(false); // 🆕 Toggle for multi-agent vs classic (default: Classic mode ON)
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+   const { user } = useAuth();
 
   // Auto-scroll to bottom when messages change
   useEffect(() => {
@@ -467,7 +469,7 @@ export function AIPromptPanel({ isOpen, onClose, onGenerateWorkflow, onWorkflowS
 
   const createNewConversation = async () => {
     try {
-      const userName = 'Darun'; // TODO: Get from user context
+      const userName = user?.fullName ?? user?.firstName ?? 'User'
 
       let title: string;
       let initialMessage: string;
