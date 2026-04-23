@@ -24,6 +24,7 @@ import { EventsModule } from './events/events.module';
 import { QdrantModule } from './modules/qdrant/qdrant.module';
 import { DatabaseBrowserModule } from './modules/database-browser/database-browser.module';
 import { BlogModule } from './modules/blog/blog.module';
+import { AlertingModule } from './modules/alerting/alerting.module';
 
 @Module({
   imports: [
@@ -60,6 +61,7 @@ import { BlogModule } from './modules/blog/blog.module';
     EventsModule,
     DatabaseBrowserModule,
     BlogModule,
+    AlertingModule,
   ],
   controllers: [HealthController],
   providers: [],
