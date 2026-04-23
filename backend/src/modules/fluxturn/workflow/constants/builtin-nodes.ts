@@ -740,7 +740,7 @@ export const BUILTIN_ACTIONS: BuiltinNodeDefinition[] = [
     type: 'MERGE',
     name: 'Merge Data',
     category: 'action',
-    description: 'Combine data from multiple inputs',
+    description: 'Combine data from multiple inputs. When placed after parallel branches, acts as a join/fan-in point that waits for all branches to complete before passing merged data downstream.',
     is_action: true,
     is_builtin: true,
     icon: 'git-merge',
@@ -751,9 +751,40 @@ export const BUILTIN_ACTIONS: BuiltinNodeDefinition[] = [
         options: [
           { label: 'Append', value: 'append' },
           { label: 'Combine', value: 'combine' },
-          { label: 'Wait for All', value: 'waitAll' }
+          { label: 'Wait for All (Join)', value: 'waitAll' },
+          { label: 'Choose Branch', value: 'chooseBranch' }
         ],
-        default: 'append'
+        default: 'append',
+        description: 'How to merge data from incoming branches. "Wait for All" acts as a fan-in join point for parallel branches.'
+      },
+      useDataOfInput: {
+        type: 'number',
+        label: 'Use Data of Input',
+        default: 1,
+        min: 1,
+        description: 'Which input branch to use (only for Choose Branch mode)',
+        displayOptions: {
+          show: { mode: ['chooseBranch'] }
+        }
+      },
+      combineBy: {
+        type: 'select',
+        label: 'Combine By',
+        options: [
+          { label: 'By Position', value: 'combineByPosition' },
+          { label: 'By Fields', value: 'combineByFields' },
+          { label: 'All Combinations', value: 'combineAll' }
+        ],
+        default: 'combineByPosition',
+        displayOptions: {
+          show: { mode: ['combine'] }
+        }
+      }
+    },
+    output_schema: {
+      mergedData: {
+        type: 'array',
+        description: 'Combined data from all incoming branches'
       }
     }
   },
@@ -826,6 +857,72 @@ export const BUILTIN_ACTIONS: BuiltinNodeDefinition[] = [
             label: 'Field Value'
           }
         }
+      }
+    }
+  },
+  {
+    type: 'EXECUTE_WORKFLOW',
+    name: 'Execute Workflow',
+    category: 'control-flow',
+    description: 'Call another workflow as a sub-step',
+    is_action: true,
+    is_builtin: true,
+    icon: 'git-branch',
+    config_schema: {
+      workflowId: {
+        type: 'string',
+        required: true,
+        label: 'Workflow ID',
+        description: 'ID of the workflow to execute as a sub-workflow',
+        placeholder: 'Enter workflow UUID'
+      },
+      mode: {
+        type: 'select',
+        label: 'Execution Mode',
+        options: [
+          { label: 'Synchronous (wait for result)', value: 'synchronous' },
+          { label: 'Asynchronous (fire-and-forget)', value: 'asynchronous' }
+        ],
+        default: 'synchronous',
+        description: 'Synchronous waits for the sub-workflow to complete; asynchronous queues it and continues immediately'
+      },
+      inputMapping: {
+        type: 'object',
+        label: 'Input Data Mapping',
+        description: 'JSON object mapping data to pass to the sub-workflow as its trigger input',
+        default: {}
+      },
+      timeout: {
+        type: 'number',
+        label: 'Timeout (seconds)',
+        description: 'Maximum time to wait for the sub-workflow to complete (synchronous mode only)',
+        default: 300,
+        min: 1,
+        max: 3600
+      }
+    },
+    input_schema: {
+      workflowId: {
+        type: 'string',
+        description: 'Target workflow ID'
+      },
+      inputData: {
+        type: 'object',
+        description: 'Data to pass to the sub-workflow'
+      }
+    },
+    output_schema: {
+      success: {
+        type: 'boolean',
+        description: 'Whether the sub-workflow completed successfully'
+      },
+      data: {
+        type: 'object',
+        description: 'Output data from the sub-workflow (synchronous) or execution metadata (asynchronous)'
+      },
+      executionId: {
+        type: 'string',
+        description: 'Execution ID of the sub-workflow'
       }
     }
   }
