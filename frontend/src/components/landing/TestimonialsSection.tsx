@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Quote, ArrowLeft, ArrowRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface Testimonial {
   name: string;
@@ -15,6 +16,7 @@ interface TestimonialsSectionProps {
 }
 
 export function TestimonialsSection({ testimonials, activeTestimonial, setActiveTestimonial }: TestimonialsSectionProps) {
+  const { t } = useTranslation();
   return (
     <section className="relative py-20 md:py-32 px-6 bg-gray-50">
       <div className="max-w-6xl mx-auto">
@@ -39,11 +41,11 @@ export function TestimonialsSection({ testimonials, activeTestimonial, setActive
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
-              DON'T<br />
-              TAKE OUR<br />
-              WORD.
+              {t('landing.testimonialsSection.dont', "DON'T")}<br />
+              {t('landing.testimonialsSection.takeOur', "TAKE OUR")}<br />
+              {t('landing.testimonialsSection.word', "WORD")}.
             </h2>
-            <p className="text-xl text-gray-600 uppercase tracking-wide">TAKE THEIRS...</p>
+            <p className="text-xl text-gray-600 uppercase tracking-wide">{t('landing.testimonialsSection.takeTheirs', "TAKE THEIRS...")}</p>
           </motion.div>
 
           {/* Right Side - Testimonial Card */}

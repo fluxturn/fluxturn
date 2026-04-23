@@ -6,11 +6,12 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Input } from "../ui/input";
 import { toast } from "sonner";
 import { api } from "../../lib/api";
+import { useTranslation } from "react-i18next";
 
 export function ReadyToStartSection() {
   const [isPreRegisterOpen, setIsPreRegisterOpen] = useState<boolean>(false);
   const [preRegisterData, setPreRegisterData] = useState({ email: '' });
-
+  const { t } = useTranslation();
   const handlePreRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     toast.promise(
@@ -77,7 +78,7 @@ export function ReadyToStartSection() {
               transition={{ delay: 0.3 }}
               className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-white leading-tight"
             >
-              Ready to Get Started?
+              {t('landing.readyToStartSection.heading', 'Ready to Get Started?')}
             </motion.h2>
 
             {/* Subheading */}
@@ -88,8 +89,8 @@ export function ReadyToStartSection() {
               transition={{ delay: 0.4 }}
               className="text-xl md:text-2xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed"
             >
-              Join thousands of teams automating their workflows with FluxTurn.
-              Start building powerful automations today.
+              
+              {t('landing.readyToStartSection.subheading', 'Join thousands of teams automating their workflows with FluxTurn. Start building powerful automations today.')}
             </motion.p>
 
             {/* CTA Buttons */}
@@ -109,7 +110,7 @@ export function ReadyToStartSection() {
                   className="bg-white hover:bg-gray-50 text-cyan-600 px-8 py-7 text-lg font-bold rounded-2xl shadow-2xl hover:shadow-white/20 transition-all group"
                 >
                   <Sparkles className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
-                  Get Early Access
+                  {t('landing.readyToStartSection.earlyAccess', 'Get Early Access')}
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </motion.div>
@@ -123,7 +124,7 @@ export function ReadyToStartSection() {
                   disabled
                   className="border-2 border-white/30 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white px-8 py-7 text-lg font-semibold rounded-2xl transition-all opacity-50 cursor-not-allowed"
                 >
-                  View Documentation
+                  {t('landing.readyToStartSection.documentation', 'View Documentation')}
                 </Button>
               </motion.div>
             </motion.div>
@@ -138,15 +139,15 @@ export function ReadyToStartSection() {
             >
               <div className="text-center">
                 <div className="text-4xl md:text-5xl font-bold text-white mb-2">10K+</div>
-                <div className="text-white/80 text-sm md:text-base">Active Users</div>
+                <div className="text-white/80 text-sm md:text-base">{t('landing.readyToStartSection.activeUsers', 'Active Users')}</div>
               </div>
               <div className="text-center">
                 <div className="text-4xl md:text-5xl font-bold text-white mb-2">1M+</div>
-                <div className="text-white/80 text-sm md:text-base">Workflows Executed</div>
+                <div className="text-white/80 text-sm md:text-base">{t('landing.readyToStartSection.workflowsExecuted', 'Workflows Executed')}</div>
               </div>
               <div className="text-center">
                 <div className="text-4xl md:text-5xl font-bold text-white mb-2">99.9%</div>
-                <div className="text-white/80 text-sm md:text-base">Uptime</div>
+                <div className="text-white/80 text-sm md:text-base">{t('landing.readyToStartSection.uptime', 'Uptime')}</div>
               </div>
             </motion.div>
           </motion.div>
@@ -165,24 +166,24 @@ export function ReadyToStartSection() {
                 </span>
               </div>
               <p className="text-xs text-gray-600">
-                Workflow Automation Platform
+                {t('landing.readyToStartSection.earlyAccessModal.subheading', 'Workflow Automation Platform')}
               </p>
             </div>
-            <DialogTitle>Get Early Access</DialogTitle>
+            <DialogTitle>{t('landing.readyToStartSection.earlyAccessModal.title', 'Get Early Access')}</DialogTitle>
             <DialogDescription>
-              Sign up early to get exclusive access and updates.
+              {t('landing.readyToStartSection.earlyAccessModal.description', 'Sign up early to get exclusive access and updates.')}
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={handlePreRegister}>
             <div className="grid gap-4 py-4">
               <div className="grid gap-2">
                 <label htmlFor="email" className="text-sm font-medium text-gray-900">
-                  Email Address
+                  {t('landing.readyToStartSection.earlyAccessModal.email', 'Email Address')}
                 </label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="you@example.com"
+                  placeholder={t('landing.readyToStartSection.earlyAccessModal.emailPlaceholder', 'you@example.com')}
                   value={preRegisterData.email}
                   onChange={(e) =>
                     setPreRegisterData({ ...preRegisterData, email: e.target.value })
@@ -194,7 +195,7 @@ export function ReadyToStartSection() {
             </div>
             <DialogFooter>
               <Button type="submit" className="w-full sm:w-auto">
-                Submit
+                {t('landing.readyToStartSection.earlyAccessModal.submit', 'Submit')}
               </Button>
             </DialogFooter>
           </form>

@@ -2,8 +2,10 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Button } from "../ui/button";
+import { useTranslation } from "react-i18next";
 
 export function FinalCTASection() {
+  const { t } = useTranslation();
   return (
     <section className="relative py-20 md:py-32 px-6 bg-white">
       <div className="max-w-4xl mx-auto">
@@ -19,11 +21,10 @@ export function FinalCTASection() {
 
           <div className="relative z-10">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-              Ready to Automate Your Workflows?
+              {t('landing.finalCTASection.header','Ready to Automate Your Workflows?')}
             </h2>
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              Join thousands of teams using FluxTurn to automate their business processes
-              and save countless hours every week.
+              {t('landing.finalCTASection.body','Join thousands of teams using FluxTurn to automate their business processes and save countless hours every week.')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/register">
@@ -31,7 +32,7 @@ export function FinalCTASection() {
                   size="lg"
                   className="bg-white hover:bg-gray-100 text-cyan-600 px-8 py-6 text-lg font-semibold shadow-xl hover:scale-105 transition-all"
                 >
-                  Start Free Trial
+                  {t('landing.finalCTASection.startTrial','Start Free Trial')}
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
               </Link>
@@ -41,7 +42,7 @@ export function FinalCTASection() {
                   variant="outline"
                   className="border-2 border-white bg-transparent hover:bg-white/10 text-white px-8 py-6 text-lg hover:scale-105 transition-all"
                 >
-                  Sign In
+                  {t('landing.finalCTASection.signIn','Sign In')}
                 </Button>
               </Link>
             </div>
