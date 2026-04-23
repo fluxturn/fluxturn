@@ -113,6 +113,12 @@ export abstract class BaseNodeExecutor implements INodeExecutor {
       return context.$env?.[varName] || process.env[varName];
     }
 
+    // Handle secrets.NAME - resolved by SecretsService at the engine level
+    // This returns a placeholder; actual resolution happens in WorkflowExecutionEngine
+    if (path.startsWith('secrets.')) {
+      return `{{${path}}}`;
+    }
+
     // Fallback: return as literal
     return path;
   }

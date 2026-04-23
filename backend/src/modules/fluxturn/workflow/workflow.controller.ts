@@ -21,6 +21,8 @@ import { WorkflowService } from './workflow.service';
 import { TriggerType } from './interfaces/trigger.interface';
 import { JwtOrApiKeyAuthGuard } from '../../auth/guards/jwt-or-api-key-auth.guard';
 import { ToolRegistryService } from './services/tool-registry.service';
+import { DryRunService } from './services/dry-run.service';
+import { DryRunDto } from './dto/dry-run.dto';
 import {
   CreateWorkflowDto,
   ExecuteWorkflowDto,
@@ -57,6 +59,7 @@ export class WorkflowController {
   constructor(
     private readonly workflowService: WorkflowService,
     private readonly toolRegistryService: ToolRegistryService,
+    private readonly dryRunService: DryRunService,
   ) {}
 
   @Post('create')
@@ -140,6 +143,51 @@ export class WorkflowController {
       body.nodeId,
       body.testData || {}
     );
+  }
+
+  @Post(':id/dry-run')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Dry-run a workflow without executing real actions',
+    description:
+      'Traces the execution path, validates node configuration, checks credential availability, and returns mock output for every node without calling any external APIs.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Dry-run completed successfully',
+    schema: {
+      type: 'object',
+      properties: {
+        workflowId: { type: 'string' },
+        steps: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              nodeId: { type: 'string' },
+              nodeName: { type: 'string' },
+              nodeType: { type: 'string' },
+              configValid: { type: 'boolean' },
+              credentialsAvailable: { type: 'boolean' },
+              wouldExecute: { type: 'string' },
+              mockOutput: { type: 'object' },
+            },
+          },
+        },
+        errors: { type: 'array', items: { type: 'string' } },
+        warnings: { type: 'array', items: { type: 'string' } },
+        totalNodes: { type: 'number' },
+        executionOrder: { type: 'array', items: { type: 'string' } },
+      },
+    },
+  })
+  @ApiBody({ type: DryRunDto })
+  async dryRunWorkflow(
+    @Param('id') workflowId: string,
+    @Body(ValidationPipe) dto: DryRunDto,
+    @Request() req: any
+  ) {
+    return this.dryRunService.dryRun(workflowId, dto.sampleInput);
   }
 
   @Get('list')
