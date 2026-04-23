@@ -48,6 +48,7 @@ import {
   OpenAIChatModelExecutor,
   SimpleMemoryExecutor,
   RedisMemoryExecutor,
+  LLMChatExecutor,
 } from './ai';
 
 // Tool Executors
@@ -105,6 +106,7 @@ import { ToolExecutor } from './tools';
     OpenAIChatModelExecutor,
     SimpleMemoryExecutor,
     RedisMemoryExecutor,
+    LLMChatExecutor,
 
     // Tool Executors
     ToolExecutor,
@@ -134,6 +136,7 @@ import { ToolExecutor } from './tools';
     OpenAIChatModelExecutor,
     SimpleMemoryExecutor,
     RedisMemoryExecutor,
+    LLMChatExecutor,
     ToolExecutor,
   ],
 })
@@ -168,6 +171,7 @@ export class NodesModule implements OnModuleInit {
     private readonly openaiChatModel: OpenAIChatModelExecutor,
     private readonly simpleMemory: SimpleMemoryExecutor,
     private readonly redisMemory: RedisMemoryExecutor,
+    private readonly llmChat: LLMChatExecutor,
 
     // Tool Executors
     private readonly tool: ToolExecutor,
@@ -262,6 +266,10 @@ export class NodesModule implements OnModuleInit {
     this.registry.registerExecutor(this.redisMemory, {
       category: NodeCategory.AI,
       description: 'Redis-backed conversation storage',
+    });
+    this.registry.registerExecutor(this.llmChat, {
+      category: NodeCategory.AI,
+      description: 'Call an AI model to process text',
     });
 
     // Tools

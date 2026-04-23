@@ -740,7 +740,7 @@ export const BUILTIN_ACTIONS: BuiltinNodeDefinition[] = [
     type: 'MERGE',
     name: 'Merge Data',
     category: 'action',
-    description: 'Combine data from multiple inputs',
+    description: 'Combine data from multiple inputs. When placed after parallel branches, acts as a join/fan-in point that waits for all branches to complete before passing merged data downstream.',
     is_action: true,
     is_builtin: true,
     icon: 'git-merge',
@@ -751,9 +751,40 @@ export const BUILTIN_ACTIONS: BuiltinNodeDefinition[] = [
         options: [
           { label: 'Append', value: 'append' },
           { label: 'Combine', value: 'combine' },
-          { label: 'Wait for All', value: 'waitAll' }
+          { label: 'Wait for All (Join)', value: 'waitAll' },
+          { label: 'Choose Branch', value: 'chooseBranch' }
         ],
-        default: 'append'
+        default: 'append',
+        description: 'How to merge data from incoming branches. "Wait for All" acts as a fan-in join point for parallel branches.'
+      },
+      useDataOfInput: {
+        type: 'number',
+        label: 'Use Data of Input',
+        default: 1,
+        min: 1,
+        description: 'Which input branch to use (only for Choose Branch mode)',
+        displayOptions: {
+          show: { mode: ['chooseBranch'] }
+        }
+      },
+      combineBy: {
+        type: 'select',
+        label: 'Combine By',
+        options: [
+          { label: 'By Position', value: 'combineByPosition' },
+          { label: 'By Fields', value: 'combineByFields' },
+          { label: 'All Combinations', value: 'combineAll' }
+        ],
+        default: 'combineByPosition',
+        displayOptions: {
+          show: { mode: ['combine'] }
+        }
+      }
+    },
+    output_schema: {
+      mergedData: {
+        type: 'array',
+        description: 'Combined data from all incoming branches'
       }
     }
   },
@@ -826,6 +857,147 @@ export const BUILTIN_ACTIONS: BuiltinNodeDefinition[] = [
             label: 'Field Value'
           }
         }
+      }
+    }
+  },
+  {
+    type: 'LLM_CHAT',
+    name: 'AI / LLM',
+    category: 'ai',
+    description: 'Call an AI model (OpenAI, Anthropic, Gemini, Ollama) to process text',
+    is_action: true,
+    is_builtin: true,
+    icon: 'brain',
+    config_schema: {
+      provider: {
+        type: 'select',
+        label: 'Provider',
+        options: [
+          { label: 'OpenAI', value: 'openai' },
+          { label: 'Anthropic', value: 'anthropic' },
+          { label: 'Gemini', value: 'gemini' },
+          { label: 'Ollama', value: 'ollama' },
+        ],
+        default: 'openai',
+      },
+      model: {
+        type: 'string',
+        label: 'Model',
+        default: 'gpt-4o-mini',
+        description: 'Model identifier (e.g. gpt-4o-mini, claude-sonnet-4-20250514, gemini-2.0-flash)',
+      },
+      systemPrompt: {
+        type: 'string',
+        inputType: 'textarea',
+        label: 'System Prompt',
+        default: 'You are a helpful assistant.',
+      },
+      userPrompt: {
+        type: 'string',
+        inputType: 'textarea',
+        label: 'User Prompt (supports {{input}} template)',
+        required: true,
+        description: 'Use {{input}} to inject the previous node output. Use {{input.fieldName}} for nested access.',
+      },
+      temperature: {
+        type: 'number',
+        label: 'Temperature',
+        default: 0.7,
+        min: 0,
+        max: 2,
+        step: 0.1,
+      },
+      maxTokens: {
+        type: 'number',
+        label: 'Max Tokens',
+        default: 2000,
+        min: 1,
+      },
+      jsonMode: {
+        type: 'boolean',
+        label: 'JSON Output Mode',
+        default: false,
+        description: 'When enabled, instructs the model to return valid JSON and parses the response.',
+      },
+    },
+    output_schema: {
+      text: {
+        type: 'string',
+        description: 'LLM response text (or parsed JSON object if jsonMode is on)',
+      },
+      model: {
+        type: 'string',
+        description: 'Model used for generation',
+      },
+      usage: {
+        type: 'object',
+        description: 'Token usage: { promptTokens, completionTokens }',
+      },
+    },
+  },
+  {
+    type: 'EXECUTE_WORKFLOW',
+    name: 'Execute Workflow',
+    category: 'control-flow',
+    description: 'Call another workflow as a sub-step',
+    is_action: true,
+    is_builtin: true,
+    icon: 'git-branch',
+    config_schema: {
+      workflowId: {
+        type: 'string',
+        required: true,
+        label: 'Workflow ID',
+        description: 'ID of the workflow to execute as a sub-workflow',
+        placeholder: 'Enter workflow UUID'
+      },
+      mode: {
+        type: 'select',
+        label: 'Execution Mode',
+        options: [
+          { label: 'Synchronous (wait for result)', value: 'synchronous' },
+          { label: 'Asynchronous (fire-and-forget)', value: 'asynchronous' }
+        ],
+        default: 'synchronous',
+        description: 'Synchronous waits for the sub-workflow to complete; asynchronous queues it and continues immediately'
+      },
+      inputMapping: {
+        type: 'object',
+        label: 'Input Data Mapping',
+        description: 'JSON object mapping data to pass to the sub-workflow as its trigger input',
+        default: {}
+      },
+      timeout: {
+        type: 'number',
+        label: 'Timeout (seconds)',
+        description: 'Maximum time to wait for the sub-workflow to complete (synchronous mode only)',
+        default: 300,
+        min: 1,
+        max: 3600
+      }
+    },
+    input_schema: {
+      workflowId: {
+        type: 'string',
+        description: 'Target workflow ID'
+      },
+      inputData: {
+        type: 'object',
+        description: 'Data to pass to the sub-workflow'
+      }
+    },
+    output_schema: {
+      success: {
+        type: 'boolean',
+        description: 'Whether the sub-workflow completed successfully'
+      },
+      data: {
+        type: 'object',
+        description: 'Output data from the sub-workflow (synchronous) or execution metadata (asynchronous)'
+      },
+      executionId: {
+        type: 'string',
+        description: 'Execution ID of the sub-workflow'
       }
     }
   }
