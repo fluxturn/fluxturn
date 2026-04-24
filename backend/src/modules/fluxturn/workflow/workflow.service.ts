@@ -323,6 +323,7 @@ export class WorkflowService implements OnModuleInit, OnModuleDestroy {
     input_data?: Record<string, any>;
     project_id?: string;
     organization_id?: string;
+    idempotency_key?: string;
   }): Promise<any> {
     try {
       // Get workflow from database
@@ -361,10 +362,12 @@ export class WorkflowService implements OnModuleInit, OnModuleDestroy {
         INSERT INTO workflow_executions (
           id, workflow_id, organization_id, project_id,
           execution_number, status, input_data, total_steps,
+          idempotency_key,
           started_at, created_at
         ) VALUES (
           $1, $2, $3, $4,
           $5, $6, $7, $8,
+          $9,
           NOW(), NOW()
         ) RETURNING *
       `;
@@ -377,7 +380,8 @@ export class WorkflowService implements OnModuleInit, OnModuleDestroy {
         executionNumber,
         'running',
         JSON.stringify(params.input_data || {}),
-        canvas.nodes.length
+        canvas.nodes.length,
+        params.idempotency_key || null,
       ];
 
       await this.platformService.query(insertExecutionQuery, executionValues);

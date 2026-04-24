@@ -8,6 +8,7 @@ import { WebhookController } from './webhook.controller';
 import { WorkflowService } from './workflow.service';
 import { TemplateService } from './services/template.service';
 import { WebhookAuthService } from './services/webhook-auth.service';
+import { IdempotencyService } from './services/idempotency.service';
 import { DatabaseModule } from '../../database/database.module';
 import { QueueModule } from '../../queue/queue.module';
 import { ConnectorsModule } from '../connectors/connectors.module';
@@ -136,6 +137,7 @@ import { OrchestratedGeneratorService } from './services/orchestrated-generator.
     ControlFlowService,
     // Webhook services
     WebhookAuthService,
+    IdempotencyService,
     // Trigger infrastructure
     TriggerManagerService,
     // Gmail trigger services

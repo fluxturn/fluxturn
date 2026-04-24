@@ -12,6 +12,7 @@ import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Request, Response } from 'express';
 import { WorkflowService } from './workflow.service';
 import { WebhookAuthService } from './services/webhook-auth.service';
+import { IdempotencyService } from './services/idempotency.service';
 
 /**
  * Generic Webhook Controller
@@ -35,6 +36,7 @@ export class WebhookController {
   constructor(
     private readonly workflowService: WorkflowService,
     private readonly webhookAuthService: WebhookAuthService,
+    private readonly idempotencyService: IdempotencyService,
   ) {}
 
   @All(':workflowId')
@@ -158,6 +160,22 @@ export class WebhookController {
         });
       }
 
+      // Idempotency check: skip duplicate webhook deliveries
+      const idempotencyKey = this.idempotencyService.generateKey(
+        req.originalUrl || req.path,
+        req.body,
+      );
+
+      const isDuplicate = await this.idempotencyService.isDuplicate(idempotencyKey);
+      if (isDuplicate) {
+        this.logger.log(`Duplicate webhook detected for workflow ${workflowId}, key=${idempotencyKey.slice(0, 12)}...`);
+        return res.status(HttpStatus.OK).json({
+          success: true,
+          deduplicated: true,
+          message: 'Duplicate webhook detected, execution skipped',
+        });
+      }
+
       // Prepare webhook data for workflow execution
       const webhookData = {
         method: req.method,
@@ -189,7 +207,7 @@ export class WebhookController {
         res.status(responseCode).json(responseData);
 
         // Execute workflow asynchronously
-        this.executeWorkflowAsync(workflow, workflowId, webhookData, startTime);
+        this.executeWorkflowAsync(workflow, workflowId, webhookData, startTime, idempotencyKey);
 
         return;
       }
@@ -200,6 +218,7 @@ export class WebhookController {
         input_data: webhookData,
         organization_id: workflow.organization_id,
         project_id: workflow.project_id,
+        idempotency_key: idempotencyKey,
       });
 
       const executionTime = Date.now() - startTime;
@@ -245,7 +264,8 @@ export class WebhookController {
     workflow: any,
     workflowId: string,
     webhookData: any,
-    startTime: number
+    startTime: number,
+    idempotencyKey?: string,
   ) {
     try {
       await this.workflowService.executeWorkflow({
@@ -253,6 +273,7 @@ export class WebhookController {
         input_data: webhookData,
         organization_id: workflow.organization_id,
         project_id: workflow.project_id,
+        idempotency_key: idempotencyKey,
       });
 
       const executionTime = Date.now() - startTime;
