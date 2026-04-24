@@ -32,7 +32,8 @@ const codeLines = [
 // AI Workflow Generation Animation Component
 function AIWorkflowAnimation() {
   const [phase, setPhase] = useState(0); // 0: typing, 1: generating, 2: complete
-  const prompt = "Sync leads to CRM";
+  const { t } = useTranslation();
+  const prompt = t('landing.featuresSection.prompt', 'Sync leads to CRM');
   const [displayedText, setDisplayedText] = useState("");
 
   useEffect(() => {
@@ -165,7 +166,7 @@ function AIWorkflowAnimation() {
               <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: "linear" }}>
                 <Sparkles className="w-4 h-4" />
               </motion.div>
-              Generating...
+              {t('landing.featuresSection.generating', 'Generating...')}
             </div>
           </motion.div>
         )}
@@ -230,7 +231,7 @@ function VisualBuilderAnimation() {
 // AI Agent Animation Component
 function AIAgentAnimation() {
   const [thinking, setThinking] = useState(false);
-
+  const { t } = useTranslation();
   useEffect(() => {
     setThinking(true);
     const interval = setInterval(() => {
@@ -270,7 +271,7 @@ function AIAgentAnimation() {
             exit={{ opacity: 0 }}
             className="text-xs text-emerald-600 font-medium"
           >
-            Thinking...
+            {t('landing.featuresSection.thinking','Thinking...')}
           </motion.span>
         ) : (
           <motion.span
@@ -280,7 +281,7 @@ function AIAgentAnimation() {
             exit={{ opacity: 0 }}
             className="text-xs text-gray-500"
           >
-            Ready
+            {t('landing.featuresSection.ready','Ready')}
           </motion.span>
         )}
       </AnimatePresence>

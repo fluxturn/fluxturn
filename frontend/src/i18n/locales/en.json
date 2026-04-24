@@ -1193,5 +1193,61 @@
       "deleteAccountWarning": "This will permanently delete your account and all associated data. This action cannot be undone.",
       "typeToConfirm": "Type your email to confirm"
     }
+  },
+  "landing": {
+    "contactSection": {
+      "connectText": "Let's Connect",
+      "contactText": "Get In Touch",
+      "questionsText": "Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "sending": "Sending...",
+      "sendMessage": "Send Message",
+      "namePlaceholder": "John Doe",
+      "emailPlaceholder": "john@example.com",
+      "subjectPlaceholder": "How can we help you?",
+      "messagePlaceholder": "Tell us more about your inquiry..."
+    },
+    "featuresSection": {
+      "generating": "Generating...",
+      "thinking": "Thinking...",
+      "ready": "Ready",
+      "prompt": "Sync leads to CRM"
+    },
+    "finalCTASection": {
+      "header": "Ready to Automate Your Workflows?",
+      "body": "Join thousands of teams using FluxTurn to automate their business processes and save countless hours every week.",
+      "startTrial": "Start Free Trial",
+      "signIn": "Sign In"
+    },
+    "heroSection": {
+      "integrations": "Integrations",
+      "totalIntegrations": "120+ total integrations available"
+    },
+    "readyToStartSection": {
+      "heading": "Ready to Get Started?",
+      "subheading": "Join thousands of teams automating their workflows with FluxTurn. Start building powerful automations today.",
+      "earlyAccess": "Get Early Access",
+      "documentation": "View Documentation",
+      "activeUsers": "Active Users",
+      "workflowsExecuted": "Workflows Executed",
+      "uptime": "Uptime",
+      "earlyAccessModal": {
+        "subheading": "Workflow Automation Platform",
+        "title": "Get Early Access",
+        "description": "Sign up early to get exclusive access and updates.",
+        "email": "Email Address",
+        "emailPlaceholder": "you@example.com",
+        "submit": "Submit"
+      }
+    },
+    "testimonialsSection": {
+      "dont": "DON'T",
+      "takeOur": "TAKE OUT",
+      "word": "WORD",
+      "takeTheirs": "TAKE THEIRS..."
+    }
   }
 }

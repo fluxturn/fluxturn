@@ -5,8 +5,10 @@ import { Input } from "../ui/input";
 import { useState } from "react";
 import { toast } from "sonner";
 import { api } from "../../lib/api";
+import { useTranslation } from "react-i18next";
 
 export function ContactSection() {
+  const { t } = useTranslation()
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -71,15 +73,14 @@ export function ContactSection() {
             className="inline-block mb-4 px-4 py-2 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-full"
           >
             <span className="text-sm font-semibold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
-              ✨ Let's Connect
+              ✨ {t('landing.contactSection.connectText', "Let's Connect")}
             </span>
           </motion.div>
           <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-cyan-900 to-gray-900 bg-clip-text text-transparent leading-tight">
-            Get In Touch
+            {t('landing.contactSection.contactText', "Get In Touch")}
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Have questions? We'd love to hear from you. Send us a message and
-            we'll respond as soon as possible.
+            {t('landing.contactSection.questionsText', "Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.")}
           </p>
         </motion.div>
 
@@ -108,13 +109,13 @@ export function ContactSection() {
                       className="block text-sm font-semibold text-gray-900 mb-2 flex items-center gap-2"
                     >
                       <span className="w-1.5 h-1.5 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full" />
-                      Name
+                      {t('landing.contactSection.name', 'Name')}
                     </label>
                     <Input
                       id="name"
                       name="name"
                       type="text"
-                      placeholder="John Doe"
+                      placeholder={t('landing.contactSection.namePlaceholder', 'John Doe')}
                       value={formData.name}
                       onChange={handleChange}
                       required
@@ -131,13 +132,13 @@ export function ContactSection() {
                       className="block text-sm font-semibold text-gray-900 mb-2 flex items-center gap-2"
                     >
                       <span className="w-1.5 h-1.5 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full" />
-                      Email
+                      {t('landing.contactSection.email', 'Email')}
                     </label>
                     <Input
                       id="email"
                       name="email"
                       type="email"
-                      placeholder="john@example.com"
+                      placeholder={t('landing.contactSection.emailPlaceholder', 'john@example.com')}
                       value={formData.email}
                       onChange={handleChange}
                       required
@@ -155,13 +156,13 @@ export function ContactSection() {
                     className="block text-sm font-semibold text-gray-900 mb-2 flex items-center gap-2"
                   >
                     <span className="w-1.5 h-1.5 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full" />
-                    Subject
+                    {t('landing.contactSection.subject', 'Subject')}
                   </label>
                   <Input
                     id="subject"
                     name="subject"
                     type="text"
-                    placeholder="How can we help you?"
+                    placeholder={t('landing.contactSection.subjectPlaceholder', 'How can we help you?')}
                     value={formData.subject}
                     onChange={handleChange}
                     required
@@ -178,13 +179,13 @@ export function ContactSection() {
                     className="block text-sm font-semibold text-gray-900 mb-2 flex items-center gap-2"
                   >
                     <span className="w-1.5 h-1.5 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full" />
-                    Message
+                    {t('landing.contactSection.message', 'Message')}
                   </label>
                   <textarea
                     id="message"
                     name="message"
                     rows={5}
-                    placeholder="Tell us more about your inquiry..."
+                    placeholder={t('landing.contactSection.messagePlaceholder', 'Tell us more about your inquiry...')}
                     value={formData.message}
                     onChange={handleChange}
                     required
@@ -206,12 +207,12 @@ export function ContactSection() {
                       {isSubmitting ? (
                         <>
                           <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                          Sending...
+                          {t('landing.contactSection.sending', 'Sending...')}
                         </>
                       ) : (
                         <>
                           <Send className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform duration-300" />
-                          Send Message
+                          {t('landing.contactSection.sendMessage', 'Send Message')}
                         </>
                       )}
                     </span>

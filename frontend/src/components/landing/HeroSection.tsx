@@ -264,7 +264,7 @@ export function HeroSection() {
                 <div className="flex items-center gap-2 mb-6">
                   <div className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" />
                   <span className="text-sm font-semibold text-gray-700">
-                    {currentCategory.label} Integrations
+                    {currentCategory.label} {t('landing.heroSection.integrations', 'Integrations')}
                   </span>
                 </div>
 
@@ -289,13 +289,13 @@ export function HeroSection() {
                 {/* Footer */}
                 <div className="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
                   <span className="text-xs text-gray-500">
-                    120+ total integrations available
+                    {t('landing.heroSection.totalIntegrations', '120+ total integrations available')}
                   </span>
                   <Link
                     to="/login"
                     className="text-xs font-medium text-cyan-600 hover:text-cyan-700 flex items-center gap-1 group"
                   >
-                    View all
+                    {t('common.viewAll', 'View all')}
                     <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                   </Link>
                 </div>
