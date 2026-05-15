@@ -126,6 +126,98 @@ export class EventsGateway
     this.logger.error(`[${executionId}] Node ${nodeName} failed after ${error?.executionTime}ms: ${error?.message}`);
   }
 
+  // Branch execution events (parallel fan-out / fan-in)
+  emitBranchExecutionStarted(
+    executionId: string,
+    branchId: string,
+    parentNodeId: string,
+    targetNodeId: string,
+    data?: any,
+  ) {
+    this.server.emit('branch:execution:started', {
+      executionId,
+      branchId,
+      parentNodeId,
+      targetNodeId,
+      ...data,
+      timestamp: new Date().toISOString(),
+    });
+
+    this.logger.log(
+      `[${executionId}] Branch ${branchId} started: ${parentNodeId} -> ${targetNodeId}`,
+    );
+  }
+
+  emitBranchExecutionCompleted(
+    executionId: string,
+    branchId: string,
+    data?: any,
+  ) {
+    this.server.emit('branch:execution:completed', {
+      executionId,
+      branchId,
+      ...data,
+      timestamp: new Date().toISOString(),
+    });
+
+    this.logger.log(
+      `[${executionId}] Branch ${branchId} completed`,
+    );
+  }
+
+  emitBranchExecutionFailed(
+    executionId: string,
+    branchId: string,
+    error: any,
+  ) {
+    this.server.emit('branch:execution:failed', {
+      executionId,
+      branchId,
+      error,
+      timestamp: new Date().toISOString(),
+    });
+
+    this.logger.error(
+      `[${executionId}] Branch ${branchId} failed: ${error?.message}`,
+    );
+  }
+
+  emitParallelFanOut(
+    executionId: string,
+    parentNodeId: string,
+    branchCount: number,
+    branchIds: string[],
+  ) {
+    this.server.emit('parallel:fanout', {
+      executionId,
+      parentNodeId,
+      branchCount,
+      branchIds,
+      timestamp: new Date().toISOString(),
+    });
+
+    this.logger.log(
+      `[${executionId}] Fan-out from ${parentNodeId}: ${branchCount} parallel branches`,
+    );
+  }
+
+  emitParallelFanIn(
+    executionId: string,
+    joinNodeId: string,
+    branchIds: string[],
+  ) {
+    this.server.emit('parallel:fanin', {
+      executionId,
+      joinNodeId,
+      branchIds,
+      timestamp: new Date().toISOString(),
+    });
+
+    this.logger.log(
+      `[${executionId}] Fan-in at ${joinNodeId}: ${branchIds.length} branches merged`,
+    );
+  }
+
   // Connector events
   emitConnectorStatus(connectorId: string, status: string, data: any) {
     this.server.emit('connector:status', {

@@ -740,7 +740,7 @@ export const BUILTIN_ACTIONS: BuiltinNodeDefinition[] = [
     type: 'MERGE',
     name: 'Merge Data',
     category: 'action',
-    description: 'Combine data from multiple inputs',
+    description: 'Combine data from multiple inputs. When placed after parallel branches, acts as a join/fan-in point that waits for all branches to complete before passing merged data downstream.',
     is_action: true,
     is_builtin: true,
     icon: 'git-merge',
@@ -751,9 +751,40 @@ export const BUILTIN_ACTIONS: BuiltinNodeDefinition[] = [
         options: [
           { label: 'Append', value: 'append' },
           { label: 'Combine', value: 'combine' },
-          { label: 'Wait for All', value: 'waitAll' }
+          { label: 'Wait for All (Join)', value: 'waitAll' },
+          { label: 'Choose Branch', value: 'chooseBranch' }
         ],
-        default: 'append'
+        default: 'append',
+        description: 'How to merge data from incoming branches. "Wait for All" acts as a fan-in join point for parallel branches.'
+      },
+      useDataOfInput: {
+        type: 'number',
+        label: 'Use Data of Input',
+        default: 1,
+        min: 1,
+        description: 'Which input branch to use (only for Choose Branch mode)',
+        displayOptions: {
+          show: { mode: ['chooseBranch'] }
+        }
+      },
+      combineBy: {
+        type: 'select',
+        label: 'Combine By',
+        options: [
+          { label: 'By Position', value: 'combineByPosition' },
+          { label: 'By Fields', value: 'combineByFields' },
+          { label: 'All Combinations', value: 'combineAll' }
+        ],
+        default: 'combineByPosition',
+        displayOptions: {
+          show: { mode: ['combine'] }
+        }
+      }
+    },
+    output_schema: {
+      mergedData: {
+        type: 'array',
+        description: 'Combined data from all incoming branches'
       }
     }
   },
