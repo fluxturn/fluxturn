@@ -80,6 +80,8 @@ import { AvailableNodesSeederService } from './services/available-nodes-seeder.s
 import { NodesModule } from './nodes/nodes.module';
 import { WorkflowAgentsService } from './services/workflow-agents.service';
 import { OrchestratedGeneratorService } from './services/orchestrated-generator.service';
+import { DryRunService } from './services/dry-run.service';
+import { AuditModule } from '../audit/audit.module';
 // import { TemplateSeederService } from './services/template-seeder.service';
 
 @Module({
@@ -92,6 +94,7 @@ import { OrchestratedGeneratorService } from './services/orchestrated-generator.
     forwardRef(() => ConnectorsModule),
     EventsModule,
     NodesModule,
+    AuditModule,
   ],
   controllers: [
     TemplateController, // Must be before WorkflowController to avoid route conflicts
@@ -130,6 +133,7 @@ import { OrchestratedGeneratorService } from './services/orchestrated-generator.
   ],
   providers: [
     WorkflowService,
+    DryRunService,
     TemplateService,
     WorkflowExecutionEngine,
     NodeExecutorService,

@@ -83,6 +83,7 @@ export class WorkflowExecutionEngine {
       destinationNodeId?: string;
       mode?: 'manual' | 'production';
       executionId?: string;
+      dryRun?: boolean;
     } = {}
   ): Promise<any> {
     this.logger.log(`Starting workflow execution with ${workflow.nodes.length} nodes`);
@@ -129,7 +130,8 @@ export class WorkflowExecutionEngine {
           metadata: {
             startedAt: new Date(),
             executionId: options.executionId,
-            mode: options.mode || 'manual'
+            mode: options.mode || 'manual',
+            dryRun: options.dryRun || false
           }
         }
       };
